@@ -90,13 +90,13 @@ class AppServiceProvider extends ServiceProvider
                 $view->with($data);
             });
 
-            if(Storage::exists('.app_installed') && Storage::get('.app_installed')){
+            //if(Storage::exists('.app_installed') && Storage::get('.app_installed')){
                 config(['broadcasting.default' => saasEnv('chatting_method')]);
                 config(['broadcasting.connections.pusher.key' => saasEnv('pusher_app_key')]);
                 config(['broadcasting.connections.pusher.secret' => saasEnv('pusher_app_secret')]);
                 config(['broadcasting.connections.pusher.app_id' => saasEnv('pusher_app_id')]);
                 config(['broadcasting.connections.pusher.options.cluster' => saasEnv('pusher_app_cluster')]);
-            }
+            //}
 
         } catch(\Exception $e){
             return false;
