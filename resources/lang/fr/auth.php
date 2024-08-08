@@ -44,4 +44,6 @@ return [
 
 "login" => "Connexion",
 
+"sign_in" => "Se connecter",
+
 ];
