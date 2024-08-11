@@ -476,7 +476,7 @@
                         </div>
                     </div>
                 @endif
-                <div class="col-lg-5 col-xl-4 mt-50-md md_infix_50">
+                <div class="col-lg-5 col-xl-4 mt-50-md md_aramisc_50">
                     <div class="modal fade admin-query" id="add_to_do">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">

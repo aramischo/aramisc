@@ -13,12 +13,12 @@ class CreateSmStaffAttendanceImportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sm_staff_attendance_imports', function (Blueprint $table) {
+        Schema::create('sm_staff_aramiscAttendance_imports', function (Blueprint $table) {
             $table->increments('id');
             $table->date('attendence_date')->nullable();
             $table->string("in_time", 50)->nullable();
             $table->string("out_time", 50)->nullable();
-            $table->string('attendance_type',10)->nullable()->comment('Present: P Late: L Absent: A Holiday: H Half Day: F');
+            $table->string('aramiscAttendance_type',10)->nullable()->comment('Present: P Late: L Absent: A Holiday: H Half Day: F');
             $table->string('notes',500)->nullable();
             $table->timestamps();
 
@@ -44,6 +44,6 @@ class CreateSmStaffAttendanceImportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sm_staff_attendance_imports');
+        Schema::dropIfExists('sm_staff_aramiscAttendance_imports');
     }
 }

@@ -38,7 +38,7 @@ class SmStudentAttendanceReportController extends Controller
             }
 
 
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -83,19 +83,19 @@ class SmStudentAttendanceReportController extends Controller
                 $students = universityFilter($model, $request)->get()->sortBy('roll_no');
                 // return $data;
             }
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($students as $record) {
-                $attendance = SmStudentAttendance::where('student_id', $record->student_id)
-                ->where('attendance_date', 'like', $request->year . '-' . $request->month . '%')
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $record->student_id)
+                ->where('aramiscAttendance_date', 'like', $request->year . '-' . $request->month . '%')
                 ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)
                 ->where('student_record_id', $record->id)
                 ->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'attendances', 'students', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id', 'class', 'section'))->with($data);
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'aramiscAttendances', 'students', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id', 'class', 'section'))->with($data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -118,24 +118,24 @@ class SmStudentAttendanceReportController extends Controller
             ->where('school_id', Auth::user()->school_id)
             ->get();
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($students as $record) {
-                $attendance = SmStudentAttendance::where('student_id', $record->student_id)
-                ->where('attendance_date', 'like', $year . '-' . $month . '%')
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $record->student_id)
+                ->where('aramiscAttendance_date', 'like', $year . '-' . $month . '%')
                 ->where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->where('student_record_id', $record->id)
                 ->get();
 
-                if ($attendance) {
-                    $attendances[] = $attendance;
+                if ($aramiscAttendance) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
             // $pdf = Pdf::loadView(
-            //     'backEnd.studentInformation.student_attendance_print',
+            //     'backEnd.studentInformation.student_aramiscAttendance_print',
             //     [
-            //         'attendances' => $attendances,
+            //         'aramiscAttendances' => $aramiscAttendances,
             //         'days' => $days,
             //         'year' => $year,
             //         'month' => $month,
@@ -145,11 +145,11 @@ class SmStudentAttendanceReportController extends Controller
             //         'section' => SmSection::find($section_id),
             //     ]
             // )->setPaper('A4', 'landscape');
-            // return $pdf->stream('student_attendance.pdf');
+            // return $pdf->stream('student_aramiscAttendance.pdf');
 
             $class = SmClass::find($class_id);
             $section = SmSection::find($section_id);
-            return view('backEnd.studentInformation.student_attendance_print', compact('class', 'section', 'attendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_print', compact('class', 'section', 'aramiscAttendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id'));
         } catch (\Exception $e) {
           
             Toastr::error('Operation Failed', 'Failed');
@@ -170,17 +170,17 @@ class SmStudentAttendanceReportController extends Controller
             ->where('school_id', Auth::user()->school_id)
             ->get();
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($students as $record) {
-                $attendance = SmStudentAttendance::where('student_id', $record->student_id)
-                ->where('attendance_date', 'like', $year . '-' . $month . '%')
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $record->student_id)
+                ->where('aramiscAttendance_date', 'like', $year . '-' . $month . '%')
                 ->where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->where('student_record_id', $record->id)
                 ->get();
 
-                if ($attendance) {
-                    $attendances[] = $attendance;
+                if ($aramiscAttendance) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
             $request = (object)[
@@ -194,9 +194,9 @@ class SmStudentAttendanceReportController extends Controller
             $interface = App::make(UnCommonRepositoryInterface::class);
             $data = $interface->searchInfo($request);
             // $pdf = Pdf::loadView(
-            //     'backEnd.studentInformation.student_attendance_print',
+            //     'backEnd.studentInformation.student_aramiscAttendance_print',
             //     [
-            //         'attendances' => $attendances,
+            //         'aramiscAttendances' => $aramiscAttendances,
             //         'days' => $days,
             //         'year' => $year,
             //         'month' => $month,
@@ -206,9 +206,9 @@ class SmStudentAttendanceReportController extends Controller
             //         'section' => SmSection::find($section_id),
             //     ]
             // )->setPaper('A4', 'landscape');
-            // return $pdf->stream('student_attendance.pdf');
+            // return $pdf->stream('student_aramiscAttendance.pdf');
             
-            return view('backEnd.studentInformation.student_attendance_print', compact('attendances', 'days', 'year', 'month', 'current_day', 'semester_id'))->with($data);
+            return view('backEnd.studentInformation.student_aramiscAttendance_print', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day', 'semester_id'))->with($data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();

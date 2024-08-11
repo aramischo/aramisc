@@ -24,7 +24,7 @@ class SmTeacherUploadContent extends Model
 
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'available_for', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'available_for', 'id');
     }
 
     public function classes()

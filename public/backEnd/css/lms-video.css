@@ -167,19 +167,19 @@
 }
 
 /* line 105, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian {
+.aramiscLms_accordian {
   overflow-x: auto;
 }
 
 /* line 107, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian h4 {
+.aramiscLms_accordian h4 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 40px;
 }
 
 /* line 112, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card {
+.aramiscLms_accordian .card {
   margin-bottom: 0px;
   border: 0;
   overflow: visible;
@@ -188,19 +188,19 @@
 }
 
 /* line 118, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header {
+.aramiscLms_accordian .card .card-header {
   border: 0;
   padding: 0;
   border-radius: 0px !important;
 }
 
 /* line 122, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 {
+.aramiscLms_accordian .card .card-header h2 {
   padding: 0;
 }
 
 /* line 125, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 .btn {
+.aramiscLms_accordian .card .card-header h2 .btn {
   padding: 0;
   font-size: 14px;
   font-weight: 500;
@@ -222,7 +222,7 @@
 }
 
 /* line 140, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 .btn h5 {
+.aramiscLms_accordian .card .card-header h2 .btn h5 {
   font-size: 16px;
   font-weight: 600;
   color: #4b5898;
@@ -230,14 +230,14 @@
 }
 
 /* line 146, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 .btn span {
+.aramiscLms_accordian .card .card-header h2 .btn span {
   font-size: 14px;
   color: #828bb2;
   font-weight: 400;
 }
 
 /* line 153, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 .btn::before {
+.aramiscLms_accordian .card .card-header h2 .btn::before {
   content: "\e648";
   position: absolute;
   right: 0;
@@ -251,13 +251,13 @@
 
 @media (max-width: 991px) {
   /* line 153, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-  .infixLms_accordian .card .card-header h2 .btn::before {
+  .aramiscLms_accordian .card .card-header h2 .btn::before {
     right: 20px;
   }
 }
 
 /* line 167, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 .btn.collapsed {
+.aramiscLms_accordian .card .card-header h2 .btn.collapsed {
   color: var(--base_color);
   box-shadow: none;
   -webkit-border-radius: 0px;
@@ -266,18 +266,18 @@
 }
 
 /* line 171, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 .btn.collapsed::before {
+.aramiscLms_accordian .card .card-header h2 .btn.collapsed::before {
   content: "\e64b";
   color: var(--base_color);
 }
 
 /* line 176, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-header h2 .btn:focus {
+.aramiscLms_accordian .card .card-header h2 .btn:focus {
   text-decoration: none;
 }
 
 /* line 182, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_accordian .card .card-body {
+.aramiscLms_accordian .card .card-body {
   padding: 20px 0;
   margin: 0 30px;
   border-top: 1px solid #edeff5;
@@ -285,33 +285,33 @@
 
 @media (max-width: 575.98px) {
   /* line 182, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-  .infixLms_accordian .card .card-body {
+  .aramiscLms_accordian .card .card-body {
     padding: 15px 0;
     margin: 0 20px;
   }
 }
 
 /* line 194, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_video_palyer_lists {
+.aramiscLms_video_palyer_lists {
   width: 420px;
   background: #fff;
   height: 100%;
 }
 
 /* line 206, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_video_palyer_lists.active {
+.aramiscLms_video_palyer_lists.active {
   right: 0px;
 }
 
 /* line 209, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_video_palyer_lists .video_palyer_lHEad {
+.aramiscLms_video_palyer_lists .video_palyer_lHEad {
   grid-gap: 15px;
   padding: 30px 30px 16px 30px;
   border-bottom: 1px solid #edeff5;
 }
 
 /* line 213, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_video_palyer_lists .video_palyer_lHEad .lisson_arrow {
+.aramiscLms_video_palyer_lists .video_palyer_lHEad .lisson_arrow {
   width: 30px;
   height: 30px;
   background: #d9e4fe;
@@ -324,14 +324,14 @@
 }
 
 /* line 224, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_video_palyer_lists .video_palyer_lHEad h4 {
+.aramiscLms_video_palyer_lists .video_palyer_lHEad h4 {
   font-size: 16px;
   font-weight: 600;
   color: var(--base_color);
 }
 
 /* line 229, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-.infixLms_video_palyer_lists .video_palyer_lHEad .toggler_lines {
+.aramiscLms_video_palyer_lists .video_palyer_lHEad .toggler_lines {
   position: absolute;
   width: 40px;
   height: 40px;
@@ -351,7 +351,7 @@
 
 @media (max-width: 991px) {
   /* line 229, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_edu_video.scss */
-  .infixLms_video_palyer_lists .video_palyer_lHEad .toggler_lines {
+  .aramiscLms_video_palyer_lists .video_palyer_lHEad .toggler_lines {
     display: inline-flex;
   }
 }
@@ -784,10 +784,10 @@
   box-shadow: none;
 }
 
-.infixLms_accordian .card .card-header h2 .btn.hideArrow::before {
+.aramiscLms_accordian .card .card-header h2 .btn.hideArrow::before {
   display: none;
 }
-.infixLms_accordian {
+.aramiscLms_accordian {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 672px;
@@ -870,10 +870,10 @@
   }
 }
 @media (max-width: 580.98px) {
-  .infixLms_video_palyer_lists {
+  .aramiscLms_video_palyer_lists {
     width: 250px;
   }
-  .infixLms_accordian {
+  .aramiscLms_accordian {
     max-height: 324px;
   }
   .play_button {

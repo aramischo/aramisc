@@ -28,8 +28,8 @@ use App\SmWeekend;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Modules\OnlineExam\Entities\InfixOnlineExam;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\OnlineExam\Entities\AramiscOnlineExam;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class AlumniPanelController extends Controller 
 
@@ -37,7 +37,7 @@ class AlumniPanelController extends Controller
     public function alumniDashboard () {
         if (moduleStatusCheck('Alumni')) {
             $user = auth()->user();
-            $role_id    = InfixRole::where('name', 'Alumni')->first()->id;
+            $role_id    = AramiscRole::where('name', 'Alumni')->first()->id;
             if ($user) {
                 $user_id = $user->id;
             }
@@ -96,11 +96,11 @@ class AlumniPanelController extends Controller
                     ->where('academic_id', getAcademicId())->get();
             }
             
-            $data['student_details']  = Auth::user()->student->load('studentRecords', 'attendances');
+            $data['student_details']  = Auth::user()->student->load('studentRecords', 'aramiscAttendances');
             $data['student_records']  = $data['student_details']->studentRecords;
             
             $data['settings'] = SmCalendarSetting::get();
-            $data['roles'] = InfixRole::where(function ($q) {
+            $data['roles'] = AramiscRole::where(function ($q) {
                 $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
                 })
                 ->whereNotIn('id', [1, 2])
@@ -135,7 +135,7 @@ class AlumniPanelController extends Controller
         }
     }
 
-    public function studentProfile()
+    public function aramiscStudentProfile()
     {
         try {
             $student_id = Auth::user()->student->id;

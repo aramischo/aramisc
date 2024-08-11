@@ -43,7 +43,7 @@ use Modules\Alumni\Entities\Graduate;
 
 class DatatableQueryController extends Controller
 {
-    public function studentDetailsDatatable(Request $request)
+    public function aramiscStudentDetailsDatatable(Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
@@ -354,7 +354,7 @@ class DatatableQueryController extends Controller
     {
 
         try {
-            // $date = $request->attendance_date;
+            // $date = $request->aramiscAttendance_date;
             if (getClassActeacherAccesscess()) {
                 $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             } else {
@@ -372,21 +372,21 @@ class DatatableQueryController extends Controller
 
             if ($students->isEmpty()) {
                 Toastr::error('No Result Found', 'Failed');
-                return redirect('student-attendance');
+                return redirect('student-aramiscAttendance');
             }
 
             $already_assigned_students = [];
             $new_students = [];
-            $attendance_type = "";
+            $aramiscAttendance_type = "";
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)
-                    ->where('attendance_date', date('Y-m-d', $date))
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)
+                    ->where('aramiscAttendance_date', date('Y-m-d', $date))
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
-                if ($attendance != "") {
-                    $already_assigned_students[] = $attendance;
-                    $attendance_type = $attendance->attendance_type;
+                if ($aramiscAttendance != "") {
+                    $already_assigned_students[] = $aramiscAttendance;
+                    $aramiscAttendance_type = $aramiscAttendance->aramiscAttendance_type;
                 } else {
                     $new_students[] = $student;
                 }
@@ -406,18 +406,18 @@ class DatatableQueryController extends Controller
                 $all_students[$value->student_id]['admission_no'] = $value->studentInfo->admission_no;
                 $all_students[$value->student_id]['roll_no'] = $value->studentInfo->roll_no;
                 $all_students[$value->student_id]['full_name'] = $value->studentInfo->full_name;
-                $all_students[$value->student_id]['attendance_type'] = $value->attendance_type;
+                $all_students[$value->student_id]['aramiscAttendance_type'] = $value->aramiscAttendance_type;
                 $all_students[$value->student_id]['notes'] = $value->notes;
-                $all_students[$value->student_id]['attendance_date'] = $value->attendance_date;
+                $all_students[$value->student_id]['aramiscAttendance_date'] = $value->aramiscAttendance_date;
             }
             foreach ($new_students as $key => $value) {
                 $all_students[$value->id]['std_id'] = $value->id;
                 $all_students[$value->id]['admission_no'] = $value->admission_no;
                 $all_students[$value->id]['roll_no'] = $value->roll_no;
                 $all_students[$value->id]['full_name'] = $value->full_name;
-                $all_students[$value->id]['attendance_type'] = '';
+                $all_students[$value->id]['aramiscAttendance_type'] = '';
                 $all_students[$value->id]['notes'] = '';
-                $all_students[$value->id]['attendance_date'] = '';
+                $all_students[$value->id]['aramiscAttendance_date'] = '';
             }
             // return $all_students;
 
@@ -437,20 +437,20 @@ class DatatableQueryController extends Controller
 
                     $btn = '<div class="d-flex radio-btn-flex">
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceP' . $row['std_id'] . '"' . ($row['attendance_type'] == 'P' ? 'checked' : '') . ' value="P" class="common-radio attendanceP attendance_type">
-                                        <label for="attendanceP' . $row['std_id'] . '">' . app('translator')->get('common.present') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceP' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'P' ? 'checked' : '') . ' value="P" class="common-radio aramiscAttendanceP aramiscAttendance_type">
+                                        <label for="aramiscAttendanceP' . $row['std_id'] . '">' . app('translator')->get('common.present') . '</label>
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceL' . $row['std_id'] . '"' . ($row['attendance_type'] == 'L' ? 'checked' : '') . ' value="L" class="common-radio attendanceL attendance_type">
-                                        <label for="attendanceL' . $row['std_id'] . '">' . app('translator')->get('common.late') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceL' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'L' ? 'checked' : '') . ' value="L" class="common-radio aramiscAttendanceL aramiscAttendance_type">
+                                        <label for="aramiscAttendanceL' . $row['std_id'] . '">' . app('translator')->get('common.late') . '</label>
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceA' . $row['std_id'] . '"' . ($row['attendance_type'] == 'A' ? 'checked' : '') . ' value="A" class="common-radio attendanceA attendance_type">
-                                        <label for="attendanceA' . $row['std_id'] . '">' . app('translator')->get('common.absent') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceA' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'A' ? 'checked' : '') . ' value="A" class="common-radio aramiscAttendanceA aramiscAttendance_type">
+                                        <label for="aramiscAttendanceA' . $row['std_id'] . '">' . app('translator')->get('common.absent') . '</label>
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceF' . $row['std_id'] . '"' . ($row['attendance_type'] == 'F' ? 'checked' : '') . ' value="F" class="common-radio attendanceF attendance_type">
-                                        <label for="attendanceF' . $row['std_id'] . '">' . app('translator')->get('common.half_day') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceF' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'F' ? 'checked' : '') . ' value="F" class="common-radio aramiscAttendanceF aramiscAttendance_type">
+                                        <label for="aramiscAttendanceF' . $row['std_id'] . '">' . app('translator')->get('common.half_day') . '</label>
                                     </div>
                                        
     
@@ -464,7 +464,7 @@ class DatatableQueryController extends Controller
             // }
 
 
-            return view('backEnd.studentInformation.student_attendance', compact('classes', 'date', 'class_id', 'section_id', 'date', 'already_assigned_students', 'new_students', 'attendance_type', 'search_info'));
+            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes', 'date', 'class_id', 'section_id', 'date', 'already_assigned_students', 'new_students', 'aramiscAttendance_type', 'search_info'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -741,7 +741,7 @@ class DatatableQueryController extends Controller
     }
 
 
-    public function assignmentList()
+    public function aramiscAssignmentList()
     {
 
         $user = Auth()->user();
@@ -751,18 +751,18 @@ class DatatableQueryController extends Controller
         }
 
         if (!teacherAccess()) {
-            $uploadContents = SmTeacherUploadContent::where('content_type', 'as')
+            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
                             ->whereNullLms();
         } else {
-            $uploadContents = SmTeacherUploadContent::where(function ($q) {
+            $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
                 $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
             })->where('content_type', 'as')->whereNullLms()->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id);
         }
      
-        return Datatables::of($uploadContents)
+        return Datatables::of($aramiscUploadContents)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
 
@@ -882,16 +882,16 @@ class DatatableQueryController extends Controller
     }
 
 
-    public function syllabusList()
+    public function aramiscSyllabusList()
     {
         try {
             if (!teacherAccess()) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')
                     ->whereNullLms()
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id);
             } else {
-                $uploadContents = SmTeacherUploadContent::where(function ($q) {
+                $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
                     $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
                 })->where('content_type', 'sy')
                 ->whereNullLms()
@@ -899,8 +899,8 @@ class DatatableQueryController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ;
             }
-            // return  $uploadContents;
-            return Datatables::of($uploadContents)
+            // return  $aramiscUploadContents;
+            return Datatables::of($aramiscUploadContents)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
 
@@ -1164,7 +1164,7 @@ class DatatableQueryController extends Controller
         }
     }
 
-    public function uploadContentListDatatable(Request $request){
+    public function aramiscUploadContentListDatatable(Request $request){
 
         if( $request->ajax()){
             $user = Auth()->user();
@@ -1172,12 +1172,12 @@ class DatatableQueryController extends Controller
                 SmNotification::where('user_id', $user->id)->where('role_id', 1)->update(['is_read' => 1]);
             }
             if (!teacherAccess()) {
-                $uploadContents = SmTeacherUploadContent::where('academic_id', getAcademicId())
+                $aramiscUploadContents = SmTeacherUploadContent::where('academic_id', getAcademicId())
                                 ->where('school_id', Auth::user()->school_id)
                                 ->whereNullLms()
                                 ->latest();
             } else {
-                $uploadContents = SmTeacherUploadContent::where(function ($q) {
+                $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
                     $q->where('created_by', Auth::user()->id);
                 })->whereNullLms()->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
@@ -1186,7 +1186,7 @@ class DatatableQueryController extends Controller
 
            
          try{
-            return Datatables::of($uploadContents)
+            return Datatables::of($aramiscUploadContents)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
                 return dateConvert(@$row->created_at);
@@ -1278,7 +1278,7 @@ class DatatableQueryController extends Controller
         }
     }
 
-    public function otherDownloadList()
+    public function aramiscOtherDownloadList()
     {
 
         $user = Auth()->user();
@@ -1288,18 +1288,18 @@ class DatatableQueryController extends Controller
         }
 
         if (!teacherAccess()) {
-            $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')
+            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
                             ->whereNullLms();
         } else {
-            $uploadContents = SmTeacherUploadContent::where(function ($q) {
+            $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
                 $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
             })->where('content_type', 'ot')->whereNullLms()->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id);
         }
      
-        return Datatables::of($uploadContents)
+        return Datatables::of($aramiscUploadContents)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
                 return dateConvert(@$row->created_at);
@@ -1380,7 +1380,7 @@ class DatatableQueryController extends Controller
             $date_from = date('Y-m-d', strtotime($request->date_from));
             $date_to = date('Y-m-d', strtotime($request->date_to));
             $fees_payments = SmFeesPayment::query();
-            $fees_payments = $fees_payments->when(directFees(), function($q){
+            $fees_payments = $fees_payments->when(aramiscDirectFees(), function($q){
                 $q->whereNotNull('installment_payment_id');
             });
 
@@ -1434,7 +1434,7 @@ class DatatableQueryController extends Controller
             ->addColumn('invoice', function($row){
                 if(moduleStatusCheck('University')){
                     universityFeesInvoice(@$fees_payment->installmentPayment->invoice_no);
-                }elseif(directFees()){
+                }elseif(aramiscDirectFees()){
                     $invoice_setting = FeesInvoice::where('school_id', auth()->user()->school_id)->first(['prefix','start_form']);
                     return sm_fees_invoice($row->installmentPayment->invoice_no ,$invoice_setting);
                 }else{
@@ -1464,7 +1464,7 @@ class DatatableQueryController extends Controller
                                             <a data-modal-size="modal-lg" target="_blank" class="dropdown-item" href="' . route('fees_collect_student_wise', [$row->recordDetail->id]) . '">' . app('translator')->get('common.view') . '</a>' .
                     ((userPermission('edit-fees-payment') === true  && $row->assign_id !=null)? '<a class="dropdown-item modalLink" data-modal-size="modal-lg" title="' . __('fees.edit_fees_payment') . '" href="' . route('edit-fees-payment', [$row->id]) . '">' . app('translator')->get('fees.edit_fees') . '</a>' : '') .
 
-                    (! moduleStatusCheck('University') && directFees() == false  ? (Config::get('app.app_sync') ? '<span  data-toggle="tooltip" title="Disabled For Demo "><a  class="dropdown-item" href="#"  >' . app('translator')->get('common.disable') . '</a></span>' :
+                    (! moduleStatusCheck('University') && aramiscDirectFees() == false  ? (Config::get('app.app_sync') ? '<span  data-toggle="tooltip" title="Disabled For Demo "><a  class="dropdown-item" href="#"  >' . app('translator')->get('common.disable') . '</a></span>' :
                         '<a onclick="deleteFeesPayment(' . $row->id . ');"  class="dropdown-item" href="#" data-toggle="modal" data-id="' . $row->id . '"  >' . app('translator')->get('common.delete') . '</a>') : '') .
 
 
@@ -1711,7 +1711,7 @@ class DatatableQueryController extends Controller
         }
 
 
-        public function homeworkListAjax(Request $request){
+        public function aramiscHomeworkListAjax(Request $request){
 
             if( $request->ajax()){
                     $all_homeworks = SmHomework::query();
@@ -1732,12 +1732,12 @@ class DatatableQueryController extends Controller
                     $all_homeworks->where('school_id',Auth::user()->school_id)->orderby('id','DESC')
                         ->where('academic_id', getAcademicId());
                     if (teacherAccess()) {
-                        $homeworkLists = $all_homeworks->where('created_by',Auth::user()->id);
+                        $aramiscHomeworkLists = $all_homeworks->where('created_by',Auth::user()->id);
                     } else {
-                        $homeworkLists = $all_homeworks;
+                        $aramiscHomeworkLists = $all_homeworks;
                     }
 
-                    return Datatables::of($homeworkLists)
+                    return Datatables::of($aramiscHomeworkLists)
                     ->addIndexColumn()
                     ->addColumn('homework_date', function ($row) {
                         return dateConvert(@$row->homework_date);
@@ -1955,7 +1955,7 @@ class DatatableQueryController extends Controller
         }
 
 
-        public function studentTransportReportAjax(Request $request){
+        public function aramiscStudentTransportReportAjax(Request $request){
             if($request->ajax()){
                 $students = SmStudent::with('studentRecord.class','studentRecord.section','parents','route','vehicle','drivers')->whereHas('vehicle');
                 return Datatables::of($students)

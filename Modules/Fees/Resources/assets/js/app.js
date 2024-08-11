@@ -599,7 +599,7 @@ window.paymentValue = $('#paymentMethodAddFees').val();
                 uniq_id : '0011',
                 class : 'One',
                 section : 'A',
-                prefix : 'infixEdu',
+                prefix : 'aramisc',
                 admission_no : '123',
             })
 

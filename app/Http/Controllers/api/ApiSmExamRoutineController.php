@@ -28,7 +28,7 @@ use App\SmExam;
 
 class ApiSmExamRoutineController extends Controller
 {
-    public function examRoutine()
+    public function aramiscExamRoutine()
     {
         try {
             $school_id = auth()->user()->school_id;
@@ -54,7 +54,7 @@ class ApiSmExamRoutineController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function examScheduleSearch(Request $request)
+    public function aramiscExamScheduleSearch(Request $request)
     {
         // return $request->all();
         $request->validate([
@@ -318,7 +318,7 @@ class ApiSmExamRoutineController extends Controller
         }
     }
     
-    public function examRoutineReportSearch(Request $request)
+    public function aramiscExamRoutineReportSearch(Request $request)
     {
         try {
             $input = $request->all();

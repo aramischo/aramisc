@@ -64,7 +64,7 @@ class SmClassesTableSeeder extends Seeder
 
                     SmParent::factory()->times(1)->create([
                         'school_id' => $school_id,
-                        'guardians_email' => 'guardian_' . $student->id . '@infixedu.com',
+                        'guardians_email' => 'guardian_' . $student->id . '@aramisc.com',
                     ])->each(function ($parent) use ($student, $school_id) {
                         $student->parent_id = $parent->id;
                         $student->save();
@@ -90,17 +90,17 @@ class SmClassesTableSeeder extends Seeder
                     $studentRecordStore->student_id = $student->id;
                     $studentRecordStore->save();
 
-                    $attendance_type = ['P', 'L', 'A', 'F'];
+                    $aramiscAttendance_type = ['P', 'L', 'A', 'F'];
                     foreach(lastOneMonthDates() as $date){
-                        shuffle($attendance_type);
+                        shuffle($aramiscAttendance_type);
                         $studentAttendance = new SmStudentAttendance();
                         $studentAttendance->student_record_id = $studentRecordStore->id;
                         $studentAttendance->student_id = $studentRecordStore->student_id;
                         $studentAttendance->class_id = $studentRecordStore->class_id;
                         $studentAttendance->section_id = $studentRecordStore->section_id;
-                        $studentAttendance->attendance_type = $attendance_type[0];
-                        $studentAttendance->notes = $studentAttendance->attendance_type == "P" ? "Good" : "Bad";
-                        $studentAttendance->attendance_date = $date;
+                        $studentAttendance->aramiscAttendance_type = $aramiscAttendance_type[0];
+                        $studentAttendance->notes = $studentAttendance->aramiscAttendance_type == "P" ? "Good" : "Bad";
+                        $studentAttendance->aramiscAttendance_date = $date;
                         $studentAttendance->school_id = $school_id;
                         $studentAttendance->academic_id = $studentRecordStore->academic_id;
                         $studentAttendance->save();
@@ -135,16 +135,16 @@ class SmClassesTableSeeder extends Seeder
                         $staff->mobile = '+8801234567'.$staff->id;
                         $staff->save();
                         
-                        $attendance_type = ['P', 'L', 'A', 'F'];
+                        $aramiscAttendance_type = ['P', 'L', 'A', 'F'];
                         foreach(lastOneMonthDates() as $date){
-                            shuffle($attendance_type);
-                            $attendanceStaff = new SmStaffAttendence();
-                            $attendanceStaff->staff_id = $staff->id;
-                            $attendanceStaff->school_id = $school_id;
-                            $attendanceStaff->attendence_type = $attendance_type[0];
-                            $attendanceStaff->notes = $attendanceStaff->attendance_type == "P" ? "Good" : "Bad";
-                            $attendanceStaff->attendence_date = $date;
-                            $attendanceStaff->save();
+                            shuffle($aramiscAttendance_type);
+                            $aramiscAttendanceStaff = new SmStaffAttendence();
+                            $aramiscAttendanceStaff->staff_id = $staff->id;
+                            $aramiscAttendanceStaff->school_id = $school_id;
+                            $aramiscAttendanceStaff->attendence_type = $aramiscAttendance_type[0];
+                            $aramiscAttendanceStaff->notes = $aramiscAttendanceStaff->aramiscAttendance_type == "P" ? "Good" : "Bad";
+                            $aramiscAttendanceStaff->attendence_date = $date;
+                            $aramiscAttendanceStaff->save();
                         }
                     });
                 });

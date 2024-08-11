@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Modules\MenuManage\Entities\Sidebar;
 use Modules\MenuManage\Entities\SidebarNew;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 use Modules\RolePermission\Entities\AssignPermission;
-use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\AramiscPermissionAssign;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -117,14 +117,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton('school_menu_permissions', function () {
             $module_ids = getPlanPermissionMenuModuleId();
-            return InfixModuleInfo::where('parent_id', 0)->with(['children' ])->whereIn('id', $module_ids)->get();
+            return AramiscModuleInfo::where('parent_id', 0)->with(['children' ])->whereIn('id', $module_ids)->get();
         });
 
         $this->app->singleton('permission', function () {
             
-            $infixRole = InfixRole::find(Auth::user()->role_id);
+            $aramiscRole = AramiscRole::find(Auth::user()->role_id);
             $permissionIds = AssignPermission::where('role_id', Auth::user()->role_id)
-            ->when($infixRole->is_saas == 0, function($q) {
+            ->when($aramiscRole->is_saas == 0, function($q) {
                 $q->where('school_id', Auth::user()->school_id);
             })->pluck('permission_id')->toArray();
             
@@ -133,7 +133,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('saasSettings', function () {
-            return \Modules\Saas\Entities\SaasSettings::where('saas_status', 0)->pluck('infix_module_id')->toArray();
+            return \Modules\Saas\Entities\SaasSettings::where('saas_status', 0)->pluck('aramisc_module_id')->toArray();
         });
 
 

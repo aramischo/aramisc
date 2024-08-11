@@ -126,7 +126,7 @@
       $(instance.element).after(
         '<div id="ms-list-' +
           instance.listNumber +
-          '" class="ms-options-wrap"><button type="button"><span>None Selected</span></button><div class="ms-options"><ul class="infix_ul_lists"></ul></div></div>'
+          '" class="ms-options-wrap"><button type="button"><span>None Selected</span></button><div class="ms-options"><ul class="aramisc_ul_lists"></ul></div></div>'
       );
 
       var placeholder = $(instance.element)

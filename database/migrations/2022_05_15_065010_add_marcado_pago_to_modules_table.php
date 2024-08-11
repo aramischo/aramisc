@@ -1,6 +1,6 @@
 <?php
 
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +14,7 @@ class AddMarcadoPagoToModulesTable extends Migration
      */
     public function up()
     {
-            $s = new InfixModuleManager();
+            $s = new AramiscModuleManager();
             $s->name = 'MercadoPago';
             $s->email = 'support@spondonit.com';
             $s->notes = "This is MercadoPago Payment Module For Online Payment. Thanks For Using.";

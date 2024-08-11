@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\ColorTheme;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmHeaderMenuManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -80,8 +80,8 @@ return new class extends Migration
             }
         });
 
-        Schema::table('infixedu__pages', function (Blueprint $table) {
-            if (!Schema::hasColumn('infixedu__pages', 'is_default')) {
+        Schema::table('aramisc__pages', function (Blueprint $table) {
+            if (!Schema::hasColumn('aramisc__pages', 'is_default')) {
                 $table->boolean('is_default')->default(0);
             }
         });
@@ -264,15 +264,15 @@ return new class extends Migration
                 storePermissionData($newsPermission);
             }
 
-        $s2 = InfixModuleManager::where('name', 'BehaviourRecords')->first();
+        $s2 = AramiscModuleManager::where('name', 'BehaviourRecords')->first();
         if($s2){
             $s2->is_default = 1;
             $s2->save();
         }
 
-        $s = InfixModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->count();
+        $s = AramiscModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->count();
         if($s > 1){
-            $del = InfixModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->first();
+            $del = AramiscModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->first();
             $del->delete();
         }
 
@@ -320,15 +320,15 @@ return new class extends Migration
             }
         $event = SmNotificationSetting::where('event', 'Student_Attendance')->first();
         if($event){
-            $shortCodes = ["Student" => "[student_name], [class], [section], [attendance_type]",
-            "Parent" => "[parent_name], [student_name], [class], [section], [attendance_type]"];
+            $shortCodes = ["Student" => "[student_name], [class], [section], [aramiscAttendance_type]",
+            "Parent" => "[parent_name], [student_name], [class], [section], [aramiscAttendance_type]"];
             $event->shortcode = $shortCodes;
             $event->update();
         }
         $event = SmNotificationSetting::where('event', 'Subject_Wise_Attendance')->first();
         if($event){
-            $shortCodes = ["Student" => "[student_name], [subject], [attendance_type]",
-            "Parent" => "[parent_name], [student_name], [subject], [attendance_type]",];
+            $shortCodes = ["Student" => "[student_name], [subject], [aramiscAttendance_type]",
+            "Parent" => "[parent_name], [student_name], [subject], [aramiscAttendance_type]",];
             $event->shortcode = $shortCodes;
             $event->update();
         }
@@ -374,22 +374,22 @@ return new class extends Migration
         // Online registration change end
 
         // Teacher evaluation change start
-        $teacherApprovedExists = Permission::where('route', 'teacher-approved-evaluation-report')->first();
-        if($teacherApprovedExists){
-            $teacherApprovedExists->name = "Approved Report";
-            $teacherApprovedExists->lang_name = "teacherEvaluation.approved_report";
-            $teacherApprovedExists->update();
+        $aramiscTeacherApprovedExists = Permission::where('route', 'teacher-approved-evaluation-report')->first();
+        if($aramiscTeacherApprovedExists){
+            $aramiscTeacherApprovedExists->name = "Approved Report";
+            $aramiscTeacherApprovedExists->lang_name = "aramiscTeacherEvaluation.approved_report";
+            $aramiscTeacherApprovedExists->update();
         }
         $teacherPendingExists = Permission::where('route', 'teacher-pending-evaluation-report')->first();
         if($teacherPendingExists){
             $teacherPendingExists->name = "Pending Report";
-            $teacherPendingExists->lang_name = "teacherEvaluation.pending_report";
+            $teacherPendingExists->lang_name = "aramiscTeacherEvaluation.pending_report";
             $teacherPendingExists->update();
         }
         $teacherWiseExists = Permission::where('route', 'teacher-wise-evaluation-report')->first();
         if($teacherWiseExists){
             $teacherWiseExists->name = "Teacher Wise Report";
-            $teacherWiseExists->lang_name = "teacherEvaluation.teacher_wise_report";
+            $teacherWiseExists->lang_name = "aramiscTeacherEvaluation.teacher_wise_report";
             $teacherWiseExists->update();
         }
         // Teacher evaluation change end
@@ -413,9 +413,9 @@ return new class extends Migration
                 $file_data = json_decode($file_content, true);
                 $this->replace_array_recursive("[App_url]", (url('/')), $file_data);
                 if ($file_data) {
-                    $check_exist  = DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')->where('school_id', 1)->where('slug', $file_data['slug'])->first();
+                    $check_exist  = DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')->where('school_id', 1)->where('slug', $file_data['slug'])->first();
                     if (!$check_exist) {
-                        DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')->insert(
+                        DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')->insert(
                             [
                                 'name' => $file_data['name'],
                                 'title' => $file_data['title'],

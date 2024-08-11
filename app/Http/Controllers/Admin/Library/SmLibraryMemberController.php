@@ -18,7 +18,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
 
 class SmLibraryMemberController extends Controller
@@ -34,12 +34,12 @@ class SmLibraryMemberController extends Controller
     {
 
         try {
-            $libraryMembers = SmLibraryMember::with('roles', 'studentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('active_status', '=', 1)
+            $libraryMembers = SmLibraryMember::with('roles', 'aramiscStudentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('active_status', '=', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->orderby('id', 'ASC')
                 ->get();
 
-            $roles = InfixRole::where(function ($q) {
+            $roles = AramiscRole::where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -138,8 +138,8 @@ class SmLibraryMemberController extends Controller
 
                 $results = $members->save();
                 if ($request->member_type == 2) {
-                    $data['class_id'] = $members->studentDetails->studentRecord->class_id;
-                    $data['section_id'] = $members->studentDetails->studentRecord->section_id;
+                    $data['class_id'] = $members->aramiscStudentDetails->studentRecord->class_id;
+                    $data['section_id'] = $members->aramiscStudentDetails->studentRecord->section_id;
                     $records = $this->studentRecordInfo($data['class_id'], $data['section_id'])->pluck('studentDetail.user_id');
                     $this->sent_notifications('Add_Library_Member', $records, $data, ['Student', 'Parent']);
                 }

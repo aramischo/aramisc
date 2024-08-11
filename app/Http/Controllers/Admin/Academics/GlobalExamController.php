@@ -338,7 +338,7 @@ class GlobalExamController extends Controller
             return redirect()->back();
         }
     }
-    public function examSetup($id)
+    public function aramiscExamSetup($id)
     {
         try {
             $exam = SmExam::find($id);
@@ -363,7 +363,7 @@ class GlobalExamController extends Controller
     }
 
 
-    public function examSetupStore(Request $request)
+    public function aramiscExamSetupStore(Request $request)
     {
         try {
             $class_id = $request->class;
@@ -435,7 +435,7 @@ class GlobalExamController extends Controller
         }
     }
 
-    public function getClassSubjects(Request $request)
+    public function aramiscGetClassSubjects(Request $request)
     {
         try {
             $subjects = SmAssignSubject::where('class_id', $request->id)

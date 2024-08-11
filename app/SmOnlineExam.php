@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\OnlineExam\Entities\InfixStudentTakeOnlineExam;
+use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
 
 class SmOnlineExam extends Model
 {
@@ -61,7 +61,7 @@ class SmOnlineExam extends Model
 
         try {
             if (moduleStatusCheck('OnlineExam')==true) {
-                $marks = InfixStudentTakeOnlineExam::select('status', 'student_done', 'total_marks')
+                $marks = AramiscStudentTakeOnlineExam::select('status', 'student_done', 'total_marks')
                 ->where('online_exam_id', $exam_id)->where('student_id', $student_id)
                 ->where('student_record_id', $record_id)
                 ->first();

@@ -45,7 +45,7 @@ class PaymentReminder extends Command
             foreach($schools as $school){
                 paymentRemainder($school->id);
             }
-        }elseif(directFees()){
+        }elseif(aramiscDirectFees()){
             foreach($schools as $school){
                 smPaymentRemainder($school->id);
             }

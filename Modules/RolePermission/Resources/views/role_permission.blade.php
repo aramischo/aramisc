@@ -71,7 +71,7 @@
                                             <div class="submodule">
                                                 <input id="Sub_Module_{{ $row2->id }}" name="module_id[]"
                                                     value="{{ $row2->id }}"
-                                                    class="infix_csk common-radio  module_id_{{ $permission->id }} module_link"
+                                                    class="aramisc_csk common-radio  module_id_{{ $permission->id }} module_link"
                                                     type="checkbox"
                                                     {{ in_array($row2->id, $already_assigned) ? 'checked' : '' }}>
 
@@ -87,7 +87,7 @@
                                                         <div class="module_link_option_div" id="{{ $row2->id }}">
                                                             <input id="Option_{{ $row3->id }}" name="module_id[]"
                                                                 value="{{ $row3->id }}"
-                                                                class="infix_csk common-radio    module_id_{{ $permission->id }} module_option_{{ $permission->id }}_{{ $row2->id }} module_link_option"
+                                                                class="aramisc_csk common-radio    module_id_{{ $permission->id }} module_option_{{ $permission->id }}_{{ $row2->id }} module_link_option"
                                                                 type="checkbox"
                                                                 {{ in_array($row3->id, $already_assigned) ? 'checked' : '' }}>
 

@@ -215,7 +215,7 @@
 
     // select item name from selecting item category name
     $(document).ready(function() {
-        $("#infix_theme_style").on("change", function() {
+        $("#aramisc_theme_style").on("change", function() {
             var url = $("#url").val();
             var formData = {
                 id: $(this).val(),
@@ -288,7 +288,7 @@
 
     // select item name from selecting item category name
     $(document).ready(function() {
-        $("#infix_theme_rtl").on("change", function() {
+        $("#aramisc_theme_rtl").on("change", function() {
             var url = $("#url").val();
             var formData = {
                 id: $(this).val(),
@@ -308,7 +308,7 @@
     });
 
     $(document).ready(function() {
-        $("#infix_session").on("change", function() {
+        $("#aramisc_session").on("change", function() {
             var url = $("#url").val();
             var formData = {
                 id: $(this).val(),

@@ -44,7 +44,7 @@ class FlutterAppNotification extends Notification
             'id' => 1,
             'status' => 'done',
             'message' => $notification,
-            "image" => "https://freeschoolsoftware.in/spn4/infixedu/v7.0.1/public/uploads/settings/logo.png"
+            "image" => "https://freeschoolsoftware.in/spn4/aramisc/v7.0.1/public/uploads/settings/logo.png"
         ];
       
         $message->content($notification)

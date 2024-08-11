@@ -170,18 +170,18 @@ class GraduateListController extends Controller
         try{
             $graduate = Graduate::where('id',$id)->first();
             if($graduate != null) {
-                $studentDetails = $graduate->student;
+                $aramiscStudentDetails = $graduate->student;
             } else {
                 $alumni = Alumni::where('student_id',$id)->first();
-                $studentDetails = $alumni->student;
+                $aramiscStudentDetails = $alumni->student;
             }
-            $studentRecords = StudentRecord::where('student_id',$studentDetails->id)->distinct('un_academic_id')->get(); 
-            $studentRecordDetails =  StudentRecord::where('student_id',$studentDetails->id);
+            $studentRecords = StudentRecord::where('student_id',$aramiscStudentDetails->id)->distinct('un_academic_id')->get(); 
+            $studentRecordDetails =  StudentRecord::where('student_id',$aramiscStudentDetails->id);
             $tabPrint = 1;
             $semesterLabel = '';
             return view('backEnd.graduate.transcript.studentTranscript',
             compact('studentRecordDetails',
-                'studentDetails',
+                'aramiscStudentDetails',
                 'studentRecords',
                 'tabPrint',
                 'semesterLabel',
@@ -199,14 +199,14 @@ class GraduateListController extends Controller
     {
         try{
             $graduate = Graduate::find($id);
-            $studentDetails = $graduate->student;
-            $studentRecords = StudentRecord::where('student_id',$studentDetails->id)->distinct('un_academic_id')->get(); 
-            $studentRecordDetails =  StudentRecord::where('student_id',$studentDetails->id);
+            $aramiscStudentDetails = $graduate->student;
+            $studentRecords = StudentRecord::where('student_id',$aramiscStudentDetails->id)->distinct('un_academic_id')->get(); 
+            $studentRecordDetails =  StudentRecord::where('student_id',$aramiscStudentDetails->id);
             $tabPrint = 1;
             $semesterLabel = '';
             return view('backEnd.graduate.transcript.studentTranscriptPrint',
             compact('studentRecordDetails',
-                'studentDetails',
+                'aramiscStudentDetails',
                 'studentRecords',
                 'tabPrint',
                 'semesterLabel',

@@ -8,7 +8,7 @@
   </style>
   
   <div class="container-fluid">
-      {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'directFees.updateSubPaymentModal','method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+      {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'aramiscDirectFees.updateSubPaymentModal','method' => 'POST', 'enctype' => 'multipart/form-data']) }}
           <div class="row">
                 <input type="hidden" name="sub_payment_id" value="{{$payment->id}}" >
               <div class="col-lg-12">

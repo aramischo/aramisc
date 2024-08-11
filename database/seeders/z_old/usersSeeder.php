@@ -23,8 +23,8 @@ class usersSeeder extends Seeder
         //     $user            = new User();
         //     $user->role_id   = 1;
         //     $user->full_name = 'Super Admin';
-        //     $user->email     = 'superadmin@infixedu.com';
-        //     $user->username  = 'superadmin@infixedu.com';
+        //     $user->email     = 'superadmin@aramisc.com';
+        //     $user->username  = 'superadmin@aramisc.com';
         //     $user->password  = Hash::make('123456');
         //     $user->save();
         //     $user->toArray();
@@ -42,8 +42,8 @@ class usersSeeder extends Seeder
         //     $staff->date_of_birth   = '1980-12-26';
         //     $staff->date_of_joining = '2019-05-26';
         //     $staff->gender_id       = 1;
-        //     $staff->email           = 'superadmin@infixedu.com';
-        //     $staff->staff_photo     = 'public/uploads/staff/1_infix_edu.jpg';
+        //     $staff->email           = 'superadmin@aramisc.com';
+        //     $staff->staff_photo     = 'public/uploads/staff/1_aramisc.jpg';
         //     $staff->casual_leave    = '12';
         //     $staff->medical_leave   = '15';
         //     $staff->metarnity_leave = '15';

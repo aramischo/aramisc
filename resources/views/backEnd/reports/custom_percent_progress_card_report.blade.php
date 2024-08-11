@@ -280,7 +280,7 @@
 
                                 <input type="hidden" name="class_id" value="{{$class_id}}">
                                 <input type="hidden" name="section_id" value="{{$section_id}}">
-                                <input type="hidden" name="student_id" value="{{$studentDetails->id}}">
+                                <input type="hidden" name="student_id" value="{{$aramiscStudentDetails->id}}">
                                 <input type="hidden" name="custom_mark_report" value="{{@$custom_mark_report}}">
 
                                 <button type="submit" class="primary-btn small fix-gr-bg"><i class="ti-printer"> </i> @lang('common.print')
@@ -302,17 +302,17 @@
                                                             </div>
                                                             <div class="col-lg-8 text-center">
                                                                 <h3 class="text-white" style="font-size: 30px; margin-bottom: 0px;">
-                                                                    {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}}
+                                                                    {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}}
                                                                 </h3>
                                                                 <p class="text-white mb-0" style="font-size: 16px;">
-                                                                    {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}}
+                                                                    {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}
                                                                 </p>
                                                                 <p class="text-white mb-0"  style="font-size: 16px;">
                                                                     @lang('common.email'):  {{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}},   @lang('common.phone'):  {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
 
                                             </div>
                                         <div class="card-body">
@@ -321,24 +321,24 @@
                                                     <div class="col-lg-7 text-black">
 
                                                         <h3>
-                                                            {{$studentDetails->studentDetail->full_name}}
+                                                            {{$aramiscStudentDetails->studentDetail->full_name}}
                                                         </h3>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <p class="mb-0">
-                                                                    @lang('common.academic_year') : <span class="primary-color fw-500">{{ @$studentDetails->academic->year }}</span>
+                                                                    @lang('common.academic_year') : <span class="primary-color fw-500">{{ @$aramiscStudentDetails->academic->year }}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('student.admission_no') : <span class="primary-color fw-500">{{$studentDetails->studentDetail->admission_no}}</span>
+                                                                    @lang('student.admission_no') : <span class="primary-color fw-500">{{$aramiscStudentDetails->studentDetail->admission_no}}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('student.roll') :<span class="primary-color fw-500">{{$studentDetails->roll_no}}</span>
+                                                                    @lang('student.roll') :<span class="primary-color fw-500">{{$aramiscStudentDetails->roll_no}}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('common.class') :<span class="primary-color fw-500">{{ $studentDetails->class->class_name }}</span>
+                                                                    @lang('common.class') :<span class="primary-color fw-500">{{ $aramiscStudentDetails->class->class_name }}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('common.section') :<span class="primary-color fw-500">{{ $studentDetails->section->section_name }}</span>
+                                                                    @lang('common.section') :<span class="primary-color fw-500">{{ $aramiscStudentDetails->section->section_name }}</span>
                                                                 </p>
 
                                                             </div>
@@ -435,12 +435,12 @@
                                                                 $TotalSum = 0;
                                                                 foreach($assinged_exam_types as $assinged_exam_type){
                                                                 $mark_parts = App\SmAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
-                                                                $result = App\SmResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $studentDetails->id);
+                                                                $result = App\SmResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $aramiscStudentDetails->id);
 
                                                                 if (!empty($result)) {
-                                                                    $final_results = App\SmResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $studentDetails->id);
+                                                                    $final_results = App\SmResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $aramiscStudentDetails->id);
 
-                                                                    $term_base = App\SmResultStore::termBaseMark($class_id, $section_id, $data->subject_id, $assinged_exam_type, $studentDetails->id);
+                                                                    $term_base = App\SmResultStore::termBaseMark($class_id, $section_id, $data->subject_id, $assinged_exam_type, $aramiscStudentDetails->id);
                                                                 }
                                                                 $total_subject += $assinged_exam_type;
                                                                 $subject_full_mark = subjectFullMark($assinged_exam_type, $data->subject_id, $class_id, $section_id);
@@ -530,27 +530,27 @@
                                                             @foreach($assinged_exam_types as $assinged_exam_type)
                                                                 @php
                                                                     $exam_type = App\SmExamType::examType($assinged_exam_type);
-                                                                    $term_base_gpa=termWiseGpa($assinged_exam_type, $studentDetails->id);
+                                                                    $term_base_gpa=termWiseGpa($assinged_exam_type, $aramiscStudentDetails->id);
                                                                     $with_percent_average_gpa +=$term_base_gpa;
 
-                                                                    $term_base_full_mark=termWiseTotalMark($assinged_exam_type, $studentDetails->id);
+                                                                    $term_base_full_mark=termWiseTotalMark($assinged_exam_type, $aramiscStudentDetails->id);
                                                                     $average_gpa+=$term_base_full_mark;
 
                                                                     if($optional_subject_setup!='' && $student_optional_subject!=''){
 
-                                                                        $optional_subject_gpa = optionalSubjectFullMark($assinged_exam_type,$studentDetails->id,@$optional_subject_setup->gpa_above,"optional_sub_gpa");
+                                                                        $optional_subject_gpa = optionalSubjectFullMark($assinged_exam_type,$aramiscStudentDetails->id,@$optional_subject_setup->gpa_above,"optional_sub_gpa");
                                                                         $optional_subject_total_gpa += $optional_subject_gpa;
 
-                                                                        $optional_subject_above_gpa = optionalSubjectFullMark($assinged_exam_type,$studentDetails->id,@$optional_subject_setup->gpa_above,"with_optional_sub_gpa");
+                                                                        $optional_subject_above_gpa = optionalSubjectFullMark($assinged_exam_type,$aramiscStudentDetails->id,@$optional_subject_setup->gpa_above,"with_optional_sub_gpa");
                                                                         $optional_subject_total_above_gpa += $optional_subject_above_gpa;
 
-                                                                        $without_subject_gpa = optionalSubjectFullMark($assinged_exam_type,$studentDetails->id,@$optional_subject_setup->gpa_above,"without_optional_sub_gpa");
+                                                                        $without_subject_gpa = optionalSubjectFullMark($assinged_exam_type,$aramiscStudentDetails->id,@$optional_subject_setup->gpa_above,"without_optional_sub_gpa");
                                                                         $without_additional_subject_total_gpa += $without_subject_gpa;
 
-                                                                        $with_additional_subject_gpa = termWiseAddOptionalMark($assinged_exam_type, $studentDetails->id, @$optional_subject_setup->gpa_above);
+                                                                        $with_additional_subject_gpa = termWiseAddOptionalMark($assinged_exam_type, $aramiscStudentDetails->id, @$optional_subject_setup->gpa_above);
                                                                         $with_additional_subject_addition += $with_additional_subject_gpa;
 
-                                                                    $with_optional_percentages=termWiseGpa($assinged_exam_type, $studentDetails->id, $with_optional_subject_extra_gpa);
+                                                                    $with_optional_percentages=termWiseGpa($assinged_exam_type, $aramiscStudentDetails->id, $with_optional_subject_extra_gpa);
                                                                     $total_with_optional_percentage += $with_optional_percentages;
                                                                 }
                                                             @endphp
@@ -665,7 +665,7 @@
                                                                 @else
                                                                     <td colspan="{{$colspan / $col_for_result - 1}}">@lang('reports.position')</td>
                                                                     <td colspan="{{$colspan / $col_for_result + 6}}" style="padding:10px; font-weight:bold">
-                                                                        {{getStudentAllExamMeritPosition($class_id, $section_id, $studentDetails->id)}}
+                                                                        {{getStudentAllExamMeritPosition($class_id, $section_id, $aramiscStudentDetails->id)}}
                                                                     </td>
                                                                 @endif
                                                             </tr> --}}

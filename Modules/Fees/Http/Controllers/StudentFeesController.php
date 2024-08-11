@@ -28,7 +28,7 @@ use Modules\Fees\Http\Controllers\FeesExtendedController;
 use Modules\ToyyibPay\Http\Controllers\ToyyibPayController;
 class StudentFeesController extends Controller
 {
-    public function studentFeesList()
+    public function aramiscStudentFeesList()
     {
         $user = auth()->user();
         if($user->role_id != 2) {
@@ -51,7 +51,7 @@ class StudentFeesController extends Controller
 
         return view('fees::student.feesInfo',compact('student_id','records'));
     }
-    public function studentFeesListParent($id)
+    public function aramiscStudentFeesListParent($id)
     {
         $student_id = $id;
         if(moduleStatusCheck('University')){
@@ -126,7 +126,7 @@ class StudentFeesController extends Controller
 
     }
 
-    public function studentFeesPaymentStore(Request $request)
+    public function aramiscStudentFeesPaymentStore(Request $request)
     {
         if($request->total_paid_amount == null){
             Toastr::warning('Paid Amount Can Not Be Blank', 'Failed');
@@ -363,7 +363,7 @@ class StudentFeesController extends Controller
                     $extendedController->addFeesAmount($storeTransaction->id, null);
                 }elseif($data['payment_method'] == 'CcAveune'){
                     $ccAvenewPaymentController = new CcAveuneController();
-                    $ccAvenewPaymentController->studentFeesPay($data['amount'] , $data['transcationId'], $data['type']);
+                    $ccAvenewPaymentController->aramiscStudentFeesPay($data['amount'] , $data['transcationId'], $data['type']);
                 }elseif($data['payment_method'] == 'ToyyibPay'){
                     if(moduleStatusCheck('ToyyibPay')){
                         $toyyibPayController = new ToyyibPayController();
@@ -379,7 +379,7 @@ class StudentFeesController extends Controller
                             'invoice_id' => $request->invoice_id
 
                         ];
-                        $data_store = $toyyibPayController->studentFeesPay($data);
+                        $data_store = $toyyibPayController->aramiscStudentFeesPay($data);
                         return redirect($data_store);
                     }else {
                         Toastr::error('ToyyibPay Module Not Active', 'Failed');

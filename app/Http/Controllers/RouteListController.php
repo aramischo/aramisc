@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 
 class RouteListController extends Controller
 {
@@ -11,18 +11,18 @@ class RouteListController extends Controller
     public function index()
     {
 
-        $zoom = InfixModuleInfo::where('name', 'like', '%' . 'zoom' . '%')->orWhere('route', 'like', '%' . 'zoom' . '%')->update(['module_name'=> 'Zoom']);
-        $saas = InfixModuleInfo::where('name', 'like', '%' . 'saas' . '%')->orWhere('route', 'like', '%' . 'saas' . '%')->update(['module_name'=> 'Saas']);
-        $bbb = InfixModuleInfo::where('name', 'like', '%' . 'bbb' . '%')
+        $zoom = AramiscModuleInfo::where('name', 'like', '%' . 'zoom' . '%')->orWhere('route', 'like', '%' . 'zoom' . '%')->update(['module_name'=> 'Zoom']);
+        $saas = AramiscModuleInfo::where('name', 'like', '%' . 'saas' . '%')->orWhere('route', 'like', '%' . 'saas' . '%')->update(['module_name'=> 'Saas']);
+        $bbb = AramiscModuleInfo::where('name', 'like', '%' . 'bbb' . '%')
         ->orWhere('route', 'like', '%' . 'bbb' . '%')
         ->orWhere('route', 'like', '%' . 'bigbluebutton' . '%')
         ->update(['module_name'=> 'BBB']);
-        $jitsi = InfixModuleInfo::where('name', 'like', '%' . 'jitsi' . '%')->orWhere('route', 'like', '%' . 'jitsi' . '%')->update(['module_name'=> 'Jitsi']);
-        $parentregistration = InfixModuleInfo::where('name', 'like', '%' . 'parentregistration' . '%')->orWhere('route', 'like', '%' . 'parentregistration' . '%')->update(['module_name'=> 'ParentRegistration']);
+        $jitsi = AramiscModuleInfo::where('name', 'like', '%' . 'jitsi' . '%')->orWhere('route', 'like', '%' . 'jitsi' . '%')->update(['module_name'=> 'Jitsi']);
+        $parentregistration = AramiscModuleInfo::where('name', 'like', '%' . 'parentregistration' . '%')->orWhere('route', 'like', '%' . 'parentregistration' . '%')->update(['module_name'=> 'ParentRegistration']);
         
         $formatRouteList = $this->routeFormat();
         foreach($formatRouteList as $key => $list){
-           $va = InfixModuleInfo::updateOrCreate([
+           $va = AramiscModuleInfo::updateOrCreate([
                'id'=>$key],
               ['name'=>$list['name'], 
                'route'=>$list['route'], 
@@ -34,12 +34,12 @@ class RouteListController extends Controller
     public function update()
     {
    //   return $this->adminSection();
-      $all = InfixModuleInfo::get();
-      $routes =  InfixModuleInfo::where('parent_id', 0)->get();
+      $all = AramiscModuleInfo::get();
+      $routes =  AramiscModuleInfo::where('parent_id', 0)->get();
       $modifiyList = [];
       foreach($all as $item)
       {
-         // $parent_route = InfixModuleInfo::where('parent_id', $item->id)->where('parent_id', '!=',0)->update(['parent_route'=>$item->route]);
+         // $parent_route = AramiscModuleInfo::where('parent_id', $item->id)->where('parent_id', '!=',0)->update(['parent_route'=>$item->route]);
          // $modifiyList[]=[
          //    'id'=>$item->id,
          //    'type'=>$item->type,
@@ -59,7 +59,7 @@ class RouteListController extends Controller
       //           $item->update(['route'=>$name]);
       //   }
       
-         $routes =  InfixModuleInfo::get(['id','name', 'route', 'parent_route', 'type']);
+         $routes =  AramiscModuleInfo::get(['id','name', 'route', 'parent_route', 'type']);
          $formatRoute = [];
          foreach($routes as $route){
             $formatRoute[$route->id]= [
@@ -574,21 +574,21 @@ class RouteListController extends Controller
          68 => 
          array (
            'name' => 'Student Attendance',
-           'route' => 'student_attendance',
+           'route' => 'student_aramiscAttendance',
            'parent_route' => 'student_info',
            'type' => 2,
          ),
          69 => 
          array (
            'name' => 'Add',
-           'route' => 'student-attendance-store',
-           'parent_route' => 'student_attendance',
+           'route' => 'student-aramiscAttendance-store',
+           'parent_route' => 'student_aramiscAttendance',
            'type' => 3,
          ),
          70 => 
          array (
            'name' => 'Student Attendance Report',
-           'route' => 'student_attendance_report',
+           'route' => 'student_aramiscAttendance_report',
            'parent_route' => 'student_info',
            'type' => 2,
          ),
@@ -1204,35 +1204,35 @@ class RouteListController extends Controller
          165 => 
          array (
            'name' => 'Staff Attendance',
-           'route' => 'staff_attendance',
+           'route' => 'staff_aramiscAttendance',
            'parent_route' => 'human_resource',
            'type' => 2,
          ),
          166 => 
          array (
            'name' => 'Add',
-           'route' => 'staff-attendance-store',
-           'parent_route' => 'staff_attendance',
+           'route' => 'staff-aramiscAttendance-store',
+           'parent_route' => 'staff_aramiscAttendance',
            'type' => 3,
          ),
          167 => 
          array (
            'name' => 'Edit',
            'route' => '',
-           'parent_route' => 'staff_attendance',
+           'parent_route' => 'staff_aramiscAttendance',
            'type' => 3,
          ),
          168 => 
          array (
            'name' => 'Delete',
            'route' => '',
-           'parent_route' => 'staff_attendance',
+           'parent_route' => 'staff_aramiscAttendance',
            'type' => 3,
          ),
          169 => 
          array (
            'name' => 'Staff Attendance Report',
-           'route' => 'staff_attendance_report',
+           'route' => 'staff_aramiscAttendance_report',
            'parent_route' => 'human_resource',
            'type' => 2,
          ),
@@ -1575,15 +1575,15 @@ class RouteListController extends Controller
          220 => 
          array (
            'name' => 'Exam Attendance',
-           'route' => 'exam_attendance',
+           'route' => 'exam_aramiscAttendance',
            'parent_route' => 'examination',
            'type' => 2,
          ),
          221 => 
          array (
            'name' => 'Add',
-           'route' => 'exam_attendance_create',
-           'parent_route' => 'exam_attendance',
+           'route' => 'exam_aramiscAttendance_create',
+           'parent_route' => 'exam_aramiscAttendance',
            'type' => 3,
          ),
          222 => 
@@ -1771,7 +1771,7 @@ class RouteListController extends Controller
          248 => 
          array (
            'name' => 'Print',
-           'route' => 'classRoutinePrint',
+           'route' => 'aramiscClassRoutinePrint',
            'parent_route' => 'class_routine_new',
            'type' => 3,
          ),
@@ -3718,29 +3718,29 @@ class RouteListController extends Controller
          533 => 
          array (
            'name' => 'Subject Wise Attendance',
-           'route' => 'subject-wise-attendance',
+           'route' => 'subject-wise-aramiscAttendance',
            'parent_route' => 'student_info',
            'type' => 2,
          ),
          534 => 
          array (
            'name' => 'Save',
-           'route' => 'subject-attendance-store',
-           'parent_route' => 'subject-wise-attendance',
+           'route' => 'subject-aramiscAttendance-store',
+           'parent_route' => 'subject-wise-aramiscAttendance',
            'type' => 3,
          ),
          535 => 
          array (
            'name' => 'Subject Wise Attendance Report',
-           'route' => 'subject-attendance-report',
+           'route' => 'subject-aramiscAttendance-report',
            'parent_route' => 'student_info',
            'type' => 2,
          ),
          536 => 
          array (
            'name' => 'Print',
-           'route' => 'subject-attendance/print',
-           'parent_route' => 'subject-attendance-report',
+           'route' => 'subject-aramiscAttendance/print',
+           'parent_route' => 'subject-aramiscAttendance-report',
            'type' => 3,
          ),
          537 => 
@@ -4914,7 +4914,7 @@ class RouteListController extends Controller
          3218 => 
          array (
            'name' => 'Final Mark Sheet',
-           'route' => 'exam_attendance',
+           'route' => 'exam_aramiscAttendance',
            'parent_route' => 'examination',
            'type' => 2,
          ),
@@ -4922,7 +4922,7 @@ class RouteListController extends Controller
          array (
            'name' => 'Print',
            'route' => '',
-           'parent_route' => 'exam_attendance',
+           'parent_route' => 'exam_aramiscAttendance',
            'type' => 3,
          ),
          3220 => 

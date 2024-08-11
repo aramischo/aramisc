@@ -104,20 +104,20 @@
                                                         <img class="logo-img" src="{{ generalSetting()->logo }}" alt="">
                                                     </div>
                                                     <div class="ml-30">
-                                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)? generalSetting()->school_name :'Infix School Management ERP'}} </h3>
-                                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
+                                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)? generalSetting()->school_name :'Aramisc School Management ERP'}} </h3>
+                                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <img class="logo-img" src="{{ $generalSetting->logo }}" alt=""> 
                                                 </div>
                                                 <div class="ml-30">
-                                                    <h3 class="text-white"> {{isset($generalSetting->school_name)? $generalSetting->school_name :'Infix School Management ERP'}} </h3>
-                                                <p class="text-white mb-0"> {{isset($generalSetting->address)?$generalSetting->address:'Infix School Address'}} </p>
+                                                    <h3 class="text-white"> {{isset($generalSetting->school_name)? $generalSetting->school_name :'Aramisc School Management ERP'}} </h3>
+                                                <p class="text-white mb-0"> {{isset($generalSetting->address)?$generalSetting->address:'Aramisc School Address'}} </p>
                                                 </div>
                                             </div>
                                             <div> 
-                                                <img class="report-admit-img" src="{{asset($studentDetails->student_photo)}}" width="100" height="100" alt="">
+                                                <img class="report-admit-img" src="{{asset($aramiscStudentDetails->student_photo)}}" width="100" height="100" alt="">
                                             </div>
                                         </div> 
                                         <div class="card-body">
@@ -130,22 +130,22 @@
                                                     <div class="row mt-20 transcript-heading">
                                                         <div class="col-lg-4">
                                                             <strong>@lang('student.student_name')
-                                                                :</strong> {{ $studentDetails->full_name }} <br>
+                                                                :</strong> {{ $aramiscStudentDetails->full_name }} <br>
 
                                                             <strong>@lang('student.mother_name')
-                                                                :</strong> {{ @$studentDetails->student->parents->mothers_name }}
+                                                                :</strong> {{ @$aramiscStudentDetails->student->parents->mothers_name }}
                                                             <br>
                                                             <strong>@lang('common.school_name')
                                                                 :</strong> {{ generalSetting()->school_name}}<br>
                                                         </div>
                                                         <div class="col-lg-4">
                                                             <strong>@lang('reports.transcript_none')
-                                                                :</strong> {{ $studentDetails->admission_number }}<br>
+                                                                :</strong> {{ $aramiscStudentDetails->admission_number }}<br>
                                                             <strong>@lang('common.academic_year')
                                                                 : </strong> {{ generalSetting()->academic_Year->year }}
                                                             <br>
                                                             <strong>@lang('student.admission_no')
-                                                                :</strong> {{ $studentDetails->admission_number }}<br>
+                                                                :</strong> {{ $aramiscStudentDetails->admission_number }}<br>
                                                         </div>smleave
 
                                                         <div class="col-lg-4">
@@ -154,28 +154,28 @@
                                                             <strong>@lang('common.section')
                                                                 :</strong> {{ @$current_section->section_name }}<br>
                                                             <strong>@lang('common.date_of_birth')
-                                                                :</strong> {{ $studentDetails->date_of_birth != ""? dateConvert($studentDetails->date_of_birth):''}}
+                                                                :</strong> {{ $aramiscStudentDetails->date_of_birth != ""? dateConvert($aramiscStudentDetails->date_of_birth):''}}
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <strong>@lang('reports.transcript_none'):</strong> {{ $studentDetails->admission_number }}<br>
+                                                        <strong>@lang('reports.transcript_none'):</strong> {{ $aramiscStudentDetails->admission_number }}<br>
                                                         <strong>@lang('common.academic_year'): </strong> {{ App\YearCheck::getYear() }}<br>
-                                                        <strong>@lang('student.admission_no'):</strong> {{ $studentDetails->admission_number }}<br>
+                                                        <strong>@lang('student.admission_no'):</strong> {{ $aramiscStudentDetails->admission_number }}<br>
                                                     </div>
                                                     
                                                     <div class="col-lg-4">
                                                         <strong>@lang('common.class'):</strong> {{ @$current_class->class_name }}<br>
                                                         <strong>@lang('common.section') :</strong> {{ @$current_section->section_name }}<br>
-                                                        <strong>@lang('common.date_of_birth'):</strong> {{ $studentDetails->date_of_birth != ""? dateConvert($studentDetails->date_of_birth):''}}
+                                                        <strong>@lang('common.date_of_birth'):</strong> {{ $aramiscStudentDetails->date_of_birth != ""? dateConvert($aramiscStudentDetails->date_of_birth):''}}
                                                     </div>
                                                 </div>
 
-                                                        @foreach ($promotes as $studentDetails)
+                                                        @foreach ($promotes as $aramiscStudentDetails)
                                                         @php
-                                                            $student_id = $studentDetails->student_id;
-                                                            $class_id = $studentDetails->previous_class_id;
-                                                            $section_id = $studentDetails->previous_section_id;
-                                                            $year = $studentDetails->year;
+                                                            $student_id = $aramiscStudentDetails->student_id;
+                                                            $class_id = $aramiscStudentDetails->previous_class_id;
+                                                            $section_id = $aramiscStudentDetails->previous_section_id;
+                                                            $year = $aramiscStudentDetails->year;
 
                                                             @$current_class = App\SmStudent::where('sm_students.id', $student_id)->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')->first();
                                                             @$current_section = App\SmStudent::where('sm_students.id', $student_id)->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')->first();
@@ -220,7 +220,7 @@
                                                         {{ $exam->title }}
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <strong>@lang('student.roll'):</strong> {{ $studentDetails->previous_roll_number }}
+                                                        <strong>@lang('student.roll'):</strong> {{ $aramiscStudentDetails->previous_roll_number }}
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <strong>@lang('common.class'):</strong> 

@@ -23,7 +23,7 @@ class CreateSmExamSignaturesTable extends Migration
             $table->timestamps();
         });
 
-        $classRoutines = array(
+        $aramiscClassRoutines = array(
             'exam-signature-settings' => array(
                 'module' => null,
                 'sidebar_menu' => null,
@@ -50,7 +50,7 @@ class CreateSmExamSignaturesTable extends Migration
                 'old_id' => null,
             )
         );
-        foreach($classRoutines as $item){
+        foreach($aramiscClassRoutines as $item){
             storePermissionData($item);
         }
 

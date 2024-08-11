@@ -7,7 +7,7 @@ use App\User;
 use App\SmLeaveDefine;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class sm_leave_definesSeeder extends Seeder
 {
@@ -20,7 +20,7 @@ class sm_leave_definesSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)/* ->where('id', '!=', 2) */->where('id', '!=', 3)->where('id', '!=', 10)->get();
+        $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)/* ->where('id', '!=', 2) */->where('id', '!=', 3)->where('id', '!=', 10)->get();
         foreach ($roles as $key => $value) {
             $users=User::where('role_id',$value->id)->get();
             foreach($users as $user){

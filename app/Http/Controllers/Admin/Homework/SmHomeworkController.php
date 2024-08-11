@@ -43,7 +43,7 @@ class SmHomeworkController extends Controller
         $this->middleware('PM');
     }
 
-    public function homeworkList(Request $request)
+    public function aramiscHomeworkList(Request $request)
     {
         try {
             if (teacherAccess()) {
@@ -53,7 +53,7 @@ class SmHomeworkController extends Controller
                 $classes = SmClass::get();
             }
 
-            return view('backEnd.homework.homeworkList', compact('classes'));
+            return view('backEnd.homework.aramiscHomeworkList', compact('classes'));
         } catch (\Exception $e) {
 
             Toastr::error('Operation Failed', 'Failed');
@@ -77,14 +77,14 @@ class SmHomeworkController extends Controller
             } else {
                 $classes = SmClass::get();
             }
-            return view('backEnd.homework.homeworkList', compact('classes'))->with($data);
+            return view('backEnd.homework.aramiscHomeworkList', compact('classes'))->with($data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function addHomework()
+    public function aramiscAddHomework()
     {
         try {
             if (teacherAccess()) {
@@ -93,7 +93,7 @@ class SmHomeworkController extends Controller
             } else {
                 $classes = SmClass::get();
             }
-            return view('backEnd.homework.addHomework', compact('classes'));
+            return view('backEnd.homework.aramiscAddHomework', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -459,31 +459,31 @@ class SmHomeworkController extends Controller
         try {
             if (moduleStatusCheck('University')) {
                 $SmHomework = SmHomework::query();
-                $homeworkLists = universityFilter($SmHomework, $request)
+                $aramiscHomeworkLists = universityFilter($SmHomework, $request)
                     ->withCount('homeworkCompleted');
 
-                $homeworkLists = $homeworkLists->take(10)->get();
+                $aramiscHomeworkLists = $aramiscHomeworkLists->take(10)->get();
 
-                return view('backEnd.reports.evaluation', compact('homeworkLists'));
+                return view('backEnd.reports.evaluation', compact('aramiscHomeworkLists'));
             } else {
-                $homeworkLists = SmHomework::query()->with('subjects', 'sections', 'classes', 'classes.classSections')->withCount('homeworkCompleted');
+                $aramiscHomeworkLists = SmHomework::query()->with('subjects', 'sections', 'classes', 'classes.classSections')->withCount('homeworkCompleted');
                 //  ->with(array('user' => function($query) {
                 //     $query->select('id','full_name');
                 // }));
                 if ($request->class_id != null) {
-                    $homeworkLists->where('class_id', '=', $request->class_id);
+                    $aramiscHomeworkLists->where('class_id', '=', $request->class_id);
                 }
                 if ($request->subject_id != null) {
-                    $homeworkLists->where('subject_id', '=', $request->subject_id);
+                    $aramiscHomeworkLists->where('subject_id', '=', $request->subject_id);
                 }
                 if ($request->section_id != null) {
 
-                    $homeworkLists->where('section_id', '=', $request->section_id);
+                    $aramiscHomeworkLists->where('section_id', '=', $request->section_id);
                 }
                 if (teacherAccess()) {
-                    $homeworkLists->where('created_by', Auth::user()->id);
+                    $aramiscHomeworkLists->where('created_by', Auth::user()->id);
                 }
-                $homeworkLists = $homeworkLists->get();
+                $aramiscHomeworkLists = $aramiscHomeworkLists->get();
                 if (teacherAccess()) {
                     $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
                     $classes = $teacher_info->classes;
@@ -500,7 +500,7 @@ class SmHomeworkController extends Controller
                     $q->where('section_id', $section_id);
                 })->get();
 
-                return view('backEnd.reports.evaluation', compact('homeworkLists', 'classes', 'class_id', 'section_id', 'subject_id', 'smClass', 'subjects'));
+                return view('backEnd.reports.evaluation', compact('aramiscHomeworkLists', 'classes', 'class_id', 'section_id', 'subject_id', 'smClass', 'subjects'));
             }
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -512,25 +512,25 @@ class SmHomeworkController extends Controller
     {
 
 
-        $homeworkLists = SmHomework::query()->with('subjects', 'sections', 'classes', 'classes.classSections')->withCount('homeworkCompleted',);
+        $aramiscHomeworkLists = SmHomework::query()->with('subjects', 'sections', 'classes', 'classes.classSections')->withCount('homeworkCompleted',);
         //  ->with(array('user' => function($query) {
         //     $query->select('id','full_name');
         // }));
         if ($request->class_id != null) {
-            $homeworkLists->where('class_id', '=', $request->class_id);
+            $aramiscHomeworkLists->where('class_id', '=', $request->class_id);
         }
         if ($request->subject_id != null) {
-            $homeworkLists->where('subject_id', '=', $request->subject_id);
+            $aramiscHomeworkLists->where('subject_id', '=', $request->subject_id);
         }
 
         if ($request->section_id != null) {
 
-            $homeworkLists->where('section_id', '=', $request->section_id);
+            $aramiscHomeworkLists->where('section_id', '=', $request->section_id);
         }
         if (teacherAccess()) {
-            $homeworkLists->where('created_by', Auth::user()->id);
+            $aramiscHomeworkLists->where('created_by', Auth::user()->id);
         }
-        $homeworkLists = $homeworkLists;
+        $aramiscHomeworkLists = $aramiscHomeworkLists;
 
 
         if (teacherAccess()) {
@@ -540,7 +540,7 @@ class SmHomeworkController extends Controller
             $classes = SmClass::get();
         }
 
-        return Datatables::of($homeworkLists)
+        return Datatables::of($aramiscHomeworkLists)
 
             ->addColumn('action', function ($row) {
                 $btn = '<div class="dropdown">
@@ -562,7 +562,7 @@ class SmHomeworkController extends Controller
             ->rawColumns(['action'])
             ->make(true);
 
-        // return view('backEnd.reports.evaluation', compact('homeworkLists', 'classes')); 
+        // return view('backEnd.reports.evaluation', compact('aramiscHomeworkLists', 'classes')); 
     }
 
     public function viewEvaluationReport($homework_id)
@@ -583,26 +583,26 @@ class SmHomeworkController extends Controller
     {
         try {
             $data = [];
-            $homeworkList = SmHomework::find($id);
+            $aramiscHomeworkList = SmHomework::find($id);
             if (teacherAccess()) {
                 $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
                 $classes = $teacher_info->classes;
             } else {
                 $classes = SmClass::get();
             }
-            $sections = SmClassSection::where('class_id', '=', $homeworkList->class_id)->get();
+            $sections = SmClassSection::where('class_id', '=', $aramiscHomeworkList->class_id)->get();
 
-            $subjects = SmAssignSubject::where('class_id', $homeworkList->class_id)
-                ->where('section_id', $homeworkList->section_id)
+            $subjects = SmAssignSubject::where('class_id', $aramiscHomeworkList->class_id)
+                ->where('section_id', $aramiscHomeworkList->section_id)
                 ->get();
 
-            $data['homeworkList'] =  $homeworkList;
+            $data['aramiscHomeworkList'] =  $aramiscHomeworkList;
             $data['classes'] =  $classes;
             $data['sections'] =  $sections;
             $data['subjects'] =  $subjects;
             if (moduleStatusCheck('University')) {
                 $interface = App::make(UnCommonRepositoryInterface::class);
-                $data += $interface->getCommonData($data['homeworkList']);
+                $data += $interface->getCommonData($data['aramiscHomeworkList']);
             }
 
             return view('backEnd.homework.homeworkEdit', $data);

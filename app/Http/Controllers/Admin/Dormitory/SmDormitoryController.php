@@ -25,7 +25,7 @@ class SmDormitoryController extends Controller
 	}
 
 
-    public function studentDormitoryReport(Request $request)
+    public function aramiscStudentDormitoryReport(Request $request)
     {
         try{
             $classes = SmClass::get();
@@ -43,7 +43,7 @@ class SmDormitoryController extends Controller
     }
 
 
-    public function studentDormitoryReportSearch(Request $request)
+    public function aramiscStudentDormitoryReportSearch(Request $request)
     {
         try{
             $data = [];

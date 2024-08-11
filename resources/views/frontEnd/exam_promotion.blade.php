@@ -305,7 +305,7 @@
 </section>
 
 <!-- Start Modal Area -->
-<div class="modal fade student-details" id="addHomework">
+<div class="modal fade student-details" id="aramiscAddHomework">
     <div class="modal-dialog large-modal modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

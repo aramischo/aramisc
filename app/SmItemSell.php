@@ -15,7 +15,7 @@ class SmItemSell extends Model
     }
     
     public function roles(){
-    	return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
+    	return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id');
     }
 
     public function staffDetails(){
@@ -26,7 +26,7 @@ class SmItemSell extends Model
     	return $this->belongsTo('App\SmParent', 'student_staff_id', 'id');
     }
 
-    public function studentDetails(){
+    public function aramiscStudentDetails(){
     	return $this->belongsTo('App\SmStudent', 'student_staff_id', 'id');
     }
 

@@ -283,7 +283,7 @@
                                             <th>@lang('fees.balance')</th>
                                         </tr>
                                     </thead>
-                                    @if(directFees())
+                                    @if(aramiscDirectFees())
                                     <tbody>
                                     @foreach ($records as  $record)
                                         
@@ -292,15 +292,15 @@
                                             <td>{{@$record->student->admission_no}}</td>
                                             <td>{{@$record->student->roll_no}}</td>
                                             <td>{{@$record->student->parents!=""?$record->student->parents->fathers_name:""}}</td>
-                                            <td>{{@$record->directFeesInstallments->sum('amount')}}</td>
-                                            <td>{{@$record->directFeesInstallments->sum('discount_amount')}}</td>
-                                            <td>{{@$record->directFeesInstallments->sum('paid_amount')}}</td>
-                                            <td>{{ (@$record->directFeesInstallments->sum('amount')) - (@$record->directFeesInstallments->sum('paid_amount') - @$record->directFeesInstallments->sum('discount_amount'))}}</td>
+                                            <td>{{@$record->aramiscDirectFeesInstallments->sum('amount')}}</td>
+                                            <td>{{@$record->aramiscDirectFeesInstallments->sum('discount_amount')}}</td>
+                                            <td>{{@$record->aramiscDirectFeesInstallments->sum('paid_amount')}}</td>
+                                            <td>{{ (@$record->aramiscDirectFeesInstallments->sum('amount')) - (@$record->aramiscDirectFeesInstallments->sum('paid_amount') - @$record->aramiscDirectFeesInstallments->sum('discount_amount'))}}</td>
                                         
                                             @php
-                                            $grand_total += @$record->directFeesInstallments->sum('amount');
-                                            $grand_discount += @$record->directFeesInstallments->sum('discount_amount');
-                                            $grand_deposit +=  @$record->directFeesInstallments->sum('paid_amount');
+                                            $grand_total += @$record->aramiscDirectFeesInstallments->sum('amount');
+                                            $grand_discount += @$record->aramiscDirectFeesInstallments->sum('discount_amount');
+                                            $grand_deposit +=  @$record->aramiscDirectFeesInstallments->sum('paid_amount');
                                             $grand_balance += ($grand_total - $grand_deposit) ;
                                             @endphp 
                                         </tr>

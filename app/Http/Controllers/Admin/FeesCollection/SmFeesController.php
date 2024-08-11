@@ -50,7 +50,7 @@ class SmFeesController extends Controller
 
 
 
-    public function feesGenerateModal(Request $request, $amount, $student_id, $type,$master,$assign_id, $record_id)
+    public function aramiscFeesGenerateModal(Request $request, $amount, $student_id, $type,$master,$assign_id, $record_id)
     {
         try {
             $amount = $amount;
@@ -91,7 +91,7 @@ class SmFeesController extends Controller
     }
 
 
-    public function feesGenerateModalChild(Request $request, $amount, $student_id, $type)
+    public function aramiscFeesGenerateModalChild(Request $request, $amount, $student_id, $type)
     {
         try {
             $amount = $amount;
@@ -115,7 +115,7 @@ class SmFeesController extends Controller
     }
 
 
-    public function feesPaymentStore(Request $request)
+    public function aramiscFeesPaymentStore(Request $request)
     {
         if( db_engine() != "pgsql"){
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
@@ -195,7 +195,7 @@ class SmFeesController extends Controller
                 $installment->paid_amount = $sub_payment + $request->amount;
                 $installment->save();
 
-            }elseif(directFees()){
+            }elseif(aramiscDirectFees()){
                 $installment = DirectFeesInstallmentAssign::find($request->installment_id);
                 $payable_amount =  discountFees($installment->id);
                 $sub_payment = $installment->payments->sum('paid_amount');
@@ -296,7 +296,7 @@ class SmFeesController extends Controller
                     ->where('school_id',Auth::user()->school_id)
                     ->first();
 
-            }elseif(directFees()){
+            }elseif(aramiscDirectFees()){
                 $fees_assign = SmFeesAssign::where('fees_master_id',$request->master_id)
                     ->where('student_id',$request->student_id)
                     ->where('record_id',$request->record_id)
@@ -336,7 +336,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function feesPaymentDelete(Request $request)
+    public function aramiscFeesPaymentDelete(Request $request)
     {
         try {
             $assignFee=SmFeesAssign::find($request->assign_id);
@@ -557,7 +557,7 @@ class SmFeesController extends Controller
                 'un_semester_label_id' => 'required'
             ]);
         }
-        elseif(directFees()){
+        elseif(aramiscDirectFees()){
             $validator = Validator::make($input, [
                 'date_range' => 'required'
             ]);
@@ -603,7 +603,7 @@ class SmFeesController extends Controller
                     })
                     ->get();
                 return view('backEnd.feesCollection.search_fees_due', compact('fees_dues','fees_masters'));
-            }elseif(directFees()){
+            }elseif(aramiscDirectFees()){
                 $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
 
                 $date_from = new \DateTime(trim($rangeArr[0]));
@@ -829,7 +829,7 @@ class SmFeesController extends Controller
         $student = SmStudent::find($fees_assigned->student_id);
     }
 
-    public function feesPaymentPrint($id, $group)
+    public function aramiscFeesPaymentPrint($id, $group)
     {
         try {
             // $payment = SmFeesPayment::find($id);
@@ -847,7 +847,7 @@ class SmFeesController extends Controller
             return redirect()->back();
         }
     }
-    public function feesPaymentInvoicePrint($id, $s_id)
+    public function aramiscFeesPaymentInvoicePrint($id, $s_id)
     {
 
         try {
@@ -858,7 +858,7 @@ class SmFeesController extends Controller
                 foreach ($groups as $group) {
                     $fees_assigneds[] = UnFeesInstallmentAssign::find($group);
                 }
-            }elseif(directFees()){
+            }elseif(aramiscDirectFees()){
                 foreach ($groups as $group) {
                     $fees_assigneds[] = DirectFeesInstallmentAssign::find($group);
                 }
@@ -1033,7 +1033,7 @@ class SmFeesController extends Controller
     }
 
 
-    public function directFeesGenerateModal(Request $request, $amount , $installment_id, $record_id)
+    public function aramiscDirectFeesGenerateModal(Request $request, $amount , $installment_id, $record_id)
     {
         try {
             $amount = $amount;
@@ -1060,14 +1060,14 @@ class SmFeesController extends Controller
                 ->first();
             $installment = DirectFeesInstallmentAssign::find($installment_id);
             $balace_amount = discountFees( $installment->id) -  $installment->paid_amount;
-            return view('backEnd.feesCollection.directFees.fees_generate_modal', compact('amount','discounts', 'installment_id', 'student_id', 'data', 'method','banks','record_id','balace_amount'));
+            return view('backEnd.feesCollection.aramiscDirectFees.fees_generate_modal', compact('amount','discounts', 'installment_id', 'student_id', 'data', 'method','banks','record_id','balace_amount'));
         }catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function directFeesInstallmentUpdate(Request $request)
+    public function aramiscDirectFeesInstallmentUpdate(Request $request)
     {
         $request->validate([
             'amount' => "required",
@@ -1091,7 +1091,7 @@ class SmFeesController extends Controller
     {
         $payment = DireFeesInstallmentChildPayment::find($payment_id);
 
-        return view('backEnd.feesCollection.directFees.editSubPaymentModal', compact('amount','payment'));
+        return view('backEnd.feesCollection.aramiscDirectFees.editSubPaymentModal', compact('amount','payment'));
     }
 
 
@@ -1170,11 +1170,11 @@ class SmFeesController extends Controller
         $feesInstallment = DireFeesInstallmentChildPayment::find($id);
         $oldPayments = DireFeesInstallmentChildPayment::where('id','<',$id)->where('direct_fees_installment_assign_id',$feesInstallment->direct_fees_installment_assign_id)->where('active_status',1)->sum('paid_amount');
         $student = StudentRecord::find($feesInstallment->record_id);
-        return view('backEnd.feesCollection.directFees.viewPaymentReceipt', compact('feesInstallment','student','id','oldPayments'));
+        return view('backEnd.feesCollection.aramiscDirectFees.viewPaymentReceipt', compact('feesInstallment','student','id','oldPayments'));
     }
 
 
-    public function directFeesSetting(){
+    public function aramiscDirectFeesSetting(){
 
         $data['model'] = DirectFeesSetting::where('school_id', auth()->user()->school_id)
 
@@ -1213,7 +1213,7 @@ class SmFeesController extends Controller
         }
 
 
-        return view('backEnd.feesCollection.directFees.directFeesSetting')->with($data);
+        return view('backEnd.feesCollection.aramiscDirectFees.aramiscDirectFeesSetting')->with($data);
     }
 
     public function feesInvoiceUpdate(Request $request){
@@ -1262,7 +1262,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function directFeesTotalPayment($record_id){
+    public function aramiscDirectFeesTotalPayment($record_id){
 
         try{
             $studentRerod = StudentRecord::find($record_id);
@@ -1292,7 +1292,7 @@ class SmFeesController extends Controller
             $total_paid = DirectFeesInstallmentAssign::where('record_id', $record_id)->sum('paid_amount');
             $balace_amount = $total_amount -  ($total_discount +  $total_paid);
             $amount = $balace_amount;
-            return view('backEnd.feesCollection.directFees.total_payment_modal', compact('amount','discounts',  'student_id', 'data', 'method','banks','record_id','balace_amount'));
+            return view('backEnd.feesCollection.aramiscDirectFees.total_payment_modal', compact('amount','discounts',  'student_id', 'data', 'method','banks','record_id','balace_amount'));
 
         }
         catch(\Exception $e){
@@ -1301,7 +1301,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function directFeesTotalPaymentSubmit(Request $request){
+    public function aramiscDirectFeesTotalPaymentSubmit(Request $request){
         try {
             $this->addPayment($request);
             Toastr::success('Operation Successfull', 'Success');
@@ -1412,7 +1412,7 @@ class SmFeesController extends Controller
                     $installment->paid_amount = $sub_payment + $paid_amount;
                     $installment->save();
 
-                }elseif(directFees()){
+                }elseif(aramiscDirectFees()){
                     $payable_amount =  discountFees($installment->id);
                     $sub_payment = $installment->payments->sum('paid_amount');
                     $direct_payment =  $installment->paid_amount;

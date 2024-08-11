@@ -32,7 +32,7 @@ class SmClassRoutineNewController extends Controller
         // User::checkAuth();
     }
 
-    public function classRoutine(Request $request)
+    public function aramiscClassRoutine(Request $request)
     {
 
         try {
@@ -46,7 +46,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function classRoutinePrint($class, $section)
+    public function aramiscClassRoutinePrint($class, $section)
     {
 
         // try {
@@ -56,9 +56,9 @@ class SmClassRoutineNewController extends Controller
         $section_id = $section;
         $academic_year = SmAcademicYear::find(getAcademicId());
 
-        $sm_weekends = SmWeekend::with(['classRoutine' => function($q) use($class_id, $section_id){
+        $sm_weekends = SmWeekend::with(['aramiscClassRoutine' => function($q) use($class_id, $section_id){
             return $q->where('class_id', $class_id)->where('section_id', $section_id)->orderBy('start_time', 'asc');
-        }, 'classRoutine.subject'])->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+        }, 'aramiscClassRoutine.subject'])->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
 
         $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
@@ -81,7 +81,7 @@ class SmClassRoutineNewController extends Controller
     {
         try {
             $print = request()->print;
-            $sm_weekends = SmWeekend::with('classRoutine', 'classRoutine.subject')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $sm_weekends = SmWeekend::with('aramiscClassRoutine', 'aramiscClassRoutine.subject')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
             $teacher = SmStaff::find($teacher_id)->full_name;
             $customPaper = array(0, 0, 700.00, 1500.80);
             return view('backEnd.academics.teacher_class_routine_print',
@@ -96,7 +96,7 @@ class SmClassRoutineNewController extends Controller
             return redirect()->back();
         }
     }
-    public function classRoutineSearch(Request $request)
+    public function aramiscClassRoutineSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -112,7 +112,7 @@ class SmClassRoutineNewController extends Controller
             $class_id = $request->class;
             $section_id = $request->section;
 
-            $sm_weekends = SmWeekend::with('classRoutine')->where('school_id', Auth::user()->school_id)
+            $sm_weekends = SmWeekend::with('aramiscClassRoutine')->where('school_id', Auth::user()->school_id)
                 ->orderBy('order', 'ASC')
                 ->where('active_status', 1)
                 ->get();
@@ -145,7 +145,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function addNewClassRoutine($day, $class_id, $section_id)
+    public function aramiscAddNewClassRoutine($day, $class_id, $section_id)
     {
         try {
             $assinged_subjects = SmClassRoutineUpdate::select('subject_id')->where('class_id', $class_id)
@@ -185,7 +185,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function addNewClassRoutineEdit($class_time_id, $day, $class_id, $section_id, $subject_id, $room_id, $assigned_id, $teacher_id)
+    public function aramiscAddNewClassRoutineEdit($class_time_id, $day, $class_id, $section_id, $subject_id, $room_id, $assigned_id, $teacher_id)
     {
         try {
             $assinged_subjects = SmClassRoutineUpdate::select('subject_id')->where('class_id', $class_id)->where('section_id', $section_id)->where('day', $day)->where('subject_id', '!=', $subject_id)->where('school_id', Auth::user()->school_id)->get();
@@ -263,10 +263,10 @@ class SmClassRoutineNewController extends Controller
             ->orderBy('order', 'ASC')
             ->where('active_status', 1)
             ->get();
-        return view('backEnd.academics.classRoutine.form', compact('day_id', 'class_routines', 'sm_weekends', 'subjects', 'rooms', 'teachers', 'section_id', 'class_id'));
+        return view('backEnd.academics.aramiscClassRoutine.form', compact('day_id', 'class_routines', 'sm_weekends', 'subjects', 'rooms', 'teachers', 'section_id', 'class_id'));
     }
 
-    public function addNewClassRoutineStore(Request $request)
+    public function aramiscAddNewClassRoutineStore(Request $request)
     {
         try {
             //  return  date("H:i", strtotime("04:25 PM"));
@@ -350,7 +350,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function classRoutineRedirect($class_id, $section_id)
+    public function aramiscClassRoutineRedirect($class_id, $section_id)
     {
         try {
             $sm_weekends = SmWeekend::where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
@@ -451,7 +451,7 @@ class SmClassRoutineNewController extends Controller
         $result['msg']=__('academics.Teacher Have another Class This Time');
         return response()->json($result);        
     }
-    public function classRoutineReport(Request $request)
+    public function aramiscClassRoutineReport(Request $request)
     {
 
         try {
@@ -466,7 +466,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function classRoutineReportSearch(Request $request)
+    public function aramiscClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         if(moduleStatusCheck('University')){
@@ -494,7 +494,7 @@ class SmClassRoutineNewController extends Controller
         try {
             $data = [];
             $class_times = SmClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $sm_weekends = SmWeekend::with('classRoutine', 'classRoutine.subject','classRoutine.classRoom')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $sm_weekends = SmWeekend::with('aramiscClassRoutine', 'aramiscClassRoutine.subject','aramiscClassRoutine.classRoom')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
            
             if(moduleStatusCheck('University')){
                 $sm_routine_updates = SmClassRoutineUpdate::where('un_semester_label_id',$request->un_semester_label_id)->get();
@@ -524,7 +524,7 @@ class SmClassRoutineNewController extends Controller
             return redirect()->back();
         }
     }
-    public function teacherClassRoutineReport(Request $request)
+    public function aramiscTeacherClassRoutineReport(Request $request)
     {
 
         try {
@@ -543,7 +543,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function teacherClassRoutineReportSearch(Request $request)
+    public function aramiscTeacherClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -580,7 +580,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function deleteClassRoutineModal($id)
+    public function aramiscDeleteClassRoutineModal($id)
     {
 
         try {
@@ -591,7 +591,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function deleteClassRoutine($id)
+    public function aramiscDeleteClassRoutine($id)
     {
 
         try {

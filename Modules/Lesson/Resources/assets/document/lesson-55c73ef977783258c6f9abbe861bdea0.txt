@@ -41,15 +41,15 @@ DB_PASSWORD="a#k9$zjn+H8K"
 
 
 FTP PASS : ABUNAYEEM@2021
-USERNMAE : uxseqmbj@infixapp6.uxseven.com
-FTP Username: uxseqmbj@infixapp6.uxseven.com
+USERNMAE : uxseqmbj@aramiscapp6.uxseven.com
+FTP Username: uxseqmbj@aramiscapp6.uxseven.com
 FTP server: ftp.uxseven.com
 FTP & explicit FTPS port: 21
 
 
 //
 
-FTP Username: infixeduv6@infixapp6.uxseven.com
+FTP Username: aramiscv6@aramiscapp6.uxseven.com
 FTP server: ftp.uxseven.com
 FTP & explicit FTPS port:  21
 &%u*D5fW.svU

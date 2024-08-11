@@ -155,12 +155,12 @@
                                                         <a class="dropdown-item" href="{{route('class-room-edit',$class_room->id)}}">@lang('common.edit')</a>
                                                        @endif
                                                         @if(userPermission("class-room-delete"))
-                                                        <a class="dropdown-item" data-toggle="modal" data-target="#deleteClassRoomModal{{ @$class_room->id }}"  href="#">@lang('common.delete')</a>
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#aramiscDeleteClassRoomModal{{ @$class_room->id }}"  href="#">@lang('common.delete')</a>
                                                     @endif
                                                 </x-drop-down>
                                             </td>
                                         </tr>
-                                        <div class="modal fade admin-query" id="deleteClassRoomModal{{ @$class_room->id }}" >
+                                        <div class="modal fade admin-query" id="aramiscDeleteClassRoomModal{{ @$class_room->id }}" >
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

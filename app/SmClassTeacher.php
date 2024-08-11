@@ -12,7 +12,7 @@ class SmClassTeacher extends Model
     	return $this->belongsTo('App\SmStaff', 'teacher_id', 'id');
     }
 
-    public function teacherClass(){
+    public function aramiscTeacherClass(){
         return $this->belongsTo(SmAssignClassTeacher::class,'assign_class_teacher_id','id');
     }
 }

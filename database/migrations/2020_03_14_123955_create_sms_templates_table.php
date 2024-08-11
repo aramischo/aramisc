@@ -41,12 +41,12 @@ class CreateSmsTemplatesTable extends Migration
             ['sms', 'student_promote', '', 'Hi [student_name] , Welcome to [school_name]. Congratulations ! You have promoted in the next class. Thank You [school_name]', '', '[student_name], [school_name]'],
             ['sms', 'communicate_sms', '', 'In Communicate SMS description is: [description]. Thank You. Thank You [school_name]', '', '[description], [school_name]'],
 
-            ['sms', 'student_attendance', '', 'Dear [student_name], your are came to the school at [attendance_date], Thank You [school_name]', '', '[student_name], [attendance_date], [school_name]'],
-            ['sms', 'student_attendance_for_parent', '', 'Dear Parent [parent_name], your child [student_name] came to the school at [attendance_date], Thank You [school_name]', '', '[parent_name], [student_name], [attendance_date], [school_name]'],
-            ['sms', 'student_absent', '', 'Dear [student_name], your are absent to the school on [attendance_date], Thank You [school_name]', '', '[student_name], [attendance_date], [school_name]'],
-            ['sms', 'student_absent_for_parent', '', 'Dear parent [parent_name], your child [student_name] is absent to the school on [attendance_date], Thank You [school_name]', '', '[parent_name], [student_name], [attendance_date], [school_name]'],
-            ['sms', 'student_late', '', 'Dear [student_name], your are late to the school on [attendance_date], Thank You [school_name]', '', '[student_late], [attendance_date], [school_name]'],
-            ['sms', 'student_late_for_parent', '', 'Dear parent [parent_name], your child [student_name] is late to the school on [attendance_date], Thank You [school_name]', '', '[parent_name], [student_name], [attendance_date], [school_name]'],
+            ['sms', 'student_aramiscAttendance', '', 'Dear [student_name], your are came to the school at [aramiscAttendance_date], Thank You [school_name]', '', '[student_name], [aramiscAttendance_date], [school_name]'],
+            ['sms', 'student_aramiscAttendance_for_parent', '', 'Dear Parent [parent_name], your child [student_name] came to the school at [aramiscAttendance_date], Thank You [school_name]', '', '[parent_name], [student_name], [aramiscAttendance_date], [school_name]'],
+            ['sms', 'student_absent', '', 'Dear [student_name], your are absent to the school on [aramiscAttendance_date], Thank You [school_name]', '', '[student_name], [aramiscAttendance_date], [school_name]'],
+            ['sms', 'student_absent_for_parent', '', 'Dear parent [parent_name], your child [student_name] is absent to the school on [aramiscAttendance_date], Thank You [school_name]', '', '[parent_name], [student_name], [aramiscAttendance_date], [school_name]'],
+            ['sms', 'student_late', '', 'Dear [student_name], your are late to the school on [aramiscAttendance_date], Thank You [school_name]', '', '[student_late], [aramiscAttendance_date], [school_name]'],
+            ['sms', 'student_late_for_parent', '', 'Dear parent [parent_name], your child [student_name] is late to the school on [aramiscAttendance_date], Thank You [school_name]', '', '[parent_name], [student_name], [aramiscAttendance_date], [school_name]'],
             ['sms', 'student_leave_appllication', '', 'Dear [student_name], Thank you for your leave application. Please wait for approval, Thank You [school_name]', '', '[student_name], [school_name]'],
             ['sms', 'student_leave_approve', '', 'Dear [student_name], Thank you for your leave application. Your Leave approve. Thank You [school_name]', '', '[student_name], [school_name]'],
             ['sms', 'parent_leave_appllication_for_student', '', 'Dear [parent_name], Thank you for your leave [student_name] application. Please wait for approval, Thank You [school_name]. Thanks', '', '[parent_name], [student_name], [school_name]'],
@@ -61,9 +61,9 @@ class CreateSmsTemplatesTable extends Migration
             ['sms', 'student_fees_due_for_parent', '', 'Hi [parent_name], You fees due amount [dues_amount] for [fees_name] on [date]. Thank You [school_name]', '', '[parent_name], [dues_amount], [fees_name], [date], [school_name]'],
 
             ['sms', 'staff_credentials', '', 'Dear staff [staff_name] your login details: username:[user_name] Password:[password], Thank You [school_name]', '', '[staff_name], [user_name], [password], [school_name]'],
-            ['sms', 'staff_attendance', '', 'Dear [staff_name], your are came to the school at [attendance_date], Thank You [school_name]', '', '[staff_name],[attendance_date], [school_name]'],
-            ['sms', 'staff_absent', '', 'Dear [staff_name], your are absent to the school on [attendance_date], Thank You [school_name]', '', '[staff_name], [attendance_date], [school_name]'],
-            ['sms', 'staff_late', '', 'Dear [staff_name], your are late to the school on [attendance_date], Thank You [school_name]', '', '[staff_name], |StudentName|, [attendance_date], [school_name]'],
+            ['sms', 'staff_aramiscAttendance', '', 'Dear [staff_name], your are came to the school at [aramiscAttendance_date], Thank You [school_name]', '', '[staff_name],[aramiscAttendance_date], [school_name]'],
+            ['sms', 'staff_absent', '', 'Dear [staff_name], your are absent to the school on [aramiscAttendance_date], Thank You [school_name]', '', '[staff_name], [aramiscAttendance_date], [school_name]'],
+            ['sms', 'staff_late', '', 'Dear [staff_name], your are late to the school on [aramiscAttendance_date], Thank You [school_name]', '', '[staff_name], |StudentName|, [aramiscAttendance_date], [school_name]'],
             ['sms', 'staff_leave_appllication', '', 'Dear staff [staff_name], Thank you for your leave application. Please wait for approval. Thank You [school_name]', '', '[staff_name], [school_name]'],
             ['sms', 'staff_leave_approve', '', 'Dear staff [staff_name], Thank you for your leave application. Your Leave approve. Thank You [school_name]', '', '[staff_name], [school_name]'],
 
@@ -73,9 +73,9 @@ class CreateSmsTemplatesTable extends Migration
 
 
             //Module Base SMS Sending Start
-            // Module Name : InfixBiometrics
-            ['sms', 'student_early_checkout', '', 'Dear parent [parent_name], your child [student_name] is checkout  at [attendance_date] to the school on [attendance_date], Thank You [school_name]', 'InfixBiometrics', '[parent_name], [student_name], [attendance_date], [attendance_date], [school_name]'],
-            ['sms', 'student_checkout', '', 'Dear Parent [parent_name], your child [student_name] left the school at [left_time], Thank You [school_name]', 'InfixBiometrics', '[parent_name], [student_name], [school_name]'],
+            // Module Name : AramiscBiometrics
+            ['sms', 'student_early_checkout', '', 'Dear parent [parent_name], your child [student_name] is checkout  at [aramiscAttendance_date] to the school on [aramiscAttendance_date], Thank You [school_name]', 'AramiscBiometrics', '[parent_name], [student_name], [aramiscAttendance_date], [aramiscAttendance_date], [school_name]'],
+            ['sms', 'student_checkout', '', 'Dear Parent [parent_name], your child [student_name] left the school at [left_time], Thank You [school_name]', 'AramiscBiometrics', '[parent_name], [student_name], [school_name]'],
 
             ['next_implement', 'cheque_bounce', 'DEMO', 'Dear parent |ParentName|, the Cheque with no :|ChequeNo| for Rs.|FeePaid| received towards fee payment for your child :|StudentName| with receipt number:|ReceiptNo| has been Bounced', '', ''],
             ['sms', 'student_admission_in_progress', '', 'Dear parent [parent_name], your child [student_name] admission is in process.', 'ParentRegistration', '[parent_name], [student_name]'],
@@ -158,7 +158,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -263,7 +263,7 @@ class CreateSmsTemplatesTable extends Migration
                                                         <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                             <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                                 <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                    © 2020 Infix Education software| 
+                                                                    © 2020 Aramisccation software| 
                                                                 </span>
                                                                 <span style="background-color:transparent;text-align:left;">
                                                                     <font color="#ffffff">
@@ -351,7 +351,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -441,7 +441,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -533,7 +533,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -621,7 +621,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -710,7 +710,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -798,7 +798,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -886,7 +886,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -974,7 +974,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1062,7 +1062,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1150,7 +1150,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1238,7 +1238,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1326,7 +1326,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1414,7 +1414,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1502,7 +1502,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1590,7 +1590,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1686,7 +1686,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1774,7 +1774,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1862,7 +1862,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -1950,7 +1950,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2038,7 +2038,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2126,7 +2126,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2214,7 +2214,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2302,7 +2302,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2390,7 +2390,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2478,7 +2478,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2566,7 +2566,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2654,7 +2654,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2742,7 +2742,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2831,7 +2831,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software| 
+                                                                © 2020 Aramisccation software| 
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -2942,7 +2942,7 @@ class CreateSmsTemplatesTable extends Migration
                                                     <p
                                                         style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                         <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                            © 2020 Infix Education software|
+                                                            © 2020 Aramisccation software|
                                                         </span>
                                                         <span style="background-color:transparent;text-align:left;">
                                                             <font color="#ffffff">
@@ -3054,7 +3054,7 @@ class CreateSmsTemplatesTable extends Migration
                                                         <p
                                                             style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software|
+                                                                © 2020 Aramisccation software|
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">
@@ -3152,11 +3152,11 @@ class CreateSmsTemplatesTable extends Migration
             $holiday->save();
 
             $BioMat1 = SmsTemplate::where('purpose', 'student_checkout')->where('school_id', $school->id)->first();
-            $BioMat1->module = "InfixBiometrics";
+            $BioMat1->module = "AramiscBiometrics";
             $BioMat1->save();
 
             $BioMat2 = SmsTemplate::where('purpose', 'student_early_checkout')->where('school_id', $school->id)->first();
-            $BioMat2->module = "InfixBiometrics";
+            $BioMat2->module = "AramiscBiometrics";
             $BioMat2->save();
 
             $check1 = SmsTemplate::where('purpose', 'student_fees_due')->where('school_id', $school->id)->first();
@@ -3258,7 +3258,7 @@ class CreateSmsTemplatesTable extends Migration
                                                                                     <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                                                         <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                                                © 2020 Infix Education software|
+                                                                                                © 2020 Aramisccation software|
                                                                                             </span>
                                                                                             <span style="background-color:transparent;text-align:left;">
                                                                                                 <font color="#ffffff">

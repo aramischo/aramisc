@@ -241,7 +241,7 @@
                                             </tfoot>
                                         </table>
                                     </x-table>
-                                @elseif(directFees())
+                                @elseif(aramiscDirectFees())
                                     <x-table>
                                         <table id="table_id" class="display school-table" cellspacing="0" width="100%">
                                             <thead>

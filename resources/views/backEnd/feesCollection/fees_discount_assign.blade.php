@@ -203,7 +203,7 @@
                                                                                 @endphp
                                                                                     <option value="" disabled >{{$fees_group->name}} </option>
                                                                                         @php
-                                                                                            $studentAssingFees_types=App\SmFeesAssign::studentFeesTypeDiscount($fees_group->group_id,$student->student_id,$fees_discount->amount, $student->id);
+                                                                                            $studentAssingFees_types=App\SmFeesAssign::aramiscStudentFeesTypeDiscount($fees_group->group_id,$student->student_id,$fees_discount->amount, $student->id);
                                                                                         @endphp
                                                                                     @foreach ($studentAssingFees_types as $fees_type)
                                                                                         <option value="{{$fees_type->id}}">{{$fees_type->name}}</option>

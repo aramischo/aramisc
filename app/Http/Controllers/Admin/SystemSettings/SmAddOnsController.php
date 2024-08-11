@@ -8,7 +8,7 @@ use Throwable;
 use App\Envato\Envato;
 use GuzzleHttp\Client;
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -95,9 +95,9 @@ class SmAddOnsController extends Controller
 
             DB::beginTransaction();
             $check_enable_status= Module::find($name)->isDisabled();
-            $s = InfixModuleManager::where('name', $name)->first();
+            $s = AramiscModuleManager::where('name', $name)->first();
             if (empty($s)) {
-                $s = new InfixModuleManager();
+                $s = new AramiscModuleManager();
             }
             $s->name = $name;
             $s->notes = $notes;
@@ -134,7 +134,7 @@ class SmAddOnsController extends Controller
                     $data['data'] = 'enable';
                     $data['success'] = 'Operation success! Thanks you.';
                     $all_modules = [];
-                    $modules = InfixModuleManager::select('name')->get();
+                    $modules = AramiscModuleManager::select('name')->get();
                     foreach ($modules as $module) {
                         $all_modules[] = $module->name;
                     }
@@ -184,7 +184,7 @@ class SmAddOnsController extends Controller
                 //     $data['data'] = 'enable';
                 //     $data['success'] = 'Operation success! Thanks you.';
                 //     $all_modules = [];
-                //     $modules = InfixModuleManager::select('name')->get();
+                //     $modules = AramiscModuleManager::select('name')->get();
                 //     foreach ($modules as $module) {
                 //         $all_modules[] = $module->name;
                 //     }
@@ -200,7 +200,7 @@ class SmAddOnsController extends Controller
                 $data['data'] = 'disable';
                 $data['Module'] = $ModuleManage;
                 $all_modules = [];
-                $modules = InfixModuleManager::select('name')->get();
+                $modules = AramiscModuleManager::select('name')->get();
                 foreach ($modules as $module) {
                     $all_modules[] = $module->name;
                 }
@@ -268,9 +268,9 @@ class SmAddOnsController extends Controller
                         $notes = $array[$name]['notes'][0];
 
                         DB::beginTransaction();
-                        $s = InfixModuleManager::where('name', $name)->first();
+                        $s = AramiscModuleManager::where('name', $name)->first();
                         if (empty($s)) {
-                            $s = new InfixModuleManager();
+                            $s = new AramiscModuleManager();
                         }
                         $s->name = $name;
                         $s->email = $email;
@@ -337,9 +337,9 @@ class SmAddOnsController extends Controller
                     $notes = $array[$name]['notes'][0];
 
                     DB::beginTransaction();
-                    $s = InfixModuleManager::where('name', $name)->first();
+                    $s = AramiscModuleManager::where('name', $name)->first();
                     if (empty($s)) {
-                        $s = new InfixModuleManager();
+                        $s = new AramiscModuleManager();
                     }
                     $s->name = $name;
                     $s->email = $email;
@@ -357,7 +357,7 @@ class SmAddOnsController extends Controller
 
                     // session()->forget('all_module');
                     // $all_module = [];
-                    // $modules = InfixModuleManager::select('name')->get();
+                    // $modules = AramiscModuleManager::select('name')->get();
                     //  foreach ($modules as $module) {
                     // $all_modules[] = $module->name;
                     // }
@@ -412,9 +412,9 @@ class SmAddOnsController extends Controller
 
 
             DB::beginTransaction();
-            $s = InfixModuleManager::where('name', $name)->first();
+            $s = AramiscModuleManager::where('name', $name)->first();
             if (empty($s)) {
-                $s = new InfixModuleManager();
+                $s = new AramiscModuleManager();
             }
             $s->name = $name;
             $s->notes = $notes;

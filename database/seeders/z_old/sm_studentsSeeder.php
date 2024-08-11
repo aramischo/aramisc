@@ -51,7 +51,7 @@ class sm_studentsSeeder extends Seeder
                     $Guardian_Last_Name  = $faker->lastName($gender = 'male');
                     $Guardian_full_name  = $Guardian_First_Name . ' ' . $Guardian_Last_Name;
 
-                    $studentEmail = strtolower($student_User_Name) . $i . '@infixedu.com';
+                    $studentEmail = strtolower($student_User_Name) . $i . '@aramisc.com';
 
                     //insert student user & pass
                     $newUser            = new User();
@@ -70,8 +70,8 @@ class sm_studentsSeeder extends Seeder
                     $newUser            = new User();
                     $newUser->role_id   = 3;
                     $newUser->full_name = $Guardian_full_name;
-                    $newUser->email     = $Guardian_First_Name . $i . '@infixedu.com';
-                    $newUser->username  = $Guardian_First_Name . $i . '@infixedu.com';
+                    $newUser->email     = $Guardian_First_Name . $i . '@aramisc.com';
+                    $newUser->username  = $Guardian_First_Name . $i . '@aramisc.com';
                     $newUser->password  = Hash::make(123456);
 
                     $newUser->created_at = date('Y-m-d h:i:s');
@@ -94,7 +94,7 @@ class sm_studentsSeeder extends Seeder
 
                     $parent->guardians_name       = $Guardian_full_name;
                     $parent->guardians_mobile     = rand(1000, 9999) . rand(1000, 9999);
-                    $parent->guardians_email      = $Guardian_First_Name . $i . '@infixedu.com';
+                    $parent->guardians_email      = $Guardian_First_Name . $i . '@aramisc.com';
                     $parent->guardians_occupation = 'Businessman';
                     $parent->guardians_relation   = 'Brother';
                     $parent->relation             = 'Son';
@@ -190,7 +190,7 @@ class sm_studentsSeeder extends Seeder
                 'profile_id' => $row->id,
                 'device_ip' => '192.168.0.1',
                 'cloud_upload' => 0,
-                'is_attendance' => 0,
+                'is_aramiscAttendance' => 0,
             );
             // $data = DB::table('device_log')->insert($data);
         }

@@ -26,7 +26,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Support\Facades\Notification;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\University\Entities\UnSemesterLabel;
 use App\Notifications\StudyMeterialCreatedNotification;
 use App\Http\Controllers\Admin\StudentInfo\SmStudentReportController;
@@ -42,13 +42,13 @@ class GlobalUploadContentController extends Controller
     public function index(Request $request)
     {
         try {
-            $uploadContents = SmTeacherUploadContent::query()->with('classes', 'sections');
+            $aramiscUploadContents = SmTeacherUploadContent::query()->with('classes', 'sections');
             if (teacherAccess()) {
-                    $uploadContents->where(function ($q) {
+                    $aramiscUploadContents->where(function ($q) {
                         $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
                     });
             }
-            $uploadContents = $uploadContents->withoutGlobalScope(StatusAcademicSchoolScope::class)
+            $aramiscUploadContents = $aramiscUploadContents->withoutGlobalScope(StatusAcademicSchoolScope::class)
                                             ->withoutGlobalScope(GlobalAcademicScope::class)
                                             ->whereNull('parent_id')
                                             ->where('school_id', Auth::user()->school_id)
@@ -67,7 +67,7 @@ class GlobalUploadContentController extends Controller
                 $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->get();
             }
 
-            return view('backEnd.global.global_uploadContentList', compact( 'classes', 'uploadContents'));
+            return view('backEnd.global.global_aramiscUploadContentList', compact( 'classes', 'aramiscUploadContents'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -131,88 +131,88 @@ class GlobalUploadContentController extends Controller
                         $sections = $labels->labelSections;
                         if(is_null($request->un_section_id)){
                             foreach($sections as $section){
-                                $uploadContents = new SmTeacherUploadContent();
-                                $uploadContents->content_title = $request->content_title;
-                                $uploadContents->content_type = $request->content_type;
-                                $uploadContents->school_id = Auth::user()->school_id;
-                                $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
-                                $uploadContents->description = $request->description;
-                                $uploadContents->source_url = $request->source_url;
-                                $uploadContents->upload_file = fileUpload($request->content_file, $destination);
-                                $uploadContents->created_by = auth()->user()->id;
-                                $results = $uploadContents->save();
+                                $aramiscUploadContents = new SmTeacherUploadContent();
+                                $aramiscUploadContents->content_title = $request->content_title;
+                                $aramiscUploadContents->content_type = $request->content_type;
+                                $aramiscUploadContents->school_id = Auth::user()->school_id;
+                                $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                                $aramiscUploadContents->description = $request->description;
+                                $aramiscUploadContents->source_url = $request->source_url;
+                                $aramiscUploadContents->upload_file = fileUpload($request->content_file, $destination);
+                                $aramiscUploadContents->created_by = auth()->user()->id;
+                                $results = $aramiscUploadContents->save();
                                 $interface = App::make(UnCommonRepositoryInterface::class);
-                                $interface->storeUniversityData($uploadContents, $request);
-                                $uploadContents->un_section_id = $section->id;
-                                $uploadContents->save();
+                                $interface->storeUniversityData($aramiscUploadContents, $request);
+                                $aramiscUploadContents->un_section_id = $section->id;
+                                $aramiscUploadContents->save();
                             }
                         }else{
-                            $uploadContents = new SmTeacherUploadContent();
-                            $uploadContents->content_title = $request->content_title;
-                            $uploadContents->content_type = $request->content_type;
-                            $uploadContents->school_id = Auth::user()->school_id;
-                            $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
-                            $uploadContents->description = $request->description;
-                            $uploadContents->source_url = $request->source_url;
-                            $uploadContents->upload_file = fileUpload($request->content_file, $destination);
-                            $uploadContents->created_by = auth()->user()->id;
-                            $results = $uploadContents->save();
+                            $aramiscUploadContents = new SmTeacherUploadContent();
+                            $aramiscUploadContents->content_title = $request->content_title;
+                            $aramiscUploadContents->content_type = $request->content_type;
+                            $aramiscUploadContents->school_id = Auth::user()->school_id;
+                            $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                            $aramiscUploadContents->description = $request->description;
+                            $aramiscUploadContents->source_url = $request->source_url;
+                            $aramiscUploadContents->upload_file = fileUpload($request->content_file, $destination);
+                            $aramiscUploadContents->created_by = auth()->user()->id;
+                            $results = $aramiscUploadContents->save();
                             $interface = App::make(UnCommonRepositoryInterface::class);
-                            $interface->storeUniversityData($uploadContents, $request);
-                            $uploadContents->save();
+                            $interface->storeUniversityData($aramiscUploadContents, $request);
+                            $aramiscUploadContents->save();
                         }
                     }else{
-                        $uploadContents = new SmTeacherUploadContent();
-                        $uploadContents->content_title = $request->content_title;
-                        $uploadContents->content_type = $request->content_type;
-                        $uploadContents->school_id = Auth::user()->school_id;
-                        $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                        $aramiscUploadContents = new SmTeacherUploadContent();
+                        $aramiscUploadContents->content_title = $request->content_title;
+                        $aramiscUploadContents->content_type = $request->content_type;
+                        $aramiscUploadContents->school_id = Auth::user()->school_id;
+                        $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
                         foreach ($request->available_for as $value) {
                             if ($value == 'admin') {
-                                $uploadContents->available_for_admin = 1;
+                                $aramiscUploadContents->available_for_admin = 1;
                             }
                         }
-                        $uploadContents->un_academic_id = getAcademicId();
-                        $uploadContents->description = $request->description;
-                        $uploadContents->source_url = $request->source_url;
-                        $uploadContents->upload_file = fileUpload($request->content_file, $destination);
-                        $uploadContents->created_by = auth()->user()->id;
-                        $results = $uploadContents->save();
+                        $aramiscUploadContents->un_academic_id = getAcademicId();
+                        $aramiscUploadContents->description = $request->description;
+                        $aramiscUploadContents->source_url = $request->source_url;
+                        $aramiscUploadContents->upload_file = fileUpload($request->content_file, $destination);
+                        $aramiscUploadContents->created_by = auth()->user()->id;
+                        $results = $aramiscUploadContents->save();
                     }
                 }else{
-                    $uploadContents = new SmTeacherUploadContent();
-                    $uploadContents->content_title = $request->content_title;
-                    $uploadContents->content_type = $request->content_type;
-                    $uploadContents->school_id = Auth::user()->school_id;
-                    $uploadContents->academic_id = getAcademicId();
+                    $aramiscUploadContents = new SmTeacherUploadContent();
+                    $aramiscUploadContents->content_title = $request->content_title;
+                    $aramiscUploadContents->content_type = $request->content_type;
+                    $aramiscUploadContents->school_id = Auth::user()->school_id;
+                    $aramiscUploadContents->academic_id = getAcademicId();
                     foreach ($request->available_for as $value) {
                         if ($value == 'admin') {
-                            $uploadContents->available_for_admin = 1;
+                            $aramiscUploadContents->available_for_admin = 1;
                         }
                         if ($value == 'student') {
                             if (isset($request->all_classes)) {
-                                $uploadContents->available_for_all_classes = 1;
+                                $aramiscUploadContents->available_for_all_classes = 1;
                             } else {
-                                $uploadContents->class = $request->class;
-                                $uploadContents->section = $request->section;
+                                $aramiscUploadContents->class = $request->class;
+                                $aramiscUploadContents->section = $request->section;
                             }
                         }
                     }
-                    $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
-                    $uploadContents->description = $request->description;
-                    $uploadContents->source_url = $request->source_url;
-                    $uploadContents->upload_file = fileUpload($request->content_file, $destination);
+                    $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                    $aramiscUploadContents->description = $request->description;
+                    $aramiscUploadContents->source_url = $request->source_url;
+                    $aramiscUploadContents->upload_file = fileUpload($request->content_file, $destination);
                     if($request->status == 'lmsStudyMaterial'){
                         if($request->parent_course){
-                            $uploadContents->parent_course_id = $request->course_id;
+                            $aramiscUploadContents->parent_course_id = $request->course_id;
                         }else{
-                            $uploadContents->course_id = $request->course_id;
+                            $aramiscUploadContents->course_id = $request->course_id;
                         }
-                        $uploadContents->chapter_id = $request->chapter_id;
-                        $uploadContents->lesson_id = $request->lesson_id;
+                        $aramiscUploadContents->chapter_id = $request->chapter_id;
+                        $aramiscUploadContents->lesson_id = $request->lesson_id;
                     }
-                    $uploadContents->created_by = auth()->user()->id;
-                    $results = $uploadContents->save();
+                    $aramiscUploadContents->created_by = auth()->user()->id;
+                    $results = $aramiscUploadContents->save();
                 }
             }
 
@@ -228,7 +228,7 @@ class GlobalUploadContentController extends Controller
 
             foreach ($request->available_for as $value) {
                 if ($value == 'admin') {
-                    $roles = InfixRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where(function ($q) {
+                    $roles = AramiscRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where(function ($q) {
                         $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                     })->get();
                     foreach ($roles as $role) {
@@ -396,7 +396,7 @@ class GlobalUploadContentController extends Controller
         }
     }
 
-    public function uploadContentEdit($id)
+    public function aramiscUploadContentEdit($id)
     {
         $editData = SmTeacherUploadContent::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('school_id', Auth::user()->school_id)
                                             ->where('id', $id)
@@ -409,7 +409,7 @@ class GlobalUploadContentController extends Controller
         $sections = SmSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->get();
         $contentTypes = SmContentType::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-        $uploadContents = SmTeacherUploadContent::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $aramiscUploadContents = SmTeacherUploadContent::withoutGlobalScope(StatusAcademicSchoolScope::class)
                 ->withoutGlobalScope(GlobalAcademicScope::class)
                 ->whereNull('parent_id')->with('classes', 'sections')->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
@@ -421,23 +421,23 @@ class GlobalUploadContentController extends Controller
         $data['contentTypes'] = $contentTypes;
         $data['classes'] = $classes;
         $data['sections'] = $sections;
-        $data['uploadContents'] = $uploadContents;
+        $data['aramiscUploadContents'] = $aramiscUploadContents;
         if (moduleStatusCheck('University')) {
             $interface = App::make(UnCommonRepositoryInterface::class);
             $data += $interface->getCommonData($data['editData']);
         }
 
-        return view('backEnd.teacher.uploadContentList', $data);
+        return view('backEnd.teacher.aramiscUploadContentList', $data);
     }
 
-    public function uploadContentView(Request $request, $id)
+    public function aramiscUploadContentView(Request $request, $id)
     {
         try {
             $ContentDetails = SmTeacherUploadContent::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('id', $id)
                                 ->where('school_id', Auth::user()->school_id)
                                 ->first();
             
-            return view('backEnd.global.global_uploadContentDetails', compact('ContentDetails'));
+            return view('backEnd.global.global_aramiscUploadContentDetails', compact('ContentDetails'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -518,24 +518,24 @@ class GlobalUploadContentController extends Controller
             $y = '2012';
             $m = '2012';
             $d = '2012';
-            $uploadContents = SmTeacherUploadContent::where('id', $request->id)->first();
-            $uploadContents->content_title = $request->content_title;
-            $uploadContents->content_type = $request->content_type;
-            $uploadContents->school_id = Auth::user()->school_id;
+            $aramiscUploadContents = SmTeacherUploadContent::where('id', $request->id)->first();
+            $aramiscUploadContents->content_title = $request->content_title;
+            $aramiscUploadContents->content_type = $request->content_type;
+            $aramiscUploadContents->school_id = Auth::user()->school_id;
             if(moduleStatusCheck('University')){
-                $uploadContents->un_academic_id = getAcademicId();
+                $aramiscUploadContents->un_academic_id = getAcademicId();
             }else{
-                $uploadContents->academic_id = getAcademicId();
+                $aramiscUploadContents->academic_id = getAcademicId();
             }
             if (in_array('admin', $request->available_for)) {
-                $uploadContents->available_for_admin = 1;
+                $aramiscUploadContents->available_for_admin = 1;
             } else {
-                $uploadContents->available_for_admin = null;
+                $aramiscUploadContents->available_for_admin = null;
             }
 
             if (in_array('student', $request->available_for)) {
                 if (isset($request->all_classes)) {
-                    $uploadContents->available_for_all_classes = 1;
+                    $aramiscUploadContents->available_for_all_classes = 1;
                     $remove_cls_sec = SmTeacherUploadContent::where('id', $request->id)->first();
                     $remove_cls_sec->class = null;
                     $remove_cls_sec->section = null;
@@ -546,31 +546,31 @@ class GlobalUploadContentController extends Controller
                     $remove_all_cls->available_for_all_classes = null;
                     $remove_all_cls->save();
 
-                    $uploadContents->class = $request->class;
-                    $uploadContents->section = $request->section;
+                    $aramiscUploadContents->class = $request->class;
+                    $aramiscUploadContents->section = $request->section;
                 }
             } else {
-                $uploadContents->class = null;
-                $uploadContents->section = null;
-                $uploadContents->available_for_all_classes = null;
+                $aramiscUploadContents->class = null;
+                $aramiscUploadContents->section = null;
+                $aramiscUploadContents->available_for_all_classes = null;
             }
 
-            $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
-            $uploadContents->description = $request->description;
-            $uploadContents->source_url = $request->source_url;
+            $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+            $aramiscUploadContents->description = $request->description;
+            $aramiscUploadContents->source_url = $request->source_url;
             if ($request->file('content_file') != "") {
-                $uploadContents->upload_file = $fileName;
+                $aramiscUploadContents->upload_file = $fileName;
             }
             
-            $uploadContents->created_by = Auth()->user()->id;
-            // $uploadContents->created_at = '2012-11-26 13:04:39';
-            $results = $uploadContents->save();
+            $aramiscUploadContents->created_by = Auth()->user()->id;
+            // $aramiscUploadContents->created_at = '2012-11-26 13:04:39';
+            $results = $aramiscUploadContents->save();
             // return  $results;
 
             if (moduleStatusCheck('University')) {
                 $interface = App::make(UnCommonRepositoryInterface::class);
-                $unStore = $interface->storeUniversityData($uploadContents, $request);
-                $uploadContents->save();
+                $unStore = $interface->storeUniversityData($aramiscUploadContents, $request);
+                $aramiscUploadContents->save();
             }
 
             if ($request->content_type == 'as') {
@@ -585,7 +585,7 @@ class GlobalUploadContentController extends Controller
 
             foreach ($request->available_for as $value) {
                 if ($value == 'admin') {
-                    $roles = InfixRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where(function ($q) {
+                    $roles = AramiscRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where(function ($q) {
                         $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                     })->get();
                     foreach ($roles as $role) {
@@ -742,7 +742,7 @@ class GlobalUploadContentController extends Controller
         }
     }
 
-    public function assignmentList(Request $request)
+    public function aramiscAssignmentList(Request $request)
     {
         try {
             $user = Auth()->user();
@@ -752,7 +752,7 @@ class GlobalUploadContentController extends Controller
             }
 
             if (!teacherAccess()) {
-                    $uploadContents = SmTeacherUploadContent::where('content_type', 'as')
+                    $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
                     ->where('academic_id', getAcademicId())
                     ->where('course_id', '=', null)
                     ->where('chapter_id', '=', null)
@@ -760,7 +760,7 @@ class GlobalUploadContentController extends Controller
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where(function ($q) {
+                $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
                     $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
                 })->where('content_type', 'as')
                 ->where('course_id', '=', null)
@@ -771,7 +771,7 @@ class GlobalUploadContentController extends Controller
                 ->get();
             }
 
-            return view('backEnd.teacher.assignmentList', compact('uploadContents'));
+            return view('backEnd.teacher.aramiscAssignmentList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -782,31 +782,31 @@ class GlobalUploadContentController extends Controller
     {
         try {
             if (teacherAccess()) {
-                $uploadContents = SmTeacherUploadContent::where(function ($q) {
+                $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
                     $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
                 })->where('content_type', 'st')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'st')
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'st')
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
-            return view('backEnd.teacher.studyMetarialList', compact('uploadContents'));
+            return view('backEnd.teacher.studyMetarialList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function syllabusList(Request $request)
+    public function aramiscSyllabusList(Request $request)
     {
         try {
             if (teacherAccess()) {
-                $uploadContents = SmTeacherUploadContent::with('classes', 'sections')->where(function ($q) {
+                $aramiscUploadContents = SmTeacherUploadContent::with('classes', 'sections')->where(function ($q) {
                     $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
                 })->where('content_type', 'sy')
                 ->where('course_id', '=', null)
@@ -816,7 +816,7 @@ class GlobalUploadContentController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::with('classes', 'sections')
+                $aramiscUploadContents = SmTeacherUploadContent::with('classes', 'sections')
                 ->where('content_type', 'sy')
                 ->where('course_id', '=', null)
                 ->where('chapter_id', '=', null)
@@ -825,19 +825,19 @@ class GlobalUploadContentController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             }
-            return view('backEnd.teacher.syllabusList', compact('uploadContents'));
+            return view('backEnd.teacher.aramiscSyllabusList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function otherDownloadList(Request $request)
+    public function aramiscOtherDownloadList(Request $request)
     {
 
         try {
             if (teacherAccess()) {
-                $uploadContents = SmTeacherUploadContent::with('classes', 'sections')->where(function ($q) {
+                $aramiscUploadContents = SmTeacherUploadContent::with('classes', 'sections')->where(function ($q) {
                     $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
                 })->where('content_type', 'ot')
                 ->where('course_id', '=', null)
@@ -848,7 +848,7 @@ class GlobalUploadContentController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::with('classes', 'sections')
+                $aramiscUploadContents = SmTeacherUploadContent::with('classes', 'sections')
                 ->where('content_type', 'ot')
                 ->where('course_id', '=', null)
                 ->where('chapter_id', '=', null)
@@ -858,7 +858,7 @@ class GlobalUploadContentController extends Controller
                 ->get();
             }
 
-            return view('backEnd.teacher.otherDownloadList', compact('uploadContents'));
+            return view('backEnd.teacher.otherDownloadList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -870,15 +870,15 @@ class GlobalUploadContentController extends Controller
         try {
              $id =  $request->id;
             if (checkAdmin()) {
-                $uploadContent = SmTeacherUploadContent::find($id);
+                $aramiscUploadContent = SmTeacherUploadContent::find($id);
             } else {
-                $uploadContent = SmTeacherUploadContent::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $aramiscUploadContent = SmTeacherUploadContent::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
-            if (checkAdmin() || $uploadContent->created_by == Auth::user()->id) {
-                if (file_exists($uploadContent->upload_file)) {
-                    unlink($uploadContent->upload_file);
+            if (checkAdmin() || $aramiscUploadContent->created_by == Auth::user()->id) {
+                if (file_exists($aramiscUploadContent->upload_file)) {
+                    unlink($aramiscUploadContent->upload_file);
                 }
-                $uploadContent->delete();
+                $aramiscUploadContent->delete();
                 if($request->status == 'lmsStudy'){
                     return response()->json(['sucess']);
                 }else{
@@ -895,7 +895,7 @@ class GlobalUploadContentController extends Controller
         }
     }
 
-    public function studyMaterialModal(Request $request){
+    public function aramiscStudyMaterialModal(Request $request){
         try {
             
               $data = SmTeacherUploadContent::query(); 
@@ -905,30 +905,30 @@ class GlobalUploadContentController extends Controller
             $data->when($request->global_section_id, function ($query) use ($request){
                 $query->where('section', $request->global_section_id);
             });                          
-                $uploadContents = $data->where('school_id', Auth::user()->school_id)
+                $aramiscUploadContents = $data->where('school_id', Auth::user()->school_id)
                 ->where('course_id', '=', null)
                 ->where('chapter_id', '=', null)
                 ->where('lesson_id', '=', null)
                 ->orderby('id', 'DESC')
                 ->get();          
 
-            return view('backEnd.global.global_study_material_modal', compact('uploadContents'));
+            return view('backEnd.global.global_study_material_modal', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studyMaterialAssigned(Request $request){
+    public function aramiscStudyMaterialAssigned(Request $request){
 
         try{
             $selected_ids = $request->study_material;
 
             if($selected_ids){
-                foreach($selected_ids as $uploadContent){
+                foreach($selected_ids as $aramiscUploadContent){
                      $parentContent = SmTeacherUploadContent::withoutGlobalScope(StatusAcademicSchoolScope::class)
                                                             ->withoutGlobalScope(GlobalAcademicScope::class)
-                                                            ->find($uploadContent);
+                                                            ->find($aramiscUploadContent);
                     if($parentContent && $parentContent->class){
                         $class = SmClass::where('parent_id',$parentContent->class)->where('academic_id',getAcademicId())->first();
                     } 
@@ -937,26 +937,26 @@ class GlobalUploadContentController extends Controller
                         $section = SmSection::where('parent_id',$parentContent->section)->where('academic_id',getAcademicId())->first();
                     } 
                     
-                    $checkExist = SmTeacherUploadContent::where('parent_id', $uploadContent)->first();
+                    $checkExist = SmTeacherUploadContent::where('parent_id', $aramiscUploadContent)->first();
                     if(! $checkExist){
-                        $uploadContents = new SmTeacherUploadContent();
-                        $uploadContents->parent_id = $parentContent->id ;
-                        $uploadContents->content_title = $parentContent->content_title;
-                        $uploadContents->content_type = $parentContent->content_type;
-                        $uploadContents->school_id = Auth::user()->school_id;
-                        $uploadContents->academic_id = getAcademicId();
-                        $uploadContents->available_for_admin = $parentContent->available_for_admin;
-                        $uploadContents->class = @$class->id;
-                        $uploadContents->section = @$section->id;
-                        $uploadContents->upload_date = $parentContent->upload_date ;
-                        $uploadContents->description = $parentContent->description;
-                        $uploadContents->source_url = $parentContent->source_url;
-                        $uploadContents->upload_file = $parentContent->upload_file;
-                        $uploadContents->created_by = auth()->user()->id;
-                        $results = $uploadContents->save();
+                        $aramiscUploadContents = new SmTeacherUploadContent();
+                        $aramiscUploadContents->parent_id = $parentContent->id ;
+                        $aramiscUploadContents->content_title = $parentContent->content_title;
+                        $aramiscUploadContents->content_type = $parentContent->content_type;
+                        $aramiscUploadContents->school_id = Auth::user()->school_id;
+                        $aramiscUploadContents->academic_id = getAcademicId();
+                        $aramiscUploadContents->available_for_admin = $parentContent->available_for_admin;
+                        $aramiscUploadContents->class = @$class->id;
+                        $aramiscUploadContents->section = @$section->id;
+                        $aramiscUploadContents->upload_date = $parentContent->upload_date ;
+                        $aramiscUploadContents->description = $parentContent->description;
+                        $aramiscUploadContents->source_url = $parentContent->source_url;
+                        $aramiscUploadContents->upload_file = $parentContent->upload_file;
+                        $aramiscUploadContents->created_by = auth()->user()->id;
+                        $results = $aramiscUploadContents->save();
     
-                        if ($results && ($uploadContents == 'student')) {
-                            if (isset($uploadContents->available_for_all_classes)) {
+                        if ($results && ($aramiscUploadContents == 'student')) {
+                            if (isset($aramiscUploadContents->available_for_all_classes)) {
                                 $students = SmStudent::select('id', 'user_id')->where('school_id', Auth::user()->school_id)->get();
                                 foreach ($students as $student) {
                                     $notification = new SmNotification;

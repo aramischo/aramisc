@@ -42,7 +42,7 @@
                   <input type="hidden" name="installment_id" id="installment_id" value="{{$installment_id}}">
                   @if(moduleStatusCheck('University'))
                   <input type="hidden" name="real_amount" id="real_amount" value="{{discountFeesAmount($installment_id)}}">
-                  @elseif(directFees()) 
+                  @elseif(aramiscDirectFees()) 
                   <input type="hidden" name="real_amount" id="real_amount" value="{{$balace_amount}}">
                   @endif 
                   <input type="hidden" id="student_id" name="student_id" value="{{$student_id}}">
@@ -56,7 +56,7 @@
                             <label class="primary_input_label" for="">@lang('fees.amount') <span class="text-danger"> *</span> </label>
                               @if(moduleStatusCheck('University'))
                               <input oninput="numberMinZeroCheck(this)" class="primary_input_field form-control" type="text" max="{{discountFeesAmount($installment_id)}}" name="amount" value="{{discountFeesAmount($installment_id)}}" id="amount" required>
-                              @elseif(directFees())
+                              @elseif(aramiscDirectFees())
                               <input oninput="numberMinZeroCheck(this)" class="primary_input_field form-control" type="text" max="{{$balace_amount}}" name="amount" value="{{$balace_amount}}" id="amount" required>
                               @endif 
                              

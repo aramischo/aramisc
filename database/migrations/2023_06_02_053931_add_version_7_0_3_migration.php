@@ -14,7 +14,7 @@ class AddVersion703Migration extends Migration
      */
     public function up()
     {
-        $applyLeavePermissions = array(
+        $aramiscApplyLeavePermissions = array(
             'apply-leave-store' => array(
                 'module' => null,
                 'sidebar_menu' => null,
@@ -91,7 +91,7 @@ class AddVersion703Migration extends Migration
                 'old_id' => 190,
             ),
         );
-        foreach($applyLeavePermissions as $item){
+        foreach($aramiscApplyLeavePermissions as $item){
             storePermissionData($item);
         }
         Permission::where('sidebar_menu', 'fees_collection')->update([

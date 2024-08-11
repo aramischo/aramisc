@@ -54,8 +54,8 @@ class sm_staffsSeeder extends Seeder
                 $newUser            = new User();
                 $newUser->role_id   = $role_id;
                 $newUser->full_name = $Full_name;
-                $newUser->email     = $First_Name . $i . '@infixedu.com';
-                $newUser->username  = $First_Name . $i . '@infixedu.com';
+                $newUser->email     = $First_Name . $i . '@aramisc.com';
+                $newUser->username  = $First_Name . $i . '@aramisc.com';
                 $newUser->password  = Hash::make(123456);
                 $newUser->created_at = date('Y-m-d h:i:s');
                 $newUser->save();
@@ -81,7 +81,7 @@ class sm_staffsSeeder extends Seeder
                         'date_of_joining'  => $faker->date($format = 'Y-m-d', $max = 'now'),
 
                         'gender_id'        => $gender_id,
-                        'email'            => $First_Name . $i . '@infixedu.com',
+                        'email'            => $First_Name . $i . '@aramisc.com',
                         'mobile'           => '123456789',
                         'emergency_mobile' => '1234567890',
                         'marital_status'   => 'Married',

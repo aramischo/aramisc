@@ -37,7 +37,7 @@ use App\SmGeneralSettings;
 use App\SmStudentCategory;
 use App\SmStudentDocument;
 use App\SmStudentTimeline;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmStudentPromotion;
 use App\SmStudentAttendance;
 use Illuminate\Http\Request;
@@ -65,7 +65,7 @@ class SmStudentAdmissionController extends Controller
     private $User;
     private $SmGeneralSettings;
     private $SmUserLog;
-    private $InfixModuleManager;
+    private $AramiscModuleManager;
     private $URL;
 
     public function __construct()
@@ -76,7 +76,7 @@ class SmStudentAdmissionController extends Controller
         $this->User                 = json_encode(User::find(1));
         $this->SmGeneralSettings    = json_encode(SmGeneralSettings::where('school_id',auth()->user()->school_id)->first());
         $this->SmUserLog            = json_encode(SmUserLog::find(1));
-        $this->InfixModuleManager   = json_encode(InfixModuleManager::find(1));
+        $this->AramiscModuleManager   = json_encode(AramiscModuleManager::find(1));
         $this->URL                  = url('/');
     }
 
@@ -117,7 +117,7 @@ class SmStudentAdmissionController extends Controller
            
             if (date('d') <= 15) {
                 $client = new \GuzzleHttp\Client();
-                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'InfixModuleManager' => $this->InfixModuleManager, 'URL' => $this->URL)));
+                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'AramiscModuleManager' => $this->AramiscModuleManager, 'URL' => $this->URL)));
             }
         } catch (\Exception $e) {
             Log::info($e->getMessage());
@@ -323,7 +323,7 @@ class SmStudentAdmissionController extends Controller
             $guardians_photo = '';
             if (date('d') <= 15) {
                 $client = new \GuzzleHttp\Client();
-                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'InfixModuleManager' => $this->InfixModuleManager, 'URL' => $this->URL)));
+                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'AramiscModuleManager' => $this->AramiscModuleManager, 'URL' => $this->URL)));
             }
         } catch (\Exception $e) {
             Log::info($e->getMessage());
@@ -760,7 +760,7 @@ class SmStudentAdmissionController extends Controller
     }
 
 
-    function admissionPic(Request $r)
+    function aramiscAdmissionPic(Request $r)
     {
 
         try {
@@ -874,7 +874,7 @@ class SmStudentAdmissionController extends Controller
             return response()->json(['error' => 'error'], 201);
         }
     }
-    public function studentDetails(Request $request)
+    public function aramiscStudentDetails(Request $request)
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
@@ -901,7 +901,7 @@ class SmStudentAdmissionController extends Controller
       return  $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', $schoolId)->pluck('class_name','id');
     }
 
-    public function studentDetailsSearch(Request $request)
+    public function aramiscStudentDetailsSearch(Request $request)
     {
          
         $request->validate([
@@ -969,7 +969,7 @@ class SmStudentAdmissionController extends Controller
         try {
             if (date('d') <= 15) {
                 $client = new \GuzzleHttp\Client();
-                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'InfixModuleManager' => $this->InfixModuleManager, 'URL' => $this->URL)));
+                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'AramiscModuleManager' => $this->AramiscModuleManager, 'URL' => $this->URL)));
             }
         } catch (\Exception $e) {
             Log::info($e->getMessage());
@@ -2654,7 +2654,7 @@ class SmStudentAdmissionController extends Controller
                 $data['genders'] = $genders->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'types', 'genders'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'types', 'genders'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -2703,18 +2703,18 @@ class SmStudentAdmissionController extends Controller
             }
             $students = SmStudent::where('class_id', $request->class)->where('section_id', $request->section)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('attendance_date', 'like', $request->year . '-' . $request->month . '%')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('aramiscAttendance_date', 'like', $request->year . '-' . $request->month . '%')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['classes'] = $classes->toArray();
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['days'] = $days;
                 $data['year'] = $year;
                 $data['month'] = $month;
@@ -2724,7 +2724,7 @@ class SmStudentAdmissionController extends Controller
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes','attendances','students', 'days', 'year', 'month', 'current_day',
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes','aramiscAttendances','students', 'days', 'year', 'month', 'current_day',
                 'class_id', 'section_id', 'clas', 'sec'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2741,17 +2741,17 @@ class SmStudentAdmissionController extends Controller
 
             $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             $students = DB::table('sm_students')->where('class_id', $class_id)->where('section_id', $section_id)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('attendance_date', 'like', $year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
-                if ($attendance) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('aramiscAttendance_date', 'like', $year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
+                if ($aramiscAttendance) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
             $pdf = Pdf::loadView(
-                'backEnd.studentInformation.student_attendance_print',
+                'backEnd.studentInformation.student_aramiscAttendance_print',
                 [
-                    'attendances' => $attendances,
+                    'aramiscAttendances' => $aramiscAttendances,
                     'days' => $days,
                     'year' => $year,
                     'month' => $month,
@@ -2761,8 +2761,8 @@ class SmStudentAdmissionController extends Controller
                     'section' => SmSection::find($section_id),
                 ]
             )->setPaper('A4', 'landscape');
-            return $pdf->stream('student_attendance.pdf');
-            //return view('backEnd.studentInformation.student_attendance_print', compact('classes', 'attendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id'));
+            return $pdf->stream('student_aramiscAttendance.pdf');
+            //return view('backEnd.studentInformation.student_aramiscAttendance_print', compact('classes', 'aramiscAttendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();

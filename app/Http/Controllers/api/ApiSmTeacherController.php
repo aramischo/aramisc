@@ -54,11 +54,11 @@ class ApiSmTeacherController extends Controller
     {
         try {
 
-            $uploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))->where('school_id', $school_id)->get();
+            $aramiscUploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))->where('school_id', $school_id)->get();
             $contents = [];
             $type = "as assignment, st study material, sy sullabus, ot others download";
 
-            foreach ($uploadContents as $data) {
+            foreach ($aramiscUploadContents as $data) {
                 $d['id'] = $data->id;
                 $d['title'] = $data->content_title;
 
@@ -91,7 +91,7 @@ class ApiSmTeacherController extends Controller
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['uploadContents'] = $contents;
+                $data['aramiscUploadContents'] = $contents;
                 $data['type'] = $type;
                 return ApiBaseMethod::sendResponse($data, null);
             }
@@ -101,15 +101,15 @@ class ApiSmTeacherController extends Controller
         }
     }
 
-    public function uploadContentList(Request $request)
+    public function aramiscUploadContentList(Request $request)
     {
         try {
 
-            $uploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+            $aramiscUploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                 ->where('school_id', 1)
                 ->get();
             $contents = [];
-            foreach ($uploadContents as $data) {
+            foreach ($aramiscUploadContents as $data) {
                 $d['id'] = $data->id;
                 $d['title'] = $data->content_title;
 
@@ -144,7 +144,7 @@ class ApiSmTeacherController extends Controller
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['uploadContents'] = $contents;
+                $data['aramiscUploadContents'] = $contents;
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
@@ -153,37 +153,37 @@ class ApiSmTeacherController extends Controller
         }
     }
 
-    public function uploadContentListByUser(Request $request, $user_id)
+    public function aramiscUploadContentListByUser(Request $request, $user_id)
     {
         try {
             $user = User::select('full_name', 'role_id', 'id')->find($user_id);
             $contentTypes = SmContentType::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', 1)->get();
 
             if ($user->role_id == 4) {
-                $uploadContents = SmTeacherUploadContent::where(function ($q) use ($user_id) {
+                $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) use ($user_id) {
                     $q->where('created_by', $user_id)->orWhere('available_for_admin', 1);
                 })
                     ->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->where('school_id', 1)
                     ->get();
             } elseif ($user->role_id == 5) {
-                $uploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                $aramiscUploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->where('school_id', 1)
                     ->get();
             } elseif ($user->role_id != 2) {
                 $student = SmStudent::select('class_id', 'section_id')->find($user->id);
-                $uploadContents = SmTeacherUploadContent::where('created_by', $user->id)
+                $aramiscUploadContents = SmTeacherUploadContent::where('created_by', $user->id)
                     ->orwhere('available_for_admin', 1)
                     ->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->where('school_id', 1)
                     ->get();
             }
 
-            $uploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+            $aramiscUploadContents = SmTeacherUploadContent::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                 ->where('school_id', 1)
                 ->get();
             $contents = [];
-            foreach ($uploadContents as $data) {
+            foreach ($aramiscUploadContents as $data) {
                 $d['id'] = $data->id;
                 $d['title'] = $data->content_title;
                 if ($data->content_type == 'as') {
@@ -235,7 +235,7 @@ class ApiSmTeacherController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['contentTypes'] = $contentTypes->toArray();
-                $data['uploadContents'] = $contents;
+                $data['aramiscUploadContents'] = $contents;
                 $data['classes'] = $classes->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
@@ -249,40 +249,40 @@ class ApiSmTeacherController extends Controller
     public function viewContent(Request $request, $id)
     {
 
-        $uploadContent = SmTeacherUploadContent::where('id', $id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+        $aramiscUploadContent = SmTeacherUploadContent::where('id', $id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
             ->where('school_id', 1)
             ->first();
 
-        $d['id'] = $uploadContent->id;
-        $d['title'] = $uploadContent->content_title;
+        $d['id'] = $aramiscUploadContent->id;
+        $d['title'] = $aramiscUploadContent->content_title;
 
-        if ($uploadContent->content_type == 'as') {
+        if ($aramiscUploadContent->content_type == 'as') {
             $d['type'] = 'assignment';
-        } elseif ($uploadContent->content_type == 'st') {
+        } elseif ($aramiscUploadContent->content_type == 'st') {
             $d['type'] = 'syllabus';
         } else {
             $d['type'] = 'Other Download';
         }
 
-        if ($uploadContent->available_for_admin == 1) {
+        if ($aramiscUploadContent->available_for_admin == 1) {
             $d['available_for'] = 'all admins';
         }
-        if ($uploadContent->available_for_all_classes == 1) {
+        if ($aramiscUploadContent->available_for_all_classes == 1) {
             $d['available_for'] = 'all classes student';
         }
-        if ($uploadContent->classes != "" && $uploadContent->sections != "") {
-            $d['available_for'] = 'All Students Of (' . $uploadContent->classes->class_name . '->' . @$uploadContents->sections->section_name . ')';
+        if ($aramiscUploadContent->classes != "" && $aramiscUploadContent->sections != "") {
+            $d['available_for'] = 'All Students Of (' . $aramiscUploadContent->classes->class_name . '->' . @$aramiscUploadContents->sections->section_name . ')';
         }
-        $d['upload_date'] = $uploadContent->upload_date;
-        $d['description'] = $uploadContent->description;
-        $d['upload_file'] = $uploadContent->upload_file;
-        $d['created_by'] = $uploadContent->users->full_name;
-        $d['source_url'] = $uploadContent->source_url;
+        $d['upload_date'] = $aramiscUploadContent->upload_date;
+        $d['description'] = $aramiscUploadContent->description;
+        $d['upload_file'] = $aramiscUploadContent->upload_file;
+        $d['created_by'] = $aramiscUploadContent->users->full_name;
+        $d['source_url'] = $aramiscUploadContent->source_url;
         $content = $d;
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
 
-            $data['uploadContent'] = $content;
+            $data['aramiscUploadContent'] = $content;
 
             return ApiBaseMethod::sendResponse($data, 'Content uploaded successfully.');
         }

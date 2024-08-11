@@ -65,7 +65,7 @@ class ApiSmExamController extends Controller
             return ApiBaseMethod::sendResponse($exam_List, null);
         }
     }
-    public function examScheduleApi(Request $request, $user_id, $exam_id, $record_id)
+    public function aramiscExamScheduleApi(Request $request, $user_id, $exam_id, $record_id)
     {
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -93,7 +93,7 @@ class ApiSmExamController extends Controller
             return ApiBaseMethod::sendResponse($exam_schedule, null);
         }
     }
-    public function saas_examScheduleApi(Request $request, $school_id, $user_id, $exam_id, $record_id)
+    public function saas_aramiscExamScheduleApi(Request $request, $school_id, $user_id, $exam_id, $record_id)
     {
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -461,7 +461,7 @@ class ApiSmExamController extends Controller
             $to_date = '';
         }
     }
-    public function examResultApi(Request $request, $user_id, $exam_id, $record_id)
+    public function aramiscExamResultApi(Request $request, $user_id, $exam_id, $record_id)
     {
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -518,7 +518,7 @@ class ApiSmExamController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_examResultApi(Request $request, $school_id, $user_id, $exam_id, $record_id)
+    public function saas_aramiscExamResultApi(Request $request, $school_id, $user_id, $exam_id, $record_id)
     {
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
@@ -573,7 +573,7 @@ class ApiSmExamController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function studentOnlineExamApi(Request $request, $user_id, $record_id)
+    public function aramiscStudentOnlineExamApi(Request $request, $user_id, $record_id)
     {
 
         try {
@@ -642,7 +642,7 @@ class ApiSmExamController extends Controller
         }
     }
 
-    public function saas_studentOnlineExamApi(Request $request, $school_id, $user_id, $record_id)
+    public function saas_aramiscStudentOnlineExamApi(Request $request, $school_id, $user_id, $record_id)
     {
            
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -710,7 +710,7 @@ class ApiSmExamController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function chooseExamApi(Request $request, $user_id, $record_id)
+    public function aramiscChooseExamApi(Request $request, $user_id, $record_id)
     {
         if (ApiBaseMethod::checkUrl($request->fullUrl())) { 
             $record = StudentRecord::where('id', $record_id)->first(['id','class_id','section_id','school_id']);
@@ -724,7 +724,7 @@ class ApiSmExamController extends Controller
             return ApiBaseMethod::sendResponse($student_exams, null);
         }
     }
-    public function saas_chooseExamApi(Request $request, $school_id, $user_id, $record_id)
+    public function saas_aramiscChooseExamApi(Request $request, $school_id, $user_id, $record_id)
     {
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $student_id = SmStudent::where('user_id', $user_id)->value('id');

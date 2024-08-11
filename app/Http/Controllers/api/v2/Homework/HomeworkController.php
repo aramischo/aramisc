@@ -17,15 +17,15 @@ class HomeworkController extends Controller
         }])->select('created_at', 'submission_date', 'evaluation_date', 'active_status', 'marks', 'subject_id');      
         $all_homeworks->where('school_id', app('school')->id)->orderby('id','DESC')->where('academic_id', getAcademicId());
         if (teacherAccess()) {
-            $homeworkLists = $all_homeworks->where('created_by', auth()->user()->id)->get();
+            $aramiscHomeworkLists = $all_homeworks->where('created_by', auth()->user()->id)->get();
         } else {
-            $homeworkLists = $all_homeworks->get();
+            $aramiscHomeworkLists = $all_homeworks->get();
         }     
  
 
         $response = [
             'success' => true,
-            'data'    => $homeworkLists
+            'data'    => $aramiscHomeworkLists
         ];
         return response()->json($response, 200);
     }
@@ -34,7 +34,7 @@ class HomeworkController extends Controller
     public function studentHomework($record_id)
     {
         $record = StudentRecord::findOrFail($record_id);
-        $homeworkLists = SmHomework::with(['subjects' => function($q){
+        $aramiscHomeworkLists = SmHomework::with(['subjects' => function($q){
                                 $q->select('id', 'subject_name');
                             }])->select('created_at', 'submission_date', 'evaluation_date', 'active_status', 'marks', 'subject_id')
                             ->where('school_id', auth()->user()->school_id)
@@ -55,7 +55,7 @@ class HomeworkController extends Controller
 
         $response = [
             'success' => true,
-            'data'    => $homeworkLists
+            'data'    => $aramiscHomeworkLists
         ];
         return response()->json($response, 200);
     }
@@ -64,7 +64,7 @@ class HomeworkController extends Controller
     {
         $record = StudentRecord::findOrFail($record_id);
         
-        $homeworkLists = SmHomework::with(['subjects' => function($q){
+        $aramiscHomeworkLists = SmHomework::with(['subjects' => function($q){
             $q->select('id', 'subject_name');
         }])->select('created_at', 'submission_date', 'evaluation_date', 'active_status', 'marks', 'subject_id')
         ->where('school_id', auth()->user()->school_id)
@@ -85,7 +85,7 @@ class HomeworkController extends Controller
 
         $response = [
             'success' => true,
-            'data'    => $homeworkLists
+            'data'    => $aramiscHomeworkLists
         ];
         return response()->json($response, 200);
     }

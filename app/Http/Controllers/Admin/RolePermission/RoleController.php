@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class RoleController extends Controller
 {
@@ -25,7 +25,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         try {
-            $roles = InfixRole::where('active_status', '=', 1)
+            $roles = AramiscRole::where('active_status', '=', 1)
             ->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })
@@ -91,8 +91,8 @@ class RoleController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $role = InfixRole::find($id);
-            $roles = InfixRole::where('active_status', '=', 1)
+            $role = AramiscRole::find($id);
+            $roles = AramiscRole::where('active_status', '=', 1)
             ->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })
@@ -130,7 +130,7 @@ class RoleController extends Controller
                 ->withInput();
         }
         try {
-            $role = InfixRole::find($request->id);
+            $role = AramiscRole::find($request->id);
             $role->name = $request->name;
             $result = $role->save();
 
@@ -163,7 +163,7 @@ class RoleController extends Controller
             $tables = tableList::getTableList($id,$request->id);
 
             try {
-                $delete_query = InfixRole::destroy($request->id);
+                $delete_query = AramiscRole::destroy($request->id);
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                     if ($delete_query) {
                         return ApiBaseMethod::sendResponse(null, 'Role has been deleted successfully');
@@ -198,7 +198,7 @@ class RoleController extends Controller
 
 
 
-        // $role = InfixRole::destroy($request->id);
+        // $role = AramiscRole::destroy($request->id);
 
         // if (ApiBaseMethod::checkUrl($request->fullUrl())) {
         //     if ($role) {
@@ -218,7 +218,7 @@ class RoleController extends Controller
     public function modulePermission()
     {
         try {
-            $roles = InfixRole::where('active_status', '=', 1)
+            $roles = AramiscRole::where('active_status', '=', 1)
             ->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })
@@ -238,7 +238,7 @@ class RoleController extends Controller
     public function assignModulePermission($id)
     {
         try {
-            $role = InfixRole::find($id);
+            $role = AramiscRole::find($id);
             if ($id == 2) {
                 $modules = SmModulePermission::where('dashboard_id', 2)->where('id', '!=', 22)->where('school_id',Auth::user()->school_id)->get();
             } elseif ($id == 3) {

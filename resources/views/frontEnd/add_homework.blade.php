@@ -111,7 +111,7 @@
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <button class="dropdown-item" type="button">view</button>
                                         <button class="dropdown-item" type="button">edit</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#addHomework">Evaluate</button>
+                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#aramiscAddHomework">Evaluate</button>
                                         <button class="dropdown-item" type="button">delete</button>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
 </section>
 
 <!-- Start Modal Area -->
-<div class="modal fade student-details" id="addHomework">
+<div class="modal fade student-details" id="aramiscAddHomework">
     <div class="modal-dialog large-modal modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

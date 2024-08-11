@@ -329,7 +329,7 @@ class FeesController extends Controller
                 $invoiceSettings = new FmFeesInvoiceSettings();
                 $invoiceSettings->invoice_positions = '[{"id":"prefix","text":"prefix"},{"id":"admission_no","text":"Admission No"},{"id":"class","text":"Class"},{"id":"section","text":"Section"}]';
                 $invoiceSettings->uniq_id_start = "0011";
-                $invoiceSettings->prefix = 'infixEdu';
+                $invoiceSettings->prefix = 'aramisc';
                 $invoiceSettings->class_limit = 3;
                 $invoiceSettings->section_limit = 1;
                 $invoiceSettings->admission_limit = 3;
@@ -913,7 +913,7 @@ class FeesController extends Controller
 
     }
 
-    public function feesPaymentStore(Request $request)
+    public function aramiscFeesPaymentStore(Request $request)
     {
         if ($request->total_paid_amount == null) {
             Toastr::warning('Paid Amount Can Not Be Blank', 'Failed');
@@ -1091,13 +1091,13 @@ class FeesController extends Controller
     {
         $classes = SmClass::get();
 
-        $feesPayments = FmFeesTransaction::with('feeStudentInfo', 'transcationDetails', 'transcationDetails.transcationFeesType')
+        $aramiscFeesPayments = FmFeesTransaction::with('feeStudentInfo', 'transcationDetails', 'transcationDetails.transcationFeesType')
             ->where('paid_status', 'pending')
             ->whereIn('payment_method', ['Bank', 'Cheque'])
             ->where('school_id', auth()->user()->school_id)
             ->where('academic_id', getAcademicId())
             ->get();
-        return view('fees::bankPayment', compact('classes', 'feesPayments'));
+        return view('fees::bankPayment', compact('classes', 'aramiscFeesPayments'));
     }
 
     public function searchBankPayment(BankFeesPayment $request)
@@ -1126,7 +1126,7 @@ class FeesController extends Controller
                 ->pluck('student_id')
                 ->unique();
 
-            $feesPayments = FmFeesTransaction::when($request->approve_status, function ($query) use ($request) {
+            $aramiscFeesPayments = FmFeesTransaction::when($request->approve_status, function ($query) use ($request) {
                 $query->where('paid_status', $request->approve_status);
             })
                 ->when($request->class, function ($query) use ($request) {
@@ -1149,7 +1149,7 @@ class FeesController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->get();
 
-            return view('fees::bankPayment', compact('classes', 'feesPayments', 'class_id', 'section_id', 'class'));
+            return view('fees::bankPayment', compact('classes', 'aramiscFeesPayments', 'class_id', 'section_id', 'class'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();

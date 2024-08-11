@@ -13,12 +13,12 @@ class CreateStudentAttendanceBulksTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_attendance_bulks', function (Blueprint $table) {
+        Schema::create('student_aramiscAttendance_bulks', function (Blueprint $table) {
             $table->id();
-            $table->string('attendance_date')->nullable();
+            $table->string('aramiscAttendance_date')->nullable();
             // $table->string('in_time')->nullable();
             // $table->string('out_time')->nullable();
-            $table->string('attendance_type')->nullable();
+            $table->string('aramiscAttendance_type')->nullable();
             $table->string('note')->nullable();
             $table->integer('student_id')->nullable();
             $table->integer('student_record_id')->nullable();
@@ -36,6 +36,6 @@ class CreateStudentAttendanceBulksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_attendance_bulks');
+        Schema::dropIfExists('student_aramiscAttendance_bulks');
     }
 }

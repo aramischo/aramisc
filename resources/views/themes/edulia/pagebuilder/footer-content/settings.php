@@ -17,7 +17,7 @@ return [
         [
             'id'            => 'footer-right-content-text',
             'type'          => 'editor',
-            'value'         => "Make school tasks easy! With InfixEDU's School Management Software, teachers can quickly handle attendance and grades. It helps teachers do their jobs better so they can focus on helping students succeed.",
+            'value'         => "Make school tasks easy! With aramisc's School Management Software, teachers can quickly handle aramiscAttendance and grades. It helps teachers do their jobs better so they can focus on helping students succeed.",
             'class'         => '',
             'label_title'   => __('edulia.footer_content'),
             'placeholder'   => __('edulia.enter_text'),

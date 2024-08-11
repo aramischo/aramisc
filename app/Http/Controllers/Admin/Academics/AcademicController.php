@@ -26,7 +26,7 @@ class AcademicController extends Controller
         // // User::checkAuth();
     }
 
-    public function classRoutine()
+    public function aramiscClassRoutine()
     {
         try {
             $classes = SmClass::get();
@@ -36,7 +36,7 @@ class AcademicController extends Controller
             return redirect()->back();
         }
     }
-    public function classRoutineCreate()
+    public function aramiscClassRoutineCreate()
     {
         try {
             $classes = SmClass::get();
@@ -48,7 +48,7 @@ class AcademicController extends Controller
     }
 
 
-    public function assignRoutineSearch(Request $request)
+    public function aramiscAssignRoutineSearch(Request $request)
     {
         $request->validate([
             'class' => 'required',
@@ -74,7 +74,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function assignRoutineStore(Request $request)
+    public function aramiscAssignRoutineStore(Request $request)
     {
         try {
             $class_routine = SmClassRoutine::where('class_id', $request->class_id)
@@ -128,7 +128,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function classRoutineReportSearch(Request $request)
+    public function aramiscClassRoutineReportSearch(Request $request)
     {
         $request->validate([
             'class' => 'required',
@@ -148,7 +148,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function classReport(Request $request)
+    public function aramiscClassReport(Request $request)
     {
         try {
 
@@ -164,7 +164,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function classReportSearch(Request $request)
+    public function aramiscClassReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [

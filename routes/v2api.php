@@ -8,7 +8,7 @@ Route::controller(AuthenticationController::class)->group(function () {
     Route::any('login', 'login');
     Route::get('user-demo-login/{role_id}', 'DemoUser');
     Route::post('forget-password', 'emailVerify');
-    Route::get('student-profile-details/{id}', 'studentProfile');
+    Route::get('student-profile-details/{id}', 'aramiscStudentProfile');
     Route::get('general-settings', 'generalSettings');
 });
 

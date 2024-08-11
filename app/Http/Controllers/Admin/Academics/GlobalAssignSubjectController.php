@@ -117,7 +117,7 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function assignSubjectAjax(Request $request)
+    public function aramiscAssignSubjectAjax(Request $request)
     {
         try {
             $subjects = SmSubject::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
@@ -128,7 +128,7 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function assignSubjectStore(Request $request)
+    public function aramiscAssignSubjectStore(Request $request)
     {
         try {
             if(empty($request->all())) {
@@ -240,7 +240,7 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function assignSubjectFind(Request $request)
+    public function aramiscAssignSubjectFind(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -281,7 +281,8 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function loadAssignedSubject(Request $request){
+    public function 
+	aramiscLoadAssignedSubject(Request $request){
         
         $assignedClass = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($request->assignedClass);
         if($assignedClass){

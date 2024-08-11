@@ -61,8 +61,8 @@
                 @endif
             @endif
 
-            @if (moduleStatusCheck('InfixBiometrics') == true && auth()->user()->role_id == 1)
-                @include('infixbiometrics::menu.InfixBiometrics')
+            @if (moduleStatusCheck('AramiscBiometrics') == true && auth()->user()->role_id == 1)
+                @include('aramiscbiometrics::menu.AramiscBiometrics')
             @endif
 
             {{-- Parent Registration Menu --}}
@@ -207,28 +207,28 @@
                                         <a href="{{ route('student.delete-student-record') }}"> @lang('student.delete_student_record')</a>
                                     </li>
                                 @endif
-                                @if (userPermission('student_attendance') && menuStatus(68))
+                                @if (userPermission('student_aramiscAttendance') && menuStatus(68))
                                     <li data-position="{{ menuPosition(68) }}">
-                                        <a href="{{ route('student_attendance') }}">
-                                            @lang('student.student_attendance')</a>
+                                        <a href="{{ route('student_aramiscAttendance') }}">
+                                            @lang('student.student_aramiscAttendance')</a>
                                     </li>
                                 @endif
-                                @if (userPermission('student_attendance_report') && menuStatus(70))
+                                @if (userPermission('student_aramiscAttendance_report') && menuStatus(70))
                                     <li data-position="{{ menuPosition(70) }}">
-                                        <a href="{{ route('student_attendance_report') }}">
-                                            @lang('student.student_attendance_report')</a>
+                                        <a href="{{ route('student_aramiscAttendance_report') }}">
+                                            @lang('student.student_aramiscAttendance_report')</a>
                                     </li>
                                 @endif
-                                @if (userPermission('subject-wise-attendance') && menuStatus(533))
+                                @if (userPermission('subject-wise-aramiscAttendance') && menuStatus(533))
                                     <li data-position="{{ menuPosition(533) }}">
-                                        <a href="{{ route('subject-wise-attendance') }}">
-                                            @lang('student.subject_wise_attendance') </a>
+                                        <a href="{{ route('subject-wise-aramiscAttendance') }}">
+                                            @lang('student.subject_wise_aramiscAttendance') </a>
                                     </li>
                                 @endif
                                 @if (userPermission(535) && menuStatus(535))
                                     <li data-position="{{ menuPosition(535) }}">
-                                        <a href="{{ url('subject-attendance-average-report') }}">
-                                            @lang('student.subject_attendance_report')</a>
+                                        <a href="{{ url('subject-aramiscAttendance-average-report') }}">
+                                            @lang('student.subject_aramiscAttendance_report')</a>
                                     </li>
                                 @endif
                                 @if (userPermission(76) && menuStatus(76))
@@ -410,7 +410,7 @@
                                     @if (moduleStatusCheck('University'))
                                         @if (userPermission(246) && menuStatus(246))
                                             <li data-position="{{ menuPosition(246) }}">
-                                                <a href="{{ route('university.academics.classRoutine') }}">
+                                                <a href="{{ route('university.academics.aramiscClassRoutine') }}">
                                                     @lang('academics.class_routine')</a>
                                             </li>
                                         @endif
@@ -560,7 +560,7 @@
                                     </a>
                                     <ul class="list-unstyled" id="subMenuFeesCollection">
 
-                                        @if (!moduleStatusCheck('University') && directFees() == false)
+                                        @if (!moduleStatusCheck('University') && aramiscDirectFees() == false)
                                             @if (userPermission(123) && menuStatus(123))
                                                 <li data-position="{{ menuPosition(123) }}">
                                                     <a href="{{ route('fees_group') }}"> @lang('fees.fees_group')</a>
@@ -596,7 +596,7 @@
                                                     @lang('fees.search_fees_payment')</a>
                                             </li>
                                         @endif
-                                        @if (userPermission(116) && menuStatus(116) && !directFees())
+                                        @if (userPermission(116) && menuStatus(116) && !aramiscDirectFees())
                                             <li data-position="{{ menuPosition(116) }}">
                                                 <a href="{{ route('search_fees_due') }}">
                                                     @lang('fees.search_fees_due')</a>
@@ -606,7 +606,7 @@
                                             <a href="{{ route('bank-payment-slip') }}"> @lang('fees.bank_payment')</a>
                                         </li>
 
-                                        @if (!moduleStatusCheck('University') && directFees() == false)
+                                        @if (!moduleStatusCheck('University') && aramiscDirectFees() == false)
                                             @if (userPermission(136) && menuStatus(136))
                                                 <li data-position="{{ menuPosition(136) }}">
                                                     <a href="{{ route('fees_forward') }}"> @lang('fees.fees_forward')</a>
@@ -790,13 +790,13 @@
                                 @endif
                                 @if (userPermission(165) && menuStatus(162))
                                     <li data-position="{{ menuPosition(165) }}">
-                                        <a href="{{ route('staff_attendance') }}"> @lang('hr.staff_attendance')</a>
+                                        <a href="{{ route('staff_aramiscAttendance') }}"> @lang('hr.staff_aramiscAttendance')</a>
                                     </li>
                                 @endif
                                 @if (userPermission(169) && menuStatus(169))
                                     <li data-position="{{ menuPosition(169) }}">
-                                        <a href="{{ route('staff_attendance_report') }}">
-                                            @lang('hr.staff_attendance_report')</a>
+                                        <a href="{{ route('staff_aramiscAttendance_report') }}">
+                                            @lang('hr.staff_aramiscAttendance_report')</a>
                                     </li>
                                 @endif
                                 @if (userPermission(170) && menuStatus(170))
@@ -951,7 +951,7 @@
                                 @endif
                                 @if (userPermission(221) && menuStatus(221))
                                     <li data-position="{{ menuPosition(221) }}">
-                                        <a href="{{ route('exam_attendance') }}"> @lang('exam.exam_attendance')</a>
+                                        <a href="{{ route('exam_aramiscAttendance') }}"> @lang('exam.exam_aramiscAttendance')</a>
                                     </li>
                                 @endif
                                 @if (userPermission(222) && menuStatus(222))

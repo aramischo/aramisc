@@ -20,7 +20,7 @@ class StaffAttendanceBulk implements ToModel, WithStartRow, WithHeadingRow
             "attendence_date" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['attendence_date'])->format('Y-m-d'),
             "in_time" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['in_time'])->format('h:i A'),
             "out_time" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['out_time'])->format('h:i A'),
-            "attendance_type" => $row['attendance_type'],
+            "aramiscAttendance_type" => $row['aramiscAttendance_type'],
             "notes" => $row['notes'],
             "staff_id" => $row['staff_no'],
             "school_id" => Auth::user()->school_id,

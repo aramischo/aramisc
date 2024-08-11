@@ -13,7 +13,7 @@ class CreateSmExamAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sm_exam_attendances', function (Blueprint $table) {
+        Schema::create('sm_exam_aramiscAttendances', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('active_status')->default(1);
             $table->timestamps();
@@ -52,6 +52,6 @@ class CreateSmExamAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sm_exam_attendances');
+        Schema::dropIfExists('sm_exam_aramiscAttendances');
     }
 }

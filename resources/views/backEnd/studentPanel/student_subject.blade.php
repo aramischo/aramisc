@@ -59,24 +59,24 @@
                                         }
                                     @endphp
                                     <tbody>
-                                        @foreach($subjects as $assignSubject)
+                                        @foreach($subjects as $aramiscAssignSubject)
                                             <tr>
-                                                <td>{{@$assignSubject->subject!=""?@$assignSubject->subject->subject_name:""}} - ( {{@$assignSubject->subject->subject_code}} )</td>
+                                                <td>{{@$aramiscAssignSubject->subject!=""?@$aramiscAssignSubject->subject->subject_name:""}} - ( {{@$aramiscAssignSubject->subject->subject_code}} )</td>
                                                 @if(moduleStatusCheck('University'))
-                                                    <td>{{$assignSubject->semesterLabel->name}}</td>
-                                                    <td>{{@$assignSubject->subject->number_of_hours}}</td>
-                                                    <td>{{@$assignSubject->feesMaster->amount}}</td>
-                                                    <td>{{@$assignSubject->subject->pass_mark}}%</td>
+                                                    <td>{{$aramiscAssignSubject->semesterLabel->name}}</td>
+                                                    <td>{{@$aramiscAssignSubject->subject->number_of_hours}}</td>
+                                                    <td>{{@$aramiscAssignSubject->feesMaster->amount}}</td>
+                                                    <td>{{@$aramiscAssignSubject->subject->pass_mark}}%</td>
                                                 @endif
-                                                <td>{{@$assignSubject->teacher!=""?@$assignSubject->teacher->full_name:""}}</td>
+                                                <td>{{@$aramiscAssignSubject->teacher!=""?@$aramiscAssignSubject->teacher->full_name:""}}</td>
                                                 @if(moduleStatusCheck('University'))
                                                     <td>
-                                                        {{@$assignSubject->subject->subject_type}}
+                                                        {{@$aramiscAssignSubject->subject->subject_type}}
                                                     </td> 
                                                 @else
                                                     <td>
-                                                        @if(!empty(@$assignSubject->subject))
-                                                            {{@$assignSubject->subject->subject_type == "T"? 'Theory': 'Practical'}}
+                                                        @if(!empty(@$aramiscAssignSubject->subject))
+                                                            {{@$aramiscAssignSubject->subject->subject_type == "T"? 'Theory': 'Practical'}}
                                                         @endif
                                                     </td>
                                                 @endif

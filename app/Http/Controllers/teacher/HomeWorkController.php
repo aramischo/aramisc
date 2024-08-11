@@ -21,7 +21,7 @@ class HomeWorkController extends Controller
         // User::checkAuth();
     }
 
-    public function addHomework(Request $request)
+    public function aramiscAddHomework(Request $request)
     {
         $input = $request->all();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -79,7 +79,7 @@ class HomeWorkController extends Controller
             return redirect()->back();
         }
     }
-    public function homeworkList(Request $request, $id)
+    public function aramiscHomeworkList(Request $request, $id)
     {
         try {
             $teacher = SmStaff::where('user_id', '=', $id)->first();

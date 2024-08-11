@@ -22,9 +22,9 @@ class SmExamAttendancesTableSeeder extends Seeder
     public function run($school_id, $academic_id)
     {     
         $smExamTypes = SmExam::where('school_id', $school_id)->where('academic_id', $academic_id)->get();
-        $assignSubjects = SmAssignSubject::where('school_id', $school_id)->where('academic_id', $academic_id)->get();
+        $aramiscAssignSubjects = SmAssignSubject::where('school_id', $school_id)->where('academic_id', $academic_id)->get();
         foreach ($smExamTypes as $exam) {
-            foreach ($assignSubjects as $subject) {
+            foreach ($aramiscAssignSubjects as $subject) {
                 $studentRecord = StudentRecord::where('school_id', $school_id)->where('academic_id', $academic_id)->where('class_id', $subject->class_id)->where('section_id', $subject->section_id)->get();
                 $store = new SmExamAttendance();
                 $store->exam_id = $exam->id;
@@ -35,17 +35,17 @@ class SmExamAttendancesTableSeeder extends Seeder
                 $store->created_at = date('Y-m-d h:i:s');
                 $store->save();
                 foreach ($studentRecord as $record) {
-                    $exam_attendance_child = new SmExamAttendanceChild();
-                    $exam_attendance_child->exam_attendance_id = $store->id;
-                    $exam_attendance_child->student_id = $record->student_id;
-                    $exam_attendance_child->student_record_id = $record->id;
-                    $exam_attendance_child->class_id = $record->class_id;
-                    $exam_attendance_child->section_id = $record->section_id;
-                    $exam_attendance_child->attendance_type = 'P';
-                    $exam_attendance_child->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
-                    $exam_attendance_child->school_id = $school_id;
-                    $exam_attendance_child->academic_id = $academic_id;
-                    $exam_attendance_child->save();
+                    $exam_aramiscAttendance_child = new SmExamAttendanceChild();
+                    $exam_aramiscAttendance_child->exam_aramiscAttendance_id = $store->id;
+                    $exam_aramiscAttendance_child->student_id = $record->student_id;
+                    $exam_aramiscAttendance_child->student_record_id = $record->id;
+                    $exam_aramiscAttendance_child->class_id = $record->class_id;
+                    $exam_aramiscAttendance_child->section_id = $record->section_id;
+                    $exam_aramiscAttendance_child->aramiscAttendance_type = 'P';
+                    $exam_aramiscAttendance_child->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
+                    $exam_aramiscAttendance_child->school_id = $school_id;
+                    $exam_aramiscAttendance_child->academic_id = $academic_id;
+                    $exam_aramiscAttendance_child->save();
                 }
             }
 

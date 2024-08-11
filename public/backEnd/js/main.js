@@ -324,7 +324,7 @@
   //   });
   // }
 
-  //attendance
+  //aramiscAttendance
 
     // for MENU notification
     $(document).ready(function () {
@@ -1700,13 +1700,13 @@
       });
     }*/
 
-    if (current == url + "/" + "exam-attendance-create") {
+    if (current == url + "/" + "exam-aramiscAttendance-create") {
       $("#subMenuExam").addClass("show");
       $("#subMenuExam")
         .closest(".sidebar_menu")
         .siblings(".dropdown-toggle")
         .addClass("active");
-      $("#sidebar a[href='" + url + "/" + "exam-attendance']").addClass(
+      $("#sidebar a[href='" + url + "/" + "exam-aramiscAttendance']").addClass(
         "active"
       );
     }

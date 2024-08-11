@@ -28,13 +28,13 @@ use App\Models\SmCalendarSetting;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Modules\Lesson\Entities\LessonPlanner;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class SmAcademicCalendarController extends Controller
 {
     public function academicCalendarView(){
         $data['settings'] = SmCalendarSetting::get();
-        $data['roles'] = InfixRole::where(function ($q) {
+        $data['roles'] = AramiscRole::where(function ($q) {
             $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
         })
         ->whereNotIn('id', [1])
@@ -391,20 +391,20 @@ class SmAcademicCalendarController extends Controller
             ];
         }
 
-        foreach($examRounines as $examRoutine) {
+        foreach($examRounines as $aramiscExamRoutine) {
             $eventData [] = [
-                'title' => __('exam.exam_schedule').'- '.@$examRoutine->examType->title ?? '',
-                'class' => $examRoutine->class->class_name ?? '',
-                'section' => $examRoutine->section->section_name ?? '',
-                'subject' => $examRoutine->subject->subject_name ?? '',
-                'exam_term' => $examRoutine->examType->title ?? '',
-                'start_time' => Carbon::parse($examRoutine->start_time)->format('g:i A'),
-                'end_time' => Carbon::parse($examRoutine->end_time)->format('g:i A'),
-                'teacher' => $examRoutine->teacher->full_name ?? '',
-                'room' => $examRoutine->classRoom->room_no ?? '',
-                'start' => Carbon::parse($examRoutine->date)->format('Y-m-d'),
-                'end' => Carbon::parse($examRoutine->date)->format('Y-m-d'),
-                'endDate' => Carbon::parse($examRoutine->date)->format('Y-m-d'),
+                'title' => __('exam.exam_schedule').'- '.@$aramiscExamRoutine->examType->title ?? '',
+                'class' => $aramiscExamRoutine->class->class_name ?? '',
+                'section' => $aramiscExamRoutine->section->section_name ?? '',
+                'subject' => $aramiscExamRoutine->subject->subject_name ?? '',
+                'exam_term' => $aramiscExamRoutine->examType->title ?? '',
+                'start_time' => Carbon::parse($aramiscExamRoutine->start_time)->format('g:i A'),
+                'end_time' => Carbon::parse($aramiscExamRoutine->end_time)->format('g:i A'),
+                'teacher' => $aramiscExamRoutine->teacher->full_name ?? '',
+                'room' => $aramiscExamRoutine->classRoom->room_no ?? '',
+                'start' => Carbon::parse($aramiscExamRoutine->date)->format('Y-m-d'),
+                'end' => Carbon::parse($aramiscExamRoutine->date)->format('Y-m-d'),
+                'endDate' => Carbon::parse($aramiscExamRoutine->date)->format('Y-m-d'),
                 'textColor' => $examSettings->font_color,
                 'color' => $examSettings->bg_color,
                 'type' => 'exam',

@@ -154,7 +154,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 no-gutters input-right-icon mb-15 term_exam">
-                                            <h4>@lang('exam.attendance')</h4>
+                                            <h4>@lang('exam.aramiscAttendance')</h4>
                                         </div>
                                         <div class="col-lg-12 mb-15 term_exam">
                                             <div class="primary_input ">

@@ -282,7 +282,7 @@ return [
 
 "exam_terms" => "Termes de l'examen",
 
-"attendance" => "Participation",
+"aramiscAttendance" => "Participation",
 
 "date_&_day" => "Date et jour",
 

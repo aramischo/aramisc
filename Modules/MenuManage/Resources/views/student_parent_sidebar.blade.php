@@ -130,20 +130,20 @@
         @if(!$student_parent_module->admin_section || isMenuAllowToShow($student_parent_module->admin_section))
          
            @if($check_sidebar !='')
-           @if(in_array($student_parent_module->infix_module_id,$permission_ids))
+           @if(in_array($student_parent_module->aramisc_module_id,$permission_ids))
                  <?php 
                     $subModule=Modules\MenuManage\Entities\SidebarNew::studentMenu($student_parent_module->module_id);
                   ?>
                      
                 <div class="single_role_blocks" data-id="menu_org{{ $student_parent_module->module_id }}">
-                     <div class="single_permission" id="{{$student_parent_module->infix_module_id}}">
+                     <div class="single_permission" id="{{$student_parent_module->aramisc_module_id}}">
                         <div class="permission_header d-flex align-items-center justify-content-between">
                            <div>
-                              <input type="checkbox" name="module_id[]" value="{{$student_parent_module->infix_module_id}}" 
-                              id="Main_Module_{{$key}}" class="common-radio permission-checkAll main_module_id_{{$student_parent_module->infix_module_id}}" {{ $check_sidebar !='' ? (in_array($student_parent_module->infix_module_id,$already_assigned)? 'checked':''):'checked'}}
+                              <input type="checkbox" name="module_id[]" value="{{$student_parent_module->aramisc_module_id}}"
+                              id="Main_Module_{{$key}}" class="common-radio permission-checkAll main_module_id_{{$student_parent_module->aramisc_module_id}}" {{ $check_sidebar !='' ? (in_array($student_parent_module->aramisc_module_id,$already_assigned)? 'checked':''):'checked'}}
                            
                               >
-                              <input type="hidden" value="{{$student_parent_module->infix_module_id}}" name="all_modules_id[]">
+                              <input type="hidden" value="{{$student_parent_module->aramisc_module_id}}" name="all_modules_id[]">
                               <label for="Main_Module_{{$key}}">{{__('menumanage::menuManage.'.$student_parent_module->name)}}</label>
                            </div>
                            @if(count($subModule)>0)
@@ -157,12 +157,12 @@
                                  @foreach($subModule as $key=>$row2)
                                  <li>
                                     <div class="submodule"> 
-                                      <input type="hidden" value="{{$row2->infix_module_id}}" name="all_modules_id[]">
-                                       <input id="Sub_Module_{{$row2->infix_module_id}}" name="module_id[]" value="{{$row2->infix_module_id}}" 
-                                       class="infix_csk common-radio  module_id_{{$student_parent_module->infix_module_id}} module_link"  type="checkbox" 
-                                       {{ $check_sidebar !='' ?(in_array($row2->infix_module_id,$already_assigned)? 'checked':''): 'checked'}}
+                                      <input type="hidden" value="{{$row2->aramisc_module_id}}" name="all_modules_id[]">
+                                       <input id="Sub_Module_{{$row2->aramisc_module_id}}" name="module_id[]" value="{{$row2->aramisc_module_id}}"
+                                       class="aramisc_csk common-radio  module_id_{{$student_parent_module->aramisc_module_id}} module_link"  type="checkbox"
+                                       {{ $check_sidebar !='' ?(in_array($row2->aramisc_module_id,$already_assigned)? 'checked':''): 'checked'}}
                                        >
-                                       <label for="Sub_Module_{{$row2->infix_module_id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>
+                                       <label for="Sub_Module_{{$row2->aramisc_module_id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>
                                        <br>
                                     </div>
                                  </li>
@@ -203,7 +203,7 @@
                                     <div class="submodule"> 
                                       <input type="hidden" value="{{$row2->id}}" name="all_modules_id[]">
                                        <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}" 
-                                       class="infix_csk common-radio  module_id_{{$student_parent_module->id}} module_link"  type="checkbox" 
+                                       class="aramisc_csk common-radio  module_id_{{$student_parent_module->id}} module_link"  type="checkbox"
                                        {{ $check_sidebar !='' ?(in_array($row2->id,$already_assigned)? 'checked':''): 'checked'}}
                                        >
                                        <label for="Sub_Module_{{$row2->id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>
@@ -253,7 +253,7 @@
                                     <div class="submodule"> 
                                       <input type="hidden" value="{{$row2->id}}" name="all_modules_id[]">
                                        <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}" 
-                                       class="infix_csk common-radio  module_id_{{$student_parent_module->id}} module_link"  type="checkbox" 
+                                       class="aramisc_csk common-radio  module_id_{{$student_parent_module->id}} module_link"  type="checkbox"
                                        {{ $check_sidebar !='' ?(in_array($row2->id,$already_assigned)? 'checked':''): 'checked'}}
                                        >
                                        <label for="Sub_Module_{{$row2->id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>

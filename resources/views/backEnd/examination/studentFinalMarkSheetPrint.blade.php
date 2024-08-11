@@ -450,10 +450,10 @@
                                         <img  src="{{asset('/')}}{{generalSetting()->logo }}" alt="{{generalSetting()->school_name}}">
                                     </div>
                                     <div class="company_info">
-                                        <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Infix School Management ERP'}} </h3>
-                                        <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Infix School Address'}}</h5>
+                                        <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
+                                        <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Aramisc School Address'}}</h5>
                                         <h5>
-                                            @lang('common.email'): {{isset(generalSetting()->email)?generalSetting()->email:'admin@infixedu.com'}} 
+                                            @lang('common.email'): {{isset(generalSetting()->email)?generalSetting()->email:'admin@aramisc.com'}}
                                             @lang('common.phone'): {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}
                                         </h5>
                                     </div>
@@ -503,7 +503,7 @@
                                                       <span>@lang('common.academic_year')</span>
                                                       <span>:</span>
                                                   </span>
-                                                  {{ @$studentDetails->academic->year }}
+                                                  {{ @$aramiscStudentDetails->academic->year }}
                                               </p>
                                           </td>
                                           <td>
@@ -512,7 +512,7 @@
                                                       <span>@lang('common.class')</span>
                                                       <span>:</span>
                                                   </span>
-                                                  {{@$studentDetails->class->class_name}}
+                                                  {{@$aramiscStudentDetails->class->class_name}}
                                               </p>
                                           </td>
                                      </tr>
@@ -524,7 +524,7 @@
                                                       <span>@lang('student.roll_no')</span>
                                                       <span>:</span>
                                                   </span>
-                                                  {{$studentDetails->roll_no}}
+                                                  {{$aramiscStudentDetails->roll_no}}
                                               </p>
                                               
                                           </td>
@@ -534,14 +534,14 @@
                                                       <span>@lang('common.section')</span>
                                                       <span>:</span>
                                                   </span>
-                                                  {{ $studentDetails->section->section_name }}
+                                                  {{ $aramiscStudentDetails->section->section_name }}
                                               </p>
                                               <p class="line_grid" >
                                                 <span>
                                                     <span>@lang('exam.pass_mark')</span>
                                                     <span>:</span>
                                                 </span>
-                                                {{ $studentDetails->class->pass_mark }}
+                                                {{ $aramiscStudentDetails->class->pass_mark }}
                                             </p>
                                           </td>
                                      </tr>
@@ -656,7 +656,7 @@
                         <tr>
                               <th>@lang('exam.total_average')</th>
                               <th></th>
-                              <th>{{$studentDetails->class->pass_mark}}</th>
+                              <th>{{$aramiscStudentDetails->class->pass_mark}}</th>
                               @if(count($result_setting))
                                 @foreach($result_setting as $exam)
                                     <th class="text-center">{{allExamSubjectMark($record_id,$exam->id)[0]}}</th>
@@ -668,7 +668,7 @@
                              @endif 
                               <th>{{allExamSubjectMarkAverage($record_id,$all_subject_ids)}}</th>
                               <th>
-                              @if( allExamSubjectMarkAverage($record_id,$all_subject_ids) >= $studentDetails->class->pass_mark )
+                              @if( allExamSubjectMarkAverage($record_id,$all_subject_ids) >= $aramiscStudentDetails->class->pass_mark )
                               @lang('exam.pass')
                               @else
                               @lang('exam.fail')

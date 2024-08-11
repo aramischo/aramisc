@@ -58,10 +58,10 @@
         <div class="marksheet_container">
             <div class="institute_info text-center mb-2">
                 <h3 class="institute_name text-uppercase mb-0">
-                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Infix School Management ERP' }}
+                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Aramisc School Management ERP' }}
                 </h3>
                 <p class="institute_address">
-                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Infix School Address' }}</p>
+                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Aramisc School Address' }}</p>
                 <p class="institute_address" style="font-size: 16px;">
                     @lang('common.email'): <span
                         class="text-lowercase">{{ isset(generalSetting()->email) ? generalSetting()->email : 'admin@demo.com' }}</span>,
@@ -72,7 +72,7 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-4 order-3 order-md-1 text-center text-md-start">
-                    <img src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                    <img src="{{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
                         class="student_photo" alt="">
                 </div>
                 <div
@@ -337,10 +337,10 @@
                                     <td width="5%">{{ @$grade_details->grade_name }}</td>
                                     <td width="15%">@lang('reports.status')</td>
                                     <td width="15%">{{ @$grade_details->description }}</td>
-                                    <td width="15%">@lang('reports.attendance')</td>
+                                    <td width="15%">@lang('reports.aramiscAttendance')</td>
                                     @if (isset($exam_content))
                                         <td width="15%">
-                                            {{ @$student_attendance }}
+                                            {{ @$student_aramiscAttendance }}
                                             @lang('reports.of')
                                             {{ @$total_class_days }}
                                         </td>

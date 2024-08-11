@@ -20,7 +20,7 @@ use Modules\University\Entities\UnFeesInstallAssignChildPayment;
 trait FeesAssignTrait
 {
 
-    public function assignSubjectFees($student_record, $subject_id, $semester_label_id, $fees_group_id = null, $withOutSubject = null)
+    public function aramiscAssignSubjectFees($student_record, $subject_id, $semester_label_id, $fees_group_id = null, $withOutSubject = null)
     {
         try{
             $studentRecord = StudentRecord::find($student_record);

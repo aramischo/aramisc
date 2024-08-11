@@ -18,7 +18,7 @@ class SmWeekend extends Model
         parent::boot();
         static::addGlobalScope(new SchoolScope);
     }
-    public function classRoutine()
+    public function aramiscClassRoutine()
     {
         return $this->hasMany('App\SmClassRoutineUpdate', 'day', 'id');
     }
@@ -55,7 +55,7 @@ class SmWeekend extends Model
                                     ->where('school_id', auth()->user()->school_id)->get();
         return  $routine;
     }
-    public function teacherClassRoutine()
+    public function aramiscTeacherClassRoutine()
     {
         $teacher_id = SmStaff::where('user_id', auth()->user()->id)
         ->where(function($q) {
@@ -69,7 +69,7 @@ class SmWeekend extends Model
         ->where('school_id', auth()->user()->school_id);
     }
 
-    public function teacherClassRoutineAdmin()
+    public function aramiscTeacherClassRoutineAdmin()
     {
         return $this->hasMany('App\SmClassRoutineUpdate', 'day', 'id')
         ->where('teacher_id', request()->teacher)
@@ -77,7 +77,7 @@ class SmWeekend extends Model
         ->where('school_id', auth()->user()->school_id);
     }
 
-    public static function teacherClassRoutineById($day, $teacher_id)
+    public static function aramiscTeacherClassRoutineById($day, $teacher_id)
     {
 
         return SmClassRoutineUpdate::where('day', $day)->where('teacher_id', $teacher_id)

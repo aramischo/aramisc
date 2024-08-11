@@ -21,7 +21,7 @@ class SmStaff extends Model
 
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id')->withDefault();
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id')->withDefault();
     }
 
     public function departments()
@@ -43,15 +43,15 @@ class SmStaff extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id')->withDefault();
     }
-    public function attendances()
+    public function aramiscAttendances()
     {
         return $this->hasMany(SmStaffAttendence::class, 'staff_id')->where('school_id', auth()->user()->school_id);
     }
     public function getAttendanceType($month)
     {
-        $attendances = $this->attendances()->whereMonth('attendence_date', $month)->get();
+        $aramiscAttendances = $this->aramiscAttendances()->whereMonth('attendence_date', $month)->get();
 
-        return $attendances;
+        return $aramiscAttendances;
     }
 
     public function classes()
@@ -69,7 +69,7 @@ class SmStaff extends Model
 
     public function DateWiseStaffAttendance()
     {
-        return $this->hasOne('App\SmStaffAttendence', 'staff_id', 'id')->where('attendence_date', date('Y-m-d', strtotime(request()->attendance_date)));
+        return $this->hasOne('App\SmStaffAttendence', 'staff_id', 'id')->where('attendence_date', date('Y-m-d', strtotime(request()->aramiscAttendance_date)));
     }
 
     public function DateWiseStaffAttendanceReport()
@@ -87,7 +87,7 @@ class SmStaff extends Model
 
     public function previousRole()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'previous_role_id', 'id')->withDefault();
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'previous_role_id', 'id')->withDefault();
     }
 
     public function scopeWhereRole($query, $role_id)
@@ -102,7 +102,7 @@ class SmStaff extends Model
             $q->where('role_id', 4)->orWhere('previous_role_id', 4);
         });
     }
-    public function teacherEvaluation()
+    public function aramiscTeacherEvaluation()
     {
         return $this->hasMany(TeacherEvaluation::class, 'record_id', 'id');
     }

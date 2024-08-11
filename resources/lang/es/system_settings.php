@@ -690,9 +690,9 @@ return [
 
 "expaire_date" => "Fecha de caducidad",
 
-"infix_edu" => "Infix Edu",
+"aramisc" => "Aramisc",
 
-"infix_clasified" => "Infix clasificado",
+"aramisc_clasified" => "Aramisc clasificado",
 
 "purchase_list" => "Lista de compra",
 
@@ -714,7 +714,7 @@ return [
 
 "fcm_key" => "FCM CLAVE",
 
-"subject_attendance_layout" => "Diseño de asistencia",
+"subject_aramiscAttendance_layout" => "Diseño de asistencia",
 
 "make_default" => "Hacer predeterminado",
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ApiSmStudentPanelController extends Controller
 {
-    public function studentTeacherApi(Request $request, $user_id, $record_id)
+    public function aramiscStudentTeacherApi(Request $request, $user_id, $record_id)
     {
 
         $student_id = SmStudent::where('user_id', $user_id)->value('id');
@@ -40,7 +40,7 @@ class ApiSmStudentPanelController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_studentTeacherApi(Request $request, $school_id, $user_id, $record_id)
+    public function saas_aramiscStudentTeacherApi(Request $request, $school_id, $user_id, $record_id)
     {
         $student_id = SmStudent::where('user_id', $user_id)->where('school_id', $school_id)->value('id');
         $record = StudentRecord::where('id', $record_id)

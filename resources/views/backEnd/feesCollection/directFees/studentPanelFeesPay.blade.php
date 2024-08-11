@@ -4,14 +4,14 @@
     .student-details .nav-tabs {
         margin-left: 10px;
     }
-    /* #studentOnlineExam table.dataTable thead .sorting:after,
-    #studentOnlineExam table.dataTable thead .sorting_asc:after,
+    /* #aramiscStudentOnlineExam table.dataTable thead .sorting:after,
+    #aramiscStudentOnlineExam table.dataTable thead .sorting_asc:after,
     #leaves table.dataTable thead .sorting:after,
     #leaves table.dataTable thead .sorting_asc:after {
         top: 8px !important;
         left: 5px !important;
     }
-    #studentOnlineExam table.dataTable thead .sorting_desc:after,
+    #aramiscStudentOnlineExam table.dataTable thead .sorting_desc:after,
     #leaves table.dataTable thead .sorting_desc:after {
         top: 10px !important;
         left: 5px !important;
@@ -97,7 +97,7 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!--  Start Xendit Payment -->
                                         @if(moduleStatusCheck('XenditPayment'))
-                                            <form action="{!!route('xenditpayment.feesPayment')!!}" method="POST" style="width: 100%; text-align: center">
+                                            <form action="{!!route('xenditpayment.aramiscFeesPayment')!!}" method="POST" style="width: 100%; text-align: center">
                                                 @csrf
                                                 <input type="hidden" name="installment_id" id="installment_id" value="{{$feesInstallment->id}}"/>
                                                 <input type="hidden" name="amount" id="amount" value="{{ discountFeesAmount($feesInstallment->id) * 1000}}"/>
@@ -219,7 +219,7 @@
                                         @endphp
                                         @if(!empty($is_stripe))
                                             <a class="dropdown-item modalLink" data-modal-size="modal-lg" title="{{@$feesInstallment->installment->title}} "
-                                                href="{{route('university.feesPaymentStripe',$feesInstallment->id)}}">
+                                                href="{{route('university.aramiscFeesPaymentStripe',$feesInstallment->id)}}">
                                                 @lang('fees.pay_with_stripe')
                                             </a>
                                         @endif
@@ -253,7 +253,7 @@
 
                                     <!-- Start Raudhahpay Payment  -->
                                         @if((moduleStatusCheck('Raudhahpay') == TRUE))
-                                            <form id="xend-footer-form_{{$key}}" action="{!!route('raudhahpay.feesPayment')!!}" method="POST" style="width: 100%; text-align: center">
+                                            <form id="xend-footer-form_{{$key}}" action="{!!route('raudhahpay.aramiscFeesPayment')!!}" method="POST" style="width: 100%; text-align: center">
                                                 @csrf
                                                 <input type="hidden" name="amount" id="amount" value="{{discountFeesAmount($feesInstallment->id)}}"/>
                                                 <input type="hidden" name="installment_id" id="assign_id" value="{{$feesInstallment->id}}">

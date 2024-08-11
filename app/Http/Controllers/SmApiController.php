@@ -88,7 +88,7 @@ use App\SmStaffAttendence;
 use App\SmStudentCategory;
 use App\SmStudentDocument;
 use App\SmStudentTimeline;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\Scopes\SchoolScope;
 use App\SmFeesCarryForward;
 use App\SmStudentPromotion;
@@ -121,9 +121,9 @@ use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\HomeworkNotification;
 use Illuminate\Support\Facades\Notification;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\RolePermission\Entities\Permission;
-use Modules\InfixBiometrics\Entities\InfixBioSetting;
+use Modules\AramiscBiometrics\Entities\AramiscBioSetting;
 use Modules\RolePermission\Entities\AssignPermission;
 use App\Notifications\StudyMeterialCreatedNotification;
 
@@ -423,14 +423,14 @@ class SmApiController extends Controller
     }
     public function roomList(Request $request)
     {
-        $studentDormitory = DB::table('sm_room_lists')
+        $aramiscStudentDormitory = DB::table('sm_room_lists')
             ->join('sm_dormitory_lists', 'sm_room_lists.dormitory_id', '=', 'sm_dormitory_lists.id')
             ->join('sm_room_types', 'sm_room_lists.room_type_id', '=', 'sm_room_types.id')
             ->select('sm_room_lists.id', 'sm_dormitory_lists.dormitory_name', 'sm_room_lists.name as room_number', 'sm_room_lists.number_of_bed', 'sm_room_lists.cost_per_bed', 'sm_room_lists.active_status')
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            return ApiBaseMethod::sendResponse($studentDormitory, null);
+            return ApiBaseMethod::sendResponse($aramiscStudentDormitory, null);
         }
     }
     public function dormitoryList(Request $request)
@@ -459,7 +459,7 @@ class SmApiController extends Controller
     }
     public function systemRole(Request $request)
     {
-        $role_list = DB::table('infix_roles')
+        $role_list = DB::table('aramisc_roles')
             ->where('active_status', 1)
             ->get();
 
@@ -1001,7 +1001,7 @@ class SmApiController extends Controller
     public function member_role(Request $request)
     {
 
-        $roles = InfixRole::where('active_status', '=', 1)->where(function ($q) {
+        $roles = AramiscRole::where('active_status', '=', 1)->where(function ($q) {
             $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
         })->orderBy('id', 'desc')->get();
 
@@ -1012,7 +1012,7 @@ class SmApiController extends Controller
     public function saas_member_role(Request $request, $school_id)
     {
 
-        $roles = InfixRole::where('active_status', '=', 1)->where(function ($q) {
+        $roles = AramiscRole::where('active_status', '=', 1)->where(function ($q) {
             $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
         })->orderBy('id', 'desc')->get();
 
@@ -1232,7 +1232,7 @@ class SmApiController extends Controller
         $total = $val * $amount;
         return number_format($total, 2, '.', '');
     }
-    public function studentFeesPayment(Request $request)
+    public function aramiscStudentFeesPayment(Request $request)
     {
 
 
@@ -1273,7 +1273,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Operation Failed.', null);
         }
     }
-    public function saas_studentFeesPayment(Request $request,$school)
+    public function saas_aramiscStudentFeesPayment(Request $request,$school)
     {
 
 
@@ -3449,7 +3449,7 @@ class SmApiController extends Controller
         }
     }
 
-    public function studentDetails(Request $request)
+    public function aramiscStudentDetails(Request $request)
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
@@ -3469,7 +3469,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_studentDetails(Request $request,$school_id)
+    public function saas_aramiscStudentDetails(Request $request,$school_id)
     {
         try {
             $classes = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))->where('school_id',$school_id)->get();
@@ -3490,7 +3490,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function studentDetailsSearch(Request $request)
+    public function aramiscStudentDetailsSearch(Request $request)
     {
         $request->validate([
             'class' => 'required',
@@ -5039,16 +5039,16 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function uploadContentList(Request $request)
+    public function aramiscUploadContentList(Request $request)
     {
 
         try {
             $contentTypes = SmContentType::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             if (Auth()->user()->role_id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('available_for_admin', 1)->orWhere('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('available_for_admin', 1)->orWhere('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             }
 
             $classes = SmClass::where('active_status', '=', '1')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
@@ -5056,25 +5056,25 @@ class SmApiController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['contentTypes'] = $contentTypes->toArray();
-                $data['uploadContents'] = $uploadContents->toArray();
+                $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
                 $data['classes'] = $classes->toArray();
                 return ApiBaseMethod::sendResponse($data, 'Content uploaded successfully.');
             }
-            return view('backEnd.teacher.uploadContentList', compact('contentTypes', 'classes', 'uploadContents'));
+            return view('backEnd.teacher.aramiscUploadContentList', compact('contentTypes', 'classes', 'aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_uploadContentList(Request $request, $school_id)
+    public function saas_aramiscUploadContentList(Request $request, $school_id)
     {
 
         try {
             $contentTypes = SmContentType::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
 
             if (Auth()->user()->role_id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('available_for_admin', 1)->orWhere('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('available_for_admin', 1)->orWhere('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             }
 
             $classes = SmClass::where('active_status', '=', '1')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
@@ -5082,11 +5082,11 @@ class SmApiController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['contentTypes'] = $contentTypes->toArray();
-                $data['uploadContents'] = $uploadContents->toArray();
+                $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
                 $data['classes'] = $classes->toArray();
                 return ApiBaseMethod::sendResponse($data, 'Content uploaded successfully.');
             }
-            return view('backEnd.teacher.uploadContentList', compact('contentTypes', 'classes', 'uploadContents'));
+            return view('backEnd.teacher.aramiscUploadContentList', compact('contentTypes', 'classes', 'aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -5153,30 +5153,30 @@ class SmApiController extends Controller
             $y = '2012';
             $m = '2012';
             $d = '2012';
-            $uploadContents = new SmTeacherUploadContent();
-            $uploadContents->content_title = $request->content_title;
-            $uploadContents->content_type = $request->content_type;
-            $uploadContents->source_url = $request->input('source_url');
+            $aramiscUploadContents = new SmTeacherUploadContent();
+            $aramiscUploadContents->content_title = $request->content_title;
+            $aramiscUploadContents->content_type = $request->content_type;
+            $aramiscUploadContents->source_url = $request->input('source_url');
             foreach ($request->available_for as $value) {
                 if ($value == 'admin') {
-                    $uploadContents->available_for_admin = 1;
+                    $aramiscUploadContents->available_for_admin = 1;
                 }
 
                 if ($value == 'student') {
                     if (isset($request->all_classes)) {
-                        $uploadContents->available_for_all_classes = 1;
+                        $aramiscUploadContents->available_for_all_classes = 1;
                     } else {
-                        $uploadContents->class = $request->class;
-                        $uploadContents->section = $request->section;
+                        $aramiscUploadContents->class = $request->class;
+                        $aramiscUploadContents->section = $request->section;
                     }
                 }
             }
 
-            $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
-            $uploadContents->description = $request->description;
-            $uploadContents->upload_file = $fileName;
-            $uploadContents->created_by = Auth()->user()->id;
-            $results = $uploadContents->save();
+            $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+            $aramiscUploadContents->description = $request->description;
+            $aramiscUploadContents->upload_file = $fileName;
+            $aramiscUploadContents->created_by = Auth()->user()->id;
+            $results = $aramiscUploadContents->save();
 
             if ($request->content_type == 'as') {
                 $purpose = 'assignment';
@@ -5190,7 +5190,7 @@ class SmApiController extends Controller
 
             foreach ($request->available_for as $value) {
                 if ($value == 'admin') {
-                    $roles = InfixRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where(function ($q) {
+                    $roles = AramiscRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where(function ($q) {
                         $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                     })->get();
                     foreach ($roles as $role) {
@@ -5278,11 +5278,11 @@ class SmApiController extends Controller
     {
 
         try {
-            $uploadContent = SmTeacherUploadContent::find($id);
-            if ($uploadContent->upload_file != "") {
-                unlink($uploadContent->upload_file);
+            $aramiscUploadContent = SmTeacherUploadContent::find($id);
+            if ($aramiscUploadContent->upload_file != "") {
+                unlink($aramiscUploadContent->upload_file);
             }
-            $result = $uploadContent->delete();
+            $result = $aramiscUploadContent->delete();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 if ($result) {
@@ -5307,11 +5307,11 @@ class SmApiController extends Controller
     {
 
         try {
-            $uploadContent = SmTeacherUploadContent::where('school_id',$school_id)->where('id',$id)->find();
-            if ($uploadContent->upload_file != "") {
-                unlink($uploadContent->upload_file);
+            $aramiscUploadContent = SmTeacherUploadContent::where('school_id',$school_id)->where('id',$id)->find();
+            if ($aramiscUploadContent->upload_file != "") {
+                unlink($aramiscUploadContent->upload_file);
             }
-            $result = $uploadContent->delete();
+            $result = $aramiscUploadContent->delete();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 if ($result) {
@@ -5332,7 +5332,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function assignmentList(Request $request)
+    public function aramiscAssignmentList(Request $request)
     {
 
         try {
@@ -5342,21 +5342,21 @@ class SmApiController extends Controller
             }
 
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'as')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'as')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
 
-            return view('backEnd.teacher.assignmentList', compact('uploadContents'));
+            return view('backEnd.teacher.aramiscAssignmentList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_assignmentList(Request $request, $school_id)
+    public function saas_aramiscAssignmentList(Request $request, $school_id)
     {
 
         try {
@@ -5366,16 +5366,16 @@ class SmApiController extends Controller
             }
 
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'as')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'as')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
 
-            return view('backEnd.teacher.assignmentList', compact('uploadContents'));
+            return view('backEnd.teacher.aramiscAssignmentList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -5385,15 +5385,15 @@ class SmApiController extends Controller
 
         try {
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'st')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'st')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'st')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'st')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
-            return view('backEnd.teacher.studyMetarialList', compact('uploadContents'));
+            return view('backEnd.teacher.studyMetarialList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -5403,67 +5403,67 @@ class SmApiController extends Controller
 
         try {
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'st')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'st')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'st')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'st')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
-            return view('backEnd.teacher.studyMetarialList', compact('uploadContents'));
+            return view('backEnd.teacher.studyMetarialList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function syllabusList(Request $request)
+    public function aramiscSyllabusList(Request $request)
     {
         try {
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
-            return view('backEnd.teacher.syllabusList', compact('uploadContents'));
+            return view('backEnd.teacher.aramiscSyllabusList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_syllabusList(Request $request, $school_id)
+    public function saas_aramiscSyllabusList(Request $request, $school_id)
     {
         try {
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
-            return view('backEnd.teacher.syllabusList', compact('uploadContents'));
+            return view('backEnd.teacher.aramiscSyllabusList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function otherDownloadList(Request $request)
+    public function aramiscOtherDownloadList(Request $request)
     {
 
         try {
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
-            return view('backEnd.teacher.otherDownloadList', compact('uploadContents'));
+            return view('backEnd.teacher.otherDownloadList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -5473,20 +5473,20 @@ class SmApiController extends Controller
 
         try {
             if (Auth()->user()->id == 1) {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             } else {
-                $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
+                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')->Where('created_by', Auth::user()->id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse($uploadContents->toArray(), 'null');
+                return ApiBaseMethod::sendResponse($aramiscUploadContents->toArray(), 'null');
             }
-            return view('backEnd.teacher.otherDownloadList', compact('uploadContents'));
+            return view('backEnd.teacher.otherDownloadList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function collectFees(Request $request)
+    public function aramiscCollectFees(Request $request)
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
@@ -5499,7 +5499,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_collectFees(Request $request, $school_id)
+    public function saas_aramiscCollectFees(Request $request, $school_id)
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
@@ -5512,7 +5512,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function collectFeesStudentApi(Request $request, $id)
+    public function aramiscCollectFeesStudentApi(Request $request, $id)
     {
         try {
             $student = SmStudent::withoutGlobalScopes()->where('user_id', $id)->first();
@@ -5571,7 +5571,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_collectFeesStudentApi(Request $request,$school_id, $id)
+    public function saas_aramiscCollectFeesStudentApi(Request $request,$school_id, $id)
     {
         try {
             $student = SmStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $id)->where('school_id',$school_id)->first();
@@ -5628,7 +5628,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function collectFeesSearch(Request $request)
+    public function aramiscCollectFeesSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -5714,7 +5714,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function feesPaymentSearch(Request $request)
+    public function aramiscFeesPaymentSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -5756,7 +5756,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_feesPaymentSearch(Request $request,$school_id)
+    public function saas_aramiscFeesPaymentSearch(Request $request,$school_id)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -7281,7 +7281,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function feesGenerateModal(Request $request,$school_id, $amount, $student_id, $type)
+    public function aramiscFeesGenerateModal(Request $request,$school_id, $amount, $student_id, $type)
     {
         try {
             $amount = $amount;
@@ -7345,7 +7345,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function feesPaymentDelete(Request $request)
+    public function aramiscFeesPaymentDelete(Request $request)
     {
         try {
             $result = SmFeesPayment::destroy($request->id);
@@ -7369,7 +7369,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_feesPaymentDelete(Request $request, $school_id)
+    public function saas_aramiscFeesPaymentDelete(Request $request, $school_id)
     {
         try {
             $result = SmFeesPayment::where('school_id',$school_id)->where('id',$request->id)->delete();
@@ -8634,7 +8634,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', 1)->orWhere('type', 'System');
             })->get();
 
@@ -8662,7 +8662,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->where('school_id',$school_id)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -8690,7 +8690,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', '=', '1')
+            $roles = AramiscRole::where('active_status', '=', '1')
                 ->where(function ($q) {
                     $q->where('school_id', 1)->orWhere('type', 'System');
                 })
@@ -8712,7 +8712,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', 1)
+            $roles = AramiscRole::where('active_status', 1)
                 ->where(function ($q) use($school_id){
                     $q->where('school_id', $school_id)->orWhere('type', 'System');
                 })
@@ -8842,7 +8842,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -8870,7 +8870,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->where('school_id',$school_id)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -8913,7 +8913,7 @@ class SmApiController extends Controller
                 $staff->where('full_name', 'like', '%' . $request->staff_name . '%');
             }
             $staffs = $staff->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->get();
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -8945,7 +8945,7 @@ class SmApiController extends Controller
                 $staff->where('full_name', 'like', '%' . $request->staff_name . '%');
             }
             $staffs = $staff->where('school_id',$school_id)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9002,14 +9002,14 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($roles, null);
             }
-            return view('backEnd.humanResource.staff_attendance', compact('roles'));
+            return view('backEnd.humanResource.staff_aramiscAttendance', compact('roles'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9018,13 +9018,13 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)
                 ->where('school_id',$school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($roles, null);
             }
-            return view('backEnd.humanResource.staff_attendance', compact('roles'));
+            return view('backEnd.humanResource.staff_aramiscAttendance', compact('roles'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9034,7 +9034,7 @@ class SmApiController extends Controller
         $input = $request->all();
         $validator = Validator::make($input, [
             'role' => 'required',
-            'attendance_date' => 'required'
+            'aramiscAttendance_date' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -9046,25 +9046,25 @@ class SmApiController extends Controller
                 ->withInput();
         }
         try {
-            $date = $request->attendance_date;
+            $date = $request->aramiscAttendance_date;
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->orWhere('type', 'System');
             })->get();
             $role_id = $request->role;
             $staffs = SmStaff::whereRole($request->role)->get();
             if ($staffs->isEmpty()) {
                 Toastr::error('No result found', 'Failed');
-                return redirect('staff-attendance');
+                return redirect('staff-aramiscAttendance');
             }
             $already_assigned_staffs = [];
             $new_staffs = [];
-            $attendance_type = "";
+            $aramiscAttendance_type = "";
             foreach ($staffs as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', date('Y-m-d', strtotime($request->attendance_date)))->first();
-                if ($attendance != "") {
-                    $already_assigned_staffs[] = $attendance;
-                    $attendance_type =  $attendance->attendence_type;
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', date('Y-m-d', strtotime($request->aramiscAttendance_date)))->first();
+                if ($aramiscAttendance != "") {
+                    $already_assigned_staffs[] = $aramiscAttendance;
+                    $aramiscAttendance_type =  $aramiscAttendance->attendence_type;
                 } else {
                     $new_staffs[] =  $staff;
                 }
@@ -9077,11 +9077,11 @@ class SmApiController extends Controller
                 $data['roles'] = $roles->toArray();
                 $data['already_assigned_staffs'] = $already_assigned_staffs;
                 $data['new_staffs'] = $new_staffs;
-                $data['attendance_type'] = $attendance_type;
+                $data['aramiscAttendance_type'] = $aramiscAttendance_type;
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
-            return view('backEnd.humanResource.staff_attendance', compact('role_id', 'date', 'roles', 'already_assigned_staffs', 'new_staffs', 'attendance_type'));
+            return view('backEnd.humanResource.staff_aramiscAttendance', compact('role_id', 'date', 'roles', 'already_assigned_staffs', 'new_staffs', 'aramiscAttendance_type'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9091,7 +9091,7 @@ class SmApiController extends Controller
         $input = $request->all();
         $validator = Validator::make($input, [
             'role' => 'required',
-            'attendance_date' => 'required',
+            'aramiscAttendance_date' => 'required',
             'school_id' => 'required',
         ]);
 
@@ -9105,9 +9105,9 @@ class SmApiController extends Controller
                 ->withInput();
         }
         try {
-            $date = $request->attendance_date;
+            $date = $request->aramiscAttendance_date;
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->orWhere('type', 'System');
             })->get();
             $role_id = $request->role;
@@ -9118,12 +9118,12 @@ class SmApiController extends Controller
             }
             $already_assigned_staffs = [];
             $new_staffs = [];
-            $attendance_type = "";
+            $aramiscAttendance_type = "";
             foreach ($staffs as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', date('Y-m-d', strtotime($request->attendance_date)))->where('school_id',$request->school_id)->first();
-                if ($attendance != "") {
-                    $already_assigned_staffs[] = $attendance;
-                    $attendance_type =  $attendance->attendence_type;
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', date('Y-m-d', strtotime($request->aramiscAttendance_date)))->where('school_id',$request->school_id)->first();
+                if ($aramiscAttendance != "") {
+                    $already_assigned_staffs[] = $aramiscAttendance;
+                    $aramiscAttendance_type =  $aramiscAttendance->attendence_type;
                 } else {
                     $new_staffs[] =  $staff;
                 }
@@ -9136,7 +9136,7 @@ class SmApiController extends Controller
                 $data['roles'] = $roles->toArray();
                 $data['already_assigned_staffs'] = $already_assigned_staffs;
                 $data['new_staffs'] = $new_staffs;
-                $data['attendance_type'] = $attendance_type;
+                $data['aramiscAttendance_type'] = $aramiscAttendance_type;
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
@@ -9148,32 +9148,32 @@ class SmApiController extends Controller
     {
         try {
             foreach ($request->id as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff)->where('attendence_date', date('Y-m-d', strtotime($request->date)))->first();
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff)->where('attendence_date', date('Y-m-d', strtotime($request->date)))->first();
 
-                if ($attendance != "") {
-                    $attendance->delete();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 }
 
 
-                $attendance = new SmStaffAttendence();
-                $attendance->staff_id = $staff;
+                $aramiscAttendance = new SmStaffAttendence();
+                $aramiscAttendance->staff_id = $staff;
 
                 if (isset($request->mark_holiday)) {
-                    $attendance->attendence_type = "H";
+                    $aramiscAttendance->attendence_type = "H";
                 } else {
-                    $attendance->attendence_type = $request->attendance[$staff];
-                    $attendance->notes = $request->note[$staff];
+                    $aramiscAttendance->attendence_type = $request->aramiscAttendance[$staff];
+                    $aramiscAttendance->notes = $request->note[$staff];
                 }
 
-                $attendance->attendence_date = date('Y-m-d', strtotime($request->date));
-                $attendance->save();
+                $aramiscAttendance->attendence_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->save();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse(null, 'Staff attendance been submitted successfully');
+                return ApiBaseMethod::sendResponse(null, 'Staff aramiscAttendance been submitted successfully');
             }
             Toastr::success('Operation successful', 'Success');
-            return redirect('staff-attendance');
+            return redirect('staff-aramiscAttendance');
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9182,30 +9182,30 @@ class SmApiController extends Controller
     {
         try {
             foreach ($request->id as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff)->where('attendence_date', date('Y-m-d', strtotime($request->date)))->where('school_id',$request->school_id)->first();
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff)->where('attendence_date', date('Y-m-d', strtotime($request->date)))->where('school_id',$request->school_id)->first();
 
-                if ($attendance != "") {
-                    $attendance->delete();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 }
 
 
-                $attendance = new SmStaffAttendence();
-                $attendance->staff_id = $staff;
+                $aramiscAttendance = new SmStaffAttendence();
+                $aramiscAttendance->staff_id = $staff;
 
                 if (isset($request->mark_holiday)) {
-                    $attendance->attendence_type = "H";
+                    $aramiscAttendance->attendence_type = "H";
                 } else {
-                    $attendance->attendence_type = $request->attendance[$staff];
-                    $attendance->notes = $request->note[$staff];
-                    $attendance->school_id = $request->school_id;
+                    $aramiscAttendance->attendence_type = $request->aramiscAttendance[$staff];
+                    $aramiscAttendance->notes = $request->note[$staff];
+                    $aramiscAttendance->school_id = $request->school_id;
                 }
 
-                $attendance->attendence_date = date('Y-m-d', strtotime($request->date));
-                $attendance->save();
+                $aramiscAttendance->attendence_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->save();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse(null, 'Staff attendance been submitted successfully');
+                return ApiBaseMethod::sendResponse(null, 'Staff aramiscAttendance been submitted successfully');
             }
         } catch (\Exception $e) {
         }
@@ -9216,7 +9216,7 @@ class SmApiController extends Controller
 
         try {
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9224,7 +9224,7 @@ class SmApiController extends Controller
 
                 return ApiBaseMethod::sendResponse($roles, null);
             }
-            return view('backEnd.humanResource.staff_attendance_report', compact('roles'));
+            return view('backEnd.humanResource.staff_aramiscAttendance_report', compact('roles'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9235,7 +9235,7 @@ class SmApiController extends Controller
 
         try {
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', $school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9243,7 +9243,7 @@ class SmApiController extends Controller
 
                 return ApiBaseMethod::sendResponse($roles, null);
             }
-            return view('backEnd.humanResource.staff_attendance_report', compact('roles'));
+            return view('backEnd.humanResource.staff_aramiscAttendance_report', compact('roles'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9275,23 +9275,23 @@ class SmApiController extends Controller
             $current_day = date('d');
 
             $days = cal_days_in_month(CAL_GREGORIAN, $request->month, $request->year);
-            $roles = InfixRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
             $staffs = SmStaff::whereRole($request->role)->get();
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($staffs as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', 'like', $request->year . '-' . $request->month . '%')->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', 'like', $request->year . '-' . $request->month . '%')->get();
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['days'] = $days;
                 $data['year'] = $year;
                 $data['month'] = $month;
@@ -9301,7 +9301,7 @@ class SmApiController extends Controller
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
-            return view('backEnd.humanResource.staff_attendance_report', compact('attendances', 'days', 'year', 'month', 'current_day', 'roles', 'role_id'));
+            return view('backEnd.humanResource.staff_aramiscAttendance_report', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day', 'roles', 'role_id'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9333,23 +9333,23 @@ class SmApiController extends Controller
             $current_day = date('d');
 
             $days = cal_days_in_month(CAL_GREGORIAN, $request->month, $request->year);
-            $roles = InfixRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
             $staffs = SmStaff::whereRole($request->role)->where('school_id',$school_id)->get();
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($staffs as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', 'like', $request->year . '-' . $request->month . '%')->where('school_id',$school_id)->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', 'like', $request->year . '-' . $request->month . '%')->where('school_id',$school_id)->get();
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['days'] = $days;
                 $data['year'] = $year;
                 $data['month'] = $month;
@@ -9359,7 +9359,7 @@ class SmApiController extends Controller
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
-            return view('backEnd.humanResource.staff_attendance_report', compact('attendances', 'days', 'year', 'month', 'current_day', 'roles', 'role_id'));
+            return view('backEnd.humanResource.staff_aramiscAttendance_report', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day', 'roles', 'role_id'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -9376,7 +9376,7 @@ class SmApiController extends Controller
     //             $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', $staff->id]])->get();
     //         }
     //         $leave_types = SmLeaveType::where('active_status', 1)->get();
-    //         $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+    //         $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
     //             $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
     //         })->get();
     //         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -9405,7 +9405,7 @@ class SmApiController extends Controller
                 $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', $staff->id]])->where('school_id',$school_id)->get();
             }
             $leave_types = SmLeaveType::where('active_status', 1)->where('school_id',$school_id)->get();
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -9591,7 +9591,7 @@ class SmApiController extends Controller
         try {
             $editData = SmLeaveRequest::find($id);
             $staffsByRole = SmStaff::where('role_id', '=', $editData->role_id)->get();
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $apply_leaves = SmLeaveRequest::where('active_status', 1)->get();
@@ -9618,7 +9618,7 @@ class SmApiController extends Controller
         try {
             $editData = SmLeaveRequest::where('school_id',$school_id)->find($id);
             $staffsByRole = SmStaff::where('role_id', '=', $editData->role_id)->where('school_id',$school_id)->get();
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $apply_leaves = SmLeaveRequest::where('active_status', 1)->where('school_id',$school_id)->get();
@@ -10288,7 +10288,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function classRoutine(Request $request)
+    public function aramiscClassRoutine(Request $request)
     {
 
         try {
@@ -10301,7 +10301,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_classRoutine(Request $request, $school_id)
+    public function saas_aramiscClassRoutine(Request $request, $school_id)
     {
 
         try {
@@ -10314,7 +10314,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function classRoutineSearch(Request $request)
+    public function aramiscClassRoutineSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -10355,7 +10355,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_classRoutineSearch(Request $request, $school_id)
+    public function saas_aramiscClassRoutineSearch(Request $request, $school_id)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -10396,7 +10396,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function assignSubject(Request $request)
+    public function aramiscAssignSubject(Request $request)
     {
 
         try {
@@ -10409,7 +10409,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_assignSubject(Request $request, $school_id)
+    public function saas_aramiscAssignSubject(Request $request, $school_id)
     {
 
         try {
@@ -10448,7 +10448,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function assignSubjectSearch(Request $request)
+    public function aramiscAssignSubjectSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -10488,7 +10488,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_assignSubjectSearch(Request $request, $school_id)
+    public function saas_aramiscAssignSubjectSearch(Request $request, $school_id)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -10554,7 +10554,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function assignSubjectStore(Request $request)
+    public function aramiscAssignSubjectStore(Request $request)
     {
 
 
@@ -10603,7 +10603,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_assignSubjectStore(Request $request, $school_id)
+    public function saas_aramiscAssignSubjectStore(Request $request, $school_id)
     {
 
 
@@ -10654,7 +10654,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function assignSubject_Create(Request $request)
+    public function aramiscAssignSubject_Create(Request $request)
     {
 
         try {
@@ -10667,7 +10667,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_assignSubject_Create(Request $request, $school_id)
+    public function saas_aramiscAssignSubject_Create(Request $request, $school_id)
     {
 
         try {
@@ -10680,7 +10680,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function assignSubjectFind(Request $request)
+    public function aramiscAssignSubjectFind(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -10725,7 +10725,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_assignSubjectFind(Request $request, $school_id)
+    public function saas_aramiscAssignSubjectFind(Request $request, $school_id)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -10770,7 +10770,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function assignSubjectAjax(Request $request)
+    public function aramiscAssignSubjectAjax(Request $request)
     {
 
         try {
@@ -10790,7 +10790,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_assignSubjectAjax(Request $request, $school_id)
+    public function saas_aramiscAssignSubjectAjax(Request $request, $school_id)
     {
 
         try {
@@ -11975,7 +11975,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -11990,7 +11990,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('school_id',$school_id)->get();
+            $roles = AramiscRole::where('school_id',$school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($roles, null);
             }
@@ -12153,7 +12153,7 @@ class SmApiController extends Controller
 
 
         try {
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $noticeDataDetails = SmNoticeBoard::find($notice_id);
@@ -12174,7 +12174,7 @@ class SmApiController extends Controller
 
 
         try {
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $noticeDataDetails = SmNoticeBoard::where('school_id',$school_id)->find($notice_id);
@@ -12366,7 +12366,7 @@ class SmApiController extends Controller
     public function sendEmailSmsView(Request $request)
     {
         try {
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
@@ -12386,7 +12386,7 @@ class SmApiController extends Controller
     public function saas_sendEmailSmsView(Request $request, $school_id)
     {
         try {
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
@@ -13442,7 +13442,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::all();
+            $roles = AramiscRole::all();
             $classes = SmClass::all();
             $itemCat = SmItemCategory::all();
             $issuedItems = SmItemIssue::where('active_status', '=', 1)->get();
@@ -13651,7 +13651,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function studentTransportReportApi(Request $request)
+    public function aramiscStudentTransportReportApi(Request $request)
     {
 
         try {
@@ -13670,7 +13670,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_studentTransportReportApi(Request $request, $school_id)
+    public function saas_aramiscStudentTransportReportApi(Request $request, $school_id)
     {
 
         try {
@@ -13690,7 +13690,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function studentTransportReportSearch(Request $request)
+    public function aramiscStudentTransportReportSearch(Request $request)
     {
 
 
@@ -13741,7 +13741,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_studentTransportReportSearch(Request $request , $school_id)
+    public function saas_aramiscStudentTransportReportSearch(Request $request , $school_id)
     {
 
 
@@ -13792,7 +13792,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function studentDormitoryReport(Request $request)
+    public function aramiscStudentDormitoryReport(Request $request)
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
@@ -13813,7 +13813,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_studentDormitoryReport(Request $request, $school_id)
+    public function saas_aramiscStudentDormitoryReport(Request $request, $school_id)
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
@@ -13834,7 +13834,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function studentDormitoryReportSearch(Request $request)
+    public function aramiscStudentDormitoryReportSearch(Request $request)
     {
 
         try {
@@ -13876,7 +13876,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_studentDormitoryReportSearch(Request $request, $school_id)
+    public function saas_aramiscStudentDormitoryReportSearch(Request $request, $school_id)
     {
 
         try {
@@ -14477,7 +14477,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function classReport(Request $request)
+    public function aramiscClassReport(Request $request)
     {
         try {
             $classes = SmClass::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('active_status', 1)->get();
@@ -14489,7 +14489,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function classReportSearch(Request $request)
+    public function aramiscClassReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -14587,7 +14587,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function classRoutineReport(Request $request)
+    public function aramiscClassRoutineReport(Request $request)
     {
 
 
@@ -14601,7 +14601,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function classRoutineReportSearch(Request $request)
+    public function aramiscClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -14637,7 +14637,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function examRoutineReport(Request $request)
+    public function aramiscExamRoutineReport(Request $request)
     {
 
         try {
@@ -14652,7 +14652,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function examRoutineReportSearch(Request $request)
+    public function aramiscExamRoutineReportSearch(Request $request)
     {
 
         try {
@@ -14677,7 +14677,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function teacherClassRoutineReport(Request $request)
+    public function aramiscTeacherClassRoutineReport(Request $request)
     {
 
         try {
@@ -14692,7 +14692,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function teacherClassRoutineReportSearch(Request $request)
+    public function aramiscTeacherClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -15042,7 +15042,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function markSheetReportStudent(Request $request)
+    public function aramiscMarkSheetReportStudent(Request $request)
     {
         try {
             $exams = SmExamType::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
@@ -15059,7 +15059,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function markSheetReportStudentSearch(Request $request)
+    public function aramiscMarkSheetReportStudentSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -15087,7 +15087,7 @@ class SmApiController extends Controller
             $exam_types     =   SmExamType::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             $subjects = SmAssignSubject::where([['class_id', $request->class], ['section_id', $request->section]])->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
-            $student_detail =   $studentDetails = SmStudent::find($request->student);
+            $student_detail =   $aramiscStudentDetails = SmStudent::find($request->student);
             $section        =   SmSection::where('active_status', 1)->where('id', $request->section)->first();
             $section_id     =   $request->section;
             $class_id       =   $request->class;
@@ -15128,7 +15128,7 @@ class SmApiController extends Controller
                     $data = [];
                     $data['exam_types'] = $exam_types->toArray();
                     $data['classes'] = $classes->toArray();
-                    $data['studentDetails'] = $studentDetails;
+                    $data['aramiscStudentDetails'] = $aramiscStudentDetails;
                     $data['exams'] = $exams->toArray();
                     $data['subjects'] = $subjects->toArray();
                     $data['section'] = $section;
@@ -15143,7 +15143,7 @@ class SmApiController extends Controller
                     return ApiBaseMethod::sendResponse($data, null);
                 }
                 $student = $student_id;
-                return view('backEnd.reports.mark_sheet_report_student', compact('optional_subject_setup', 'exam_types', 'classes', 'studentDetails', 'exams', 'classes', 'subjects', 'section', 'class_id', 'student_detail', 'is_result_available', 'exam_type_id', 'section_id', 'student_id', 'exam_details', 'class_name', 'input', 'optional_subject'));
+                return view('backEnd.reports.mark_sheet_report_student', compact('optional_subject_setup', 'exam_types', 'classes', 'aramiscStudentDetails', 'exams', 'classes', 'subjects', 'section', 'class_id', 'student_detail', 'is_result_available', 'exam_type_id', 'section_id', 'student_id', 'exam_details', 'class_name', 'input', 'optional_subject'));
             } else {
 
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -15169,7 +15169,7 @@ class SmApiController extends Controller
             $exam_id = $request->exam;
             $class_id = $request->class;
 
-            return view('backEnd.reports.mark_sheet_report_student', compact('exam_types', 'optional_subject', 'classes', 'studentDetails', 'exams', 'classes', 'marks_register', 'subjects', 'class', 'section', 'exam_detail', 'grades', 'exam_id', 'class_id', 'student_detail', 'input'));
+            return view('backEnd.reports.mark_sheet_report_student', compact('exam_types', 'optional_subject', 'classes', 'aramiscStudentDetails', 'exams', 'classes', 'marks_register', 'subjects', 'class', 'section', 'exam_detail', 'grades', 'exam_id', 'class_id', 'student_detail', 'input'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -15191,7 +15191,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function markSheetReportStudent_Search(Request $request)
+    public function aramiscMarkSheetReportStudent_Search(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -15220,7 +15220,7 @@ class SmApiController extends Controller
             $exam_types     =   SmExamType::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             $subjects = SmAssignSubject::where([['class_id', $request->class], ['section_id', $request->section]])->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
-            $student_detail =   $studentDetails = SmStudent::find($request->student);
+            $student_detail =   $aramiscStudentDetails = SmStudent::find($request->student);
             $section        =   SmSection::where('active_status', 1)->where('id', $request->section)->first();
             $section_id     =   $request->section;
             $class_id       =   $request->class;
@@ -15253,7 +15253,7 @@ class SmApiController extends Controller
                     $data = [];
                     $data['exam_types'] = $exam_types->toArray();
                     $data['classes'] = $classes->toArray();
-                    $data['studentDetails'] = $studentDetails;
+                    $data['aramiscStudentDetails'] = $aramiscStudentDetails;
                     $data['exams'] = $exams->toArray();
                     $data['subjects'] = $subjects->toArray();
                     $data['section'] = $section;
@@ -15268,7 +15268,7 @@ class SmApiController extends Controller
                     return ApiBaseMethod::sendResponse($data, null);
                 }
                 $student = $student_id;
-                return view('backEnd.reports.mark_sheet_report_student', compact('optional_subject_setup', 'exam_types', 'classes', 'studentDetails', 'exams', 'classes', 'subjects', 'section', 'class_id', 'student_detail', 'is_result_available', 'exam_type_id', 'section_id', 'student_id', 'exam_details', 'class_name', 'input', 'optional_subject'));
+                return view('backEnd.reports.mark_sheet_report_student', compact('optional_subject_setup', 'exam_types', 'classes', 'aramiscStudentDetails', 'exams', 'classes', 'subjects', 'section', 'class_id', 'student_detail', 'is_result_available', 'exam_type_id', 'section_id', 'student_id', 'exam_details', 'class_name', 'input', 'optional_subject'));
             } else {
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                     return ApiBaseMethod::sendError('Ops! Your result is not found! Please check mark register');
@@ -15293,7 +15293,7 @@ class SmApiController extends Controller
             $exam_id = $request->exam;
             $class_id = $request->class;
 
-            return view('backEnd.reports.mark_sheet_report_student', compact('exam_types', 'optional_subject', 'classes', 'studentDetails', 'exams', 'classes', 'marks_register', 'subjects', 'class', 'section', 'exam_detail', 'grades', 'exam_id', 'class_id', 'student_detail', 'input'));
+            return view('backEnd.reports.mark_sheet_report_student', compact('exam_types', 'optional_subject', 'classes', 'aramiscStudentDetails', 'exams', 'classes', 'marks_register', 'subjects', 'class', 'section', 'exam_detail', 'grades', 'exam_id', 'class_id', 'student_detail', 'input'));
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -15527,7 +15527,7 @@ class SmApiController extends Controller
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
 
-            $studentDetails = SmStudent::where('sm_students.id', '=', $request->student)
+            $aramiscStudentDetails = SmStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')
@@ -15535,7 +15535,7 @@ class SmApiController extends Controller
 
             $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $request->class)->first();
 
-            $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $request->student)->where('session_id', '=', $studentDetails->session_id)->first();
+            $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $request->student)->where('session_id', '=', $aramiscStudentDetails->session_id)->first();
 
 
             $exam_setup = SmExamSetup::where([['class_id', $request->class], ['section_id', $request->section]])->get();
@@ -15575,7 +15575,7 @@ class SmApiController extends Controller
                     $data = [];
                     $data['exams'] = $exams->toArray();
                     $data['classes'] = $classes->toArray();
-                    $data['studentDetails'] = $studentDetails;
+                    $data['aramiscStudentDetails'] = $aramiscStudentDetails;
                     $data['is_result_available'] = $is_result_available;
                     $data['subjects'] = $subjects->toArray();
                     $data['class_id'] = $class_id;
@@ -15586,7 +15586,7 @@ class SmApiController extends Controller
                 }
 
 
-                return view('backEnd.reports.progress_card_report', compact('exams', 'optional_subject_setup', 'student_optional_subject', 'classes', 'studentDetails', 'is_result_available', 'subjects', 'class_id', 'section_id', 'student_id', 'exam_types', 'assinged_exam_types'));
+                return view('backEnd.reports.progress_card_report', compact('exams', 'optional_subject_setup', 'student_optional_subject', 'classes', 'aramiscStudentDetails', 'is_result_available', 'subjects', 'class_id', 'section_id', 'student_id', 'exam_types', 'assinged_exam_types'));
             } else {
                 return redirect('progress-card-report')->with('message-danger', 'Ops! Your result is not found! Please check mark register.');
             }
@@ -15635,7 +15635,7 @@ class SmApiController extends Controller
     {
         try {
             $editData = SmGeneralSettings::where('school_id', $school_id)->first();
-            $modules = InfixModuleManager::select('name')->get();
+            $modules = AramiscModuleManager::select('name')->get();
             foreach ($modules as $module) {
                 $all_modules[] = $module->name;
             }
@@ -15836,7 +15836,7 @@ class SmApiController extends Controller
     public function role_index(Request $request)
     {
         try {
-            $roles = InfixRole::where('active_status', '=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->orderBy('id', 'desc')->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->orderBy('id', 'desc')->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -15890,8 +15890,8 @@ class SmApiController extends Controller
     public function role_edit(Request $request, $id)
     {
         try {
-            $role = InfixRole::find($id);
-            $roles = InfixRole::where('active_status', '=', 1)->orderBy('id', 'desc')->where(function ($q) {
+            $role = AramiscRole::find($id);
+            $roles = AramiscRole::where('active_status', '=', 1)->orderBy('id', 'desc')->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -15922,7 +15922,7 @@ class SmApiController extends Controller
                 ->withInput();
         }
         try {
-            $role = InfixRole::find($request->id);
+            $role = AramiscRole::find($request->id);
             $role->name = $request->name;
             $result = $role->save();
 
@@ -15954,7 +15954,7 @@ class SmApiController extends Controller
         $tables = tableList::getTableList($id,$request->id);
 
         try {
-            $delete_query = InfixRole::destroy($request->id);
+            $delete_query = AramiscRole::destroy($request->id);
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 if ($delete_query) {
                     return ApiBaseMethod::sendResponse(null, 'Role has been deleted successfully');
@@ -15983,7 +15983,7 @@ class SmApiController extends Controller
 
 
         try {
-            $role = InfixRole::find($id);
+            $role = AramiscRole::find($id);
             $modulesRole = SmModule::where('active_status', 1)->get();
             $role_permissions = SmRolePermission::where('role_id', $id)->get();
             $already_assigned = [];
@@ -16296,7 +16296,7 @@ class SmApiController extends Controller
         return view('backEnd.studentPanel.my_profile', compact('driver', 'academic_year', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades'));
     }
 
-    public function studentNoticeboard(Request $request)
+    public function aramiscStudentNoticeboard(Request $request)
     {
         $data = [];
         $allNotices = SmNoticeBoard::where('active_status', 1)->where('inform_to', 'LIKE', '%2%')
@@ -16309,9 +16309,9 @@ class SmApiController extends Controller
 
             return ApiBaseMethod::sendResponse($data, null);
         }
-        return view('backEnd.studentPanel.studentNoticeboard', compact('allNotices'));
+        return view('backEnd.studentPanel.aramiscStudentNoticeboard', compact('allNotices'));
     }
-    public function saas_studentNoticeboard(Request $request, $school_id)
+    public function saas_aramiscStudentNoticeboard(Request $request, $school_id)
     {
         $data = [];
         $allNotices = SmNoticeBoard::withOutGlobalScope(StatusAcademicSchoolScope::class)
@@ -16325,14 +16325,14 @@ class SmApiController extends Controller
             $data['allNotices'] = $allNotices->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
-        return view('backEnd.studentPanel.studentNoticeboard', compact('allNotices'));
+        return view('backEnd.studentPanel.aramiscStudentNoticeboard', compact('allNotices'));
     }
-    public function studentSubjectApi(Request $request, $id, $record_id)
+    public function aramiscStudentSubjectApi(Request $request, $id, $record_id)
     {
 
         $student = SmStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $id)->first();
         $record = StudentRecord::where('id', $record_id)->where('student_id', $student->id)->first();
-        $assignSubjects = DB::table('sm_assign_subjects')
+        $aramiscAssignSubjects = DB::table('sm_assign_subjects')
             ->leftjoin('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')
             ->leftjoin('sm_staffs', 'sm_staffs.id', '=', 'sm_assign_subjects.teacher_id')
             ->select('sm_subjects.id','sm_subjects.subject_name', 'sm_subjects.subject_code', 'sm_subjects.subject_type', 'sm_staffs.full_name as teacher_name')
@@ -16341,20 +16341,20 @@ class SmApiController extends Controller
             ->where('sm_assign_subjects.academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))->get();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
-             $data['student_subjects'] = $assignSubjects->map(function($v){
+             $data['student_subjects'] = $aramiscAssignSubjects->map(function($v){
                     $v->id = (int) $v->id;
                     return $v;
                 })->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_studentSubjectApi(Request $request,$school_id, $id, $record_id)
+    public function saas_aramiscStudentSubjectApi(Request $request,$school_id, $id, $record_id)
     {
         try{
             $student = SmStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $id)->where('school_id',$school_id)->first();
             $record = StudentRecord::where('id', $record_id)->where('student_id', $student->id)->first();
             
-            $assignSubjects = DB::table('sm_assign_subjects')
+            $aramiscAssignSubjects = DB::table('sm_assign_subjects')
                 ->leftjoin('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')
                 ->leftjoin('sm_staffs', 'sm_staffs.id', '=', 'sm_assign_subjects.teacher_id')
                 ->select('sm_subjects.id','sm_subjects.subject_name', 'sm_subjects.subject_code', 'sm_subjects.subject_type', 'sm_staffs.full_name as teacher_name')
@@ -16363,7 +16363,7 @@ class SmApiController extends Controller
                 ->where('sm_assign_subjects.academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))->where('sm_assign_subjects.school_id',$school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['student_subjects'] = $assignSubjects->map(function($v){
+                $data['student_subjects'] = $aramiscAssignSubjects->map(function($v){
                     $v->id = (int) $v->id;
                     return $v;
                 })->toArray();
@@ -16595,7 +16595,7 @@ class SmApiController extends Controller
 
 
 
-    public function childBankSlipStore(Request $request)
+    public function aramiscFeesChildBankSlipStore(Request $request)
     {
         if(ApiBaseMethod::checkUrl($request->fullUrl())){
             $input = $request->all();
@@ -16693,11 +16693,11 @@ class SmApiController extends Controller
         }
     }
 
-    public function saas_studentAssignmentApi(Request $request,$school_id, $id)
+    public function saas_aramiscStudentAssignmentApi(Request $request,$school_id, $id)
     {
 
         $student_detail = SmStudent::where('user_id', $id)->where('school_id',$school_id)->first();
-        $uploadContents = SmTeacherUploadContent::where('content_type', 'as')
+        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
             ->select('content_title', 'upload_date', 'description', 'upload_file')
             ->where(function ($query) use ($student_detail) {
                 $query->where('available_for_all_classes', 1)
@@ -16707,7 +16707,7 @@ class SmApiController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = @$student_detail->toArray();
-            $data['uploadContents'] = @$uploadContents->toArray();
+            $data['aramiscUploadContents'] = @$aramiscUploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
@@ -16741,28 +16741,28 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function studentDormitoryApi(Request $request)
+    public function aramiscStudentDormitoryApi(Request $request)
     {
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
 
-            $studentDormitory = DB::table('sm_room_lists')
+            $aramiscStudentDormitory = DB::table('sm_room_lists')
                 ->join('sm_dormitory_lists', 'sm_room_lists.dormitory_id', '=', 'sm_dormitory_lists.id')
                 ->join('sm_room_types', 'sm_room_lists.room_type_id', '=', 'sm_room_types.id')
                 ->select('sm_dormitory_lists.dormitory_name', 'sm_room_lists.name as room_number', 'sm_room_lists.number_of_bed', 'sm_room_lists.cost_per_bed', 'sm_room_lists.active_status')->get();
 
-            return ApiBaseMethod::sendResponse($studentDormitory, null);
+            return ApiBaseMethod::sendResponse($aramiscStudentDormitory, null);
         }
     }
-    public function saas_studentDormitoryApi(Request $request, $school_id)
+    public function saas_aramiscStudentDormitoryApi(Request $request, $school_id)
     {
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
 
-            $studentDormitory = DB::table('sm_room_lists')
+            $aramiscStudentDormitory = DB::table('sm_room_lists')
                 ->join('sm_dormitory_lists', 'sm_room_lists.dormitory_id', '=', 'sm_dormitory_lists.id')
                 ->join('sm_room_types', 'sm_room_lists.room_type_id', '=', 'sm_room_types.id')
                 ->select('sm_dormitory_lists.dormitory_name', 'sm_room_lists.name as room_number', 'sm_room_lists.number_of_bed', 'sm_room_lists.cost_per_bed', 'sm_room_lists.active_status')->where('sm_room_lists.school_id',$school_id)->get();
 
-            return ApiBaseMethod::sendResponse($studentDormitory, null);
+            return ApiBaseMethod::sendResponse($aramiscStudentDormitory, null);
         }
     }
     public function studentExamScheduleApi(Request $request, $id)
@@ -17046,7 +17046,7 @@ class SmApiController extends Controller
 
 
     }
-    public function collectFeesChildApi(Request $request, $id)
+    public function aramiscCollectFeesChildApi(Request $request, $id)
     {
 
         $student = SmStudent::where('id', $id)->first();
@@ -17093,7 +17093,7 @@ class SmApiController extends Controller
 
         return view('backEnd.feesCollection.collect_fees_student_wise', compact('student', 'fees_assigneds', 'fees_discounts', 'applied_discount'));
     }
-    public function saas_collectFeesChildApi(Request $request,$school_id, $id)
+    public function saas_aramiscCollectFeesChildApi(Request $request,$school_id, $id)
     {
 
         $student = SmStudent::where('id', $id)->where('school_id',$school_id)->first();
@@ -17140,7 +17140,7 @@ class SmApiController extends Controller
 
         return view('backEnd.feesCollection.collect_fees_student_wise', compact('student', 'fees_assigneds', 'fees_discounts', 'applied_discount'));
     }
-    public function classRoutineApi(Request $request, $id)
+    public function aramiscClassRoutineApi(Request $request, $id)
     {
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -17187,7 +17187,7 @@ class SmApiController extends Controller
         }
 
     }
-    public function saas_classRoutineApi(Request $request,$school_id, $id)
+    public function saas_aramiscClassRoutineApi(Request $request,$school_id, $id)
     {
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -17253,7 +17253,7 @@ class SmApiController extends Controller
                         ->where('class_id', $student_detail->class_id)->where('section_id', $student_detail->section_id)->where('subject_id', $subject->subject_id)->get();
             }
 
-            $homeworkLists = SmHomework::where('class_id', $student_detail->class_id)->where('section_id', $student_detail->section_id)->get();
+            $aramiscHomeworkLists = SmHomework::where('class_id', $student_detail->class_id)->where('section_id', $student_detail->section_id)->get();
         }
         $data = [];
 
@@ -17286,7 +17286,7 @@ class SmApiController extends Controller
                         ->where('class_id', @$student_detail->class_id)->where('section_id', @$student_detail->section_id)->where('subject_id', $subject->subject_id)->where('sm_homeworks.school_id',$school_id)->get();
             }
 
-            $homeworkLists = SmHomework::where('class_id', @$student_detail->class_id)->where('section_id', @$student_detail->section_id)->where('school_id',$school_id)->get();
+            $aramiscHomeworkLists = SmHomework::where('class_id', @$student_detail->class_id)->where('section_id', @$student_detail->section_id)->where('school_id',$school_id)->get();
         }
         $data = [];
 
@@ -17337,13 +17337,13 @@ class SmApiController extends Controller
         $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
 
-        $attendances = SmStudentAttendance::where('student_id', $student_detail->id)
-            ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
-            ->select('attendance_type', 'attendance_date')
+        $aramiscAttendances = SmStudentAttendance::where('student_id', $student_detail->id)
+            ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+            ->select('aramiscAttendance_type', 'aramiscAttendance_date')
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            $data['attendances'] = $attendances;
+            $data['aramiscAttendances'] = $aramiscAttendances;
             $data['previousMonthDetails'] = $previousMonthDetails;
             $data['days'] = $days;
             $data['year'] = $year;
@@ -17392,13 +17392,13 @@ class SmApiController extends Controller
         $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
 
-        $attendances = SmStudentAttendance::where('student_id', @$student_detail->id)
-            ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
-            ->select('attendance_type', 'attendance_date')
+        $aramiscAttendances = SmStudentAttendance::where('student_id', @$student_detail->id)
+            ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+            ->select('aramiscAttendance_type', 'aramiscAttendance_date')
             ->where('school_id',$school_id)->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            $data['attendances'] = $attendances;
+            $data['aramiscAttendances'] = $aramiscAttendances;
             $data['previousMonthDetails'] = $previousMonthDetails;
             $data['days'] = $days;
             $data['year'] = $year;
@@ -17554,7 +17554,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function teacherClassList(Request $request)
+    public function aramiscTeacherClassList(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -17601,7 +17601,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_teacherClassList(Request $request, $school_id)
+    public function saas_aramiscTeacherClassList(Request $request, $school_id)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -17744,7 +17744,7 @@ class SmApiController extends Controller
     }
 
 
-    public function leaveTypeList(Request $request)
+    public function aramiscLeaveTypeList(Request $request)
     {
         try {
             $leave_type = DB::table('sm_leave_defines')
@@ -17763,7 +17763,7 @@ class SmApiController extends Controller
         }
 
     }
-    public function saas_leaveTypeList(Request $request, $school_id)
+    public function saas_aramiscLeaveTypeList(Request $request, $school_id)
     {
         $leave_type = DB::table('sm_leave_defines')
             ->where('role_id', 4)
@@ -17777,7 +17777,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($leave_type, null);
         }
     }
-    public function applyLeave(Request $request)
+    public function aramiscApplyLeave(Request $request)
     {
 
 
@@ -17831,7 +17831,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($result, null);
         }
     }
-    public function saas_applyLeave(Request $request)
+    public function saas_aramiscApplyLeave(Request $request)
     {
 
 
@@ -17887,7 +17887,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($result, null);
         }
     }
-    public function staffLeaveList(Request $request, $id)
+    public function aramiscStaffLeaveList(Request $request, $id)
     {
 
         $teacher = SmStaff::where('user_id', '=', $id)->first();
@@ -17905,7 +17905,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_staffLeaveList(Request $request,$school_id, $id)
+    public function saas_aramiscStaffLeaveList(Request $request,$school_id, $id)
     {
 
         $teacher = SmStaff::where('user_id', '=', $id)->where('school_id',$school_id)->first();
@@ -17923,7 +17923,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function uploadContent(Request $request)
+    public function aramiscUploadContent(Request $request)
     {
 
 
@@ -17962,31 +17962,31 @@ class SmApiController extends Controller
             $fileName = 'public/uploads/upload_contents/' . $fileName;
         }
 
-        $uploadContents = new SmTeacherUploadContent();
-        $uploadContents->content_title = $request->input('content_title');
-        $uploadContents->content_type = $request->input('content_type');
-        $uploadContents->source_url = $request->input('source_url');
-        $uploadContents->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
+        $aramiscUploadContents = new SmTeacherUploadContent();
+        $aramiscUploadContents->content_title = $request->input('content_title');
+        $aramiscUploadContents->content_type = $request->input('content_type');
+        $aramiscUploadContents->source_url = $request->input('source_url');
+        $aramiscUploadContents->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
 
 
         if ($request->input('available_for') == 'admin') {
-            $uploadContents->available_for_admin = 1;
+            $aramiscUploadContents->available_for_admin = 1;
         } elseif ($request->input('available_for') == 'student') {
             if (!empty($request->input('all_classes'))) {
-                $uploadContents->available_for_all_classes = 1;
+                $aramiscUploadContents->available_for_all_classes = 1;
             } else {
-                $uploadContents->class = $request->input('class');
-                $uploadContents->section = $request->input('section');
+                $aramiscUploadContents->class = $request->input('class');
+                $aramiscUploadContents->section = $request->input('section');
             }
         }
 
 
 
-        $uploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
-        $uploadContents->description = $request->input('description');
-        $uploadContents->upload_file = $fileName;
-        $uploadContents->created_by = $request->input('created_by');
-        $results = $uploadContents->save();
+        $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
+        $aramiscUploadContents->description = $request->input('description');
+        $aramiscUploadContents->upload_file = $fileName;
+        $aramiscUploadContents->created_by = $request->input('created_by');
+        $results = $aramiscUploadContents->save();
 
 
         if ($request->input('content_type') == 'as') {
@@ -18001,7 +18001,7 @@ class SmApiController extends Controller
 
 
         if ($request->input('available_for') == 'admin') {
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -18067,7 +18067,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_uploadContent(Request $request)
+    public function saas_aramiscUploadContent(Request $request)
     {
 
         $input = $request->all();
@@ -18107,32 +18107,32 @@ class SmApiController extends Controller
         }
 
 
-        $uploadContents = new SmTeacherUploadContent();
-        $uploadContents->content_title = $request->input('content_title');
-        $uploadContents->content_type = $request->input('content_type');
-        $uploadContents->source_url = $request->input('source_url');
+        $aramiscUploadContents = new SmTeacherUploadContent();
+        $aramiscUploadContents->content_title = $request->input('content_title');
+        $aramiscUploadContents->content_type = $request->input('content_type');
+        $aramiscUploadContents->source_url = $request->input('source_url');
 
 
         if ($request->input('available_for') == 'admin') {
-            $uploadContents->available_for_admin = 1;
+            $aramiscUploadContents->available_for_admin = 1;
         } elseif ($request->input('available_for') == 'student') {
             if (!empty($request->input('all_classes'))) {
-                $uploadContents->available_for_all_classes = 1;
+                $aramiscUploadContents->available_for_all_classes = 1;
             } else {
-                $uploadContents->class = $request->input('class');
-                $uploadContents->section = $request->input('section');
+                $aramiscUploadContents->class = $request->input('class');
+                $aramiscUploadContents->section = $request->input('section');
             }
         }
 
 
 
-        $uploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
-        $uploadContents->description = $request->input('description');
-        $uploadContents->upload_file = $fileName;
-        $uploadContents->school_id = $request->input('school_id');
-        $uploadContents->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($uploadContents->school_id);
-        $uploadContents->created_by = $request->input('created_by');
-        $results = $uploadContents->save();
+        $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
+        $aramiscUploadContents->description = $request->input('description');
+        $aramiscUploadContents->upload_file = $fileName;
+        $aramiscUploadContents->school_id = $request->input('school_id');
+        $aramiscUploadContents->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($aramiscUploadContents->school_id);
+        $aramiscUploadContents->created_by = $request->input('created_by');
+        $results = $aramiscUploadContents->save();
 
 
         if ($request->input('content_type') == 'as') {
@@ -18147,7 +18147,7 @@ class SmApiController extends Controller
 
 
         if ($request->input('available_for') == 'admin') {
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -18202,7 +18202,7 @@ class SmApiController extends Controller
     }
 
 
-    public function pendingLeave(Request $request)
+    public function aramiscPendingLeave(Request $request)
     {
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $pendingRequest = SmLeaveRequest::with('leaveDefine','staffs','student')->where('sm_leave_requests.active_status', 1)
@@ -18225,7 +18225,7 @@ class SmApiController extends Controller
                 $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'A'], ['staff_id', '=', $staff->id]])->get();
             }
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -18247,7 +18247,7 @@ class SmApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_pendingLeave(Request $request, $school_id)
+    public function saas_aramiscPendingLeave(Request $request, $school_id)
     {
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $pendingRequest = SmLeaveRequest::with('leaveDefine','staffs','student')->where('sm_leave_requests.active_status', 1)
@@ -18270,7 +18270,7 @@ class SmApiController extends Controller
                 $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'A'], ['staff_id', '=', $staff->id]])->get();
             }
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -18666,7 +18666,7 @@ class SmApiController extends Controller
 
                 if ($user->notificationToken != '') {
 
-                    //echo 'Infix Edu';
+                    //echo 'Aramisc';
                     define('API_ACCESS_KEY', 'AAAA5ZKAL1I:APA91bFSF0aIpn2uayU2SJ7Ov8Krc3xlQVqwEBYt0FOyDxswMgDVOq7hKoOkRVm5gGd_YxWzwe_kl-POUQE13twf65yxpd3dRffEjNqaXTdl7x-lCCkIY7YYOD4pVjaHWNazHJSgB6xp');
                     //   $registrationIds = ;
                     #prep the bundle
@@ -18723,7 +18723,7 @@ class SmApiController extends Controller
 
                 if ($user->notificationToken != '') {
 
-                    //echo 'Infix Edu';
+                    //echo 'Aramisc';
                     define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                     //   $registrationIds = ;
                     #prep the bundle

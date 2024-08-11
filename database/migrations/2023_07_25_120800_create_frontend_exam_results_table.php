@@ -43,7 +43,7 @@ return new class extends Migration
             $new->button_text = 'Learn More Exam';
             $new->button_url = 'exam-result';
             $new->main_title='Under Graduate Education';
-            $new->main_description='INFIX has all in one place. You’ll find everything what you are looking into education management system software. We care! User will never bothered in our real eye catchy user friendly UI & UX  Interface design. You know! Smart Idea always comes to well planners. And Our INFIX is Smart for its Well Documentation. Explore in new support world! It’s now faster & quicker. You’ll find us on Support Ticket, Email, Skype, WhatsApp.';
+            $new->main_description='ARAMISC has all in one place. You’ll find everything what you are looking into education management system software. We care! User will never bothered in our real eye catchy user friendly UI & UX  Interface design. You know! Smart Idea always comes to well planners. And Our ARAMISC is Smart for its Well Documentation. Explore in new support world! It’s now faster & quicker. You’ll find us on Support Ticket, Email, Skype, WhatsApp.';
             $new->main_image ='public/uploads/about_page/about-img.jpg';
             $new->school_id = $school->id;
             $new->save();

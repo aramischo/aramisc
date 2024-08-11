@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInfixRolesTable extends Migration
+class CreateAramiscRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateInfixRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('infix_roles', function (Blueprint $table) {
+        Schema::create('aramisc_roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100)->nullable();
             $table->string('type')->default('System');
@@ -29,7 +29,7 @@ class CreateInfixRolesTable extends Migration
         });
 
 
-        DB::table('infix_roles')->insert([
+        DB::table('aramisc_roles')->insert([
             [
                 'name' => 'Super admin',    //      1
                 'type' => 'System',
@@ -96,6 +96,6 @@ class CreateInfixRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('infix_roles');
+        Schema::dropIfExists('aramisc_roles');
     }
 }

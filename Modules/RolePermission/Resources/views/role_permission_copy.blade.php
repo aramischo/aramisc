@@ -152,9 +152,9 @@
 
     @php
 
-        $module_info = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('active_status',1)->where('parent_id', 0)->first();
+        $module_info = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('active_status',1)->where('parent_id', 0)->first();
 
-        $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('active_status',1)->where('id', '!=', $key)->get();
+        $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('active_status',1)->where('id', '!=', $key)->get();
 
 
         $check_all = 1;
@@ -169,7 +169,7 @@
 
 
 
-        $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
+        $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
 
 
 
@@ -208,7 +208,7 @@
 
                                     <?php
 
-                                        $subModule= DB::table('infix_module_infos')->where('parent_id',$module_info->id)->where('active_status', 1)->get();
+                                        $subModule= DB::table('aramisc_module_infos')->where('parent_id',$module_info->id)->where('active_status', 1)->get();
                                         // dump($subModule);
                                     ?>
                                         @foreach($subModule as $row2)
@@ -221,7 +221,7 @@
 
                                     <li>
                                         <div class="submodule">
-                                            <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="infix_csk common-radio  module_id_{{$module_info->id}} module_link"  type="checkbox" {{in_array($row2->id ,$already_assigned)? 'checked':''}}>
+                                            <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="aramisc_csk common-radio  module_id_{{$module_info->id}} module_link"  type="checkbox" {{in_array($row2->id ,$already_assigned)? 'checked':''}}>
 
                                             <label for="Sub_Module_{{$row2->id}}">{{__('rolepermission::permissions.'.$row2->name)}}</label>
                                             <br>
@@ -231,12 +231,12 @@
 
                                         <?php
 
-                                            $childModule= DB::table('infix_module_infos')->where('active_status',1)->where('parent_id',$row2->id)->get();
+                                            $childModule= DB::table('aramisc_module_infos')->where('active_status',1)->where('parent_id',$row2->id)->get();
                                         ?>
                                         @foreach($childModule as $row3)
                                         <li>
                                             <div class="module_link_option_div" id="{{$row2->id}}">
-                                                <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="infix_csk common-radio    module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox" {{in_array($row3->id ,$already_assigned)? 'checked':''}}>
+                                                <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="aramisc_csk common-radio    module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox" {{in_array($row3->id ,$already_assigned)? 'checked':''}}>
 
                                                 <label for="Option_{{$row3->id}}">{{__('rolepermission::permissions.'.$row3->name)}}</label>
                                                 <br>

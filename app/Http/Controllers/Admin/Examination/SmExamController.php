@@ -59,13 +59,13 @@ class SmExamController extends Controller
                     $subject_ids = UnAssignSubject::where('un_teacher_id',$teacher_info->id)->where('school_id',auth()->user()->school_id)->get(['un_subject_id'])->toArray();
                     $exams = $exam_query->whereIn('un_subject_id',$subject_ids)->get();
                 }else{
-                    $teacher_class = SmClassTeacher::where('teacher_id',$teacher_info->id)->with('teacherClass')->get();
+                    $teacher_class = SmClassTeacher::where('teacher_id',$teacher_info->id)->with('aramiscTeacherClass')->get();
                     if($teacher_class){
                         $class_ids = [] ;
                         $section_ids = [];
                         foreach($teacher_class as $class){
-                            $class_ids[] = $class->teacherClass->class_id; 
-                            $section_ids[] =  $class->teacherClass->section_id;
+                            $class_ids[] = $class->aramiscTeacherClass->class_id; 
+                            $section_ids[] =  $class->aramiscTeacherClass->section_id;
                         }
                         $exams = $exam_query->whereIn('class_id', $class_ids )->whereIn('section_id', $section_ids)->get();
                     }else{
@@ -615,7 +615,7 @@ class SmExamController extends Controller
             return redirect()->back();
         }
     }
-    public function examSetup($id)
+    public function aramiscExamSetup($id)
     {
         try {
             $exam = SmExam::find($id);
@@ -640,7 +640,7 @@ class SmExamController extends Controller
     }
 
 
-    public function examSetupStore(Request $request)
+    public function aramiscExamSetupStore(Request $request)
     {
         try {
             $class_id = $request->class;
@@ -712,7 +712,7 @@ class SmExamController extends Controller
         }
     }
 
-    public function getClassSubjects(Request $request)
+    public function aramiscGetClassSubjects(Request $request)
     {
         
         try {

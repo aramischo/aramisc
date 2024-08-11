@@ -188,7 +188,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive school-table-style">
-                                <table class="table" cellspacing="0" width="100%" id="examRoutineTable">
+                                <table class="table" cellspacing="0" width="100%" id="aramiscExamRoutineTable">
                                     <thead>
                                         <tr>
                                             <th>@lang('academics.subject')</th>
@@ -426,7 +426,7 @@
             </div>
         </section>
     @endif
-    <div class="modal fade" id="classRoutineDeleteModal" tabindex="-1" role="dialog"
+    <div class="modal fade" id="aramiscClassRoutineDeleteModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -446,7 +446,7 @@
                         <button type="button" class="primary-btn tr-bg" data-dismiss="modal">@lang('common.cancel')</button>
 
                         <button class="primary-btn fix-gr-bg"
-                            id="classRoutineDeleteSubmitButton">@lang('common.delete')</button>
+                            id="aramiscClassRoutineDeleteSubmitButton">@lang('common.delete')</button>
 
                     </div>
 
@@ -460,7 +460,7 @@
             <script>
                 addRowInExamRoutine = () => {
                     $("#addRowBtn").button("loading");
-                    var tableLength = $("#examRoutineTable tbody tr").length;
+                    var tableLength = $("#aramiscExamRoutineTable tbody tr").length;
                     var url = $("#url").val();
 
                     let row_count = parseInt($('#row_count').val());
@@ -644,7 +644,7 @@
                                             </tr>`;
 
 
-                    $("#examRoutineTable tbody").append(tr);
+                    $("#aramiscExamRoutineTable tbody").append(tr);
                     $('#row_count').val(row_count + 1);
 
 
@@ -669,9 +669,9 @@
                     } else {
                         let row_id = $(this).data('row_id');
 
-                        $('#classRoutineDeleteModal').modal('toggle');
-                        $("#classRoutineDeleteSubmitButton").unbind("click");
-                        $("#classRoutineDeleteSubmitButton").bind("click", function() {
+                        $('#aramiscClassRoutineDeleteModal').modal('toggle');
+                        $("#aramiscClassRoutineDeleteSubmitButton").unbind("click");
+                        $("#aramiscClassRoutineDeleteSubmitButton").bind("click", function() {
 
                             var url = $("#url").val();
 
@@ -698,7 +698,7 @@
                                             }
                                         );
                                     }, 500);
-                                    $('#classRoutineDeleteModal').modal('hide');
+                                    $('#aramiscClassRoutineDeleteModal').modal('hide');
                                     // console.log(data);
                                 },
                                 error: function(data) {

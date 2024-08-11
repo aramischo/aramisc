@@ -142,7 +142,7 @@
                 </div>
             </div>
         </div>
-        @if (@$homeworkLists)
+        @if (@$aramiscHomeworkLists)
             <div class="row mt-40">
                 <div class="col-lg-12">
                     <div class="white-box">
@@ -175,7 +175,7 @@
                                         </thead>
                                         <tbody>
                                             @if (moduleStatusCheck('University'))
-                                                @foreach ($homeworkLists as $value)
+                                                @foreach ($aramiscHomeworkLists as $value)
                                                     <tr>
                                                         {{-- <td></td> --}}
                                                         <td>{{ $value->homework_date != '' ? dateConvert($value->homework_date) : '' }}
@@ -197,7 +197,7 @@
                                                     </tr>
                                                 @endforeach
                                             @else
-                                                @foreach ($homeworkLists as $value)
+                                                @foreach ($aramiscHomeworkLists as $value)
                                                     <tr>
                                                         <td>{{ $value->subjects != '' ? $value->subjects->subject_name : '' }}
                                                         </td>

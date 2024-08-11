@@ -385,7 +385,7 @@ class SmStudentAdmissionController extends Controller
                 $this->sent_notifications('Assign_Dormitory', [$user_stu->id], $data, ['Student', 'Parent']);
             }
 
-            $class_teacher = SmClassTeacher::whereHas('teacherClass', function ($q) use ($request) {
+            $class_teacher = SmClassTeacher::whereHas('aramiscTeacherClass', function ($q) use ($request) {
                 $q->where('active_status', 1)
                     ->where('class_id', $request->class)
                     ->where('section_id', $request->section);
@@ -792,7 +792,7 @@ class SmStudentAdmissionController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', $student_detail->school_id)
                 ->get();
-            $attendance = SmStudentAttendance::where('student_id', $student_detail->id)
+            $aramiscAttendance = SmStudentAttendance::where('student_id', $student_detail->id)
                 ->whereIn('academic_id', $studentRecord->pluck('academic_id'))
                 ->whereIn('student_record_id', $studentRecord->pluck('id'))
                 ->get();
@@ -821,12 +821,12 @@ class SmStudentAdmissionController extends Controller
                         });
                 }
                 $student_id = $student_detail->id;
-                $studentDetails = SmStudent::find($student_id);
+                $aramiscStudentDetails = SmStudent::find($student_id);
                 $studentRecordDetails = StudentRecord::where('student_id', $student_id);
                 $studentRecords = StudentRecord::where('student_id', $student_id)->distinct('un_academic_id')->get();
-                return view('backEnd.studentInformation.student_view', compact('timelines', 'student_detail', 'driver_info', 'exams', 'siblings', 'grades', 'academic_year', 'exam_terms', 'max_gpa', 'fail_gpa_name', 'custom_field_values', 'sessions', 'records', 'next_labels', 'type', 'studentRecordDetails', 'studentDetails', 'studentRecords', 'result_setting', 'assinged_exam_types', 'studentBehaviourRecords', 'behaviourRecordSetting'));
+                return view('backEnd.studentInformation.student_view', compact('timelines', 'student_detail', 'driver_info', 'exams', 'siblings', 'grades', 'academic_year', 'exam_terms', 'max_gpa', 'fail_gpa_name', 'custom_field_values', 'sessions', 'records', 'next_labels', 'type', 'studentRecordDetails', 'aramiscStudentDetails', 'studentRecords', 'result_setting', 'assinged_exam_types', 'studentBehaviourRecords', 'behaviourRecordSetting'));
             } else {
-                return view('backEnd.studentInformation.student_view', compact('timelines', 'student_detail', 'driver_info', 'exams', 'siblings', 'grades', 'academic_year', 'exam_terms', 'max_gpa', 'fail_gpa_name', 'custom_field_values', 'sessions', 'records', 'next_labels', 'type', 'result_setting', 'attendance', 'subjectAttendance', 'days', 'year', 'month', 'studentBehaviourRecords', 'behaviourRecordSetting'));
+                return view('backEnd.studentInformation.student_view', compact('timelines', 'student_detail', 'driver_info', 'exams', 'siblings', 'grades', 'academic_year', 'exam_terms', 'max_gpa', 'fail_gpa_name', 'custom_field_values', 'sessions', 'records', 'next_labels', 'type', 'result_setting', 'aramiscAttendance', 'subjectAttendance', 'days', 'year', 'month', 'studentBehaviourRecords', 'behaviourRecordSetting'));
             }
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -834,7 +834,7 @@ class SmStudentAdmissionController extends Controller
         }
     }
 
-    public function studentDetails(Request $request)
+    public function aramiscStudentDetails(Request $request)
     {
         try {
             $classes = SmClass::where('active_status', 1)
@@ -1035,9 +1035,9 @@ class SmStudentAdmissionController extends Controller
 
         if (moduleStatusCheck('University')) {
             $subjectIds = [];
-            $this->assignSubjectStudent($studentRecord, $subjectIds, $pre_record);
+            $this->aramiscAssignSubjectStudent($studentRecord, $subjectIds, $pre_record);
         }
-        if (directFees()) {
+        if (aramiscDirectFees()) {
             $this->assignDirectFees($studentRecord->id, $studentRecord->class_id, $studentRecord->section_id, null);
         }
 
@@ -1131,7 +1131,7 @@ class SmStudentAdmissionController extends Controller
                 return redirect()->back();
             } else {
                 $this->insertStudentRecord($request);
-                if (directFees() && $studentRecord) {
+                if (aramiscDirectFees() && $studentRecord) {
                     $this->assignDirectFees($studentRecord->id, $studentRecord->class_id, $studentRecord->section_id, null);
                 } else {
                     $studentRecord = StudentRecord::find($request->record_id);
@@ -1170,14 +1170,14 @@ class SmStudentAdmissionController extends Controller
         }
     }
 
-    public function assignSubjectStudent($studentRecord, $subjectIds = null, $pre_record = null)
+    public function aramiscAssignSubjectStudent($studentRecord, $subjectIds = null, $pre_record = null)
     {
 
         if (!$studentRecord) {
             return false;
         }
         if ($subjectIds) {
-            $assignSubjects = UnSubject::whereIn('id', $subjectIds)
+            $aramiscAssignSubjects = UnSubject::whereIn('id', $subjectIds)
                 ->where('school_id', auth()->user()->school_id)
                 ->get()->map(function ($item, $key) {
                     return [
@@ -1186,7 +1186,7 @@ class SmStudentAdmissionController extends Controller
                     ];
                 });
         } else {
-            $assignSubjects = UnAssignSubject::where('un_semester_label_id', $studentRecord->un_semester_label_id)
+            $aramiscAssignSubjects = UnAssignSubject::where('un_semester_label_id', $studentRecord->un_semester_label_id)
                 ->where('school_id', auth()->user()->school_id)->get()->map(function ($item, $key) {
                     return [
                         'un_subject_id' => $item->un_subject_id,
@@ -1194,18 +1194,18 @@ class SmStudentAdmissionController extends Controller
                 });
         }
 
-        if ($assignSubjects) {
-            foreach ($assignSubjects as $subject) {
-                $studentSubject = new UnSubjectAssignStudent;
-                $studentSubject->student_record_id = $studentRecord->id;
-                $studentSubject->student_id = $studentRecord->student_id;
-                $studentSubject->un_academic_id = $studentRecord->un_academic_id;
-                $studentSubject->un_semester_id = $studentRecord->un_semester_id;
-                $studentSubject->un_semester_label_id = $studentRecord->un_semester_label_id;
-                $studentSubject->un_subject_id = $subject['un_subject_id'];
-                $result =  $studentSubject->save();
+        if ($aramiscAssignSubjects) {
+            foreach ($aramiscAssignSubjects as $subject) {
+                $aramiscStudentSubject = new UnSubjectAssignStudent;
+                $aramiscStudentSubject->student_record_id = $studentRecord->id;
+                $aramiscStudentSubject->student_id = $studentRecord->student_id;
+                $aramiscStudentSubject->un_academic_id = $studentRecord->un_academic_id;
+                $aramiscStudentSubject->un_semester_id = $studentRecord->un_semester_id;
+                $aramiscStudentSubject->un_semester_label_id = $studentRecord->un_semester_label_id;
+                $aramiscStudentSubject->un_subject_id = $subject['un_subject_id'];
+                $result =  $aramiscStudentSubject->save();
                 if ($result) {
-                    $this->assignSubjectFees($studentRecord->id, $subject['un_subject_id'], $studentRecord->un_semester_label_id);
+                    $this->aramiscAssignSubjectFees($studentRecord->id, $subject['un_subject_id'], $studentRecord->un_semester_label_id);
                 }
             }
             $have_credit = $studentRecord->student->feesCredits->sum('amount');

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class PluginController extends Controller
 {
@@ -15,7 +15,7 @@ class PluginController extends Controller
         
         try{
             $data = [];
-            $data['roles'] = InfixRole::where('id','!=',1)->get();
+            $data['roles'] = AramiscRole::where('id','!=',1)->get();
             $data['pt'] = __('system_settings.Tawk To Chat Setting');
             $data['setting'] = Plugin::where('name','tawk')->where('school_id',auth()->user()->school_id)->first();
             return view('backEnd.systemSettings.plugin_setting',$data);
@@ -74,7 +74,7 @@ class PluginController extends Controller
     public function messengerSetting(){
         try{
             $data = [];
-            $data['roles'] = InfixRole::where('id','!=',1)->get();
+            $data['roles'] = AramiscRole::where('id','!=',1)->get();
             $data['pt'] = __('system_settings.Messenger Chat Setting');
             $data['setting'] = Plugin::where('name','messenger')->where('school_id',auth()->user()->school_id)->first();
             return view('backEnd.systemSettings.plugin_messenger_setting',$data);

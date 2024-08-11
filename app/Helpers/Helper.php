@@ -32,7 +32,7 @@ use App\SmAssignSubject;
 use App\SmExamAttendance;
 use App\SmPaymentMethhod;
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\Models\FeesInvoice;
 use App\SmFeesCarryForward;
 use Illuminate\Support\Str;
@@ -450,7 +450,7 @@ if (!function_exists('moduleStatusCheck')) {
 
             if (empty($all_module)) {
                 $all_module = [];
-                $modules = InfixModuleManager::select('name')->get();
+                $modules = AramiscModuleManager::select('name')->get();
                 foreach ($modules as $m) {
                     $all_module[] = $m->name;
                 }
@@ -468,7 +468,7 @@ if (!function_exists('moduleStatusCheck')) {
             }
 
             $is_verify = Cache::rememberForever('module_' . $module, function () use ($module) {
-                return InfixModuleManager::where('name', $module)->first();
+                return AramiscModuleManager::where('name', $module)->first();
             });
 
             if (!$is_verify || !$is_verify->purchase_code) {
@@ -1301,9 +1301,9 @@ if (!function_exists('is_absent_check')) {
     function is_absent_check($exam_id, $class_id, $section_id, $subject_id, $student_id)
     {
         try {
-            $exam_attendance = SmExamAttendance::where('exam_id', $exam_id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
-            $exam_attendance_child = SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->where('student_id', $student_id)->first();
-            return $exam_attendance_child;
+            $exam_aramiscAttendance = SmExamAttendance::where('exam_id', $exam_id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
+            $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->where('student_id', $student_id)->first();
+            return $exam_aramiscAttendance_child;
         } catch (\Exception $e) {
             $data = [];
             return $data;
@@ -1311,8 +1311,8 @@ if (!function_exists('is_absent_check')) {
     }
 }
 
-if (!function_exists('feesPayment')) {
-    function feesPayment($type_id, $student_id)
+if (!function_exists('aramiscFeesPayment')) {
+    function aramiscFeesPayment($type_id, $student_id)
     {
         try {
             return SmFeesPayment::where('active_status', 1)->where('fees_type_id', $type_id)->where('student_id', $student_id)->get();
@@ -2073,7 +2073,7 @@ if (!function_exists('menuPosition')) {
         }
 
         if ($is_have) {
-            $sidebar = app('sidebar_news')->where('active_status', 1)->where('infix_module_id', $id)->first();
+            $sidebar = app('sidebar_news')->where('active_status', 1)->where('aramisc_module_id', $id)->first();
 
             return $sidebar ? $sidebar->parent_position_no : $id;
         } else {
@@ -2087,7 +2087,7 @@ if (!function_exists('menuStatus')) {
     {
         $is_have = count(app('sidebar_news')) > 0;
         if (($is_have)) {
-            $is_have_id = app('sidebar_news')->where('infix_module_id', $id)->first();
+            $is_have_id = app('sidebar_news')->where('aramisc_module_id', $id)->first();
             if ($is_have_id) {
                 return $is_have_id->active_status == 1 ? true : false;
             } else {
@@ -2688,8 +2688,8 @@ const PERMITTED_MODULE = [
 ];
 
 
-if (!function_exists('directFees')) {
-    function directFees()
+if (!function_exists('aramiscDirectFees')) {
+    function aramiscDirectFees()
     {
         if (generalSetting()->direct_fees_assign) {
             return true;
@@ -2796,8 +2796,8 @@ if (!function_exists('fees_payment_status')) {
     }
 }
 
-if (!function_exists('feesPaymentStatus')) {
-    function feesPaymentStatus($installment_id)
+if (!function_exists('aramiscFeesPaymentStatus')) {
+    function aramiscFeesPaymentStatus($installment_id)
     {
         if (moduleStatusCheck('University')) {
             $feesInstallment = UnFeesInstallmentAssign::find($installment_id);

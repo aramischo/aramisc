@@ -44,7 +44,7 @@ return new class extends Migration
                 'button_text' => 'Class/Exam Routine',
                 'button_url' => 'class-exam-routine',
                 'main_title' => 'Class/Exam Routine',
-                'main_description' => 'INFIX has all in one place. You’ll find everything what you are looking into education management system software. We care! User will never bothered in our real eye catchy user friendly UI & UX  Interface design. You know! Smart Idea always comes to well planners. And Our INFIX is Smart for its Well Documentation. Explore in new support world! It’s now faster & quicker. You’ll find us on Support Ticket, Email, Skype, WhatsApp.',
+                'main_description' => 'ARAMISC has all in one place. You’ll find everything what you are looking into education management system software. We care! User will never bothered in our real eye catchy user friendly UI & UX  Interface design. You know! Smart Idea always comes to well planners. And Our ARAMISC is Smart for its Well Documentation. Explore in new support world! It’s now faster & quicker. You’ll find us on Support Ticket, Email, Skype, WhatsApp.',
                 'main_image' => 'public/uploads/about_page/about-img.jpg',
             ],
         ]);

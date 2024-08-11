@@ -86,7 +86,7 @@ class WalletController extends Controller
                     $addPayment->save();
 
                     $ccAvenewPaymentController = new CcAveuneController();
-                    $ccAvenewPaymentController->studentFeesPay($data['amount'] , $addPayment->id, $data['type']);
+                    $ccAvenewPaymentController->aramiscStudentFeesPay($data['amount'] , $addPayment->id, $data['type']);
                 }
                 else if($data['payment_method'] == 'ToyyibPay') { 
                     DB::beginTransaction();
@@ -111,7 +111,7 @@ class WalletController extends Controller
                             'invoice_id' => $addPayment->id,
                             'payment_method' => $request->payment_method,
                         ];
-                        $data_store = $toyyibPayController->studentFeesPay($data);
+                        $data_store = $toyyibPayController->aramiscStudentFeesPay($data);
                         DB::commit();
                 
                         return response()->json(['payment_link' => $data_store]);

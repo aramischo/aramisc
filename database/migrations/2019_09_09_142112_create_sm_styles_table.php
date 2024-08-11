@@ -19,7 +19,7 @@ class CreateSmStylesTable extends Migration
             $table->increments('id');
             $table->string('style_name', 255)->nullable();
             $table->string('path_main_style', 255)->nullable();
-            $table->string('path_infix_style', 255)->nullable();
+            $table->string('path_aramisc_style', 255)->nullable();
             $table->string('primary_color', 255)->nullable();
             $table->string('primary_color2', 255)->nullable();
             $table->string('title_color', 255)->nullable();
@@ -53,7 +53,7 @@ class CreateSmStylesTable extends Migration
         $s = new SmStyle();
         $s->style_name = 'Default';
         $s->path_main_style = 'style.css';
-        $s->path_infix_style = 'infix.css';
+        $s->path_aramisc_style = 'aramisc.css';
         $s->primary_color = '#415094';
         $s->primary_color2 = '#7c32ff';
         $s->title_color = '#222222';
@@ -74,7 +74,7 @@ class CreateSmStylesTable extends Migration
         $s = new  SmStyle();
         $s->style_name = 'Lawn Green';
         $s->path_main_style = 'lawngreen_version/style.css';
-        $s->path_infix_style = 'lawngreen_version/infix.css';
+        $s->path_aramisc_style = 'lawngreen_version/aramisc.css';
         $s->primary_color = '#415094';
         $s->primary_color2 = '#03e396';
         $s->title_color = '#222222';
@@ -98,7 +98,7 @@ class CreateSmStylesTable extends Migration
         // $s = new  SmStyle();
         // $s->style_name = 'Sky Blue';
         // $s->path_main_style = 'blue_version/style.css';
-        // $s->path_infix_style = 'blue_version/infix.css';
+        // $s->path_aramisc_style = 'blue_version/aramisc.css';
         // $s->primary_color = '#415094';
         // $s->primary_color2 = '#2c7be5';
         // $s->title_color = '#222222';
@@ -125,7 +125,7 @@ class CreateSmStylesTable extends Migration
         // $s = new  SmStyle();
         // $s->style_name = 'Orange';
         // $s->path_main_style = 'orange_version/style.css';
-        // $s->path_infix_style = 'orange_version/infix.css';
+        // $s->path_aramisc_style = 'orange_version/aramisc.css';
         // $s->primary_color = '#415094';
         // $s->primary_color2 = '#f2662f';
         // $s->title_color = '#222222';
@@ -148,7 +148,7 @@ class CreateSmStylesTable extends Migration
         // $s = new  SmStyle();
         // $s->style_name = 'Paste';
         // $s->path_main_style = 'paste_version/style.css';
-        // $s->path_infix_style = 'paste_version/infix.css';
+        // $s->path_aramisc_style = 'paste_version/aramisc.css';
         // $s->primary_color = '#415094';
         // $s->primary_color2 = '#05dce9';
         // $s->title_color = '#222222';
@@ -171,7 +171,7 @@ class CreateSmStylesTable extends Migration
         // $s = new  SmStyle();
         // $s->style_name = 'Dark Blue';
         // $s->path_main_style = 'darkblue_version/style.css';
-        // $s->path_infix_style = 'darkblue_version/infix.css';
+        // $s->path_aramisc_style = 'darkblue_version/aramisc.css';
         // $s->primary_color = '#415094';
         // $s->primary_color2 = '#4046f4';
         // $s->title_color = '#222222';
@@ -194,7 +194,7 @@ class CreateSmStylesTable extends Migration
         // $s = new  SmStyle();
         // $s->style_name = 'Pink';
         // $s->path_main_style = 'pink_version/style.css';
-        // $s->path_infix_style = 'pink_version/infix.css';
+        // $s->path_aramisc_style = 'pink_version/aramisc.css';
         // $s->primary_color = '#415094';
         // $s->primary_color2 = '#ff1e6d';
         // $s->title_color = '#222222';
@@ -218,7 +218,7 @@ class CreateSmStylesTable extends Migration
         // $s = new  SmStyle();
         // $s->style_name = 'Dark';
         // $s->path_main_style = 'dark_version/style.css';
-        // $s->path_infix_style = 'dark_version/infix.css';
+        // $s->path_aramisc_style = 'dark_version/aramisc.css';
         // $s->primary_color = '#000';
         // $s->primary_color2 = '#000';
         // $s->title_color = '#222222';

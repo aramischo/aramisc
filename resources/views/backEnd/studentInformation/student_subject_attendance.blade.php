@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>@lang('student.student_attendance')  </title>
+  <title>@lang('student.student_aramiscAttendance')  </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -13,32 +13,32 @@
  }
 </style>
 <style>
-    #attendance.th,#attendance.tr,#attendance.td{
+    #aramiscAttendance.th,#aramiscAttendance.tr,#aramiscAttendance.td{
         font-size: 10px !important;
         padding: 0px !important;
         text-align: center !important;
         border:1px solid #ddd;
         vertical-align: middle !important;
     }
-    #attendance th{
+    #aramiscAttendance th{
         background: #ddd;
         text-align: center;
     }
-    #attendance{
+    #aramiscAttendance{
         border: 1px solid var(--border_color);
            border-collapse: collapse;
     }
-    #attendance tr{
+    #aramiscAttendance tr{
         border: 1px solid var(--border_color);
            border-collapse: collapse;
     }
-    #attendance th{
+    #aramiscAttendance th{
         border: 1px solid var(--border_color);
            border-collapse: collapse;
            text-align: center !important;
            font-size: 11px;
     }
-    #attendance td{
+    #aramiscAttendance td{
         border: 1px solid var(--border_color);
            border-collapse: collapse;
            text-align: center;
@@ -68,9 +68,9 @@
                                 <img class="logo-img" src="{{ url('/')}}/{{generalSetting()->logo }}" alt=""> 
                             </td>
                             <td> 
-                                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3> 
-                                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p> 
-                                <p style="font-size:15px !important" class="text-white mb-0">@lang('student.student_attendance') </p>
+                                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
+                                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                                <p style="font-size:15px !important" class="text-white mb-0">@lang('student.student_aramiscAttendance') </p>
                           </td>
                             <td style="text-aligh:center"> 
                                 @if(moduleStatusCheck('University'))
@@ -86,7 +86,7 @@
                           </td>
                         </tr>
                     </table>
-                    <table style="width: 100%; table-layout: fixed" id="attendance">
+                    <table style="width: 100%; table-layout: fixed" id="aramiscAttendance">
                         <thead>
                                 <tr>
                                     <th width="3%">SL</th>
@@ -119,8 +119,8 @@
                                 $total_halfday = 0; 
                                 $countstudent=1;
                                 @endphp
-                                @foreach($attendances as $values)
-                                @php $total_attendance = 0; @endphp
+                                @foreach($aramiscAttendances as $values)
+                                @php $total_aramiscAttendance = 0; @endphp
                                 @php $count_absent = 0; @endphp
                                 <tr>
                                 <td>{{$countstudent++}}</td>
@@ -147,8 +147,8 @@
                                     <td>
                                         @php $p = 0; @endphp
                                         @foreach($values as $value)
-                                            @if($value->attendance_type == 'P')
-                                                @php $p++; $total_attendance++; $total_grand_present++; @endphp
+                                            @if($value->aramiscAttendance_type == 'P')
+                                                @php $p++; $total_aramiscAttendance++; $total_grand_present++; @endphp
                                             @endif
                                         @endforeach
                                         {{$p}}
@@ -156,8 +156,8 @@
                                     <td>
                                         @php $l = 0; @endphp
                                         @foreach($values as $value)
-                                            @if($value->attendance_type == 'L')
-                                                @php $l++; $total_attendance++; $total_late++; @endphp
+                                            @if($value->aramiscAttendance_type == 'L')
+                                                @php $l++; $total_aramiscAttendance++; $total_late++; @endphp
                                             @endif
                                         @endforeach
                                         {{$l}}
@@ -165,8 +165,8 @@
                                     <td>
                                         @php $a = 0; @endphp
                                         @foreach($values as $value)
-                                            @if($value->attendance_type == 'A')
-                                                @php $a++; $count_absent++; $total_attendance++; $total_absent++; @endphp
+                                            @if($value->aramiscAttendance_type == 'A')
+                                                @php $a++; $count_absent++; $total_aramiscAttendance++; $total_absent++; @endphp
                                             @endif
                                         @endforeach
                                         {{$a}}
@@ -175,8 +175,8 @@
                                     <td>
                                         @php $f = 0; @endphp
                                         @foreach($values as $value)
-                                            @if($value->attendance_type == 'F')
-                                                @php $f++; $total_attendance++; $total_halfday++; @endphp
+                                            @if($value->aramiscAttendance_type == 'F')
+                                                @php $f++; $total_aramiscAttendance++; $total_halfday++; @endphp
                                             @endif
                                         @endforeach
                                         {{$f}}
@@ -184,23 +184,23 @@
                                     <td>
                                         @php $h = 0; @endphp
                                         @foreach($values as $value)
-                                            @if($value->attendance_type == 'H')
-                                                @php $h++; $total_attendance++; $total_holiday++; @endphp
+                                            @if($value->aramiscAttendance_type == 'H')
+                                                @php $h++; $total_aramiscAttendance++; $total_holiday++; @endphp
                                             @endif
                                         @endforeach
                                         {{$h}}
                                     </td>
                                     <td>  
                                         @php
-                                        $total_present = $total_attendance - $count_absent;
+                                        $total_present = $total_aramiscAttendance - $count_absent;
                                         @endphp
-                                            {{$total_present.'/'.$total_attendance}}
+                                            {{$total_present.'/'.$total_aramiscAttendance}}
                                             <hr>
                                         @php
                                             if($count_absent == 0){
                                                 echo '100%';
                                             }else{
-                                                $percentage = $total_present / $total_attendance * 100;
+                                                $percentage = $total_present / $total_aramiscAttendance * 100;
                                                 echo number_format((float)$percentage, 2, '.', '').'%';
                                             }
                                         @endphp
@@ -217,16 +217,16 @@
                                             $date_total_class=0;
                                         @endphp
                                         @foreach($values as $key => $value)
-                                            @if(strtotime($value->attendance_date) == strtotime($date))
+                                            @if(strtotime($value->aramiscAttendance_date) == strtotime($date))
                                             @php
-                                                if($value->attendance_type=='P' || $value->attendance_type=='F' || $value->attendance_type=='L'){
+                                                if($value->aramiscAttendance_type=='P' || $value->aramiscAttendance_type=='F' || $value->aramiscAttendance_type=='L'){
                                                     $date_present++;
                                                 }else{
                                                     $date_absent++;
                                                 }
                                                 $date_total_class=$date_present+$date_absent;
                                             @endphp
-                                                {{-- {{$value->attendance_type}} --}}
+                                                {{-- {{$value->aramiscAttendance_type}} --}}
                                             @endif
                                         @endforeach
                                                 {{-- Date Report --}}

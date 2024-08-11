@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use App\SmLeaveType;
 use App\SmLeaveDefine;
 use Illuminate\Database\Seeder;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Http\Requests\Admin\Leave\SmLeaveRequest;
 
 class SmLeaveTypesTableSeeder extends Seeder
@@ -24,7 +24,7 @@ class SmLeaveTypesTableSeeder extends Seeder
             'school_id'=>$school_id,
             'academic_id'=>$academic_id,
         ];
-        $roles =InfixRole::get();
+        $roles =AramiscRole::get();
         $staffs = SmStaff::where('school_id', $school_id)->get(['id', 'full_name']);
         SmLeaveType::factory()->times($count)->create($school_academic)->each(function ($leaveTypes) use ($roles, $school_id, $academic_id, $staffs) {
             foreach ($roles as $key => $value) {

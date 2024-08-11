@@ -35,7 +35,7 @@ class SmOnlineExamController extends Controller
         // User::checkAuth();
     }
 
-    public function studentOnlineExam()
+    public function aramiscStudentOnlineExam()
     {
         try {
             $time_zone_setup = SmGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
@@ -420,7 +420,7 @@ class SmOnlineExamController extends Controller
         Toastr::error('Operation Failed', 'Failed');
         return redirect()->back();
     }
-    public function studentOnlineExamSubmit(Request $request)
+    public function aramiscStudentOnlineExamSubmit(Request $request)
     {
         if (moduleStatusCheck('University')) {
            return  $this->universityStudentOnlineExamSubmit($request);
@@ -693,7 +693,7 @@ class SmOnlineExamController extends Controller
         }
     }
 
-    public function studentOnlineExamApi(Request $request, $id)
+    public function aramiscStudentOnlineExamApi(Request $request, $id)
     {
 
         try {
@@ -726,7 +726,7 @@ class SmOnlineExamController extends Controller
             return redirect()->back();
         }
     }
-    public function chooseExamApi(Request $request, $id)
+    public function aramiscChooseExamApi(Request $request, $id)
     {
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -746,7 +746,7 @@ class SmOnlineExamController extends Controller
             return redirect()->back();
         }
     }
-    public function examResultApi(Request $request, $id, $exam_id)
+    public function aramiscExamResultApi(Request $request, $id, $exam_id)
     {
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {

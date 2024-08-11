@@ -127,8 +127,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (isset($feesPayments))
-                                                @foreach ($feesPayments as $bank_payment)
+                                            @if (isset($aramiscFeesPayments))
+                                                @foreach ($aramiscFeesPayments as $bank_payment)
                                                     @php
                                                         $paid_amount = $bank_payment->PaidAmount;
                                                     @endphp

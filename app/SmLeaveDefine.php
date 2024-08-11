@@ -17,7 +17,7 @@ class SmLeaveDefine extends Model
     }
     
     public function role(){
-    	return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
+    	return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id');
     }
 
     public function leaveType(){

@@ -54,7 +54,7 @@ class CreateSmGeneralSettingsTable extends Migration
             $table->timestamps();
             $table->integer('week_start_id')->nullable();
             $table->integer('time_zone_id')->nullable();
-            $table->integer('attendance_layout')->default(1)->nullable();
+            $table->integer('aramiscAttendance_layout')->default(1)->nullable();
             $table->integer('session_id')->nullable()->unsigned();
             $table->foreign('session_id')->references('id')->on('sm_academic_years')->onDelete('set null');
 
@@ -78,7 +78,7 @@ class CreateSmGeneralSettingsTable extends Migration
             $table->integer('Chat')->default(1)->nullable();
             $table->integer('FeesCollection')->default(0)->nullable();
             $table->integer('income_head_id')->default(0)->nullable();
-            $table->integer('InfixBiometrics')->default(0)->nullable();
+            $table->integer('AramiscBiometrics')->default(0)->nullable();
             $table->integer('ResultReports')->default(0)->nullable();
             $table->integer('TemplateSettings')->default(1)->nullable();
             $table->integer('MenuManage')->default(1)->nullable();
@@ -147,8 +147,8 @@ class CreateSmGeneralSettingsTable extends Migration
                 'address' => '89/2 Panthapath, Dhaka 1215, Bangladesh',
                 'currency' => 'USD',
                 'currency_symbol' => '$',
-                'school_name' => 'Infix Edu',
-                'site_title' => 'Infix Education software',
+                'school_name' => 'Aramisc',
+                'site_title' => 'Aramisccation software',
                 'session_id' => 1,
                 'week_start_id' => 3,
                 'time_zone_id' => 51,

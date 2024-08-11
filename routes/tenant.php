@@ -74,13 +74,13 @@ Route::group(['middleware' => []], function () {
     // update password
 
 
-    Route::post('admin-change-password', 'HomeController@updatePassowrdStore')->name('updatePassowrdStore'); //InfixPro Version
+    Route::post('admin-change-password', 'HomeController@updatePassowrdStore')->name('updatePassowrdStore'); //AramiscPro Version
 
     Route::get('download-uploaded-content/{id}/{student_id}', 'Student\SmStudentPanelController@downloadHomeWorkContent')->name('downloadHomeWorkContent');
 
-    Route::post('/pay-with-paystack', 'Student\SmFeesController@redirectToGateway')->name('pay-with-paystack');
+    Route::post('/pay-with-paystack', 'Student\SmFeesController@aramiscRedirectToGateway')->name('pay-with-paystack');
 
-    Route::get('/payment/callback', 'Student\SmFeesController@handleGatewayCallback')->name('handleGatewayCallback');
+    Route::get('/payment/callback', 'Student\SmFeesController@aramiscHandleGatewayCallback')->name('aramiscHandleGatewayCallback');
 
     //customer panel
 
@@ -89,7 +89,7 @@ Route::group(['middleware' => []], function () {
         Route::get('customer-purchases', 'Customer\SmCustomerPanelController@customerPurchases');
     });
 
-    Route::get('student-transport-view-modal/{r_id}/{v_id}', ['as' => 'student_transport_view_modal', 'uses' => 'Student\SmStudentPanelController@studentTransportViewModal']);
+    Route::get('student-transport-view-modal/{r_id}/{v_id}', ['as' => 'student_transport_view_modal', 'uses' => 'Student\SmStudentPanelController@aramiscStudentTransportViewModal']);
 
     //Install for Demo
     // Route::post('/verified-code', 'InstallController@verifiedCodeStore')->name('verifiedCodeStore');
@@ -323,7 +323,7 @@ Route::group(['middleware' => []], function () {
         Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
         Route::get('ajax-get-login-access', 'SmAuthController@getLoginAccess');
 
-        Route::get('class-routine/print/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@classRoutinePrint')->name('classRoutinePrint');
+        Route::get('class-routine/print/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutinePrint')->name('aramiscClassRoutinePrint');
     });
 
     Route::get('paypal-return-status', 'SmCollectFeesByPaymentGateway@getPaymentStatus');

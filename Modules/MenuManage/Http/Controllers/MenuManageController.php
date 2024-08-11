@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Cache;
 use Modules\MenuManage\Entities\Sidebar;
 use Modules\MenuManage\Entities\SidebarNew;
 use Illuminate\Contracts\Support\Renderable;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\RolePermission\Entities\Permission;
 use Modules\MenuManage\Entities\PermissionSection;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 use Modules\RolePermission\Entities\AssignPermission;
-use Modules\RolePermission\Entities\InfixPermissionAssign;
-use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
+use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
 
 class MenuManageController extends Controller
 {
@@ -48,21 +48,21 @@ class MenuManageController extends Controller
             foreach ($request->all_modules_id as $key => $id) {
                 $status = in_array($id, $checked_ids) ? 1 : 0;
                 $sidebar = new SidebarNew;
-                $sidebar->infix_module_id = $id;
+                $sidebar->aramisc_module_id = $id;
                 if ($user->role_id == 2 || $user->role_id == 3) {
-                    $student_p = InfixModuleStudentParentInfo::find($id);
+                    $student_p = AramiscModuleStudentParentInfo::find($id);
                     $sidebar->module_id = $student_p ? $student_p->module_id : ' ';
                     $sidebar->route = $student_p ? $student_p->route : ' ';
                     $sidebar->name = $student_p ? $student_p->name : ' ';
                     $sidebar->parent_id = $student_p ? $student_p->parent_id : ' ';
                     $sidebar->type = $student_p ? $student_p->type : ' ';
                 } else {
-                    $infix_module = InfixModuleInfo::find($id);
-                    $sidebar->module_id = $infix_module ? $infix_module->module_id : ' ';
-                    $sidebar->route = $infix_module ? $infix_module->route : ' ';
-                    $sidebar->name = $infix_module ? $infix_module->name : ' ';
-                    $sidebar->parent_id = $infix_module ? $infix_module->parent_id : ' ';
-                    $sidebar->type = $infix_module ? $infix_module->type : ' ';
+                    $aramisc_module = AramiscModuleInfo::find($id);
+                    $sidebar->module_id = $aramisc_module ? $aramisc_module->module_id : ' ';
+                    $sidebar->route = $aramisc_module ? $aramisc_module->route : ' ';
+                    $sidebar->name = $aramisc_module ? $aramisc_module->name : ' ';
+                    $sidebar->parent_id = $aramisc_module ? $aramisc_module->parent_id : ' ';
+                    $sidebar->type = $aramisc_module ? $aramisc_module->type : ' ';
                 }
                 $sidebar->role_id = auth()->user()->role_id;
                 $sidebar->user_id = auth()->user()->id;
@@ -89,8 +89,8 @@ class MenuManageController extends Controller
     {
 
         $id = Auth::user()->role_id;
-        $role = InfixRole::where('is_saas', 0)->where('id', $id)->first();
-        $all_modules = InfixModuleInfo::where('is_saas', 0)->where('active_status', 1)->get();
+        $role = AramiscRole::where('is_saas', 0)->where('id', $id)->first();
+        $all_modules = AramiscModuleInfo::where('is_saas', 0)->where('active_status', 1)->get();
         $all_modules = $all_modules->groupBy('module_id');
         $all_sidebars = SidebarNew::where('is_saas', 0)->distinct('module_id')->get();
         return view('menumanage::all_sidebar_menu', compact('role', 'all_modules', 'all_sidebars'));

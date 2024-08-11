@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
@@ -84,7 +84,7 @@ class DemoAppReset extends Command
     public function moduleEnable(){
         $modules = ['Zoom','Jitsi','MercadoPago','RazorPay','ParentRegistration','BehaviourRecords'];
         foreach($modules  as $module){
-            $exist = InfixModuleManager::where('name',$module)->first();
+            $exist = AramiscModuleManager::where('name',$module)->first();
             if($exist){
                 $exist->purchase_code = time(); 
                 $exist->save();
@@ -109,8 +109,8 @@ class DemoAppReset extends Command
 
     // public function resetCustomCssJsFiles()
     // {
-    //     $css_path = 'public/frontend/infixlmstheme/css/custom.css';
-    //     $js_path = 'public/frontend/infixlmstheme/js/custom.js';
+    //     $css_path = 'public/frontend/aramisclmstheme/css/custom.css';
+    //     $js_path = 'public/frontend/aramisclmstheme/js/custom.js';
     //     File::put($css_path, "");
     //     File::put($js_path, "");
     // }

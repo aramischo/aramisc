@@ -59,7 +59,7 @@ class AddVersion702Migration extends Migration
         ];
         Permission::whereIn('route', $reportSections)->where('parent_route', 'report_section')->update(['parent_route'=>null]);
         $staffReports = [
-            'staff_attendance_report', 'payroll-report',
+            'staff_aramiscAttendance_report', 'payroll-report',
         ];
         Permission::whereIn('route', $staffReports)->update(['parent_route'=>'staff_report']);
         $feesReports = [
@@ -73,7 +73,7 @@ class AddVersion702Migration extends Migration
         Permission::whereIn('route', $accountReports)->update(['parent_route'=>'accounts_report']);
 
         $studentReportSections = [
-            'student_attendance_report', 'subject-attendance-report', 'student_transport_report', 'student_report', 'student_history', 'guardian_report',
+            'student_aramiscAttendance_report', 'subject-aramiscAttendance-report', 'student_transport_report', 'student_report', 'student_history', 'guardian_report',
             'student_login_report', 'class_report', 'class_routine_report', 'previous-record', 'user_log', 'evaluation-report'
         ];
         Permission::whereIn('route', $studentReportSections)->update(['parent_route'=>'students_report']);
@@ -82,7 +82,7 @@ class AddVersion702Migration extends Migration
         ];
         Permission::whereIn('route', $examReportSections)->update(['parent_route'=>'exam_report']);
         Permission::where('route', 'wallet-report')->update(['route'=>'wallet.wallet-report']);
-        $classRoutines = array(
+        $aramiscClassRoutines = array(
             'add-new-class-routine-store' => array(
                 'module' => null,
                 'sidebar_menu' => null,
@@ -159,7 +159,7 @@ class AddVersion702Migration extends Migration
                 'old_id' => 12,
             ),
         );
-        foreach($classRoutines as $item){
+        foreach($aramiscClassRoutines as $item){
             storePermissionData($item);
         }
 

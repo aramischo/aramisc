@@ -25,16 +25,16 @@
         z-index: inherit !important;
     }
 
-    #classRoutineTable tbody tr td:not(.timepicker td) {
+    #aramiscClassRoutineTable tbody tr td:not(.timepicker td) {
         min-width: 100px !important;
         vertical-align: middle;
     }
 
-    #classRoutineTable tbody tr td:nth-child(3):not(.timepicker td) {
+    #aramiscClassRoutineTable tbody tr td:nth-child(3):not(.timepicker td) {
         min-width: 150px !important;
     }
 
-    #classRoutineTable tbody tr td:nth-child(4):not(.timepicker td) {
+    #aramiscClassRoutineTable tbody tr td:nth-child(4):not(.timepicker td) {
         min-width: 150px !important;
     }
 
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 pull-right">
-                        <a href="{{ route('classRoutinePrint', [$class_id, $section_id]) }}"
+                        <a href="{{ route('aramiscClassRoutinePrint', [$class_id, $section_id]) }}"
                             class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer"> </i>
                             @lang('academics.print')</a>
                     </div>
@@ -229,7 +229,7 @@
             </div>
         </section>
     @endif
-    <div class="modal fade" id="classRoutineDeleteModal" tabindex="-1" role="dialog"
+    <div class="modal fade" id="aramiscClassRoutineDeleteModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -249,7 +249,7 @@
                         <button type="button" class="primary-btn tr-bg" data-dismiss="modal">@lang('common.cancel')</button>
 
                         <button class="primary-btn fix-gr-bg"
-                            id="classRoutineDeleteSubmitButton">@lang('common.delete')</button>
+                            id="aramiscClassRoutineDeleteSubmitButton">@lang('common.delete')</button>
 
                     </div>
 
@@ -331,7 +331,7 @@
 
                 addRowInRoutine = () => {
                     $("#addRowBtn").button("loading");
-                    var tableLength = $("#classRoutineTable tbody tr").length;
+                    var tableLength = $("#aramiscClassRoutineTable tbody tr").length;
                     var url = $("#url").val();
 
                     let row_count = parseInt($('#row_count').val());
@@ -505,7 +505,7 @@
         </tr>`;
 
 
-                    $("#classRoutineTable tbody").append(tr);
+                    $("#aramiscClassRoutineTable tbody").append(tr);
                     $('#row_count').val(row_count + 1);
 
 
@@ -555,9 +555,9 @@
                         $(this).parent().parent().remove();
                     } else {
                         let row_id = $(this).data('row_id');
-                        $('#classRoutineDeleteModal').modal('toggle');
-                        $("#classRoutineDeleteSubmitButton").unbind("click");
-                        $("#classRoutineDeleteSubmitButton").bind("click", function() {
+                        $('#aramiscClassRoutineDeleteModal').modal('toggle');
+                        $("#aramiscClassRoutineDeleteSubmitButton").unbind("click");
+                        $("#aramiscClassRoutineDeleteSubmitButton").bind("click", function() {
 
                             var url = $("#url").val();
 
@@ -574,7 +574,7 @@
 
                                     $('#row_' + row_id).remove();
                                     toastr.success('Operation Successfull', 'Success');
-                                    $('#classRoutineDeleteModal').modal('hide');
+                                    $('#aramiscClassRoutineDeleteModal').modal('hide');
                                     // console.log(data);
                                 },
                                 error: function(data) {

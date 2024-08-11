@@ -193,7 +193,7 @@
                                             @else
                                                 <th>@lang('common.class')</th>
                                             @endif
-                                            @if(directFees())
+                                            @if(aramiscDirectFees())
                                                 <th>@lang('fees.installment')</th>
                                             @else
                                                 <th>@lang('fees.fees_type')</th>
@@ -277,7 +277,7 @@
                            @if(moduleStatusCheck('University'))
                            {data: 'class_sec', name: 'class_sec'},
                            {data: 'fees_installment.installment.title', name: 'title'},
-                           @elseif(directFees())
+                           @elseif(aramiscDirectFees())
                            {data: 'class_sec', name: 'class_sec'},
                            {data: 'fees_installment.installment.title', name: 'title'},
                            @else

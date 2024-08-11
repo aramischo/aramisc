@@ -60,7 +60,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function childBankSlipStore(Request $request)
+    public function aramiscFeesChildBankSlipStore(Request $request)
     {
         $request->validate([
             'slip' => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png,txt",
@@ -112,14 +112,14 @@ class SmFeesController extends Controller
     }
 
 
-    public function feesGenerateModalChildView($id)
+    public function aramiscFeesGenerateModalChildView($id)
     {
 
         $fees_payment = SmBankPaymentSlip::find($id);
         return view('backEnd.feesCollection.view_bank_payment', compact('fees_payment'));
     }
 
-    public function feesGenerateModalChildEdit(Request $request, $amount, $student_id, $type, $id)
+    public function aramiscFeesGenerateModalChildEdit(Request $request, $amount, $student_id, $type, $id)
     {
 
         try {
@@ -160,7 +160,7 @@ class SmFeesController extends Controller
 
     }
 
-    public function childBankSlipUpdate(Request $request)
+    public function aramiscFeesChildBankSlipUpdate(Request $request)
     {
         $request->validate([
             'slip' => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png,txt",
@@ -213,7 +213,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function childBankSlipDelete(Request $request)
+    public function aramiscFeesChildBankSlipDelete(Request $request)
     {
 
         try {

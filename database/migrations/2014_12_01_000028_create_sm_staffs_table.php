@@ -74,7 +74,7 @@ class CreateSmStaffsTable extends Migration
             $table->integer('parent_id')->nullable();
             
             $table->integer('role_id')->nullable()->unsigned()->default(1);
-            $table->foreign('role_id')->references('id')->on('infix_roles')->onDelete('set null');
+            $table->foreign('role_id')->references('id')->on('aramisc_roles')->onDelete('set null');
 
             $table->integer('previous_role_id')->nullable();
            
@@ -99,7 +99,7 @@ class CreateSmStaffsTable extends Migration
                 'first_name'       => 'Super',
                 'last_name'        => 'Admin',
                 'full_name'        => 'Super Admin',
-                'email'            => 'admin@infixedu.com',
+                'email'            => 'admin@aramisc.com',
                 'created_at' => date('Y-m-d h:i:s')
             ]
         ]);

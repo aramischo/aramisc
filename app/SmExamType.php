@@ -32,7 +32,7 @@ class SmExamType extends Model
         return $this->belongsTo(SmExamSchedule::class, 'exam_period_id');
     }
 
-    public function examSetups()
+    public function aramiscExamSetups()
     {
         return $this->hasMany(SmExamSetup::class, 'exam_term_id');
     }

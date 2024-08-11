@@ -13,7 +13,7 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('pagebuilder.db_prefix','infixedu__') . 'pages', function (Blueprint $table) {
+        Schema::create(config('pagebuilder.db_prefix','aramisc__') . 'pages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->fullText();
             $table->string('title');

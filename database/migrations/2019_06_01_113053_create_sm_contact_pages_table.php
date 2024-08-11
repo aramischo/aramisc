@@ -52,7 +52,7 @@ class CreateSmContactPagesTable extends Migration
                 'address_text' => 'Santa monica bullevard',
                 'phone' => '01841136251',
                 'phone_text' => 'Mon to Fri 9am to 6 pm',
-                'email' => 'admin@infixedu.com',
+                'email' => 'admin@aramisc.com',
                 'email_text' => 'Send us your query anytime!',
                 'latitude' => '23.707310',
                 'longitude' => '90.415480',

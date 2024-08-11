@@ -89,7 +89,7 @@
         -Sidebar menus are not showing fully
     -Attendance
         -Design Issue
-        -Table mode was good for showing attendance
+        -Table mode was good for showing aramiscAttendance
     -Online Exam 
         -Sidebar menu is not showing Properly
         -Exam Result-> Answer Scripts-> Date show multiple time 

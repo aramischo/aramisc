@@ -139,7 +139,7 @@ class SmSystemSettingController extends Controller
         try {
             $user = User::where('id', $request->id)->first();
             if ($user->notificationToken != '') {
-                //echo 'Infix Edu';
+                //echo 'Aramisc';
                 define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                 //   $registrationIds = ;
                 #prep the bundle
@@ -1256,7 +1256,7 @@ class SmSystemSettingController extends Controller
                 $generalSettData->lms_checkout       = $request->lms_checkout;
             }
 
-            $generalSettData->attendance_layout       = $request->attendance_layout;
+            $generalSettData->aramiscAttendance_layout       = $request->aramiscAttendance_layout;
             $generalSettData->copyright_text  = $request->copyright_text;
             $generalSettData->multiple_roll  = $request->multiple_roll;
             $generalSettData->direct_fees_assign  = $request->direct_fees_assign;
@@ -2204,8 +2204,8 @@ class SmSystemSettingController extends Controller
                 "sm_email_sms_logs",
                 "sm_events",
                 "sm_exams",
-                "sm_exam_attendances",
-                "sm_exam_attendance_children",
+                "sm_exam_aramiscAttendances",
+                "sm_exam_aramiscAttendance_children",
                 "sm_exam_marks_registers",
                 "sm_exam_schedules",
                 "sm_exam_schedule_subjects",
@@ -2268,11 +2268,11 @@ class SmSystemSettingController extends Controller
                 "sm_sections",
                 "sm_send_messages",
                 "sm_setup_admins",
-                "sm_staff_attendance_imports",
+                "sm_staff_aramiscAttendance_imports",
                 "sm_staff_attendences",
                 "sm_students",
-                "sm_student_attendances",
-                "sm_student_attendance_imports",
+                "sm_student_aramiscAttendances",
+                "sm_student_aramiscAttendance_imports",
                 "sm_student_categories",
                 "sm_student_certificates",
                 "sm_student_documents",
@@ -2285,7 +2285,7 @@ class SmSystemSettingController extends Controller
                 "sm_student_take_onln_ex_ques_options",
                 "sm_student_timelines",
                 "sm_subjects",
-                "sm_subject_attendances",
+                "sm_subject_aramiscAttendances",
                 "sm_suppliers",
                 "sm_teacher_upload_contents",
                 "sm_temporary_meritlists",
@@ -2338,8 +2338,8 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            if (!Schema::hasTable('infix_module_managers')) {
-                Artisan::call('migrate --path=/database/migrations/2020_06_10_193309_create_infix_module_managers_table.php');
+            if (!Schema::hasTable('aramisc_module_managers')) {
+                Artisan::call('migrate --path=/database/migrations/2020_06_10_193309_create_aramisc_module_managers_table.php');
             }
 
             Artisan::call('cache:clear');
@@ -2379,8 +2379,8 @@ class SmSystemSettingController extends Controller
                 "sm_email_sms_logs",
                 "sm_events",
                 "sm_exams",
-                "sm_exam_attendances",
-                "sm_exam_attendance_children",
+                "sm_exam_aramiscAttendances",
+                "sm_exam_aramiscAttendance_children",
                 "sm_exam_marks_registers",
                 "sm_exam_schedules",
                 "sm_exam_schedule_subjects",
@@ -2448,11 +2448,11 @@ class SmSystemSettingController extends Controller
                 "sm_sections",
                 "sm_send_messages",
                 "sm_setup_admins",
-                "sm_staff_attendance_imports",
+                "sm_staff_aramiscAttendance_imports",
                 "sm_staff_attendences",
                 "sm_students",
-                "sm_student_attendances",
-                "sm_student_attendance_imports",
+                "sm_student_aramiscAttendances",
+                "sm_student_aramiscAttendance_imports",
                 "sm_student_categories",
                 "sm_student_certificates",
                 "sm_student_documents",
@@ -2466,7 +2466,7 @@ class SmSystemSettingController extends Controller
                 "sm_student_take_onln_ex_ques_options",
                 "sm_student_timelines",
                 "sm_subjects",
-                "sm_subject_attendances",
+                "sm_subject_aramiscAttendances",
                 "sm_suppliers",
                 "sm_teacher_upload_contents",
                 "sm_temporary_meritlists",

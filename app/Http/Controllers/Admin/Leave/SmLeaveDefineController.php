@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\University\Entities\UnSemesterLabel;
 use App\Http\Requests\Admin\Leave\SmLeaveDefineRequest;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
@@ -33,7 +33,7 @@ class SmLeaveDefineController extends Controller
     {
         try {
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get(['id', 'class_name']);
@@ -137,7 +137,7 @@ class SmLeaveDefineController extends Controller
         try {
             $data = [];
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $leave_defines = SmLeaveDefine::get();

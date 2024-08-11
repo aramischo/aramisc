@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class TeacherContentController extends Controller
 {
@@ -26,7 +26,7 @@ class TeacherContentController extends Controller
         $this->middleware('PM');
 	}
 
-    public function uploadContent(Request $request)
+    public function aramiscUploadContent(Request $request)
     {
         $input = $request->all();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -71,27 +71,27 @@ class TeacherContentController extends Controller
             }
             // return $fileName;
 
-            $uploadContents = new SmTeacherUploadContent();
-            $uploadContents->content_title = $request->input('content_title');
-            $uploadContents->content_type = $request->input('content_type');
+            $aramiscUploadContents = new SmTeacherUploadContent();
+            $aramiscUploadContents->content_title = $request->input('content_title');
+            $aramiscUploadContents->content_type = $request->input('content_type');
             if ($request->input('available_for') == 'admin') {
-                $uploadContents->available_for_admin = 1;
+                $aramiscUploadContents->available_for_admin = 1;
             } elseif ($request->input('available_for') == 'student') {
                 if (!empty($request->input('all_classes'))) {
-                    $uploadContents->available_for_all_classes = 1;
+                    $aramiscUploadContents->available_for_all_classes = 1;
                 } else {
-                    $uploadContents->class = $request->input('class');
-                    $uploadContents->section = $request->input('section');
+                    $aramiscUploadContents->class = $request->input('class');
+                    $aramiscUploadContents->section = $request->input('section');
                 }
             }
 
-            $uploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
-            $uploadContents->description = $request->input('description');
-            $uploadContents->upload_file = $fileName;
-            $uploadContents->created_by = $request->input('created_by');
-            $uploadContents->school_id = Auth::user()->school_id;
-            $uploadContents->academic_id = getAcademicId();
-            $results = $uploadContents->save();
+            $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
+            $aramiscUploadContents->description = $request->input('description');
+            $aramiscUploadContents->upload_file = $fileName;
+            $aramiscUploadContents->created_by = $request->input('created_by');
+            $aramiscUploadContents->school_id = Auth::user()->school_id;
+            $aramiscUploadContents->academic_id = getAcademicId();
+            $results = $aramiscUploadContents->save();
 
 
             if ($request->input('content_type') == 'as') {
@@ -107,7 +107,7 @@ class TeacherContentController extends Controller
 
             // foreach ($request->input('available_for') as $value) {
             if ($request->input('available_for') == 'admin') {
-                $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
+                $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
