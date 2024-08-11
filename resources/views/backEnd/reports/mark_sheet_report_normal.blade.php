@@ -476,7 +476,7 @@
                                                     </div>
                                                 </div>
                                         <div>
-                                            <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->studentDetail->student_photo)}}">
+                                            <img class="report-admit-img"  src="{{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($aramiscStudentDetails->studentDetail->student_photo)}}">
                                         </div>
                                     </div>
                                     <div class="student_marks_table">
@@ -699,8 +699,8 @@
                                                 <table class="table summeryTable">
                                                     <tbody class="spacing">
                                                         <tr>
-                                                            <td>@lang('student.attendance')</td>
-                                                            <td class="nowrap"> {{@$student_attendance}} @lang('common.of') {{@$total_class_days}}</td>
+                                                            <td>@lang('student.aramiscAttendance')</td>
+                                                            <td class="nowrap"> {{@$student_aramiscAttendance}} @lang('common.of') {{@$total_class_days}}</td>
                                                             <td>@lang('exam.total_mark')</td>
                                                             <td>{{@$total_mark}}</td>
                                                         </tr>

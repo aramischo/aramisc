@@ -29,7 +29,7 @@ class SmClassRoutineNewController extends Controller
         // User::checkAuth();
 	}
 
-    public function classRoutine(Request $request)
+    public function aramiscClassRoutine(Request $request)
     {
 
         try {
@@ -44,7 +44,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function classRoutinePrint($class, $section)
+    public function aramiscClassRoutinePrint($class, $section)
     {
 
         // try {
@@ -78,7 +78,7 @@ class SmClassRoutineNewController extends Controller
         // }
     }
 
-    public function classRoutineSearch(Request $request)
+    public function aramiscClassRoutineSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -129,7 +129,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function addNewClassRoutine($class_time_id, $day, $class_id, $section_id)
+    public function aramiscAddNewClassRoutine($class_time_id, $day, $class_id, $section_id)
     {
 
         try {
@@ -159,7 +159,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function addNewClassRoutineEdit($class_time_id, $day, $class_id, $section_id, $subject_id, $room_id, $assigned_id, $teacher_id)
+    public function aramiscAddNewClassRoutineEdit($class_time_id, $day, $class_id, $section_id, $subject_id, $room_id, $assigned_id, $teacher_id)
     {
 
         try {
@@ -187,7 +187,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function addNewClassRoutineStore(Request $request)
+    public function aramiscAddNewClassRoutineStore(Request $request)
     {
         try {
             if (!isset($request->assigned_id)) {
@@ -278,7 +278,7 @@ class SmClassRoutineNewController extends Controller
 
 
 
-    public function classRoutineRedirect($class_id, $section_id)
+    public function aramiscClassRoutineRedirect($class_id, $section_id)
     {
 
         try {
@@ -320,7 +320,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function classRoutineReport(Request $request)
+    public function aramiscClassRoutineReport(Request $request)
     {
 
         try {
@@ -335,7 +335,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function classRoutineReportSearch(Request $request)
+    public function aramiscClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -375,7 +375,7 @@ class SmClassRoutineNewController extends Controller
             return redirect()->back();
         }
     }
-    public function teacherClassRoutineReport(Request $request)
+    public function aramiscTeacherClassRoutineReport(Request $request)
     {
 
         try {
@@ -393,7 +393,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function teacherClassRoutineReportSearch(Request $request)
+    public function aramiscTeacherClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -429,7 +429,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function deleteClassRoutineModal($id)
+    public function aramiscDeleteClassRoutineModal($id)
     {
 
         try {
@@ -440,7 +440,7 @@ class SmClassRoutineNewController extends Controller
         }
     }
 
-    public function deleteClassRoutine($id)
+    public function aramiscDeleteClassRoutine($id)
     {
 
         try {

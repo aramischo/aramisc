@@ -227,7 +227,7 @@ class StudentMultiRecordController extends Controller
         $studentRecord->academic_id = $request->session ?? getAcademicId();
         $studentRecord->save();
 
-        $class_teacher = SmClassTeacher::whereHas('teacherClass', function ($q) use ($request) {
+        $class_teacher = SmClassTeacher::whereHas('aramiscTeacherClass', function ($q) use ($request) {
             $q->where('active_status', 1)
                 ->where('class_id', $request->class)
                 ->where('section_id', $request->section);
@@ -243,9 +243,9 @@ class StudentMultiRecordController extends Controller
             $this->sent_notifications('Multi_Class', [$studentRecord->studentDetail->user_id], $data, ['Student', 'Parent']);
         }
         if (moduleStatusCheck('University')) {
-            $this->assignSubjectStudent($studentRecord, $pre_record);
+            $this->aramiscAssignSubjectStudent($studentRecord, $pre_record);
         }
-        if (directFees()) {
+        if (aramiscDirectFees()) {
             $this->assignDirectFees($studentRecord->id, $studentRecord->class_id, $studentRecord->section_id, null);
         }
 

@@ -103,9 +103,9 @@
                                         $tr = [];
                                     @endphp
                                     @foreach ($sm_weekends as $sm_weekend)
-                                        @if ($sm_weekend->teacherClassRoutineAdmin->count() > $height)
+                                        @if ($sm_weekend->aramiscTeacherClassRoutineAdmin->count() > $height)
                                             @php
-                                                $height = $sm_weekend->teacherClassRoutineAdmin->count();
+                                                $height = $sm_weekend->aramiscTeacherClassRoutineAdmin->count();
                                             @endphp
                                         @endif
 
@@ -126,7 +126,7 @@
                                         
                                         $i = 0;
                                     @endphp
-                                    @foreach ($sm_weekend->teacherClassRoutineAdmin as $routine)
+                                    @foreach ($sm_weekend->aramiscTeacherClassRoutineAdmin as $routine)
                                         @php
                                             if (!in_array($routine->id, $used)) {
                                                 if (moduleStatusCheck('University')) {

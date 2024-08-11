@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class SmStudentAttendance extends Model
 {
     use HasFactory;
-    protected $table = "sm_student_attendances";
+    protected $table = "sm_student_aramiscAttendances";
     
     protected static function boot()
     {
@@ -23,6 +23,6 @@ class SmStudentAttendance extends Model
     }
     public function scopemonthAttendances($query, $month)
     {
-        return $query->whereMonth('attendance_date', $month);
+        return $query->whereMonth('aramiscAttendance_date', $month);
     }
 }

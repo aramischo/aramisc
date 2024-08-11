@@ -27,7 +27,7 @@ class SmTransportController extends Controller
         // User::checkAuth();
     }
 
-    public function studentTransportReport(Request $request)
+    public function aramiscStudentTransportReport(Request $request)
     {
         try {
             $classes = SmClass::get();
@@ -41,7 +41,7 @@ class SmTransportController extends Controller
         }
     }
 
-    public function studentTransportReportSearch(Request $request)
+    public function aramiscStudentTransportReportSearch(Request $request)
     {
         $input = $request->all();
         if (moduleStatusCheck('University')) {
@@ -121,7 +121,7 @@ class SmTransportController extends Controller
             return redirect()->back();
         }
     }
-    public function studentTransportReportApi(Request $request)
+    public function aramiscStudentTransportReportApi(Request $request)
     {
 
         try {

@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 @section('title')
-@lang('exam.exam_attendance')
+@lang('exam.exam_aramiscAttendance')
 @endsection
 @section('mainContent')
 <style>
@@ -21,11 +21,11 @@
 <section class="sms-breadcrumb mb-20">
     <div class="container-fluid">
         <div class="row justify-content-between">
-            <h1>@lang('exam.exam_attendance') </h1>
+            <h1>@lang('exam.exam_aramiscAttendance') </h1>
             <div class="bc-pages">
                 <a href="{{route('dashboard')}}">@lang('common.dashboard')</a>
                 <a href="#">@lang('exam.examination')</a>
-                <a href="#">@lang('exam.exam_attendance')</a>
+                <a href="#">@lang('exam.exam_aramiscAttendance')</a>
             </div>
         </div>
     </div>
@@ -43,17 +43,17 @@
                             </div>
                         </div>
             
-                        @if(userPermission('exam_attendance_create'))
+                        @if(userPermission('exam_aramiscAttendance_create'))
                         <div class="col-lg-6 text-right col-md-6 text_xs_left col-sm-6">
-                            <a href="{{route('exam_attendance_create')}}" class="primary-btn small fix-gr-bg">
+                            <a href="{{route('exam_aramiscAttendance_create')}}" class="primary-btn small fix-gr-bg">
                                 <span class="ti-plus pr-2"></span>
-                                @lang('exam.attendance_create')
+                                @lang('exam.aramiscAttendance_create')
                             </a>
                         </div>
                         @endif
             
                     </div>
-                    {{ Form::open(['class' => 'form-horizontal', 'route' => 'exam_attendance_search', 'method' => 'POST', 'id' => 'search_student']) }}
+                    {{ Form::open(['class' => 'form-horizontal', 'route' => 'exam_aramiscAttendance_search', 'method' => 'POST', 'id' => 'search_student']) }}
                     <div class="row">
                         <input type="hidden" name="url" id="url" value="{{URL::to('/')}}">
 
@@ -178,7 +178,7 @@
                 </div>
             </div>
         </div>
-        @if(isset($exam_attendance_childs))
+        @if(isset($exam_aramiscAttendance_childs))
         @if(moduleStatusCheck('University'))
         <div class="row mt-40">
             <div class="col-lg-12">
@@ -186,7 +186,7 @@
                 <div class="row">
                     <div class="col-lg-12 no-gutters mb-15">
                         <div class="main-title">
-                            <h3>@lang('exam.exam_attendance') | <strong>@lang('exam.subject')</strong>:
+                            <h3>@lang('exam.exam_aramiscAttendance') | <strong>@lang('exam.subject')</strong>:
                                 {{$subjectName->subject_name}}</h3>
                             @includeIf('university::exam._university_info')
                         </div>
@@ -200,12 +200,12 @@
                                     <th width="20%">@lang('student.admission_no')</th>
                                     <th width="20%">@lang('student.student_name')</th>
                                     <th width="20%">@lang('student.roll_no')</th>
-                                    <th width="20%">@lang('exam.attendance')</th>
+                                    <th width="20%">@lang('exam.aramiscAttendance')</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach($exam_attendance_childs as $student)
+                                @foreach($exam_aramiscAttendance_childs as $student)
                                 <tr>
                                     <td>{{@$student->studentInfo !=""?@$student->studentInfo->admission_no:""}}<input
                                             type="hidden" name="id[]" value="{{@$student->student_id}}"></td>
@@ -213,7 +213,7 @@
                                     </td>
                                     <td>{{@$student->studentInfo !=""?@$student->studentInfo->roll_no:""}}</td>
                                     <td>
-                                        @if(@$student->attendance_type == 'P')
+                                        @if(@$student->aramiscAttendance_type == 'P')
                                         <button
                                             class="primary-btn small bg-success text-white border-0">@lang('student.present')</button>
                                         @else
@@ -237,7 +237,7 @@
                 <div class="row">
                     <div class="col-lg-6 no-gutters">
                         <div class="main-title">
-                            <h3 class="mb-15">@lang('exam.exam_attendance')</h3>
+                            <h3 class="mb-15">@lang('exam.exam_aramiscAttendance')</h3>
                         </div>
                     </div>
                 </div>
@@ -251,12 +251,12 @@
                                     <th width="20%">@lang('student.student_name')</th>
                                     <th width="20%">@lang('common.class_Sec')</th>
                                     <th width="20%">@lang('student.roll_no')</th>
-                                    <th width="20%">@lang('exam.attendance')</th>
+                                    <th width="20%">@lang('exam.aramiscAttendance')</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach($exam_attendance_childs as $student)
+                                @foreach($exam_aramiscAttendance_childs as $student)
                                 <tr>
                                     <td class="pl-3">{{@$student->studentInfo !=""?@$student->studentInfo->admission_no:""}}<input
                                             type="hidden" name="id[]" value="{{@$student->student_id}}"></td>
@@ -266,7 +266,7 @@
                                     </td>
                                     <td class="pl-3">{{@$student->studentInfo !=""?@$student->studentInfo->roll_no:""}}</td>
                                     <td>
-                                        @if(@$student->attendance_type == 'P')
+                                        @if(@$student->aramiscAttendance_type == 'P')
                                         <button
                                             class="primary-btn small bg-success text-white border-0">@lang('student.present')</button>
                                         @else

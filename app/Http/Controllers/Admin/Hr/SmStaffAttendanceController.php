@@ -40,7 +40,7 @@ class SmStaffAttendanceController extends Controller
                 ->orderBy('name', 'asc')
                 ->get();
 
-            return view('backEnd.humanResource.staff_attendance', compact('roles'));
+            return view('backEnd.humanResource.staff_aramiscAttendance', compact('roles'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -50,7 +50,7 @@ class SmStaffAttendanceController extends Controller
     public function staffAttendanceSearch(staffAttendanceSearchRequest $request)
     {
         try {
-            $date = $request->attendance_date;
+            $date = $request->aramiscAttendance_date;
 
             $roles = InfixRole::where('active_status', '=', '1')->whereNotIn('id', [1, 2, 3])->whereOr(['school_id', Auth::user()->school_id], ['school_id', 1])->get();
             $role_id = $request->role;
@@ -62,12 +62,12 @@ class SmStaffAttendanceController extends Controller
 
             if ($staffs->isEmpty()) {
                 Toastr::error('No result found', 'Failed');
-                return redirect('staff-attendance');
+                return redirect('staff-aramiscAttendance');
             }
 
-            $attendance_type = $staffs[0]['DateWiseStaffAttendance'] != null ? $staffs[0]['DateWiseStaffAttendance']['attendance_type'] : '';
+            $aramiscAttendance_type = $staffs[0]['DateWiseStaffAttendance'] != null ? $staffs[0]['DateWiseStaffAttendance']['aramiscAttendance_type'] : '';
 
-            return view('backEnd.humanResource.staff_attendance', compact('role_id', 'date', 'roles', 'staffs', 'attendance_type'));
+            return view('backEnd.humanResource.staff_aramiscAttendance', compact('role_id', 'date', 'roles', 'staffs', 'aramiscAttendance_type'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -79,45 +79,45 @@ class SmStaffAttendanceController extends Controller
       
         try {
             foreach ($request->id as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff)
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff)
                     ->where('attendence_date', date('Y-m-d', strtotime($request->date)))
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
 
-                if ($attendance != "") {
-                    $attendance->delete();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 }
 
-                $attendance = new SmStaffAttendence();
-                $attendance->staff_id = $staff;
-                $attendance->school_id = Auth::user()->school_id;
-                $attendance->attendence_type = $request->attendance[$staff];
-                $attendance->notes = $request->note[$staff];
-                $attendance->attendence_date = date('Y-m-d', strtotime($request->date));
-                $attendance->save();
+                $aramiscAttendance = new SmStaffAttendence();
+                $aramiscAttendance->staff_id = $staff;
+                $aramiscAttendance->school_id = Auth::user()->school_id;
+                $aramiscAttendance->attendence_type = $request->aramiscAttendance[$staff];
+                $aramiscAttendance->notes = $request->note[$staff];
+                $aramiscAttendance->attendence_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->save();
 
-                $data['teacher_name'] = $attendance->StaffInfo->full_name;
-                $this->sent_notifications('Staff_Attendance', (array)$attendance->StaffInfo->user_id, $data, ['Teacher']);
+                $data['teacher_name'] = $aramiscAttendance->StaffInfo->full_name;
+                $this->sent_notifications('Staff_Attendance', (array)$aramiscAttendance->StaffInfo->user_id, $data, ['Teacher']);
 
                 $staffInfo = SmStaff::find($staff);
                 $compact['slug'] = 'staff';
                 $compact['user_email'] = $staffInfo->email;
                 $compact['staff_name'] = $staffInfo->full_name;
-                $compact['attendance_date'] = date('Y-m-d', strtotime($request->date));
-                if ($request->attendance[$staff] == "P") {
-                    @send_sms($staffInfo->mobile, 'staff_attendance', $compact);
-                } elseif ($request->attendance[$staff] == "A") {
+                $compact['aramiscAttendance_date'] = date('Y-m-d', strtotime($request->date));
+                if ($request->aramiscAttendance[$staff] == "P") {
+                    @send_sms($staffInfo->mobile, 'staff_aramiscAttendance', $compact);
+                } elseif ($request->aramiscAttendance[$staff] == "A") {
                     @send_sms($staffInfo->mobile, 'staff_absent', $compact);
-                } elseif ($request->attendance[$staff] == "L") {
+                } elseif ($request->aramiscAttendance[$staff] == "L") {
                     @send_sms($staffInfo->mobile, 'staff_late', $compact);
                 }
             }
             Toastr::success('Operation successful', 'Success');
-            return redirect('staff-attendance');
+            return redirect('staff-aramiscAttendance');
         } catch (\Exception $e) {
             
             Toastr::error('Operation Failed', 'Failed');
-            return redirect('staff-attendance');
+            return redirect('staff-aramiscAttendance');
         }
     }
 
@@ -129,35 +129,35 @@ class SmStaffAttendanceController extends Controller
             ->get();
         if ($staffs->isEmpty()) {
             Toastr::error('No Result Found', 'Failed');
-            return redirect('staff-attendance');
+            return redirect('staff-aramiscAttendance');
         }
 
         foreach ($staffs as $staff) {
-            $attendance = SmStaffAttendence::where('staff_id', $staff->id)
+            $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff->id)
                 ->where('attendence_date', date('Y-m-d', strtotime($request->date)))
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
 
-            if (!empty($attendance) || $request->purpose == "unmark") {
-                $attendance->delete();
+            if (!empty($aramiscAttendance) || $request->purpose == "unmark") {
+                $aramiscAttendance->delete();
             }
             if ($request->purpose == "mark") {
-                $attendance = new SmStaffAttendence();
-                $attendance->attendence_type = "H";
-                $attendance->notes = "Holiday";
-                $attendance->attendence_date = date('Y-m-d', strtotime($request->date));
-                $attendance->staff_id = $staff->id;
-                $attendance->academic_id = getAcademicId();
-                $attendance->school_id = Auth::user()->school_id;
-                $attendance->save();
+                $aramiscAttendance = new SmStaffAttendence();
+                $aramiscAttendance->attendence_type = "H";
+                $aramiscAttendance->notes = "Holiday";
+                $aramiscAttendance->attendence_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->staff_id = $staff->id;
+                $aramiscAttendance->academic_id = getAcademicId();
+                $aramiscAttendance->school_id = Auth::user()->school_id;
+                $aramiscAttendance->save();
 
                 $compact['holiday_date'] = date('Y-m-d', strtotime($request->date));
                 @send_sms($staff->mobile, 'holiday', $compact);
             }
         }
         Toastr::success('Operation successful', 'Success');
-        return redirect('staff-attendance');
+        return redirect('staff-aramiscAttendance');
     }
 
     public function staffAttendanceReport(Request $request)
@@ -172,7 +172,7 @@ class SmStaffAttendanceController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($roles, null);
             }
-            return view('backEnd.humanResource.staff_attendance_report', compact('roles'));
+            return view('backEnd.humanResource.staff_aramiscAttendance_report', compact('roles'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -194,14 +194,14 @@ class SmStaffAttendanceController extends Controller
 
             $staffs = SmStaff::where('role_id', $request->role)->where('school_id', Auth::user()->school_id)->get(['id', 'staff_no']);
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($staffs as $staff) {
-                $attendance = SmStaffAttendence::with('staffInfo')->where('staff_id', $staff->id)->where('attendence_date', 'like', $request->year . '-' . $request->month . '%')->where('school_id', Auth::user()->school_id)->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStaffAttendence::with('staffInfo')->where('staff_id', $staff->id)->where('attendence_date', 'like', $request->year . '-' . $request->month . '%')->where('school_id', Auth::user()->school_id)->get();
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
-            return view('backEnd.humanResource.staff_attendance_report', compact('attendances', 'staffs', 'days', 'year', 'month', 'current_day', 'roles', 'role_id'));
+            return view('backEnd.humanResource.staff_aramiscAttendance_report', compact('aramiscAttendances', 'staffs', 'days', 'year', 'month', 'current_day', 'roles', 'role_id'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -222,19 +222,19 @@ class SmStaffAttendanceController extends Controller
             $staffs = SmStaff::where('role_id', $role_id)->where('school_id', Auth::user()->school_id)->get();
             $role = InfixRole::find($role_id);
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($staffs as $staff) {
-                $attendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', 'like', $year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff->id)->where('attendence_date', 'like', $year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
             // $customPaper = array(0, 0, 700.00, 1000.80);
             // $pdf = Pdf::loadView(
-            //     'backEnd.humanResource.staff_attendance_print',
+            //     'backEnd.humanResource.staff_aramiscAttendance_print',
             //     [
-            //         'attendances' => $attendances,
+            //         'aramiscAttendances' => $aramiscAttendances,
             //         'days' => $days,
             //         'year' => $year,
             //         'month' => $month,
@@ -244,15 +244,15 @@ class SmStaffAttendanceController extends Controller
             //         'role' => $role,
             //     ]
             // )->setPaper('A4', 'landscape');
-            // return $pdf->stream('staff_attendance.pdf');
-            return view('backEnd.humanResource.staff_attendance_print', compact('attendances', 'days', 'year', 'month', 'current_day', 'roles', 'role_id', 'role'));
+            // return $pdf->stream('staff_aramiscAttendance.pdf');
+            return view('backEnd.humanResource.staff_aramiscAttendance_print', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day', 'roles', 'role_id', 'role'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function attendanceData($data)
+    public function aramiscAttendanceData($data)
     {
 
         try {
@@ -308,9 +308,9 @@ class SmStaffAttendanceController extends Controller
             $previousMonthDetails['day'] = $days2;
             $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
-            $attendances = SmStaffAttendence::where('staff_id', $teacher->id)
+            $aramiscAttendances = SmStaffAttendence::where('staff_id', $teacher->id)
                 ->where('attendence_date', 'like', '%' . $request->year . '-' . $month . '%')
-                ->select('attendence_type as attendance_type', 'attendence_date as attendance_date')
+                ->select('attendence_type as aramiscAttendance_type', 'attendence_date as aramiscAttendance_date')
                 ->where('school_id', Auth::user()->school_id)->get();
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -322,7 +322,7 @@ class SmStaffAttendanceController extends Controller
     {
 
         try {
-            return view('backEnd.humanResource.staff_attendance_import');
+            return view('backEnd.humanResource.staff_aramiscAttendance_import');
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -332,10 +332,10 @@ class SmStaffAttendanceController extends Controller
     public function downloadStaffAttendanceFile()
     {
         try {
-            $studentsArray = ['staff_id', 'attendance_date', 'in_time', 'out_time'];
+            $studentsArray = ['staff_id', 'aramiscAttendance_date', 'in_time', 'out_time'];
 
-            return Excel::create('staff_attendance_sheet', function ($excel) use ($studentsArray) {
-                $excel->sheet('staff_attendance_sheet', function ($sheet) use ($studentsArray) {
+            return Excel::create('staff_aramiscAttendance_sheet', function ($excel) use ($studentsArray) {
+                $excel->sheet('staff_aramiscAttendance_sheet', function ($sheet) use ($studentsArray) {
                     $sheet->fromArray($studentsArray);
                 });
             })->download('xlsx');
@@ -368,7 +368,7 @@ class SmStaffAttendanceController extends Controller
                     }
 
                     try {
-                        SmStaffAttendanceImport::where('attendence_date', date('Y-m-d', strtotime($request->attendance_date)))->delete();
+                        SmStaffAttendanceImport::where('attendence_date', date('Y-m-d', strtotime($request->aramiscAttendance_date)))->delete();
 
                         foreach ($data as $key => $val) {
                             SmStaffAttendence::where('attendence_date', date('Y-m-d', strtotime($val->attendence_date)))
@@ -378,22 +378,22 @@ class SmStaffAttendanceController extends Controller
 
                         foreach ($data as $key => $value) {
                             if (!empty($value)) {
-                                if (date('d/m/Y', strtotime($request->attendance_date)) == date('d/m/Y', strtotime($value->attendence_date))) {
+                                if (date('d/m/Y', strtotime($request->aramiscAttendance_date)) == date('d/m/Y', strtotime($value->attendence_date))) {
                                     $staff = SmStaff::find($value->staff_id);
-                                    $attendance = SmStaffAttendence::where('staff_id', $staff->id)
+                                    $aramiscAttendance = SmStaffAttendence::where('staff_id', $staff->id)
                                         ->where('attendence_date', date('Y-m-d', strtotime($value->attendence_date)))
                                         ->where('school_id', Auth::user()->school_id)
                                         ->first();
-                                    if ($attendance != "") {
-                                        $attendance->delete();
+                                    if ($aramiscAttendance != "") {
+                                        $aramiscAttendance->delete();
                                     }
 
                                     if ($staff != "") {
                                         $present_staffs[] = $staff->id;
                                         $import = new SmStaffAttendence();
                                         $import->staff_id = $staff->id;
-                                        $import->attendence_date = date('Y-m-d', strtotime($request->attendance_date));
-                                        $import->attendence_type = $value->attendance_type;
+                                        $import->attendence_date = date('Y-m-d', strtotime($request->aramiscAttendance_date));
+                                        $import->attendence_type = $value->aramiscAttendance_type;
                                         $import->notes = $value->notes;
                                         $import->school_id = Auth::user()->school_id;
                                         $import->academic_id = getAcademicId();
@@ -408,7 +408,7 @@ class SmStaffAttendanceController extends Controller
                                 $import = new SmStaffAttendence();
                                 $import->staff_id = $all_staff_id;
                                 $import->attendence_type = 'A';
-                                $import->attendence_date = date('Y-m-d', strtotime($request->attendance_date));
+                                $import->attendence_date = date('Y-m-d', strtotime($request->aramiscAttendance_date));
                                 $import->school_id = Auth::user()->school_id;
                                 $import->academic_id = getAcademicId();
                                 $import->save();

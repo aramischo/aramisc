@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SmExamAttendance extends Model
 {
     use HasFactory;
-    public function examAttendanceChild()
+    public function aramiscExamAttendanceChild()
     {
-        return $this->hasMany('App\SmExamAttendanceChild', 'exam_attendance_id', 'id');
+        return $this->hasMany('App\SmExamAttendanceChild', 'exam_aramiscAttendance_id', 'id');
     }
     public function class()
     {

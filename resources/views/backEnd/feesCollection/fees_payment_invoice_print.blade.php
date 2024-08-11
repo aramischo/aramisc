@@ -217,7 +217,7 @@
                     @lang('common.section'): {{@$student->section->section_name}}
                   </p> 
                   @endif 
-                  @if(moduleStatusCheck('University') || directFees())
+                  @if(moduleStatusCheck('University') || aramiscDirectFees())
                     @if(count($fees_assigneds) == 1)
                     <p>
                     @lang('fees.payment_id'):
@@ -276,7 +276,7 @@
                         @lang('common.section'): {{@$student->section->section_name}}
                       </p> 
                       @endif 
-                      @if(moduleStatusCheck('University') || directFees())
+                      @if(moduleStatusCheck('University') || aramiscDirectFees())
                       @if(count($fees_assigneds) == 1)
                       <p>
                       @lang('fees.payment_id'):
@@ -336,7 +336,7 @@
                       @lang('common.section'): {{@$student->section->section_name}}
                     </p> 
                     @endif 
-                    @if(moduleStatusCheck('University') || directFees())
+                    @if(moduleStatusCheck('University') || aramiscDirectFees())
                     @if(count($fees_assigneds) == 1)
                     <p>
                     @lang('fees.payment_id'):
@@ -577,7 +577,7 @@
 
 
       {{-- direct fees start here --}}
-      @elseif(directFees())
+      @elseif(aramiscDirectFees())
       @foreach($fees_assigneds as $feesInstallment)
       @php
       if(($feesInstallment->active_status == 0)){
@@ -775,10 +775,10 @@
               $total_discount += $discount_amount;
               $student_id = $fees_assigned->student_id;
               //Sum of total paid amount of single fees type
-              $paid = \App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('amount');
+              $paid = \App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('amount');
               $total_grand_paid += $paid;
               //Sum of total fine for single fees type
-            $fine = \App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('fine');
+            $fine = \App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('fine');
             $total_fine += $fine;
             $total_paid = $discount_amount + $paid;
           @endphp

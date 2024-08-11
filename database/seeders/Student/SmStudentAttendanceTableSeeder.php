@@ -36,9 +36,9 @@ class SmStudentAttendanceTableSeeder extends Seeder
                 $sa->student_record_id = $record->student_id;
                 $sa->class_id = $record->class_id;
                 $sa->section_id = $record->section_id;
-                $sa->attendance_type = 'P';
+                $sa->aramiscAttendance_type = 'P';
                 $sa->notes = 'Sample Attendance for Student';
-                $sa->attendance_date = $date;
+                $sa->aramiscAttendance_date = $date;
                 $sa->school_id = $school_id;
                 $sa->academic_id = $academic_id;
                 $sa->save();

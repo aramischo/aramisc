@@ -36,17 +36,17 @@
     </style>
 @endpush
 @section('title')
-    @lang('teacherEvaluation.teacher_pending_evaluation_report')
+    @lang('aramiscTeacherEvaluation.teacher_pending_evaluation_report')
 @endsection
 @section('mainContent')
     <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
-                <h1>@lang('teacherEvaluation.teacher_pending_evaluation_report')</h1>
+                <h1>@lang('aramiscTeacherEvaluation.teacher_pending_evaluation_report')</h1>
                 <div class="bc-pages">
-                    <a href="{{ route('dashboard') }}">@lang('teacherEvaluation.dashboard')</a>
-                    <a href="#">@lang('teacherEvaluation.teacher_evaluation')</a>
-                    <a href="#">@lang('teacherEvaluation.teacher_pending_evaluation_report')</a>
+                    <a href="{{ route('dashboard') }}">@lang('aramiscTeacherEvaluation.dashboard')</a>
+                    <a href="#">@lang('aramiscTeacherEvaluation.teacher_evaluation')</a>
+                    <a href="#">@lang('aramiscTeacherEvaluation.teacher_pending_evaluation_report')</a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                             <div class="row mb-40">
                                 <div class="col-lg-12">
                                     {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-pending-evaluation-report-search', 'method' => 'GET', 'enctype' => 'multipart/form-data']) }}
-                                    @include('backEnd.teacherEvaluation.report._teacher_evaluation_search_common_table')
+                                    @include('backEnd.aramiscTeacherEvaluation.report._teacher_evaluation_search_common_table')
                                     {{ Form::close() }}
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                     <div class="white-box">
                                         <div class="mt-40">
                                             @include(
-                                        'backEnd.teacherEvaluation.report._teacher_evaluation_report_common_table',
+                                        'backEnd.aramiscTeacherEvaluation.report._teacher_evaluation_report_common_table',
                                         [
                                             'approved_evaluation_button_enable' => true,
                                         ]

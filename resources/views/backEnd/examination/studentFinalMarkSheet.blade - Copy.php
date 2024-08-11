@@ -296,7 +296,7 @@
                                                             <div class="offset-2">
                                                             </div>
                                                         </div>
-                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
 
                                             </div>
                                         <div class="card-body">
@@ -307,26 +307,26 @@
                                                             @lang('exam.student_final_mark_sheet')
                                                         </h3>
                                                         <h3>
-                                                            {{$studentDetails->studentDetail->full_name}}
+                                                            {{$aramiscStudentDetails->studentDetail->full_name}}
                                                         </h3>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <p class="mb-0">
-                                                                    @lang('common.academic_year') : &nbsp;<span class="primary-color fw-500">{{ @$studentDetails->academic->year }}</span>
+                                                                    @lang('common.academic_year') : &nbsp;<span class="primary-color fw-500">{{ @$aramiscStudentDetails->academic->year }}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('common.section') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $studentDetails->section->section_name }}</span>
+                                                                    @lang('common.section') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $aramiscStudentDetails->section->section_name }}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('common.class') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $studentDetails->class->class_name }}</span>
+                                                                    @lang('common.class') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $aramiscStudentDetails->class->class_name }}</span>
                                                                 </p>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <p class="mb-0">
-                                                                    @lang('student.admission_no') : <span class="primary-color fw-500">{{$studentDetails->studentDetail->admission_no}}</span>
+                                                                    @lang('student.admission_no') : <span class="primary-color fw-500">{{$aramiscStudentDetails->studentDetail->admission_no}}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('student.roll') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="primary-color fw-500">{{$studentDetails->roll_no}}</span>
+                                                                    @lang('student.roll') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="primary-color fw-500">{{$aramiscStudentDetails->roll_no}}</span>
                                                                 </p>
                                                             </div>
                                                         </div>

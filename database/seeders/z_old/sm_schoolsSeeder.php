@@ -701,14 +701,14 @@ class sm_schoolsSeeder extends Seeder
 
                     foreach($sections as $section){
                         foreach ($subjects_ids as $subject_id) {
-                            $exam_attendance = new SmExamAttendance();
-                            $exam_attendance->exam_id = $examType;
-                            $exam_attendance->subject_id = $subject_id->id;
-                            $exam_attendance->class_id = $class_id;
-                            $exam_attendance->section_id = $section->section_id;
-                            $exam_attendance->school_id = $i;
-                            $exam_attendance->academic_id = $i;
-                            $exam_attendance->save();
+                            $exam_aramiscAttendance = new SmExamAttendance();
+                            $exam_aramiscAttendance->exam_id = $examType;
+                            $exam_aramiscAttendance->subject_id = $subject_id->id;
+                            $exam_aramiscAttendance->class_id = $class_id;
+                            $exam_aramiscAttendance->section_id = $section->section_id;
+                            $exam_aramiscAttendance->school_id = $i;
+                            $exam_aramiscAttendance->academic_id = $i;
+                            $exam_aramiscAttendance->save();
                             
                         }
                     }
@@ -718,13 +718,13 @@ class sm_schoolsSeeder extends Seeder
 
                 foreach($infos as $info){
                     foreach ($students as $student) {    
-                        $exam_attendance_child = new SmExamAttendanceChild();
-                        $exam_attendance_child->exam_attendance_id = $info->id;
-                        $exam_attendance_child->student_id = $student->id;
-                        $exam_attendance_child->attendance_type = "P";
-                        $exam_attendance_child->school_id = $i;
-                        $exam_attendance_child->academic_id = $i;
-                        $exam_attendance_child->save();
+                        $exam_aramiscAttendance_child = new SmExamAttendanceChild();
+                        $exam_aramiscAttendance_child->exam_aramiscAttendance_id = $info->id;
+                        $exam_aramiscAttendance_child->student_id = $student->id;
+                        $exam_aramiscAttendance_child->aramiscAttendance_type = "P";
+                        $exam_aramiscAttendance_child->school_id = $i;
+                        $exam_aramiscAttendance_child->academic_id = $i;
+                        $exam_aramiscAttendance_child->save();
                     }
                 }
 

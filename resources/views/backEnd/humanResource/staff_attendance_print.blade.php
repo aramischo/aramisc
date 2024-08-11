@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}" @if(userRtlLtl()==1) dir="rtl" class="rtl" @endif>
 
 <head>
-    <title>@lang('hr.staff_attendance') </title>
+    <title>@lang('hr.staff_aramiscAttendance') </title>
     <meta charset="utf-8">
 </head>
 
@@ -16,9 +16,9 @@ td {
     text-align: center !important;
 }
 
-#attendance.th,
-#attendance.tr,
-#attendance.td {
+#aramiscAttendance.th,
+#aramiscAttendance.tr,
+#aramiscAttendance.td {
     font-size: 10px !important;
     padding: 0px !important;
     text-align: center !important;
@@ -26,29 +26,29 @@ td {
     vertical-align: middle !important;
 }
 
-#attendance th {
+#aramiscAttendance th {
     background: #ddd;
     text-align: center;
 }
 
-#attendance {
+#aramiscAttendance {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#attendance tr {
+#aramiscAttendance tr {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#attendance th {
+#aramiscAttendance th {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center !important;
     font-size: 11px;
 }
 
-#attendance td {
+#aramiscAttendance td {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
@@ -98,9 +98,9 @@ if (is_chrome) {
         </table>
 
 
-        <h3 style="text-align:center">@lang('hr.staff_attendance_report')</h3>
+        <h3 style="text-align:center">@lang('hr.staff_aramiscAttendance_report')</h3>
 
-        <table id="attendance" style="width: 100%; table-layout: fixed">
+        <table id="aramiscAttendance" style="width: 100%; table-layout: fixed">
 
 
             <tr>
@@ -123,8 +123,8 @@ if (is_chrome) {
                     @endfor
             </tr>
 
-            @foreach($attendances as $values)
-            @php $total_attendance = 0; @endphp
+            @foreach($aramiscAttendances as $values)
+            @php $total_aramiscAttendance = 0; @endphp
             @php $count_absent = 0; @endphp
             <tr>
                 <td>
@@ -149,7 +149,7 @@ if (is_chrome) {
                     @php $p = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'P')
-                    @php $p++; $total_attendance++; @endphp
+                    @php $p++; $total_aramiscAttendance++; @endphp
                     @endif
                     @endforeach
                     {{$p}}
@@ -158,7 +158,7 @@ if (is_chrome) {
                     @php $l = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'L')
-                    @php $l++; $total_attendance++; @endphp
+                    @php $l++; $total_aramiscAttendance++; @endphp
                     @endif
                     @endforeach
                     {{$l}}
@@ -167,7 +167,7 @@ if (is_chrome) {
                     @php $a = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'A')
-                    @php $a++; $count_absent++; $total_attendance++; @endphp
+                    @php $a++; $count_absent++; $total_aramiscAttendance++; @endphp
                     @endif
                     @endforeach
                     {{$a}}
@@ -176,7 +176,7 @@ if (is_chrome) {
                     @php $h = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'H')
-                    @php $h++; $total_attendance++; @endphp
+                    @php $h++; $total_aramiscAttendance++; @endphp
                     @endif
                     @endforeach
                     {{$h}}
@@ -185,18 +185,18 @@ if (is_chrome) {
                     @php $f = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'F')
-                    @php $f++; $total_attendance++; @endphp
+                    @php $f++; $total_aramiscAttendance++; @endphp
                     @endif
                     @endforeach
                     {{$f}}
                 </td>
                 <td>
                     @php
-                    $total_present = $total_attendance - $count_absent;
+                    $total_present = $total_aramiscAttendance - $count_absent;
                     if($count_absent == 0){
                     echo '100%';
                     }else{
-                    $percentage = $total_present / $total_attendance * 100;
+                    $percentage = $total_present / $total_aramiscAttendance * 100;
                     echo number_format((float)$percentage, 2, '.', '').'%';
                     }
                     @endphp

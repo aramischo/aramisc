@@ -34,7 +34,7 @@ class StudentAttendanceSetNotification extends Notification
     {
         $message = new FcmMessage();
         $notification = [
-            'title' => app('translator')->get('student.attendance_set_notification'),
+            'title' => app('translator')->get('student.aramiscAttendance_set_notification'),
             'body' => $this->sm_notification->message,
         ];
         $data = [

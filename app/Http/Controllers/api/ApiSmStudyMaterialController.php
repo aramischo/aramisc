@@ -18,7 +18,7 @@ class ApiSmStudyMaterialController extends Controller
 
 
     /**
-     *studentAssignmentApi
+     *aramiscStudentAssignmentApi
      * @response {
      *"success": true,
      *"data": {
@@ -31,7 +31,7 @@ class ApiSmStudyMaterialController extends Controller
      *    "class_id": 42,
      *    "section_id": 1
      *    },
-     *    "uploadContents": [
+     *    "aramiscUploadContents": [
      *    {
      *        "content_title": "Assignment",
      *        "upload_date": "2021-04-05",
@@ -42,12 +42,12 @@ class ApiSmStudyMaterialController extends Controller
      *},
 
      */
-    public function studentAssignmentApi(Request $request, $user_id, $record_id)
+    public function aramiscStudentAssignmentApi(Request $request, $user_id, $record_id)
     {
 
         $student_detail = SmStudent::where('user_id', $user_id)->first();
         $record = StudentRecord::where('id', $record_id)->where('student_id', $student_detail->id)->first();
-        $uploadContents = SmTeacherUploadContent::where('content_type', 'as')
+        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
@@ -57,14 +57,14 @@ class ApiSmStudyMaterialController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['uploadContents'] = $uploadContents->toArray();
+            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
 
 
     /**
-     *studentSyllabusApi
+     *aramiscStudentSyllabusApi
      * @response {
      *"success": true,
      *"data": {
@@ -77,7 +77,7 @@ class ApiSmStudyMaterialController extends Controller
      *    "class_id": 42,
      *    "section_id": 1
      *    },
-     *    "uploadContents": [
+     *    "aramiscUploadContents": [
      *    {
      *        "content_title": "Syllabus",
      *        "upload_date": "2021-04-05",
@@ -88,13 +88,13 @@ class ApiSmStudyMaterialController extends Controller
      *},
 
      */
-    public function studentSyllabusApi(Request $request, $user_id, $record_id)
+    public function aramiscStudentSyllabusApi(Request $request, $user_id, $record_id)
     {
         $student_detail = SmStudent::where('user_id', $user_id)->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
 
         $record = StudentRecord::where('id', $record_id)->first();
         
-        $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')->where('academic_id',SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')->where('academic_id',SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                                 ->where(function ($que) use ($record) {
                                     return $que->where('class', $record->class_id)
                                         ->orWhereNull('class');
@@ -108,7 +108,7 @@ class ApiSmStudyMaterialController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['uploadContents'] = $uploadContents->toArray();
+            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
@@ -127,7 +127,7 @@ class ApiSmStudyMaterialController extends Controller
      *    "class_id": 42,
      *    "section_id": 1
      *    },
-     *    "uploadContents": [
+     *    "aramiscUploadContents": [
      *    {
      *        "content_title": "Other Download",
      *        "upload_date": "2021-04-05",
@@ -144,7 +144,7 @@ class ApiSmStudyMaterialController extends Controller
         $student_detail = SmStudent::where('user_id', $user_id)->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
 
         $record = StudentRecord::where('id', $record_id)->where('student_id', $student_detail->id)->first();
-        $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')
+        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
@@ -154,11 +154,11 @@ class ApiSmStudyMaterialController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['uploadContents'] = $uploadContents->toArray();
+            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_studentAssignmentApi(Request $request, $school_id, $user_id, $record_id)
+    public function saas_aramiscStudentAssignmentApi(Request $request, $school_id, $user_id, $record_id)
     {
       
         $student_detail = SmStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)->first();
@@ -166,7 +166,7 @@ class ApiSmStudyMaterialController extends Controller
         ->where('student_id', $student_detail->id)
         ->where('school_id', $school_id)
         ->first();
-        $uploadContents = SmTeacherUploadContent::where('content_type', 'as')
+        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
@@ -176,11 +176,11 @@ class ApiSmStudyMaterialController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = @$student_detail->toArray();
-            $data['uploadContents'] = @$uploadContents->toArray();
+            $data['aramiscUploadContents'] = @$aramiscUploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_studentSyllabusApi(Request $request, $school_id, $user_id, $record_id)
+    public function saas_aramiscStudentSyllabusApi(Request $request, $school_id, $user_id, $record_id)
     {
 
         $student_detail = SmStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)
@@ -192,10 +192,10 @@ class ApiSmStudyMaterialController extends Controller
         if (!$student_detail) {
             $data = [];
             $data['student_detail'] = [];
-            $data['uploadContents'] = [];
+            $data['aramiscUploadContents'] = [];
             return ApiBaseMethod::sendResponse($data, null);
         }
-        $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')
+        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
@@ -206,7 +206,7 @@ class ApiSmStudyMaterialController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['uploadContents'] = $uploadContents->toArray();
+            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
@@ -216,7 +216,7 @@ class ApiSmStudyMaterialController extends Controller
         $student_detail = SmStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)
         ->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
         $record = StudentRecord::where('id', $record_id)->where('student_id', $student_detail->id)->where('school_id', $school_id)->first();
-        $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')
+        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')
             ->select('content_title', 'upload_date', 'description', 'upload_file','source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
@@ -228,7 +228,7 @@ class ApiSmStudyMaterialController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['uploadContents'] = $uploadContents->toArray();
+            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }

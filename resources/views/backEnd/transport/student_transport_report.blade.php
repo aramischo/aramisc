@@ -181,7 +181,7 @@
                      processing: true,
                      serverSide: true,
                      "ajax": $.fn.dataTable.pipeline( {
-                           url: "{{route('studentTransportReportAjax')}}",
+                           url: "{{route('aramiscStudentTransportReportAjax')}}",
                            data: { 
                                
                             },

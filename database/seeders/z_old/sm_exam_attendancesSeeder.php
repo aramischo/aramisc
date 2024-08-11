@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\SmExamAttendance;
 use Illuminate\Database\Seeder;
 
-class sm_exam_attendancesSeeder extends Seeder
+class sm_exam_aramiscAttendancesSeeder extends Seeder
 {
     /**
      * Run the database seeds.

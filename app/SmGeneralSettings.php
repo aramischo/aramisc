@@ -43,7 +43,7 @@ class SmGeneralSettings extends Model
         'phone_number_privacy' => 'integer',
         'week_start_id' => 'integer',
         'time_zone_id' => 'integer',
-        'attendance_layout' => 'integer',
+        'aramiscAttendance_layout' => 'integer',
         'session_id' => 'integer',
         'language_id' => 'integer',
         'date_format_id' => 'integer',
@@ -207,7 +207,7 @@ class SmGeneralSettings extends Model
             foreach($examStudents as $e_student){
                 $examStudentsids[]=$e_student->student_id;
             }
-            // check exam attendance and whereIn
+            // check exam aramiscAttendance and whereIn
 
             $eligible_students       = SmStudent::whereIn('id',$examStudentsids)->where('class_id', $InputClassId)->where('section_id', $InputSectionId)->get();
 

@@ -54,7 +54,7 @@ class CreateSmGeneralSettingsTable extends Migration
             $table->timestamps();
             $table->integer('week_start_id')->nullable();
             $table->integer('time_zone_id')->nullable();
-            $table->integer('attendance_layout')->default(1)->nullable();
+            $table->integer('aramiscAttendance_layout')->default(1)->nullable();
             $table->integer('session_id')->nullable()->unsigned();
             $table->foreign('session_id')->references('id')->on('sm_academic_years')->onDelete('set null');
 

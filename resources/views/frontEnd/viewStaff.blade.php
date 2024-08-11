@@ -133,7 +133,7 @@
     
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" href="#studentProfile" role="tab" data-toggle="tab">profile</a>
+            <a class="nav-link active" href="#aramiscStudentProfile" role="tab" data-toggle="tab">profile</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#payroll" role="tab" data-toggle="tab">Payroll</a>
@@ -156,7 +156,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <!-- Start Profile Tab -->
-        <div role="tabpanel" class="tab-pane fade show active" id="studentProfile">
+        <div role="tabpanel" class="tab-pane fade show active" id="aramiscStudentProfile">
             <div class="white-box">
                 <h4 class="stu-sub-head">Personal info</h4>
                 <div class="single-info">

@@ -17,7 +17,7 @@ class SmExamSchedule extends Model
         parent::boot();
         static::addGlobalScope(new AcademicSchoolScope);
     }
-    public function examSchedule()
+    public function aramiscExamSchedule()
     {
         return $this->hasMany('App\SmExamScheduleSubject', 'exam_schedule_id', 'id');
     }
@@ -122,7 +122,7 @@ class SmExamSchedule extends Model
         }
     }
 
-    public static function examScheduleSubject($class_id, $section_id, $exam_id, $exam_period_id, $date)
+    public static function aramiscExamScheduleSubject($class_id, $section_id, $exam_id, $exam_period_id, $date)
     {
         try {
             return SmExamSchedule::where('class_id', $class_id)->where('section_id', $section_id)

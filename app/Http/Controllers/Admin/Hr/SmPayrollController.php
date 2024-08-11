@@ -97,7 +97,7 @@ class SmPayrollController extends Controller
             // return $staffDetails;
             $month = date('m', strtotime($payroll_month));
 
-            $attendances = SmStaffAttendence::where('staff_id', $id)->where('attendence_date', 'like', $payroll_year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
+            $aramiscAttendances = SmStaffAttendence::where('staff_id', $id)->where('attendence_date', 'like', $payroll_year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
 
             $staff_leaves = SmLeaveDefine::where('user_id', $staffDetails->user_id)->where('role_id', $staffDetails->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $staff_leave_deduct_days = SmLeaveDeductionInfo::where('staff_id', $id)->where('pay_year', $payroll_year)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get()->sum("extra_leave");
@@ -124,7 +124,7 @@ class SmPayrollController extends Controller
             $a = 0;
             $f = 0;
             $h = 0;
-            foreach ($attendances as $value) {
+            foreach ($aramiscAttendances as $value) {
                 if ($value->attendence_type == 'P') {
                     $p++;
                 } elseif ($value->attendence_type == 'L') {

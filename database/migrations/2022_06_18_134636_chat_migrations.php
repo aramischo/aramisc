@@ -21,8 +21,8 @@ class ChatMigrations extends Migration
         Group::truncate();
         GroupUser::truncate();
         $subjects = SmAssignSubject::withOutGlobalScope(StatusAcademicSchoolScope::class)->get();
-        foreach ($subjects as $assignSubject){
-            event(new CreateClassGroupChat($assignSubject));
+        foreach ($subjects as $aramiscAssignSubject){
+            event(new CreateClassGroupChat($aramiscAssignSubject));
         }
     }
 

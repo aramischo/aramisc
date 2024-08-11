@@ -218,7 +218,7 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function studentProfile(Request $request, $id)
+    public function aramiscStudentProfile(Request $request, $id)
     {
         $data['student_detail'] = SmStudent::with(['bloodGroup' => function ($q1) {
             $q1->select('id', 'base_setup_name as bloodgroup_name');
@@ -269,7 +269,7 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function studentProfileEdit($id)
+    public function aramiscStudentProfileEdit($id)
     {
         $data['student_detail'] = SmStudent::select('student_photo','first_name', 'last_name', 'admission_no', 'date_of_birth', 'age', 'mobile', 'email', 'current_address')->findOrFail($id);
 
@@ -282,7 +282,7 @@ class AuthenticationController extends Controller
         return response()->json($response, 200);
     }
 
-    public function studentProfileUpdate(Request $request)
+    public function aramiscStudentProfileUpdate(Request $request)
     {
         $student = SmStudent::find($request->id);
         $student_file_destination = 'public/uploads/student/';

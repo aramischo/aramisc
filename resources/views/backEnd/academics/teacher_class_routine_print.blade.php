@@ -67,15 +67,15 @@
                 @foreach($sm_weekends as $sm_weekend)
                 @php
                 if(moduleStatusCheck('University')){
-                    $teacherClassRoutineById=App\SmWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $aramiscTeacherClassRoutineById=App\SmWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }else{
-                    $teacherClassRoutineById=App\SmWeekend::teacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $aramiscTeacherClassRoutineById=App\SmWeekend::aramiscTeacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }
                       
                 @endphp
-                    @if( $teacherClassRoutineById->count() >$height)
+                    @if( $aramiscTeacherClassRoutineById->count() >$height)
                         @php
-                            $height =  $teacherClassRoutineById->count();
+                            $height =  $aramiscTeacherClassRoutineById->count();
                         @endphp
                     @endif
 
@@ -96,13 +96,13 @@
         
             $i = 0;
             if(moduleStatusCheck('University')){
-                    $teacherClassRoutineById=App\SmWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $aramiscTeacherClassRoutineById=App\SmWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }else{
-                    $teacherClassRoutineById=App\SmWeekend::teacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $aramiscTeacherClassRoutineById=App\SmWeekend::aramiscTeacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }
         @endphp
 
-            @foreach($teacherClassRoutineById as $routine)
+            @foreach($aramiscTeacherClassRoutineById as $routine)
                 @php
                 if(!in_array($routine->id, $used)){
                     if(moduleStatusCheck('University')){

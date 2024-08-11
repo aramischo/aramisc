@@ -190,7 +190,7 @@ class sm_studentsSeeder extends Seeder
                 'profile_id' => $row->id,
                 'device_ip' => '192.168.0.1',
                 'cloud_upload' => 0,
-                'is_attendance' => 0,
+                'is_aramiscAttendance' => 0,
             );
             // $data = DB::table('device_log')->insert($data);
         }

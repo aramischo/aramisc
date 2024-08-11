@@ -102,9 +102,9 @@ return [
 
 "student_admission" => "Admisión Estudiantil",
 
-"student_attendance" => "Asistencia a los estudiantes",
+"student_aramiscAttendance" => "Asistencia a los estudiantes",
 
-"staff_attendance" => "Asistencia a los estudiantes",
+"staff_aramiscAttendance" => "Asistencia a los estudiantes",
 
 "student_promote" => "Promoción del estudiante",
 
@@ -118,7 +118,7 @@ return [
 
 "user_login_permission" => "Permiso de conexión de usuario",
 
-"student_attendance_for_parent" => "Asistencia A Los Estudiantes",
+"student_aramiscAttendance_for_parent" => "Asistencia A Los Estudiantes",
 
 "student_absent" => "Estudiante ausente",
 
@@ -212,11 +212,11 @@ return [
 
 "login_permission_disable_sms" => "Inhabilitar permiso de inicio de sesión (SMS)",
 
-"late_attendance_sms" => "Asistencia tardía (SMS)",
+"late_aramiscAttendance_sms" => "Asistencia tardía (SMS)",
 
-"attendance_sms" => "Asistencia (SMS)",
+"aramiscAttendance_sms" => "Asistencia (SMS)",
 
-"student_absent_attendance_sms" => "Asistencia ausente de los estudiantes (SMS)",
+"student_absent_aramiscAttendance_sms" => "Asistencia ausente de los estudiantes (SMS)",
 
 "return_issue_books_sms" => "Libros de edición de devolución (SMS)",
 

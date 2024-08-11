@@ -3547,17 +3547,17 @@ body.login .footer_area p {
 }
 
 /* line 272, /Applications/MAMP/htdocs/InfixEduTheme/public/backEnd/scss/6_lawngreen_version/admin/_student.scss */
-.student-attendance table.dataTable thead th {
+.student-aramiscAttendance table.dataTable thead th {
   padding-left: 0;
   padding-right: 6px;
   vertical-align: text-top;
 }
 
 /* line 278, /Applications/MAMP/htdocs/InfixEduTheme/public/backEnd/scss/6_lawngreen_version/admin/_student.scss */
-.student-attendance table.dataTable thead .sorting:before,
-.student-attendance table.dataTable thead .sorting:after,
-.student-attendance table.dataTable thead .sorting_asc:after,
-.student-attendance table.dataTable thead .sorting_desc:after {
+.student-aramiscAttendance table.dataTable thead .sorting:before,
+.student-aramiscAttendance table.dataTable thead .sorting:after,
+.student-aramiscAttendance table.dataTable thead .sorting_asc:after,
+.student-aramiscAttendance table.dataTable thead .sorting_desc:after {
   content: none;
 }
 

@@ -15,8 +15,8 @@ class AddVersion700Migration extends Migration
      */
     public function up()
     {
-        Schema::table('student_attendance_bulks', function (Blueprint $table) {
-            if(!Schema::hasColumn('student_attendance_bulks', 'student_record_id')){
+        Schema::table('student_aramiscAttendance_bulks', function (Blueprint $table) {
+            if(!Schema::hasColumn('student_aramiscAttendance_bulks', 'student_record_id')){
                 $table->integer('student_record_id')->after('student_id')->nullable();
             }           
         });

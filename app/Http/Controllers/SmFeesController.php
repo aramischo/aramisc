@@ -168,7 +168,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function collectFees(Request $request)
+    public function aramiscCollectFees(Request $request)
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
@@ -182,7 +182,7 @@ class SmFeesController extends Controller
             return redirect()->back();
         }
     }
-    public function collectFeesSearch(Request $request)
+    public function aramiscCollectFeesSearch(Request $request)
     {
         $input = $request->all();
         // $validator = Validator::make($input, [
@@ -246,7 +246,7 @@ class SmFeesController extends Controller
 
 
 
-    public function collectFeesStudent(Request $request, $id)
+    public function aramiscCollectFeesStudent(Request $request, $id)
     {
         try {
             // $student = SmStudent::find($id);
@@ -312,7 +312,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function collectFeesStudentApi(Request $request, $id)
+    public function aramiscCollectFeesStudentApi(Request $request, $id)
     {
         try {
             $student = SmStudent::where('user_id', $id)->where('school_id',Auth::user()->school_id)->first();
@@ -369,7 +369,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function feesGenerateModal(Request $request, $amount, $student_id, $type,$master,$assign_id)
+    public function aramiscFeesGenerateModal(Request $request, $amount, $student_id, $type,$master,$assign_id)
     {
         try {
             $amount = $amount;
@@ -418,7 +418,7 @@ class SmFeesController extends Controller
     }
 
 
-    public function feesGenerateModalChild(Request $request, $amount, $student_id, $type)
+    public function aramiscFeesGenerateModalChild(Request $request, $amount, $student_id, $type)
     {
         try {
             $amount = $amount;
@@ -453,7 +453,7 @@ class SmFeesController extends Controller
     }
 
 
-    public function feesPaymentStore(Request $request)
+    public function aramiscFeesPaymentStore(Request $request)
     {
        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         try {
@@ -569,7 +569,7 @@ class SmFeesController extends Controller
 
 
 
-    public function feesPaymentDelete(Request $request)
+    public function aramiscFeesPaymentDelete(Request $request)
     {
         try {
             $assignFee=SmFeesAssign::find($request->assign_id);
@@ -632,7 +632,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function feesPaymentSearch(Request $request)
+    public function aramiscFeesPaymentSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -1171,7 +1171,7 @@ class SmFeesController extends Controller
         $student = SmStudent::find($fees_assigned->student_id);
     }
 
-    public function feesPaymentPrint($id, $group)
+    public function aramiscFeesPaymentPrint($id, $group)
     {
         try {
             // $payment = SmFeesPayment::find($id);
@@ -1189,7 +1189,7 @@ class SmFeesController extends Controller
             return redirect()->back();
         }
     }
-    public function feesPaymentInvoicePrint($id, $s_id)
+    public function aramiscFeesPaymentInvoicePrint($id, $s_id)
     {
         try {
             set_time_limit(2700);

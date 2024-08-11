@@ -62,15 +62,15 @@ class ApiSmStudentAttendanceController extends Controller
             ->get();
 
         $studentAttendances = SmStudentAttendance::whereIn('student_id', $students->pluck('student_id')->unique())
-            ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+            ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
             ->where('class_id', $request->class)
             ->where('section_id', $request->section)
             ->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
             ->orderby('student_id', 'ASC')
             ->get();
 
-        $student_attendance = [];
-        $no_attendance = [];
+        $student_aramiscAttendance = [];
+        $no_aramiscAttendance = [];
         if (count($studentAttendances) == 0) {
             foreach ($students as $student) {
                 $d['id'] = $student->id;
@@ -83,14 +83,14 @@ class ApiSmStudentAttendanceController extends Controller
                 $d['section_id'] = $student->section->id;
                 $d['class_name'] = $student->class->class_name;
                 $d['section_name'] = $student->section->section_name;
-                $d['attendance_type'] = null;
+                $d['aramiscAttendance_type'] = null;
                 $d['user_id'] = $student->studentDetail->user_id;
-                $no_attendance[] = $d;
+                $no_aramiscAttendance[] = $d;
             }
         } else {
             foreach ($students as $record) {
                 $studentAttendanceFirst = SmStudentAttendance::where('student_id', $record->student_id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                    ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
                     ->where('student_record_id', $record->id)
                     ->where('class_id', $request->class)
                     ->where('section_id', $request->section)
@@ -107,26 +107,26 @@ class ApiSmStudentAttendanceController extends Controller
                 $d['section_id'] = $record->section->id;
                 $d['class_name'] = $record->class->class_name;
                 $d['section_name'] = $record->section->section_name;
-                $d['attendance_type'] = $studentAttendanceFirst ? $studentAttendanceFirst->attendance_type : null;
+                $d['aramiscAttendance_type'] = $studentAttendanceFirst ? $studentAttendanceFirst->aramiscAttendance_type : null;
                 $d['user_id'] = $record->studentDetail->user_id;
-                $student_attendance[] = $d;
+                $student_aramiscAttendance[] = $d;
             }
         }
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             if (count($studentAttendances) > 0) {
-                return ApiBaseMethod::sendResponse($student_attendance, null);
+                return ApiBaseMethod::sendResponse($student_aramiscAttendance, null);
             } else {
-                return ApiBaseMethod::sendResponse($no_attendance, 'Student attendance not done yet');
+                return ApiBaseMethod::sendResponse($no_aramiscAttendance, 'Student aramiscAttendance not done yet');
             }
         }
 
         // if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-        //     return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+        //     return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
         // }
     }
 
 
-    public function studentSubjectAttendanceCheck(Request $request)
+    public function aramiscStudentSubjectAttendanceCheck(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -157,7 +157,7 @@ class ApiSmStudentAttendanceController extends Controller
             ->get();
 
         $studentAttendances = SmSubjectAttendance::whereIn('student_id', $students->pluck('student_id')->unique())
-            ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+            ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
             ->where('class_id', $request->class)
             ->where('section_id', $request->section)
             ->where('subject_id', $request->subject)
@@ -165,8 +165,8 @@ class ApiSmStudentAttendanceController extends Controller
             ->orderby('student_id', 'ASC')
             ->get();
 
-        $student_attendance = [];
-        $no_attendance = [];
+        $student_aramiscAttendance = [];
+        $no_aramiscAttendance = [];
         if (count($studentAttendances) == 0) {
             foreach ($students as $student) {
                 $d['id'] = $student->id;
@@ -181,14 +181,14 @@ class ApiSmStudentAttendanceController extends Controller
                 $d['section_name'] = $student->section->section_name;
                 $d['subject_name'] = $subject->subject_name;
                 $d['subject_id'] = $subject->id;
-                $d['attendance_type'] = null;
+                $d['aramiscAttendance_type'] = null;
                 $d['user_id'] = $student->studentDetail->user_id;
-                $no_attendance[] = $d;
+                $no_aramiscAttendance[] = $d;
             }
         } else {
             foreach ($students as $record) {
                 $studentAttendanceFirst = SmSubjectAttendance::where('student_id', $record->student_id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                    ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
                     ->where('student_record_id', $record->id)
                     ->where('class_id', $request->class)
                     ->where('section_id', $request->section)
@@ -208,21 +208,21 @@ class ApiSmStudentAttendanceController extends Controller
                 $d['section_name'] = $record->section->section_name;
                 $d['subject_name'] = $subject->subject_name;
                 $d['subject_id'] = $subject->id;
-                $d['attendance_type'] = $studentAttendanceFirst ? $studentAttendanceFirst->attendance_type : null;
+                $d['aramiscAttendance_type'] = $studentAttendanceFirst ? $studentAttendanceFirst->aramiscAttendance_type : null;
                 $d['user_id'] = $record->studentDetail->user_id;
-                $student_attendance[] = $d;
+                $student_aramiscAttendance[] = $d;
             }
         }
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             if (count($studentAttendances) > 0) {
-                return ApiBaseMethod::sendResponse($student_attendance, null);
+                return ApiBaseMethod::sendResponse($student_aramiscAttendance, null);
             } else {
-                return ApiBaseMethod::sendResponse($no_attendance, 'Student attendance not done yet');
+                return ApiBaseMethod::sendResponse($no_aramiscAttendance, 'Student aramiscAttendance not done yet');
             }
         }
 
         // if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-        //     return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+        //     return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
         // }
     }
 
@@ -256,15 +256,15 @@ class ApiSmStudentAttendanceController extends Controller
             ->where('is_promote', 0)
             ->get();
         $studentAttendance = SmStudentAttendance::whereIn('student_id', $students->pluck('student_id')->unique())
-            ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+            ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
             ->orderby('student_id', 'ASC')
             ->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
             ->where('school_id', $school_id)
             ->withOutGlobalScope(AcademicSchoolScope::class)
             ->get();
 
-        $student_attendance = [];
-        $no_attendance = [];
+        $student_aramiscAttendance = [];
+        $no_aramiscAttendance = [];
         if (count($studentAttendance) == 0) {
 
             foreach ($students as $student) {
@@ -279,15 +279,15 @@ class ApiSmStudentAttendanceController extends Controller
                 $d['section_id'] = $student->section->id;
                 $d['class_name'] = $student->class->class_name;
                 $d['section_name'] = $student->section->section_name;
-                $d['attendance_type'] = null;
+                $d['aramiscAttendance_type'] = null;
                 $d['user_id'] = $student->studentDetail->user_id;
 
-                $no_attendance[] = $d;
+                $no_aramiscAttendance[] = $d;
             }
         } else {
             foreach ($students as $record) {
                 $studentAttendanceFirst = SmStudentAttendance::where('student_id', $record->student_id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                    ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
                     ->where('student_record_id', $record->id)
                     ->where('class_id', $request->class)
                     ->where('section_id', $request->section)
@@ -306,16 +306,16 @@ class ApiSmStudentAttendanceController extends Controller
                 $d['section_id'] = $record->section->id;
                 $d['class_name'] = $record->class->class_name;
                 $d['section_name'] = $record->section->section_name;
-                $d['attendance_type'] = $studentAttendanceFirst ? $studentAttendanceFirst->attendance_type : null;
+                $d['aramiscAttendance_type'] = $studentAttendanceFirst ? $studentAttendanceFirst->aramiscAttendance_type : null;
                 $d['user_id'] = $record->studentDetail->user_id;
-                $student_attendance[] = $d;
+                $student_aramiscAttendance[] = $d;
             }
         }
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             if (count($studentAttendance) > 0) {
-                return ApiBaseMethod::sendResponse($student_attendance, null);
+                return ApiBaseMethod::sendResponse($student_aramiscAttendance, null);
             } else {
-                return ApiBaseMethod::sendResponse($no_attendance, 'Student attendance not done yet');
+                return ApiBaseMethod::sendResponse($no_aramiscAttendance, 'Student aramiscAttendance not done yet');
             }
         }
 
@@ -342,28 +342,28 @@ class ApiSmStudentAttendanceController extends Controller
         }
         $student_ids = studentRecords($request, null, null)->get()->pluck('student_id')->unique();
         $students = SmStudent::whereIn('id', $student_ids)->select('id')->get();
-        $attendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->first();
-        if (empty($attendance)) {
+        $aramiscAttendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->first();
+        if (empty($aramiscAttendance)) {
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->first();
-                if ($attendance != "") {
-                    $attendance->delete();
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->first();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 } else {
-                    $attendance = new SmStudentAttendance();
-                    $attendance->student_id = $student->id;
-                    $attendance->student_record_id = $request->record_id;
-                    $attendance->class_id = $request->class;
-                    $attendance->section_id = $request->section;
-                    $attendance->attendance_type = "P";
-                    $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-                    $attendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
-                    $attendance->save();
+                    $aramiscAttendance = new SmStudentAttendance();
+                    $aramiscAttendance->student_id = $student->id;
+                    $aramiscAttendance->student_record_id = $request->record_id;
+                    $aramiscAttendance->class_id = $request->class;
+                    $aramiscAttendance->section_id = $request->section;
+                    $aramiscAttendance->aramiscAttendance_type = "P";
+                    $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+                    $aramiscAttendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
+                    $aramiscAttendance->save();
                 }
             }
         }
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+            return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
         }
     }
 
@@ -387,28 +387,28 @@ class ApiSmStudentAttendanceController extends Controller
         $student_ids = studentRecords($request, null, null)->get()->pluck('student_id')->unique();
         $students = SmStudent::whereIn('id', $student_ids)->where('school_id', $school_id)->select('id')->get();
 
-        $attendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
-        if (empty($attendance)) {
+        $aramiscAttendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
+        if (empty($aramiscAttendance)) {
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
-                if ($attendance != "") {
-                    $attendance->delete();
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 } else {
-                    $attendance = new SmStudentAttendance();
-                    $attendance->student_id = $student->id;
-                    $attendance->attendance_type = "P";
-                    $attendance->student_record_id = $request->record_id;
-                    $attendance->class_id = $request->class;
-                    $attendance->section_id = $request->section;
-                    $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-                    $attendance->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($school_id);
-                    $attendance->save();
+                    $aramiscAttendance = new SmStudentAttendance();
+                    $aramiscAttendance->student_id = $student->id;
+                    $aramiscAttendance->aramiscAttendance_type = "P";
+                    $aramiscAttendance->student_record_id = $request->record_id;
+                    $aramiscAttendance->class_id = $request->class;
+                    $aramiscAttendance->section_id = $request->section;
+                    $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+                    $aramiscAttendance->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($school_id);
+                    $aramiscAttendance->save();
                 }
             }
         }
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+            return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
         }
     }
 
@@ -418,7 +418,7 @@ class ApiSmStudentAttendanceController extends Controller
         $validator = Validator::make($input, [
             'id' => "required",
             'date' => "required",
-            'attendance' => "required",
+            'aramiscAttendance' => "required",
             'class' => "required",
             'section' => "required",
             'record_id' => "required",
@@ -435,45 +435,45 @@ class ApiSmStudentAttendanceController extends Controller
 
         $student_ids = studentRecords($request, null, null)->get()->pluck('student_id')->unique();
         $students = SmStudent::whereIn('id', $student_ids)->select('id')->get();
-        $attendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)
-            ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+        $aramiscAttendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)
+            ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
             ->first();
-        // if (empty($attendance)) {
+        // if (empty($aramiscAttendance)) {
         //     foreach ($students as $student) {
-        //         $attendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', auth()->user()->school_id)->first();
-        //         if ($attendance != "") {
-        //             $attendance->delete();
+        //         $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', auth()->user()->school_id)->first();
+        //         if ($aramiscAttendance != "") {
+        //             $aramiscAttendance->delete();
         //         }
 
-        //         $attendance = new SmStudentAttendance();
-        //         $attendance->student_id = $student->id;
-        //         $attendance->attendance_type = $request->id==$student->id ? $request->attendance :null;
-        //         $attendance->student_record_id = $request->record_id;
-        //         $attendance->class_id = $request->class;
-        //         $attendance->section_id = $request->section;
-        //         $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-        //         $attendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
-        //         $attendance->school_id = auth()->user()->school_id;
-        //         $attendance->save();
+        //         $aramiscAttendance = new SmStudentAttendance();
+        //         $aramiscAttendance->student_id = $student->id;
+        //         $aramiscAttendance->aramiscAttendance_type = $request->id==$student->id ? $request->aramiscAttendance :null;
+        //         $aramiscAttendance->student_record_id = $request->record_id;
+        //         $aramiscAttendance->class_id = $request->class;
+        //         $aramiscAttendance->section_id = $request->section;
+        //         $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+        //         $aramiscAttendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
+        //         $aramiscAttendance->school_id = auth()->user()->school_id;
+        //         $aramiscAttendance->save();
         //     }
         // }
-        $attendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)
-            ->where('attendance_date', date('Y-m-d', strtotime($request->date)))->first();
-        if ($attendance != "") {
-            $attendance->delete();
+        $aramiscAttendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)
+            ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->first();
+        if ($aramiscAttendance != "") {
+            $aramiscAttendance->delete();
         }
-        $attendance = new SmStudentAttendance();
-        $attendance->student_id = $request->id;
-        $attendance->attendance_type = $request->attendance;
-        $attendance->student_record_id = $request->record_id;
-        $attendance->class_id = $request->class;
-        $attendance->section_id = $request->section;
-        $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-        $attendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
-        $attendance->school_id = auth()->user()->school_id;
-        $attendance->save();
+        $aramiscAttendance = new SmStudentAttendance();
+        $aramiscAttendance->student_id = $request->id;
+        $aramiscAttendance->aramiscAttendance_type = $request->aramiscAttendance;
+        $aramiscAttendance->student_record_id = $request->record_id;
+        $aramiscAttendance->class_id = $request->class;
+        $aramiscAttendance->section_id = $request->section;
+        $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+        $aramiscAttendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
+        $aramiscAttendance->school_id = auth()->user()->school_id;
+        $aramiscAttendance->save();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+            return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
         }
     }
 
@@ -483,7 +483,7 @@ class ApiSmStudentAttendanceController extends Controller
         $validator = Validator::make($input, [
             'id' => "required",
             'date' => "required",
-            'attendance' => "required",
+            'aramiscAttendance' => "required",
             'class' => "required",
             'section' => "required",
             'record_id' => "required",
@@ -499,45 +499,45 @@ class ApiSmStudentAttendanceController extends Controller
         }
         $student_ids = studentRecords($request, null, null)->get()->pluck('student_id')->unique();
         $students = SmStudent::whereIn('id', $student_ids)->select('id')->where('school_id', $school_id)->get();
-        $attendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
-        // if (empty($attendance)) {
+        $aramiscAttendance = SmStudentAttendance::where('student_id', $request->id)->where('student_record_id', $request->record_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
+        // if (empty($aramiscAttendance)) {
         //     foreach ($students as $student) {
-        //         $attendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
-        //         if ($attendance != "") {
-        //             $attendance->delete();
+        //         $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('student_record_id', $request->record_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
+        //         if ($aramiscAttendance != "") {
+        //             $aramiscAttendance->delete();
         //         }
 
-        //         $attendance = new SmStudentAttendance();
-        //         $attendance->student_id = $student->id;
-        //         $attendance->attendance_type = "P";
-        //         $attendance->student_record_id = $request->record_id;
-        //         $attendance->class_id = $request->class;
-        //         $attendance->section_id = $request->section;
-        //         $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-        //         $attendance->school_id = $school_id;
-        //         $attendance->save();
+        //         $aramiscAttendance = new SmStudentAttendance();
+        //         $aramiscAttendance->student_id = $student->id;
+        //         $aramiscAttendance->aramiscAttendance_type = "P";
+        //         $aramiscAttendance->student_record_id = $request->record_id;
+        //         $aramiscAttendance->class_id = $request->class;
+        //         $aramiscAttendance->section_id = $request->section;
+        //         $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+        //         $aramiscAttendance->school_id = $school_id;
+        //         $aramiscAttendance->save();
         //     }
         // }
-        $attendance = SmStudentAttendance::where('student_id', $request->id)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
-        if ($attendance != "") {
-            $attendance->delete();
+        $aramiscAttendance = SmStudentAttendance::where('student_id', $request->id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('school_id', $school_id)->first();
+        if ($aramiscAttendance != "") {
+            $aramiscAttendance->delete();
         }
-        $attendance = new SmStudentAttendance();
-        $attendance->student_id = $request->id;
-        $attendance->attendance_type = $request->attendance;
-        $attendance->student_record_id = $request->record_id;
-        $attendance->class_id = $request->class;
-        $attendance->section_id = $request->section;
-        $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-        $attendance->school_id = $school_id;
-        $attendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
-        $attendance->save();
+        $aramiscAttendance = new SmStudentAttendance();
+        $aramiscAttendance->student_id = $request->id;
+        $aramiscAttendance->aramiscAttendance_type = $request->aramiscAttendance;
+        $aramiscAttendance->student_record_id = $request->record_id;
+        $aramiscAttendance->class_id = $request->class;
+        $aramiscAttendance->section_id = $request->section;
+        $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+        $aramiscAttendance->school_id = $school_id;
+        $aramiscAttendance->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
+        $aramiscAttendance->save();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+            return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
         }
     }
 
-    public function student_attendance_index(Request $request)
+    public function student_aramiscAttendance_index(Request $request)
     {
 
         try {
@@ -546,13 +546,13 @@ class ApiSmStudentAttendanceController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
             }
-            return view('backEnd.studentInformation.student_attendance', compact('classes'));
+            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
 
-    public function saas_student_attendance_index(Request $request, $school_id)
+    public function saas_student_aramiscAttendance_index(Request $request, $school_id)
     {
 
         try {
@@ -561,7 +561,7 @@ class ApiSmStudentAttendanceController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
             }
-            return view('backEnd.studentInformation.student_attendance', compact('classes'));
+            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -573,7 +573,7 @@ class ApiSmStudentAttendanceController extends Controller
         $validator = Validator::make($input, [
             'class' => 'required',
             'section' => 'required',
-            'attendance_date' => 'required',
+            'aramiscAttendance_date' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -585,25 +585,25 @@ class ApiSmStudentAttendanceController extends Controller
                 ->withInput();
         }
         try {
-            $date = $request->attendance_date;
+            $date = $request->aramiscAttendance_date;
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             $students = SmStudent::where('class_id', $request->class)->where('section_id', $request->section)->where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             if ($students->isEmpty()) {
                 Toastr::error('No Result Found', 'Failed');
-                return redirect('student-attendance');
+                return redirect('student-aramiscAttendance');
             }
 
             $already_assigned_students = [];
             $new_students = [];
-            $attendance_type = "";
+            $aramiscAttendance_type = "";
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->aramiscAttendance_date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
 
-                if ($attendance != "") {
-                    $already_assigned_students[] = $attendance;
-                    $attendance_type = $attendance->attendance_type;
+                if ($aramiscAttendance != "") {
+                    $already_assigned_students[] = $aramiscAttendance;
+                    $aramiscAttendance_type = $aramiscAttendance->aramiscAttendance_type;
                 } else {
                     $new_students[] = $student;
                 }
@@ -615,7 +615,7 @@ class ApiSmStudentAttendanceController extends Controller
 
             $search_info['class_name'] = $class_info->class_name;
             $search_info['section_name'] = $section_info->section_name;
-            $search_info['date'] = $request->attendance_date;
+            $search_info['date'] = $request->aramiscAttendance_date;
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -624,10 +624,10 @@ class ApiSmStudentAttendanceController extends Controller
                 $data['class_id'] = $class_id;
                 $data['already_assigned_students'] = $already_assigned_students;
                 $data['new_students'] = $new_students;
-                $data['attendance_type'] = $attendance_type;
+                $data['aramiscAttendance_type'] = $aramiscAttendance_type;
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentInformation.student_attendance', compact('classes', 'date', 'class_id', 'date', 'already_assigned_students', 'new_students', 'attendance_type', 'search_info'));
+            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes', 'date', 'class_id', 'date', 'already_assigned_students', 'new_students', 'aramiscAttendance_type', 'search_info'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -639,7 +639,7 @@ class ApiSmStudentAttendanceController extends Controller
         $validator = Validator::make($input, [
             'class' => 'required',
             'section' => 'required',
-            'attendance_date' => 'required',
+            'aramiscAttendance_date' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -651,25 +651,25 @@ class ApiSmStudentAttendanceController extends Controller
                 ->withInput();
         }
         try {
-            $date = $request->attendance_date;
+            $date = $request->aramiscAttendance_date;
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             $students = SmStudent::where('class_id', $request->class)->where('section_id', $request->section)->where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             if ($students->isEmpty()) {
                 Toastr::error('No Result Found', 'Failed');
-                return redirect('student-attendance');
+                return redirect('student-aramiscAttendance');
             }
 
             $already_assigned_students = [];
             $new_students = [];
-            $attendance_type = "";
+            $aramiscAttendance_type = "";
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->aramiscAttendance_date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
 
-                if ($attendance != "") {
-                    $already_assigned_students[] = $attendance;
-                    $attendance_type = $attendance->attendance_type;
+                if ($aramiscAttendance != "") {
+                    $already_assigned_students[] = $aramiscAttendance;
+                    $aramiscAttendance_type = $aramiscAttendance->aramiscAttendance_type;
                 } else {
                     $new_students[] = $student;
                 }
@@ -681,7 +681,7 @@ class ApiSmStudentAttendanceController extends Controller
 
             $search_info['class_name'] = $class_info->class_name;
             $search_info['section_name'] = $section_info->section_name;
-            $search_info['date'] = $request->attendance_date;
+            $search_info['date'] = $request->aramiscAttendance_date;
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -690,10 +690,10 @@ class ApiSmStudentAttendanceController extends Controller
                 $data['class_id'] = $class_id;
                 $data['already_assigned_students'] = $already_assigned_students;
                 $data['new_students'] = $new_students;
-                $data['attendance_type'] = $attendance_type;
+                $data['aramiscAttendance_type'] = $aramiscAttendance_type;
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentInformation.student_attendance', compact('classes', 'date', 'class_id', 'date', 'already_assigned_students', 'new_students', 'attendance_type', 'search_info'));
+            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes', 'date', 'class_id', 'date', 'already_assigned_students', 'new_students', 'aramiscAttendance_type', 'search_info'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -708,7 +708,7 @@ class ApiSmStudentAttendanceController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
             }
-            return view('backEnd.studentInformation.student_attendance', compact('classes'));
+            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -723,7 +723,7 @@ class ApiSmStudentAttendanceController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
             }
-            return view('backEnd.studentInformation.student_attendance', compact('classes'));
+            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -734,29 +734,29 @@ class ApiSmStudentAttendanceController extends Controller
 
         try {
             foreach ($request->id as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
 
-                if ($attendance != "") {
-                    $attendance->delete();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 }
 
-                $attendance = new SmStudentAttendance();
-                $attendance->student_id = $student;
+                $aramiscAttendance = new SmStudentAttendance();
+                $aramiscAttendance->student_id = $student;
                 if (isset($request->mark_holiday)) {
-                    $attendance->attendance_type = "H";
+                    $aramiscAttendance->aramiscAttendance_type = "H";
                 } else {
-                    $attendance->attendance_type = $request->attendance[$student];
-                    $attendance->notes = $request->note[$student];
+                    $aramiscAttendance->aramiscAttendance_type = $request->aramiscAttendance[$student];
+                    $aramiscAttendance->notes = $request->note[$student];
                 }
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-                $attendance->save();
+                $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->save();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+                return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
             }
             Toastr::success('Operation successful', 'Success');
-            return redirect('student-attendance');
+            return redirect('student-aramiscAttendance');
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -767,30 +767,30 @@ class ApiSmStudentAttendanceController extends Controller
 
         try {
             foreach ($request->id as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student)->where('attendance_date', date('Y-m-d', strtotime($request->date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student)->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->first();
 
-                if ($attendance != "") {
-                    $attendance->delete();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 }
 
-                $attendance = new SmStudentAttendance();
-                $attendance->student_id = $student;
+                $aramiscAttendance = new SmStudentAttendance();
+                $aramiscAttendance->student_id = $student;
                 if (isset($request->mark_holiday)) {
-                    $attendance->attendance_type = "H";
+                    $aramiscAttendance->aramiscAttendance_type = "H";
                 } else {
-                    $attendance->attendance_type = $request->attendance[$student];
-                    $attendance->notes = $request->note[$student];
+                    $aramiscAttendance->aramiscAttendance_type = $request->aramiscAttendance[$student];
+                    $aramiscAttendance->notes = $request->note[$student];
                 }
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-                $attendance->school_id = $request->school_id;
-                $attendance->save();
+                $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->school_id = $request->school_id;
+                $aramiscAttendance->save();
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+                return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
             }
             Toastr::success('Operation successful', 'Success');
-            return redirect('student-attendance');
+            return redirect('student-aramiscAttendance');
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -810,7 +810,7 @@ class ApiSmStudentAttendanceController extends Controller
                 $data['genders'] = $genders->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'types', 'genders'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'types', 'genders'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -830,7 +830,7 @@ class ApiSmStudentAttendanceController extends Controller
                 $data['genders'] = $genders->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'types', 'genders'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'types', 'genders'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -867,18 +867,18 @@ class ApiSmStudentAttendanceController extends Controller
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
             $students = SmStudent::where('class_id', $request->class)->where('section_id', $request->section)->where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('attendance_date', 'like', $request->year . '-' . $request->month . '%')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('aramiscAttendance_date', 'like', $request->year . '-' . $request->month . '%')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['classes'] = $classes->toArray();
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['days'] = $days;
                 $data['year'] = $year;
                 $data['month'] = $month;
@@ -888,7 +888,7 @@ class ApiSmStudentAttendanceController extends Controller
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'attendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id', 'clas', 'sec'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'aramiscAttendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id', 'clas', 'sec'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -925,18 +925,18 @@ class ApiSmStudentAttendanceController extends Controller
             $classes = SmClass::where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', $school_id)->get();
             $students = SmStudent::where('class_id', $request->class)->where('section_id', $request->section)->where('active_status', 1)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', $school_id)->get();
 
-            $attendances = [];
+            $aramiscAttendances = [];
             foreach ($students as $student) {
-                $attendance = SmStudentAttendance::where('student_id', $student->id)->where('attendance_date', 'like', $request->year . '-' . $request->month . '%')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', $school_id)->get();
-                if (count($attendance) != 0) {
-                    $attendances[] = $attendance;
+                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)->where('aramiscAttendance_date', 'like', $request->year . '-' . $request->month . '%')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', $school_id)->get();
+                if (count($aramiscAttendance) != 0) {
+                    $aramiscAttendances[] = $aramiscAttendance;
                 }
             }
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['classes'] = $classes->toArray();
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['days'] = $days;
                 $data['year'] = $year;
                 $data['month'] = $month;
@@ -946,7 +946,7 @@ class ApiSmStudentAttendanceController extends Controller
                 return ApiBaseMethod::sendResponse($data, null);
             }
 
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'attendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id', 'clas', 'sec'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'aramiscAttendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id', 'clas', 'sec'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -966,7 +966,7 @@ class ApiSmStudentAttendanceController extends Controller
                 $data['genders'] = $genders->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'types', 'genders'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'types', 'genders'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
@@ -986,13 +986,13 @@ class ApiSmStudentAttendanceController extends Controller
                 $data['genders'] = $genders->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'types', 'genders'));
+            return view('backEnd.studentInformation.student_aramiscAttendance_report', compact('classes', 'types', 'genders'));
         } catch (\Exception$e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
 
-    public function studentMyAttendanceSearchAPI(Request $request, $id = null, $record_id)
+    public function aramiscStudentMyAttendanceSearchAPI(Request $request, $id = null, $record_id)
     {
 
         $input = $request->all();
@@ -1033,14 +1033,14 @@ class ApiSmStudentAttendanceController extends Controller
         $previousMonthDetails['day'] = $days2;
         $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
-        $attendances = SmStudentAttendance::where('student_id', $student_detail->id)
-            ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+        $aramiscAttendances = SmStudentAttendance::where('student_id', $student_detail->id)
+            ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
             ->where('student_record_id', $record_id)
-            ->select('attendance_type', 'attendance_date')
+            ->select('aramiscAttendance_type', 'aramiscAttendance_date')
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            $data['attendances'] = $attendances;
+            $data['aramiscAttendances'] = $aramiscAttendances;
             $data['previousMonthDetails'] = $previousMonthDetails;
             $data['days'] = $days;
             $data['year'] = $year;
@@ -1050,10 +1050,10 @@ class ApiSmStudentAttendanceController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
 
-        return view('backEnd.studentPanel.student_attendance', compact('attendances', 'days', 'year', 'month', 'current_day'));
+        return view('backEnd.studentPanel.student_aramiscAttendance', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day'));
     }
 
-    public function saas_studentMyAttendanceSearchAPI(Request $request, $school_id, $id = null, $record_id)
+    public function saas_aramiscStudentMyAttendanceSearchAPI(Request $request, $school_id, $id = null, $record_id)
     {
 
         $input = $request->all();
@@ -1094,15 +1094,15 @@ class ApiSmStudentAttendanceController extends Controller
         $previousMonthDetails['day'] = $days2;
         $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
-        $attendances = SmStudentAttendance::where('student_id', $student_detail->id)
-            ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+        $aramiscAttendances = SmStudentAttendance::where('student_id', $student_detail->id)
+            ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
             ->where('student_record_id', $record_id)
             ->where('school_id', $school_id)
-            ->select('attendance_type', 'attendance_date')
+            ->select('aramiscAttendance_type', 'aramiscAttendance_date')
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            $data['attendances'] = $attendances;
+            $data['aramiscAttendances'] = $aramiscAttendances;
             $data['previousMonthDetails'] = $previousMonthDetails;
             $data['days'] = $days;
             $data['year'] = $year;
@@ -1112,20 +1112,20 @@ class ApiSmStudentAttendanceController extends Controller
             return ApiBaseMethod::sendResponse($data, null);
         }
         //Test
-        return view('backEnd.studentPanel.student_attendance', compact('attendances', 'days', 'year', 'month', 'current_day'));
+        return view('backEnd.studentPanel.student_aramiscAttendance', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day'));
     }
 
 
-    // Route::post('student-attendance-store-all', 'api\ApiSmStudentAttendanceController@studentStoreAttendanceAllApi');
+    // Route::post('student-aramiscAttendance-store-all', 'api\ApiSmStudentAttendanceController@studentStoreAttendanceAllApi');
     // 22/04/22
     public function studentStoreAttendanceAllApi(Request $request)
     {
         try {
             // return $request->all();
 
-            foreach ($request->attendance as $record_id => $student) {
-                $attendance = SmStudentAttendance::where('student_id', gv($student, 'student'))
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+            foreach ($request->aramiscAttendance as $record_id => $student) {
+                $aramiscAttendance = SmStudentAttendance::where('student_id', gv($student, 'student'))
+                    ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
                     ->when(!moduleStatusCheck('University'), function ($query) use ($student) {
                         $query->where('class_id', gv($student, 'class'));
                     })->when(!moduleStatusCheck('University'), function ($query) use ($student) {
@@ -1134,41 +1134,41 @@ class ApiSmStudentAttendanceController extends Controller
                     ->where('student_record_id', $record_id)
                     ->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
                     ->where('school_id', $request->user()->school_id)->first();
-                if ($attendance) {
-                    $attendance->delete();
+                if ($aramiscAttendance) {
+                    $aramiscAttendance->delete();
                 }
 
-                if (!gv($student, 'attendance_type')) {
+                if (!gv($student, 'aramiscAttendance_type')) {
                     continue;
                 }
-                $attendance = new SmStudentAttendance();
-                $attendance->student_record_id = $record_id;
-                $attendance->student_id = gv($student, 'student');
-                $attendance->class_id = gv($student, 'class');
-                $attendance->section_id = gv($student, 'section');
+                $aramiscAttendance = new SmStudentAttendance();
+                $aramiscAttendance->student_record_id = $record_id;
+                $aramiscAttendance->student_id = gv($student, 'student');
+                $aramiscAttendance->class_id = gv($student, 'class');
+                $aramiscAttendance->section_id = gv($student, 'section');
                 if (isset($request->mark_holiday)) {
-                    $attendance->attendance_type = "H";
+                    $aramiscAttendance->aramiscAttendance_type = "H";
                 } else {
-                    $attendance->attendance_type = gv($student, 'attendance_type');
-                    $attendance->notes = gv($student, 'note');
+                    $aramiscAttendance->aramiscAttendance_type = gv($student, 'aramiscAttendance_type');
+                    $aramiscAttendance->notes = gv($student, 'note');
                 }
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-                $attendance->school_id = $request->user()->school_id;
-                $attendance->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
+                $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->school_id = $request->user()->school_id;
+                $aramiscAttendance->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
 
-                $attendance->save();
+                $aramiscAttendance->save();
 
                 $studentInfo = StudentRecord::find($record_id);
-                $compact['attendance_date'] = date('Y-m-d', strtotime($request->date));
-                if (gv($student, 'attendance_type') == "P") {
+                $compact['aramiscAttendance_date'] = date('Y-m-d', strtotime($request->date));
+                if (gv($student, 'aramiscAttendance_type') == "P") {
                     $compact['user_email'] = $studentInfo->studentDetail->email;
                     $compact['student_name'] = $studentInfo->studentDetail->full_name;
-                    @send_sms($studentInfo->studentDetail->mobile, 'student_attendance', $compact);
+                    @send_sms($studentInfo->studentDetail->mobile, 'student_aramiscAttendance', $compact);
 
                     $compact['user_email'] = $studentInfo->studentDetail->parents->guardians_email;
                     $compact['parent_name'] = $studentInfo->studentDetail->parents->guardians_name;
-                    @send_sms($studentInfo->studentDetail->parents->guardians_mobile, 'student_attendance_for_parent', $compact);
-                } elseif (gv($student, 'attendance_type') == "L") {
+                    @send_sms($studentInfo->studentDetail->parents->guardians_mobile, 'student_aramiscAttendance_for_parent', $compact);
+                } elseif (gv($student, 'aramiscAttendance_type') == "L") {
                     $compact['user_email'] = $studentInfo->studentDetail->email;
                     $compact['student_name'] = $studentInfo->studentDetail->full_name;
                     @send_sms($studentInfo->studentDetail->mobile, 'student_late', $compact);
@@ -1176,7 +1176,7 @@ class ApiSmStudentAttendanceController extends Controller
                     $compact['user_email'] = $studentInfo->studentDetail->parents->guardians_email;
                     $compact['parent_name'] = $studentInfo->studentDetail->parents->guardians_name;
                     @send_sms($studentInfo->studentDetail->parents->guardians_mobile, 'student_late_for_parent', $compact);
-                } elseif (gv($student, 'attendance_type') == "A") {
+                } elseif (gv($student, 'aramiscAttendance_type') == "A") {
                     $compact['user_email'] = $studentInfo->studentDetail->email;
                     $compact['student_name'] = $studentInfo->studentDetail->full_name;
                     @send_sms($studentInfo->studentDetail->mobile, 'student_absent', $compact);
@@ -1185,29 +1185,29 @@ class ApiSmStudentAttendanceController extends Controller
                     $compact['parent_name'] = $studentInfo->studentDetail->parents->guardians_name;
                     @send_sms($studentInfo->studentDetail->parents->guardians_mobile, 'student_absent_for_parent', $compact);
                 } elseif (isset($request->mark_holiday)) {
-                    $compact['holiday_date'] = date('Y-m-d', strtotime($request->attendance_date));
+                    $compact['holiday_date'] = date('Y-m-d', strtotime($request->aramiscAttendance_date));
                     @send_sms($studentInfo->studentDetail->mobile, 'holiday', $compact);
                     @send_sms($studentInfo->studentDetail->parents->guardians_mobile, 'holiday', $compact);
                 }
                 $messege = "";
-                $date = dateConvert($attendance->attendance_date);
+                $date = dateConvert($aramiscAttendance->aramiscAttendance_date);
                 if (gv($student, 'student')) {
                     $student = SmStudent::with('user')->find(gv($student, 'student'));
                     $parent = SmParent::find($student->parent_id);
                     if ($student) {
-                        if ($attendance->attendance_type == "P") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_present_in_the_attendance_on ', ['date' => $date]);
-                        } elseif ($attendance->attendance_type == "L") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_late_in_the_attendance_on ', ['date' => $date]);
-                        } elseif ($attendance->attendance_type == "A") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_absent_in_the_attendance_on ', ['date' => $date]);
-                        } elseif ($attendance->attendance_type == "F") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_halfday_in_the_attendance_on ', ['date' => $date]);
-                        } elseif ($attendance->attendance_type = "H") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_holiday_in_the_attendance_on ', ['date' => $date]);
+                        if ($aramiscAttendance->aramiscAttendance_type == "P") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_present_in_the_aramiscAttendance_on ', ['date' => $date]);
+                        } elseif ($aramiscAttendance->aramiscAttendance_type == "L") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_late_in_the_aramiscAttendance_on ', ['date' => $date]);
+                        } elseif ($aramiscAttendance->aramiscAttendance_type == "A") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_absent_in_the_aramiscAttendance_on ', ['date' => $date]);
+                        } elseif ($aramiscAttendance->aramiscAttendance_type == "F") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_halfday_in_the_aramiscAttendance_on ', ['date' => $date]);
+                        } elseif ($aramiscAttendance->aramiscAttendance_type = "H") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_holiday_in_the_aramiscAttendance_on ', ['date' => $date]);
                         }
 
-                        if ($attendance->attendance_type != "NULL") {
+                        if ($aramiscAttendance->aramiscAttendance_type != "NULL") {
                             $notification = new SmNotification();
                             $notification->user_id = $student->user_id;
                             $notification->role_id = 3;
@@ -1218,7 +1218,7 @@ class ApiSmStudentAttendanceController extends Controller
                             $notification->save();
                             if ($user = $student->user) {
                                 try {
-                                    $title = app('translator')->get('student.attendance_notication');
+                                    $title = app('translator')->get('student.aramiscAttendance_notication');
                                     Notification::send($student->user, new FlutterAppNotification($notification, $title));
                                 } catch (\Exception $e) {
                                     Log::info($e->getMessage());
@@ -1228,19 +1228,19 @@ class ApiSmStudentAttendanceController extends Controller
 
 
                         if ($parent) {
-                            if ($attendance->attendance_type == "P") {
-                                $messege = $messege = app('translator')->get('student.Your_child_is_marked_present_in_the_attendance_on', ['date' => $date, 'student_name' => $student->full_name]);
-                            } elseif ($attendance->attendance_type == "L") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_late_in_the_attendance_on', ['date' => $date, 'student_name' => $student->full_name]);
-                            } elseif ($attendance->attendance_type == "A") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_absent_in_the_attendance_on', ['date' => $date, 'student_name' => $student->full_name]);
-                            } elseif ($attendance->attendance_type == "F") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_halfday_in_the_attendance_on', ['date' => $date, 'student_name' => $student->full_name]);
-                            } elseif ($attendance->attendance_type = "H") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_holiday_in_the_attendance_on_date', ['date' => $date, 'student_name' => $student->full_name . "'s"]);
+                            if ($aramiscAttendance->aramiscAttendance_type == "P") {
+                                $messege = $messege = app('translator')->get('student.Your_child_is_marked_present_in_the_aramiscAttendance_on', ['date' => $date, 'student_name' => $student->full_name]);
+                            } elseif ($aramiscAttendance->aramiscAttendance_type == "L") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_late_in_the_aramiscAttendance_on', ['date' => $date, 'student_name' => $student->full_name]);
+                            } elseif ($aramiscAttendance->aramiscAttendance_type == "A") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_absent_in_the_aramiscAttendance_on', ['date' => $date, 'student_name' => $student->full_name]);
+                            } elseif ($aramiscAttendance->aramiscAttendance_type == "F") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_halfday_in_the_aramiscAttendance_on', ['date' => $date, 'student_name' => $student->full_name]);
+                            } elseif ($aramiscAttendance->aramiscAttendance_type = "H") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_holiday_in_the_aramiscAttendance_on_date', ['date' => $date, 'student_name' => $student->full_name . "'s"]);
                             }
 
-                            if ($attendance->attendance_type != "NULL") {
+                            if ($aramiscAttendance->aramiscAttendance_type != "NULL") {
                                 $notification = new SmNotification();
                                 $notification->user_id = $parent->user_id;
                                 $notification->role_id = 3;
@@ -1251,7 +1251,7 @@ class ApiSmStudentAttendanceController extends Controller
                                 $notification->save();
                                 if ($parent->parent_user) {
                                     try {
-                                        $title = app('translator')->get('student.attendance_notication');
+                                        $title = app('translator')->get('student.aramiscAttendance_notication');
                                         Notification::send($parent->parent_user, new FlutterAppNotification($notification, $title));
                                     } catch (\Exception $e) {
                                         Log::info($e->getMessage());
@@ -1262,49 +1262,49 @@ class ApiSmStudentAttendanceController extends Controller
                     }
                 }
             }
-            return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+            return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
         } catch (\Exception $e) {
             return ApiBaseMethod::sendResponse('error' . $e->getMessage(), null);
         }
     }
 
 
-    public function studentSubjectAttendanceStore(Request $request)
+    public function aramiscStudentSubjectAttendanceStore(Request $request)
     {
         try {
-            foreach ($request->attendance as $record_id => $student) {
-                $attendance = SmSubjectAttendance::where('student_id', gv($student, 'student'))
+            foreach ($request->aramiscAttendance as $record_id => $student) {
+                $aramiscAttendance = SmSubjectAttendance::where('student_id', gv($student, 'student'))
                     ->where('student_record_id', $record_id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                    ->where('aramiscAttendance_date', date('Y-m-d', strtotime($request->date)))
                     ->where('subject_id', gv($student, 'subject'))
                     ->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
                     ->first();
 
 
-                if ($attendance != "") {
-                    $attendance->delete();
+                if ($aramiscAttendance != "") {
+                    $aramiscAttendance->delete();
                 }
 
-                $attendance = new SmSubjectAttendance();
-                $attendance->student_record_id = $record_id;
-                $attendance->student_id = gv($student, 'student');
-                $attendance->class_id = gv($student, 'class');
-                $attendance->section_id = gv($student, 'section');
-                $attendance->subject_id = gv($student, 'subject');
+                $aramiscAttendance = new SmSubjectAttendance();
+                $aramiscAttendance->student_record_id = $record_id;
+                $aramiscAttendance->student_id = gv($student, 'student');
+                $aramiscAttendance->class_id = gv($student, 'class');
+                $aramiscAttendance->section_id = gv($student, 'section');
+                $aramiscAttendance->subject_id = gv($student, 'subject');
                 if (isset($request->mark_holiday)) {
-                    $attendance->attendance_type = "H";
+                    $aramiscAttendance->aramiscAttendance_type = "H";
                 } else {
-                    $attendance->attendance_type = gv($student, 'attendance_type');
-                    $attendance->notes = gv($student, 'note');
+                    $aramiscAttendance->aramiscAttendance_type = gv($student, 'aramiscAttendance_type');
+                    $aramiscAttendance->notes = gv($student, 'note');
                 }
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
-                $attendance->school_id = $request->user()->school_id;
-                $attendance->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
-                $attendance->save();
+                $aramiscAttendance->aramiscAttendance_date = date('Y-m-d', strtotime($request->date));
+                $aramiscAttendance->school_id = $request->user()->school_id;
+                $aramiscAttendance->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
+                $aramiscAttendance->save();
 
                 //sms , notification and email 
                 $messege = "";
-                $date = dateConvert($attendance->attendance_date);
+                $date = dateConvert($aramiscAttendance->aramiscAttendance_date);
 
                 if (gv($student, 'student')) {
 
@@ -1313,15 +1313,15 @@ class ApiSmStudentAttendanceController extends Controller
 
                     $subject_name = @$subject->subject_name;
                     if ($student) {
-                        if ($attendance->attendance_type == "P") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_present_in_the_attendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
+                        if ($aramiscAttendance->aramiscAttendance_type == "P") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_present_in_the_aramiscAttendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
 
-                        } elseif ($attendance->attendance_type == "L") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_late_in_the_attendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
-                        } elseif ($attendance->attendance_type == "A") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_absent_in_the_attendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
-                        } elseif ($attendance->attendance_type == "F") {
-                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_halfday_in_the_attendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
+                        } elseif ($aramiscAttendance->aramiscAttendance_type == "L") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_late_in_the_aramiscAttendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
+                        } elseif ($aramiscAttendance->aramiscAttendance_type == "A") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_absent_in_the_aramiscAttendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
+                        } elseif ($aramiscAttendance->aramiscAttendance_type == "F") {
+                            $messege = app('translator')->get('student.Your_teacher_has_marked_you_halfday_in_the_aramiscAttendance_on_subject', ['date' => $date, 'subject_name' => $subject_name]);
                         }
 
                         $notification = new SmNotification();
@@ -1330,10 +1330,10 @@ class ApiSmStudentAttendanceController extends Controller
                         $notification->date = date('Y-m-d');
                         $notification->message = $messege;
                         $notification->school_id = $request->user()->school_id;
-                        $notification->academic_id = $attendance->academic_id;
+                        $notification->academic_id = $aramiscAttendance->academic_id;
                         $notification->save();
                         try {
-                            $title = app('translator')->get('student.attendance_notication');
+                            $title = app('translator')->get('student.aramiscAttendance_notication');
                             Notification::send($student->user, new FlutterAppNotification($notification, $title));
                         } catch (\Exception $e) {
                             Log::info($e->getMessage());
@@ -1342,15 +1342,15 @@ class ApiSmStudentAttendanceController extends Controller
                         // for parent user
                         $parent = SmParent::find($student->parent_id);
                         if ($parent) {
-                            if ($attendance->attendance_type == "P") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_present_in_the_attendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
+                            if ($aramiscAttendance->aramiscAttendance_type == "P") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_present_in_the_aramiscAttendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
 
-                            } elseif ($attendance->attendance_type == "L") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_late_in_the_attendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
-                            } elseif ($attendance->attendance_type == "A") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_absent_in_the_attendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
-                            } elseif ($attendance->attendance_type == "F") {
-                                $messege = app('translator')->get('student.Your_child_is_marked_halfday_in_the_attendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
+                            } elseif ($aramiscAttendance->aramiscAttendance_type == "L") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_late_in_the_aramiscAttendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
+                            } elseif ($aramiscAttendance->aramiscAttendance_type == "A") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_absent_in_the_aramiscAttendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
+                            } elseif ($aramiscAttendance->aramiscAttendance_type == "F") {
+                                $messege = app('translator')->get('student.Your_child_is_marked_halfday_in_the_aramiscAttendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
                             }
 
                             $notification = new SmNotification();
@@ -1359,12 +1359,12 @@ class ApiSmStudentAttendanceController extends Controller
                             $notification->date = date('Y-m-d');
                             $notification->message = $messege;
                             $notification->school_id = $request->user()->school_id;
-                            $notification->academic_id = $attendance->academic_id;
+                            $notification->academic_id = $aramiscAttendance->academic_id;
                             $notification->save();
 
                             try {
                                 $user = User::find($notification->user_id);
-                                $title = app('translator')->get('student.attendance_notication');
+                                $title = app('translator')->get('student.aramiscAttendance_notication');
                                 Notification::send($user, new FlutterAppNotification($notification, $title));
                             } catch (\Exception $e) {
 
@@ -1378,7 +1378,7 @@ class ApiSmStudentAttendanceController extends Controller
             }
 
 
-            return ApiBaseMethod::sendResponse(null, 'Student attendance been submitted successfully');
+            return ApiBaseMethod::sendResponse(null, 'Student aramiscAttendance been submitted successfully');
 
         } catch (\Exception $e) {
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
@@ -1404,7 +1404,7 @@ class ApiSmStudentAttendanceController extends Controller
     }
 
 
-    public function studentSubjectAttendanceSearch(Request $request, $user_id, $record_id)
+    public function aramiscStudentSubjectAttendanceSearch(Request $request, $user_id, $record_id)
     {
         try {
             $input = $request->all();
@@ -1438,33 +1438,33 @@ class ApiSmStudentAttendanceController extends Controller
 
             if ($request->subject) {
                 $subject = SmSubject::find($request->subject);
-                $all_attendances = SmSubjectAttendance::where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+                $all_aramiscAttendances = SmSubjectAttendance::where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
                     ->where('subject_id', $request->subject)
                     ->where('student_record_id', $record->id)
-                    ->select('attendance_type', 'attendance_date', 'subject_id')
+                    ->select('aramiscAttendance_type', 'aramiscAttendance_date', 'subject_id')
                     ->with('subject:id,subject_name,subject_code,subject_type')->get();
 
 
             } else {
-                $all_attendances = SmSubjectAttendance::whereNotNull('subject_id')->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+                $all_aramiscAttendances = SmSubjectAttendance::whereNotNull('subject_id')->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
                     ->where('student_record_id', $record->id)
-                    ->select('attendance_type', 'attendance_date', 'subject_id')
+                    ->select('aramiscAttendance_type', 'aramiscAttendance_date', 'subject_id')
                     ->with('subject:id,subject_name,subject_code,subject_type')->get();
             }
 
-            $attendances = $all_attendances->distinct('attendance_date');
+            $aramiscAttendances = $all_aramiscAttendances->distinct('aramiscAttendance_date');
             $total_pres = 0;
             $total_late = 0;
             $toal_abs = 0;
             $total_half = 0;
-            foreach ($all_attendances as $atd) {
-                if ($atd->attendance_type == "P") {
+            foreach ($all_aramiscAttendances as $atd) {
+                if ($atd->aramiscAttendance_type == "P") {
                     $total_pres += 1;
-                } elseif ($atd->attendance_type == "L") {
+                } elseif ($atd->aramiscAttendance_type == "L") {
                     $total_late += 1;
-                } elseif ($atd->attendance_type == "A") {
+                } elseif ($atd->aramiscAttendance_type == "A") {
                     $toal_abs += 1;
-                } elseif ($atd->attendance_type == "F") {
+                } elseif ($atd->aramiscAttendance_type == "F") {
                     $total_half += 1;
                 }
 
@@ -1472,7 +1472,7 @@ class ApiSmStudentAttendanceController extends Controller
 
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['days'] = $days;
                 $data['total_present'] = $total_pres;
                 $data['total_absent'] = $toal_abs;
@@ -1549,15 +1549,15 @@ class ApiSmStudentAttendanceController extends Controller
             $previousMonthDetails['day'] = $days2;
             $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
-            $attendances = SmSubjectAttendance::where('student_id', $student_detail->id)
-                ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+            $aramiscAttendances = SmSubjectAttendance::where('student_id', $student_detail->id)
+                ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
                 ->where('student_record_id', $record_id)
                 ->where('subject_id', $request->subject)
-                ->select('attendance_type', 'attendance_date')
+                ->select('aramiscAttendance_type', 'aramiscAttendance_date')
                 ->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['previousMonthDetails'] = $previousMonthDetails;
                 $data['days'] = $days;
                 $data['year'] = $year;

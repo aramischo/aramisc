@@ -62,7 +62,7 @@ class SmExaminationController extends Controller
 {
 
 
-    public function examSchedule()
+    public function aramiscExamSchedule()
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
@@ -115,7 +115,7 @@ class SmExaminationController extends Controller
                 return redirect()->back()->withInput();
                 // return redirect()->back()->withInput()->with('message-danger', 'Ops! Admission number is not found in previous academic year. Please try again');
             }
-            $studentDetails = SmStudentPromotion::where('admission_number', '=', $admission_no)
+            $aramiscStudentDetails = SmStudentPromotion::where('admission_number', '=', $admission_no)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_student_promotions.previous_session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_student_promotions.previous_class_id')
                 ->join('sm_students', 'sm_students.id', '=', 'sm_student_promotions.student_id')
@@ -127,13 +127,13 @@ class SmExaminationController extends Controller
             $generalSetting = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
 
             if ($promotes->count() > 0) {
-                $student_id = $studentDetails->student_id;
+                $student_id = $aramiscStudentDetails->student_id;
 
                 $current_class = SmStudent::where('sm_students.id', $student_id)->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')->first();
                 $current_section = SmStudent::where('sm_students.id', $student_id)->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')->first();
                 $current_session = SmStudent::where('sm_students.id', $student_id)->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')->first();
 
-                return view('backEnd.reports.previousClassResults', compact('promotes', 'studentDetails', 'generalSetting', 'current_class', 'current_section', 'current_session', 'admission_number'));
+                return view('backEnd.reports.previousClassResults', compact('promotes', 'aramiscStudentDetails', 'generalSetting', 'current_class', 'current_section', 'current_session', 'admission_number'));
             } else {
                 Toastr::error('Ops! Your result is not found! Please check mark register', 'Failed');
                 return redirect('previous-class-results');
@@ -190,7 +190,7 @@ class SmExaminationController extends Controller
                 ->where('gpa', $fail_grade)
                 ->first();
 
-            $studentDetails = $studentRecord;
+            $aramiscStudentDetails = $studentRecord;
 
             $marks_grade = SmMarksGrade::withOutGlobalScopes()->where('school_id', $school_id)
                 ->where('academic_id', $academic_id)
@@ -204,8 +204,8 @@ class SmExaminationController extends Controller
             $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $class_id)
                 ->first();
 
-            $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $studentDetails->student_id)
-                ->where('session_id', '=', $studentDetails->session_id)
+            $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $aramiscStudentDetails->student_id)
+                ->where('session_id', '=', $aramiscStudentDetails->session_id)
                 ->first();
 
             $exam_setup = SmExamSetup::where([
@@ -243,7 +243,7 @@ class SmExaminationController extends Controller
                     $is_mark_available = SmResultStore::where([
                             ['class_id', $class_id],
                             ['section_id', $section_id],
-                            ['student_id', $studentDetails->student_id]
+                            ['student_id', $aramiscStudentDetails->student_id]
                         ])
                         ->first();
                     if ($is_mark_available == "") {
@@ -256,7 +256,7 @@ class SmExaminationController extends Controller
             $is_result_available = SmResultStore::where([
                 ['class_id', $class_id],
                 ['section_id', $section_id],
-                ['student_id', $studentDetails->student_id]])
+                ['student_id', $aramiscStudentDetails->student_id]])
                 ->where('school_id', $school_id)
                 ->get();
 
@@ -264,7 +264,7 @@ class SmExaminationController extends Controller
             $data ['optional_subject_setup'] = $optional_subject_setup;
             $data ['student_optional_subject'] = $student_optional_subject;
             $data ['classes'] = $classes;
-            $data ['studentDetails'] = $studentDetails;
+            $data ['aramiscStudentDetails'] = $aramiscStudentDetails;
             $data ['is_result_available'] = $is_result_available;
             $data ['subjects'] = $subjects;
             $data ['class_id'] = $class_id;
@@ -314,45 +314,45 @@ class SmExaminationController extends Controller
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_student_promotions.previous_section_id')
                 // ->select('admission_number', 'student_id', 'previous_class_id', 'class_name', 'previous_section_id', 'section_name', 'year', 'previous_session_id')
                 ->get();
-            $studentDetails = SmStudentPromotion::where('admission_number', '=', $request->admission_number)
+            $aramiscStudentDetails = SmStudentPromotion::where('admission_number', '=', $request->admission_number)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_student_promotions.previous_session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_student_promotions.previous_class_id')
                 ->join('sm_students', 'sm_students.id', '=', 'sm_student_promotions.student_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_student_promotions.previous_section_id')
                 // ->select('admission_number', 'student_id', 'previous_class_id', 'class_name', 'previous_section_id', 'section_name', 'year', 'previous_session_id')
                 ->first();
-            $student_id = $studentDetails->student_id;
+            $student_id = $aramiscStudentDetails->student_id;
 
 
             $exams = SmExam::where('active_status', 1)
                 ->where('class_id', $request->class_id)
                 ->where('section_id', $request->section_id)
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
             $exam_types = SmExamType::where('active_status', 1)
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
             $classes = SmClass::where('active_status', 1)
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
             $marks_grade = SmMarksGrade::where('school_id', Auth::user()->school_id)
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->orderBy('gpa', 'desc')
                 ->get();
 
             $fail_grade = SmMarksGrade::where('active_status', 1)
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
             $fail_grade_name = SmMarksGrade::where('active_status', 1)
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->where('gpa', $fail_grade)
                 ->first();
@@ -362,7 +362,7 @@ class SmExaminationController extends Controller
             $exam_setup = SmExamSetup::where([
                 ['class_id', $request->class_id],
                 ['section_id', $request->section_id]])
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
@@ -372,7 +372,7 @@ class SmExaminationController extends Controller
 
             $examSubjects = SmExam::where([['section_id', $request->section_id], ['class_id', $request->class_id]])
                 ->where('school_id', Auth::user()->school_id)
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->get();
 
             $examSubjectIds = [];
@@ -383,7 +383,7 @@ class SmExaminationController extends Controller
             $subjects = SmAssignSubject::where([
                 ['class_id', $request->class_id],
                 ['section_id', $request->section_id]])
-                ->where('academic_id', $studentDetails->academic_id)
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->whereIn('subject_id', $examSubjectIds)
                 ->get();
@@ -398,7 +398,7 @@ class SmExaminationController extends Controller
                     $is_mark_available = SmResultStore::where([
                         ['class_id', $request->class_id],
                         ['section_id', $request->section_id],
-                        ['student_id', $studentDetails->id],
+                        ['student_id', $aramiscStudentDetails->id],
                         ['subject_id', $subject->subject_id],
                     ])
                         ->where('academic_id', getAcademicId())
@@ -412,15 +412,15 @@ class SmExaminationController extends Controller
             }
 
             $is_result_available = SmResultStore::where([
-                ['class_id', $request->class_id], ['section_id', $request->section_id], ['student_id', $studentDetails->id]])
-                ->where('academic_id', $studentDetails->academic_id)
+                ['class_id', $request->class_id], ['section_id', $request->section_id], ['student_id', $aramiscStudentDetails->id]])
+                ->where('academic_id', $aramiscStudentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
             $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $request->class_id)->first();
 
             $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $request->student_id)
-                ->where('academic_id', '=', $studentDetails->academic_id)
+                ->where('academic_id', '=', $aramiscStudentDetails->academic_id)
                 ->first();
 
             if ($promotes->count() > 0) {
@@ -438,7 +438,7 @@ class SmExaminationController extends Controller
                         'exam_types',
                         'assinged_exam_types',
                         'marks_grade',
-                        'studentDetails',
+                        'aramiscStudentDetails',
                         'fail_grade_name'
                     ));
             } else {
@@ -461,7 +461,7 @@ class SmExaminationController extends Controller
         ]);
     }
 
-    public function examScheduleCreate()
+    public function aramiscExamScheduleCreate()
     {
         try {
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
@@ -476,7 +476,7 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function examScheduleSearch(Request $request)
+    public function aramiscExamScheduleSearch(Request $request)
     {
         $request->validate([
             'exam' => 'required',
@@ -510,7 +510,7 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function examScheduleStore(Request $request)
+    public function aramiscExamScheduleStore(Request $request)
     {
         $update_check = SmExamSchedule::where('exam_id', $request->exam_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->first();
 
@@ -848,16 +848,16 @@ class SmExaminationController extends Controller
                     ->distinct(['section_id', 'subject_id'])
                     ->get(['section_id']);
 
-                $exam_attendance = SmExamAttendance::where('class_id', $request->class)->where('exam_id', $request->exam)->where('subject_id', $request->subject)->first();
+                $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class)->where('exam_id', $request->exam)->where('subject_id', $request->subject)->first();
 
             } else {
-                $exam_attendance = SmExamAttendance::where('class_id', $request->class)->where('section_id', $request->section)->where('exam_id', $request->exam)->where('subject_id', $request->subject)->first();
+                $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class)->where('section_id', $request->section)->where('exam_id', $request->exam)->where('subject_id', $request->subject)->first();
 
             }
 
-            if ($exam_attendance == "") {
+            if ($exam_aramiscAttendance == "") {
 
-                Toastr::error('Exam Attendance not taken yet, please check exam attendance', 'Failed');
+                Toastr::error('Exam Attendance not taken yet, please check exam aramiscAttendance', 'Failed');
                 return redirect()->back();
 
             }
@@ -933,7 +933,7 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function marksRegisterStore(Request $request)
+    public function aramiscMarksRegisterStore(Request $request)
     {
         // return $request->all();
         DB::beginTransaction();
@@ -1128,20 +1128,20 @@ class SmExaminationController extends Controller
             $subject_id = $request->subject;
             $subjectNames = SmSubject::where('id', $subject_id)->first();
 
-            $exam_attendance = SmExamAttendance::query();
+            $exam_aramiscAttendance = SmExamAttendance::query();
             if ($request->class != null) {
-                $exam_attendance->where('exam_id', $exam_id)->where('class_id', $class_id);
+                $exam_aramiscAttendance->where('exam_id', $exam_id)->where('class_id', $class_id);
             }
             if ($request->section != null) {
-                $exam_attendance->where('section_id', $request->section);
+                $exam_aramiscAttendance->where('section_id', $request->section);
             }
 
-            $exam_attendance = $exam_attendance->where('subject_id', $subject_id)->first();
+            $exam_aramiscAttendance = $exam_aramiscAttendance->where('subject_id', $subject_id)->first();
 
-            if ($exam_attendance) {
-                $exam_attendance_child = SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->first();
+            if ($exam_aramiscAttendance) {
+                $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->first();
             } else {
-                Toastr::error('Exam attendance not done yet', 'Failed');
+                Toastr::error('Exam aramiscAttendance not done yet', 'Failed');
                 return redirect()->back();
             }
 
@@ -1398,7 +1398,7 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function examAttendance()
+    public function aramiscExamAttendance()
     {
 
         try {
@@ -1423,14 +1423,14 @@ class SmExaminationController extends Controller
                     ->get();
             }
             $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            return view('backEnd.examination.exam_attendance', compact('exams', 'classes', 'subjects'));
+            return view('backEnd.examination.exam_aramiscAttendance', compact('exams', 'classes', 'subjects'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function examAttendanceAeportSearch(SmExamAttendanceSearchRequest $request)
+    public function aramiscExamAttendanceAeportSearch(SmExamAttendanceSearchRequest $request)
     {
         try {
             if (moduleStatusCheck('University')) {
@@ -1451,19 +1451,19 @@ class SmExaminationController extends Controller
                     ->first();
 
                 $SmExamAttendance = SmExamAttendance::query();
-                $exam_attendance = universityFilter($SmExamAttendance, $request)
+                $exam_aramiscAttendance = universityFilter($SmExamAttendance, $request)
                     ->where('un_subject_id', $request->subject_id)
                     ->where('exam_id', $sm_exam->id)
                     ->first();
 
-                if ($exam_attendance == "") {
+                if ($exam_aramiscAttendance == "") {
                     Toastr::success('No Record Found', 'Success');
-                    return redirect('exam-attendance');
+                    return redirect('exam-aramiscAttendance');
                 }
 
-                $exam_attendance_childs = [];
-                if ($exam_attendance != "") {
-                    $exam_attendance_childs = $exam_attendance->examAttendanceChild;
+                $exam_aramiscAttendance_childs = [];
+                if ($exam_aramiscAttendance != "") {
+                    $exam_aramiscAttendance_childs = $exam_aramiscAttendance->aramiscExamAttendanceChild;
                 }
 
                 $exams = SmExamType::where('active_status', 1)
@@ -1477,9 +1477,9 @@ class SmExaminationController extends Controller
                 $interface = App::make(UnCommonRepositoryInterface::class);
                 $data = $interface->oldValueSelected($request);
 
-                return view('backEnd.examination.exam_attendance', compact(
+                return view('backEnd.examination.exam_aramiscAttendance', compact(
                     'exams',
-                    'exam_attendance_childs',
+                    'exam_aramiscAttendance_childs',
                     'un_session',
                     'un_faculty',
                     'un_department',
@@ -1500,23 +1500,23 @@ class SmExaminationController extends Controller
                         ->where('subject_id',$request->subject)
                         ->first();
 
-                $exam_attendance = SmExamAttendance::query();
+                $exam_aramiscAttendance = SmExamAttendance::query();
                 if (!empty($request->section)) {
-                    $exam_attendance->where('section_id', $request->section);
+                    $exam_aramiscAttendance->where('section_id', $request->section);
                 }
-                $exam_attendance = $exam_attendance->where('class_id', $request->class)
+                $exam_aramiscAttendance = $exam_aramiscAttendance->where('class_id', $request->class)
                     ->where('subject_id', $request->subject)
                     ->where('exam_id', $exam->id)
                     ->first();
 
-                if ($exam_attendance == "") {
+                if ($exam_aramiscAttendance == "") {
                     Toastr::error('No Record Found', 'Success');
-                    return redirect('exam-attendance');
+                    return redirect('exam-aramiscAttendance');
                 }
 
-                $exam_attendance_childs = [];
-                if ($exam_attendance != "") {
-                    $exam_attendance_childs = $exam_attendance->examAttendanceChild;
+                $exam_aramiscAttendance_childs = [];
+                if ($exam_aramiscAttendance != "") {
+                    $exam_aramiscAttendance_childs = $exam_aramiscAttendance->aramiscExamAttendanceChild;
                 }
 
                 $exams = SmExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
@@ -1536,7 +1536,7 @@ class SmExaminationController extends Controller
                         ->get();
                 }
                 $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                return view('backEnd.examination.exam_attendance', compact('exams', 'classes', 'subjects', 'exam_attendance_childs'));
+                return view('backEnd.examination.exam_aramiscAttendance', compact('exams', 'classes', 'subjects', 'exam_aramiscAttendance_childs'));
             }
 
         } catch (\Exception $e) {
@@ -1545,7 +1545,7 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function examAttendanceCreate()
+    public function aramiscExamAttendanceCreate()
     {
         try {
             $exams = SmExamType::where('active_status', 1)
@@ -1569,14 +1569,14 @@ class SmExaminationController extends Controller
                     ->get();
             }
             $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            return view('backEnd.examination.exam_attendance_create', compact('exams', 'classes', 'subjects'));
+            return view('backEnd.examination.exam_aramiscAttendance_create', compact('exams', 'classes', 'subjects'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function examAttendanceSearch(Request $request)
+    public function aramiscExamAttendanceSearch(Request $request)
     {
         //  return $request->all();
         $request->validate([
@@ -1601,7 +1601,7 @@ class SmExaminationController extends Controller
 
             if ($exam_schedules == 0) {
                 Toastr::error('You have to create exam schedule first', 'Failed');
-                return redirect('exam-attendance-create');
+                return redirect('exam-aramiscAttendance-create');
             }
 
             $students = SmStudent::query();
@@ -1619,26 +1619,26 @@ class SmExaminationController extends Controller
 
             if ($students->count() == 0) {
                 Toastr::error('No Record Found', 'Failed');
-                return redirect('exam-attendance-create');
+                return redirect('exam-aramiscAttendance-create');
             }
             if ($request->section == null) {
-                $exam_attendance = SmExamAttendance::where('class_id', $request->class)
+                $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class)
                     ->where('subject_id', $request->subject)
                     ->where('exam_id', $request->exam)
                     ->first();
             } else {
-                $exam_attendance = SmExamAttendance::where('class_id', $request->class)
+                $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class)
                     ->where('section_id', $request->section)
                     ->where('subject_id', $request->subject)
                     ->where('exam_id', $request->exam)
                     ->first();
             }
 
-            $exam_attendance_childs = [];
-            if ($exam_attendance != "") {
-                $exam_attendance_childs = $exam_attendance->examAttendanceChild;
+            $exam_aramiscAttendance_childs = [];
+            if ($exam_aramiscAttendance != "") {
+                $exam_aramiscAttendance_childs = $exam_aramiscAttendance->aramiscExamAttendanceChild;
             }
-            $exam_attendance_childs;
+            $exam_aramiscAttendance_childs;
 
             $exams = SmExamType::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
@@ -1693,7 +1693,7 @@ class SmExaminationController extends Controller
             $search_info['section_name'] = $section_info;
             $search_info['subject_name'] = $subject_info->subject_name;
 
-            return view('backEnd.examination.exam_attendance_create', compact('exams', 'classes', 'subjects', 'students', 'exam_id', 'subject_id', 'class_id', 'section_id', 'exam_attendance_childs', 'search_info'));
+            return view('backEnd.examination.exam_aramiscAttendance_create', compact('exams', 'classes', 'subjects', 'students', 'exam_id', 'subject_id', 'class_id', 'section_id', 'exam_aramiscAttendance_childs', 'search_info'));
         } catch (\Exception $e) {
 
             Toastr::error('Operation Failed', 'Failed');
@@ -1701,7 +1701,7 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function examAttendanceStore(Request $request)
+    public function aramiscExamAttendanceStore(Request $request)
     {
         try {
 
@@ -1717,34 +1717,34 @@ class SmExaminationController extends Controller
             try {
                 if ($request->section_id != '') {
                     if ($alreday_assigned == "") {
-                        $exam_attendance = new SmExamAttendance();
+                        $exam_aramiscAttendance = new SmExamAttendance();
                     } else {
-                        $exam_attendance = SmExamAttendance::where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('subject_id', $request->subject_id)->where('exam_id', $request->exam_id)->first();
+                        $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('subject_id', $request->subject_id)->where('exam_id', $request->exam_id)->first();
                     }
 
-                    $exam_attendance->exam_id = $request->exam_id;
-                    $exam_attendance->subject_id = $request->subject_id;
-                    $exam_attendance->class_id = $request->class_id;
-                    $exam_attendance->section_id = $request->section_id;
-                    $exam_attendance->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
-                    $exam_attendance->school_id = Auth::user()->school_id;
-                    $exam_attendance->academic_id = getAcademicId();
-                    $exam_attendance->save();
-                    $exam_attendance->toArray();
+                    $exam_aramiscAttendance->exam_id = $request->exam_id;
+                    $exam_aramiscAttendance->subject_id = $request->subject_id;
+                    $exam_aramiscAttendance->class_id = $request->class_id;
+                    $exam_aramiscAttendance->section_id = $request->section_id;
+                    $exam_aramiscAttendance->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
+                    $exam_aramiscAttendance->school_id = Auth::user()->school_id;
+                    $exam_aramiscAttendance->academic_id = getAcademicId();
+                    $exam_aramiscAttendance->save();
+                    $exam_aramiscAttendance->toArray();
 
                     if ($alreday_assigned != "") {
-                        SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->delete();
+                        SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->delete();
                     }
 
                     foreach ($request->id as $student) {
-                        $exam_attendance_child = new SmExamAttendanceChild();
-                        $exam_attendance_child->exam_attendance_id = $exam_attendance->id;
-                        $exam_attendance_child->student_id = $student;
-                        $exam_attendance_child->attendance_type = $request->attendance[$student];
-                        $exam_attendance_child->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
-                        $exam_attendance_child->school_id = Auth::user()->school_id;
-                        $exam_attendance_child->academic_id = getAcademicId();
-                        $exam_attendance_child->save();
+                        $exam_aramiscAttendance_child = new SmExamAttendanceChild();
+                        $exam_aramiscAttendance_child->exam_aramiscAttendance_id = $exam_aramiscAttendance->id;
+                        $exam_aramiscAttendance_child->student_id = $student;
+                        $exam_aramiscAttendance_child->aramiscAttendance_type = $request->aramiscAttendance[$student];
+                        $exam_aramiscAttendance_child->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
+                        $exam_aramiscAttendance_child->school_id = Auth::user()->school_id;
+                        $exam_aramiscAttendance_child->academic_id = getAcademicId();
+                        $exam_aramiscAttendance_child->save();
                     }
                 } else {
                     $classSections = SmAssignSubject::where('class_id', $request->class_id)
@@ -1756,42 +1756,42 @@ class SmExaminationController extends Controller
                     foreach ($classSections as $section) {
                         if ($alreday_assigned == "") {
 
-                            $exam_attendance = new SmExamAttendance();
+                            $exam_aramiscAttendance = new SmExamAttendance();
                         } else {
-                            $exam_attendance = SmExamAttendance::where('class_id', $request->class_id)->where('section_id', $section->section_id)
+                            $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class_id)->where('section_id', $section->section_id)
                                 ->where('subject_id', $request->subject_id)->where('exam_id', $request->exam_id)->first();
                         }
 
-                        $exam_attendance->exam_id = $request->exam_id;
-                        $exam_attendance->subject_id = $request->subject_id;
-                        $exam_attendance->class_id = $request->class_id;
-                        $exam_attendance->section_id = $section->section_id;
-                        $exam_attendance->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
-                        $exam_attendance->school_id = Auth::user()->school_id;
-                        $exam_attendance->academic_id = getAcademicId();
-                        $exam_attendance->save();
-                        $exam_attendance->toArray();
+                        $exam_aramiscAttendance->exam_id = $request->exam_id;
+                        $exam_aramiscAttendance->subject_id = $request->subject_id;
+                        $exam_aramiscAttendance->class_id = $request->class_id;
+                        $exam_aramiscAttendance->section_id = $section->section_id;
+                        $exam_aramiscAttendance->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
+                        $exam_aramiscAttendance->school_id = Auth::user()->school_id;
+                        $exam_aramiscAttendance->academic_id = getAcademicId();
+                        $exam_aramiscAttendance->save();
+                        $exam_aramiscAttendance->toArray();
 
                         if ($alreday_assigned != "") {
-                            SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->delete();
+                            SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->delete();
                         }
 
                         foreach ($request->id as $student) {
-                            $exam_attendance_child = new SmExamAttendanceChild();
-                            $exam_attendance_child->exam_attendance_id = $exam_attendance->id;
-                            $exam_attendance_child->student_id = $student;
-                            $exam_attendance_child->attendance_type = $request->attendance[$student];
-                            $exam_attendance_child->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
-                            $exam_attendance_child->school_id = Auth::user()->school_id;
-                            $exam_attendance_child->academic_id = getAcademicId();
-                            $exam_attendance_child->save();
+                            $exam_aramiscAttendance_child = new SmExamAttendanceChild();
+                            $exam_aramiscAttendance_child->exam_aramiscAttendance_id = $exam_aramiscAttendance->id;
+                            $exam_aramiscAttendance_child->student_id = $student;
+                            $exam_aramiscAttendance_child->aramiscAttendance_type = $request->aramiscAttendance[$student];
+                            $exam_aramiscAttendance_child->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
+                            $exam_aramiscAttendance_child->school_id = Auth::user()->school_id;
+                            $exam_aramiscAttendance_child->academic_id = getAcademicId();
+                            $exam_aramiscAttendance_child->save();
                         }
                     }
                 }
 
                 DB::commit();
                 Toastr::success('Operation successful', 'Success');
-                return redirect('exam-attendance-create');
+                return redirect('exam-aramiscAttendance-create');
             } catch (\Exception $e) {
                 DB::rollback();
                 Toastr::error('Operation Failed', 'Failed');
@@ -2664,7 +2664,7 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function markSheetReportStudent(Request $request)
+    public function aramiscMarkSheetReportStudent(Request $request)
     {
         try {
             $exams = SmExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
@@ -2678,11 +2678,11 @@ class SmExaminationController extends Controller
 
     //marks     SheetReport     Student     Search
 
-    public function markSheetReportStudentSearch(MarkSheetReportRequest $request)
+    public function aramiscMarkSheetReportStudentSearch(MarkSheetReportRequest $request)
     {
         try {
             $total_class_days = 0;
-            $student_attendance = 0;
+            $student_aramiscAttendance = 0;
             $input['exam_id'] = $request->exam;
             $input['class_id'] = $request->class;
             $input['section_id'] = $request->section;
@@ -2702,20 +2702,20 @@ class SmExaminationController extends Controller
 
 
                 if (isset($exam_content)) {
-                    $total_class_day = SmStudentAttendance::whereBetween('attendance_date', [$exam_content->start_date, $exam_content->end_date])
+                    $total_class_day = SmStudentAttendance::whereBetween('aramiscAttendance_date', [$exam_content->start_date, $exam_content->end_date])
                         ->where('un_semester_label_id', $request->un_semester_label_id)
                         ->where('un_section_id', $request->un_section_id)
                         ->where('un_academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
-                        ->where('attendance_type', '!=', 'H')
+                        ->where('aramiscAttendance_type', '!=', 'H')
                         ->get()
-                        ->groupBy('attendance_date');
+                        ->groupBy('aramiscAttendance_date');
 
                     $total_class_days = count($total_class_day);
 
-                    $student_attendance = SmStudentAttendance::where('student_id', $student_id)
-                        ->whereBetween('attendance_date', [$exam_content->start_date, $exam_content->end_date])
-                        ->whereIn('attendance_type', ["P", "L"])
+                    $student_aramiscAttendance = SmStudentAttendance::where('student_id', $student_id)
+                        ->whereBetween('aramiscAttendance_date', [$exam_content->start_date, $exam_content->end_date])
+                        ->whereIn('aramiscAttendance_type', ["P", "L"])
                         ->where('un_academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->count();
@@ -2858,22 +2858,22 @@ class SmExaminationController extends Controller
                     ->first();
 
                 if ($exam_content) {
-                    $total_class_day = SmStudentAttendance::whereBetween('attendance_date', [$exam_content->start_date, $exam_content->end_date])
+                    $total_class_day = SmStudentAttendance::whereBetween('aramiscAttendance_date', [$exam_content->start_date, $exam_content->end_date])
                                 ->where('class_id', $input['class_id'])
                                 ->where('section_id', $input['section_id'])
                                 ->where('academic_id', getAcademicId())
                                 ->where('school_id', Auth::user()->school_id)
-                                ->whereNotIn('attendance_type', ["H"])
+                                ->whereNotIn('aramiscAttendance_type', ["H"])
                                 ->get()
-                                ->groupBy('attendance_date');
+                                ->groupBy('aramiscAttendance_date');
 
                     $total_class_days = count($total_class_day);
 
-                    $student_attendance = SmStudentAttendance::where('student_id', $request->student)
-                        ->whereBetween('attendance_date', [$exam_content->start_date, $exam_content->end_date])
+                    $student_aramiscAttendance = SmStudentAttendance::where('student_id', $request->student)
+                        ->whereBetween('aramiscAttendance_date', [$exam_content->start_date, $exam_content->end_date])
                         ->where('class_id', $input['class_id'])
                         ->where('section_id', $input['section_id'])
-                        ->whereIn('attendance_type', ["P", "L"])
+                        ->whereIn('aramiscAttendance_type', ["P", "L"])
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->count();
@@ -2901,7 +2901,7 @@ class SmExaminationController extends Controller
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 
-                $student_detail = $studentDetails = StudentRecord::where('student_id', $request->student)
+                $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $request->student)
                     ->where('academic_id', getAcademicId())
                     ->where('is_promote', 0)
                     ->where('school_id', Auth::user()->school_id)
@@ -2917,7 +2917,7 @@ class SmExaminationController extends Controller
                     $examSubjectIds[] = $examSubject->subject_id;
                 }
 
-                $subjects = $studentDetails->class->subjects->where('section_id', $request->section)
+                $subjects = $aramiscStudentDetails->class->subjects->where('section_id', $request->section)
                     ->whereIn('subject_id', $examSubjectIds)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id);
@@ -3004,7 +3004,7 @@ class SmExaminationController extends Controller
                 return view('backEnd.reports.mark_sheet_report_student', compact(
                     'optional_subject',
                     'classes',
-                    'studentDetails',
+                    'aramiscStudentDetails',
                     'exams',
                     'classes',
                     'marks_register',
@@ -3022,7 +3022,7 @@ class SmExaminationController extends Controller
                     'maxGrade',
                     'failgpaname',
                     'exam_type_id',
-                    'section_id', 'exam_content', 'total_class_days', 'student_attendance', 'optional_subject_setup'));
+                    'section_id', 'exam_content', 'total_class_days', 'student_aramiscAttendance', 'optional_subject_setup'));
             }
         } catch (\Exception $e) {
             dd($e);
@@ -3031,13 +3031,13 @@ class SmExaminationController extends Controller
         }
     }
 
-    public function markSheetReportStudentPrint($exam_id, $class_id, $section_id, $student_id)
+    public function aramiscMarkSheetReportStudentPrint($exam_id, $class_id, $section_id, $student_id)
     {
         try {
             $total_class_days = 0;
-            $student_attendance = 0;
+            $student_aramiscAttendance = 0;
 
-            $student_detail = $studentDetails = StudentRecord::where('student_id', $student_id)->where('academic_id', getAcademicId())->where('is_promote', 0)->where('school_id', Auth::user()->school_id)->first();
+            $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $student_id)->where('academic_id', getAcademicId())->where('is_promote', 0)->where('school_id', Auth::user()->school_id)->first();
 
             $examSubjects = SmExam::where([['exam_type_id', $exam_id], ['section_id', $section_id], ['class_id', $class_id]])
                 ->where('school_id', Auth::user()->school_id)
@@ -3111,20 +3111,20 @@ class SmExaminationController extends Controller
                 ->first();
 
             if (isset($exam_content)) {
-                $total_class_day = SmStudentAttendance::whereBetween('attendance_date', [$exam_content->start_date, $exam_content->end_date])
+                $total_class_day = SmStudentAttendance::whereBetween('aramiscAttendance_date', [$exam_content->start_date, $exam_content->end_date])
                             ->where('class_id', $class_id)
                             ->where('section_id', $section_id)
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
-                            ->where('attendance_type', '!=', 'H')
+                            ->where('aramiscAttendance_type', '!=', 'H')
                             ->get()
-                            ->groupBy('attendance_date');
+                            ->groupBy('aramiscAttendance_date');
 
                 $total_class_days = count($total_class_day);
 
-                $student_attendance = SmStudentAttendance::where('student_id', $student_id)
-                    ->whereBetween('attendance_date', [$exam_content->start_date, $exam_content->end_date])
-                    ->whereIn('attendance_type', ['P',"L"])
+                $student_aramiscAttendance = SmStudentAttendance::where('student_id', $student_id)
+                    ->whereBetween('aramiscAttendance_date', [$exam_content->start_date, $exam_content->end_date])
+                    ->whereIn('aramiscAttendance_type', ['P',"L"])
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->count();
@@ -3167,7 +3167,7 @@ class SmExaminationController extends Controller
                             'is_result_available' => $is_result_available,
                             'student_detail' => $student_detail,
                             'class_id' => $class_id,
-                            'studentDetails' => $studentDetails,
+                            'aramiscStudentDetails' => $aramiscStudentDetails,
                             'student_id' => $student_id,
                             'exam_details' => $exam_details,
                             'optional_subject' => $optional_subject,
@@ -3175,7 +3175,7 @@ class SmExaminationController extends Controller
                             'exam_content' => $exam_content,
                             'failgpaname' => $failgpaname,
                             'total_class_days' => $total_class_days,
-                            'student_attendance' => $student_attendance,
+                            'student_aramiscAttendance' => $student_aramiscAttendance,
                             'mark_sheet' => $mark_sheet,
                         ]
                     );
@@ -3195,7 +3195,7 @@ class SmExaminationController extends Controller
                             'is_result_available' => $is_result_available,
                             'student_detail' => $student_detail,
                             'class_id' => $class_id,
-                            'studentDetails' => $studentDetails,
+                            'aramiscStudentDetails' => $aramiscStudentDetails,
                             'student_id' => $student_id,
                             'exam_details' => $exam_details,
                             'optional_subject' => $optional_subject,
@@ -3203,7 +3203,7 @@ class SmExaminationController extends Controller
                             'mark_sheet' => $mark_sheet,
                             'failgpaname' => $failgpaname,
                             'total_class_days' => $total_class_days,
-                            'student_attendance' => $student_attendance,
+                            'student_aramiscAttendance' => $student_aramiscAttendance,
                             'exam_content' => $exam_content,
                         ]
                     );

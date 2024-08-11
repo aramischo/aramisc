@@ -53,7 +53,7 @@ class SmFeesReportController extends Controller
                     return redirect()->back();
                 }
             }
-            elseif(directFees()){
+            elseif(aramiscDirectFees()){
                 $records =  StudentRecord::when($request->class, function ($query) use ($request) {
                     $query->where('class_id', $request->class);
                 })
@@ -62,7 +62,7 @@ class SmFeesReportController extends Controller
                 })
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
-                ->whereHas('student')->with('student.parents','directFeesInstallments')
+                ->whereHas('student')->with('student.parents','aramiscDirectFeesInstallments')
                 ->get()->unique('student_id');
 
                 $class_id = $request->class;
@@ -75,7 +75,7 @@ class SmFeesReportController extends Controller
 
             }else{
                 $student_ids = SmStudentReportController::classSectionStudent($request);
-                $students = SmStudent::with('parents', 'feesAssign', 'feesAssign.feesGroupMaster', 'feesAssign.feesPayments', 'feesPayment')->whereIn('id', $student_ids)->get();
+                $students = SmStudent::with('parents', 'feesAssign', 'feesAssign.feesGroupMaster', 'feesAssign.aramiscFeesPayments', 'aramiscFeesPayment')->whereIn('id', $student_ids)->get();
                 $balance_students = [];
 
                 $data = [];
@@ -91,8 +91,8 @@ class SmFeesReportController extends Controller
                             continue;
                         }
                         
-                        $total_discount += $student->feesPayment->where('active_status',1)->where('fees_type_id', $fees_master->fees_type_id)->sum('discount_amount');
-                        $total_balance += $student->feesPayment->where('active_status',1)->where('fees_type_id', $fees_master->fees_type_id)->sum('amount');
+                        $total_discount += $student->aramiscFeesPayment->where('active_status',1)->where('fees_type_id', $fees_master->fees_type_id)->sum('discount_amount');
+                        $total_balance += $student->aramiscFeesPayment->where('active_status',1)->where('fees_type_id', $fees_master->fees_type_id)->sum('amount');
                         $total_amount += $fees_master->amount;
 
                     }
@@ -109,8 +109,8 @@ class SmFeesReportController extends Controller
                         $totalFees = 0;
                         foreach ($student->feesAssign as $feesAssign) {
                             $totalFees += $feesAssign->feesGroupMaster->amount;
-                            $totalFine += $feesAssign->feesPayments->where('active_status',1)->sum('fine');
-                            $totalDeposit += $feesAssign->feesPayments->where('active_status',1)->sum('amount');
+                            $totalFine += $feesAssign->aramiscFeesPayments->where('active_status',1)->sum('fine');
+                            $totalDeposit += $feesAssign->aramiscFeesPayments->where('active_status',1)->sum('amount');
                         }
 
                         $data[$key]['totalFine'] = $totalFine;

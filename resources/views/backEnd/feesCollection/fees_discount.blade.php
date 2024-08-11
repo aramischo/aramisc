@@ -91,7 +91,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if(!moduleStatusCheck('University') && directFees() == false)
+                                @if(!moduleStatusCheck('University') && aramiscDirectFees() == false)
                                 <div class="row mt-40">
                                     <div class="col-lg-12 d-flex">
                                         <p class="text-uppercase fw-500">@lang('common.type')</p>
@@ -183,7 +183,7 @@
                                         <tr>
                                             <th> @lang('common.name')</th>
                                             <th> @lang('fees.discount_code')</th>
-                                            @if(!moduleStatusCheck('University') && directFees()==false)
+                                            @if(!moduleStatusCheck('University') && aramiscDirectFees()==false)
                                             <th> @lang('fees.discount_type')</th>
                                             @endif 
                                             <th>@lang('fees.amount')</th>
@@ -196,7 +196,7 @@
                                         <tr>
                                             <td data-toggle="tooltip" data-placement="top" title="{{ $fees_discount->description }}">{{$fees_discount->name}}</td>
                                             <td>{{$fees_discount->code}}</td>
-                                            @if(! moduleStatusCheck('University') && directFees()==false )
+                                            @if(! moduleStatusCheck('University') && aramiscDirectFees()==false )
                                             <td>{{$fees_discount->type}}</td>
                                             @endif 
                                             <td>{{$fees_discount->amount}} </td>

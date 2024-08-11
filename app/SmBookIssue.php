@@ -32,7 +32,7 @@ class SmBookIssue extends Model
     {
         $full_name = '';
         if ($this->member) {
-            $full_name = $this->member->studentDetails->full_name;
+            $full_name = $this->member->aramiscStudentDetails->full_name;
         }elseif($this->member && $this->member->member_type == 3){
             $full_name = $this->member->parentsDetails->guardians_name;
         } else {

@@ -159,7 +159,7 @@
                 </td>
             </tr>
                 @php 
-                    $payments = App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id);
+                    $payments = App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id);
                     $i = 0;
                 @endphp
 

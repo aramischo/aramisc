@@ -753,11 +753,11 @@ function setNavigation() {
 	}*/
 
 
-	if(current == url+'/'+'exam-attendance-create'){
+	if(current == url+'/'+'exam-aramiscAttendance-create'){
 
 		$('#subMenuExam').addClass('show'); 
 		$('#subMenuExam').closest('.list-unstyled').siblings('.dropdown-toggle').addClass('active');
-		$("#sidebar a[href='"+url+'/'+"exam-attendance']").addClass('active');
+		$("#sidebar a[href='"+url+'/'+"exam-aramiscAttendance']").addClass('active');
 	}
 
 	$('#close_sidebar').on('click', function () {

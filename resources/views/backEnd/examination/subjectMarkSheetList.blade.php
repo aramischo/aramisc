@@ -272,7 +272,7 @@
                                                             <div class="offset-2">
                                                             </div>
                                                         </div>
-                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
 
                                             </div>
                                         <div class="card-body">

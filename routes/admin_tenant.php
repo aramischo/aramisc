@@ -191,42 +191,42 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         //*********************************************** START SUBJECT WISE ATTENDANCE ****************************************************** */
-        Route::get('subject-wise-attendance',  'Admin\StudentInfo\SmSubjectAttendanceController@index')->name('subject-wise-attendance')->middleware('userRolePermission:subject-wise-attendance');
-        Route::get('subject-attendance-search',  'Admin\StudentInfo\SmSubjectAttendanceController@search')->name('subject-attendance-search');
-        Route::post('subject-attendance-store',  'Admin\StudentInfo\SmSubjectAttendanceController@storeAttendance')->name('subject-attendance-store')->middleware('userRolePermission:student-attendance-store');
-        Route::post('subject-attendance-store-second',  'Admin\StudentInfo\SmSubjectAttendanceController@storeAttendanceSecond')->name('subject-attendance-store-second')->middleware('userRolePermission:student-attendance-store');
+        Route::get('subject-wise-aramiscAttendance',  'Admin\StudentInfo\SmSubjectAttendanceController@index')->name('subject-wise-aramiscAttendance')->middleware('userRolePermission:subject-wise-aramiscAttendance');
+        Route::get('subject-aramiscAttendance-search',  'Admin\StudentInfo\SmSubjectAttendanceController@search')->name('subject-aramiscAttendance-search');
+        Route::post('subject-aramiscAttendance-store',  'Admin\StudentInfo\SmSubjectAttendanceController@storeAttendance')->name('subject-aramiscAttendance-store')->middleware('userRolePermission:student-aramiscAttendance-store');
+        Route::post('subject-aramiscAttendance-store-second',  'Admin\StudentInfo\SmSubjectAttendanceController@storeAttendanceSecond')->name('subject-aramiscAttendance-store-second')->middleware('userRolePermission:student-aramiscAttendance-store');
         Route::post('student-subject-holiday-store',  'Admin\StudentInfo\SmSubjectAttendanceController@subjectHolidayStore')->name('student-subject-holiday-store');
 
 
         // Student Attendance Report
-        Route::get('subject-attendance-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReport')->name('subject-attendance-report')->middleware('userRolePermission:subject-attendance-report');
-        Route::post('subject-attendance-report-search', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportSearch')->name('subject-attendance-report-search');
-        Route::get('subject-attendance-report-search', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReport');
+        Route::get('subject-aramiscAttendance-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReport')->name('subject-aramiscAttendance-report')->middleware('userRolePermission:subject-aramiscAttendance-report');
+        Route::post('subject-aramiscAttendance-report-search', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportSearch')->name('subject-aramiscAttendance-report-search');
+        Route::get('subject-aramiscAttendance-report-search', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReport');
 
-        Route::get('subject-attendance-average-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceAverageReport');
-        Route::post('subject-attendance-average-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceAverageReportSearch');
+        Route::get('subject-aramiscAttendance-average-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceAverageReport');
+        Route::post('subject-aramiscAttendance-average-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceAverageReportSearch');
 
-        // Route::get('subject-attendance-report/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportPrint');
-        Route::get('subject-attendance-average/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportAveragePrint')->name('subject-average-attendance/print')->middleware('userRolePermission:subject-attendance/print');
+        // Route::get('subject-aramiscAttendance-report/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportPrint');
+        Route::get('subject-aramiscAttendance-average/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportAveragePrint')->name('subject-average-aramiscAttendance/print')->middleware('userRolePermission:subject-aramiscAttendance/print');
 
         // for university module
 
-        Route::get('un-subject-attendance-average/print/{semester_label_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@unSubjectAttendanceReportAveragePrint')->name('un-subject-average-attendance/print')->middleware('userRolePermission:subject-attendance/print');
+        Route::get('un-subject-aramiscAttendance-average/print/{semester_label_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@unSubjectAttendanceReportAveragePrint')->name('un-subject-average-aramiscAttendance/print')->middleware('userRolePermission:subject-aramiscAttendance/print');
 
-        Route::get('subject-attendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportPrint')->name('subject-attendance/print')->middleware('userRolePermission:subject-attendance/print');
+        Route::get('subject-aramiscAttendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportPrint')->name('subject-aramiscAttendance/print')->middleware('userRolePermission:subject-aramiscAttendance/print');
         //*********************************************** END SUBJECT WISE ATTENDANCE ****************************************************** */
 
 
 
         // Student Attendance Report
-        Route::get('student-attendance-report', ['as' => 'student_attendance_report', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceReportController@index'])->middleware('userRolePermission:student_attendance_report');
-        Route::post('student-attendance-report-search', ['as' => 'student_attendance_report_search', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceReportController@search']);
-        Route::get('student-attendance-report-search', 'Admin\StudentInfo\SmStudentAttendanceReportController@index');
-        Route::get('student-attendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmStudentAttendanceReportController@print')->name('student-attendance-print');
+        Route::get('student-aramiscAttendance-report', ['as' => 'student_aramiscAttendance_report', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceReportController@index'])->middleware('userRolePermission:student_aramiscAttendance_report');
+        Route::post('student-aramiscAttendance-report-search', ['as' => 'student_aramiscAttendance_report_search', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceReportController@search']);
+        Route::get('student-aramiscAttendance-report-search', 'Admin\StudentInfo\SmStudentAttendanceReportController@index');
+        Route::get('student-aramiscAttendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmStudentAttendanceReportController@print')->name('student-aramiscAttendance-print');
 
 
         // for university module
-        Route::get('un-student-attendance/print/{semester_id}/{month}/{year}', 'Admin\StudentInfo\SmStudentAttendanceReportController@unPrint')->name('un-student-attendance-print');
+        Route::get('un-student-aramiscAttendance/print/{semester_id}/{month}/{year}', 'Admin\StudentInfo\SmStudentAttendanceReportController@unPrint')->name('un-student-aramiscAttendance-print');
         //Class Section routes
         Route::get('optional-subject',  'Admin\SystemSettings\SmOptionalSubjectAssignController@index')->name('optional-subject')->middleware('userRolePermission:optional-subject');
 
@@ -250,35 +250,35 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('subject-delete/{id}', ['as' => 'subject_delete', 'uses' => 'Admin\Academics\SmSubjectController@delete'])->middleware('userRolePermission:subject_delete');
 
         //Class Routine
-        // Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'SmAcademicsController@classRoutine']);
-        // Route::get('class-routine-create', ['as' => 'class_routine_create', 'uses' => 'SmAcademicsController@classRoutineCreate']);
+        // Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'SmAcademicsController@aramiscClassRoutine']);
+        // Route::get('class-routine-create', ['as' => 'class_routine_create', 'uses' => 'SmAcademicsController@aramiscClassRoutineCreate']);
         Route::get('ajaxSelectSubject', 'SmAcademicsController@ajaxSelectSubject');
         Route::get('ajaxSelectCurrency', 'Admin\SystemSettings\SmSystemSettingController@ajaxSelectCurrency');
 
-        // Route::post('assign-routine-search', 'SmAcademicsController@assignRoutineSearch');
-        // Route::get('assign-routine-search', 'SmAcademicsController@classRoutine');
-        // Route::post('assign-routine-store', 'SmAcademicsController@assignRoutineStore');
-        // Route::post('class-routine-report-search', 'SmAcademicsController@classRoutineReportSearch');
-        // Route::get('class-routine-report-search', 'SmAcademicsController@classRoutineReportSearch');
+        // Route::post('assign-routine-search', 'SmAcademicsController@aramiscAssignRoutineSearch');
+        // Route::get('assign-routine-search', 'SmAcademicsController@aramiscClassRoutine');
+        // Route::post('assign-routine-store', 'SmAcademicsController@aramiscAssignRoutineStore');
+        // Route::post('class-routine-report-search', 'SmAcademicsController@aramiscClassRoutineReportSearch');
+        // Route::get('class-routine-report-search', 'SmAcademicsController@aramiscClassRoutineReportSearch');
 
 
         // class routine new
 
-        Route::get('class-routine-new', ['as' => 'class_routine_new', 'uses' => 'Admin\Academics\SmClassRoutineNewController@classRoutine'])->middleware('userRolePermission:class_routine');
+        Route::get('class-routine-new', ['as' => 'class_routine_new', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutine'])->middleware('userRolePermission:class_routine');
 
 
 
 
-        // Route::post('class-routine-new', 'Admin\Academics\SmClassRoutineNewController@classRoutineSearch')->name('class_routine_new');
-        Route::get('add-new-routine/{class_time_id}/{day}/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@addNewClassRoutine')->name('add-new-routine')->middleware('userRolePermission:add-new-class-routine-store');
+        // Route::post('class-routine-new', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineSearch')->name('class_routine_new');
+        Route::get('add-new-routine/{class_time_id}/{day}/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@aramiscAddNewClassRoutine')->name('add-new-routine')->middleware('userRolePermission:add-new-class-routine-store');
 
-        Route::post('add-new-class-routine-store', 'Admin\Academics\SmClassRoutineNewController@addNewClassRoutineStore')->name('add-new-class-routine-store')->middleware('userRolePermission:add-new-class-routine-store');
+        Route::post('add-new-class-routine-store', 'Admin\Academics\SmClassRoutineNewController@aramiscAddNewClassRoutineStore')->name('add-new-class-routine-store')->middleware('userRolePermission:add-new-class-routine-store');
 
 
         Route::get('get-class-teacher-ajax', 'Admin\Academics\SmClassRoutineNewController@getClassTeacherAjax');
-        Route::get('delete-class-routine/{id}', 'Admin\Academics\SmClassRoutineNewController@deleteClassRoutine')->name('delete-class-routine')->middleware('userRolePermission:delete-class-routine');
+        Route::get('delete-class-routine/{id}', 'Admin\Academics\SmClassRoutineNewController@aramiscDeleteClassRoutine')->name('delete-class-routine')->middleware('userRolePermission:delete-class-routine');
 
-        Route::get('class-routine-new/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@classRoutineRedirect');
+        Route::get('class-routine-new/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineRedirect');
 
         Route::post('delete-class-routine', 'Admin\Academics\SmClassRoutineNewController@destroyClassRoutine')->name('destroy-class-routine')->middleware('userRolePermission:delete-class-routine');
         //Student Panel
@@ -293,10 +293,10 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         Route::post('assign-subject-search', ['as' => 'assign_subject_search', 'uses' => 'Admin\Academics\SmAssignSubjectController@search']);
         Route::get('assign-subject-search', 'Admin\Academics\SmAssignSubjectController@create');
-        Route::post('assign-subject-store', 'Admin\Academics\SmAssignSubjectController@assignSubjectStore')->name('assign-subject-store')->middleware('userRolePermission:assign-subject-store');
+        Route::post('assign-subject-store', 'Admin\Academics\SmAssignSubjectController@aramiscAssignSubjectStore')->name('assign-subject-store')->middleware('userRolePermission:assign-subject-store');
         Route::get('assign-subject-store', 'Admin\Academics\SmAssignSubjectController@create');
-        Route::post('assign-subject', 'Admin\Academics\SmAssignSubjectController@assignSubjectFind')->name('assign-subject');
-        Route::get('assign-subject-get-by-ajax', 'Admin\Academics\SmAssignSubjectController@assignSubjectAjax');
+        Route::post('assign-subject', 'Admin\Academics\SmAssignSubjectController@aramiscAssignSubjectFind')->name('assign-subject');
+        Route::get('assign-subject-get-by-ajax', 'Admin\Academics\SmAssignSubjectController@aramiscAssignSubjectAjax');
 
         //Assign Class Teacher
         // Route::resource('assign-class-teacher', 'SmAssignClassTeacherControler')->middleware('userRolePermission:253');
@@ -382,27 +382,27 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('fees-discount-assign/{id}', ['as' => 'fees_discount_assign', 'uses' => 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAssign'])->middleware('userRolePermission:fees_discount_assign');
         Route::post('fees-discount-assign-search', 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAssignSearch')->name('fees-discount-assign-search');
         Route::post('fees-discount-assign-store', 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAssignStore');
-        Route::post('directfees/fees-discount-assign-store', 'Admin\FeesCollection\SmFeesDiscountController@directFeesDiscountAssignStore')->name('directFees.fees-discount-assign-store');
+        Route::post('directfees/fees-discount-assign-store', 'Admin\FeesCollection\SmFeesDiscountController@aramiscDirectFeesDiscountAssignStore')->name('aramiscDirectFees.fees-discount-assign-store');
 
-        Route::get('fees-generate-modal/{amount}/{student_id}/{type}/{master}/{assign_id}/{record_id}', 'Admin\FeesCollection\SmFeesController@feesGenerateModal')->name('fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
+        Route::get('fees-generate-modal/{amount}/{student_id}/{type}/{master}/{assign_id}/{record_id}', 'Admin\FeesCollection\SmFeesController@aramiscFeesGenerateModal')->name('fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
         Route::get('fees-discount-amount-search', 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAmountSearch');
         //delete fees payment
-        Route::post('fees-payment-delete', 'Admin\FeesCollection\SmFeesController@feesPaymentDelete')->name('fees-payment-delete');
+        Route::post('fees-payment-delete', 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentDelete')->name('fees-payment-delete');
 
-        Route::get('direct-fees-generate-modal/{amount}/{installment_id}/{record_id}', 'Admin\FeesCollection\SmFeesController@directFeesGenerateModal')->name('direct-fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
-        Route::post('directFeesInstallmentUpdate', 'Admin\FeesCollection\SmFeesController@directFeesInstallmentUpdate')->name('directFeesInstallmentUpdate')->middleware('userRolePermission:fees-generate-modal');
+        Route::get('direct-fees-generate-modal/{amount}/{installment_id}/{record_id}', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesGenerateModal')->name('direct-fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
+        Route::post('aramiscDirectFeesInstallmentUpdate', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesInstallmentUpdate')->name('aramiscDirectFeesInstallmentUpdate')->middleware('userRolePermission:fees-generate-modal');
 
-        Route::get('direct-fees-total-payment/{record_id}', 'Admin\FeesCollection\SmFeesController@directFeesTotalPayment')->name('direct-fees-total-payment');
-        Route::post('direct-fees-total-payment', 'Admin\FeesCollection\SmFeesController@directFeesTotalPaymentSubmit')->name('direct-fees-total-payment-submit')->middleware('userRolePermission:fees-generate-modal');
+        Route::get('direct-fees-total-payment/{record_id}', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesTotalPayment')->name('direct-fees-total-payment');
+        Route::post('direct-fees-total-payment', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesTotalPaymentSubmit')->name('direct-fees-total-payment-submit')->middleware('userRolePermission:fees-generate-modal');
 
 
-        Route::get('directFees/editSubPaymentModal/{payment_id}/{paid_amount}', 'Admin\FeesCollection\SmFeesController@editSubPaymentModal')->name('directFees.editSubPaymentModal')->middleware('userRolePermission:fees-generate-modal');
-        Route::post('directFees/deleteSubPayment', 'Admin\FeesCollection\SmFeesController@deleteSubPayment')->name('directFees.deleteSubPayment');
-        Route::post('directFees/updateSubPaymentModal', 'Admin\FeesCollection\SmFeesController@updateSubPaymentModal')->name('directFees.updateSubPaymentModal');
-        Route::get('directFees/viewPaymentReceipt/{id}', 'Admin\FeesCollection\SmFeesController@viewPaymentReceipt')->name('directFees.viewPaymentReceipt');
-        Route::get('directFees/setting', 'Admin\FeesCollection\SmFeesController@directFeesSetting')->name('directFees.setting');
-        Route::post('directFees/feesInvoiceUpdate', 'Admin\FeesCollection\SmFeesController@feesInvoiceUpdate')->name('directFees.feesInvoiceUpdate');
-        Route::post('directFees/paymentReminder', 'Admin\FeesCollection\SmFeesController@paymentReminder')->name('directFees.paymentReminder');
+        Route::get('aramiscDirectFees/editSubPaymentModal/{payment_id}/{paid_amount}', 'Admin\FeesCollection\SmFeesController@editSubPaymentModal')->name('aramiscDirectFees.editSubPaymentModal')->middleware('userRolePermission:fees-generate-modal');
+        Route::post('aramiscDirectFees/deleteSubPayment', 'Admin\FeesCollection\SmFeesController@deleteSubPayment')->name('aramiscDirectFees.deleteSubPayment');
+        Route::post('aramiscDirectFees/updateSubPaymentModal', 'Admin\FeesCollection\SmFeesController@updateSubPaymentModal')->name('aramiscDirectFees.updateSubPaymentModal');
+        Route::get('aramiscDirectFees/viewPaymentReceipt/{id}', 'Admin\FeesCollection\SmFeesController@viewPaymentReceipt')->name('aramiscDirectFees.viewPaymentReceipt');
+        Route::get('aramiscDirectFees/setting', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesSetting')->name('aramiscDirectFees.setting');
+        Route::post('aramiscDirectFees/feesInvoiceUpdate', 'Admin\FeesCollection\SmFeesController@feesInvoiceUpdate')->name('aramiscDirectFees.feesInvoiceUpdate');
+        Route::post('aramiscDirectFees/paymentReminder', 'Admin\FeesCollection\SmFeesController@paymentReminder')->name('aramiscDirectFees.paymentReminder');
 
         // Fees carry forward
         Route::get('fees-forward', ['as' => 'fees_forward', 'uses' => 'Admin\FeesCollection\SmFeesCarryForwardController@feesForward'])->middleware('userRolePermission:fees_forward');
@@ -413,7 +413,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('fees-forward-store', 'Admin\FeesCollection\SmFeesCarryForwardController@feesForward')->middleware('userRolePermission:fees_forward');;
 
         //fees payment store
-        Route::post('fees-payment-store', 'Admin\FeesCollection\SmFeesController@feesPaymentStore')->name('fees-payment-store');
+        Route::post('fees-payment-store', 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentStore')->name('fees-payment-store');
 
         Route::get('bank-slip-view/{file_name}', function ($file_name = null) {
 
@@ -425,15 +425,15 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         // Collect Fees
         Route::get('collect-fees', ['as' => 'collect_fees', 'uses' => 'Admin\FeesCollection\SmFeesCollectController@index'])->middleware('userRolePermission:collect_fees');
-        Route::get('fees-collect-student-wise/{id}', ['as' => 'fees_collect_student_wise', 'uses' => 'Admin\FeesCollection\SmFeesCollectController@collectFeesStudent'])->where('id', '[0-9]+')->middleware('userRolePermission:110');
+        Route::get('fees-collect-student-wise/{id}', ['as' => 'fees_collect_student_wise', 'uses' => 'Admin\FeesCollection\SmFeesCollectController@aramiscCollectFeesStudent'])->where('id', '[0-9]+')->middleware('userRolePermission:110');
 
         Route::post('collect-fees', ['as' => 'collect_fees_search', 'uses' => 'Admin\FeesCollection\SmFeesCollectController@search']);
 
 
         // fees print
-        Route::get('fees-payment-print/{id}/{group}', ['as' => 'fees_payment_print', 'uses' => 'Admin\FeesCollection\SmFeesController@feesPaymentPrint']);
+        Route::get('fees-payment-print/{id}/{group}', ['as' => 'fees_payment_print', 'uses' => 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentPrint']);
 
-        Route::get('fees-payment-invoice-print/{id}/{group}', ['as' => 'fees_payment_invoice_print', 'uses' => 'Admin\FeesCollection\SmFeesController@feesPaymentInvoicePrint']);
+        Route::get('fees-payment-invoice-print/{id}/{group}', ['as' => 'fees_payment_invoice_print', 'uses' => 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentInvoicePrint']);
 
         Route::get('fees-group-print/{id}', ['as' => 'fees_group_print', 'uses' => 'Admin\FeesCollection\SmFeesController@feesGroupPrint'])->where('id', '[0-9]+');
 
@@ -481,8 +481,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Class Report
-        Route::get('class-report', ['as' => 'class_report', 'uses' => 'SmAcademicsController@classReport'])->middleware('userRolePermission:class_report');
-        Route::post('class-report', ['as' => 'class_reports', 'uses' => 'SmAcademicsController@classReportSearch']);
+        Route::get('class-report', ['as' => 'class_report', 'uses' => 'SmAcademicsController@aramiscClassReport'])->middleware('userRolePermission:class_report');
+        Route::post('class-report', ['as' => 'class_reports', 'uses' => 'SmAcademicsController@aramiscClassReportSearch']);
 
 
         // merit list Report
@@ -518,30 +518,30 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('online-exam-report', ['as' => 'online_exam_reports', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamReportSearch']);
 
         // class routine report
-        Route::get('class-routine-report', ['as' => 'class_routine_report', 'uses' => 'Admin\Academics\SmClassRoutineNewController@classRoutineReport'])->middleware('userRolePermission:class_routine_report');
-        Route::post('class-routine-report', 'Admin\Academics\SmClassRoutineNewController@classRoutineReportSearch')->name('class_routine_reports');
+        Route::get('class-routine-report', ['as' => 'class_routine_report', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineReport'])->middleware('userRolePermission:class_routine_report');
+        Route::post('class-routine-report', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineReportSearch')->name('class_routine_reports');
 
 
         // exam routine report
-        Route::get('exam-routine-report', ['as' => 'exam_routine_report', 'uses' => 'Admin\Examination\SmExamRoutineController@examRoutineReport'])->middleware('userRolePermission:exam_routine_report');
-        Route::post('exam-routine-report', ['as' => 'exam_routine_reports', 'uses' => 'Admin\Examination\SmExamRoutineController@examRoutineReportSearch']);
+        Route::get('exam-routine-report', ['as' => 'exam_routine_report', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineReport'])->middleware('userRolePermission:exam_routine_report');
+        Route::post('exam-routine-report', ['as' => 'exam_routine_reports', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineReportSearch']);
 
 
-        Route::get('exam-routine/print/{exam_id}', 'Admin\Examination\SmExamRoutineController@examRoutineReportSearchPrint')->name('exam-routine/print');
+        Route::get('exam-routine/print/{exam_id}', 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineReportSearchPrint')->name('exam-routine/print');
 
-        Route::get('teacher-class-routine-report', ['as' => 'teacher_class_routine_report', 'uses' => 'Admin\Academics\SmClassRoutineNewController@teacherClassRoutineReport'])->middleware('userRolePermission:teacher_class_routine_report');
-        Route::post('teacher-class-routine-report', 'Admin\Academics\SmClassRoutineNewController@teacherClassRoutineReportSearch')->name('teacher-class-routine-report');
+        Route::get('teacher-class-routine-report', ['as' => 'teacher_class_routine_report', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscTeacherClassRoutineReport'])->middleware('userRolePermission:teacher_class_routine_report');
+        Route::post('teacher-class-routine-report', 'Admin\Academics\SmClassRoutineNewController@aramiscTeacherClassRoutineReportSearch')->name('teacher-class-routine-report');
 
 
         // mark sheet Report
         Route::get('mark-sheet-report', ['as' => 'mark_sheet_report', 'uses' => 'Admin\Examination\SmExaminationController@markSheetReport']);
         Route::post('mark-sheet-report', ['as' => 'mark_sheet_reports', 'uses' => 'Admin\Examination\SmExaminationController@markSheetReportSearch']);
-        Route::get('mark-sheet-report/print/{exam_id}/{class_id}/{section_id}/{student_id}', ['as' => 'mark_sheet_report_print', 'uses' => 'Admin\Examination\SmExaminationController@markSheetReportStudentPrint']);
+        Route::get('mark-sheet-report/print/{exam_id}/{class_id}/{section_id}/{student_id}', ['as' => 'mark_sheet_report_print', 'uses' => 'Admin\Examination\SmExaminationController@aramiscMarkSheetReportStudentPrint']);
 
 
         //mark sheet report student
-        Route::get('mark-sheet-report-student', ['as' => 'mark_sheet_report_student', 'uses' => 'Admin\Examination\SmExaminationController@markSheetReportStudent'])->middleware('userRolePermission:mark_sheet_report_student');
-        Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_students', 'uses' => 'Admin\Examination\SmExaminationController@markSheetReportStudentSearch']);
+        Route::get('mark-sheet-report-student', ['as' => 'mark_sheet_report_student', 'uses' => 'Admin\Examination\SmExaminationController@aramiscMarkSheetReportStudent'])->middleware('userRolePermission:mark_sheet_report_student');
+        Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_students', 'uses' => 'Admin\Examination\SmExaminationController@aramiscMarkSheetReportStudentSearch']);
 
         //100 Percent mark sheet report student
         Route::get('percent-marksheet-report', ['as' => 'percent-marksheet-report', 'uses' => 'Admin\Examination\SmExaminationController@percentMarkSheetReport']);
@@ -642,7 +642,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::delete('exam/{id}', 'Admin\Examination\SmExamController@destroy')->name('exam-delete')->middleware('userRolePermission:exam-delete');
 
         Route::get('exam-marks-setup/{id}', 'Admin\Examination\SmExamController@exam_setup')->name('exam-marks-setup')->where('id', '[0-9]+');
-        Route::get('get-class-subjects', 'Admin\Examination\SmExamController@getClassSubjects');
+        Route::get('get-class-subjects', 'Admin\Examination\SmExamController@aramiscGetClassSubjects');
         Route::get('subject-assign-check', 'Admin\Examination\SmExamController@subjectAssignCheck');
 
         // If 100% Mark Option is Enable
@@ -675,9 +675,9 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::delete('room-list/{id}', 'Admin\Dormitory\SmRoomListController@destroy')->name('room-list-delete')->middleware('userRolePermission:room-list-index');
 
         // Student Dormitory Report
-        Route::get('student-dormitory-report', ['as' => 'student_dormitory_report_index', 'uses' => 'Admin\Dormitory\SmDormitoryController@studentDormitoryReport'])->middleware('userRolePermission:student_dormitory_report');
+        Route::get('student-dormitory-report', ['as' => 'student_dormitory_report_index', 'uses' => 'Admin\Dormitory\SmDormitoryController@aramiscStudentDormitoryReport'])->middleware('userRolePermission:student_dormitory_report');
 
-        Route::post('student-dormitory-report', ['as' => 'student_dormitory_report_store', 'uses' => 'Admin\Dormitory\SmDormitoryController@studentDormitoryReportSearch']);
+        Route::post('student-dormitory-report', ['as' => 'student_dormitory_report_store', 'uses' => 'Admin\Dormitory\SmDormitoryController@aramiscStudentDormitoryReportSearch']);
 
 
         // Transport Module Start
@@ -700,8 +700,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('assign-vehicle-delete', 'Admin\Transport\SmAssignVehicleController@delete')->name('assign-vehicle-delete')->middleware('userRolePermission:assign-vehicle-index');
 
         // student transport report
-        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\SmTransportController@studentTransportReport'])->middleware('userRolePermission:student_transport_report');
-        Route::post('student-transport-report', ['as' => 'student_transport_report_store', 'uses' => 'Admin\Transport\SmTransportController@studentTransportReportSearch']);
+        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\SmTransportController@aramiscStudentTransportReport'])->middleware('userRolePermission:student_transport_report');
+        Route::post('student-transport-report', ['as' => 'student_transport_report_store', 'uses' => 'Admin\Transport\SmTransportController@aramiscStudentTransportReportSearch']);
 
         // Route transport
         // Route::resource('transport-route', 'Admin\Transport\SmRouteController')->middleware('userRolePermission:349');
@@ -762,8 +762,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('exam-type-delete/{id}', ['as' => 'exam_type_delete', 'uses' => 'Admin\Examination\SmExaminationController@exam_type_delete'])->middleware('userRolePermission:exam_type_delete');
 
 
-        Route::get('exam-setup/{id}', 'Admin\Examination\SmExamController@examSetup');
-        Route::post('exam-setup-store', 'Admin\Examination\SmExamController@examSetupStore')->name('exam-setup-store');
+        Route::get('exam-setup/{id}', 'Admin\Examination\SmExamController@aramiscExamSetup');
+        Route::post('exam-setup-store', 'Admin\Examination\SmExamController@aramiscExamSetupStore')->name('exam-setup-store');
 
 
         // exam
@@ -774,23 +774,23 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::put('department/{id}', 'Admin\Hr\SmHumanDepartmentController@update')->name('department-update')->middleware('userRolePermission:department-edit');
         Route::delete('department/{id}', 'Admin\Hr\SmHumanDepartmentController@destroy')->name('department-delete')->middleware('userRolePermission:department-delete');
 
-        // Route::post('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\SmExaminationController@examScheduleStore']);
-        // Route::get('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\SmExaminationController@examScheduleCreate']);
+        // Route::post('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamScheduleStore']);
+        // Route::get('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamScheduleCreate']);
 
         //Exam Schedule
-        Route::get('exam-schedule', ['as' => 'exam_schedule', 'uses' => 'Admin\Examination\SmExamRoutineController@examSchedule'])->middleware('userRolePermission:exam_schedule');
+        Route::get('exam-schedule', ['as' => 'exam_schedule', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamSchedule'])->middleware('userRolePermission:exam_schedule');
 
-        Route::post('exam-schedule-report-search', ['as' => 'exam_schedule_report_search_new', 'uses' => 'Admin\Examination\SmExamRoutineController@examScheduleReportSearch']);
+        Route::post('exam-schedule-report-search', ['as' => 'exam_schedule_report_search_new', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamScheduleReportSearch']);
 
-        Route::get('exam-schedule-report-search', ['as' => 'exam_schedule_report_search', 'uses' => 'Admin\Examination\SmExamRoutineController@examSchedule']);
-        Route::get('exam-schedule/print/{exam_id}/{class_id}/{section_id}', ['as' => 'exam_schedule_print', 'uses' => 'Admin\Examination\SmExamRoutineController@examSchedulePrint']);
+        Route::get('exam-schedule-report-search', ['as' => 'exam_schedule_report_search', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamSchedule']);
+        Route::get('exam-schedule/print/{exam_id}/{class_id}/{section_id}', ['as' => 'exam_schedule_print', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamSchedulePrint']);
         Route::get('view-exam-schedule/{class_id}/{section_id}/{exam_id}', ['as' => 'view_exam_schedule', 'uses' => 'Admin\Examination\SmExaminationController@viewExamSchedule']);
 
 
         //Exam Schedule create
-        Route::get('exam-schedule-create', ['as' => 'exam_schedule_create', 'uses' => 'Admin\Examination\SmExamRoutineController@examScheduleCreate'])->middleware('userRolePermission:exam_schedule_store');
+        Route::get('exam-schedule-create', ['as' => 'exam_schedule_create', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamScheduleCreate'])->middleware('userRolePermission:exam_schedule_store');
 
-        Route::post('exam-schedule-create', ['as' => 'exam_schedule_create_store', 'uses' => 'Admin\Examination\SmExamRoutineController@examScheduleSearch'])->middleware('userRolePermission:exam_schedule_store');
+        Route::post('exam-schedule-create', ['as' => 'exam_schedule_create_store', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamScheduleSearch'])->middleware('userRolePermission:exam_schedule_store');
 
 
         Route::post('delete-exam-routine', 'SmExamRoutineController@deleteExamRoutine')->name('delete-exam-routine');/* delete exam rouitne for update =abunayem */
@@ -799,8 +799,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
 
-        Route::get('exam-routine-view/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\SmExamRoutineController@examRoutineView');
-        Route::get('exam-routine-print/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\SmExamRoutineController@examRoutinePrint')->name('exam-routine-print');
+        Route::get('exam-routine-view/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineView');
+        Route::get('exam-routine-print/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\SmExamRoutineController@aramiscExamRoutinePrint')->name('exam-routine-print');
 
         //view exam status
         Route::get('view-exam-status/{exam_id}', ['as' => 'view_exam_status', 'uses' => 'Admin\Examination\SmExaminationController@viewExamStatus']);
@@ -848,14 +848,14 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Exam Attendance
-        Route::get('exam-attendance', ['as' => 'exam_attendance', 'uses' => 'Admin\Examination\SmExaminationController@examAttendance']);
-        Route::post('exam-attendance', ['as' => 'exam_attendance_search', 'uses' => 'Admin\Examination\SmExaminationController@examAttendanceAeportSearch']);
+        Route::get('exam-aramiscAttendance', ['as' => 'exam_aramiscAttendance', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamAttendance']);
+        Route::post('exam-aramiscAttendance', ['as' => 'exam_aramiscAttendance_search', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamAttendanceAeportSearch']);
 
 
-        Route::get('exam-attendance-create', ['as' => 'exam_attendance_create', 'uses' => 'Admin\Examination\SmExamAttendanceController@examAttendanceCreate']);
-        Route::post('exam-attendance-create', ['as' => 'exam_attendance_create_search', 'uses' => 'Admin\Examination\SmExamAttendanceController@examAttendanceSearch']);
+        Route::get('exam-aramiscAttendance-create', ['as' => 'exam_aramiscAttendance_create', 'uses' => 'Admin\Examination\SmExamAttendanceController@aramiscExamAttendanceCreate']);
+        Route::post('exam-aramiscAttendance-create', ['as' => 'exam_aramiscAttendance_create_search', 'uses' => 'Admin\Examination\SmExamAttendanceController@aramiscExamAttendanceSearch']);
 
-        Route::post('exam-attendance-store', 'Admin\Examination\SmExamAttendanceController@examAttendanceStore')->name('exam-attendance-store');
+        Route::post('exam-aramiscAttendance-store', 'Admin\Examination\SmExamAttendanceController@aramiscExamAttendanceStore')->name('exam-aramiscAttendance-store');
         // Send Marks By SmS
         Route::get('send-marks-by-sms', ['as' => 'send_marks_by_sms', 'uses' => 'Admin\Examination\SmExaminationController@sendMarksBySms'])->middleware('userRolePermission:send_marks_by_sms');
         Route::post('send-marks-by-sms-store', ['as' => 'send_marks_by_sms_store', 'uses' => 'Admin\Examination\SmExaminationController@sendMarksBySmsStore'])->middleware('userRolePermission:marks-grade-edit');
@@ -941,7 +941,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::put('approve-leave/{id}', 'Admin\Leave\SmApproveLeaveController@update')->name('approve-leave-update');
         Route::delete('approve-leave/{id}', 'Admin\Leave\SmApproveLeaveController@destroy')->name('approve-leave-delete')->middleware('userRolePermission:approve-leave-delete');
 
-        Route::get('pending-leave', 'Admin\Leave\SmApproveLeaveController@pendingLeave')->name('pending-leave')->middleware('userRolePermission:pending-leave');
+        Route::get('pending-leave', 'Admin\Leave\SmApproveLeaveController@aramiscPendingLeave')->name('pending-leave')->middleware('userRolePermission:pending-leave');
 
         Route::post('update-approve-leave', 'Admin\Leave\SmApproveLeaveController@updateApproveLeave')->name('update-approve-leave');
 
@@ -1102,7 +1102,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         // print certificate
         Route::get('generate-certificate-print/{s_id}/{c_id}', ['as' => 'student_certificate_generate', 'uses' => 'Admin\AdminSection\SmStudentCertificateController@generateCertificateGenerate']);
 
-        Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'Admin\Academics\SmClassRoutineNewController@classRoutine'])->middleware('userRolePermission:class_routine');
+        Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutine'])->middleware('userRolePermission:class_routine');
 
 
         // Student Certificate
@@ -1122,7 +1122,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
 
-        Route::get('class-routine-new', 'Admin\Academics\SmClassRoutineNewController@classRoutineSearch')->name('class_routine_new')->middleware('userRolePermission:add-new-class-routine-store');/* change method for class routine update ->abunayem */
+        Route::get('class-routine-new', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineSearch')->name('class_routine_new')->middleware('userRolePermission:add-new-class-routine-store');/* change method for class routine update ->abunayem */
         Route::post('day-wise-class-routine', 'Admin\Academics\SmClassRoutineNewController@dayWiseClassRoutine')->name('dayWise_class_routine');
 
         Route::get('print-teacher-routine/{teacher_id}', 'Admin\Academics\SmClassRoutineNewController@printTeacherRoutine')->name('print-teacher-routine');
@@ -1152,7 +1152,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('student-admission', ['as' => 'student_admission', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@index'])->middleware('userRolePermission:student_admission');
         Route::get('student-admission-check/{id}', ['as' => 'student_admission_check', 'uses' => 'SmStudentAdmissionController@admissionCheck']);
         Route::get('student-admission-update-check/{val}/{id}', ['as' => 'student_admission_check_update', 'uses' => 'SmStudentAdmissionController@admissionCheckUpdate']);
-        Route::post('student-admission-pic', ['as' => 'student_admission_pic', 'uses' => 'SmStudentAdmissionController@admissionPic']);
+        Route::post('student-admission-pic', ['as' => 'student_admission_pic', 'uses' => 'SmStudentAdmissionController@aramiscAdmissionPic']);
 
         // Ajax get vehicle
         Route::get('/academic-year-get-class', 'SmStudentAdmissionController@academicYearGetClass');
@@ -1233,11 +1233,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         //Datatables
-        Route::get('student-list-datatable', ['as' => 'student_list_datatable', 'uses' => 'DatatableQueryController@studentDetailsDatatable'])->middleware('userRolePermission:student_list');
+        Route::get('student-list-datatable', ['as' => 'student_list_datatable', 'uses' => 'DatatableQueryController@aramiscStudentDetailsDatatable'])->middleware('userRolePermission:student_list');
 
 
         // student list
-        Route::get('student-list', ['as' => 'student_list', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@studentDetails'])->middleware('userRolePermission:student_list');
+        Route::get('student-list', ['as' => 'student_list', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@aramiscStudentDetails'])->middleware('userRolePermission:student_list');
         Route::get('student-settings', ['as' => 'student_settings', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@settings'])->middleware('userRolePermission:student_settings');
         Route::post('student/field/switch', ['as' => 'student_switch', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@statusUpdate']);
         Route::post('student/field/show', ['as' => 'student_show', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@studentFieldShow']);
@@ -1247,10 +1247,10 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('parent-list-search', ['as' => 'parent-list-search', 'uses' => 'Admin\StudentInfo\SmStudentParentController@parentListSearch'])->middleware('userRolePermission:parent-list-search');
 
         // student search
-        Route::post('student-list-search', 'DatatableQueryController@studentDetailsDatatable')->name('student-list-search');
+        Route::post('student-list-search', 'DatatableQueryController@aramiscStudentDetailsDatatable')->name('student-list-search');
         Route::post('ajax-student-list-search', 'DatatableQueryController@searchStudentList')->name('ajax-student-list-search');
 
-        Route::get('student-list-search', 'SmStudentAdmissionController@studentDetails');
+        Route::get('student-list-search', 'SmStudentAdmissionController@aramiscStudentDetails');
 
         //student list
         Route::get('student-view/{id}/{type?}', ['as' => 'student_view', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@view']);
@@ -1310,18 +1310,18 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('promote-year/{id?}', 'Admin\StudentInfo\SmStudentAjaxController@ajaxPromoteYear');
 
         // Student Attendance
-        Route::get('student-attendance', ['as' => 'student_attendance', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceController@index'])->middleware('userRolePermission:student_attendance');
+        Route::get('student-aramiscAttendance', ['as' => 'student_aramiscAttendance', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceController@index'])->middleware('userRolePermission:student_aramiscAttendance');
         Route::post('student-search', 'Admin\StudentInfo\SmStudentAttendanceController@studentSearch')->name('student-search');
-        Route::any('ajax-student-attendance-search/{class_id}/{section}/{date}', 'DatatableQueryController@AjaxStudentSearch');
+        Route::any('ajax-student-aramiscAttendance-search/{class_id}/{section}/{date}', 'DatatableQueryController@AjaxStudentSearch');
         Route::get('student-search', 'Admin\StudentInfo\SmStudentAttendanceController@index');
 
-        Route::post('student-attendance-store', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceStore')->name('student-attendance-store')->middleware('userRolePermission:student-attendance-store');
-        Route::post('student-attendance-holiday', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceHoliday')->name('student-attendance-holiday');
+        Route::post('student-aramiscAttendance-store', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceStore')->name('student-aramiscAttendance-store')->middleware('userRolePermission:student-aramiscAttendance-store');
+        Route::post('student-aramiscAttendance-holiday', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceHoliday')->name('student-aramiscAttendance-holiday');
 
 
-        Route::get('student-attendance-import', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceImport')->name('student-attendance-import');
-        Route::get('download-student-attendance-file', 'Admin\StudentInfo\SmStudentAttendanceController@downloadStudentAtendanceFile');
-        Route::post('student-attendance-bulk-store', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceBulkStore')->name('student-attendance-bulk-store');
+        Route::get('student-aramiscAttendance-import', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceImport')->name('student-aramiscAttendance-import');
+        Route::get('download-student-aramiscAttendance-file', 'Admin\StudentInfo\SmStudentAttendanceController@downloadStudentAtendanceFile');
+        Route::post('student-aramiscAttendance-bulk-store', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceBulkStore')->name('student-aramiscAttendance-bulk-store');
 
         //Student Report
         Route::get('student-report', ['as' => 'student_report', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentReport'])->middleware('userRolePermission:student_report');
@@ -1460,25 +1460,25 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         //Staff Attendance
-        Route::get('staff-attendance', ['as' => 'staff_attendance', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendance'])->middleware('userRolePermission:staff_attendance');
-        Route::post('staff-attendance', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceSearch')->name('staff-attendance-search');
-        Route::post('staff-attendance-store', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceStore')->name('staff-attendance-store')->middleware('userRolePermission:staff-attendance-store');
+        Route::get('staff-aramiscAttendance', ['as' => 'staff_aramiscAttendance', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendance'])->middleware('userRolePermission:staff_aramiscAttendance');
+        Route::post('staff-aramiscAttendance', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceSearch')->name('staff-aramiscAttendance-search');
+        Route::post('staff-aramiscAttendance-store', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceStore')->name('staff-aramiscAttendance-store')->middleware('userRolePermission:staff-aramiscAttendance-store');
         Route::post('staff-holiday-store', 'Admin\Hr\SmStaffAttendanceController@staffHolidayStore')->name('staff-holiday-store')->middleware('userRolePermission:staff-holiday-store');
 
-        Route::get('staff-attendance-report', ['as' => 'staff_attendance_report', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendanceReport'])->middleware('userRolePermission:staff_attendance_report');
-        Route::post('staff-attendance-report', ['as' => 'staff_attendance_report_search', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendanceReportSearch']);
+        Route::get('staff-aramiscAttendance-report', ['as' => 'staff_aramiscAttendance_report', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendanceReport'])->middleware('userRolePermission:staff_aramiscAttendance_report');
+        Route::post('staff-aramiscAttendance-report', ['as' => 'staff_aramiscAttendance_report_search', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendanceReportSearch']);
 
-        Route::get('staff-attendance/print/{role_id}/{month}/{year}/', 'Admin\Hr\SmStaffAttendanceController@staffAttendancePrint')->name('staff-attendance/print');
-
-
-        // Biometric attendance
-        Route::post('attendance', 'Admin\Hr\SmStaffAttendanceController@attendanceData')->name('attendanceData');
+        Route::get('staff-aramiscAttendance/print/{role_id}/{month}/{year}/', 'Admin\Hr\SmStaffAttendanceController@staffAttendancePrint')->name('staff-aramiscAttendance/print');
 
 
+        // Biometric aramiscAttendance
+        Route::post('aramiscAttendance', 'Admin\Hr\SmStaffAttendanceController@aramiscAttendanceData')->name('aramiscAttendanceData');
 
-        Route::get('staff-attendance-import', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceImport')->name('staff-attendance-import');
-        Route::get('download-staff-attendance-file', 'Admin\Hr\SmStaffAttendanceController@downloadStaffAttendanceFile');
-        Route::post('staff-attendance-bulk-store', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceBulkStore')->name('staff-attendance-bulk-store');
+
+
+        Route::get('staff-aramiscAttendance-import', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceImport')->name('staff-aramiscAttendance-import');
+        Route::get('download-staff-aramiscAttendance-file', 'Admin\Hr\SmStaffAttendanceController@downloadStaffAttendanceFile');
+        Route::post('staff-aramiscAttendance-bulk-store', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceBulkStore')->name('staff-aramiscAttendance-bulk-store');
 
         //payroll
         Route::get('payroll', ['as' => 'payroll', 'uses' => 'Admin\Hr\SmPayrollController@index'])->middleware('userRolePermission:payroll');
@@ -1502,7 +1502,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('payroll-report', 'Admin\Hr\SmPayrollController@searchPayrollReport')->name('searchPayrollReport');
 
         //Homework
-        Route::get('homework-list', ['as' => 'homework-list', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkList'])->middleware('userRolePermission:homework-list');
+        Route::get('homework-list', ['as' => 'homework-list', 'uses' => 'Admin\Homework\SmHomeworkController@aramiscHomeworkList'])->middleware('userRolePermission:homework-list');
 
         Route::post('homework-list', ['as' => 'homework-list-search', 'uses' => 'Admin\Homework\SmHomeworkController@searchHomework'])->middleware('userRolePermission:homework-list');
         Route::get('homework-edit/{id}', ['as' => 'homework_edit', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkEdit'])->middleware('userRolePermission:homework_edit');
@@ -1510,7 +1510,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('homework-delete/{id}', ['as' => 'homework_delete', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkDelete'])->middleware('userRolePermission:homework_delete');
 
         Route::post('homework-delete', ['as' => 'homework-delete', 'uses' => 'Admin\Homework\SmHomeworkController@deleteHomework'])->middleware('userRolePermission:homework_delete');
-        Route::get('add-homeworks', ['as' => 'add-homeworks', 'uses' => 'Admin\Homework\SmHomeworkController@addHomework'])->middleware('userRolePermission:add-homeworks');
+        Route::get('add-homeworks', ['as' => 'add-homeworks', 'uses' => 'Admin\Homework\SmHomeworkController@aramiscAddHomework'])->middleware('userRolePermission:add-homeworks');
         Route::post('save-homework-data', ['as' => 'saveHomeworkData', 'uses' => 'Admin\Homework\SmHomeworkController@saveHomeworkData'])->middleware('userRolePermission:saveHomeworkData');
         Route::get('download-uploaded-content-admin/{id}/{student_id}', 'Admin\Homework\SmHomeworkController@downloadHomeworkData')->name('download-uploaded-content-admin');
         //Route::get('evaluation-homework/{class_id}/{section_id}', 'Admin\Homework\SmHomeworkController@evaluationHomework');
@@ -1538,8 +1538,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('save-upload-content', 'Admin\StudyMaterial\SmUploadContentController@store')->name('save-upload-content')->middleware('userRolePermission:save-upload-content');
 
         //
-        Route::get('upload-content-edit/{id}', 'Admin\StudyMaterial\SmUploadContentController@uploadContentEdit')->name('upload-content-edit')->middleware('userRolePermission:upload-content-edit');
-        Route::get('upload-content-view/{id}', 'Admin\StudyMaterial\SmUploadContentController@uploadContentView')->name('upload-content-view');
+        Route::get('upload-content-edit/{id}', 'Admin\StudyMaterial\SmUploadContentController@aramiscUploadContentEdit')->name('upload-content-edit')->middleware('userRolePermission:upload-content-edit');
+        Route::get('upload-content-view/{id}', 'Admin\StudyMaterial\SmUploadContentController@aramiscUploadContentView')->name('upload-content-view');
         //
         Route::post('update-upload-content', 'Admin\StudyMaterial\SmUploadContentController@updateUploadContent')->name('update-upload-content');
         Route::post('delete-upload-content', 'Admin\StudyMaterial\SmUploadContentController@deleteUploadContent')->name('delete-upload-content')->middleware('userRolePermission:delete-upload-content');
@@ -1552,13 +1552,13 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             }
         })->name('download-content-document');
 
-        Route::get('assignment-list', 'Admin\StudyMaterial\SmUploadContentController@assignmentList')->name('assignment-list')->middleware('userRolePermission:assignment-list');
+        Route::get('assignment-list', 'Admin\StudyMaterial\SmUploadContentController@aramiscAssignmentList')->name('assignment-list')->middleware('userRolePermission:assignment-list');
         Route::get('study-metarial-list', 'Admin\StudyMaterial\SmUploadContentController@studyMetarialList')->name('study-metarial-list');
-        Route::get('syllabus-list', 'Admin\StudyMaterial\SmUploadContentController@syllabusList')->name('syllabus-list')->middleware('userRolePermission:syllabus-list');
+        Route::get('syllabus-list', 'Admin\StudyMaterial\SmUploadContentController@aramiscSyllabusList')->name('syllabus-list')->middleware('userRolePermission:syllabus-list');
         Route::get('other-download-list', 'Admin\StudyMaterial\SmUploadContentController@otherDownloadList')->name('other-download-list')->middleware('userRolePermission:other-download-list');
 
-        Route::get('assignment-list-ajax', 'DatatableQueryController@assignmentList')->name('assignment-list-ajax')->middleware('userRolePermission:assignment-list');
-        Route::get('syllabus-list-ajax', 'DatatableQueryController@syllabusList')->name('syllabus-list-ajax')->middleware('userRolePermission:syllabus-list');
+        Route::get('assignment-list-ajax', 'DatatableQueryController@aramiscAssignmentList')->name('assignment-list-ajax')->middleware('userRolePermission:assignment-list');
+        Route::get('syllabus-list-ajax', 'DatatableQueryController@aramiscSyllabusList')->name('syllabus-list-ajax')->middleware('userRolePermission:syllabus-list');
         // Communicate
         Route::get('notice-list', 'Admin\Communicate\SmNoticeController@noticeList')->name('notice-list')->middleware('userRolePermission:notice-list');
         Route::get('administrator-notice', 'Admin\Communicate\SmNoticeController@administratorNotice')->name('administrator-notice');
@@ -1868,11 +1868,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         //Route::post('stripe_post', 'SmSmsTestController@stripePost');
 
         //Collect fees By Online Payment Gateway(Paypal)
-        Route::get('collect-fees-gateway/{amount}/{student_id}/{type}', 'SmCollectFeesByPaymentGateway@collectFeesByGateway');
+        Route::get('collect-fees-gateway/{amount}/{student_id}/{type}', 'SmCollectFeesByPaymentGateway@aramiscCollectFeesByGateway');
         Route::post('payByPaypal', 'SmCollectFeesByPaymentGateway@payByPaypal')->name('payByPaypal');
 
         //Collect fees By Online Payment Gateway(Stripe)
-        Route::get('collect-fees-stripe/{amount}/{student_id}/{type}', 'SmCollectFeesByPaymentGateway@collectFeesStripe');
+        Route::get('collect-fees-stripe/{amount}/{student_id}/{type}', 'SmCollectFeesByPaymentGateway@aramiscCollectFeesStripe');
         Route::post('collect-fees-stripe-strore', 'SmCollectFeesByPaymentGateway@stripeStore')->name('collect-fees-stripe-strore');
 
         // To Do list
@@ -2273,11 +2273,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
     Route::post('global-assign-subject-search', ['as' => 'global_assign_subject_search', 'uses' => 'Admin\Academics\GlobalAssignSubjectController@search'])->middleware('userRolePermission:global_assign_subject_search');
     Route::get('global-assign-subject-search', 'Admin\Academics\GlobalAssignSubjectController@create')->name('global-assign-subject-create')->middleware('userRolePermission:global-assign-subject-create');
-    Route::post('global-assign-subject-store', 'Admin\Academics\GlobalAssignSubjectController@assignSubjectStore')->name('global_assign-subject-store')->middleware('userRolePermission:global_assign-subject-store');
+    Route::post('global-assign-subject-store', 'Admin\Academics\GlobalAssignSubjectController@aramiscAssignSubjectStore')->name('global_assign-subject-store')->middleware('userRolePermission:global_assign-subject-store');
     Route::get('global-assign-subject-store', 'Admin\Academics\GlobalAssignSubjectController@create');
-    Route::post('global-assign-subject', 'Admin\Academics\GlobalAssignSubjectController@assignSubjectFind')->name('global_assign-subject')->middleware('userRolePermission:global_assign-subject');
-    Route::get('global-assign-subject-get-by-ajax', 'Admin\Academics\GlobalAssignSubjectController@assignSubjectAjax');
-    Route::get('global-get-assigned-subjects', 'Admin\Academics\GlobalAssignSubjectController@loadAssignedSubject')->name('loadAssignedSubject')->middleware('userRolePermission:loadAssignedSubject');;
+    Route::post('global-assign-subject', 'Admin\Academics\GlobalAssignSubjectController@aramiscAssignSubjectFind')->name('global_assign-subject')->middleware('userRolePermission:global_assign-subject');
+    Route::get('global-assign-subject-get-by-ajax', 'Admin\Academics\GlobalAssignSubjectController@aramiscAssignSubjectAjax');
+    Route::get('global-get-assigned-subjects', 'Admin\Academics\GlobalAssignSubjectController@aramiscLoadAssignedSubject')->name('aramiscLoadAssignedSubject')->middleware('userRolePermission:aramiscLoadAssignedSubject');;
 
     Route::post('global-save-assigned-subjects', 'Admin\Academics\GlobalAssignSubjectController@saveAssignedSubject')->name('saveAssignedSubject');
 
@@ -2286,13 +2286,13 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::post('global-save-upload-content', 'Admin\Academics\GlobalUploadContentController@store')->name('global-save-upload-content')->middleware('userRolePermission:global-save-upload-content');
 
     //
-    Route::get('global-upload-content-edit/{id}', 'Admin\Academics\GlobalUploadContentController@uploadContentEdit')->name('global-upload-content-edit')->middleware('userRolePermission:global-upload-content-edit');
-    Route::get('global-upload-content-view/{id}', 'Admin\Academics\GlobalUploadContentController@uploadContentView')->name('global-upload-content-view')->middleware('userRolePermission:global-upload-content-view');
+    Route::get('global-upload-content-edit/{id}', 'Admin\Academics\GlobalUploadContentController@aramiscUploadContentEdit')->name('global-upload-content-edit')->middleware('userRolePermission:global-upload-content-edit');
+    Route::get('global-upload-content-view/{id}', 'Admin\Academics\GlobalUploadContentController@aramiscUploadContentView')->name('global-upload-content-view')->middleware('userRolePermission:global-upload-content-view');
     //
     Route::post('global-update-upload-content', 'Admin\Academics\GlobalUploadContentController@updateUploadContent')->name('global-update-upload-content');
     Route::post('global-delete-upload-content', 'Admin\Academics\GlobalUploadContentController@deleteUploadContent')->name('global-delete-upload-content')->middleware('userRolePermission:global-delete-upload-content');
-    Route::get('global-upload-content-modal', 'Admin\Academics\GlobalUploadContentController@studyMaterialModal')->name('studyMaterialModal')->middleware('userRolePermission:studyMaterialModal');
-    Route::post('assigned-global-upload-content', 'Admin\Academics\GlobalUploadContentController@studyMaterialAssigned')->name('studyMaterialAssigned')->middleware('userRolePermission:studyMaterialAssigned');
+    Route::get('global-upload-content-modal', 'Admin\Academics\GlobalUploadContentController@aramiscStudyMaterialModal')->name('aramiscStudyMaterialModal')->middleware('userRolePermission:aramiscStudyMaterialModal');
+    Route::post('assigned-global-upload-content', 'Admin\Academics\GlobalUploadContentController@aramiscStudyMaterialAssigned')->name('aramiscStudyMaterialAssigned')->middleware('userRolePermission:aramiscStudyMaterialAssigned');
 
     Route::get('global-exam-type', 'Admin\Academics\GlobalExaminationController@exam_type')->name('global_exam-type')->middleware('userRolePermission:global_exam-type');
     Route::get('global-exam-type-edit/{id}', ['as' => 'global_exam_type_edit', 'uses' => 'Admin\Academics\GlobalExaminationController@exam_type_edit'])->middleware('userRolePermission:global_exam_type_edit');
@@ -2315,7 +2315,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('complaint-list-datatable', 'DatatableQueryController@complaintDetailsDatatable')->name('complaint_list_datatable');
     Route::get('unassign-student-list-datatable', 'DatatableQueryController@unAssignStudentList')->name('unassign-student-list-datatable');
     Route::get('disable-student-list-datatable', 'DatatableQueryController@disableStudentList')->name('disable-student-list-datatable');
-    Route::get('upload-content-list-datatable', 'DatatableQueryController@uploadContentListDatatable')->name('upload-content-list-datatable');
+    Route::get('upload-content-list-datatable', 'DatatableQueryController@aramiscUploadContentListDatatable')->name('upload-content-list-datatable');
     Route::get('other-download-list-datatable', 'DatatableQueryController@otherDownloadList')->name('other-download-list-datatable');
     Route::get('get-fees-payment-ajax', 'DatatableQueryController@ajaxFeesPayment')->name('ajaxFeesPayment');
     Route::get('get-bank-slip-ajax', 'DatatableQueryController@ajaxBankSlip')->name('ajaxBankSlip');
@@ -2324,13 +2324,13 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('pending-leave-request-ajax', 'DatatableQueryController@ajaxPendingLeave')->name('ajaxPendingLeave');
 
     Route::get('approve-leave-request-ajax', 'DatatableQueryController@ajaxApproveLeave')->name('ajaxApproveLeave');
-    Route::get('homework-list-ajax', 'DatatableQueryController@homeworkListAjax')->name('homework-list-ajax')->middleware('userRolePermission:homework-list');
+    Route::get('homework-list-ajax', 'DatatableQueryController@aramiscHomeworkListAjax')->name('homework-list-ajax')->middleware('userRolePermission:homework-list');
     Route::get('book-list-ajax', 'DatatableQueryController@bookListAjax')->name('book-list-ajax');
     Route::get('all-issed-book-ajax', 'DatatableQueryController@allIssuedBookAjax')->name('all-issed-book-ajax');
     Route::get('item-list-ajax', 'DatatableQueryController@itemsListAjax')->name('item-list-ajax');
     Route::get('item-receive-list-ajax', 'DatatableQueryController@itemReceiveListAjax')->name('item-receive-list-ajax');
 
-    Route::get('student-transport-report-ajax',  'DatatableQueryController@studentTransportReportAjax')->name('studentTransportReportAjax');
+    Route::get('student-transport-report-ajax',  'DatatableQueryController@aramiscStudentTransportReportAjax')->name('aramiscStudentTransportReportAjax');
     Route::get('graduate-list-ajax',  'DatatableQueryController@graduateListAjax')->name('graduateListAjax');
 
 
@@ -2364,26 +2364,26 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
     // Teacher Evaluation Settings
-    Route::get('teacher-evaluation-setting', [TeacherEvaluationController::class, 'teacherEvaluationSetting'])->name('teacher-evaluation-setting');
-    Route::put('teacher-evaluation-setting-update', [TeacherEvaluationController::class, 'teacherEvaluationSettingUpdate'])->name('teacher-evaluation-setting-update');
+    Route::get('teacher-evaluation-setting', [TeacherEvaluationController::class, 'aramiscTeacherEvaluationSetting'])->name('teacher-evaluation-setting');
+    Route::put('teacher-evaluation-setting-update', [TeacherEvaluationController::class, 'aramiscTeacherEvaluationSettingUpdate'])->name('teacher-evaluation-setting-update');
 
     // Teacher Evaluation Submit Parent & Student Panel
-    Route::post('teacher-evaluation-submit', [TeacherEvaluationController::class, 'teacherEvaluationSubmit'])->name('teacher-evaluation-submit');
+    Route::post('teacher-evaluation-submit', [TeacherEvaluationController::class, 'aramiscTeacherEvaluationSubmit'])->name('teacher-evaluation-submit');
 
     // Teacher Evaluation Reports
     Route::get('get-assign-subject-teacher', [TeacherEvaluationReportController::class, 'getAssignSubjectTeacher'])->name('get-assign-subject-teacher');
-    Route::get('teacher-approved-evaluation-report', [TeacherEvaluationReportController::class, 'teacherApprovedEvaluationReport'])->name('teacher-approved-evaluation-report');
+    Route::get('teacher-approved-evaluation-report', [TeacherEvaluationReportController::class, 'aramiscTeacherApprovedEvaluationReport'])->name('teacher-approved-evaluation-report');
     Route::get('teacher-pending-evaluation-report', [TeacherEvaluationReportController::class, 'teacherPendingEvaluationReport'])->name('teacher-pending-evaluation-report');
     Route::get('teacher-wise-evaluation-report', [TeacherEvaluationReportController::class, 'teacherWiseEvaluationReport'])->name('teacher-wise-evaluation-report');
 
     // Teacher Evaluation Reports Search
-    Route::get('teacher-approved-evaluation-report-search', [TeacherEvaluationReportController::class, 'teacherApprovedEvaluationReportSearch'])->name('teacher-approved-evaluation-report-search');
+    Route::get('teacher-approved-evaluation-report-search', [TeacherEvaluationReportController::class, 'aramiscTeacherApprovedEvaluationReportSearch'])->name('teacher-approved-evaluation-report-search');
     Route::get('teacher-pending-evaluation-report-search', [TeacherEvaluationReportController::class, 'teacherPendingEvaluationReportSearch'])->name('teacher-pending-evaluation-report-search');
     Route::get('teacher-wise-evaluation-report-search', [TeacherEvaluationReportController::class, 'teacherWiseEvaluationReportSearch'])->name('teacher-wise-evaluation-report-search');
 
     // Teacher Evaluation Reports Save/Delete
-    Route::get('teacher-evaluation-approve-submit/{id}', [TeacherEvaluationReportController::class, 'teacherEvaluationApproveSubmit'])->name('teacher-evaluation-approve-submit');
-    Route::get('teacher-evaluation-approve-delete/{id}', [TeacherEvaluationReportController::class, 'teacherEvaluationApproveDelete'])->name('teacher-evaluation-approve-delete');
+    Route::get('teacher-evaluation-approve-submit/{id}', [TeacherEvaluationReportController::class, 'aramiscTeacherEvaluationApproveSubmit'])->name('teacher-evaluation-approve-submit');
+    Route::get('teacher-evaluation-approve-delete/{id}', [TeacherEvaluationReportController::class, 'aramiscTeacherEvaluationApproveDelete'])->name('teacher-evaluation-approve-delete');
 
 
     Route::get('teacher-panel-evaluation-report', [TeacherEvaluationReportController::class, 'teacherPanelEvaluationReport'])->name('teacher-panel-evaluation-report');

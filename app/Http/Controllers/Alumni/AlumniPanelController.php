@@ -96,7 +96,7 @@ class AlumniPanelController extends Controller
                     ->where('academic_id', getAcademicId())->get();
             }
             
-            $data['student_details']  = Auth::user()->student->load('studentRecords', 'attendances');
+            $data['student_details']  = Auth::user()->student->load('studentRecords', 'aramiscAttendances');
             $data['student_records']  = $data['student_details']->studentRecords;
             
             $data['settings'] = SmCalendarSetting::get();
@@ -135,7 +135,7 @@ class AlumniPanelController extends Controller
         }
     }
 
-    public function studentProfile()
+    public function aramiscStudentProfile()
     {
         try {
             $student_id = Auth::user()->student->id;

@@ -37,7 +37,7 @@ class ApiSmSaasBankController extends Controller
         }
        
     }
-    public function saas_childBankSlipStore(Request $request)
+    public function saas_aramiscFeesChildBankSlipStore(Request $request)
     {
         if(ApiBaseMethod::checkUrl($request->fullUrl())){
             $input = $request->all();
@@ -140,14 +140,14 @@ class ApiSmSaasBankController extends Controller
 
     public function saas_roomList(Request $request)
     {
-        $studentDormitory = DB::table('sm_room_lists')
+        $aramiscStudentDormitory = DB::table('sm_room_lists')
             ->join('sm_dormitory_lists', 'sm_room_lists.dormitory_id', '=', 'sm_dormitory_lists.id')
             ->join('sm_room_types', 'sm_room_lists.room_type_id', '=', 'sm_room_types.id')
             ->select('sm_room_lists.id', 'sm_dormitory_lists.dormitory_name', 'sm_room_lists.name as room_number', 'sm_room_lists.number_of_bed', 'sm_room_lists.cost_per_bed', 'sm_room_lists.active_status')
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            return ApiBaseMethod::sendResponse($studentDormitory, null);
+            return ApiBaseMethod::sendResponse($aramiscStudentDormitory, null);
         }
     }
 

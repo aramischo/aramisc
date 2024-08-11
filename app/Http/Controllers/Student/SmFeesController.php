@@ -50,7 +50,7 @@ class SmFeesController extends Controller
     }
 
     use CcAveuneTrait;
-    public function studentFees()
+    public function aramiscStudentFees()
     {
         try {
             if(auth()->user()->role_id == 3){
@@ -58,7 +58,7 @@ class SmFeesController extends Controller
             }
             $student = Auth::user()->student->load('feesAssignDiscount');
             $payment_gateway = SmPaymentMethhod::first();
-            $records = studentRecords(null, $student->id)->with('fees.feesGroupMaster', 'class','section','directFeesInstallments.installment','directFeesInstallments.payments.user')->get();
+            $records = studentRecords(null, $student->id)->with('fees.feesGroupMaster', 'class','section','aramiscDirectFeesInstallments.installment','aramiscDirectFeesInstallments.payments.user')->get();
             $fees_discounts = $student->feesAssignDiscount;
             $applied_discount = [];
             foreach ($fees_discounts as $fees_discount) {
@@ -88,7 +88,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function redirectToGateway(Request $request)
+    public function aramiscRedirectToGateway(Request $request)
     {
         try {
             $paystack_info = DB::table('sm_payment_gateway_settings')->where('gateway_name', 'Paystack')->where('school_id', Auth::user()->school_id)->first();
@@ -127,7 +127,7 @@ class SmFeesController extends Controller
      * Obtain Paystack payment information
      * @return void
      */
-    public function handleGatewayCallback()
+    public function aramiscHandleGatewayCallback()
     {
         try {
             $user = Auth::User();
@@ -217,13 +217,13 @@ class SmFeesController extends Controller
         }
     }
 
-    public function feesPaymentStripe($fees_type, $student_id, $amount,$assign_id,$record_id)
+    public function aramiscFeesPaymentStripe($fees_type, $student_id, $amount,$assign_id,$record_id)
     {
         $stripe_info = SmPaymentGatewaySetting::where('gateway_name', 'Stripe')->where('school_id', Auth::user()->school_id)->first();
         return view('backEnd.studentPanel.stripe_payment', compact('stripe_info', 'fees_type', 'student_id', 'amount','assign_id','record_id'));
     }
 
-    public function feesPaymentStripeStore(Request $request)
+    public function aramiscFeesPaymentStripeStore(Request $request)
     {
         $payment_setting = SmPaymentGatewaySetting::where('gateway_name', 'Stripe')->where('school_id', Auth::user()->school_id)->first();
         $withServiceCharge = $request->amount +  chargeAmount('Stripe', $request->amount);
@@ -263,7 +263,7 @@ class SmFeesController extends Controller
             $installment->payment_date = $fees_payment->payment_date;
             $installment->save();
             
-        }elseif(directFees()){
+        }elseif(aramiscDirectFees()){
             $installment = DirectFeesInstallmentAssign::find($request->installment_id);
             $installment->paid_amount = $request->amount;
             $installment->active_status = 1;
@@ -295,7 +295,7 @@ class SmFeesController extends Controller
 
         if(moduleStatusCheck('University')){
 
-        }elseif(directFees()){
+        }elseif(aramiscDirectFees()){
 
         }
         else{
@@ -332,7 +332,7 @@ class SmFeesController extends Controller
 
     }
 
-    public function feesGenerateModalChild(Request $request, $amount, $student_id, $type,$assign_id, $record_id)
+    public function aramiscFeesGenerateModalChild(Request $request, $amount, $student_id, $type,$assign_id, $record_id)
     {
         try {
             $amount = $amount;
@@ -368,12 +368,12 @@ class SmFeesController extends Controller
         }
     }
 
-    public function childBankSlipStore(Request $request)
+    public function aramiscFeesChildBankSlipStore(Request $request)
     {
         if($request->payment_mode == 'PayPal' || $request->payment_mode == 'Stripe' || $request->payment_mode == 'Paystack' || $request->payment_mode == 'CcAveune' || $request->payment_mode == 'PhonePay'){
             
             try{
-                if(directFees()){
+                if(aramiscDirectFees()){
                     $request->validate([
                         'installment_id' => "required",
                         'amount'=> "required|regex:/^\d+(\.\d{1,2})?$/",
@@ -553,7 +553,7 @@ class SmFeesController extends Controller
 
                 $payment->child_payment_id = $new_subPayment->id;
 
-            }elseif(directFees()){
+            }elseif(aramiscDirectFees()){
                 $payment->class_id = $student_record->class_id;
                 $payment->section_id = $student_record->section_id;
                 $payment->record_id = $student_record->id;
@@ -616,21 +616,21 @@ class SmFeesController extends Controller
         }
     }
 
-    public function feesGenerateModalChildView($id,$type_id)
+    public function aramiscFeesGenerateModalChildView($id,$type_id)
     {
 
         $fees_payments = SmBankPaymentSlip::where('student_id',$id)->where('fees_type_id',$id)->get();
         return view('backEnd.studentPanel.view_bank_payment', compact('fees_payments'));
     }
 
-    public function feesGenerateModalBankView($sid,$ft_id)
+    public function aramiscFeesGenerateModalBankView($sid,$ft_id)
     {
         $fees_payments = SmBankPaymentSlip::where('student_id',$sid)->where('fees_type_id',$ft_id)->get();
         $amount = SmBankPaymentSlip::where('student_id',$sid)->where('fees_type_id',$ft_id)->sum('amount');
         return view('backEnd.studentPanel.view_bank_payment', compact('fees_payments','amount'));
     }
 
-    public function childBankSlipDelete(Request $request)
+    public function aramiscFeesChildBankSlipDelete(Request $request)
     { 
         try {
             if(moduleStatusCheck('University')){
@@ -669,7 +669,7 @@ class SmFeesController extends Controller
     }
 
 
-    public function directFeesGenerateModalChild(Request $request, $amount , $installment_id, $record_id)
+    public function aramiscDirectFeesGenerateModalChild(Request $request, $amount , $installment_id, $record_id)
     {
         try {
             $amount = $amount;
@@ -721,7 +721,7 @@ class SmFeesController extends Controller
             $method['PhonePe'] = SmPaymentGatewaySetting::where('gateway_name', 'PhonePay')->where('school_id', Auth::user()->school_id)->first();
             $installment = DirectFeesInstallmentAssign::find($installment_id);
             $balance_fees = discountFees($installment_id)  - $installment->payments->sum('paid_amount');
-            return view('backEnd.feesCollection.directFees.fees_generate_modal_child', compact('amount','discounts','student_id', 'std_info','applied_discount', 'data', 'method','banks','record_id','installment_id','balance_fees'));
+            return view('backEnd.feesCollection.aramiscDirectFees.fees_generate_modal_child', compact('amount','discounts','student_id', 'std_info','applied_discount', 'data', 'method','banks','record_id','installment_id','balance_fees'));
         } catch (\Exception $e) {
        
             Toastr::error('Operation Failed', 'Failed');
@@ -730,14 +730,14 @@ class SmFeesController extends Controller
     }
 
 
-    public function directFeesPaymentStripe($installment_id){
+    public function aramiscDirectFeesPaymentStripe($installment_id){
         $installment = DirectFeesInstallmentAssign::find($installment_id);
         $stripe_info = SmPaymentGatewaySetting::where('gateway_name', 'stripe')->where('school_id', Auth::user()->school_id)->first();
-        return view('backEnd.feesCollection.directFees.stripePaymentModal', compact('stripe_info', 'installment'));
+        return view('backEnd.feesCollection.aramiscDirectFees.stripePaymentModal', compact('stripe_info', 'installment'));
 
     }
 
-    public function directFeesTotalPayment($record_id){
+    public function aramiscDirectFeesTotalPayment($record_id){
 
         try{
             $studentRerod = StudentRecord::find($record_id);
@@ -790,7 +790,7 @@ class SmFeesController extends Controller
             $total_paid = DirectFeesInstallmentAssign::where('record_id', $record_id)->sum('paid_amount');
             $balace_amount = $total_amount -  ($total_discount +  $total_paid);
             $amount = $balace_amount;
-            return view('backEnd.feesCollection.directFees.total_payment_modal', compact('amount','discounts',  'student_id', 'data', 'method','banks','record_id','balace_amount'));
+            return view('backEnd.feesCollection.aramiscDirectFees.total_payment_modal', compact('amount','discounts',  'student_id', 'data', 'method','banks','record_id','balace_amount'));
 
         }
         catch(\Exception $e){
@@ -799,7 +799,7 @@ class SmFeesController extends Controller
         }
     }
 
-    public function directFeesTotalPaymentSubmit(Request $request){
+    public function aramiscDirectFeesTotalPaymentSubmit(Request $request){
        
         try{
             if($request->payment_mode == "Stripe" || $request->payment_mode == "Paystack" || $request->payment_mode == "PayPal" || $request->payment_mode == "CcAveune" || $request->payment_mode == "PhonePay"){
@@ -953,7 +953,7 @@ class SmFeesController extends Controller
                             $payment->child_payment_id = $new_subPayment->id;
 
                         }
-                        elseif(directFees()){
+                        elseif(aramiscDirectFees()){
                             $payment->class_id = $student_record->class_id;
                             $payment->section_id = $student_record->section_id;
                             $payment->record_id = $student_record->id;

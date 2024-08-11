@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>@lang('reports.official_transcript') [{{ $studentDetails->full_name }}] </title>
+  <title>@lang('reports.official_transcript') [{{ $aramiscStudentDetails->full_name }}] </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/print/bootstrap.min.css"/>
@@ -64,8 +64,8 @@
         $address =$generalSetting->address;
         $phone =$generalSetting->phone; 
     }
-    $section = App\SmSection::find($studentDetails->section_id);
-    $class = App\SmClass::find($studentDetails->class_id);
+    $section = App\SmSection::find($aramiscStudentDetails->section_id);
+    $class = App\SmClass::find($aramiscStudentDetails->class_id);
 @endphp
 
 <div class="container">
@@ -91,23 +91,23 @@
                 <table style="width:100%">
                     <tr>
                         <td>
-                            <strong>@lang('student.student_name'):</strong> {{ $studentDetails->full_name }} <br>
+                            <strong>@lang('student.student_name'):</strong> {{ $aramiscStudentDetails->full_name }} <br>
                             <strong>@lang('student.mother_name')
-                                :</strong> {{ @$studentDetails->student->parents->mothers_name }}<br>
+                                :</strong> {{ @$aramiscStudentDetails->student->parents->mothers_name }}<br>
                             <strong>@lang('common.school_name'):</strong> {{ generalSetting()->school_name }}
                             <br>
                         </td>
                         <td>
                             <strong>@lang('student.transcript_no')
-                                :</strong> {{ $studentDetails->admission_number }}<br>
+                                :</strong> {{ $aramiscStudentDetails->admission_number }}<br>
                             <strong>@lang('common.academic_year'): </strong> {{ generalSetting()->academic_Year->year }}
                             <br>
-                            <strong>@lang('student.admission_no'):</strong> {{ $studentDetails->admission_number }}<br>
+                            <strong>@lang('student.admission_no'):</strong> {{ $aramiscStudentDetails->admission_number }}<br>
                         </td>
                         <td>
                             <strong>@lang('common.class'):</strong> {{ $current_class->class_name }}<br>
                             <strong>@lang('common.section') :</strong> {{ $current_section->section_name }}<br>
-                            <strong>@lang('common.date_of_birth'):</strong> {{ $studentDetails->date_of_birth != ""? dateConvert($studentDetails->date_of_birth):''}}
+                            <strong>@lang('common.date_of_birth'):</strong> {{ $aramiscStudentDetails->date_of_birth != ""? dateConvert($aramiscStudentDetails->date_of_birth):''}}
                     
                         </td>
                     </tr>
@@ -120,12 +120,12 @@
             </div>
         </div>
         <div class="row" style="margin-top:10px">
-            @foreach ($promotes as $studentDetails)     
+            @foreach ($promotes as $aramiscStudentDetails)     
                 @php                                         
-                    $student_id = $studentDetails->student_id;
-                    $class_id = $studentDetails->previous_class_id;
-                    $section_id = $studentDetails->previous_section_id;
-                    $year = $studentDetails->year;
+                    $student_id = $aramiscStudentDetails->student_id;
+                    $class_id = $aramiscStudentDetails->previous_class_id;
+                    $section_id = $aramiscStudentDetails->previous_section_id;
+                    $year = $aramiscStudentDetails->year;
                     $current_class = App\SmStudent::where('sm_students.id', $student_id)->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')->first();
                     $current_section = App\SmStudent::where('sm_students.id', $student_id)->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')->first();
                     $current_session = App\SmStudent::where('sm_students.id', $student_id)->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')->first();
@@ -161,7 +161,7 @@
                                         {{ $exam->title }}
                                 </td>
                                 <td>
-                                        <strong>@lang('student.roll'):</strong> {{ $studentDetails->previous_roll_number }}
+                                        <strong>@lang('student.roll'):</strong> {{ $aramiscStudentDetails->previous_roll_number }}
                                 </td>
                                 <td>
                                         <strong>@lang('common.class'):</strong> 

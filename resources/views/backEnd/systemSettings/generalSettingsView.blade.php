@@ -457,13 +457,13 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6">
                                             <div class="name">
-                                                @lang('system_settings.subject_attendance_layout')
+                                                @lang('system_settings.subject_aramiscAttendance_layout')
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             <div class="value text-left">
                                                 @if(isset($editData))
-                                                    @if (@$editData->attendance_layout != "" && @$editData->attendance_layout == 1)
+                                                    @if (@$editData->aramiscAttendance_layout != "" && @$editData->aramiscAttendance_layout == 1)
                                                         <img src="{{asset('public/backEnd/img/first_layout.png')}}" width="200px" height="auto" class="layout_image" for="first_layout" alt="">
                                                     @else
                                                         <img src="{{asset('public/backEnd/img/second_layout.png')}}" width="200px" height="auto" class="layout_image" for="second_layout" alt="">

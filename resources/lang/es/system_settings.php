@@ -714,7 +714,7 @@ return [
 
 "fcm_key" => "FCM CLAVE",
 
-"subject_attendance_layout" => "Diseño de asistencia",
+"subject_aramiscAttendance_layout" => "Diseño de asistencia",
 
 "make_default" => "Hacer predeterminado",
 

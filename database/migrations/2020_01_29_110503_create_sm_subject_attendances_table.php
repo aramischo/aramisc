@@ -13,11 +13,11 @@ class CreateSmSubjectAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sm_subject_attendances', function (Blueprint $table) {
+        Schema::create('sm_subject_aramiscAttendances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('attendance_type', 10)->nullable()->comment('Present: P Late: L Absent: A Holiday: H Half Day: F');
+            $table->string('aramiscAttendance_type', 10)->nullable()->comment('Present: P Late: L Absent: A Holiday: H Half Day: F');
             $table->string('notes', 500)->nullable();
-            $table->date('attendance_date')->nullable();
+            $table->date('aramiscAttendance_date')->nullable();
             $table->boolean('notify')->default(false);
             $table->timestamps();
 
@@ -58,6 +58,6 @@ class CreateSmSubjectAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sm_subject_attendances');
+        Schema::dropIfExists('sm_subject_aramiscAttendances');
     }
 }

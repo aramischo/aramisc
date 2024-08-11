@@ -102,7 +102,7 @@
                 </div>
     
                 <!-- <div class="d-flex justify-content-between mb-20"> -->
-                <!-- <button type="submit" class="primary-btn fix-gr-bg mr-20" onclick="javascript: form.action='{{url('student-attendance-holiday')}}'">
+                <!-- <button type="submit" class="primary-btn fix-gr-bg mr-20" onclick="javascript: form.action='{{url('student-aramiscAttendance-holiday')}}'">
                                 <span class="ti-hand-point-right pr"></span>
                                 mark as holiday
                             </button> -->

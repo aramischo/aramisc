@@ -42,7 +42,7 @@ class SmExamRoutineController extends Controller
         // User::checkAuth();
     }
 
-    public function examSchedule()
+    public function aramiscExamSchedule()
     {
         try {
             $exam_types = SmExamType::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
@@ -69,7 +69,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examScheduleCreate()
+    public function aramiscExamScheduleCreate()
     {
         try {
 
@@ -105,7 +105,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function checkExamRoutinePeriod(Request $request)
+    public function aramiscExamScheduleRoutinePeriod(Request $request)
     {
 
         try {
@@ -174,7 +174,7 @@ class SmExamRoutineController extends Controller
 
 
 
-    public function checkExamRoutineDate(Request $request)
+    public function aramiscExamScheduleRoutineDate(Request $request)
     {
 
         try {
@@ -201,7 +201,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examScheduleReportSearch(SmExamScheduleSearchRequest $request)
+    public function aramiscExamScheduleReportSearch(SmExamScheduleSearchRequest $request)
     {
         try {
             if (moduleStatusCheck('University')) {
@@ -320,7 +320,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examScheduleReportSearchOld(Request $request)
+    public function aramiscExamScheduleReportSearchOld(Request $request)
     {
         $request->validate([
             'exam' => 'required',
@@ -354,7 +354,7 @@ class SmExamRoutineController extends Controller
             return redirect()->back();
         }
     }
-    public function examSchedulePrint(Request $request)
+    public function aramiscExamSchedulePrint(Request $request)
     {
 
         try {
@@ -418,7 +418,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examRoutineReport(Request $request)
+    public function aramiscExamRoutineReport(Request $request)
     {
 
         try {
@@ -470,7 +470,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examRoutineReportSearch(Request $request)
+    public function aramiscExamRoutineReportSearch(Request $request)
     {
         if (moduleStatusCheck('University')) {
             return $this->universityExamRoutineReportSearch($request);
@@ -521,7 +521,7 @@ class SmExamRoutineController extends Controller
     }
 
 
-    public function examRoutineReportSearchPrint($exam_id)
+    public function aramiscExamRoutineReportSearchPrint($exam_id)
     {
 
         try {
@@ -535,7 +535,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examScheduleSearch(SmExamScheduleSearchRequest $request)
+    public function aramiscExamScheduleSearch(SmExamScheduleSearchRequest $request)
     {
         try {
             if (moduleStatusCheck('University')) {
@@ -839,7 +839,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examRoutineView($class_id, $section_id, $exam_term_id)
+    public function aramiscExamRoutineView($class_id, $section_id, $exam_term_id)
     {
 
         try {
@@ -965,7 +965,7 @@ class SmExamRoutineController extends Controller
         }
     }
 
-    public function examRoutinePrint($class_id, $section_id, $exam_term_id)
+    public function aramiscExamRoutinePrint($class_id, $section_id, $exam_term_id)
     {
         if (moduleStatusCheck('University')) {
             return $this->universityExamRoutinePrint($class_id, $section_id, $exam_term_id);

@@ -129,8 +129,8 @@ class SubjectMarkSheetReportController extends Controller
                 $data['semester'] = UnSemester::find($request->un_semester_id)->name;
                 $data['semester_label'] = UnSemesterLabel::find($request->un_semester_label_id)->name;
                 $data['requestData'] = $request->all();
-                $assignSubjects = UnSubjectAssignStudent::query();
-                $students = unFilterBySub($assignSubjects, $request)
+                $aramiscAssignSubjects = UnSubjectAssignStudent::query();
+                $students = unFilterBySub($aramiscAssignSubjects, $request)
                             ->whereHas('studentDetail', function ($q)  {
                                 $q->where('active_status', 1);
                             });
@@ -293,8 +293,8 @@ class SubjectMarkSheetReportController extends Controller
                  $data['semester_label'] = UnSemesterLabel::find($request->un_semester_label_id)->name;
                  $data['requestData'] = $request->all();
                  $result_setting = CustomResultSetting::where('school_id',Auth()->user()->school_id)->where('un_academic_id',getAcademicId())->get();
-                 $assignSubjects = UnSubjectAssignStudent::query();
-                 $students = unFilterBySub($assignSubjects, $request)
+                 $aramiscAssignSubjects = UnSubjectAssignStudent::query();
+                 $students = unFilterBySub($aramiscAssignSubjects, $request)
                             ->whereHas('studentDetail', function ($q)  {
                                 $q->where('active_status', 1);
                             });
@@ -895,7 +895,7 @@ class SubjectMarkSheetReportController extends Controller
                                 ->where('gpa',$fail_grade)
                                 ->first();
 
-                $studentDetails = StudentRecord::where('student_id', $request->student_id)
+                $aramiscStudentDetails = StudentRecord::where('student_id', $request->student_id)
                                                 ->where('un_semester_label_id', $request->un_semester_label_id)
                                                 ->where('un_academic_id', $request->un_academic_id)
                                                 ->where('school_id', Auth::user()->school_id)
@@ -913,16 +913,16 @@ class SubjectMarkSheetReportController extends Controller
                                             ->where('school_id',Auth::user()->school_id)
                                             ->get();
 
-                $record_id = @$studentDetails->id;
-                $studentSubjects = UnSubjectAssignStudent::where('student_record_id',$record_id)->get('un_subject_id');  
-                if(count($studentSubjects) == 0 ){
+                $record_id = @$aramiscStudentDetails->id;
+                $aramiscStudentSubjects = UnSubjectAssignStudent::where('student_record_id',$record_id)->get('un_subject_id');  
+                if(count($aramiscStudentSubjects) == 0 ){
                     Toastr::warning('No subject assigned', 'Failed');
                     return redirect()->back();
                 }                     
 
                 $examSubjectIds = [];
-                foreach($studentSubjects as $studentSubject){
-                    $examSubjectIds[] = $studentSubject->un_subject_id;
+                foreach($aramiscStudentSubjects as $aramiscStudentSubject){
+                    $examSubjectIds[] = $aramiscStudentSubject->un_subject_id;
                 }
                 $subjects = UnAssignSubject::where('un_semester_label_id', $request->un_semester_label_id)
                             ->where('school_id',Auth::user()->school_id)
@@ -968,7 +968,7 @@ class SubjectMarkSheetReportController extends Controller
                         'subjects', 
                         'data',
                         'student_id', 
-                        'studentDetails',
+                        'aramiscStudentDetails',
                         'exam_types', 
                         'assinged_exam_types',
                         'marks_grade',
@@ -1020,7 +1020,7 @@ class SubjectMarkSheetReportController extends Controller
                                 ->where('gpa',$fail_grade)
                                 ->first();
 
-                $studentDetails = StudentRecord::where('student_id', $request->student)
+                $aramiscStudentDetails = StudentRecord::where('student_id', $request->student)
                                     ->where('class_id', $request->class)
                                     ->where('section_id', $request->section)
                                     ->where('academic_id', getAcademicId())
@@ -1040,7 +1040,7 @@ class SubjectMarkSheetReportController extends Controller
                                             ->first();
 
                 $student_optional_subject = SmOptionalSubjectAssign::where('student_id',$request->student)
-                                            ->where('session_id','=',$studentDetails->session_id)
+                                            ->where('session_id','=',$aramiscStudentDetails->session_id)
                                             ->first();
 
                 $exam_setup = SmExamSetup::where([
@@ -1111,7 +1111,7 @@ class SubjectMarkSheetReportController extends Controller
                     'exams',
                     'optional_subject_setup',
                     'student_optional_subject', 
-                    'classes', 'studentDetails',
+                    'classes', 'aramiscStudentDetails',
                     'is_result_available', 
                     'subjects', 
                     'class_id', 
@@ -1167,7 +1167,7 @@ class SubjectMarkSheetReportController extends Controller
                                 ->where('gpa',$fail_grade)
                                 ->first();
 
-                $studentDetails = StudentRecord::where('student_id', $request->student_id)
+                $aramiscStudentDetails = StudentRecord::where('student_id', $request->student_id)
                                                 ->where('un_semester_label_id', $request->un_semester_label_id)
                                                 ->where('un_academic_id', $request->un_academic_id)
                                                 ->where('school_id', Auth::user()->school_id)
@@ -1185,12 +1185,12 @@ class SubjectMarkSheetReportController extends Controller
                                             ->where('school_id',Auth::user()->school_id)
                                             ->get();
 
-                $record_id = @$studentDetails->id;
-                $studentSubjects = UnSubjectAssignStudent::where('student_record_id',$record_id)->get('un_subject_id');  
+                $record_id = @$aramiscStudentDetails->id;
+                $aramiscStudentSubjects = UnSubjectAssignStudent::where('student_record_id',$record_id)->get('un_subject_id');  
 
                 $examSubjectIds = [];
-                foreach($studentSubjects as $studentSubject){
-                    $examSubjectIds[] = $studentSubject->un_subject_id;
+                foreach($aramiscStudentSubjects as $aramiscStudentSubject){
+                    $examSubjectIds[] = $aramiscStudentSubject->un_subject_id;
                 }
             
                 $subjects = UnAssignSubject::where('un_semester_label_id', $request->un_semester_label_id)
@@ -1237,7 +1237,7 @@ class SubjectMarkSheetReportController extends Controller
                         'subjects', 
                         'data',
                         'student_id', 
-                        'studentDetails',
+                        'aramiscStudentDetails',
                         'exam_types', 
                         'assinged_exam_types',
                         'marks_grade',
@@ -1255,14 +1255,14 @@ class SubjectMarkSheetReportController extends Controller
 
 
             }else{
-                    $studentDetails = StudentRecord::where('class_id',$request->class_id)
+                    $aramiscStudentDetails = StudentRecord::where('class_id',$request->class_id)
                                 ->where('section_id',$request->section_id)
                                 ->where('academic_id',getAcademicId())
                                 ->where('school_id',auth()->user()->school_id)
                                 ->where('student_id',$request->student_id)
                                 ->first();
 
-                        $record = $studentDetails;  
+                        $record = $aramiscStudentDetails;  
                         $record_id = $record->id; 
                         $result_setting =  CustomResultSetting::where('school_id',Auth()->user()->school_id)
                         ->where('academic_id',getAcademicId())
@@ -1271,19 +1271,19 @@ class SubjectMarkSheetReportController extends Controller
                         ->where('academic_id', getAcademicId())
                         ->orderBy('gpa', 'desc')
                         ->get();   
-                        if($studentDetails){
-                            $subjects = $studentDetails->assign_subject;
+                        if($aramiscStudentDetails){
+                            $subjects = $aramiscStudentDetails->assign_subject;
                             $all_subject_ids = $subjects->pluck('subject_id')->toArray();
                             $is_result_available = SmResultStore::where([
-                                ['class_id', $studentDetails->class_id], 
-                                ['section_id', $studentDetails->section_id], 
-                                ['student_id', $studentDetails->student_id]])
+                                ['class_id', $aramiscStudentDetails->class_id], 
+                                ['section_id', $aramiscStudentDetails->section_id], 
+                                ['student_id', $aramiscStudentDetails->student_id]])
                                 ->where('school_id',Auth::user()->school_id)
                                 ->get();
                         }
                         $student_detail = SmStudent::find($record->student_id);
                         if ($is_result_available->count() > 0) {
-                            return view('backEnd.examination.studentFinalMarkSheetPrint',compact('subjects','studentDetails','all_subject_ids','is_result_available','record','record_id','result_setting','grades','student_detail')); 
+                            return view('backEnd.examination.studentFinalMarkSheetPrint',compact('subjects','aramiscStudentDetails','all_subject_ids','is_result_available','record','record_id','result_setting','grades','student_detail')); 
                         }
                         else{
                             Toastr::warning('Result Not Completed', 'Failed');

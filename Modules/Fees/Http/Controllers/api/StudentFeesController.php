@@ -26,7 +26,7 @@ use Modules\Fees\Http\Requests\StudentAddFeesPaymentRequest;
 
 class StudentFeesController extends Controller
 {
-    public function studentFeesList($id)
+    public function aramiscStudentFeesList($id)
     {
         $student_id = $id;
         $records = StudentRecord::where('is_promote',0)
@@ -140,7 +140,7 @@ class StudentFeesController extends Controller
         }
     }
 
-    public function studentFeesPaymentStore(StudentAddFeesPaymentRequest $request)
+    public function aramiscStudentFeesPaymentStore(StudentAddFeesPaymentRequest $request)
     {
             if($request->total_paid_amount <= 0){
                 throw ValidationException::withMessages(['paid_amount_error'=>'Paid Amount Can Not Be Blank']);

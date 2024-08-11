@@ -29,7 +29,7 @@ class DirectFeesApiController extends Controller
         if(moduleStatusCheck('University')){
            $data['feesInstallments'] = UnFeesInstallmentAssign::where('un_academic_id',$student_record->un_academic_id)->where('un_semester_label_id', $student_record->un_semester_label_id)->where('record_id', $student_record->id)->get();
         }
-        elseif(directFees()){
+        elseif(aramiscDirectFees()){
             $data['feesInstallments'] = DirectFeesInstallmentAssign::with('payments','installment')->where('academic_id',$student_record->academic_id)->where('record_id', $student_record->id)->get();
         }
         return response()->json([
@@ -49,7 +49,7 @@ class DirectFeesApiController extends Controller
         if(moduleStatusCheck('University')){
             $feesInstallments = UnFeesInstallmentAssign::where('un_academic_id',$student_record->un_academic_id)->where('un_semester_label_id', $student_record->un_semester_label_id)->where('record_id', $student_record->id)->get();
         }
-        elseif(directFees()){
+        elseif(aramiscDirectFees()){
             $feesInstallments = DirectFeesInstallmentAssign::with('payments')->where('academic_id',$student_record->academic_id)->where('record_id', $student_record->id)->get();
         }
         $data['total_amount'] = $feesInstallments->sum('amount');
@@ -73,7 +73,7 @@ class DirectFeesApiController extends Controller
             $feesInstallments = UnFeesInstallmentAssign::where('un_academic_id',$student_record->un_academic_id)->where('un_semester_label_id', $student_record->un_semester_label_id)->where('record_id', $student_record->id)->get();
             $installments = UnFeesInstallmentAssign::where('record_id', $record_id)->get();
         }
-        elseif(directFees()){
+        elseif(aramiscDirectFees()){
             $feesInstallments = DirectFeesInstallmentAssign::with('payments')->where('academic_id',$student_record->academic_id)->where('record_id', $student_record->id)->get();
             $installments = DirectFeesInstallmentAssign::where('record_id', $record_id)->get();
         }
@@ -190,7 +190,7 @@ class DirectFeesApiController extends Controller
                     $payment->child_payment_id = $new_subPayment->id;
 
                 }
-                elseif(directFees()){
+                elseif(aramiscDirectFees()){
                     $payment->class_id = $student_record->class_id;
                     $payment->section_id = $student_record->section_id;
                     $payment->record_id = $student_record->id;

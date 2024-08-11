@@ -52,7 +52,7 @@ return [
 
 "seat_plan" => "Plan de asiento",
 
-"exam_attendance" => "Asistencia al examen",
+"exam_aramiscAttendance" => "Asistencia al examen",
 
 "marks_grade" => "Notas de grado",
 
@@ -142,7 +142,7 @@ return [
 
 "exam_not_found" => "La planificación de exámenes no está disponible.",
 
-"attendance_create" => "Creación de asistencia",
+"aramiscAttendance_create" => "Creación de asistencia",
 
 "grade" => "Grado",
 
@@ -286,7 +286,7 @@ return [
 
 "question_pdf" => "Pregunta Pdf",
 
-"subject_attendance_layout" => "Diseño de asistencia",
+"subject_aramiscAttendance_layout" => "Diseño de asistencia",
 
 "published" => "Publicado",
 
@@ -396,9 +396,9 @@ return [
 
 "add_marks" => "Añadir marcas",
 
-"attendance" => "Asistencia",
+"aramiscAttendance" => "Asistencia",
 
-"save_attendance" => "Guardar asistencia",
+"save_aramiscAttendance" => "Guardar asistencia",
 
 "exam_schedule_create" => "Crear planificación de exámenes",
 
@@ -410,7 +410,7 @@ return [
 
 "delete_instruction" => "Suprimir instrucción",
 
-"exam_attendance_create" => "Creación de asistencia",
+"exam_aramiscAttendance_create" => "Creación de asistencia",
 
 "setup_exam_rule" => "Regla de examen de configuración",
 

@@ -216,13 +216,13 @@
                                                     userPermission('assign-class-teacher-edit') ?
                                                     '<a class="dropdown-item" href="'.route('assign-class-teacher-edit', [$assign_class_teacher->id]).'">'.__('common.edit').'</a>':null,
                                                     userPermission('assign-class-teacher-delete') ?
-                                                    '<a class="dropdown-item" data-toggle="modal" data-target="#deleteClassModal'.$assign_class_teacher->id.'"  href="#">'.__('common.delete').'</a>' : null,
+                                                    '<a class="dropdown-item" data-toggle="modal" data-target="#aramiscDeleteClassModal'.$assign_class_teacher->id.'"  href="#">'.__('common.delete').'</a>' : null,
                                                 ]
                                             @endphp
                                              <x-drop-down-action-component :routeList="$routeList" />
                                             </td>
                                         </tr>
-                                        <div class="modal fade admin-query" id="deleteClassModal{{@$assign_class_teacher->id}}" >
+                                        <div class="modal fade admin-query" id="aramiscDeleteClassModal{{@$assign_class_teacher->id}}" >
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

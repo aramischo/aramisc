@@ -447,10 +447,10 @@
                               $total_discount += $discount_amount;
                               $student_id = $fees_assigned->student_id;
                               //Sum of total paid amount of single fees type
-                              $paid = \App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $student->id)->sum('amount');
+                              $paid = \App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $student->id)->sum('amount');
                               $total_grand_paid += $paid;
                               //Sum of total fine for single fees type
-                            $fine = \App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $student->id)->sum('fine');
+                            $fine = \App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $student->id)->sum('fine');
                             $total_fine += $fine;
                             $total_paid = $discount_amount + $paid;
                         @endphp

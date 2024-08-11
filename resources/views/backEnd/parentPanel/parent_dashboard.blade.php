@@ -96,7 +96,7 @@
     
                                 $issueBooks = $student_detail->bookIssue;
     
-                                $homeworkLists = 0;
+                                $aramiscHomeworkLists = 0;
                                 $totalSubjects = 0;
                                 $totalOnlineExams = 0;
                                 $totalTeachers = 0;
@@ -107,11 +107,11 @@
                                 $pendingHomework = 0;
     
                                 foreach ($student_detail->studentRecords as $record) {
-                                    $homeworkLists += $record->getHomeWorkAttribute()->count();
+                                    $aramiscHomeworkLists += $record->getHomeWorkAttribute()->count();
                                     $totalSubjects += $record->getAssignSubjectAttribute()->count();
                                     $totalTeachers += $record->getStudentTeacherAttribute()->count();
                                     $totalOnlineExams += $record->getOnlineExamAttribute()->count();
-                                    $totalExams += $record->examSchedule()->count();
+                                    $totalExams += $record->aramiscExamSchedule()->count();
     
                                     foreach ($record->feesInvoice as $key => $studentInvoice) {
                                         $amount = $studentInvoice->Tamount;
@@ -121,7 +121,7 @@
                                         $sub_total = $studentInvoice->Tsubtotal;
                                         $feesDue = $amount + $fine - ($paid_amount + $weaver);
                                     }
-                                    foreach ($record->directFeesInstallments as $feesInstallment) {
+                                    foreach ($record->aramiscDirectFeesInstallments as $feesInstallment) {
                                         $balance_fees += discount_fees($feesInstallment->amount, $feesInstallment->discount_amount) - $feesInstallment->paid_amount;
                                     }
                                     foreach ($record->incidents as $incident) {
@@ -129,7 +129,7 @@
                                     }
                                 }
     
-                                $attendances = $student_detail->studentAttendances->where('academic_id', generalSetting()->session_id);
+                                $aramiscAttendances = $student_detail->studentAttendances->where('academic_id', generalSetting()->session_id);
                             @endphp
                         </div>
                     </div>
@@ -254,8 +254,8 @@
                                                 <p class="mb-0">@lang('parent.total_pending_home_work')</p>
                                             </div>
                                             <h1 class="gradient-color2">
-                                                @if (isset($homeworkLists))
-                                                    {{ $homeworkLists }}
+                                                @if (isset($aramiscHomeworkLists))
+                                                    {{ $aramiscHomeworkLists }}
                                                 @endif
                                             </h1>
                                         </div>
@@ -263,18 +263,18 @@
                                 </a>
                             </div>
                         @endif
-                        @if (userPermission('parent-dashboard-attendance-in-current-month'))
+                        @if (userPermission('parent-dashboard-aramiscAttendance-in-current-month'))
                             <div class="col-lg-3 col-md-6">
-                                <a href="{{ route('parent_attendance', $children->id) }}" class="d-block">
+                                <a href="{{ route('parent_aramiscAttendance', $children->id) }}" class="d-block">
                                     <div class="white-box single-summery fuchsia">
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <h3>@lang('parent.attendance_in_current_month')</h3>
-                                                <p class="mb-0">@lang('parent.total_attendance_in_current_month')</p>
+                                                <h3>@lang('parent.aramiscAttendance_in_current_month')</h3>
+                                                <p class="mb-0">@lang('parent.total_aramiscAttendance_in_current_month')</p>
                                             </div>
                                             <h1 class="gradient-color2">
-                                                @if (isset($attendances))
-                                                    {{ count($attendances) }}
+                                                @if (isset($aramiscAttendances))
+                                                    {{ count($aramiscAttendances) }}
                                                 @endif
                                             </h1>
                                         </div>
@@ -495,17 +495,17 @@
                 @endif
                 </div>
 
-                @if (userPermission('parent_attendance'))
+                @if (userPermission('parent_aramiscAttendance'))
                     <div class="row mt-40">
                         @php
                             $now = Carbon::now();
                             $year = $now->year;
                             $month = $now->month;
                             $days = cal_days_in_month(CAL_GREGORIAN, $now->month, $now->year);
-                            $attendance = $children->attendances;
+                            $aramiscAttendance = $children->aramiscAttendances;
                         @endphp
-                        @include('backEnd.parentPanel.inc._parent_dashboard_attendance_statistics')
-                        @include('backEnd.parentPanel.inc._dashboard_subject_attendance_tab')
+                        @include('backEnd.parentPanel.inc._parent_dashboard_aramiscAttendance_statistics')
+                        @include('backEnd.parentPanel.inc._dashboard_subject_aramiscAttendance_tab')
                     </div>
                 @endif
                 

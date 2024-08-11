@@ -50,8 +50,8 @@
                                 id="tab{{ $key }}">
                                 @if (moduleStatusCheck('University'))
                                     @includeIf('university::include.studentPanelFeesPay')
-                                @elseif(directFees())
-                                    @includeIf('backEnd.feesCollection.directFees.studentDirectFeesPay')
+                                @elseif(aramiscDirectFees())
+                                    @includeIf('backEnd.feesCollection.aramiscDirectFees.studentDirectFeesPay')
                                 @else
                                     <x-table>
                                         <table class="table school-table-style-parent-fees" cellspacing="0"
@@ -282,7 +282,7 @@
                                                                                     ->first();
                                                                             @endphp
                                                                             @if (moduleStatusCheck('XenditPayment') == true && $balance_amount != 0 and $is_active)
-                                                                                <form action="{!! route('xenditpayment.feesPayment') !!}"
+                                                                                <form action="{!! route('xenditpayment.aramiscFeesPayment') !!}"
                                                                                     method="POST"
                                                                                     style="width: 100%; text-align: center">
                                                                                     @csrf
@@ -347,7 +347,7 @@
                                                                                     ->first();
                                                                             @endphp
                                                                             @if (moduleStatusCheck('Raudhahpay') == true && $balance_amount != 0 and $is_active)
-                                                                                <form action="{!! route('raudhahpay.feesPayment') !!}"
+                                                                                <form action="{!! route('raudhahpay.aramiscFeesPayment') !!}"
                                                                                     method="POST"
                                                                                     style="width: 100%; text-align: center">
                                                                                     @csrf
@@ -431,7 +431,7 @@
                                                                                        @if(serviceCharge('CcAveune'))
                                                                                            data-toggle="tooltip" data-title = "{{ __('common.service charge for per transaction ') }} {{ serviceCharge('CcAveune') }}"
                                                                                        @endif
-                                                                                       href="{{route('studentFeesPay-ccaveune',[$balance_amount, $fees_assigned->id,'oldFees'])}}" >
+                                                                                       href="{{route('aramiscStudentFeesPay-ccaveune',[$balance_amount, $fees_assigned->id,'oldFees'])}}" >
                                                                                            @lang('fees.pay_with_CcAveune')
                                                                                            {{ serviceCharge('CcAveune') ? '+'.serviceCharge('CcAveune') : '' }}
                                                                                     </a>
@@ -589,7 +589,7 @@
                                                         </td>
                                                     </tr>
                                                     @php
-                                                        $payments = App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
+                                                        $payments = App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
                                                         $i = 0;
                                                     @endphp
                                                     @foreach ($payments as $payment)

@@ -46,8 +46,8 @@
                             <div class="table-responsive">
                                 @if(moduleStatusCheck('University'))
                                 @includeIf('university::include.studentPanelFeesPay')
-                                @elseif(directFees())
-                                @includeIf('backEnd.feesCollection.directFees.studentDirectFeesPay')
+                                @elseif(aramiscDirectFees())
+                                @includeIf('backEnd.feesCollection.aramiscDirectFees.studentDirectFeesPay')
                                 @else
                                 <x-table>
                                     <table id="" class="table school-table-style-parent-fees" cellspacing="0" width="100%">
@@ -94,13 +94,13 @@
                                            @endphp
                                            @php
                                                //Sum of total paid amount of single fees type
-                                               $paid = App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id,$fees_assigned->record_id)->sum('amount');
+                                               $paid = App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id,$fees_assigned->record_id)->sum('amount');
 
                                                @$total_grand_paid += @$paid
                                            @endphp
                                            @php
                                                //Sum of total fine for single fees type
-                                               $fine = App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id,$fees_assigned->record_id)->sum('fine');
+                                               $fine = App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id,$fees_assigned->record_id)->sum('fine');
 
                                                @$total_fine += $fine
                                            @endphp
@@ -163,7 +163,7 @@
                                                            <div class="dropdown-menu dropdown-menu-right">
                                                                <!--  Start Xendit Payment -->
                                                                    @if( (moduleStatusCheck('XenditPayment') == TRUE) && ($balance_amount != 0) )
-                                                                       <form action="{!!route('xenditpayment.feesPayment')!!}" method="POST" style="width: 100%; text-align: center">
+                                                                       <form action="{!!route('xenditpayment.aramiscFeesPayment')!!}" method="POST" style="width: 100%; text-align: center">
                                                                            @csrf
                                                                            
                                                                            <input type="hidden" name="fees_type_id" id="fees_type_id" value="{{$fees_assigned->feesGroupMaster->fees_type_id}}">
@@ -348,7 +348,7 @@
                                                                            @if(serviceCharge('CcAveune'))
                                                                                data-toggle="tooltip" data-title = "{{ __('common.service charge for per transaction ') }} {{ serviceCharge('CcAveune') }}"
                                                                            @endif
-                                                                           href="{{route('studentFeesPay-ccaveune',[$balance_amount, $fees_assigned->id,'oldFees'])}}" >
+                                                                           href="{{route('aramiscStudentFeesPay-ccaveune',[$balance_amount, $fees_assigned->id,'oldFees'])}}" >
                                                                                @lang('fees.pay_with_CcAveune')
                                                                                {{ serviceCharge('CcAveune') ? '+'.serviceCharge('CcAveune') : '' }}
                                                                         </a>
@@ -368,7 +368,7 @@
                                                                                        ->first();
                                                                        @endphp
 
-                                                                                <form method="POST" action="{{ route('studentFeesPay-PhonePe') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                                                <form method="POST" action="{{ route('aramiscStudentFeesPay-PhonePe') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
                                                                                     @csrf
                                                                                     <input type="hidden" name="assign_id" id="assign_id" value="{{$fees_assigned->id}}">
                                                                                     <input type="hidden" name="amount" id="real_amount" value="{{$balance_amount}}">
@@ -497,7 +497,7 @@
                                                                <!-- Start Raudhahpay Payment  -->
                                                                    @if((moduleStatusCheck('Raudhahpay') == TRUE)  && ($balance_amount > 0))
                                                                        
-                                                                       <form id="xend-footer-form_{{$count}}" action="{!!route('raudhahpay.feesPayment')!!}" method="POST" style="width: 100%; text-align: center">
+                                                                       <form id="xend-footer-form_{{$count}}" action="{!!route('raudhahpay.aramiscFeesPayment')!!}" method="POST" style="width: 100%; text-align: center">
                                                                            @csrf
                                                                            <input type="hidden" name="amount" id="amount" value="{{$balance_amount}}"/>
                                                                            <input type="hidden" name="assign_id" id="assign_id" value="{{$fees_assigned->id}}">
@@ -527,7 +527,7 @@
                                            </tr>
 
                                            @php
-                                               @$payments =$student->feesPayment->where('active_status', 1)
+                                               @$payments =$student->aramiscFeesPayment->where('active_status', 1)
                                                            ->where('record_id',$fees_assigned->record_id)
                                                            ->where('fees_type_id',$fees_assigned->feesGroupMaster->feesTypes->id);
                                                $i = 0;

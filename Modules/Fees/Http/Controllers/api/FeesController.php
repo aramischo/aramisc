@@ -649,7 +649,7 @@ class FeesController extends Controller
 
     }
 
-    public function feesPaymentStore(FeesPaymentRequest $request)
+    public function aramiscFeesPaymentStore(FeesPaymentRequest $request)
     {
         // if ($request->total_paid_amount == null) {
         //     Toastr::warning('Paid Amount Can Not Be Blank', 'Failed');
@@ -867,14 +867,14 @@ class FeesController extends Controller
             ->where('school_id', auth()->user()->school_id)
             ->get();
 
-        $feesPayments = FmFeesTransaction::with('feeStudentInfo', 'transcationDetails', 'transcationDetails.transcationFeesType')
+        $aramiscFeesPayments = FmFeesTransaction::with('feeStudentInfo', 'transcationDetails', 'transcationDetails.transcationFeesType')
             ->where('paid_status', 0)
             ->whereIn('payment_method', ['Bank', 'Cheque'])
             ->where('school_id', auth()->user()->school_id)
             ->where('academic_id', getAcademicId())
             ->get();
 
-        return response()->json(compact('classes', 'feesPayments'));
+        return response()->json(compact('classes', 'aramiscFeesPayments'));
     }
 
     public function searchBankPayment(BankFeesPayment $request)
@@ -907,7 +907,7 @@ class FeesController extends Controller
                 ->unique();
 
 
-            $feesPayments = FmFeesTransaction::with('feeStudentInfo', 'transcationDetails', 'transcationDetails.transcationFeesType')
+            $aramiscFeesPayments = FmFeesTransaction::with('feeStudentInfo', 'transcationDetails', 'transcationDetails.transcationFeesType')
                 ->when($request->approve_status, function ($query) use ($request) {
                     $query->where('paid_status', $request->approve_status);
                 })
@@ -931,7 +931,7 @@ class FeesController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->get();
 
-            return response()->json(compact('classes', 'feesPayments','class_id','section_id','class'));
+            return response()->json(compact('classes', 'aramiscFeesPayments','class_id','section_id','class'));
         } catch (\Exception $e) {
             return response()->json(['Message'=>'Error']);
         }

@@ -37,14 +37,14 @@ class ApiSmStudentController extends Controller
             ->where('school_id', auth()->user()->school_id)
             ->distinct('student_id')->pluck('student_id')->toArray();
 
-        $studentDetails = SmStudent::whereIn('id', $student_ids)
+        $aramiscStudentDetails = SmStudent::whereIn('id', $student_ids)
             ->when($request->name, function ($q) use ($request) {
                 $q->where('full_name', 'like', '%' . $request->name . '%');
             })->get();
         // ->select('sm_students.id', 'student_photo', 'full_name', 'roll_no', 'user_id');
 
         $students = [];
-        foreach ($studentDetails as $student) {
+        foreach ($aramiscStudentDetails as $student) {
 
             $class_sec = [];
             foreach ($student->studentRecords as $classSec) {
@@ -73,7 +73,7 @@ class ApiSmStudentController extends Controller
             $students[] = $data;
         }
 
-        if (count($studentDetails)) {
+        if (count($aramiscStudentDetails)) {
             $msg = "Student Found";
         } else {
             $msg = "Student Not Found";
@@ -101,13 +101,13 @@ class ApiSmStudentController extends Controller
             ->where('school_id', $school_id)
             ->distinct('student_id')->pluck('student_id')->toArray();
 
-        $studentDetails = SmStudent::whereIn('id', $student_ids)
+        $aramiscStudentDetails = SmStudent::whereIn('id', $student_ids)
             ->when($request->name, function ($q) use ($request) {
                 $q->where('full_name', 'like', '%' . $request->name . '%');
             })->withOutGlobalScope(SchoolScope::class)->get();
 
         $students = [];
-        foreach ($studentDetails as $student) {
+        foreach ($aramiscStudentDetails as $student) {
             $class_sec = [];
             foreach ($student->studentRecords as $classSec) {
                 
@@ -124,7 +124,7 @@ class ApiSmStudentController extends Controller
             $students[] = $data;
         }
     
-        if (count($studentDetails)) {
+        if (count($aramiscStudentDetails)) {
             $msg = "Student Found";
         } else {
             $msg = "Student Not Found";

@@ -149,12 +149,12 @@
                                             </div>
                                             <div>
                                                 {{-- <img class="report-admit-img" src="{{asset('public/uploads/staff/std1.jpg')}}" alt=""> --}}
-                                                <img class="report-admit-img" src="{{asset($studentDetails->student_photo)}}" width="100" height="100" alt="">
+                                                <img class="report-admit-img" src="{{asset($aramiscStudentDetails->student_photo)}}" width="100" height="100" alt="">
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <div>
-                                                <h3>{{  $studentDetails->full_name }}</h3>
+                                                <h3>{{  $aramiscStudentDetails->full_name }}</h3>
                                                 
                                                 <div class="row">
                                                     <div class="col-lg-3">
@@ -162,7 +162,7 @@
                                                             @lang('common.academic_year') : <span class="primary-color fw-500">{{generalSetting()->session_year}}</span>
                                                         </p>
                                                         <p class="mb-0">
-                                                                @lang('student.roll') : <span class="primary-color fw-500">{{$studentDetails->roll_no}}</span>
+                                                                @lang('student.roll') : <span class="primary-color fw-500">{{$aramiscStudentDetails->roll_no}}</span>
                                                             </p>
 
                                                         {{-- <p class="mb-0">
@@ -173,13 +173,13 @@
 
                                                     <div class="col-lg-3">
                                                         <p class="mb-0">
-                                                            @lang('common.class') : <span class="primary-color fw-500">{{ $studentDetails->class_name }}</span>
+                                                            @lang('common.class') : <span class="primary-color fw-500">{{ $aramiscStudentDetails->class_name }}</span>
                                                         </p>
                                                         <p class="mb-0">
-                                                                @lang('student.admission_no') : <span class="primary-color fw-500">{{$studentDetails->admission_no}}</span>
+                                                                @lang('student.admission_no') : <span class="primary-color fw-500">{{$aramiscStudentDetails->admission_no}}</span>
                                                             </p>
                                                         {{-- <p class="mb-0">
-                                                            @lang('common.section') : <span class="primary-color fw-500">{{ $studentDetails->section_name }}</span>
+                                                            @lang('common.section') : <span class="primary-color fw-500">{{ $aramiscStudentDetails->section_name }}</span>
                                                         </p> --}}
 
                                                         
@@ -187,7 +187,7 @@
 
                                                     <div class="col-lg-3">
                                                             <p class="mb-0">
-                                                                    @lang('common.section') : <span class="primary-color fw-500">{{ $studentDetails->section_name }}</span>
+                                                                    @lang('common.section') : <span class="primary-color fw-500">{{ $aramiscStudentDetails->section_name }}</span>
                                                                 </p>
                                                    
                                                         {{-- <p class="mb-0">

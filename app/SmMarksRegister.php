@@ -68,10 +68,10 @@ class SmMarksRegister extends Model
                     ->where('subject_id', $subject_id)
                     ->first();
 
-            $exam_attendance = SmExamAttendance::where('exam_id', $exam->id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
-            if ($exam_attendance) {
-                $exam_attendance_child = SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->where('student_id', $student_id)->where('student_record_id', $record_id)->first();
-                return $exam_attendance_child;
+            $exam_aramiscAttendance = SmExamAttendance::where('exam_id', $exam->id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
+            if ($exam_aramiscAttendance) {
+                $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->where('student_id', $student_id)->where('student_record_id', $record_id)->first();
+                return $exam_aramiscAttendance_child;
             }
             return null;
     }
@@ -79,15 +79,15 @@ class SmMarksRegister extends Model
     public static function un_is_absent_check($exam_id, $request, $subject_id, $student_id, $record_id)
     {
         $SmExamAttendance = SmExamAttendance::query();
-        $exam_attendance = universityFilter($SmExamAttendance, $request)
+        $exam_aramiscAttendance = universityFilter($SmExamAttendance, $request)
                             ->where('exam_id', $exam_id)
                             ->where('un_subject_id', $subject_id)
                             ->orWhereNull('un_section_id')
                             ->first();
                           
        
-            if ($exam_attendance) {
-                return SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)
+            if ($exam_aramiscAttendance) {
+                return SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)
                     ->where('student_id', $student_id)
                     ->where('student_record_id', $record_id)
                     ->first();

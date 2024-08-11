@@ -87,7 +87,7 @@
                                             </div>
                                             <div>
                                                 {{-- <img class="report-admit-img" src="{{asset('public/uploads/staff/std1.jpg')}}" alt=""> --}}
-                                                <img class="report-admit-img" src="{{asset($studentDetails->student_photo)}}" width="100" height="100" alt="">
+                                                <img class="report-admit-img" src="{{asset($aramiscStudentDetails->student_photo)}}" width="100" height="100" alt="">
                                             </div>
                                         </div> 
                                         <div class="card-body">
@@ -100,23 +100,23 @@
                                                 </div>
                                                 <div class="row mt-20">
                                                     <div class="col-lg-6">
-                                                        <strong>@lang('common.name'):</strong> {{ $studentDetails->full_name }}
+                                                        <strong>@lang('common.name'):</strong> {{ $aramiscStudentDetails->full_name }}
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <strong>@lang('reports.transcript_none'):</strong> {{ $studentDetails->admission_number }}
+                                                        <strong>@lang('reports.transcript_none'):</strong> {{ $aramiscStudentDetails->admission_number }}
                                                     </div>
                                                 </div>
                                                 <div class="row mt-20">
 
                                                     <div class="col-lg-6">
                                                         @php
-                                                            $mother=App\SmStudent::where('sm_students.id',$studentDetails->student_id)->join('sm_parents','sm_parents.id','=','sm_students.parent_id')->first();
+                                                            $mother=App\SmStudent::where('sm_students.id',$aramiscStudentDetails->student_id)->join('sm_parents','sm_parents.id','=','sm_students.parent_id')->first();
                                                         @endphp
                                                         <strong>@lang('student.mother_name'):</strong> {{ $mother->mothers_name }}
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <strong>@lang('common.date_of_birth'):</strong>
-                                                        {{ $studentDetails->date_of_birth != ""? dateConvert($studentDetails->date_of_birth):''}}
+                                                        {{ $aramiscStudentDetails->date_of_birth != ""? dateConvert($aramiscStudentDetails->date_of_birth):''}}
                                                     </div>
                                                 </div>
                                                 
@@ -126,10 +126,10 @@
 
                                                 <div class="row  mt-40 ">
                                                     <div class="offset-md-2 col-lg-4">
-                                                        <strong>@lang('common.name'):</strong> {{ $studentDetails->full_name }}<br>
+                                                        <strong>@lang('common.name'):</strong> {{ $aramiscStudentDetails->full_name }}<br>
                                                         <strong>@lang('common.class'):</strong> {{ $current_class->class_name }}<br>
                                                         <strong>@lang('common.section') :</strong> {{ $current_section->section_name }}<br>
-                                                        <strong>@lang('student.admission_no'):</strong> {{ $studentDetails->admission_number }}<br>
+                                                        <strong>@lang('student.admission_no'):</strong> {{ $aramiscStudentDetails->admission_number }}<br>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <strong>@lang('reports.transcript_none'):</strong> 23423423<br>
@@ -139,14 +139,14 @@
 
                                                 </div>
 
-                                                        @foreach ($promotes as $studentDetails)     
+                                                        @foreach ($promotes as $aramiscStudentDetails)     
                                                         
                                                         @php
                                                             
-                                                            $student_id = $studentDetails->student_id;
-                                                            $class_id = $studentDetails->previous_class_id;
-                                                            $section_id = $studentDetails->previous_section_id;
-                                                            $year = $studentDetails->year;
+                                                            $student_id = $aramiscStudentDetails->student_id;
+                                                            $class_id = $aramiscStudentDetails->previous_class_id;
+                                                            $section_id = $aramiscStudentDetails->previous_section_id;
+                                                            $year = $aramiscStudentDetails->year;
 
                                                             $current_class = App\SmStudent::where('sm_students.id', $student_id)->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')->first();
                                                             $current_section = App\SmStudent::where('sm_students.id', $student_id)->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')->first();
@@ -198,7 +198,7 @@
                                                         {{ $exam->title }}
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <strong>@lang('student.roll'):</strong> {{ $studentDetails->previous_roll_number }}
+                                                        <strong>@lang('student.roll'):</strong> {{ $aramiscStudentDetails->previous_roll_number }}
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <strong>@lang('common.class'):</strong> 

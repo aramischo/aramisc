@@ -72,7 +72,7 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-4 order-3 order-md-1 text-center text-md-start">
-                    <img src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                    <img src="{{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
                         class="student_photo" alt="">
                 </div>
                 <div
@@ -337,10 +337,10 @@
                                     <td width="5%">{{ @$grade_details->grade_name }}</td>
                                     <td width="15%">@lang('reports.status')</td>
                                     <td width="15%">{{ @$grade_details->description }}</td>
-                                    <td width="15%">@lang('reports.attendance')</td>
+                                    <td width="15%">@lang('reports.aramiscAttendance')</td>
                                     @if (isset($exam_content))
                                         <td width="15%">
-                                            {{ @$student_attendance }}
+                                            {{ @$student_aramiscAttendance }}
                                             @lang('reports.of')
                                             {{ @$total_class_days }}
                                         </td>

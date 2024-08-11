@@ -112,7 +112,7 @@ else{ $currency = '$'; }
                                                 <tr>
                                                     <td>
                                                         {{$student->studentDetail->full_name}} 
-                                                        <input type="hidden" name="studentFeesInfo[{{$key}}][student_id]" value="{{$student->student_id}}">
+                                                        <input type="hidden" name="aramiscStudentFeesInfo[{{$key}}][student_id]" value="{{$student->student_id}}">
                                                     </td>
                                                     <td>{{$student->studentDetail->admission_no}}</td>
                                                     <td>{{$student->studentDetail->roll_no}}</td>
@@ -120,12 +120,12 @@ else{ $currency = '$'; }
                                                     <td>{{$student->studentDetail->parents !=""?$student->studentDetail->parents->fathers_name:""}}</td>
                                                     <td>
                                                         <div class="primary_input">
-                                                            <input oninput="numberCheckWithDot(this)" type="text" class="primary_input_field form-control" cols="0" rows="1" name="studentFeesInfo[{{$key}}][balance]" maxlength="8" value="{{isset($student->studentDetail->forwardBalance->balance)? (($student->studentDetail->forwardBalance->balance_type == 'add') ? '+'.$student->studentDetail->forwardBalance->balance : '-'.$student->studentDetail->forwardBalance->balance ) : ''}}">
+                                                            <input oninput="numberCheckWithDot(this)" type="text" class="primary_input_field form-control" cols="0" rows="1" name="aramiscStudentFeesInfo[{{$key}}][balance]" maxlength="8" value="{{isset($student->studentDetail->forwardBalance->balance)? (($student->studentDetail->forwardBalance->balance_type == 'add') ? '+'.$student->studentDetail->forwardBalance->balance : '-'.$student->studentDetail->forwardBalance->balance ) : ''}}">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="primary_input">
-                                                            <input type="text" class="primary_input_field form-control" cols="0" rows="1" name="studentFeesInfo[{{$key}}][notes]" 
+                                                            <input type="text" class="primary_input_field form-control" cols="0" rows="1" name="aramiscStudentFeesInfo[{{$key}}][notes]" 
                                                             value="{{isset($student->studentDetail->forwardBalance->notes)? $student->studentDetail->forwardBalance->notes: $settings->title}}">
                                                         </div>
                                                     </td>
@@ -137,7 +137,7 @@ else{ $currency = '$'; }
                                                                         <div class="">
                                                                             <input 
                                                                                 class="primary_input_field primary_input_field date form-control"
-                                                                                id="startDate{{ $key }}" type="text" name="studentFeesInfo[{{$key}}][due_date]" value="{{isset($student->studentDetail->forwardBalance->due_date)? \Carbon\Carbon::parse($student->studentDetail->forwardBalance->due_date)->format('m/d/Y') : \Carbon\Carbon::now()->addDays($settings->fees_due_days)->format('m/d/Y')}}" autocomplete="off">
+                                                                                id="startDate{{ $key }}" type="text" name="aramiscStudentFeesInfo[{{$key}}][due_date]" value="{{isset($student->studentDetail->forwardBalance->due_date)? \Carbon\Carbon::parse($student->studentDetail->forwardBalance->due_date)->format('m/d/Y') : \Carbon\Carbon::now()->addDays($settings->fees_due_days)->format('m/d/Y')}}" autocomplete="off">
                                                                         </div>
                                                                     </div>
                                                                     <button class="btn-date" data-id="#startDate" type="button">

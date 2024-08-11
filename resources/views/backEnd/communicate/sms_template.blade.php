@@ -180,13 +180,13 @@
                                 <div class="row mt-25">
                                     <div class="col-lg-12">
                                         <div class="primary_input">
-                                            <label class="primary_input_label" for="">@lang('communicate.attendance_sms') <span></span></label>
-                                            <textarea class="primary_input_field form-control{{ $errors->has('attendance_sms') ? ' is-invalid' : '' }}" cols="0" rows="2" name="attendance_sms" maxlength="500">{{isset($template)? $template->attendance_sms: old('attendance_sms')}}</textarea>
+                                            <label class="primary_input_label" for="">@lang('communicate.aramiscAttendance_sms') <span></span></label>
+                                            <textarea class="primary_input_field form-control{{ $errors->has('aramiscAttendance_sms') ? ' is-invalid' : '' }}" cols="0" rows="2" name="aramiscAttendance_sms" maxlength="500">{{isset($template)? $template->aramiscAttendance_sms: old('aramiscAttendance_sms')}}</textarea>
                                            
                                             
 
-                                            @if($errors->has('attendance_sms'))
-                                                <span class="error text-danger">{{ $errors->first('attendance_sms') }}</span>
+                                            @if($errors->has('aramiscAttendance_sms'))
+                                                <span class="error text-danger">{{ $errors->first('aramiscAttendance_sms') }}</span>
                                             @endif
                                         </div>
                                     </div>
@@ -195,7 +195,7 @@
                                 <div class="row mt-25">
                                     <div class="col-lg-12">
                                         <div class="primary_input">
-                                            <label class="primary_input_label" for="">@lang('communicate.late_attendance_sms') <span></span></label>
+                                            <label class="primary_input_label" for="">@lang('communicate.late_aramiscAttendance_sms') <span></span></label>
                                             <textarea class="primary_input_field form-control{{ $errors->has('late_sms') ? ' is-invalid' : '' }}" cols="0" rows="2" name="late_sms" maxlength="500">{{isset($template)? $template->late_sms: old('late_sms')}}</textarea>
                                           
                                             
@@ -210,7 +210,7 @@
                                 <div class="row mt-25">
                                     <div class="col-lg-12">
                                         <div class="primary_input">
-                                            <label class="primary_input_label" for="">@lang('communicate.student_absent_attendance_sms') <span></span></label>
+                                            <label class="primary_input_label" for="">@lang('communicate.student_absent_aramiscAttendance_sms') <span></span></label>
                                             
                                             <textarea class="primary_input_field form-control{{ $errors->has('absent') ? ' is-invalid' : '' }}" cols="0" rows="2" name="absent" maxlength="500">{{isset($template)? $template->absent: old('absent')}}</textarea>
                                           

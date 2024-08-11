@@ -31,7 +31,7 @@ class FeesDueCheckMiddleware
                     $due_date = @$due_fees->due_date;       
                 }
             
-                elseif(generalSetting()->fees_status == 0 && directFees()){
+                elseif(generalSetting()->fees_status == 0 && aramiscDirectFees()){
                     $due_installment = DirectFeesInstallmentAssign::where('active_status','!=',1)->where('academic_id',getAcademicId())->where('student_id', auth()->user()->student->id)->orderBy('due_date', 'desc')->first();
                     $due_date = @$due_installment->due_date;
                 }
@@ -41,8 +41,8 @@ class FeesDueCheckMiddleware
                         return $q->orderBy('date', 'desc');
                     })->get();
                     foreach($all_fees as $assign_fees){
-                        $paid = SmFeesAssign::feesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('amount');
-                        $fine = SmFeesAssign::feesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('fine');
+                        $paid = SmFeesAssign::aramiscFeesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('amount');
+                        $fine = SmFeesAssign::aramiscFeesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('fine');
                         $total_paid = $assign_fees->applied_discount + $paid ;
                         $total_payable_amount = $assign_fees->feesGroupMaster->amount;
                         $rest_amount = $assign_fees->feesGroupMaster->amount - $total_paid;
@@ -73,7 +73,7 @@ class FeesDueCheckMiddleware
                     }
                     
                 }
-                elseif(generalSetting()->fees_status == 0 && directFees()){
+                elseif(generalSetting()->fees_status == 0 && aramiscDirectFees()){
                     foreach($student_ids as $student_id){
                         $due_installment = DirectFeesInstallmentAssign::where('active_status','!=',1)->where('academic_id',getAcademicId())->where('student_id', $student_id)->orderBy('due_date', 'desc')->first();
                         if($due_installment &&  $now > $due_installment->due_date){
@@ -90,8 +90,8 @@ class FeesDueCheckMiddleware
                         })->get();
 
                         foreach($all_fees as $assign_fees){
-                            $paid = SmFeesAssign::feesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('amount');
-                            $fine = SmFeesAssign::feesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('fine');
+                            $paid = SmFeesAssign::aramiscFeesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('amount');
+                            $fine = SmFeesAssign::aramiscFeesPayment($assign_fees->feesGroupMaster->feesTypes->id,$assign_fees->student_id,$assign_fees->record_id)->sum('fine');
                             $total_paid = $assign_fees->applied_discount + $paid ;
                             $total_payable_amount = $assign_fees->feesGroupMaster->amount;
                             $rest_amount = $assign_fees->feesGroupMaster->amount - $total_paid;

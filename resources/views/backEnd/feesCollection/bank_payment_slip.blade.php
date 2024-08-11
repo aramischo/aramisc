@@ -159,7 +159,7 @@
                                                 <th>@lang('student.student_name')</th>
                                                 @if(moduleStatusCheck('University'))
                                                 <th>@lang('university::un.installment')</th>
-                                                @elseif(directFees())
+                                                @elseif(aramiscDirectFees())
                                                 <th>@lang('fees.installment')</th>
                                                 @else
                                                 <th>@lang('fees.fees_type')</th>
@@ -301,7 +301,7 @@ $(document).ready(function() {
                        {data: 'student_info.full_name', name: 'student_name'},
                        @if(moduleStatusCheck('University'))
                        {data: 'installment_assign.installment.title', name: 'title'},
-                       @elseif (directFees())
+                       @elseif (aramiscDirectFees())
                        {data: 'installment_assign.installment.title', name: 'title'},
                        @else 
                        {data: 'fees_type.name', name: 'fees_type'},

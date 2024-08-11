@@ -116,7 +116,7 @@ class SmAssignSubjectController extends Controller
         }
     }
 
-    public function assignSubjectAjax(Request $request)
+    public function aramiscAssignSubjectAjax(Request $request)
     {
 
         try {
@@ -132,7 +132,7 @@ class SmAssignSubjectController extends Controller
         }
     }
 
-    public function assignSubjectStore(Request $request)
+    public function aramiscAssignSubjectStore(Request $request)
     {
         try {
             if ($request->subjects && $request->teachers && is_null($request->subjects[0]) && is_null($request->teachers[0])) {
@@ -251,7 +251,7 @@ class SmAssignSubjectController extends Controller
         }
     }
 
-    public function assignSubjectFind(Request $request)
+    public function aramiscAssignSubjectFind(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [

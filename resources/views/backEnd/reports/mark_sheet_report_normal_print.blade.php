@@ -578,7 +578,7 @@
                                 @if(resultPrintStatus('image'))
                                     <div class="profile_thumb profile_100">
                                         <img class="report-admit-img"
-                                             src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                             src="{{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
                                              alt="{{ $student_detail->studentDetail->full_name }}" width="100"
                                              height="100">
                                     </div>
@@ -865,8 +865,8 @@
             <table class="table border_table gray_header_table mb_30 max-width-400 ml_auto margin-auto report_table @if(resultPrintStatus('vertical_boarder')) mt_40 @endif">
                 <tbody>
                 <tr>
-                    <td>@lang('exam.attendance')</td>
-                    <td>{{@$student_attendance}} @lang('exam.of') {{@$total_class_days}}</td>
+                    <td>@lang('exam.aramiscAttendance')</td>
+                    <td>{{@$student_aramiscAttendance}} @lang('exam.of') {{@$total_class_days}}</td>
                     <td>@lang('exam.total_mark')</td>
                     <td>{{@$total_mark}}</td>
                 </tr>

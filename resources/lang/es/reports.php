@@ -314,7 +314,7 @@ return [
 
 "exam_terms" => "Términos del examen",
 
-"attendance" => "Asistencia",
+"aramiscAttendance" => "Asistencia",
 
 "date_&_day" => "Fecha y día",
 

@@ -25,17 +25,17 @@
 @endpush
 @section('mainContent')
 @section('title') 
-@lang('student.subject_wise_attendance')
+@lang('student.subject_wise_aramiscAttendance')
 @endsection
 <link rel="stylesheet" href="{{asset('public/backEnd/css/login_access_control.css')}}"/>
 <section class="sms-breadcrumb mb-20 up_breadcrumb">
     <div class="container-fluid">
         <div class="row justify-content-between">
-            <h1>@lang('student.student_attendance')</h1>
+            <h1>@lang('student.student_aramiscAttendance')</h1>
             <div class="bc-pages">
                 <a href="{{route('dashboard')}}">@lang('common.dashboard')</a>
                 <a href="#">@lang('student.student_information')</a>
-                <a href="#">@lang('student.student_attendance')</a>
+                <a href="#">@lang('student.student_aramiscAttendance')</a>
             </div>
         </div>
     </div>
@@ -54,13 +54,13 @@
                     </div>
                 </div>
                 {{-- <div class="col-lg-6 col-md-6">
-                    <a href="{{url('student-attendance-import')}}" class="primary-btn small fix-gr-bg pull-right"><span class="ti-plus pr-2"></span>Import Attendance</a>
+                    <a href="{{url('student-aramiscAttendance-import')}}" class="primary-btn small fix-gr-bg pull-right"><span class="ti-plus pr-2"></span>Import Attendance</a>
                 </div> --}}
             </div>
             <div class="row">
                 <div class="col-lg-12">  
                     <div class="white-box">
-                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'subject-attendance-search', 'method' => 'GET', 'enctype' => 'multipart/form-data', 'id' => 'search_studentA']) }}
+                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'subject-aramiscAttendance-search', 'method' => 'GET', 'enctype' => 'multipart/form-data', 'id' => 'search_studentA']) }}
                             <div class="row">
                                 <input type="hidden" name="url" id="url" value="{{URL::to('/')}}"> 
                                 @if(moduleStatusCheck('University'))
@@ -69,14 +69,14 @@
                                 <div class="row no-gutters input-right-icon">
                                     <div class="col">
                                         <div class="primary_input">
-                                            <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('attendance_date') ? ' is-invalid' : '' }} {{isset($date)? 'read-only-input': ''}}" id="startDate" type="text"
-                                                name="attendance_date" autocomplete="off" value="{{isset($date)? $date: date('m/d/Y')}}">
-                                            <label for="startDate">@lang('student.attendance_date')<span class="text-danger"> *</span></label>
+                                            <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('aramiscAttendance_date') ? ' is-invalid' : '' }} {{isset($date)? 'read-only-input': ''}}" id="startDate" type="text"
+                                                name="aramiscAttendance_date" autocomplete="off" value="{{isset($date)? $date: date('m/d/Y')}}">
+                                            <label for="startDate">@lang('student.aramiscAttendance_date')<span class="text-danger"> *</span></label>
                                             
 
-                                            @if ($errors->has('attendance_date'))
+                                            @if ($errors->has('aramiscAttendance_date'))
                                             <span class="text-danger custom-error-message" role="alert">
-                                                {{ $errors->first('attendance_date') }}
+                                                {{ $errors->first('aramiscAttendance_date') }}
                                             </span>
                                             @endif
                                         </div>
@@ -124,14 +124,14 @@
                                 <div class="row no-gutters input-right-icon">
                                     <div class="col">
                                         <div class="primary_input">
-                                            <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('attendance_date') ? ' is-invalid' : '' }} {{isset($date)? 'read-only-input': ''}}" id="startDate" type="text"
-                                                name="attendance_date" autocomplete="off" value="{{isset($date)? $date: date('m/d/Y')}}">
-                                            <label for="startDate">@lang('student.attendance_date')<span class="text-danger"> *</span></label>
+                                            <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('aramiscAttendance_date') ? ' is-invalid' : '' }} {{isset($date)? 'read-only-input': ''}}" id="startDate" type="text"
+                                                name="aramiscAttendance_date" autocomplete="off" value="{{isset($date)? $date: date('m/d/Y')}}">
+                                            <label for="startDate">@lang('student.aramiscAttendance_date')<span class="text-danger"> *</span></label>
                                             
                                             
-                                            @if ($errors->has('attendance_date'))
+                                            @if ($errors->has('aramiscAttendance_date'))
                                             <span class="text-danger" >
-                                                {{ $errors->first('attendance_date') }}
+                                                {{ $errors->first('aramiscAttendance_date') }}
                                             </span>
                                             @endif
                                         </div>
@@ -158,20 +158,20 @@
 
 
 
-                {{-- {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'subject-attendance-store-second', 'method' => 'POST', 'enctype' => 'multipart/form-data'])}} --}}
+                {{-- {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'subject-aramiscAttendance-store-second', 'method' => 'POST', 'enctype' => 'multipart/form-data'])}} --}}
 
  
                     <input class="subject_class" type="hidden" name="class" value="{{$input['class']}}">
                     <input class="subject_section" type="hidden" name="section" value="{{$input['section']}}">
                     <input class="subject" type="hidden" name="subject" value="{{$input['subject']}}">
-                    <input class="subject_attendance_date" type="hidden" name="attendance_date" value="{{$input['attendance_date']}}">
+                    <input class="subject_aramiscAttendance_date" type="hidden" name="aramiscAttendance_date" value="{{$input['aramiscAttendance_date']}}">
                     <div class="row mt-40">
                         <div class="col-lg-12 ">
                             <div class=" white-box mb-40">
                                 <div class="row"> 
                                     <div class="col-lg-12">
                                         <div class="main-title">
-                                            <h3 class="mb-30 text-center">@lang('student.subject_wise_attendance') </h3>
+                                            <h3 class="mb-30 text-center">@lang('student.subject_wise_aramiscAttendance') </h3>
                                         </div>
 
                                     </div>
@@ -207,16 +207,16 @@
 
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 no-gutters">
-                                    @if($attendance_type != "" && $attendance_type == "H")
-                                    <div class="alert alert-warning">@lang('student.attendance_already_submitted_as_holiday')</div>
-                                    @elseif($attendance_type != "" && $attendance_type != "H")
-                                    <div class="alert alert-success">@lang('student.attendance_already_submitted')</div>
+                                    @if($aramiscAttendance_type != "" && $aramiscAttendance_type == "H")
+                                    <div class="alert alert-warning">@lang('student.aramiscAttendance_already_submitted_as_holiday')</div>
+                                    @elseif($aramiscAttendance_type != "" && $aramiscAttendance_type != "H")
+                                    <div class="alert alert-success">@lang('student.aramiscAttendance_already_submitted')</div>
                                     @endif
                                 </div>
                             </div>
                             <div class="row mb-20">
                                 <div class="col-lg-6  col-md-6 no-gutters text-md-left mark-holiday ">
-                                @if($attendance_type != "H")
+                                @if($aramiscAttendance_type != "H")
                                     <form action="{{route('student-subject-holiday-store')}}" method="POST">
                                         @csrf
                                     <input type="hidden" name="purpose" value="mark">
@@ -232,7 +232,7 @@
                                         <input type="hidden" name="un_semester_label_id" value="{{isset($unSemesterLabel) ? $unSemesterLabel->id:''}}">
                                         <input type="hidden" name="un_subject_id" value="{{isset($unSubject) ? $unSubject->id :''}}">
                                     @endif
-                                    <input type="hidden" name="attendance_date" value="{{$input['attendance_date']}}">
+                                    <input type="hidden" name="aramiscAttendance_date" value="{{$input['aramiscAttendance_date']}}">
                                         <button type="submit" class="primary-btn fix-gr-bg mb-20">
                                             @lang('student.mark_holiday')
                                         </button>
@@ -253,7 +253,7 @@
                                         <input type="hidden" name="un_semester_label_id" value="{{isset($unSemesterLabel) ? $unSemesterLabel->id:''}}">
                                         <input type="hidden" name="un_subject_id" value="{{isset($unSubject) ? $unSubject->id :''}}">
                                     @endif
-                                    <input type="hidden" name="attendance_date" value="{{$input['attendance_date']}}">
+                                    <input type="hidden" name="aramiscAttendance_date" value="{{$input['aramiscAttendance_date']}}">
                                         <button type="submit" class="primary-btn fix-gr-bg mb-20">
                                             @lang('student.unmark_holiday')
                                         </button>
@@ -267,7 +267,7 @@
                                     <form name="frm-example" id="frm-example" method="POST">
                                         @csrf
                                         <table id="table_id" class="table" cellspacing="0" width="100%">
-                                            <input type="hidden" name="attendance_date" value="{{$input['attendance_date']}}">
+                                            <input type="hidden" name="aramiscAttendance_date" value="{{$input['aramiscAttendance_date']}}">
                                             <input type="hidden" name="subject" value="{{$input['subject']}}">
                                             <input type="hidden" name="class" value="{{$input['class']}}">
                                             <input type="hidden" name="section" value="{{$input['section']}}">
@@ -277,7 +277,7 @@
                                                     <th>@lang('student.admission_no')</th>
                                                     <th>@lang('student.student_name')</th>
                                                     <th>@lang('student.id_number')</th>
-                                                    <th>@lang('student.attendance')</th>
+                                                    <th>@lang('student.aramiscAttendance')</th>
                                                     <th>@lang('common.note')</th>
                                                 </tr>
                                             </thead>
@@ -289,18 +289,18 @@
                                                 <tr>
                                                     <td>{{$count++}}
 
-                                                        <input type="hidden" name="attendance[{{$student->id}}]" value="{{$student->id}}">
-                                                        <input type="hidden" name="attendance[{{$student->id}}][student]" value="{{$student->student_id}}">
-                                                        <input type="hidden" name="attendance[{{$student->id}}][class]" value="{{$student->class_id}}">
-                                                        <input type="hidden" name="attendance[{{$student->id}}][section]" value="{{$student->section_id}}">
+                                                        <input type="hidden" name="aramiscAttendance[{{$student->id}}]" value="{{$student->id}}">
+                                                        <input type="hidden" name="aramiscAttendance[{{$student->id}}][student]" value="{{$student->student_id}}">
+                                                        <input type="hidden" name="aramiscAttendance[{{$student->id}}][class]" value="{{$student->class_id}}">
+                                                        <input type="hidden" name="aramiscAttendance[{{$student->id}}][section]" value="{{$student->section_id}}">
 
                                                         @if(moduleStatusCheck('University'))
-                                                            <input type="hidden" name="attendance[{{$student->id}}][un_session_id]" value="{{$student->un_session_id}}">
-                                                            <input type="hidden" name="attendance[{{$student->id}}][un_faculty_id]" value="{{$student->un_faculty_id}}">
-                                                            <input type="hidden" name="attendance[{{$student->id}}][un_department_id]" value="{{$student->un_department_id}}">
-                                                            <input type="hidden" name="attendance[{{$student->id}}][un_academic_id]" value="{{$student->un_academic_id}}">
-                                                            <input type="hidden" name="attendance[{{$student->id}}][un_semester_id]" value="{{$student->un_semester_id}}">
-                                                            <input type="hidden" name="attendance[{{$student->id}}][un_semester_label_id]" value="{{$student->un_semester_label_id}}">
+                                                            <input type="hidden" name="aramiscAttendance[{{$student->id}}][un_session_id]" value="{{$student->un_session_id}}">
+                                                            <input type="hidden" name="aramiscAttendance[{{$student->id}}][un_faculty_id]" value="{{$student->un_faculty_id}}">
+                                                            <input type="hidden" name="aramiscAttendance[{{$student->id}}][un_department_id]" value="{{$student->un_department_id}}">
+                                                            <input type="hidden" name="aramiscAttendance[{{$student->id}}][un_academic_id]" value="{{$student->un_academic_id}}">
+                                                            <input type="hidden" name="aramiscAttendance[{{$student->id}}][un_semester_id]" value="{{$student->un_semester_id}}">
+                                                            <input type="hidden" name="aramiscAttendance[{{$student->id}}][un_semester_label_id]" value="{{$student->un_semester_label_id}}">
                                                         @endif
 
                                                     </td>
@@ -311,13 +311,13 @@
                                                     
 
                                                         <label class="switch_toggle">
-                                                            <input type="checkbox" value="P" name="attendance[{{$student->id}}][attendance_type]" {{ $student->studentDetail->DateSubjectWiseAttendances !=null ? ($student->studentDetail->DateSubjectWiseAttendances->attendance_type == "P" ? 'checked' :'') : '' }}  class="switch-input11">
+                                                            <input type="checkbox" value="P" name="aramiscAttendance[{{$student->id}}][aramiscAttendance_type]" {{ $student->studentDetail->DateSubjectWiseAttendances !=null ? ($student->studentDetail->DateSubjectWiseAttendances->aramiscAttendance_type == "P" ? 'checked' :'') : '' }}  class="switch-input11">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </td>
                                                     <td>
                                                         <div class="primary_input">
-                                                            <textarea class="primary_input_field form-control note_{{$student->id}}" cols="0" rows="2" name="attendance[{{$student->id}}][note]" id="">{{$student->studentDetail->DateSubjectWiseAttendances !=null ? $student->studentDetail->DateSubjectWiseAttendances->notes :''}}</textarea>
+                                                            <textarea class="primary_input_field form-control note_{{$student->id}}" cols="0" rows="2" name="aramiscAttendance[{{$student->id}}][note]" id="">{{$student->studentDetail->DateSubjectWiseAttendances !=null ? $student->studentDetail->DateSubjectWiseAttendances->notes :''}}</textarea>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -363,7 +363,7 @@
     //   var data = table.$('input,select,textarea').serialize();
       // Submit form data via Ajax
       $.ajax({
-        url : "{{route('subject-attendance-store-second')}}",
+        url : "{{route('subject-aramiscAttendance-store-second')}}",
         method : "POST",
         data: formData,
         contentType: false, // The content type used when sending data to the server.
@@ -383,7 +383,7 @@
     </script>
 
     <script>
-        $(document).on('change','.subject_attendance_type',function (){
+        $(document).on('change','.subject_aramiscAttendance_type',function (){
             let studentId = $(this).data('id');
             let subjectAttendanceType ='';
             if ($(this).is(':checked'))
@@ -393,17 +393,17 @@
             let subjectClass = $('.subject_class').val();
             let subjectSection = $('.subject_section').val();
             let subject = $('.subject').val();
-            let subjectAttendanceDate = $('.subject_attendance_date').val();
+            let subjectAttendanceDate = $('.subject_aramiscAttendance_date').val();
             let notes = $('.note_'+studentId).val();
             $.ajax({
-                url : "{{route('subject-attendance-store-second')}}",
+                url : "{{route('subject-aramiscAttendance-store-second')}}",
                 method : "POST",
                 data : {
                     class : subjectClass,
                     section : subjectSection,
                     subject : subject,
                     student_id : studentId,
-                    attendance_type : subjectAttendanceType,
+                    aramiscAttendance_type : subjectAttendanceType,
                     date : subjectAttendanceDate,
                     notes : notes,
                 },

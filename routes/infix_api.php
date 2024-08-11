@@ -24,12 +24,12 @@ static String baseApi = root + 'api/';
 
 static String uploadHomework = baseApi+"add-homework";
 
-static String studentDormitoryList = baseApi + "student-dormitory";
+static String aramiscStudentDormitoryList = baseApi + "student-dormitory";
 
 static String bookList = baseApi+"book-list";
 static String adminFeeList = baseApi+"fees-group";
 
-static String uploadContent = baseApi+"teacher-upload-content";
+static String aramiscUploadContent = baseApi+"teacher-upload-content";
 static String currentPermission = baseApi+"privacy-permission-status";
 
 static String login(String email, String password) {
@@ -49,14 +49,14 @@ return baseApi + "student-homework/$id";
 }
 
 static String driverList = baseApi + "driver-list";
-static String studentTransportList = baseApi + "student-transport-report";
+static String aramiscStudentTransportList = baseApi + "student-transport-report";
 
 static String getSubjectsUrl(int id) {
-return baseApi + "studentSubject/$id";
+return baseApi + "aramiscStudentSubject/$id";
 }
 
 static String getStudentTeacherUrl(int id) {
-return baseApi + "studentTeacher/$id";
+return baseApi + "aramiscStudentTeacher/$id";
 }
 static String getTeacherPhonePermission(int mPerm) {
 return baseApi + "privacy-permission/$mPerm";
@@ -83,11 +83,11 @@ return baseApi+"exam-schedule/$id/$code";
 }
 
 static String getTeacherAttendence(int id,int month,int year){
-return baseApi+"my-attendance/$id?month=$month&year=$year";
+return baseApi+"my-aramiscAttendance/$id?month=$month&year=$year";
 }
 
 static String getStudentAttendence(var id,int month,int year){
-return baseApi+"student-my-attendance/$id?month=$month&year=$year";
+return baseApi+"student-my-aramiscAttendance/$id?month=$month&year=$year";
 }
 
 static String getStudentOnlineResult(int id,int examId){
@@ -140,14 +140,14 @@ return baseApi+"content-list";
 static String deleteContent(int id){
 return baseApi+"delete-content/$id";
 }
-static String attendanceDataSend(String id,String atten,String date,String mClass,String mSection){
-return baseApi+"student-attendance-store-second?id="+id+"&attendance="+atten+"&date="+date+"&class="+mClass+"&section="+mSection;
+static String aramiscAttendanceDataSend(String id,String atten,String date,String mClass,String mSection){
+return baseApi+"student-aramiscAttendance-store-second?id="+id+"&aramiscAttendance="+atten+"&date="+date+"&class="+mClass+"&section="+mSection;
 }
-static String attendanceDefaultSent(String date,String mClass,String mSection){
-return baseApi+"student-attendance-store-first?date="+date+"&class="+mClass+"&section="+mSection;
+static String aramiscAttendanceDefaultSent(String date,String mClass,String mSection){
+return baseApi+"student-aramiscAttendance-store-first?date="+date+"&class="+mClass+"&section="+mSection;
 }
-static String attendanceCheck(String date,String mClass,String mSection){
-return baseApi+"student-attendance-check?date="+date+"&class="+mClass+"&section="+mSection;
+static String aramiscAttendanceCheck(String date,String mClass,String mSection){
+return baseApi+"student-aramiscAttendance-check?date="+date+"&class="+mClass+"&section="+mSection;
 }
 static String studentFeePayment(String stuId,int feesType,String amount,String paidBy,String paymentMethod){
 return baseApi+"student-fees-payment?student_id=$stuId&fees_type_id=$feesType&amount=$amount&paid_by=$paidBy&payment_mode=C";
@@ -226,7 +226,7 @@ return baseApi+"update-leave?id=$id&status=$status";
 
 static String subjectList = baseApi+"subject";
 static String leaveType = baseApi+"staff-leave-type";
-static String applyLeave = baseApi+"staff-apply-leave";
+static String aramiscApplyLeave = baseApi+"staff-apply-leave";
 static String getEmail = baseApi+"user-demo";
 static String getLibraryMemberCategory = baseApi+"library-member-role";
 static String getStuffCategory = baseApi+"staff-roles";
@@ -234,7 +234,7 @@ static String getStuffCategory = baseApi+"staff-roles";
 static String dormitoryRoomList = baseApi+"room-list";
 static String dormitoryList = baseApi+"dormitory-list";
 static String roomTypeList = baseApi+"room-type-list";
-static String pendingLeave = baseApi+"pending-leave";
+static String aramiscPendingLeave = baseApi+"pending-leave";
 static String approvedLeave = baseApi+"approved-leave";
 static String rejectedLeave = baseApi+"reject-leave";
 }
