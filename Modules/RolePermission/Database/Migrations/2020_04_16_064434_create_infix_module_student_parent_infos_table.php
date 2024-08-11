@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
+use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
 
-class CreateInfixModuleStudentParentInfosTable extends Migration
+class CreateAramiscModuleStudentParentInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('infix_module_student_parent_infos', function (Blueprint $table) {
+        Schema::create('aramisc_module_student_parent_infos', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('module_id')->nullable();
@@ -43,7 +43,7 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
         });
 
         // DB::statement('SET foreign_key_checks=0');
-        // DB::table('infix_module_student_parent_infos')->truncate();
+        // DB::table('aramisc_module_student_parent_infos')->truncate();
         // DB::statement('SET foreign_key_checks=1');
 
        //`id`, `module_id`, `parent_id`, `type`, `user_type`, `name`, `route`, `lang_name`, `icon_class`, `active_status`, `created_by`, `updated_by`, `school_id`, `created_at`, `updated_at`
@@ -313,7 +313,7 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
        ];
 
        foreach($datas as $data){
-            $new = new InfixModuleStudentParentInfo();
+            $new = new AramiscModuleStudentParentInfo();
             $new->id = $data[0];
             $new->module_id = $data[1];
             $new->parent_id = $data[2];
@@ -339,6 +339,6 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('infix_module_student_parent_infos');
+        Schema::dropIfExists('aramisc_module_student_parent_infos');
     }
 }

@@ -75,10 +75,10 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Models\SmStudentRegistrationField;
 use Illuminate\Support\Facades\Notification;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\Wallet\Entities\WalletTransaction;
 use App\Notifications\LeaveApprovedNotification;
-use Modules\OnlineExam\Entities\InfixOnlineExam;
+use Modules\OnlineExam\Entities\AramiscOnlineExam;
 use Modules\University\Entities\UnAssignSubject;
 use Modules\University\Entities\UnSemesterLabel;
 use Modules\University\Entities\UniversitySetting;
@@ -838,7 +838,7 @@ class SmStudentPanelController extends Controller
             date_default_timezone_set(@generalSetting()->timeZone->time_zone);
             $now = date('Y-m-d');
             if (moduleStatusCheck('OnlineExam') == true) {
-                $online_exams = InfixOnlineExam::where('active_status', 1)
+                $online_exams = AramiscOnlineExam::where('active_status', 1)
                     ->where('status', 1)
                     ->whereIn('class_id', $class_ids)
                     ->whereIn('section_id', $section_ids)
@@ -939,7 +939,7 @@ class SmStudentPanelController extends Controller
             $complaints = SmComplaint::with('complaintType', 'complaintSource')->get();
            
             $data['settings'] = SmCalendarSetting::get();
-            $data['roles'] = InfixRole::where(function ($q) {
+            $data['roles'] = AramiscRole::where(function ($q) {
                 $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
             })
                 ->whereNotIn('id', [1, 2])

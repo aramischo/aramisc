@@ -6,8 +6,8 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="icon" href="{{asset('public/backEnd/')}}/img/favicon.png" type="image/png"/>
-    <link rel="alternate" href="http://infixedu.com" hreflang="en-us" />
-    <title>Infix school management software & School management system</title>
+    <link rel="alternate" href="http://aramisc.com" hreflang="en-us" />
+    <title>Aramisc school management software & School management system</title>
     <meta name="_token" content="{!! csrf_token() !!}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/jquery-ui.css"/>
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/js/select2/select2.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css"/>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/infix.css"/>
+    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/aramisc.css"/>
    
 </head>
 
@@ -51,13 +51,13 @@
 
             <div class="single-report-admit">
                 <div class="card-header">
-                    <h2 class="text-center text-uppercase" style="color: whitesmoke">Welcome to Infixedu </h2>
+                    <h2 class="text-center text-uppercase" style="color: whitesmoke">Welcome to aramisc </h2>
                 
                 </div>
             </div>
 
             <div class="card-body">
-                  <p style="text-align: center">Thank you for choosing Infixedu for your school administration. Please follow the steps to complete Infix Edu installation!</p>
+                  <p style="text-align: center">Thank you for choosing aramisc for your school administration. Please follow the steps to complete Aramisc installation!</p>
 
                <a href="{{url('/check-purchase-verification')}}"  class="offset-3 col-sm-6 primary-btn fix-gr-bg mt-40 mb-20"  >  Start </a>
             </div>

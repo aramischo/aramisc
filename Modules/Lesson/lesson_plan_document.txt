@@ -143,6 +143,6 @@
             [19, 'coma', 'Coma', 'Coma', 'কমা', 'Coma'],
 
 
-//infix permission already you have 
+//aramisc permission already you have
 //include footer.blade.php (backend) 
 <script src="{{asset('public/backEnd/')}}/js/lesson_plan.js"></script>

@@ -341,10 +341,10 @@ $setting_info=generalSetting();
                       </div>
                       <div class="school_name ">
                       <h2>
-                        {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} 
+                        {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}}
                       </h2>
                       <p>
-                        {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} 
+                        {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}
                       </p>       
                     </div>
                     </div>

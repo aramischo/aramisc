@@ -5937,7 +5937,7 @@
 
     // fees master find type
     $(document).ready(function() {
-        $("#infix_class").on("change", function() {
+        $("#aramisc_class").on("change", function() {
             var url = $("#url").val();
             // console.log($(this).val());
             var formData = {
@@ -6052,7 +6052,7 @@
     // student section select sction for sibling
     // Comment By Amit Saha For Student Admission Sendig Multiple Request
     // $(document).ready(function() {
-    //     $("form#student_form #academic_year, form#infix_form #academic_year").on(
+    //     $("form#student_form #academic_year, form#aramisc_form #academic_year").on(
     //         "change",
     //         function() {
     //             var url = $("#url").val();

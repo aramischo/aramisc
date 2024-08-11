@@ -54,7 +54,7 @@ use Larabuild\Pagebuilder\Models\Page;
 use Illuminate\Support\Facades\Redirect;
 use Modules\Saas\Entities\SmPackagePlan;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\AramiscPermissionAssign;
 use App\Http\Requests\Admin\FrontSettings\ExamResultSearch;
 use Larabuild\Pagebuilder\Http\Controllers\PageBuilderController;
 
@@ -329,7 +329,7 @@ class SmFrontendController extends Controller
     {
         try {
             $contact_messages = SmContactMessage::where('school_id', app('school')->id)->orderBy('id', 'desc')->get();
-            $module_links = InfixPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->pluck('module_id')->toArray();
+            $module_links = AramiscPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->pluck('module_id')->toArray();
             return view('frontEnd.contact_message', compact('contact_messages', 'module_links'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

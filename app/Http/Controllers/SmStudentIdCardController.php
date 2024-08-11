@@ -15,7 +15,7 @@ use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class SmStudentIdCardController extends Controller
 {
@@ -39,7 +39,7 @@ class SmStudentIdCardController extends Controller
     {
         try{
             $id_cards = SmStudentIdCard::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             return view('backEnd.admin.idCard.student_id_card', compact('id_cards','roles'));
@@ -192,7 +192,7 @@ class SmStudentIdCardController extends Controller
     {
         try {
             $id_cards = SmStudentIdCard::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
              if (checkAdmin()) {

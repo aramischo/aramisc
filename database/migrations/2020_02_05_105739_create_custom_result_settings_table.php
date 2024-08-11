@@ -4,7 +4,7 @@ use App\CustomResultSetting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 
 class CreateCustomResultSettingsTable extends Migration
 {
@@ -49,9 +49,9 @@ class CreateCustomResultSettingsTable extends Migration
         $store->body_background = "body";
         $store->save();
 
-        $permission = InfixModuleInfo::find(5000);
+        $permission = AramiscModuleInfo::find(5000);
         if(!$permission){
-            $permission = new InfixModuleInfo();
+            $permission = new AramiscModuleInfo();
             $permission->id = 5000;
             $permission->module_id = 9;
             $permission->parent_id = 870;

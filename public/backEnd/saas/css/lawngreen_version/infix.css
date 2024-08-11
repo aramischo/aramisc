@@ -417,7 +417,7 @@ creator:rashed;
 }
 
 @media (max-width: 991px){
-    .md_infix_50{
+    .md_aramisc_50{
         margin-top: 50px;
     }
     .admin .navbar .navbar-collapse {
@@ -484,7 +484,7 @@ button.btn.btn-dark.d-inline-block.d-lg-none.ml-auto.nav_icon {
     border-radius: 50%;
 }
 
-.infix_991_mb_15{
+.aramisc_991_mb_15{
     margin-bottom: 15px;
 }
 
@@ -619,7 +619,7 @@ ul.nav.navbar-nav.mr-auto.nav-buttons.flex-sm-row {
         min-height: auto !important;
     
     }
-    .lg_infix_50{
+    .lg_aramisc_50{
         margin-top: 50px;
     }
     .nav.navbar-nav.mr-auto.nav-buttons.flex-sm-row {

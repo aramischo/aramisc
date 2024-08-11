@@ -18,8 +18,8 @@
             SmAcademicYear::API_ACADEMIC_YEAR($creator_info->school_id);
 
             
-// class InfixApi {
-static String root = 'http://infixedu.com/android/';
+// class AramiscApi {
+static String root = 'http://aramisc.com/android/';
 static String baseApi = root + 'api/';
 
 static String uploadHomework = baseApi+"add-homework";

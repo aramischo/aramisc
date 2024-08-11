@@ -2,7 +2,7 @@
 
 use App\SmPage;
 use App\SmsTemplate;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

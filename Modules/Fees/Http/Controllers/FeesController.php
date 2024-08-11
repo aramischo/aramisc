@@ -329,7 +329,7 @@ class FeesController extends Controller
                 $invoiceSettings = new FmFeesInvoiceSettings();
                 $invoiceSettings->invoice_positions = '[{"id":"prefix","text":"prefix"},{"id":"admission_no","text":"Admission No"},{"id":"class","text":"Class"},{"id":"section","text":"Section"}]';
                 $invoiceSettings->uniq_id_start = "0011";
-                $invoiceSettings->prefix = 'infixEdu';
+                $invoiceSettings->prefix = 'aramisc';
                 $invoiceSettings->class_limit = 3;
                 $invoiceSettings->section_limit = 1;
                 $invoiceSettings->admission_limit = 3;

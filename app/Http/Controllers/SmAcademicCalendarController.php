@@ -28,13 +28,13 @@ use App\Models\SmCalendarSetting;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Modules\Lesson\Entities\LessonPlanner;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class SmAcademicCalendarController extends Controller
 {
     public function academicCalendarView(){
         $data['settings'] = SmCalendarSetting::get();
-        $data['roles'] = InfixRole::where(function ($q) {
+        $data['roles'] = AramiscRole::where(function ($q) {
             $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
         })
         ->whereNotIn('id', [1])

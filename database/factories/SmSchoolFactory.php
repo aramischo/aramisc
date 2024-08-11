@@ -27,7 +27,7 @@ class SmSchoolFactory extends Factory
         return [
             
             'school_name'=>$this->faker->colorName . $i,
-            'email'=>'school_'.$i.'@infixedu.com',
+            'email'=>'school_'.$i.'@aramisc.com',
             'domain'=> 'school'.$i,
             'created_at' => date('Y-m-d h:i:s'),
             'starting_date' => date('Y-m-d'),

@@ -16,7 +16,7 @@ right button text ac ext
 
 2. arrow hide card with button
 
-http://localhost/infixedu/lms-design -->
+http://localhost/aramisc/lms-design -->
 
 <!-- lms design here -->
 <section class="admin-visitor-area up_st_admin_visitor">
@@ -73,7 +73,7 @@ http://localhost/infixedu/lms-design -->
                                 </div>
                             </div>
                             <div class="video_palyer_list_wrapper">
-                                <div class="infixLms_video_palyer_lists d-flex flex-column postion-relative">
+                                <div class="aramiscLms_video_palyer_lists d-flex flex-column postion-relative">
                                     <div class="videoList_toggleBtn">
                                         <i class="ti-menu"></i>
                                     </div>
@@ -84,7 +84,7 @@ http://localhost/infixedu/lms-design -->
                                         <h4 class="m-0">05 Leasson</h4>
                                     </div>
                                     <!-- accordian -->
-                                    <div class="accordion infixLms_accordian  mb_50 flex-fill" id="accordion_ex">
+                                    <div class="accordion aramiscLms_accordian  mb_50 flex-fill" id="accordion_ex">
                                         @include('lms.chapter')
                                         @include('lms.online_exam', ['level' => 0])
 <!--                                        <div class="card">

@@ -58,10 +58,10 @@
         <div class="marksheet_container">
             <div class="institute_info text-center mb-2">
                 <h3 class="institute_name text-uppercase mb-0">
-                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Infix School Management ERP' }}
+                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Aramisc School Management ERP' }}
                 </h3>
                 <p class="institute_address">
-                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Infix School Address' }}</p>
+                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Aramisc School Address' }}</p>
                 <p class="institute_address" style="font-size: 16px;">
                     @lang('common.email'): <span
                         class="text-lowercase">{{ isset(generalSetting()->email) ? generalSetting()->email : 'admin@demo.com' }}</span>,

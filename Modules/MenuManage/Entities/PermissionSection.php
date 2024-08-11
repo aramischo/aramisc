@@ -4,7 +4,7 @@ namespace Modules\MenuManage\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PermissionSection extends Model

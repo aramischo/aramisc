@@ -3,10 +3,10 @@
         "item_id": "30626608",
 
         "migration": [
-            "2021_02_09_085146_create_infix_video_watches_table.php"
+            "2021_02_09_085146_create_aramisc_video_watches_table.php"
         ],
         "names": [
-            "infix_video_watches"
+            "aramisc_video_watches"
         ],
         "versions": [
             "1.0"

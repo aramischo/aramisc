@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\ColorTheme;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmHeaderMenuManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -80,8 +80,8 @@ return new class extends Migration
             }
         });
 
-        Schema::table('infixedu__pages', function (Blueprint $table) {
-            if (!Schema::hasColumn('infixedu__pages', 'is_default')) {
+        Schema::table('aramisc__pages', function (Blueprint $table) {
+            if (!Schema::hasColumn('aramisc__pages', 'is_default')) {
                 $table->boolean('is_default')->default(0);
             }
         });
@@ -264,15 +264,15 @@ return new class extends Migration
                 storePermissionData($newsPermission);
             }
 
-        $s2 = InfixModuleManager::where('name', 'BehaviourRecords')->first();
+        $s2 = AramiscModuleManager::where('name', 'BehaviourRecords')->first();
         if($s2){
             $s2->is_default = 1;
             $s2->save();
         }
 
-        $s = InfixModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->count();
+        $s = AramiscModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->count();
         if($s > 1){
-            $del = InfixModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->first();
+            $del = AramiscModuleManager::where('name','InAppLiveClass')->whereNull('purchase_code')->first();
             $del->delete();
         }
 
@@ -413,9 +413,9 @@ return new class extends Migration
                 $file_data = json_decode($file_content, true);
                 $this->replace_array_recursive("[App_url]", (url('/')), $file_data);
                 if ($file_data) {
-                    $check_exist  = DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')->where('school_id', 1)->where('slug', $file_data['slug'])->first();
+                    $check_exist  = DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')->where('school_id', 1)->where('slug', $file_data['slug'])->first();
                     if (!$check_exist) {
-                        DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')->insert(
+                        DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')->insert(
                             [
                                 'name' => $file_data['name'],
                                 'title' => $file_data['title'],

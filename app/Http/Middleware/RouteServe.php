@@ -26,7 +26,7 @@ class RouteServe
                 return $next($request);
                 //return view('install.verified_code');
             //     return redirect('verified-code');
-            //    return view('install.welcome_to_infix');
+            //    return view('install.welcome_to_aramisc');
             }
         return $next($request);
     }

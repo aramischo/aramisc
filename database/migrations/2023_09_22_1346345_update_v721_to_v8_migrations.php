@@ -2,7 +2,7 @@
 
 
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Larabuild\Pagebuilder\Models\Page;
@@ -573,9 +573,9 @@ return new class extends Migration
         });
 
         //DownloadCenter 
-        $exist = InfixModuleManager::where('name','DownloadCenter')->first();
+        $exist = AramiscModuleManager::where('name','DownloadCenter')->first();
         if(!$exist){
-            $s = new InfixModuleManager();
+            $s = new AramiscModuleManager();
             $s->name = "DownloadCenter";
             $s->email = 'support@spondonit.com';
             $s->notes = "This Module is named Download Center for managing study materials more efficiently. Thanks for using.";
@@ -593,9 +593,9 @@ return new class extends Migration
         }
         
         //AiContent 
-        $exist2 = InfixModuleManager::where('name','AiContent')->first();
+        $exist2 = AramiscModuleManager::where('name','AiContent')->first();
         if(!$exist2){
-            $s2 = new InfixModuleManager();
+            $s2 = new AramiscModuleManager();
             $s2->name = "AiContent";
             $s2->email = 'support@spondonit.com';
             $s2->notes = "This is AI Content Generator module. Generate content via AI.";
@@ -610,9 +610,9 @@ return new class extends Migration
         
 
         //WhatsappSupport 
-        $exist3 = InfixModuleManager::where('name','WhatsappSupport')->first();
+        $exist3 = AramiscModuleManager::where('name','WhatsappSupport')->first();
         if(!$exist3){
-            $s3 = new InfixModuleManager();
+            $s3 = new AramiscModuleManager();
             $s3->name = "WhatsappSupport";
             $s3->email = 'support@spondonit.com';
             $s3->notes = "This is WhatsApp Support module. Send message via WhatsApp.";

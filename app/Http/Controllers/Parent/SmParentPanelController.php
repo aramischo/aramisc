@@ -73,12 +73,12 @@ use Illuminate\Support\Facades\Response;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Support\Facades\Validator;
 use App\Models\SmStudentRegistrationField;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\Wallet\Entities\WalletTransaction;
-use Modules\OnlineExam\Entities\InfixOnlineExam;
+use Modules\OnlineExam\Entities\AramiscOnlineExam;
 use Modules\BehaviourRecords\Entities\AssignIncident;
 use App\Http\Controllers\SmAcademicCalendarController;
-use Modules\OnlineExam\Entities\InfixStudentTakeOnlineExam;
+use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
 use Modules\BehaviourRecords\Entities\BehaviourRecordSetting;
 use App\Http\Requests\Admin\StudentInfo\SmStudentAdmissionRequest;
 
@@ -140,7 +140,7 @@ class SmParentPanelController extends Controller
             $complaints = SmComplaint::with('complaintType', 'complaintSource')->get();
 
             $data['settings'] = SmCalendarSetting::get();
-            $data['roles'] = InfixRole::where(function ($q) {
+            $data['roles'] = AramiscRole::where(function ($q) {
                 $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
             })
                 ->whereNotIn('id', [1, 2])
@@ -729,10 +729,10 @@ class SmParentPanelController extends Controller
 
             // ->where('start_time', '<', $now)
             if (moduleStatusCheck('OnlineExam') == true) {
-                $online_exams = InfixOnlineExam::where('active_status', 1)->where('status', 1)->where('class_id', $student->class_id)->where('section_id', $student->section_id)
+                $online_exams = AramiscOnlineExam::where('active_status', 1)->where('status', 1)->where('class_id', $student->class_id)->where('section_id', $student->section_id)
                     ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-                $marks_assigned = InfixStudentTakeOnlineExam::whereIn('online_exam_id', $online_exams->pluck('id')->toArray())->where('student_id', $student->id)->where('status', 2)
+                $marks_assigned = AramiscStudentTakeOnlineExam::whereIn('online_exam_id', $online_exams->pluck('id')->toArray())->where('student_id', $student->id)->where('status', 2)
                     ->where('school_id', Auth::user()->school_id)->pluck('online_exam_id')->toArray();
             } else {
                 $online_exams = SmOnlineExam::where('active_status', 1)->where('status', 1)->where('class_id', $student->class_id)->where('section_id', $student->section_id)
@@ -753,7 +753,7 @@ class SmParentPanelController extends Controller
 
         try {
             if (moduleStatusCheck('OnlineExam') == true) {
-                $result_views = InfixStudentTakeOnlineExam::where('active_status', 1)->where('status', 2)
+                $result_views = AramiscStudentTakeOnlineExam::where('active_status', 1)->where('status', 2)
                     ->where('academic_id', getAcademicId())
                     ->where('student_id', $id)
                     ->where('school_id', Auth::user()->school_id)
@@ -778,7 +778,7 @@ class SmParentPanelController extends Controller
     {
         try {
             if (moduleStatusCheck('OnlineExam') == true) {
-                $take_online_exam = InfixStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)->where('school_id', Auth::user()->school_id)->first();
+                $take_online_exam = AramiscStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)->where('school_id', Auth::user()->school_id)->first();
             } else {
                 $take_online_exam = SmStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)->where('school_id', Auth::user()->school_id)->first();
             }

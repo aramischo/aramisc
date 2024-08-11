@@ -41,7 +41,7 @@ class CreateSmEmailSettingsTable extends Migration
             [
                 'email_engine_type' => 'smtp',
                 'from_name'=>'System Admin',
-                'from_email'=>'admin@infixedu.com',
+                'from_email'=>'admin@aramisc.com',
                 'mail_driver'=>'smtp',
                 'mail_host'=>'smtp.gmail.com',
                 'mail_port'=>'587',
@@ -57,7 +57,7 @@ class CreateSmEmailSettingsTable extends Migration
             [
                 'email_engine_type' => 'php',
                 'from_name'=>'System Admin',
-                'from_email'=>'admin@infixedu.com',
+                'from_email'=>'admin@aramisc.com',
                 'mail_driver'=>'php',
                 'mail_host'=>'',
                 'mail_port'=>'',

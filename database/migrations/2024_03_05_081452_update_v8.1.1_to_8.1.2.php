@@ -1,7 +1,7 @@
 <?php
 
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,9 +14,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $exist = InfixModuleManager::where('name', 'Certificate')->first();
+        $exist = AramiscModuleManager::where('name', 'Certificate')->first();
         if (!$exist) {
-            $s3 = new InfixModuleManager();
+            $s3 = new AramiscModuleManager();
             $s3->name = "Certificate";
             $s3->email = 'support@spondonit.com';
             $s3->notes = "This is the module to generate Certificate's for students and employees.";

@@ -18,7 +18,7 @@ namespace Database\Seeders;
 //            $s = new SmStyle();
 //            $s->style_name = 'Sky Blue';
 //            $s->path_main_style = '1_blue_version/style.css';
-//            $s->path_infix_style = '1_blue_version/infix.css';
+//            $s->path_aramisc_style = '1_blue_version/aramisc.css';
 //            $s->primary_color = 'var(--base_color)';
 //            $s->primary_color2 = '#2c7be5';
 //            $s->primary_color3 = '#2c7be5';

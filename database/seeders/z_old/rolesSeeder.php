@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Role;
 
 class rolesSeeder extends Seeder
@@ -16,7 +16,7 @@ class rolesSeeder extends Seeder
     public function run()
     {
 
-        // InfixRole::query()->truncate();
+        // AramiscRole::query()->truncate();
 
         // DB::table('roles')->insert([
         //     [

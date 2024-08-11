@@ -65,7 +65,7 @@ class SmStudentAdmissionController extends Controller
     private $User;
     private $SmGeneralSettings;
     private $SmUserLog;
-    private $InfixModuleManager;
+    private $AramiscModuleManager;
     private $URL;
 
     public function __construct()

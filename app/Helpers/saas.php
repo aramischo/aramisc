@@ -1,6 +1,6 @@
 <?php
 
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmSchool;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -40,10 +40,10 @@ function planPermissions($hook = null, $module_id = false)
 {
 
     $modules = Cache::rememberForever('paid_modules', function(){
-        return InfixModuleManager::where('name', '!=', 'Saas')->where('is_default', '!=', 1)->pluck('name')->toArray();
+        return AramiscModuleManager::where('name', '!=', 'Saas')->where('is_default', '!=', 1)->pluck('name')->toArray();
     });
     $default_modules = Cache::rememberForever('default_modules', function(){
-        return InfixModuleManager::where('name', '!=', 'Saas')->where('is_default', 1)->pluck('name')->toArray();
+        return AramiscModuleManager::where('name', '!=', 'Saas')->where('is_default', 1)->pluck('name')->toArray();
     });
 
     $menus = collect(getVar('limits'));
@@ -61,7 +61,7 @@ function planPermissions($hook = null, $module_id = false)
         $m = Module::find($module);
         if ($m && $m->isEnabled($module)) {
             $is_verify = Cache::rememberForever('module_'.$module, function() use($module){
-                return InfixModuleManager::where('name', $module)->first();
+                return AramiscModuleManager::where('name', $module)->first();
             });
             if ($is_verify && $is_verify->purchase_code) {
                 $final_modules[$module] = $module;

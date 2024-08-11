@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ asset($setting->favicon) }}" type="image/png" />
     <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/font_awesome/css/all.min.css') }}" />
-    <title>{{ $setting->site_title ? $setting->site_title : 'Infix Edu ERP' }}</title>
+    <title>{{ $setting->site_title ? $setting->site_title : 'Aramisc ERP' }}</title>
     <meta name="_token" content="{!! csrf_token() !!}" />
     <style>
         .footer-list ul {
@@ -74,7 +74,7 @@
     <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/fullcalendar.min.css">
     <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/fullcalendar.print.css">
 
-    <link rel="stylesheet" href="{{ asset('public/') }}/frontend/css/infix.css" />
+    <link rel="stylesheet" href="{{ asset('public/') }}/frontend/css/aramisc.css" />
     <link rel="stylesheet" href="{{ asset('public/whatsapp-support/style.css') }}">
     <x-root-css />
     <script src="{{ asset('public/backEnd/') }}/vendors/js/jquery-3.2.1.min.js"></script>
@@ -96,7 +96,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}/home">
                         <img class="w-75"
                             src="{{ asset($setting->logo ? $setting->logo : 'public/uploads/settings/logo.png') }}"
-                            alt="Infix Logo" style="max-width: 150px;">
+                            alt="Aramisc Logo" style="max-width: 150px;">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

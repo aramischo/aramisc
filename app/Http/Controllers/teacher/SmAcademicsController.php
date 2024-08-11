@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\teacher;
 
 use App\SmGeneralSettings;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Role;
 use App\SmClass;
 use App\SmStaff;
@@ -632,7 +632,7 @@ class SmAcademicsController extends Controller
 			}
 			// foreach ($request->input('available_for') as $value) {
 			if ($request->input('available_for') == 'admin') {
-				$roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
+				$roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 

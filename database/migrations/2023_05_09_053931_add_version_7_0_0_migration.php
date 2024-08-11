@@ -95,8 +95,8 @@ class AddVersion700Migration extends Migration
                 $table->float('total_due')->nullable()->change();
             }           
         });
-        Schema::table('infix_module_managers', function (Blueprint $table) {
-            if(!Schema::hasColumn('infix_module_managers', 'lang_type')){
+        Schema::table('aramisc_module_managers', function (Blueprint $table) {
+            if(!Schema::hasColumn('aramisc_module_managers', 'lang_type')){
                 $table->integer('lang_type')->nullable();
             }           
         });
@@ -201,11 +201,11 @@ class AddVersion700Migration extends Migration
             $holiday->save();
 
             $BioMat1 = SmsTemplate::where('purpose', 'student_checkout')->where('school_id', $school->id)->first();
-            $BioMat1->module= "InfixBiometrics";
+            $BioMat1->module= "AramiscBiometrics";
             $BioMat1->save();
 
             $BioMat2 = SmsTemplate::where('purpose', 'student_early_checkout')->where('school_id', $school->id)->first();
-            $BioMat2->module= "InfixBiometrics";
+            $BioMat2->module= "AramiscBiometrics";
             $BioMat2->save();
 
             $check1 = SmsTemplate::where('purpose', 'student_fees_due')->where('school_id', $school->id)->first();
@@ -307,7 +307,7 @@ class AddVersion700Migration extends Migration
                                                                                 <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                                                     <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                                                         <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                                            © 2020 Infix Education software|
+                                                                                            © 2020 Aramisccation software|
                                                                                         </span>
                                                                                         <span style="background-color:transparent;text-align:left;">
                                                                                             <font color="#ffffff">

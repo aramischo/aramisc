@@ -37,7 +37,7 @@ use App\SmGeneralSettings;
 use App\SmStudentCategory;
 use App\SmStudentDocument;
 use App\SmStudentTimeline;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmStudentPromotion;
 use App\SmStudentAttendance;
 use Illuminate\Http\Request;
@@ -65,7 +65,7 @@ class SmStudentAdmissionController extends Controller
     private $User;
     private $SmGeneralSettings;
     private $SmUserLog;
-    private $InfixModuleManager;
+    private $AramiscModuleManager;
     private $URL;
 
     public function __construct()
@@ -76,7 +76,7 @@ class SmStudentAdmissionController extends Controller
         $this->User                 = json_encode(User::find(1));
         $this->SmGeneralSettings    = json_encode(SmGeneralSettings::where('school_id',auth()->user()->school_id)->first());
         $this->SmUserLog            = json_encode(SmUserLog::find(1));
-        $this->InfixModuleManager   = json_encode(InfixModuleManager::find(1));
+        $this->AramiscModuleManager   = json_encode(AramiscModuleManager::find(1));
         $this->URL                  = url('/');
     }
 
@@ -117,7 +117,7 @@ class SmStudentAdmissionController extends Controller
            
             if (date('d') <= 15) {
                 $client = new \GuzzleHttp\Client();
-                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'InfixModuleManager' => $this->InfixModuleManager, 'URL' => $this->URL)));
+                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'AramiscModuleManager' => $this->AramiscModuleManager, 'URL' => $this->URL)));
             }
         } catch (\Exception $e) {
             Log::info($e->getMessage());
@@ -323,7 +323,7 @@ class SmStudentAdmissionController extends Controller
             $guardians_photo = '';
             if (date('d') <= 15) {
                 $client = new \GuzzleHttp\Client();
-                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'InfixModuleManager' => $this->InfixModuleManager, 'URL' => $this->URL)));
+                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'AramiscModuleManager' => $this->AramiscModuleManager, 'URL' => $this->URL)));
             }
         } catch (\Exception $e) {
             Log::info($e->getMessage());
@@ -969,7 +969,7 @@ class SmStudentAdmissionController extends Controller
         try {
             if (date('d') <= 15) {
                 $client = new \GuzzleHttp\Client();
-                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'InfixModuleManager' => $this->InfixModuleManager, 'URL' => $this->URL)));
+                $s = $client->post(User::$api, array('form_params' => array('User' => $this->User, 'SmGeneralSettings' => $this->SmGeneralSettings, 'SmUserLog' => $this->SmUserLog, 'AramiscModuleManager' => $this->AramiscModuleManager, 'URL' => $this->URL)));
             }
         } catch (\Exception $e) {
             Log::info($e->getMessage());

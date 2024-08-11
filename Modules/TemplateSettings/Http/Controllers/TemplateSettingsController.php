@@ -6,7 +6,7 @@ use App\User;
 use App\SmUserLog;
 use App\SmsTemplate;
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
@@ -37,7 +37,7 @@ class TemplateSettingsController extends Controller
     {
 
         try {
-            $data = \App\InfixModuleManager::where('name', 'TemplateSettings')->first();
+            $data = \App\AramiscModuleManager::where('name', 'TemplateSettings')->first();
             return view('templatesettings::index', compact('data'));
         }catch(\Exception $e) {
             Log::info($e->getMessage());

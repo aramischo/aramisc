@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 
 class AddLessonPlanSubtopicToGeneralSettingsTable extends Migration
 {
@@ -35,6 +35,6 @@ class AddLessonPlanSubtopicToGeneralSettingsTable extends Migration
             }
         });
 
-        \Modules\RolePermission\Entities\InfixModuleInfo::where('id', 835)->delete();
+        \Modules\RolePermission\Entities\AramiscModuleInfo::where('id', 835)->delete();
     }
 }

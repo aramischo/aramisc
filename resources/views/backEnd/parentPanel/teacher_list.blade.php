@@ -137,7 +137,7 @@
                                                                 @if (in_array('3', $aramiscTeacherEvaluationSetting->submitted_by))
                                                                     @if (date('m/d/Y') >= date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->from_date)) &&
                                                                             date('m/d/Y') <= date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->to_date)))
-                                                                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-submit', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
+                                                                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-submit', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
                                                                         <input type="hidden" name="teacher_id"
                                                                             value="{{ $value->teacher_id }}">
                                                                         <input type="hidden" name="record_id"

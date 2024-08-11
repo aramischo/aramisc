@@ -32,7 +32,7 @@ class SmParentFactory extends Factory
                 'mothers_occupation' => 'Housewife',               
                 'guardians_name'       => $this->faker->firstNameMale,
                 'guardians_mobile'     => rand(1000, 9999) . rand(1000, 9999),
-                'guardians_email'      => 'guardian_' . $this->i++ . '@infixedu.com',
+                'guardians_email'      => 'guardian_' . $this->i++ . '@aramisc.com',
                 'guardians_occupation' => 'Businessman',
                 'guardians_relation'   => 'Father',
                 'relation'             => 'Son',

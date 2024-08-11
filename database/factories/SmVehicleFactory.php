@@ -23,8 +23,8 @@ class SmVehicleFactory extends Factory
     public function definition()
     {
         return [
-            'vehicle_no' =>'INFIX-'.rand(100,1000),
-            'vehicle_model' =>'INFIX-M'.rand(100,1000),
+            'vehicle_no' =>'ARAMISC-'.rand(100,1000),
+            'vehicle_model' =>'ARAMISC-M'.rand(100,1000),
             'made_year' =>date('Y'),          
             'note' =>$this->faker->sentence($nbWords =6, $variableNbWords = true),
         ];

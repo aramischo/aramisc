@@ -117,8 +117,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
-use Modules\InfixBiometrics\Entities\InfixBioSetting;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\AramiscBiometrics\Entities\AramiscBioSetting;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class SmApiController extends Controller
 {
@@ -175,7 +175,7 @@ class SmApiController extends Controller
 
         try {
             $sms_template = DB::table('sms_templates')->find(1);
-            $aramiscAttendance_setting = InfixBioSetting::find(1);
+            $aramiscAttendance_setting = AramiscBioSetting::find(1);
 
             $lastest_data = DB::table('device_log')->where('is_aramiscAttendance', 0)->get();
 
@@ -520,7 +520,7 @@ class SmApiController extends Controller
     }
     public function systemRole(Request $request)
     {
-        $role_list = DB::table('infix_roles')
+        $role_list = DB::table('aramisc_roles')
             ->where('active_status', 1)
             ->get();
 
@@ -1049,7 +1049,7 @@ class SmApiController extends Controller
     public function member_role(Request $request)
     {
 
-        $roles = InfixRole::where('active_status', '=', 1)->where(function ($q) {
+        $roles = AramiscRole::where('active_status', '=', 1)->where(function ($q) {
             $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
         })->orderBy('id', 'desc')->get();
 
@@ -1060,7 +1060,7 @@ class SmApiController extends Controller
     public function saas_member_role(Request $request, $school_id)
     {
 
-        $roles = InfixRole::where('active_status', '=', 1)->where(function ($q) {
+        $roles = AramiscRole::where('active_status', '=', 1)->where(function ($q) {
             $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
         })->orderBy('id', 'desc')->get();
 
@@ -5554,7 +5554,7 @@ class SmApiController extends Controller
 
             foreach ($request->available_for as $value) {
                 if ($value == 'admin') {
-                    $roles = InfixRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where(function ($q) {
+                    $roles = AramiscRole::where('id', '=', 1) /* ->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9) */->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where(function ($q) {
                         $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                     })->get();
                     foreach ($roles as $role) {
@@ -9248,7 +9248,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', 1)->orWhere('type', 'System');
             })->get();
 
@@ -9275,7 +9275,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->where('school_id', $school_id)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9302,7 +9302,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', '=', '1')
+            $roles = AramiscRole::where('active_status', '=', '1')
                 ->where(function ($q) {
                     $q->where('school_id', 1)->orWhere('type', 'System');
                 })
@@ -9323,7 +9323,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', '=', '1')
+            $roles = AramiscRole::where('active_status', '=', '1')
                 ->where(function ($q) use ($school_id) {
                     $q->where('school_id', $school_id)->orWhere('type', 'System');
                 })
@@ -9425,7 +9425,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9452,7 +9452,7 @@ class SmApiController extends Controller
 
         try {
             $staffs = SmStaff::where('active_status', 1)->where('school_id', $school_id)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9495,7 +9495,7 @@ class SmApiController extends Controller
                 $staff->where('full_name', 'like', '%' . $request->staff_name . '%');
             }
             $staffs = $staff->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->get();
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -9528,7 +9528,7 @@ class SmApiController extends Controller
                 $staff->where('full_name', 'like', '%' . $request->staff_name . '%');
             }
             $staffs = $staff->where('school_id', $school_id)->get();
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9585,7 +9585,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9601,7 +9601,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)
                 ->where('school_id', $school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -9631,7 +9631,7 @@ class SmApiController extends Controller
         try {
             $date = $request->aramiscAttendance_date;
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->orWhere('type', 'System');
             })->get();
             $role_id = $request->role;
@@ -9689,7 +9689,7 @@ class SmApiController extends Controller
         try {
             $date = $request->aramiscAttendance_date;
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->orWhere('type', 'System');
             })->get();
             $role_id = $request->role;
@@ -9795,7 +9795,7 @@ class SmApiController extends Controller
 
         try {
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9813,7 +9813,7 @@ class SmApiController extends Controller
 
         try {
 
-            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', $school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9852,7 +9852,7 @@ class SmApiController extends Controller
             $current_day = date('d');
 
             $days = cal_days_in_month(CAL_GREGORIAN, $request->month, $request->year);
-            $roles = InfixRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9909,7 +9909,7 @@ class SmApiController extends Controller
             $current_day = date('d');
 
             $days = cal_days_in_month(CAL_GREGORIAN, $request->month, $request->year);
-            $roles = InfixRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 3)->where('id', '!=', 2)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -9952,7 +9952,7 @@ class SmApiController extends Controller
     //             $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', $staff->id]])->get();
     //         }
     //         $leave_types = SmLeaveType::where('active_status', 1)->get();
-    //         $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+    //         $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
     //             $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
     //         })->get();
     //         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -9980,7 +9980,7 @@ class SmApiController extends Controller
                 $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', $staff->id]])->where('school_id', $school_id)->get();
             }
             $leave_types = SmLeaveType::where('active_status', 1)->where('school_id', $school_id)->get();
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -10165,7 +10165,7 @@ class SmApiController extends Controller
         try {
             $editData = SmLeaveRequest::find($id);
             $staffsByRole = SmStaff::where('role_id', '=', $editData->role_id)->get();
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $apply_leaves = SmLeaveRequest::where('active_status', 1)->get();
@@ -10191,7 +10191,7 @@ class SmApiController extends Controller
         try {
             $editData = SmLeaveRequest::where('school_id', $school_id)->find($id);
             $staffsByRole = SmStaff::where('role_id', '=', $editData->role_id)->where('school_id', $school_id)->get();
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $apply_leaves = SmLeaveRequest::where('active_status', 1)->where('school_id', $school_id)->get();
@@ -12616,7 +12616,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -12631,7 +12631,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('school_id', $school_id)->get();
+            $roles = AramiscRole::where('school_id', $school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($roles, null);
             }
@@ -12793,7 +12793,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $noticeDataDetails = SmNoticeBoard::find($notice_id);
@@ -12813,7 +12813,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $noticeDataDetails = SmNoticeBoard::where('school_id', $school_id)->find($notice_id);
@@ -13005,7 +13005,7 @@ class SmApiController extends Controller
     public function sendEmailSmsView(Request $request)
     {
         try {
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
@@ -13025,7 +13025,7 @@ class SmApiController extends Controller
     public function saas_sendEmailSmsView(Request $request, $school_id)
     {
         try {
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', $school_id)->get();
@@ -14490,7 +14490,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $roles = InfixRole::all();
+            $roles = AramiscRole::all();
             $classes = SmClass::all();
             $itemCat = SmItemCategory::all();
             $issuedItems = SmItemIssue::where('active_status', '=', 1)->get();
@@ -16809,7 +16809,7 @@ class SmApiController extends Controller
     public function role_index(Request $request)
     {
         try {
-            $roles = InfixRole::where('active_status', '=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->orderBy('id', 'desc')->where(function ($q) {
+            $roles = AramiscRole::where('active_status', '=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->orderBy('id', 'desc')->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -16863,8 +16863,8 @@ class SmApiController extends Controller
     public function role_edit(Request $request, $id)
     {
         try {
-            $role = InfixRole::find($id);
-            $roles = InfixRole::where('active_status', '=', 1)->orderBy('id', 'desc')->where(function ($q) {
+            $role = AramiscRole::find($id);
+            $roles = AramiscRole::where('active_status', '=', 1)->orderBy('id', 'desc')->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -16895,7 +16895,7 @@ class SmApiController extends Controller
                 ->withInput();
         }
         try {
-            $role = InfixRole::find($request->id);
+            $role = AramiscRole::find($request->id);
             $role->name = $request->name;
             $result = $role->save();
 
@@ -16926,7 +16926,7 @@ class SmApiController extends Controller
         $tables = tableList::getTableList($id, $request->id);
 
         try {
-            $delete_query = InfixRole::destroy($request->id);
+            $delete_query = AramiscRole::destroy($request->id);
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 if ($delete_query) {
                     return ApiBaseMethod::sendResponse(null, 'Role has been deleted successfully');
@@ -16954,7 +16954,7 @@ class SmApiController extends Controller
     {
 
         try {
-            $role = InfixRole::find($id);
+            $role = AramiscRole::find($id);
             $modulesRole = SmModule::where('active_status', 1)->get();
             $role_permissions = SmRolePermission::where('role_id', $id)->get();
             $already_assigned = [];
@@ -20060,7 +20060,7 @@ class SmApiController extends Controller
         }
 
         if ($request->input('available_for') == 'admin') {
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -20190,7 +20190,7 @@ class SmApiController extends Controller
         }
 
         if ($request->input('available_for') == 'admin') {
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -20339,7 +20339,7 @@ class SmApiController extends Controller
                 $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'A'], ['staff_id', '=', $staff->id]])->get();
             }
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->get();
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->get();
 
             $pendingRequest = SmLeaveRequest::where('sm_leave_requests.active_status', 1)
                 ->select('sm_leave_requests.id', 'full_name', 'apply_date', 'leave_from', 'leave_to', 'reason', 'file', 'sm_leave_types.type', 'approve_status')
@@ -20382,7 +20382,7 @@ class SmApiController extends Controller
                 $apply_leaves = SmLeaveRequest::where([['active_status', 1], ['approve_status', '!=', 'A'], ['staff_id', '=', $staff->id]])->get();
             }
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -20721,7 +20721,7 @@ class SmApiController extends Controller
 
                 if ($user->notificationToken != '') {
 
-                    //echo 'Infix Edu';
+                    //echo 'Aramisc';
                     define('API_ACCESS_KEY', 'AAAA5ZKAL1I:APA91bFSF0aIpn2uayU2SJ7Ov8Krc3xlQVqwEBYt0FOyDxswMgDVOq7hKoOkRVm5gGd_YxWzwe_kl-POUQE13twf65yxpd3dRffEjNqaXTdl7x-lCCkIY7YYOD4pVjaHWNazHJSgB6xp');
                     //   $registrationIds = ;
                     #prep the bundle
@@ -20777,7 +20777,7 @@ class SmApiController extends Controller
 
                 if ($user->notificationToken != '') {
 
-                    //echo 'Infix Edu';
+                    //echo 'Aramisc';
                     define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                     //   $registrationIds = ;
                     #prep the bundle
@@ -20834,7 +20834,7 @@ class SmApiController extends Controller
 
                 if ($user->notificationToken != '') {
 
-                    //echo 'Infix Edu';
+                    //echo 'Aramisc';
                     define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                     //   $registrationIds = ;
                     #prep the bundle

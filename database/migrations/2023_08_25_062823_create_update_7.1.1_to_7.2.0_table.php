@@ -2,7 +2,7 @@
 
 use App\SmPage;
 use App\SmsTemplate;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -66,9 +66,9 @@ return new class extends Migration
         });
 
 
-        $s2 = InfixModuleManager::where('name', 'BehaviourRecords')->first();
+        $s2 = AramiscModuleManager::where('name', 'BehaviourRecords')->first();
         if(!$s2){
-            $s2 = new InfixModuleManager();
+            $s2 = new AramiscModuleManager();
         }
         $s2->name = "BehaviourRecords";
         $s2->email = 'support@spondonit.com';
@@ -77,7 +77,7 @@ return new class extends Migration
         $s2->update_url = "https://spondonit.com/contact";
         $s2->is_default = 0;
         $s2->purchase_code = time();
-        $s2->addon_url = "https://codecanyon.net/item/google-meet-module-for-infixedu-gmeet-live-class/42463761";
+        $s2->addon_url = "https://codecanyon.net/item/google-meet-module-for-aramisc-gmeet-live-class/42463761";
         $s2->installed_domain = url('/');
         $s2->activated_date = date('Y-m-d');
         $s2->save();
@@ -86,13 +86,13 @@ return new class extends Migration
 
 
         $name = 'InAppLiveClass';
-        $s = InfixModuleManager::where('name', $name)->first();
+        $s = AramiscModuleManager::where('name', $name)->first();
         if(!$s){
-            $s = new InfixModuleManager();
+            $s = new AramiscModuleManager();
         }
         $s->name = $name;
         $s->email = 'support@spondonit.com';
-        $s->notes = 'This InAppLiveClass Module For InfixEdu. Manage Online Class and Meeting Reports.';
+        $s->notes = 'This InAppLiveClass Module For aramisc. Manage Online Class and Meeting Reports.';
         $s->version = "1.0";
         $s->update_url = "https://spondonit.com/contact";
         $s->is_default = 0;
@@ -1114,7 +1114,7 @@ return new class extends Migration
                                                     <p
                                                         style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                         <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                            © 2020 Infix Education software|
+                                                            © 2020 Aramisccation software|
                                                         </span>
                                                         <span style="background-color:transparent;text-align:left;">
                                                             <font color="#ffffff">
@@ -1226,7 +1226,7 @@ return new class extends Migration
                                                         <p
                                                             style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                             <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                                © 2020 Infix Education software|
+                                                                © 2020 Aramisccation software|
                                                             </span>
                                                             <span style="background-color:transparent;text-align:left;">
                                                                 <font color="#ffffff">

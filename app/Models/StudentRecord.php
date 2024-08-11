@@ -30,9 +30,9 @@ use Modules\Lesson\Entities\LessonPlanner;
 use Modules\University\Entities\UnSubject;
 use Modules\Gmeet\Entities\GmeetVirtualClass;
 use Modules\Jitsi\Entities\JitsiVirtualClass;
-use Modules\OnlineExam\Entities\InfixOnlineExam;
+use Modules\OnlineExam\Entities\AramiscOnlineExam;
 use Modules\University\Entities\UnAssignSubject;
-use Modules\OnlineExam\Entities\InfixWrittenExam;
+use Modules\OnlineExam\Entities\AramiscWrittenExam;
 use Modules\University\Entities\UnSubjectComplete;
 use Modules\BehaviourRecords\Entities\AssignIncident;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,7 +40,7 @@ use JoisarJignesh\Bigbluebutton\Facades\Bigbluebutton;
 use Modules\InAppLiveClass\Entities\InAppLiveClass;
 use Modules\University\Entities\UnSubjectPreRequisite;
 use Modules\University\Entities\UnSubjectAssignStudent;
-use Modules\OnlineExam\Entities\InfixStudentTakeOnlineExam;
+use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
 
 class StudentRecord extends Model
 {
@@ -274,14 +274,14 @@ class StudentRecord extends Model
             ->pluck('subject_id')->unique();
         if (moduleStatusCheck('OnlineExam') == true) {
             if (moduleStatusCheck('University')) {
-                return InfixOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)
+                return AramiscOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)
                     ->where('un_faculty_id', $this->un_faculty_id)
                     ->where('un_department_id', $this->un_department_id)
                     ->where('un_semester_label_id', $this->un_semester_label_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
             }
-            return InfixOnlineExam::with('studentSubmitExamWithStatus')->where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)
+            return AramiscOnlineExam::with('studentSubmitExamWithStatus')->where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get()->filter(function ($exam) {
                     $exam->when($exam->section_id, function ($q) {
@@ -292,10 +292,10 @@ class StudentRecord extends Model
         }
         return SmOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->get();
     }
-    public function getInfixStudentTakeOnlineExamAttribute()
+    public function getAramiscStudentTakeOnlineExamAttribute()
     {
         if (moduleStatusCheck('OnlineExam') == true && auth()->user()->role_id == 2) {
-            return  InfixStudentTakeOnlineExam::where('status', 2)
+            return  AramiscStudentTakeOnlineExam::where('status', 2)
                 ->where('student_id', auth()->user()->student->id)
                 ->whereHas('onlineExam', function ($query) {
                     return    $query->when(moduleStatusCheck('Lms'), function ($q) {
@@ -304,10 +304,10 @@ class StudentRecord extends Model
                 })->where('student_record_id', $this->id)->get();
         }
     }
-    public static function getInfixStudentTakeOnlineExamParent($student_id, $record_id)
+    public static function getAramiscStudentTakeOnlineExamParent($student_id, $record_id)
     {
         if (moduleStatusCheck('OnlineExam') == true) {
-            return InfixStudentTakeOnlineExam::where('status', 2)
+            return AramiscStudentTakeOnlineExam::where('status', 2)
                 ->where('student_id', $student_id)
                 ->where('student_record_id', $record_id)->get();
         } else {
@@ -394,9 +394,9 @@ class StudentRecord extends Model
     public function getOnlineWrittenExamAttribute()
     {
         if (moduleStatusCheck('University')) {
-            return InfixWrittenExam::where('active_status', 1)->where('un_academic_id', getAcademicId())->where('status', 1)->where('un_semester_label_id', $this->un_semester_label_id)->where('school_id', Auth::user()->school_id)->get();
+            return AramiscWrittenExam::where('active_status', 1)->where('un_academic_id', getAcademicId())->where('status', 1)->where('un_semester_label_id', $this->un_semester_label_id)->where('school_id', Auth::user()->school_id)->get();
         } else {
-            return InfixWrittenExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->with('class', 'section', 'subject')->get();
+            return AramiscWrittenExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->with('class', 'section', 'subject')->get();
         }
     }
 

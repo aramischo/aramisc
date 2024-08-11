@@ -64,7 +64,7 @@ class SmClassesTableSeeder extends Seeder
 
                     SmParent::factory()->times(1)->create([
                         'school_id' => $school_id,
-                        'guardians_email' => 'guardian_' . $student->id . '@infixedu.com',
+                        'guardians_email' => 'guardian_' . $student->id . '@aramisc.com',
                     ])->each(function ($parent) use ($student, $school_id) {
                         $student->parent_id = $parent->id;
                         $student->save();

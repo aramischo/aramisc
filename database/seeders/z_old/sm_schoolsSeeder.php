@@ -34,14 +34,14 @@ use App\SmQuestionGroup;
 use App\SmExamAttendance;
 use App\SmPaymentMethhod;
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use Faker\Factory as Faker;
 use App\SmExamAttendanceChild;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
-use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\AramiscPermissionAssign;
 use Modules\Saas\Entities\SaasSchoolModulePermissionAssign;
 use Modules\Saas\Events\InstituteRegistration;
 use Modules\Saas\Listeners\InstituteRegisterdListener;
@@ -68,7 +68,7 @@ class sm_schoolsSeeder extends Seeder
                 $class_id = SmClass::where('school_id',$i)->where('academic_id',$i)->first('id')->id;
                 $section_id = SmClassSection::where('school_id',$i)->where('class_id',$class_id)->where('academic_id',$i)->first('section_id')->section_id;
 
-                $email= $prefix.'_'.$i.'@infixedu.com';
+                $email= $prefix.'_'.$i.'@aramisc.com';
                 $school= $faker->company. ' School';
 
                 $store= new SmSchool();
@@ -107,7 +107,7 @@ class sm_schoolsSeeder extends Seeder
                 $staff->gender_id       = 1;
                 $staff->school_id       = $i;
                 $staff->email           = $email;
-                $staff->staff_photo     = 'public/uploads/staff/1_infix_edu.jpg';
+                $staff->staff_photo     = 'public/uploads/staff/1_aramisc.jpg';
                 $staff->casual_leave    = '12';
                 $staff->medical_leave   = '15';
                 $staff->metarnity_leave = '15';
@@ -120,7 +120,7 @@ class sm_schoolsSeeder extends Seeder
                         'school_id' => $store->id,
                         'institution_name' => 'Google',
                         'image' => 'public/uploads/testimonial/testimonial_1.jpg',
-                        'description' => 'its vast! Infix has more additional feature that will expect in a complete solution.',
+                        'description' => 'its vast! Aramisc has more additional feature that will expect in a complete solution.',
                         'created_at' => date('Y-m-d h:i:s')
                     ],
                     [
@@ -129,7 +129,7 @@ class sm_schoolsSeeder extends Seeder
                         'school_id' => $store->id,
                         'institution_name' => 'Linkdin',
                         'image' => 'public/uploads/testimonial/testimonial_2.jpg',
-                        'description' => 'its vast! Infix has more additional feature that will expect in a complete solution.',
+                        'description' => 'its vast! Aramisc has more additional feature that will expect in a complete solution.',
                         'created_at' => date('Y-m-d h:i:s')
                     ],
                 ]);
@@ -384,8 +384,8 @@ class sm_schoolsSeeder extends Seeder
                     $newUser            = new User();
                     $newUser->role_id   = $role_id;
                     $newUser->full_name = $Full_name;
-                    $newUser->email     = $First_Name . $j . '@infixedu.com';
-                    $newUser->username  = $First_Name . $j . '@infixedu.com';
+                    $newUser->email     = $First_Name . $j . '@aramisc.com';
+                    $newUser->username  = $First_Name . $j . '@aramisc.com';
                     $newUser->password  = Hash::make(123456);
                     $newUser->created_at = date('Y-m-d h:i:s');
                     $newUser->school_id = $i;
@@ -412,7 +412,7 @@ class sm_schoolsSeeder extends Seeder
                             'date_of_joining'  => $faker->date($format = 'Y-m-d', $max = 'now'),
 
                             'gender_id'        => $gender_id,
-                            'email'            => $First_Name . $j . '@infixedu.com',
+                            'email'            => $First_Name . $j . '@aramisc.com',
                             'mobile'           => '123456789',
                             'emergency_mobile' => '1234567890',
                             'marital_status'   => 'Married',
@@ -460,7 +460,7 @@ class sm_schoolsSeeder extends Seeder
                                 $Guardian_Last_Name  = $faker->lastName($gender = 'male');
                                 $Guardian_full_name  = $Guardian_First_Name . ' ' . $Guardian_Last_Name;
             
-                                $studentEmail = strtolower($student_User_Name) . $j . '@infixedu.com';
+                                $studentEmail = strtolower($student_User_Name) . $j . '@aramisc.com';
             
                                 //insert student user & pass
                                 $newUser            = new User();
@@ -480,8 +480,8 @@ class sm_schoolsSeeder extends Seeder
                                 $newUser            = new User();
                                 $newUser->role_id   = 3;
                                 $newUser->full_name = $Father_full_name;
-                                $newUser->email     = strtolower($Father_User_Name).'_pa' . $j . '@infixedu.com';
-                                $newUser->username  = strtolower($Father_User_Name).'_pa' . $j . '@infixedu.com';
+                                $newUser->email     = strtolower($Father_User_Name).'_pa' . $j . '@aramisc.com';
+                                $newUser->username  = strtolower($Father_User_Name).'_pa' . $j . '@aramisc.com';
                                 $newUser->password  = Hash::make(123456);
             
                                 $newUser->created_at = date('Y-m-d h:i:s');
@@ -506,7 +506,7 @@ class sm_schoolsSeeder extends Seeder
             
                                 $parent->guardians_name       = $Guardian_full_name;
                                 $parent->guardians_mobile     = rand(1000, 9999) . rand(1000, 9999);
-                                $parent->guardians_email      = $Guardian_First_Name . $j . '@infixedu.com';
+                                $parent->guardians_email      = $Guardian_First_Name . $j . '@aramisc.com';
                                 $parent->guardians_occupation = 'Businessman';
                                 $parent->guardians_relation   = 'Brother';
                                 $parent->relation             = 'Son';
@@ -888,8 +888,8 @@ class sm_schoolsSeeder extends Seeder
 
             } // End For
 
-            $findSaas= InfixModuleManager::where('name','Saas')->first();
-            $saasPurchase= InfixModuleManager::find($findSaas->id);
+            $findSaas= AramiscModuleManager::where('name','Saas')->first();
+            $saasPurchase= AramiscModuleManager::find($findSaas->id);
             $saasPurchase->purchase_code = 123456;
             $saasPurchase->is_default = 0;
             $saasPurchase->update();

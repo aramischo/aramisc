@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Yajra\DataTables\Facades\DataTables;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Http\Requests\Admin\Communicate\EventRequest;
 use App\Traits\NotificationSend;
 
@@ -191,7 +191,7 @@ class SmEventController extends Controller
 
     private function indexData(){
         $data['events'] = SmEvent::get();
-        $data['roles'] = InfixRole::where(function ($q) {
+        $data['roles'] = AramiscRole::where(function ($q) {
                             $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
                         })
                         ->whereNotIn('id', [1])
@@ -200,7 +200,7 @@ class SmEventController extends Controller
     }
 
     private function roleName($roleId){
-        return InfixRole::find($roleId, ['name']);
+        return AramiscRole::find($roleId, ['name']);
     }
 
     public function newDesign(){

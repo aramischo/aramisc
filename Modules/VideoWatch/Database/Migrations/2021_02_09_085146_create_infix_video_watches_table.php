@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInfixVideoWatchesTable extends Migration
+class CreateAramiscVideoWatchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateInfixVideoWatchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('infix_video_watches', function (Blueprint $table) {
+        Schema::create('aramisc_video_watches', function (Blueprint $table) {
             $table->id();
             $table->integer('study_material_id')->nullable();
             $table->integer('student_id')->nullable();
@@ -29,6 +29,6 @@ class CreateInfixVideoWatchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('infix_video_watches');
+        Schema::dropIfExists('aramisc_video_watches');
     }
 }

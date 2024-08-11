@@ -34,13 +34,13 @@ return new class extends Migration
             [
                 'name' => "Cultural Carnival",
                 'description' => "A lively celebration of diverse traditions, arts, and festivities.",
-                'video_link' => "https://www.youtube.com/watch?v=k61cLi1_Zd0&ab_channel=Infixdev",
+                'video_link' => "https://www.youtube.com/watch?v=k61cLi1_Zd0&ab_channel=Aramiscdev",
                 'position' => 2,
             ],
             [
                 'name' => "Student Leadership Summit",
                 'description' => "Empowering future leaders through collaboration and inspiration.",
-                'video_link' => "https://www.youtube.com/watch?v=4zR-uaZjZ2U&ab_channel=Infixdev",
+                'video_link' => "https://www.youtube.com/watch?v=4zR-uaZjZ2U&ab_channel=Aramiscdev",
                 'position' => 3,
             ],
         ]);

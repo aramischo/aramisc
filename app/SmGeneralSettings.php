@@ -55,7 +55,7 @@ class SmGeneralSettings extends Model
         'Chat' => 'boolean',
         'FeesCollection' => 'boolean',
         'income_head_id' => 'boolean',
-        'InfixBiometrics' => 'boolean',
+        'AramiscBiometrics' => 'boolean',
         'ResultReports' => 'boolean',
         'TemplateSettings' => 'boolean',
         'MenuManage' => 'boolean',
@@ -378,7 +378,7 @@ class SmGeneralSettings extends Model
                    
 
                     if ($modulestatus == FALSE) {
-                        $is_verify = InfixModuleManager::where('name', $name)->first();
+                        $is_verify = AramiscModuleManager::where('name', $name)->first();
                        
                         if (!empty($is_verify->purchase_code)) {
                             return TRUE;

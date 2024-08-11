@@ -105,7 +105,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id');
     }
 
     public function getProfileAttribute()

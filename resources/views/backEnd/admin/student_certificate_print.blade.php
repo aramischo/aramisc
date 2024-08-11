@@ -322,7 +322,7 @@
 
 
 
-    <script src="{{ asset('https://infix_edu.test/public/backEnd/vendors/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('https://aramisc.test/public/backEnd/vendors/js/jquery-3.2.1.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
     <script>

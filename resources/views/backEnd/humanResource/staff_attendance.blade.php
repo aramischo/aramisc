@@ -47,7 +47,7 @@
                         </div>
 
 
-                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-aramiscAttendance-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
+                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-aramiscAttendance-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
 
                         <div class="row">
                             <input type="hidden" name="url" id="url" value="{{ URL::to('/') }}">

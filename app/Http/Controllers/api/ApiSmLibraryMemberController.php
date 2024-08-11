@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class ApiSmLibraryMemberController extends Controller
 {
@@ -32,7 +32,7 @@ class ApiSmLibraryMemberController extends Controller
         try {
             //$libraryMembers = SmLibraryMember::where('active_status', '=', 1)->get();
             $libraryMembers = SmLibraryMember::where('active_status', '=', 1)->get();
-            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
+            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::all();

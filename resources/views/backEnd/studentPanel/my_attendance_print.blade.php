@@ -26,8 +26,8 @@
                                 <img class="logo-img" src="{{ url('/')}}/{{@generalSetting()->logo }}" alt=""> 
                             </td>
                             <td> 
-                                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?@generalSetting()->school_name:'Infix School Management ERP'}} </h3> 
-                                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?@generalSetting()->address:'Infix School Address'}} </p> 
+                                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?@generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
+                                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?@generalSetting()->address:'Aramisc School Address'}} </p>
                                 <p style="font-size:15px !important" class="text-white mb-0"> @lang('student.aramiscAttendance') </p> 
                           </td>
                             <td style="text-aligh:center"> 

@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'name' => env('APP_NAME', 'InfixEdu'),
+    'name' => env('APP_NAME', 'aramisc'),
     'manifest' => [
-        'name' => env('APP_NAME', 'InfixEdu'),
-        'short_name' => env('APP_NAME', 'InfixEdu'),
+        'name' => env('APP_NAME', 'aramisc'),
+        'short_name' => env('APP_NAME', 'aramisc'),
         'start_url' => env('APP_URL', '/'),
         'background_color' => '#ffffff',
         'theme_color' => '#000000',

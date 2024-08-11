@@ -139,7 +139,7 @@ class SmSystemSettingController extends Controller
         try {
             $user = User::where('id', $request->id)->first();
             if ($user->notificationToken != '') {
-                //echo 'Infix Edu';
+                //echo 'Aramisc';
                 define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                 //   $registrationIds = ;
                 #prep the bundle
@@ -2338,8 +2338,8 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            if (!Schema::hasTable('infix_module_managers')) {
-                Artisan::call('migrate --path=/database/migrations/2020_06_10_193309_create_infix_module_managers_table.php');
+            if (!Schema::hasTable('aramisc_module_managers')) {
+                Artisan::call('migrate --path=/database/migrations/2020_06_10_193309_create_aramisc_module_managers_table.php');
             }
 
             Artisan::call('cache:clear');

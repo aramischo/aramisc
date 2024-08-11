@@ -1,7 +1,7 @@
 <?php
 
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,17 +14,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $exist = InfixModuleManager::where('name', 'ToyyibPay')->first();
+        $exist = AramiscModuleManager::where('name', 'ToyyibPay')->first();
         if (!$exist) {
             $name = 'ToyyibPay';
-            $s = new InfixModuleManager();
+            $s = new AramiscModuleManager();
             $s->name = $name;
             $s->email = 'support@spondonit.com';
             $s->notes = "This is ToyyibPay module for Online payemnt. Thanks for using.";
             $s->version = "1.0";
             $s->update_url = "https://spondonit.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "https://codecanyon.net/item/infixedu-zoom-live-class/27623128?s_rank=12";
+            $s->addon_url = "https://codecanyon.net/item/aramisc-zoom-live-class/27623128?s_rank=12";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();

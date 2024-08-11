@@ -17,7 +17,7 @@ use App\SmSection;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class SmLoginAccessControlController extends Controller
 {
@@ -32,7 +32,7 @@ class SmLoginAccessControlController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();
@@ -62,7 +62,7 @@ class SmLoginAccessControlController extends Controller
 
         try {
             $role = $request->role;
-            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();

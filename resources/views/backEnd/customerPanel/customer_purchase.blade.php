@@ -25,8 +25,8 @@
                                 <div class="col-lg-6 mt-30-md">
                                     <select class="primary_select ">
                                         <option data-display="Select Class">@lang('common.select_package')</option>
-                                        <option value="1">@lang('common.infix_edu')</option>
-                                        <option value="2">@lang('common.infix_clasified')</option>
+                                        <option value="1">@lang('common.aramisc')</option>
+                                        <option value="2">@lang('common.aramisc_clasified')</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-12 mt-20 text-right">

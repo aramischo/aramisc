@@ -22,7 +22,7 @@ return [
     'site_script_var'                       => 'scripts',                       //push scripts variable for custom js and scripts files
     //End site layout settings
 
-    'db_prefix'                             => 'infixedu__',                 // prefix for database tables
+    'db_prefix'                             => 'aramisc__',                 // prefix for database tables
     'url_prefix'                            => '',                              // like /admin if you are using it in admin panel
     'route_middleware'                      => ['auth', 'subdomain'],                              // route middlewares like auth, role etc
 

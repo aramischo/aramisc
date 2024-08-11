@@ -28,7 +28,7 @@ class CreateFeesInvoicesTable extends Migration
         $schools = SmSchool::all();
         foreach($schools as $school){
             $store = new FeesInvoice();
-            $store->prefix = 'infixEdu';
+            $store->prefix = 'aramisc';
             $store->start_form = 101 + $school->id;
             $store->school_id = $school->id;
             $store->save();

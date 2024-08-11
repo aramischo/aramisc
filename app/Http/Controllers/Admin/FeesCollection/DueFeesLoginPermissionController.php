@@ -10,13 +10,13 @@ use App\Models\StudentRecord;
 use App\Models\DueFeesLoginPrevent;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class DueFeesLoginPermissionController extends Controller
 {
     public function index(){
         try{
-            $roles = InfixRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
+            $roles = AramiscRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
             $classes = SmClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
             return view('backEnd.feesCollection.due_fees_login_permission', compact('roles', 'classes'));
         }
@@ -28,7 +28,7 @@ class DueFeesLoginPermissionController extends Controller
 
     public function search(Request $request){
         try{
-            $roles = InfixRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
+            $roles = AramiscRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
             $classes = SmClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
             $records = StudentRecord::query();
             $records->where('is_promote', 0)->where('school_id',auth()->user()->school_id);

@@ -34,7 +34,7 @@ class SmNoticeBoardTableSeeder extends Seeder
             [
                 'notice_title' => 'Upcoming Events',
 
-                'notice_message' => "Stay tuned for exciting upcoming events at InfixEdu School, including Book Fair, Sports, and Debate competition. We encourage all students and parents to actively participate and make these events memorable experiences for the entire school community.",
+                'notice_message' => "Stay tuned for exciting upcoming events at aramisc School, including Book Fair, Sports, and Debate competition. We encourage all students and parents to actively participate and make these events memorable experiences for the entire school community.",
 
                 'notice_date' => date("Y-m-d", strtotime('2023-12-12')),
                 'publish_on' => date("Y-m-d", strtotime('2023-12-12')),
@@ -74,7 +74,7 @@ class SmNoticeBoardTableSeeder extends Seeder
             [
                 'notice_title' => 'Winter Break',
 
-                'notice_message' => "InfixEdu School will be closed for the winter break from 15/12/2024 to 31/12/2024. We wish all our students and their families a joyful and restful holiday season.",
+                'notice_message' => "aramisc School will be closed for the winter break from 15/12/2024 to 31/12/2024. We wish all our students and their families a joyful and restful holiday season.",
 
                 'notice_date' => date("Y-m-d", strtotime('2023-12-12')),
                 'publish_on' => date("Y-m-d", strtotime('2023-12-12')),

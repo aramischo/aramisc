@@ -11,7 +11,7 @@ use App\SmTeacherUploadContent;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Support\Renderable;
-use Modules\VideoWatch\Entities\InfixVideoWatch;
+use Modules\VideoWatch\Entities\AramiscVideoWatch;
 
 class VideoWatchController extends Controller
 {
@@ -51,15 +51,15 @@ class VideoWatchController extends Controller
                 $viewable_student_list[]=$value->user_id;
             }
         }
-        $watchLogs = InfixVideoWatch::where('study_material_id',$id)->get();
+        $watchLogs = AramiscVideoWatch::where('study_material_id',$id)->get();
         foreach ($watchLogs as $key => $value) {
             $seen_students[]=$value->student_id;
         }
 
-        $watchLogs = InfixVideoWatch::where('infix_video_watches.study_material_id',$id)
-        ->leftjoin('sm_students','sm_students.user_id','=','infix_video_watches.student_id')
-        ->leftjoin('sm_teacher_upload_contents','sm_teacher_upload_contents.id','=','infix_video_watches.study_material_id')
-        ->select('infix_video_watches.*','sm_students.id','full_name','admission_no','roll_no','content_title')
+        $watchLogs = AramiscVideoWatch::where('aramisc_video_watches.study_material_id',$id)
+        ->leftjoin('sm_students','sm_students.user_id','=','aramisc_video_watches.student_id')
+        ->leftjoin('sm_teacher_upload_contents','sm_teacher_upload_contents.id','=','aramisc_video_watches.study_material_id')
+        ->select('aramisc_video_watches.*','sm_students.id','full_name','admission_no','roll_no','content_title')
         ->get();
 
         $unseen_lists=[];
@@ -88,12 +88,12 @@ class VideoWatchController extends Controller
     public function traceData(Request $request)
     {
        
-        $check_exist=InfixVideoWatch::where('student_id',$request->user_id)->where('study_material_id',$request->study_id)->first();
+        $check_exist=AramiscVideoWatch::where('student_id',$request->user_id)->where('study_material_id',$request->study_id)->first();
         // if ($check_exist==null) {
         if (Auth::user()->role_id==2 && $check_exist==null) {
             date_default_timezone_set(timeZone());
 
-            $watch_trace=new InfixVideoWatch();
+            $watch_trace=new AramiscVideoWatch();
             $watch_trace->student_id=$request->user_id;
             $watch_trace->study_material_id=$request->study_id;
             $watch_trace->time=date("h:i:sa");

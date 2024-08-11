@@ -1975,7 +1975,7 @@ td:focus, th:focus {
 }
 
 /* line 1467, G:/laragon/www/CRM_frontend/Admin_crm/public/frontend/scss/_reset.scss */
-.nice-select.infix_theme_style .list {
+.nice-select.aramisc_theme_style .list {
     padding-top: 52px !important;
 }
 
@@ -18608,13 +18608,13 @@ table.table {
 }
 
 /* update for pm  */
-/* line 1, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 1, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area {
     position: relative;
     z-index: 1;
 }
 
-/* line 4, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 4, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area::before {
     content: '';
     position: absolute;
@@ -18628,13 +18628,13 @@ table.table {
 }
 
 @media (max-width: 991px) {
-    /* line 4, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+    /* line 4, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
     .Pm_blank_project_area::before {
         display: none;
     }
 }
 
-/* line 18, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 18, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_header {
     display: flex;
     align-items: center;
@@ -18642,7 +18642,7 @@ table.table {
     padding: 16px 10px;
 }
 
-/* line 23, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 23, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_header .back_icon {
     width: 28px;
     height: 28px;
@@ -18651,12 +18651,12 @@ table.table {
     line-height: 28px;
 }
 
-/* line 29, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 29, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_header .back_icon i {
     color: #151B26;
 }
 
-/* line 33, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 33, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_header .close_icon {
     width: 28px;
     height: 28px;
@@ -18665,19 +18665,19 @@ table.table {
     line-height: 28px;
 }
 
-/* line 39, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 39, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_header .close_icon i {
     color : var(--text_white);
 }
 
 @media (max-width: 991px) {
-    /* line 39, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+    /* line 39, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
     .Pm_blank_project_area .Pm_blank_project_header .close_icon i {
         color: #151B26;
     }
 }
 
-/* line 47, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 47, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_content {
     max-width: 1400px;
     display: grid;
@@ -18690,7 +18690,7 @@ table.table {
 }
 
 @media (max-width: 991px) {
-    /* line 47, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+    /* line 47, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
     .Pm_blank_project_area .Pm_blank_project_content {
         grid-template-columns: auto;
         grid-gap: 30px;
@@ -18698,18 +18698,18 @@ table.table {
 }
 
 @media (min-width: 1201px) {
-    /* line 47, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+    /* line 47, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
     .Pm_blank_project_area .Pm_blank_project_content {
         padding: 0 40px;
     }
 }
 
-/* line 63, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 63, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_content .Pm_blank_project_preview {
     margin: 20px 0;
 }
 
-/* line 65, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 65, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_content .Pm_blank_project_preview .tab_imgs {
     border-color: #cbd4db;
     border-radius: 8px;
@@ -18721,12 +18721,12 @@ table.table {
     background: var(--bg_white);
 }
 
-/* line 74, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 74, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .Pm_blank_project_area .Pm_blank_project_content .Pm_blank_project_preview .tab_imgs img {
     width: 100%;
 }
 
-/* line 82, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 82, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .project_view_layout {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -18735,13 +18735,13 @@ table.table {
 }
 
 @media (max-width: 575.98px) {
-    /* line 82, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+    /* line 82, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
     .project_view_layout {
         grid-template-columns: repeat(1, 1fr);
     }
 }
 
-/* line 94, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 94, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .project_view_layout li a {
     font-size: 16px;
     font-weight: 400;
@@ -18755,19 +18755,19 @@ table.table {
     text-transform: none;
 }
 
-/* line 105, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 105, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .project_view_layout li a.active {
     border-color: var(--gradient_1);
 }
 
-/* line 108, G:/laragon/www/383-infixpm_lv/public/scss/_blank_project.scss */
+/* line 108, G:/laragon/www/383-aramiscpm_lv/public/scss/_blank_project.scss */
 .project_view_layout li a i {
     font-size: 36px;
     margin-right: 14px;
 }
 
 /* sidebar  */
-/* line 287, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 287, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .team_memberList {
     display: flex;
     align-items: center;
@@ -18776,7 +18776,7 @@ table.table {
     line-height: 1;
 }
 
-/* line 293, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 293, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .team_memberList .small_avater {
     width: 20px;
     height: 20px;
@@ -18787,14 +18787,14 @@ table.table {
     z-index: 10;
 }
 
-/* line 301, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 301, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .team_memberList .small_avater img {
     width: 20px;
     border-radius: 50%;
     height: 20px;
 }
 
-/* line 305, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 305, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .team_memberList .small_avater .hover_img {
     position: absolute;
     left: 0;
@@ -18807,47 +18807,47 @@ table.table {
     transition: .3s;
 }
 
-/* line 315, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 315, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .team_memberList .small_avater .hover_img img {
     width: 100%;
     border-radius: 0;
     height: auto;
 }
 
-/* line 321, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 321, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .team_memberList .small_avater:hover .hover_img {
     opacity: 1;
     visibility: visible;
     top: 25px;
 }
 
-/* line 331, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 331, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .left_arrow_menu.has-arrow,
  #sidebar_menu2.metismenu .left_arrow_menu.has-arrow {
     padding-left: 45px !important;
     position: relative;
 }
 
-/* line 334, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 334, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .left_arrow_menu.has-arrow::after, #sidebar_menu2.metismenu .left_arrow_menu.has-arrow::after {
     left: 0;
     right: auto !important;
     left: 30px;
 }
 
-/* line 342, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 342, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns, #sidebar_menu2.metismenu .create_pro_btns {
     position: absolute;
     top: 0;
     right: 0;
 }
 
-/* line 346, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 346, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns.main_sujj_more, #sidebar_menu2.metismenu .create_pro_btns.main_sujj_more {
     opacity: 0;
 }
 
-/* line 349, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 349, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns button, #sidebar_menu2.metismenu .create_pro_btns button {
     border: 0;
     background: transparent;
@@ -18857,7 +18857,7 @@ table.table {
     padding: 0;
 }
 
-/* line 358, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 358, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu span, #sidebar_menu2.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu span {
     font-size: 13px;
     font-weight: 400;
@@ -18867,7 +18867,7 @@ table.table {
     display: block;
 }
 
-/* line 366, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 366, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item, #sidebar_menu2.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item {
     background: var(--bg_white) !important;
     color: #000;
@@ -18876,12 +18876,12 @@ table.table {
     text-transform: none;
 }
 
-/* line 372, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 372, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item:hover, #sidebar_menu2.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item:hover {
     background-color: #e8ecee !important;
 }
 
-/* line 378, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 378, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns, #sidebar_menu2.metismenu .create_pro_btns {
     position: absolute;
     top: 0;
@@ -18889,7 +18889,7 @@ table.table {
     z-index: 1000;
 }
 
-/* line 383, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 383, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns.main_sujj_more, #sidebar_menu2.metismenu .create_pro_btns.main_sujj_more {
     right: 30px !important;
     opacity: 0;
@@ -18898,7 +18898,7 @@ table.table {
     transform: scale(0);
 }
 
-/* line 390, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 390, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns.sub_sujj_more, #sidebar_menu2.metismenu .create_pro_btns.sub_sujj_more {
     right: 5px !important;
     opacity: 0;
@@ -18907,7 +18907,7 @@ table.table {
     transform: scale(0);
 }
 
-/* line 397, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 397, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns button, #sidebar_menu2.metismenu .create_pro_btns button {
     border: 0;
     background: transparent;
@@ -18917,7 +18917,7 @@ table.table {
     padding: 0;
 }
 
-/* line 406, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 406, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu span, #sidebar_menu2.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu span {
     font-size: 13px;
     font-weight: 400;
@@ -18927,7 +18927,7 @@ table.table {
     display: block;
 }
 
-/* line 414, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 414, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item, #sidebar_menu2.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item {
     background: var(--bg_white) !important;
     color: #000;
@@ -18936,12 +18936,12 @@ table.table {
     text-transform: none;
 }
 
-/* line 420, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 420, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 #sidebar_menu.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item:hover, #sidebar_menu2.metismenu .create_pro_btns .dropdown-menu.pm_dropdown_menu .dropdown-item:hover {
     background-color: #e8ecee !important;
 }
 
-/* line 431, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 431, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .sidebar #sidebar_menu > li ul > li:hover .main_sujj_more,
 .sidebar #sidebar_menu2 > li ul > li:hover .main_sujj_more {
     opacity: 1;
@@ -18950,7 +18950,7 @@ table.table {
     transform: scale(1);
 }
 
-/* line 439, G:/laragon/www/383-infixpm_lv/public/scss/_sidebar.scss */
+/* line 439, G:/laragon/www/383-aramiscpm_lv/public/scss/_sidebar.scss */
 .sidebar #sidebar_menu li ul li ul li:hover .sub_sujj_more,
 .sidebar #sidebar_menu2 li ul li ul li:hover .sub_sujj_more {
     opacity: 1;

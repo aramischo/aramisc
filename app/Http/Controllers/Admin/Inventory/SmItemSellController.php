@@ -32,7 +32,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Http\Requests\Admin\Inventory\SmItemSellRequest;
 use App\Http\Requests\Admin\Inventory\SmItemIssueRequest;
 
@@ -55,7 +55,7 @@ class SmItemSellController extends Controller
 
             $suppliers  = SmSupplier::get();
             $items      = SmItem::get();
-            $roles      =  InfixRole::when((generalSetting()->with_guardian !=1), function ($query) {
+            $roles      =  AramiscRole::when((generalSetting()->with_guardian !=1), function ($query) {
                             $query->where('id', '!=', 3);
                                 })->where(function ($q) {
                                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
@@ -287,7 +287,7 @@ class SmItemSellController extends Controller
         try {
             $editData = SmItemSell::find($id);
             
-            $roles = InfixRole::where(function ($q) {
+            $roles = AramiscRole::where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -714,7 +714,7 @@ class SmItemSellController extends Controller
     {
 
         try {
-            $roles = InfixRole::when((generalSetting()->with_guardian !=1), function ($query) {
+            $roles = AramiscRole::when((generalSetting()->with_guardian !=1), function ($query) {
                 $query->where('id', '!=', 3);
             })->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');

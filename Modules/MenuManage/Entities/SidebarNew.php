@@ -4,9 +4,9 @@ namespace Modules\MenuManage\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\RolePermission\Entities\InfixModuleInfo;
-use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
-use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
+use Modules\RolePermission\Entities\AramiscPermissionAssign;
 
 class SidebarNew extends Model
 {
@@ -28,21 +28,21 @@ class SidebarNew extends Model
 
     public static function subMenuList($module_id)
     {
-        $check = InfixPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
+        $check = AramiscPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
         $submenu = SidebarNew::query();
         if (moduleStatusCheck('Saas') == True) {
             $ids = [399, 400, 401, 402, 403, 404, 428, 429, 430, 431, 456, 457, 458, 459, 460, 461, 462, 463, 478, 482, 483, 484, 549];
-            $submenu->whereNotIn('infix_module_id', $ids);
+            $submenu->whereNotIn('aramisc_module_id', $ids);
         }
         if (auth()->user()->role_id != 1) {
-            $submenu->whereIn('infix_module_id', $check);
-            $submenu->whereNotIn('infix_module_id', [833, 834]);
+            $submenu->whereIn('aramisc_module_id', $check);
+            $submenu->whereNotIn('aramisc_module_id', [833, 834]);
         }
         if (auth()->user()->role_id == 4) {
-            $submenu->whereNotIn('infix_module_id', [833, 834]);
+            $submenu->whereNotIn('aramisc_module_id', [833, 834]);
         }
         if (auth()->user()->role_id == 1) {
-            $submenu->whereNotIn('infix_module_id', [193]);
+            $submenu->whereNotIn('aramisc_module_id', [193]);
         }
 
 
@@ -52,8 +52,8 @@ class SidebarNew extends Model
 
     public static function subMenuListDefault($module_id)
     {
-        $check = InfixPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
-        $submenu = InfixModuleInfo::query();
+        $check = AramiscPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
+        $submenu = AramiscModuleInfo::query();
         if (moduleStatusCheck('Saas') == True) {
             $ids = [399, 400, 401, 402, 403, 404, 428, 429, 430, 431, 456, 457, 458, 459, 460, 461, 462, 463, 478, 482, 483, 484, 549];
             $submenu->whereNotIn('id', $ids);
@@ -76,9 +76,9 @@ class SidebarNew extends Model
     public static function studentMenu($id)
     {
 
-        $check = InfixPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
+        $check = AramiscPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
         return SidebarNew::where('module_id', $id)
-            ->whereIn('infix_module_id', $check)
+            ->whereIn('aramisc_module_id', $check)
             ->where('parent_id', '!=', 0)->roleUser()
             ->get();
     }
@@ -90,8 +90,8 @@ class SidebarNew extends Model
         } elseif (auth()->user()->role_id == 3) {
             $user_type = 2;
         }
-        $check = InfixPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
-        return InfixModuleStudentParentInfo::where('parent_id', $id)
+        $check = AramiscPermissionAssign::where('role_id', auth()->user()->role_id)->get('module_id');
+        return AramiscModuleStudentParentInfo::where('parent_id', $id)
             ->whereIn('id', $check)
             ->whereNotIn('parent_id', [1, 11, 56, 66])
             ->whereNotIn('name', ['edit', 'view', 'edit', 'add', 'add content'])

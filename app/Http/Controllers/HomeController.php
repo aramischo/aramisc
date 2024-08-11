@@ -22,7 +22,7 @@ use App\SmNoticeBoard;
 use App\SmAcademicYear;
 use App\SmClassSection;
 use App\SmGeneralSettings;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\Models\DueFeesLoginPrevent;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use Modules\Lead\Entities\LeadReminder;
 use Modules\Saas\Entities\SmPackagePlan;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\Wallet\Entities\WalletTransaction;
 use Modules\Saas\Entities\SmSubscriptionPayment;
 
@@ -349,7 +349,7 @@ class HomeController extends Controller
             }
 
             $data['settings'] = SmCalendarSetting::get();
-            $data['roles'] = InfixRole::where(function ($q) {
+            $data['roles'] = AramiscRole::where(function ($q) {
                 $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
             })
             ->whereNotIn('id', [1, 2])

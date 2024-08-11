@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration
             $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
             
             $table->integer('role_id')->nullable()->unsigned();
-            $table->foreign('role_id')->references('id')->on('infix_roles')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('aramisc_roles')->onDelete('cascade');
             $table->enum('is_administrator', ['yes', 'no'])->default('no');
             $table->tinyInteger('is_registered')->default(0);
             $table->text('device_token')->nullable();
@@ -67,9 +67,9 @@ class CreateUsersTable extends Migration
             $user->school_id   = 1;
             $user->role_id   = 1;
             $user->full_name = 'admin';
-            $user->email     = 'admin@infixedu.com';
+            $user->email     = 'admin@aramisc.com';
             $user->is_administrator     = 'yes';
-            $user->username  = 'admin@infixedu.com';
+            $user->username  = 'admin@aramisc.com';
             $user->password  = Hash::make('123456');
             $user->created_at = date('Y-m-d h:i:s');
             $user->save();

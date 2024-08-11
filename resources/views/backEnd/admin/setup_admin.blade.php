@@ -373,7 +373,7 @@
     
                                                                                     <div class="dropdown p-2">
                                                                                         <button type="button"
-                                                                                            class="btn dropdown-toggle infix_csk module_id_ module_option_ module_link_option"
+                                                                                            class="btn dropdown-toggle aramisc_csk module_id_ module_option_ module_link_option"
                                                                                             data-toggle="dropdown">{{ @$admin_setup->name }}
                                                                                         </button>
     

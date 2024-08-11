@@ -24,7 +24,7 @@ use Modules\Fees\Entities\FmFeesInvoice;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Renderable;
 use Modules\BulkPrint\Entities\InvoiceSetting;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\BulkPrint\Entities\FeesInvoiceSetting;
 use Modules\Fees\Http\Controllers\FeesReportController;
 
@@ -43,7 +43,7 @@ class BulkPrintController extends Controller
     public function studentidBulkPrint(){
         try {
             $id_cards = SmStudentIdCard::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $roles = InfixRole::where('is_saas',0)->where('active_status', '=', 1)
+            $roles = AramiscRole::where('is_saas',0)->where('active_status', '=', 1)
                 ->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })
@@ -328,7 +328,7 @@ class BulkPrintController extends Controller
     public function payrollBulkPrint(){
         
 		try{
-			$roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+			$roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })
 			->orderBy('name','asc')
@@ -402,7 +402,7 @@ class BulkPrintController extends Controller
     }
     public function certificateBulkPrint(){
         try {
-            $roles = InfixRole::where('id', '!=', 1)->Where('type', 'System')->get();
+            $roles = AramiscRole::where('id', '!=', 1)->Where('type', 'System')->get();
             $classes = SmClass::get();
             $certificates = SmStudentCertificate::get();
             return view('bulkprint::admin.generate_certificate_bulk', compact('roles','classes', 'certificates'));
@@ -443,7 +443,7 @@ class BulkPrintController extends Controller
             $data['users'] =$data['students'] ;
             $data['certificate'] = SmStudentCertificate::find($request->certificate);
 
-            $data['roles'] = InfixRole::where('id', '!=', 1)->Where('type', 'System')->get();
+            $data['roles'] = AramiscRole::where('id', '!=', 1)->Where('type', 'System')->get();
             $data['classes'] = SmClass::get();
             $data['certificates'] = SmStudentCertificate::get();
             $data['type'] = 'school';

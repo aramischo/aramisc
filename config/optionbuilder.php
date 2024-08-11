@@ -11,7 +11,7 @@ return [
     'section'                               => 'content',                       // default section variable name 
     'style_var'                             => 'styles',                        // push style variable for style css
     'script_var'                            => 'scripts',                       // push scripts variable for custom js and scripts files
-    'db_prefix'                             => 'infixedu__',
+    'db_prefix'                             => 'aramisc__',
     'url_prefix'                            => '',                              // like admin if you are using it in admin panel
     'route_middleware'                      => [],                              // route middlewares like auth, role etc
     'developer_mode'                        =>  'yes',                          // yes/no to enable developer mode 

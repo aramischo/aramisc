@@ -49,11 +49,11 @@
                 <td style="text-aligh:center">
                     <h3 style="font-size:20px !important; margin-bottom : 0;margin-top: 0px;"
                         class="text-white mb-0">
-                        {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Infix School Management ERP' }}
+                        {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Aramisc School Management ERP' }}
                     </h3>
                     <span style="font-size:11px !important;margin:0px"
                         class="text-white ">
-                        {{ isset(generalSetting()->address) ? generalSetting()->address : 'Infix School Address' }}
+                        {{ isset(generalSetting()->address) ? generalSetting()->address : 'Aramisc School Address' }}
                     </span>
                 </td>
             </tr>

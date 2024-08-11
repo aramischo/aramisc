@@ -14,7 +14,7 @@ use App\ApiBaseMethod;
 use Barryvdh\DomPDF\PDF;
 use App\SmGeneralSettings;
 use App\SmStudentCategory;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\SmStudentAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
