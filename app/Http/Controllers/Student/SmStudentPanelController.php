@@ -92,7 +92,7 @@ class SmStudentPanelController extends Controller
 {
     use NotificationSend;
     use CustomFields;
-    public function studentMyAttendanceSearchAPI(Request $request, $id = null)
+    public function aramiscStudentMyAttendanceSearchAPI(Request $request, $id = null)
     {
         $input = $request->all();
 
@@ -131,19 +131,19 @@ class SmStudentPanelController extends Controller
             $previousMonthDetails['date'] = $previous_date;
             $previousMonthDetails['day'] = $days2;
             $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
-            $attendances = SmStudentAttendance::where('student_id', $student_detail->id)
-                ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
-                ->select('attendance_type', 'attendance_date')
+            $aramiscAttendances = SmStudentAttendance::where('student_id', $student_detail->id)
+                ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+                ->select('aramiscAttendance_type', 'aramiscAttendance_date')
                 ->where('school_id', Auth::user()->school_id)->get();
 
-            return view('backEnd.studentPanel.student_attendance', compact('attendances', 'days', 'year', 'month', 'current_day'));
+            return view('backEnd.studentPanel.student_aramiscAttendance', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentMyAttendanceSearch(Request $request, $id = null)
+    public function aramiscStudentMyAttendanceSearch(Request $request, $id = null)
     {
         $input = $request->all();
 
@@ -174,7 +174,7 @@ class SmStudentPanelController extends Controller
             $records = studentRecords(null, $student_detail->id)->with('studentAttendance')->get();
             $academic_years = SmAcademicYear::where('active_status', '=', 1)->where('school_id', Auth::user()->school_id)->get();
 
-            return view('backEnd.studentPanel.student_attendance', compact('days', 'year', 'month', 'current_day', 'student_detail', 'academic_years', 'records'));
+            return view('backEnd.studentPanel.student_aramiscAttendance', compact('days', 'year', 'month', 'current_day', 'student_detail', 'academic_years', 'records'));
         } catch (\Exception $e) {
 
             Toastr::error('Operation Failed', 'Failed');
@@ -182,23 +182,23 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentMyAttendancePrint($id, $month, $year)
+    public function aramiscStudentMyAttendancePrint($id, $month, $year)
     {
         try {
             $login_id = Auth::user()->id;
             $student_detail = SmStudent::where('user_id', $login_id)->first();
             $current_day = date('d');
             $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-            $attendances = SmStudentAttendance::where('student_record_id', $id)->where('student_id', $student_detail->id)->where('academic_id', getAcademicId())->where('attendance_date', 'like', $year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
+            $aramiscAttendances = SmStudentAttendance::where('student_record_id', $id)->where('student_id', $student_detail->id)->where('academic_id', getAcademicId())->where('aramiscAttendance_date', 'like', $year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
             $customPaper = array(0, 0, 700.00, 1000.80);
-            return view('backEnd.studentPanel.my_attendance_print', compact('attendances', 'days', 'year', 'month', 'current_day', 'student_detail'));
+            return view('backEnd.studentPanel.my_aramiscAttendance_print', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day', 'student_detail'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentProfile(Request $request, $id = null)
+    public function aramiscStudentProfile(Request $request, $id = null)
     {
         try {
 
@@ -207,7 +207,7 @@ class SmStudentPanelController extends Controller
             $bank_cheque_info = SmPaymentMethhod::where('school_id', Auth::user()->school_id)->get();
             $data['bank_info'] = $bank_cheque_info->where('method', 'Bank')->first();
             $data['cheque_info'] =  $bank_cheque_info->where('method', 'Cheque')->first();
-            $records = $student_detail->studentRecords->load('directFeesInstallments.installment', 'directFeesInstallments.payments.user');
+            $records = $student_detail->studentRecords->load('aramiscDirectFeesInstallments.installment', 'aramiscDirectFeesInstallments.payments.user');
 
             $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $student_detail->class_id)->first();
 
@@ -354,7 +354,7 @@ class SmStudentPanelController extends Controller
                 ->where('school_id', $student_detail->school_id)
                 ->get();
 
-            $attendance = SmStudentAttendance::where('student_id', $student_detail->id)
+            $aramiscAttendance = SmStudentAttendance::where('student_id', $student_detail->id)
                 ->whereIn('academic_id', $studentRecord->pluck('academic_id'))
                 ->whereIn('student_record_id', $studentRecord->pluck('id'))
                 ->get();
@@ -370,18 +370,18 @@ class SmStudentPanelController extends Controller
 
             if (moduleStatusCheck('University')) {
                 $student_id = $student_detail->id;
-                $studentDetails = SmStudent::find($student_id);
+                $aramiscStudentDetails = SmStudent::find($student_id);
                 $studentRecordDetails = StudentRecord::where('student_id', $student_id);
                 $studentRecords = $studentRecordDetails->distinct('un_academic_id')->get();
                 $print = 1;
                 return view(
                     'backEnd.studentPanel.my_profile',
-                    compact('next_subjects', 'unSettings', 'departmentSubjects', 'next_semester_label', 'canChoose', 'driver', 'academic_year', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'exam_terms', 'result_views', 'leave_details', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'failgpaname', 'custom_field_values', 'paymentMethods', 'walletAmounts', 'bankAccounts', 'records', 'studentDetails', 'studentRecordDetails', 'studentRecords', 'print', 'payment_gateway', 'student', 'data', 'studentBehaviourRecords', 'behaviourRecordSetting')
+                    compact('next_subjects', 'unSettings', 'departmentSubjects', 'next_semester_label', 'canChoose', 'driver', 'academic_year', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'exam_terms', 'result_views', 'leave_details', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'failgpaname', 'custom_field_values', 'paymentMethods', 'walletAmounts', 'bankAccounts', 'records', 'aramiscStudentDetails', 'studentRecordDetails', 'studentRecords', 'print', 'payment_gateway', 'student', 'data', 'studentBehaviourRecords', 'behaviourRecordSetting')
                 );
             } else {
                 return view(
                     'backEnd.studentPanel.my_profile',
-                    compact('next_subjects', 'unSettings', 'departmentSubjects', 'next_semester_label', 'canChoose', 'driver', 'academic_year', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'exam_terms', 'result_views', 'leave_details', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'failgpaname', 'custom_field_values', 'paymentMethods', 'walletAmounts', 'bankAccounts', 'records', 'payment_gateway', 'student', 'data', 'attendance', 'subjectAttendance', 'days', 'year', 'month', 'studentBehaviourRecords', 'behaviourRecordSetting')
+                    compact('next_subjects', 'unSettings', 'departmentSubjects', 'next_semester_label', 'canChoose', 'driver', 'academic_year', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'exam_terms', 'result_views', 'leave_details', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'failgpaname', 'custom_field_values', 'paymentMethods', 'walletAmounts', 'bankAccounts', 'records', 'payment_gateway', 'student', 'data', 'aramiscAttendance', 'subjectAttendance', 'days', 'year', 'month', 'studentBehaviourRecords', 'behaviourRecordSetting')
                 );
             }
         } catch (\Exception $e) {
@@ -736,7 +736,7 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentProfileUpdate(Request $request, $id = null)
+    public function aramiscStudentProfileUpdate(Request $request, $id = null)
     {
         try {
             $student = SmStudent::find($id);
@@ -869,7 +869,7 @@ class SmStudentPanelController extends Controller
                 ->where('school_id', $user->school_id)
                 ->get();
 
-            $homeworkLists = SmHomework::whereIn('class_id', $class_ids)
+            $aramiscHomeworkLists = SmHomework::whereIn('class_id', $class_ids)
                 ->whereIn('section_id', $section_ids)
                 ->where('evaluation_date', '=', null)
                 ->where('submission_date', '>', $now)
@@ -880,9 +880,9 @@ class SmStudentPanelController extends Controller
             $month = date('m');
             $year = date('Y');
 
-            $attendances = SmStudentAttendance::where('student_id', $student_detail->id)
-                ->where('attendance_date', 'like', $year . '-' . $month . '%')
-                ->where('attendance_type', '=', 'P')
+            $aramiscAttendances = SmStudentAttendance::where('student_id', $student_detail->id)
+                ->where('aramiscAttendance_date', 'like', $year . '-' . $month . '%')
+                ->where('aramiscAttendance_type', '=', 'P')
                 ->where('school_id', $user->school_id)
                 ->get();
 
@@ -920,7 +920,7 @@ class SmStudentPanelController extends Controller
             }
             $routineDashboard = true;
             
-            $student_details = Auth::user()->student->load('studentRecords', 'attendances');
+            $student_details = Auth::user()->student->load('studentRecords', 'aramiscAttendances');
             $student_records = $student_details->studentRecords;
 
             $my_leaves = SmLeaveDefine::where('role_id', Auth::user()->role_id)->where('user_id', Auth::user()->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
@@ -929,7 +929,7 @@ class SmStudentPanelController extends Controller
             $year = $now->year;
             $month  = $now->month;
             $days = cal_days_in_month(CAL_GREGORIAN, $now->month, $now->year);
-            $attendance = $student_details->attendances;
+            $aramiscAttendance = $student_details->aramiscAttendances;
 
             $subjectAttendance = SmSubjectAttendance::with('student')
                 ->whereIn('academic_id', $student_records->pluck('academic_id'))
@@ -947,7 +947,7 @@ class SmStudentPanelController extends Controller
                 
             $academicCalendar = new SmAcademicCalendarController();
             $events = $academicCalendar->calenderData();
-            return view('backEnd.studentPanel.studentProfile', compact('events','totalSubjects', 'totalNotices', 'online_exams', 'teachers', 'issueBooks', 'homeworkLists', 'attendances', 'driver', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'events', 'holidays', 'sm_weekends', 'records', 'student_records', 'routineDashboard', 'my_leaves', 'attendance', 'year', 'month', 'days', 'subjectAttendance', 'complaints'), $data);
+            return view('backEnd.studentPanel.aramiscStudentProfile', compact('events','totalSubjects', 'totalNotices', 'online_exams', 'teachers', 'issueBooks', 'aramiscHomeworkLists', 'aramiscAttendances', 'driver', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'events', 'holidays', 'sm_weekends', 'records', 'student_records', 'routineDashboard', 'my_leaves', 'aramiscAttendance', 'year', 'month', 'days', 'subjectAttendance', 'complaints'), $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -974,7 +974,7 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function classRoutine(Request $request, $id = null)
+    public function aramiscClassRoutine(Request $request, $id = null)
     {
         try {
             $user = auth()->user();
@@ -1041,10 +1041,10 @@ class SmStudentPanelController extends Controller
 
             if (moduleStatusCheck('University')) {
                 $student_id = $student_detail->id;
-                $studentDetails = SmStudent::find($student_id);
+                $aramiscStudentDetails = SmStudent::find($student_id);
                 $studentRecordDetails = StudentRecord::where('student_id', $student_id);
                 $studentRecords = StudentRecord::where('student_id', $student_id)->distinct('un_academic_id')->get();
-                return view('backEnd.studentPanel.student_result', compact('student_detail', 'exams', 'grades', 'exam_terms', 'failgpaname', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'records', 'studentDetails', 'studentRecordDetails', 'studentRecords'));
+                return view('backEnd.studentPanel.student_result', compact('student_detail', 'exams', 'grades', 'exam_terms', 'failgpaname', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'records', 'aramiscStudentDetails', 'studentRecordDetails', 'studentRecords'));
             } else {
                 return view('backEnd.studentPanel.student_result', compact('student_detail', 'exams', 'grades', 'exam_terms', 'failgpaname', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'records'));
             }
@@ -1105,7 +1105,7 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function examRoutinePrint($class_id, $section_id, $exam_term_id)
+    public function aramiscExamRoutinePrint($class_id, $section_id, $exam_term_id)
     {
 
         try {
@@ -1178,12 +1178,12 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentMyAttendance()
+    public function aramiscStudentMyAttendance()
     {
         try {
             $academic_years = SmAcademicYear::where('active_status', '=', 1)->where('school_id', Auth::user()->school_id)->get();
 
-            return view('backEnd.studentPanel.student_attendance', compact('academic_years'));
+            return view('backEnd.studentPanel.student_aramiscAttendance', compact('academic_years'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -1229,10 +1229,10 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function addHomeworkContent($homework_id)
+    public function aramiscAddHomeworkContent($homework_id)
     {
         try {
-            return view('backEnd.studentPanel.addHomeworkContent', compact('homework_id'));
+            return view('backEnd.studentPanel.aramiscAddHomeworkContent', compact('homework_id'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -1339,18 +1339,18 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function uploadContentView(Request $request, $id)
+    public function aramiscUploadContentView(Request $request, $id)
     {
         try {
             $ContentDetails = SmTeacherUploadContent::where('id', $id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->first();
-            return view('backEnd.studentPanel.uploadContentDetails', compact('ContentDetails'));
+            return view('backEnd.studentPanel.aramiscUploadContentDetails', compact('ContentDetails'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentAssignment()
+    public function aramiscStudentAssignment()
     {
         try {
             $user = Auth::user();
@@ -1361,7 +1361,7 @@ class SmStudentPanelController extends Controller
                 $records = StudentRecord::where('student_id', $student_detail->id)->where('academic_id', getAcademicId())->get();
             }
 
-            $uploadContents = SmTeacherUploadContent::where('course_id', '=', null)
+            $aramiscUploadContents = SmTeacherUploadContent::where('course_id', '=', null)
                 ->where('chapter_id', '=', null)
                 ->where('lesson_id', '=', null)
                 ->where('content_type', 'as')
@@ -1378,7 +1378,7 @@ class SmStudentPanelController extends Controller
                 }
             }
 
-            $uploadContents2 = SmTeacherUploadContent::where('course_id', '=', null)
+            $aramiscUploadContents2 = SmTeacherUploadContent::where('course_id', '=', null)
                 ->where('chapter_id', '=', null)
                 ->where('lesson_id', '=', null)
                 ->where('content_type', 'as')
@@ -1387,18 +1387,18 @@ class SmStudentPanelController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            return view('backEnd.studentPanel.assignmentList', compact('uploadContents', 'uploadContents2', 'records'));
+            return view('backEnd.studentPanel.aramiscAssignmentList', compact('aramiscUploadContents', 'aramiscUploadContents2', 'records'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentAssignmentApi(Request $request, $id)
+    public function aramiscStudentAssignmentApi(Request $request, $id)
     {
         try {
             $student_detail = SmStudent::where('user_id', $id)->first();
-            $uploadContents = SmTeacherUploadContent::where('content_type', 'as')
+            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
                 ->select('content_title', 'upload_date', 'description', 'upload_file')
                 ->where(function ($query) use ($student_detail) {
                     $query->where('available_for_all_classes', 1)
@@ -1408,7 +1408,7 @@ class SmStudentPanelController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['student_detail'] = $student_detail->toArray();
-                $data['uploadContents'] = $uploadContents->toArray();
+                $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
         } catch (\Exception $e) {
@@ -1417,27 +1417,27 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentStudyMaterial()
+    public function aramiscStudentStudyMaterial()
     {
 
         try {
             $user = Auth::user();
             $student_detail = SmStudent::where('user_id', $user->id)->first();
 
-            $uploadContents = SmTeacherUploadContent::where('content_type', 'st')
+            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'st')
                 ->where(function ($query) use ($student_detail) {
                     $query->where('available_for_all_classes', 1)
                         ->orWhere([['class', $student_detail->class_id], ['section', $student_detail->section_id]]);
                 })->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            return view('backEnd.studentPanel.studyMetarialList', compact('uploadContents'));
+            return view('backEnd.studentPanel.studyMetarialList', compact('aramiscUploadContents'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentSyllabus()
+    public function aramiscStudentSyllabus()
     {
         try {
             $user = Auth::user();
@@ -1448,19 +1448,19 @@ class SmStudentPanelController extends Controller
                 $records = StudentRecord::where('student_id', $student_detail->id)->where('academic_id', getAcademicId())->get();
             }
 
-            $uploadContents = SmTeacherUploadContent::where('content_type', 'sy')
+            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')
                 ->where(function ($query) use ($student_detail) {
                     $query->where('available_for_all_classes', 1)
                         ->orWhere([['class', $student_detail->class_id], ['section', $student_detail->section_id]]);
                 })->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $uploadContents2 = SmTeacherUploadContent::where('content_type', 'ot')
+            $aramiscUploadContents2 = SmTeacherUploadContent::where('content_type', 'ot')
                 ->where('class', $student_detail->class_id)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            return view('backEnd.studentPanel.studentSyllabus', compact('uploadContents', 'uploadContents2', 'records'));
+            return view('backEnd.studentPanel.aramiscStudentSyllabus', compact('aramiscUploadContents', 'aramiscUploadContents2', 'records'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -1472,13 +1472,13 @@ class SmStudentPanelController extends Controller
         try {
             $user = Auth::user();
             $student_detail = SmStudent::where('user_id', $user->id)->first();
-            $uploadContents = SmTeacherUploadContent::where('content_type', 'ot')
+            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')
                 ->where(function ($query) use ($student_detail) {
                     $query->where('available_for_all_classes', 1)
                         ->orWhere([['class', $student_detail->class_id], ['section', $student_detail->section_id]]);
                 })->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $uploadContents2 = SmTeacherUploadContent::where('content_type', 'ot')
+            $aramiscUploadContents2 = SmTeacherUploadContent::where('content_type', 'ot')
                 ->where('class', $student_detail->class_id)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
@@ -1490,7 +1490,7 @@ class SmStudentPanelController extends Controller
                 $records = StudentRecord::where('student_id', $student_detail->id)->where('academic_id', getAcademicId())->get();
             }
 
-            return view('backEnd.studentPanel.othersDownload', compact('uploadContents', 'uploadContents2', 'records'));
+            return view('backEnd.studentPanel.othersDownload', compact('aramiscUploadContents', 'aramiscUploadContents2', 'records'));
         } catch (\Exception $e) {
 
             Toastr::error('Operation Failed', 'Failed');
@@ -1498,7 +1498,7 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentSubject()
+    public function aramiscStudentSubject()
     {
         try {
             $user = Auth::user();
@@ -1515,11 +1515,11 @@ class SmStudentPanelController extends Controller
     }
 
     //Student Subject API
-    public function studentSubjectApi(Request $request, $id)
+    public function aramiscStudentSubjectApi(Request $request, $id)
     {
         try {
             $student = SmStudent::where('user_id', $id)->first();
-            $assignSubjects = DB::table('sm_assign_subjects')
+            $aramiscAssignSubjects = DB::table('sm_assign_subjects')
                 ->leftjoin('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')
                 ->leftjoin('sm_staffs', 'sm_staffs.id', '=', 'sm_assign_subjects.teacher_id')
                 ->select('sm_subjects.subject_name', 'sm_subjects.subject_code', 'sm_subjects.subject_type', 'sm_staffs.full_name as teacher_name')
@@ -1528,7 +1528,7 @@ class SmStudentPanelController extends Controller
                 ->where('sm_assign_subjects.academic_id', getAcademicId())->where('sm_assign_subjects.school_id', Auth::user()->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['student_subjects'] = $assignSubjects->toArray();
+                $data['student_subjects'] = $aramiscAssignSubjects->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
         } catch (\Exception $e) {
@@ -1538,7 +1538,7 @@ class SmStudentPanelController extends Controller
     }
 
     //student panel Transport
-    public function studentTransport()
+    public function aramiscStudentTransport()
     {
         try {
             $studentBehaviourRecords = (moduleStatusCheck('BehaviourRecords')) ? AssignIncident::where('student_id', auth()->user()->student->id)->with('incident', 'user', 'academicYear')->get() : null;
@@ -1561,7 +1561,7 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentTransportViewModal($r_id, $v_id)
+    public function aramiscStudentTransportViewModal($r_id, $v_id)
     {
         try {
             $vehicle = SmVehicle::find($v_id);
@@ -1573,7 +1573,7 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentDormitory()
+    public function aramiscStudentDormitory()
     {
         try {
             $user = Auth::user();
@@ -1593,20 +1593,20 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function studentBookList()
+    public function aramiscStudentBookList()
     {
         try {
             $books = SmBook::where('active_status', 1)
                 ->orderBy('id', 'DESC')
                 ->where('school_id', Auth::user()->school_id)->get();
-            return view('backEnd.studentPanel.studentBookList', compact('books'));
+            return view('backEnd.studentPanel.aramiscStudentBookList', compact('books'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentBookIssue()
+    public function aramiscStudentBookIssue()
     {
         try {
             $user = Auth::user();
@@ -1626,14 +1626,14 @@ class SmStudentPanelController extends Controller
                 ->where('sm_book_issues.school_id', Auth::user()->school_id)
                 ->get();
 
-            return view('backEnd.studentPanel.studentBookIssue', compact('issueBooks'));
+            return view('backEnd.studentPanel.aramiscStudentBookIssue', compact('issueBooks'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentNoticeboard(Request $request)
+    public function aramiscStudentNoticeboard(Request $request)
     {
         try {
             $data = [];
@@ -1644,26 +1644,26 @@ class SmStudentPanelController extends Controller
                 $data['allNotices'] = $allNotices->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
-            return view('backEnd.studentPanel.studentNoticeboard', compact('allNotices'));
+            return view('backEnd.studentPanel.aramiscStudentNoticeboard', compact('allNotices'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
 
-    public function studentTeacher()
+    public function aramiscStudentTeacher()
     {
         try {
             $student_detail = Auth::user()->student->load('studentRecords');
             $records = $student_detail->studentRecords;
-            $teacherEvaluationSetting = TeacherEvaluationSetting::find(1);
-            return view('backEnd.studentPanel.studentTeacher', compact('records', 'teacherEvaluationSetting'));
+            $aramiscTeacherEvaluationSetting = TeacherEvaluationSetting::find(1);
+            return view('backEnd.studentPanel.aramiscStudentTeacher', compact('records', 'aramiscTeacherEvaluationSetting'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function studentTeacherApi(Request $request, $id)
+    public function aramiscStudentTeacherApi(Request $request, $id)
     {
         try {
             $student = SmStudent::where('user_id', $id)->first();
@@ -1723,16 +1723,16 @@ class SmStudentPanelController extends Controller
             return redirect()->back();
         }
     }
-    public function studentDormitoryApi(Request $request)
+    public function aramiscStudentDormitoryApi(Request $request)
     {
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                $studentDormitory = DB::table('sm_room_lists')
+                $aramiscStudentDormitory = DB::table('sm_room_lists')
                     ->join('sm_dormitory_lists', 'sm_room_lists.dormitory_id', '=', 'sm_dormitory_lists.id')
                     ->join('sm_room_types', 'sm_room_lists.room_type_id', '=', 'sm_room_types.id')
                     ->select('sm_dormitory_lists.dormitory_name', 'sm_room_lists.name as room_number', 'sm_room_lists.number_of_bed', 'sm_room_lists.cost_per_bed', 'sm_room_lists.active_status')->where('sm_room_lists.school_id', Auth::user()->school_id)->get();
 
-                return ApiBaseMethod::sendResponse($studentDormitory, null);
+                return ApiBaseMethod::sendResponse($aramiscStudentDormitory, null);
             }
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1779,7 +1779,7 @@ class SmStudentPanelController extends Controller
             return redirect()->back();
         }
     }
-    public function examScheduleApi(Request $request, $id, $exam_id)
+    public function aramiscExamScheduleApi(Request $request, $id, $exam_id)
     {
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -1804,7 +1804,7 @@ class SmStudentPanelController extends Controller
             return redirect()->back();
         }
     }
-    public function examResultApi(Request $request, $id, $exam_id)
+    public function aramiscExamResultApi(Request $request, $id, $exam_id)
     {
         try {
             $data = [];
@@ -1974,7 +1974,7 @@ class SmStudentPanelController extends Controller
         }
     }
 
-    public function pendingLeave(Request $request)
+    public function aramiscPendingLeave(Request $request)
     {
         try {
             $apply_leaves = SmLeaveRequest::with('leaveDefine', 'student')->where([['active_status', 1], ['approve_status', 'P']])->where('staff_id', auth()->id())->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();

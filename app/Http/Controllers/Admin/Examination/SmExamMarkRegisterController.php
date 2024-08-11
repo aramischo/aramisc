@@ -114,9 +114,9 @@ class SmExamMarkRegisterController extends Controller
                 $exam_type = SmExamType::find($request->exam_type);
                 $subjectName = UnSubject::find($request->subject_id);
 
-                $assignSubjects = UnSubjectAssignStudent::query();
+                $aramiscAssignSubjects = UnSubjectAssignStudent::query();
                 
-                $students = unFilterBySub($assignSubjects, $request)
+                $students = unFilterBySub($aramiscAssignSubjects, $request)
                            ->whereHas('studentDetail', function ($q)  {
                                $q->where('active_status', 1);
                            })->get();   
@@ -184,17 +184,17 @@ class SmExamMarkRegisterController extends Controller
                                                 ->where('academic_id', getAcademicId())
                                                 ->get(['section_id']);
     
-                    $exam_attendance = SmExamAttendance::where('class_id', $request->class)
+                    $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class)
                                                         ->where('exam_id', $exam->id)
                                                         ->where('subject_id', $request->subject)
                                                         ->first();
                 } else {
                     $exam = $exam->where('section_id', $request->section)->first();
-                    $exam_attendance = SmExamAttendance::where('class_id', $request->class)->where('section_id', $request->section)->where('exam_id', $exam->id)->where('subject_id', $request->subject)->first();
+                    $exam_aramiscAttendance = SmExamAttendance::where('class_id', $request->class)->where('section_id', $request->section)->where('exam_id', $exam->id)->where('subject_id', $request->subject)->first();
                 }
 
-                if ($exam_attendance == "" && !isSkip('exam_attendance')) {
-                    Toastr::error('Exam Attendance not taken yet, please check exam attendance', 'Failed');
+                if ($exam_aramiscAttendance == "" && !isSkip('exam_aramiscAttendance')) {
+                    Toastr::error('Exam Attendance not taken yet, please check exam aramiscAttendance', 'Failed');
                     return redirect()->back();
                 }
 
@@ -641,16 +641,16 @@ class SmExamMarkRegisterController extends Controller
     
             
 
-            $examAttendance = SmExamAttendance::query();
-            $exam_attendance= universityFilter($examAttendance, $request)
+            $aramiscExamAttendance = SmExamAttendance::query();
+            $exam_aramiscAttendance= universityFilter($aramiscExamAttendance, $request)
                             ->where('un_subject_id', $subject_id)
                             ->first();
 
-            if ($exam_attendance) {
-                $exam_attendance_child = SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)
+            if ($exam_aramiscAttendance) {
+                $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)
                 ->first();
             } else {
-                Toastr::error('Exam attendance Not Done Yet', 'Failed');
+                Toastr::error('Exam aramiscAttendance Not Done Yet', 'Failed');
                 return redirect()->back();
             }
         
@@ -711,22 +711,22 @@ class SmExamMarkRegisterController extends Controller
             $subject_id = $request->subject;
             $subjectNames = SmSubject::where('id', $subject_id)->first();
     
-            $exam_attendance = SmExamAttendance::query();
+            $exam_aramiscAttendance = SmExamAttendance::query();
             if ($request->class !=null) {
-                $exam_attendance->where('exam_id', $exam_id)->where('class_id', $class_id);
+                $exam_aramiscAttendance->where('exam_id', $exam_id)->where('class_id', $class_id);
             }
             if ($request->section !=null) {
-                $exam_attendance->where('section_id', $request->section);
+                $exam_aramiscAttendance->where('section_id', $request->section);
             }
     
-            $exam_attendance= $exam_attendance->where('subject_id', $subject_id)->first();
+            $exam_aramiscAttendance= $exam_aramiscAttendance->where('subject_id', $subject_id)->first();
 
     
-            if ($exam_attendance) {
-                $exam_attendance_child = SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->first();
+            if ($exam_aramiscAttendance) {
+                $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->first();
             } else {
-                if(!isSkip('exam_attendance')) {
-                    Toastr::error('Exam attendance not done yet', 'Failed');
+                if(!isSkip('exam_aramiscAttendance')) {
+                    Toastr::error('Exam aramiscAttendance not done yet', 'Failed');
                     return redirect()->back();
                 }
             }

@@ -45,7 +45,7 @@
                                 @php
                                     $buyerDetails = '';
                                     if($viewData->role_id == 2){
-                                        $buyerDetails = $viewData->studentDetails;
+                                        $buyerDetails = $viewData->aramiscStudentDetails;
                                     }elseif($viewData->role_id == 3){
                                         $buyerDetails = $viewData->parentsDetails;
                                     }else{

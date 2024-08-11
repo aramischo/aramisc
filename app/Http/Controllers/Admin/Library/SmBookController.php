@@ -208,7 +208,7 @@ class SmBookController extends Controller
     {
 
         try {
-            $activeMembers = SmLibraryMember::with('roles', 'studentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)->get();
+            $activeMembers = SmLibraryMember::with('roles', 'aramiscStudentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)->get();
 
             return view('backEnd.library.memberLists', compact('activeMembers'));
         } catch (\Exception $e) {
@@ -300,8 +300,8 @@ class SmBookController extends Controller
 
             $data['date'] = $bookIssue->given_date;
             $data['book'] = $bookIssue->books->book_title;
-            $data['class_id'] = $bookIssue->member->studentDetails->studentRecord->class_id;
-            $data['section_id'] = $bookIssue->member->studentDetails->studentRecord->section_id;
+            $data['class_id'] = $bookIssue->member->aramiscStudentDetails->studentRecord->class_id;
+            $data['section_id'] = $bookIssue->member->aramiscStudentDetails->studentRecord->section_id;
             $records = $this->studentRecordInfo($data['class_id'], $data['section_id'])->pluck('studentDetail.user_id');
             $this->sent_notifications('Issue/Return_Book', $records, $data, ['Student', 'Parent']);
 
@@ -315,16 +315,16 @@ class SmBookController extends Controller
 
             if ($bookIssue->member->memberTypes->id == '2') {
                 $compact['slug'] = 'student';
-                $compact['user_email'] = $bookIssue->member->studentDetails->email;
+                $compact['user_email'] = $bookIssue->member->aramiscStudentDetails->email;
                 $compact['due_date'] = date('Y-m-d', strtotime($request->due_date));
-                $compact['student_name'] = $bookIssue->member->studentDetails->full_name;
-                $compact['class_name'] = $bookIssue->member->studentDetails->defaultClass->class->class_name;
-                $compact['section_name'] = $bookIssue->member->studentDetails->defaultClass->section->section_name;
-                $compact['roll_no'] = $bookIssue->member->studentDetails->roll_no;
+                $compact['student_name'] = $bookIssue->member->aramiscStudentDetails->full_name;
+                $compact['class_name'] = $bookIssue->member->aramiscStudentDetails->defaultClass->class->class_name;
+                $compact['section_name'] = $bookIssue->member->aramiscStudentDetails->defaultClass->section->section_name;
+                $compact['roll_no'] = $bookIssue->member->aramiscStudentDetails->roll_no;
                 $compact['issue_date'] = date('Y-m-d');
                 $compact['book_title'] = $bookIssue->books->book_title;
                 $compact['book_no'] = $bookIssue->books->book_number;
-                @send_sms($bookIssue->member->studentDetails->mobile, 'student_library_book_issue', $compact);
+                @send_sms($bookIssue->member->aramiscStudentDetails->mobile, 'student_library_book_issue', $compact);
             } elseif ($bookIssue->member->memberTypes->id == '3') {
                 $compact['slug'] = 'parent';
                 $compact['user_email'] = $bookIssue->member->parentsDetails->guardians_email;
@@ -380,17 +380,17 @@ class SmBookController extends Controller
 
             if ($return->member->memberTypes->id == '2') {
                 $compact['slug'] = 'student';
-                $compact['user_email'] = $return->member->studentDetails->email;
+                $compact['user_email'] = $return->member->aramiscStudentDetails->email;
                 $compact['due_date'] = $return->due_date;
-                $compact['student_name'] = $return->member->studentDetails->full_name;
-                $compact['class_name'] = $return->member->studentDetails->defaultClass->class->class_name;
-                $compact['section_name'] = $return->member->studentDetails->defaultClass->section->section_name;
-                $compact['roll_no'] = $return->member->studentDetails->roll_no;
+                $compact['student_name'] = $return->member->aramiscStudentDetails->full_name;
+                $compact['class_name'] = $return->member->aramiscStudentDetails->defaultClass->class->class_name;
+                $compact['section_name'] = $return->member->aramiscStudentDetails->defaultClass->section->section_name;
+                $compact['roll_no'] = $return->member->aramiscStudentDetails->roll_no;
                 $compact['issue_date'] = $return->given_date;
                 $compact['book_title'] = $return->books->book_title;
                 $compact['book_no'] = $return->books->book_number;
                 $compact['return_date'] = date('Y-m-d');
-                @send_sms($return->member->studentDetails->mobile, 'student_return_issue_book', $compact);
+                @send_sms($return->member->aramiscStudentDetails->mobile, 'student_return_issue_book', $compact);
             } elseif ($return->member->memberTypes->id == '3') {
                 $compact['slug'] = 'parent';
                 $compact['user_email'] = $return->member->parentsDetails->guardians_email;

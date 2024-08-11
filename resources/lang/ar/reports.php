@@ -118,7 +118,7 @@ return [
     'letter_grade'=>'Letter Grade',
     'additional_subject'=>'Additional Subject',
     'no_data_found'=>'No Data Found',
-    'attendance'=>'Attendance',
+    'aramiscAttendance'=>'Attendance',
     'average_mark'=>'Average Mark',
     'gpa_above'=>'GPA Above',
     'without_optional'=>'Without Optional',

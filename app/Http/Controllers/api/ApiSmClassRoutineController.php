@@ -25,7 +25,7 @@ use App\Scopes\StatusAcademicSchoolScope;
 
 class ApiSmClassRoutineController extends Controller
 {
-    public function classRoutineSearch(Request $request)
+    public function aramiscClassRoutineSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -45,7 +45,7 @@ class ApiSmClassRoutineController extends Controller
             $section_id = $request->section;
             $school_id = auth()->user()->school_id;
 
-            $sm_weekends = SmWeekend::with('classRoutine')->where('school_id', $school_id)
+            $sm_weekends = SmWeekend::with('aramiscClassRoutine')->where('school_id', $school_id)
                 ->orderBy('order', 'ASC')
                 ->where('active_status', 1)
                 ->get(['id', 'name', 'order', 'is_weekend']);
@@ -110,7 +110,7 @@ class ApiSmClassRoutineController extends Controller
     //                 }
     //              },
     //     }
-    public function addNewClassRoutineStore(Request $request)
+    public function aramiscAddNewClassRoutineStore(Request $request)
     {
         try {
             //  return  date("H:i", strtotime("04:25 PM"));
@@ -278,7 +278,7 @@ class ApiSmClassRoutineController extends Controller
 
         }
     }
-    public function teacherClassRoutine($user_id, $school_id = null)
+    public function aramiscTeacherClassRoutine($user_id, $school_id = null)
     {
         try {
 
@@ -318,9 +318,9 @@ class ApiSmClassRoutineController extends Controller
     }
     public function saasTeacherClassRoutine($user_id, $school_id)
     {
-        $this->teacherClassRoutine($user_id, $school_id);
+        $this->aramiscTeacherClassRoutine($user_id, $school_id);
     }
-    public function teacherClassRoutineReportSearch(Request $request)
+    public function aramiscTeacherClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -333,10 +333,10 @@ class ApiSmClassRoutineController extends Controller
             }
         }
         $teacher_id = $request->teacher_id;
-        $this->teacherClassRoutine($teacher_id);
+        $this->aramiscTeacherClassRoutine($teacher_id);
     }
 
-    public function classRoutineReportSearch(Request $request)
+    public function aramiscClassRoutineReportSearch(Request $request)
     {
         try {
             $input = $request->all();

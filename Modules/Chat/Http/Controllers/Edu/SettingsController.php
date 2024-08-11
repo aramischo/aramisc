@@ -62,8 +62,8 @@ class SettingsController extends Controller
     {
         try {
             $subjects = SmAssignSubject::where('school_id', auth()->user()->school_id)->get();
-            foreach ($subjects as $assignSubject){
-                event(new CreateClassGroupChat($assignSubject)); //subjectwise group
+            foreach ($subjects as $aramiscAssignSubject){
+                event(new CreateClassGroupChat($aramiscAssignSubject)); //subjectwise group
             }
 //            clasteacher to all student
 

@@ -60,7 +60,7 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
         [6, 1, 1, '3', 1, 'Teachers','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [7, 1, 1, '3', 1, 'Issued books','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [8, 1, 1, '3', 1, 'Pending homeworks','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
-        [9, 1, 1, '3', 1, 'attendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [9, 1, 1, '3', 1, 'aramiscAttendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [10, 1, 1, '3', 1, 'Calendar','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
        // -- student Profile
@@ -101,7 +101,7 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
         [34, 6, 33, '3', 1, 'Download','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
         //-- Student Attendance
-        [35, 7, 0, '1', 1, 'Attendance','student-my-attendance','attendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22' ],
+        [35, 7, 0, '1', 1, 'Attendance','student-my-aramiscAttendance','aramiscAttendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22' ],
 
         //-- Student Examination
         [36, 8, 0, '1', 1, 'Examination','','examinations','flaticon-test', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -191,7 +191,7 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
         [61, 1, 56, '3', 2, 'Teachers','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [62, 1, 56, '3', 2, 'Issued books','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [63, 1, 56, '3', 2, 'Pending homeworks','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
-        [64, 1, 56, '3', 2, 'attendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [64, 1, 56, '3', 2, 'aramiscAttendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [65, 1, 56, '3', 2, 'Calendar','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         //-- Parent Profile
         [66, 2, 0, '1', 2, 'My Children','my-children','my_children','flaticon-reading', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -216,7 +216,7 @@ class CreateInfixModuleStudentParentInfosTable extends Migration
         [74, 5, 73, '3', 2, 'View','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
        // -- Parent Attendance
-        [75, 6, 0, '1', 2, 'Attendance ','parent-attendance','attendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [75, 6, 0, '1', 2, 'Attendance ','parent-aramiscAttendance','aramiscAttendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
        // -- Parent Exam
         [76, 7, 0, '1', 2, 'Exam ','','exam','flaticon-test', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],

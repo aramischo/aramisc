@@ -300,9 +300,9 @@ class SmFeesDiscountController extends Controller
                 return view('university::un_fees_discount_assign', compact('assigned_fees_types','assigned_fees_groups','classes','groups', 'categories', 'students', 'fees_discount', 'genders','fees_discount_id', 'already_assigned', 'already_paid' ,'class_id', 'category_id', 'gender_id'));
             }
 
-            if(directFees()){
+            if(aramiscDirectFees()){
                 $already_assigned = DirectFeesInstallmentAssign::where('fees_discount_id', $fees_discount_id)->pluck('record_id')->toArray();
-                return view('backEnd.feesCollection.directFees.assign_fees_discount', compact('assigned_fees_types','assigned_fees_groups','classes','groups', 'categories', 'students', 'fees_discount', 'genders','fees_discount_id', 'already_assigned', 'already_paid' ,'class_id', 'category_id', 'gender_id'));
+                return view('backEnd.feesCollection.aramiscDirectFees.assign_fees_discount', compact('assigned_fees_types','assigned_fees_groups','classes','groups', 'categories', 'students', 'fees_discount', 'genders','fees_discount_id', 'already_assigned', 'already_paid' ,'class_id', 'category_id', 'gender_id'));
             }
 
             else{
@@ -453,7 +453,7 @@ class SmFeesDiscountController extends Controller
 
 
 
-    public function directFeesDiscountAssignStore(Request $request)
+    public function aramiscDirectFeesDiscountAssignStore(Request $request)
     {
         $datas= collect($request->data);
         $fees_discount_id = $request->fees_discount_id;

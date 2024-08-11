@@ -52,7 +52,7 @@ class SmAssignSubject extends Model
         return $this->belongsTo('App\SmSection', 'section_id', 'id');
     }
 
-    public function examSetups()
+    public function aramiscExamSetups()
     {
         return $this->hasMany(SmExamSetup::class, 'class_id', 'class_id')->where('class_id', $this->class_id)
             ->where('section_id', $this->section_id);
@@ -68,7 +68,7 @@ class SmAssignSubject extends Model
         return $this->hasOne(SmExam::class, 'subject_id', 'subject_id');
     }
 
-    public function examSchedule()
+    public function aramiscExamSchedule()
     {
         return $this->hasMany(SmExamSchedule::class, 'subject_id', 'subject_id')
             ->where('class_id', $this->class_id)->where('section_id', $this->section_id);
@@ -400,7 +400,7 @@ class SmAssignSubject extends Model
     {
         return $query->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id);
     }
-    public function teacherEvaluation()
+    public function aramiscTeacherEvaluation()
     {
         return $this->hasMany(TeacherEvaluation::class, 'record_id', 'id');
     }

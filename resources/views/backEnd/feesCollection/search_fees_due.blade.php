@@ -225,7 +225,7 @@
                                         </tr>
                                     </tfoot>
                                 </table>
-                                @elseif(directFees())
+                                @elseif(aramiscDirectFees())
                                 @php
                                     $totalAmount = 0;
                                     $totalDiscount = 0;

@@ -44,14 +44,14 @@ class SmNotificationSetting extends Model
         $body = str_replace('[item]', @$data['item'], $body);
         $body = str_replace('[quantity]', @$data['quantity'], $body);
         $body = str_replace('[amount]', @$data['amount'], $body);
-        if (@$data['attendance_type'] == "P") {
-            $body = str_replace('[attendance_type]', "Present", $body);
-        } elseif (@$data['attendance_type'] == "L") {
-            $body = str_replace('[attendance_type]', "Late", $body);
-        } elseif (@$data['attendance_type'] == "A") {
-            $body = str_replace('[attendance_type]', "Absent", $body);
-        } elseif (@$data['attendance_type'] == "F") {
-            $body = str_replace('[attendance_type]', "Half Day", $body);
+        if (@$data['aramiscAttendance_type'] == "P") {
+            $body = str_replace('[aramiscAttendance_type]', "Present", $body);
+        } elseif (@$data['aramiscAttendance_type'] == "L") {
+            $body = str_replace('[aramiscAttendance_type]', "Late", $body);
+        } elseif (@$data['aramiscAttendance_type'] == "A") {
+            $body = str_replace('[aramiscAttendance_type]', "Absent", $body);
+        } elseif (@$data['aramiscAttendance_type'] == "F") {
+            $body = str_replace('[aramiscAttendance_type]', "Half Day", $body);
         }
 
         if (@$data['class']) {

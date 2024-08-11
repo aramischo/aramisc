@@ -368,18 +368,18 @@
                     
                         <div class="row mb-30 ">
                             <div class="col-lg-6">
-                                <p class="text-uppercase mb-2">@lang('system_settings.subject_attendance_layout')</p>
+                                <p class="text-uppercase mb-2">@lang('system_settings.subject_aramiscAttendance_layout')</p>
                                 <div class="d-flex radio-btn-flex flex-wrap row-gap-24">
                                     <div class="mr-20">
                                         {{-- <label for=""> --}}
-                                            <input type="radio" name="attendance_layout" id="first_layout" value="1" class="common-radio relationButton attendance_layout"  {{@$editData->attendance_layout == "1"? 'checked': ''}}>
+                                            <input type="radio" name="aramiscAttendance_layout" id="first_layout" value="1" class="common-radio relationButton aramiscAttendance_layout"  {{@$editData->aramiscAttendance_layout == "1"? 'checked': ''}}>
                                             <label for="first_layout">
                                                 <img src="{{asset('public/backEnd/img/first_layout.png')}}" width="200px" height="auto" class="layout_image" for="first_layout" alt="">
                                             </label>
                                             {{-- </label> --}}
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" name="attendance_layout" id="second_layout" value="0" class="common-radio relationButton attendance_layout" {{@$editData->attendance_layout == "0"? 'checked': ''}}>
+                                        <input type="radio" name="aramiscAttendance_layout" id="second_layout" value="0" class="common-radio relationButton aramiscAttendance_layout" {{@$editData->aramiscAttendance_layout == "0"? 'checked': ''}}>
                                         <label for="second_layout">
                                             <img src="{{asset('public/backEnd/img/second_layout.png')}}" width="200px" height="auto" class="layout_image" for="second_layout" alt="">
                                         </label>

@@ -204,7 +204,7 @@
                                                             
                                                             userPermission('class_delete') ? 
                                                                 '<a class="dropdown-item" data-toggle="modal"
-                                                                   data-target="#deleteClassModal'.$class->id.'"
+                                                                   data-target="#aramiscDeleteClassModal'.$class->id.'"
                                                                    href="'.route('class_delete', [@$class->id]).'">'.__('common.delete').'</a>' : null,
         
                                                             ];
@@ -213,7 +213,7 @@
                                                 </td>
                                             </tr>
         
-                                            <div class="modal fade admin-query" id="deleteClassModal{{@$class->id}}">
+                                            <div class="modal fade admin-query" id="aramiscDeleteClassModal{{@$class->id}}">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header">

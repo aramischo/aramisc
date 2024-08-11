@@ -686,7 +686,7 @@ return [
 
 "fcm_key" => "CLÉ FCM",
 
-"subject_attendance_layout" => "Présentation de la participation des sujets",
+"subject_aramiscAttendance_layout" => "Présentation de la participation des sujets",
 
 "make_default" => "Définir par défaut",
 

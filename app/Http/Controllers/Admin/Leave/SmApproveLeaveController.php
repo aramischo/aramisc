@@ -66,7 +66,7 @@ class SmApproveLeaveController extends Controller
             return redirect()->back();
         }
     }
-    public function pendingLeave(Request $request)
+    public function aramiscPendingLeave(Request $request)
     {
         try {
             $user = Auth::user();

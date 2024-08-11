@@ -18,7 +18,7 @@ class SmLibraryMember extends Model
     {
         return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'member_type', 'id');
     }
-    public function studentDetails()
+    public function aramiscStudentDetails()
     {
         return $this->belongsTo('App\SmStudent', 'student_staff_id', 'user_id');
     }

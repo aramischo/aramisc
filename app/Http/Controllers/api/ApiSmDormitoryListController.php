@@ -238,7 +238,7 @@ class ApiSmDormitoryListController extends Controller
             return redirect()->back();
         }
     }
-    public function saas_studentDormitoryReportSearch(Request $request, $school_id)
+    public function saas_aramiscStudentDormitoryReportSearch(Request $request, $school_id)
     {
 
         try {

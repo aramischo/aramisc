@@ -196,7 +196,7 @@ class SmFeesBankPaymentController extends Controller
                 $installment->save();
             }
 
-            elseif(directFees()){
+            elseif(aramiscDirectFees()){
                 if(! is_null($bank_payment->child_payment_id)){
                     $childPayment = DireFeesInstallmentChildPayment::find($bank_payment->child_payment_id);
                     $installment = DirectFeesInstallmentAssign::find($bank_payment->installment_id);
@@ -268,7 +268,7 @@ class SmFeesBankPaymentController extends Controller
                 $fees_payment->un_semester_label_id = $bank_payment->un_semester_label_id;
                 $fees_payment->un_academic_id = getAcademicId();
                 $fees_payment->installment_payment_id = $childPayment->id;
-            }elseif(directFees()){
+            }elseif(aramiscDirectFees()){
                 $fees_payment->direct_fees_installment_assign_id = $bank_payment->installment_id;
                 $fees_payment->academic_id = getAcademicId();
                 $fees_payment->installment_payment_id = $childPayment->id;
@@ -329,7 +329,7 @@ class SmFeesBankPaymentController extends Controller
             if(moduleStatusCheck('University')){
                
             }
-            elseif(directFees()){
+            elseif(aramiscDirectFees()){
 
             }
             else{

@@ -131,7 +131,7 @@ class FrontendController extends Controller
                     ->where('school_id', app('school')->id)
                     ->first();
 
-                $student_detail = $studentDetails = StudentRecord::where('student_id', $student->id)
+                $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $student->id)
                     ->where('academic_id', getAcademicId())
                     ->where('is_promote', 0)
                     ->where('school_id', $school_id)
@@ -173,7 +173,7 @@ class FrontendController extends Controller
                     $examSubjectIds[] = $examSubject->subject_id;
                 }
 
-                $subjects = $studentDetails->class->subjects->where('section_id', $section_id)
+                $subjects = $aramiscStudentDetails->class->subjects->where('section_id', $section_id)
                     ->whereIn('subject_id', $examSubjectIds)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id);
@@ -252,7 +252,7 @@ class FrontendController extends Controller
                     'student',
                     'optional_subject',
                     'classes',
-                    'studentDetails',
+                    'aramiscStudentDetails',
                     'exams',
                     'classes',
                     'marks_register',

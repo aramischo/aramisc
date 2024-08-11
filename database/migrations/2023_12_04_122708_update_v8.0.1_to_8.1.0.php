@@ -320,15 +320,15 @@ return new class extends Migration
             }
         $event = SmNotificationSetting::where('event', 'Student_Attendance')->first();
         if($event){
-            $shortCodes = ["Student" => "[student_name], [class], [section], [attendance_type]",
-            "Parent" => "[parent_name], [student_name], [class], [section], [attendance_type]"];
+            $shortCodes = ["Student" => "[student_name], [class], [section], [aramiscAttendance_type]",
+            "Parent" => "[parent_name], [student_name], [class], [section], [aramiscAttendance_type]"];
             $event->shortcode = $shortCodes;
             $event->update();
         }
         $event = SmNotificationSetting::where('event', 'Subject_Wise_Attendance')->first();
         if($event){
-            $shortCodes = ["Student" => "[student_name], [subject], [attendance_type]",
-            "Parent" => "[parent_name], [student_name], [subject], [attendance_type]",];
+            $shortCodes = ["Student" => "[student_name], [subject], [aramiscAttendance_type]",
+            "Parent" => "[parent_name], [student_name], [subject], [aramiscAttendance_type]",];
             $event->shortcode = $shortCodes;
             $event->update();
         }
@@ -374,22 +374,22 @@ return new class extends Migration
         // Online registration change end
 
         // Teacher evaluation change start
-        $teacherApprovedExists = Permission::where('route', 'teacher-approved-evaluation-report')->first();
-        if($teacherApprovedExists){
-            $teacherApprovedExists->name = "Approved Report";
-            $teacherApprovedExists->lang_name = "teacherEvaluation.approved_report";
-            $teacherApprovedExists->update();
+        $aramiscTeacherApprovedExists = Permission::where('route', 'teacher-approved-evaluation-report')->first();
+        if($aramiscTeacherApprovedExists){
+            $aramiscTeacherApprovedExists->name = "Approved Report";
+            $aramiscTeacherApprovedExists->lang_name = "aramiscTeacherEvaluation.approved_report";
+            $aramiscTeacherApprovedExists->update();
         }
         $teacherPendingExists = Permission::where('route', 'teacher-pending-evaluation-report')->first();
         if($teacherPendingExists){
             $teacherPendingExists->name = "Pending Report";
-            $teacherPendingExists->lang_name = "teacherEvaluation.pending_report";
+            $teacherPendingExists->lang_name = "aramiscTeacherEvaluation.pending_report";
             $teacherPendingExists->update();
         }
         $teacherWiseExists = Permission::where('route', 'teacher-wise-evaluation-report')->first();
         if($teacherWiseExists){
             $teacherWiseExists->name = "Teacher Wise Report";
-            $teacherWiseExists->lang_name = "teacherEvaluation.teacher_wise_report";
+            $teacherWiseExists->lang_name = "aramiscTeacherEvaluation.teacher_wise_report";
             $teacherWiseExists->update();
         }
         // Teacher evaluation change end

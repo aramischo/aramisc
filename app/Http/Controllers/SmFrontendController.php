@@ -530,7 +530,7 @@ class SmFrontendController extends Controller
             $student = SmStudent::where('admission_no', $request->admission_number)->where('school_id', $school_id)->first();
             if ($student) {
 
-                $student_detail = $studentDetails = StudentRecord::where('student_id', $student->id)
+                $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $student->id)
                     ->where('academic_id', getAcademicId())
                     ->where('is_promote', 0)
                     ->where('school_id', $school_id)
@@ -572,7 +572,7 @@ class SmFrontendController extends Controller
                     $examSubjectIds[] = $examSubject->subject_id;
                 }
 
-                $subjects = $studentDetails->class->subjects->where('section_id', $section_id)
+                $subjects = $aramiscStudentDetails->class->subjects->where('section_id', $section_id)
                     ->whereIn('subject_id', $examSubjectIds)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id);
@@ -650,7 +650,7 @@ class SmFrontendController extends Controller
                 return view('frontEnd.home.examResult', compact(
                     'optional_subject',
                     'classes',
-                    'studentDetails',
+                    'aramiscStudentDetails',
                     'exams',
                     'classes',
                     'marks_register',
@@ -725,11 +725,11 @@ class SmFrontendController extends Controller
             $section_id = $request->section ? $request->section : 0;
             $exam_type_id = $request->exam ? $request->exam : 0;
 
-            $sm_weekends = ($request->type == 'class') ? SmWeekend::with(['classRoutine' => function ($q) use ($class_id, $section_id) {
+            $sm_weekends = ($request->type == 'class') ? SmWeekend::with(['aramiscClassRoutine' => function ($q) use ($class_id, $section_id) {
                 return $q->where('class_id', $class_id)
                     ->where('section_id', $section_id)
                     ->orderBy('start_time', 'asc');
-            }, 'classRoutine.subject'])
+            }, 'aramiscClassRoutine.subject'])
                 ->where('school_id', app('school')->id)
                 ->orderBy('order', 'ASC')
                 ->where('active_status', 1)

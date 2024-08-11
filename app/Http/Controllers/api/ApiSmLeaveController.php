@@ -309,7 +309,7 @@ class ApiSmLeaveController extends Controller
     //     "message": null
     // }
 
-    public function pendingLeave(Request $request,$user_id){
+    public function aramiscPendingLeave(Request $request,$user_id){
         try {
             $user =User::select('id','role_id')->find($user_id);
             $staff = SmStaff::where('user_id', $user->id)->first();

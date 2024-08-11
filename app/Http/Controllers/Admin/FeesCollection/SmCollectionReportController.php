@@ -59,7 +59,7 @@ class SmCollectionReportController extends Controller
                             })
                             ->where('paid_amount', '>', 0)
                             ->get();
-            }elseif(directFees()){
+            }elseif(aramiscDirectFees()){
                 $classes = SmClass::get();
                 $allStudent = StudentRecord::when($request->class, function ($q) use ($request) {
                     $q->where('class_id', $request->class);
@@ -124,7 +124,7 @@ class SmCollectionReportController extends Controller
                 // $data = $this->unCommonRepository->oldValueSelected($request);
                 return view('backEnd.feesCollection.transaction_report', compact('fees_payments', 'date_to', 'date_from'));
             }
-            elseif(directFees()){
+            elseif(aramiscDirectFees()){
                 // $data = $this->unCommonRepository->oldValueSelected($request);
                 return view('backEnd.feesCollection.transaction_report', compact('fees_payments', 'date_to', 'date_from','classes'));
             }

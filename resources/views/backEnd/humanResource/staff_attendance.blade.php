@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 @section('title')
-    @lang('hr.staff_attendance')
+    @lang('hr.staff_aramiscAttendance')
 @endsection
 
 @push('css')
@@ -18,11 +18,11 @@
     <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
-                <h1>@lang('hr.staff_attendance')</h1>
+                <h1>@lang('hr.staff_aramiscAttendance')</h1>
                 <div class="bc-pages">
                     <a href="{{ route('dashboard') }}">@lang('common.dashboard')</a>
                     <a href="#">@lang('hr.human_resource')</a>
-                    <a href="#">@lang('hr.staff_attendance')</a>
+                    <a href="#">@lang('hr.staff_aramiscAttendance')</a>
                 </div>
             </div>
         </div>
@@ -41,13 +41,13 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <a href="{{ route('staff-attendance-import') }}" class="primary-btn small fix-gr-bg pull-right "><span
-                                        class="ti-plus pr-2"></span>@lang('hr.import_attendance')</a>
+                                <a href="{{ route('staff-aramiscAttendance-import') }}" class="primary-btn small fix-gr-bg pull-right "><span
+                                        class="ti-plus pr-2"></span>@lang('hr.import_aramiscAttendance')</a>
                             </div>
                         </div>
 
 
-                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-attendance-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
+                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-aramiscAttendance-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
 
                         <div class="row">
                             <input type="hidden" name="url" id="url" value="{{ URL::to('/') }}">
@@ -72,14 +72,14 @@
 
                             <div class="col-lg-6 mt-30-md col-md-6">
                                 <div class="primary_input mb-15">
-                                    <label for="startDate">@lang('hr.attendance_date')<span class="text-danger"> *</span></label>
+                                    <label for="startDate">@lang('hr.aramiscAttendance_date')<span class="text-danger"> *</span></label>
                                     <div class="primary_datepicker_input">
                                         <div class="no-gutters input-right-icon">
                                             <div class="col">
                                                 <div class="">
                                                     <input class="primary_input_field primary_input_field date form-control"
                                                         {{ isset($date) ? 'read-only-input' : '' }}" id="startDate"
-                                                        type="text" name="attendance_date" autocomplete="off"
+                                                        type="text" name="aramiscAttendance_date" autocomplete="off"
                                                         value="{{ isset($date) ? $date : date('m/d/Y') }}"
                                                         autocomplete="off">
                                                 </div>
@@ -111,22 +111,22 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 no-gutters">
                                     <div class="main-title">
-                                        <h3 class="mb-15">@lang('hr.staff_attendance')</h3>
+                                        <h3 class="mb-15">@lang('hr.staff_aramiscAttendance')</h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 no-gutters">
-                                    @if ($attendance_type != '' && $attendance_type == 'H')
-                                        <div class="alert alert-warning">@lang('hr.attendance_already_submitted_as_holiday')</div>
-                                    @elseif($attendance_type != '' && $attendance_type != 'H')
-                                        <div class="alert alert-success">@lang('hr.attendance_already_submitted')</div>
+                                    @if ($aramiscAttendance_type != '' && $aramiscAttendance_type == 'H')
+                                        <div class="alert alert-warning">@lang('hr.aramiscAttendance_already_submitted_as_holiday')</div>
+                                    @elseif($aramiscAttendance_type != '' && $aramiscAttendance_type != 'H')
+                                        <div class="alert alert-success">@lang('hr.aramiscAttendance_already_submitted')</div>
                                     @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6  col-md-6 no-gutters text-md-left mark-holiday ">
-                                    @if ($attendance_type != 'H')
+                                    @if ($aramiscAttendance_type != 'H')
                                         <form action="{{ route('staff-holiday-store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="purpose" value="mark">
@@ -149,8 +149,8 @@
                                     @endif
                                 </div>
                             </div>
-                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-attendance-store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
-                            <input class="staff_attendance_date" type="hidden" name="date"
+                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-aramiscAttendance-store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+                            <input class="staff_aramiscAttendance_date" type="hidden" name="date"
                                 value="{{ isset($date) ? $date : '' }}">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -162,7 +162,7 @@
                                                 <th>@lang('hr.staff_no')</th>
                                                 <th>@lang('hr.staff_name')</th>
                                                 <th>@lang('hr.role')</th>
-                                                <th>@lang('hr.attendance')</th>
+                                                <th>@lang('hr.aramiscAttendance')</th>
                                                 <th>@lang('hr.note')</th>
                                             </tr>
                                         </thead>
@@ -177,28 +177,28 @@
                                                     <td>
                                                         <div class="d-flex radio-btn-flex">
                                                             <div class="mr-20">
-                                                                <input type="radio" name="attendance[{{ $staff->id }}]"
-                                                                    id="attendanceP{{ $staff->id }}" value="P"
-                                                                    class="common-radio attendanceP attendance_type_staff"
+                                                                <input type="radio" name="aramiscAttendance[{{ $staff->id }}]"
+                                                                    id="aramiscAttendanceP{{ $staff->id }}" value="P"
+                                                                    class="common-radio aramiscAttendanceP aramiscAttendance_type_staff"
                                                                     {{ $staff->DateWiseStaffAttendance != null ? ($staff->DateWiseStaffAttendance->attendence_type == 'P' ? 'checked' : '') : 'checked' }}>
                                                                 <label
-                                                                    for="attendanceP{{ $staff->id }}">@lang('hr.present')</label>
+                                                                    for="aramiscAttendanceP{{ $staff->id }}">@lang('hr.present')</label>
                                                             </div>
                                                             <div class="mr-20">
-                                                                <input type="radio" name="attendance[{{ $staff->id }}]"
-                                                                    id="attendanceL{{ $staff->id }}" value="L"
-                                                                    class="common-radio attendance_type_staff"
+                                                                <input type="radio" name="aramiscAttendance[{{ $staff->id }}]"
+                                                                    id="aramiscAttendanceL{{ $staff->id }}" value="L"
+                                                                    class="common-radio aramiscAttendance_type_staff"
                                                                     {{ $staff->DateWiseStaffAttendance != null ? ($staff->DateWiseStaffAttendance->attendence_type == 'L' ? 'checked' : '') : '' }}>
                                                                 <label
-                                                                    for="attendanceL{{ $staff->id }}">@lang('hr.late')</label>
+                                                                    for="aramiscAttendanceL{{ $staff->id }}">@lang('hr.late')</label>
                                                             </div>
                                                             <div class="mr-20">
-                                                                <input type="radio" name="attendance[{{ $staff->id }}]"
-                                                                    id="attendanceA{{ $staff->id }}" value="A"
-                                                                    class="common-radio attendance_type_staff"
+                                                                <input type="radio" name="aramiscAttendance[{{ $staff->id }}]"
+                                                                    id="aramiscAttendanceA{{ $staff->id }}" value="A"
+                                                                    class="common-radio aramiscAttendance_type_staff"
                                                                     {{ $staff->DateWiseStaffAttendance != null ? ($staff->DateWiseStaffAttendance->attendence_type == 'A' ? 'checked' : '') : '' }}>
                                                                 <label
-                                                                    for="attendanceA{{ $staff->id }}">@lang('hr.absent')</label>
+                                                                    for="aramiscAttendanceA{{ $staff->id }}">@lang('hr.absent')</label>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -222,7 +222,7 @@
                                                 <td></td>
                                                 <td class="text-center">
                                                     <button type="submit" class="primary-btn mr-40 fix-gr-bg nowrap submit">
-                                                        @lang('hr.save_attendance')
+                                                        @lang('hr.save_aramiscAttendance')
                                                     </button>
                                                 </td>
                                                 <td></td>

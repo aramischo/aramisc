@@ -127,7 +127,7 @@ return [
     "select_type" => "ধরন বেছে নিন",
     "reset_password" => "পাসওয়ার্ড রিসেট করো",
     "due" => "থাকুন",
-    "attendance" => "অ্যাটেনডেন্স",
+    "aramiscAttendance" => "অ্যাটেনডেন্স",
     "report" => "প্রতিবেদন",
     "user_agent" => "ব্যবহারকারী এজেন্ট",
     "class_routine" => "ক্লাস রুটিন",

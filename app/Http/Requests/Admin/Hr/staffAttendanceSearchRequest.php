@@ -25,7 +25,7 @@ class staffAttendanceSearchRequest extends FormRequest
     {
         return [
             'role' => 'required',
-            'attendance_date' => 'required|date'
+            'aramiscAttendance_date' => 'required|date'
         ];
     }
 }

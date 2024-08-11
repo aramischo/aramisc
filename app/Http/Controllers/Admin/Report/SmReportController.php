@@ -218,9 +218,9 @@ class SmReportController extends Controller
                     }
 
 
-                    $student_detail = $studentDetails = StudentRecord::where('student_id', $request->student)->where('class_id', $class_id)->where('section_id', $section_id)->where('is_promote', 0)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->first();
+                    $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $request->student)->where('class_id', $class_id)->where('section_id', $section_id)->where('is_promote', 0)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->first();
 
-                    $subjects = $studentDetails->class->subjects->whereIn('subject_id', $examSubjectIds)
+                    $subjects = $aramiscStudentDetails->class->subjects->whereIn('subject_id', $examSubjectIds)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id);
 
@@ -637,7 +637,7 @@ class SmReportController extends Controller
                         ->where('school_id', Auth::user()->school_id)
                         ->max('gpa');
 
-                    $student_detail = $studentDetails = StudentRecord::where('student_id', $request->student_id)
+                    $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $request->student_id)
                         ->where('class_id', $request->class_id)
                         ->where('section_id', $request->section_id)
                         ->where('academic_id', getAcademicId())
@@ -645,7 +645,7 @@ class SmReportController extends Controller
                         ->where('is_promote', 0)
                         ->first();
 
-                    $subjects_optional = $studentDetails->class->subjects->where('section_id', $request->section_id)
+                    $subjects_optional = $aramiscStudentDetails->class->subjects->where('section_id', $request->section_id)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id);
 
@@ -883,7 +883,7 @@ class SmReportController extends Controller
                     ->where('gpa', $fail_grade)
                     ->first();
 
-                $studentDetails = StudentRecord::where('student_id', $request->student)
+                $aramiscStudentDetails = StudentRecord::where('student_id', $request->student)
                     ->where('class_id', $request->class)
                     ->where('section_id', $request->section)
                     ->where('academic_id', getAcademicId())
@@ -903,7 +903,7 @@ class SmReportController extends Controller
                     ->first();
 
                 $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $request->student)
-                    ->where('session_id', '=', $studentDetails->session_id)
+                    ->where('session_id', '=', $aramiscStudentDetails->session_id)
                     ->first();
 
                 $exam_setup = SmExamSetup::where([
@@ -988,7 +988,7 @@ class SmReportController extends Controller
                             'exams',
                             'optional_subject_setup',
                             'student_optional_subject',
-                            'classes', 'studentDetails',
+                            'classes', 'aramiscStudentDetails',
                             'is_result_available',
                             'subjects',
                             'class_id',
@@ -1158,8 +1158,8 @@ class SmReportController extends Controller
 
                 $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $student_id)->where('academic_id', '=', $student_detail->academic_id)->first();
                 //    return $student_optional_subject;
-                // $studentDetails = SmStudent::where('sm_students.id', $request->student)
-                // $studentDetails = SmStudent::where('sm_students.id', $request->student)
+                // $aramiscStudentDetails = SmStudent::where('sm_students.id', $request->student)
+                // $aramiscStudentDetails = SmStudent::where('sm_students.id', $request->student)
                 if($request->custom_mark_report == 'custom_mark_report'){
                     $view = 'backEnd.reports.custom_percent_progress_card_report_print';
                 }else{
@@ -1206,7 +1206,7 @@ class SmReportController extends Controller
                 //         'exam_types'         => $exam_types,
                 //         'assinged_exam_types'         => $assinged_exam_types,
                 //         'marks_grade'         => $marks_grade,
-                //         'studentDetails'         => $studentDetails,
+                //         'aramiscStudentDetails'         => $aramiscStudentDetails,
                 //         'fail_grade_name' => $fail_grade_name,
                 //     ]
                 // )->setPaper('A4', 'portrait');

@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class TeacherEvaluationController extends Controller
 {
-    public function teacherEvaluationSetting()
+    public function aramiscTeacherEvaluationSetting()
     {
-        $teacherEvaluationSetting = TeacherEvaluationSetting::where('id', 1)->first();
-        return view('backEnd.teacherEvaluation.setting.teacherEvaluationSetting', compact('teacherEvaluationSetting'));
+        $aramiscTeacherEvaluationSetting = TeacherEvaluationSetting::where('id', 1)->first();
+        return view('backEnd.aramiscTeacherEvaluation.setting.aramiscTeacherEvaluationSetting', compact('aramiscTeacherEvaluationSetting'));
     }
-    public function teacherEvaluationSettingUpdate(Request $request)
+    public function aramiscTeacherEvaluationSettingUpdate(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -27,18 +27,18 @@ class TeacherEvaluationController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         try {
-            $teacherEvaluationSetting = TeacherEvaluationSetting::find(1);
+            $aramiscTeacherEvaluationSetting = TeacherEvaluationSetting::find(1);
             if ($request->type == 'evaluation') {
-                $teacherEvaluationSetting->is_enable = $request->is_enable;
-                $teacherEvaluationSetting->auto_approval = $request->auto_approval;
+                $aramiscTeacherEvaluationSetting->is_enable = $request->is_enable;
+                $aramiscTeacherEvaluationSetting->auto_approval = $request->auto_approval;
             }
             if ($request->type == 'submission') {
-                $teacherEvaluationSetting->submitted_by = $request->submitted_by ? $request->submitted_by : $teacherEvaluationSetting->submitted_by;
-                $teacherEvaluationSetting->rating_submission_time = $request->rating_submission_time;
-                $teacherEvaluationSetting->from_date = date('Y-m-d', strtotime($request->startDate));
-                $teacherEvaluationSetting->to_date = date('Y-m-d', strtotime($request->endDate));
+                $aramiscTeacherEvaluationSetting->submitted_by = $request->submitted_by ? $request->submitted_by : $aramiscTeacherEvaluationSetting->submitted_by;
+                $aramiscTeacherEvaluationSetting->rating_submission_time = $request->rating_submission_time;
+                $aramiscTeacherEvaluationSetting->from_date = date('Y-m-d', strtotime($request->startDate));
+                $aramiscTeacherEvaluationSetting->to_date = date('Y-m-d', strtotime($request->endDate));
             }
-            $teacherEvaluationSetting->update();
+            $aramiscTeacherEvaluationSetting->update();
             return redirect()->back();
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -46,7 +46,7 @@ class TeacherEvaluationController extends Controller
         }
     }
 
-    public function teacherEvaluationSubmit(Request $request)
+    public function aramiscTeacherEvaluationSubmit(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -60,21 +60,21 @@ class TeacherEvaluationController extends Controller
                 ->withInput();
         }
         try {
-            $teacherEvaluationSetting = TeacherEvaluationSetting::find(1);
-            $teacherEvaluation = new TeacherEvaluation();
-            $teacherEvaluation->rating = $request->rating;
-            $teacherEvaluation->comment = $request->comment;
-            $teacherEvaluation->record_id = $request->record_id;
-            $teacherEvaluation->subject_id = $request->subject_id;
-            $teacherEvaluation->teacher_id = $request->teacher_id;
-            $teacherEvaluation->student_id = $request->student_id;
-            $teacherEvaluation->parent_id = $request->parent_id;
-            $teacherEvaluation->role_id = Auth::user()->role_id;
-            $teacherEvaluation->academic_id = getAcademicId();
-            if ($teacherEvaluationSetting->auto_approval == 0) {
-                $teacherEvaluation->status = 1;
+            $aramiscTeacherEvaluationSetting = TeacherEvaluationSetting::find(1);
+            $aramiscTeacherEvaluation = new TeacherEvaluation();
+            $aramiscTeacherEvaluation->rating = $request->rating;
+            $aramiscTeacherEvaluation->comment = $request->comment;
+            $aramiscTeacherEvaluation->record_id = $request->record_id;
+            $aramiscTeacherEvaluation->subject_id = $request->subject_id;
+            $aramiscTeacherEvaluation->teacher_id = $request->teacher_id;
+            $aramiscTeacherEvaluation->student_id = $request->student_id;
+            $aramiscTeacherEvaluation->parent_id = $request->parent_id;
+            $aramiscTeacherEvaluation->role_id = Auth::user()->role_id;
+            $aramiscTeacherEvaluation->academic_id = getAcademicId();
+            if ($aramiscTeacherEvaluationSetting->auto_approval == 0) {
+                $aramiscTeacherEvaluation->status = 1;
             }
-            $teacherEvaluation->save();
+            $aramiscTeacherEvaluation->save();
             Toastr::success('Operation Successful', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {

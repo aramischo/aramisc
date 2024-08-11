@@ -14,11 +14,11 @@ return [
 
 "total_pending_home_work" => "Total pendiente de tarea",
 
-"total_attendance_in_current_month" => "Asistencia Total En El Mes Actual",
+"total_aramiscAttendance_in_current_month" => "Asistencia Total En El Mes Actual",
 
 "pending_home_work" => "Tareas pendientes",
 
-"attendance_in_current_month" => "Asistencia En El Mes Actual",
+"aramiscAttendance_in_current_month" => "Asistencia En El Mes Actual",
 
 "Calendar" => "Calendario",
 

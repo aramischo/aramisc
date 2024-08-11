@@ -205,7 +205,7 @@
                                                     </div>
                                                 </div>
                                         {{-- <div>
-                                            <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->student_photo)}}">
+                                            <img class="report-admit-img"  src="{{ file_exists(@$aramiscStudentDetails->student_photo) ? asset($aramiscStudentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($aramiscStudentDetails->student_photo)}}">
                                         </div> --}}
                                         
                                         
@@ -216,7 +216,7 @@
                                                     <div class="col-lg-8">
                                                         <div class="row"> 
                                                             <div class="col-lg-2">
-                                                                <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->student_photo)}}">
+                                                                <img class="report-admit-img"  src="{{ file_exists(@$aramiscStudentDetails->student_photo) ? asset($aramiscStudentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($aramiscStudentDetails->student_photo)}}">
                                                             </div>
                                                             <div class="col-lg-8">
                                                                  <table class="table">

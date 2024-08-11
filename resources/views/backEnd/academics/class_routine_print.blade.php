@@ -68,9 +68,9 @@
                     $tr = [];
                 @endphp
                 @foreach ($sm_weekends as $sm_weekend)
-                    @if ($sm_weekend->classRoutine->count() > $height)
+                    @if ($sm_weekend->aramiscClassRoutine->count() > $height)
                         @php
-                            $height = $sm_weekend->classRoutine->count();
+                            $height = $sm_weekend->aramiscClassRoutine->count();
                         @endphp
                     @endif
                     <th style="margin-top: 0px;padding: 2px; padding-left:8px">{{ @$sm_weekend->name }}</th>
@@ -84,7 +84,7 @@
                 @php
                     $i = 0;
                 @endphp
-                @foreach ($sm_weekend->classRoutine as $routine)
+                @foreach ($sm_weekend->aramiscClassRoutine as $routine)
                     @php
                         if (!in_array($routine->id, $used)) {
                             $tr[$i][$sm_weekend->name][$loop->index]['subject'] = $routine->subject ? $routine->subject->subject_name : '';

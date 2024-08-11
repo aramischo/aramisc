@@ -18,12 +18,12 @@ class TeacherEvaluationReportController extends Controller
         $staffs = SmAssignSubject::where('class_id', $request->class_id)->where('subject_id', $request->subject_id)->whereIn('section_id', $request->section_ids)->with('teacher')->select('teacher_id')->distinct('teacher_id')->get();
         return response()->json($staffs);
     }
-    public function teacherApprovedEvaluationReport()
+    public function aramiscTeacherApprovedEvaluationReport()
     {
         try {
             $classes = SmClass::get();
-            $teacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
-            return view('backEnd.teacherEvaluation.report.teacher_approved_evaluation_report', compact('classes', 'teacherEvaluations'));
+            $aramiscTeacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
+            return view('backEnd.aramiscTeacherEvaluation.report.teacher_approved_evaluation_report', compact('classes', 'aramiscTeacherEvaluations'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -32,17 +32,17 @@ class TeacherEvaluationReportController extends Controller
     public function teacherPendingEvaluationReport()
     {
         $classes = SmClass::get();
-        $teacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
-        return view('backEnd.teacherEvaluation.report.teacher_pending_evaluation_report', compact('classes', 'teacherEvaluations'));
+        $aramiscTeacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
+        return view('backEnd.aramiscTeacherEvaluation.report.teacher_pending_evaluation_report', compact('classes', 'aramiscTeacherEvaluations'));
     }
     public function teacherWiseEvaluationReport()
     {
         $classes = SmClass::get();
         $teachers = SmStaff::where('role_id', 4)->get();
-        $teacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
-        return view('backEnd.teacherEvaluation.report.teacher_wise_evaluation_report', compact('classes', 'teacherEvaluations', 'teachers'));
+        $aramiscTeacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
+        return view('backEnd.aramiscTeacherEvaluation.report.teacher_wise_evaluation_report', compact('classes', 'aramiscTeacherEvaluations', 'teachers'));
     }
-    public function teacherApprovedEvaluationReportSearch(Request $request)
+    public function aramiscTeacherApprovedEvaluationReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -65,7 +65,7 @@ class TeacherEvaluationReportController extends Controller
                     $query->where('teacher_id', $request->teacher_id);
                 })->get();
 
-            $teacherEvaluations = TeacherEvaluation::when($request->class_id, function ($q) use ($request) {
+            $aramiscTeacherEvaluations = TeacherEvaluation::when($request->class_id, function ($q) use ($request) {
                 $q->whereHas('studentRecord', function ($query) use ($request) {
                     $query->where('class_id', $request->class_id);
                 });
@@ -88,7 +88,7 @@ class TeacherEvaluationReportController extends Controller
                 })
                 ->with('studentRecord.studentDetail.parents', 'staff')->get();
 
-            return view('backEnd.teacherEvaluation.report.teacher_approved_evaluation_report', compact('classes', 'teacherEvaluations'));
+            return view('backEnd.aramiscTeacherEvaluation.report.teacher_approved_evaluation_report', compact('classes', 'aramiscTeacherEvaluations'));
         } catch (\Exception $e) {
            
             Toastr::error('Operation Failed', 'Failed');
@@ -118,7 +118,7 @@ class TeacherEvaluationReportController extends Controller
                     $query->where('teacher_id', $request->teacher_id);
                 })->get();
 
-            $teacherEvaluations = TeacherEvaluation::when($request->class_id, function ($q) use ($request) {
+            $aramiscTeacherEvaluations = TeacherEvaluation::when($request->class_id, function ($q) use ($request) {
                 $q->whereHas('studentRecord', function ($query) use ($request) {
                     $query->where('class_id', $request->class_id);
                 });
@@ -141,7 +141,7 @@ class TeacherEvaluationReportController extends Controller
                 })
                 ->with('studentRecord.studentDetail.parents', 'staff')->get();
 
-            return view('backEnd.teacherEvaluation.report.teacher_pending_evaluation_report', compact('classes', 'teacherEvaluations'));
+            return view('backEnd.aramiscTeacherEvaluation.report.teacher_pending_evaluation_report', compact('classes', 'aramiscTeacherEvaluations'));
         } catch (\Exception $e) {
          
             Toastr::error('Operation Failed', 'Failed');
@@ -153,37 +153,37 @@ class TeacherEvaluationReportController extends Controller
         try {
             $classes = SmClass::get();
             $teachers = SmStaff::where('role_id', 4)->get();
-            $teacherEvaluations = TeacherEvaluation::query();
+            $aramiscTeacherEvaluations = TeacherEvaluation::query();
             if ($request->teacher_id) {
-                $teacherEvaluations->where('teacher_id', $request->teacher_id);
+                $aramiscTeacherEvaluations->where('teacher_id', $request->teacher_id);
             }
             if ($request->submitted_by) {
-                $teacherEvaluations->where('role_id', $request->submitted_by);
+                $aramiscTeacherEvaluations->where('role_id', $request->submitted_by);
             }
-            $teacherEvaluations = $teacherEvaluations->with('studentRecord.studentDetail.parents', 'staff')->get();
-            return view('backEnd.teacherEvaluation.report.teacher_wise_evaluation_report', compact('classes', 'teacherEvaluations', 'teachers'));
+            $aramiscTeacherEvaluations = $aramiscTeacherEvaluations->with('studentRecord.studentDetail.parents', 'staff')->get();
+            return view('backEnd.aramiscTeacherEvaluation.report.teacher_wise_evaluation_report', compact('classes', 'aramiscTeacherEvaluations', 'teachers'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function teacherEvaluationApproveSubmit($id)
+    public function aramiscTeacherEvaluationApproveSubmit($id)
     {
         try {
-            $teacherEvaluations = TeacherEvaluation::find($id);
-            $teacherEvaluations->status = 1;
-            $teacherEvaluations->update();
+            $aramiscTeacherEvaluations = TeacherEvaluation::find($id);
+            $aramiscTeacherEvaluations->status = 1;
+            $aramiscTeacherEvaluations->update();
             return redirect()->back();
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function teacherEvaluationApproveDelete($id)
+    public function aramiscTeacherEvaluationApproveDelete($id)
     {
         try {
-            $teacherEvaluations = TeacherEvaluation::find($id);
-            $teacherEvaluations->delete();
+            $aramiscTeacherEvaluations = TeacherEvaluation::find($id);
+            $aramiscTeacherEvaluations->delete();
             return redirect()->back();
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -194,8 +194,8 @@ class TeacherEvaluationReportController extends Controller
     {
         try {
             $staffId = SmStaff::where('user_id', auth()->user()->id)->select('id')->first();
-            $teacherEvaluations = TeacherEvaluation::where('teacher_id', $staffId->id)->with('studentRecord')->get();
-            return view('backEnd.teacherEvaluation.report.teacher_panel_evaluation_report', compact('teacherEvaluations'));
+            $aramiscTeacherEvaluations = TeacherEvaluation::where('teacher_id', $staffId->id)->with('studentRecord')->get();
+            return view('backEnd.aramiscTeacherEvaluation.report.teacher_panel_evaluation_report', compact('aramiscTeacherEvaluations'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();

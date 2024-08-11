@@ -60,13 +60,13 @@ class ApiSmStaffAttendanceController extends Controller
             $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
 
-            $attendances = SmStaffAttendence::where('staff_id', $teacher->id)
+            $aramiscAttendances = SmStaffAttendence::where('staff_id', $teacher->id)
                 ->where('attendence_date', 'like', '%' . $request->year . '-' . $month . '%')
-                ->select('attendence_type as attendance_type', 'attendence_date as attendance_date')
+                ->select('attendence_type as aramiscAttendance_type', 'attendence_date as aramiscAttendance_date')
                 ->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['previousMonthDetails'] = $previousMonthDetails;
                 $data['days'] = $days;
                 $data['year'] = $year;
@@ -130,13 +130,13 @@ class ApiSmStaffAttendanceController extends Controller
             $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
 
-            $attendances = SmStaffAttendence::where('staff_id', $teacher->id)
+            $aramiscAttendances = SmStaffAttendence::where('staff_id', $teacher->id)
                 ->where('attendence_date', 'like', '%' . $request->year . '-' . $month . '%')
-                ->select('attendence_type as attendance_type', 'attendence_date as attendance_date')
+                ->select('attendence_type as aramiscAttendance_type', 'attendence_date as aramiscAttendance_date')
                 ->where('school_id', $school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['previousMonthDetails'] = $previousMonthDetails;
                 $data['days'] = $days;
                 $data['year'] = $year;

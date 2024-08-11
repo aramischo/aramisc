@@ -92,7 +92,7 @@
                                     <div class="main-title mb-25">
                                         <h3 class="mb-0">@lang('fees.fees_invoice_settings')</h3>
                                     </div>
-                                    {{ Form::model($feesInvoice, ['class' => 'bg-white p-4 rounded', 'route' => ['directFees.feesInvoiceUpdate'], 'method' => 'post']) }}
+                                    {{ Form::model($feesInvoice, ['class' => 'bg-white p-4 rounded', 'route' => ['aramiscDirectFees.feesInvoiceUpdate'], 'method' => 'post']) }}
                                     <div class="row">
                                           <input type="hidden" name="school_id" value="{{auth()->user()->school_id}}">
                                             <div class="col-lg-6 d-flex relation-button justify-content-between mb-3 justify-content-between mt-25">
@@ -187,7 +187,7 @@
 
 
                                     
-                                    {{ Form::model($paymentReminder, ['class' => 'bg-white p-4 rounded', 'route' => ['directFees.paymentReminder'], 'method' => 'POST']) }}
+                                    {{ Form::model($paymentReminder, ['class' => 'bg-white p-4 rounded', 'route' => ['aramiscDirectFees.paymentReminder'], 'method' => 'POST']) }}
                                         @php
                                             $data = json_decode($paymentReminder->notification_types);
                                         @endphp

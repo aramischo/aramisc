@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 @section('title')
-    @lang('hr.staff_attendance_report')
+    @lang('hr.staff_aramiscAttendance_report')
 @endsection
 
 @push('css')
@@ -62,7 +62,7 @@
             box-shadow: inset 0 0 5px grey
         }
 
-        .attendance_hr {
+        .aramiscAttendance_hr {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
         }
@@ -80,11 +80,11 @@
     <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
-                <h1>@lang('hr.staff_attendance_report')</h1>
+                <h1>@lang('hr.staff_aramiscAttendance_report')</h1>
                 <div class="bc-pages">
                     <a href="{{ route('dashboard') }}">@lang('common.dashboard')</a>
                     <a href="#">@lang('hr.human_resource')</a>
-                    <a href="#">@lang('hr.staff_attendance_report')</a>
+                    <a href="#">@lang('hr.staff_aramiscAttendance_report')</a>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
                             </div>
             
                         </div>
-                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff_attendance_report_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'search_student']) }}
+                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff_aramiscAttendance_report_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'search_student']) }}
                         <div class="row">
                             <input type="hidden" name="url" id="url" value="{{ URL::to('/') }}">
                             <div class="col-lg-4">
@@ -220,18 +220,18 @@
     </section>
 
 
-    @if (isset($attendances))
-        <section class="student-attendance up_admin_visitor">
+    @if (isset($aramiscAttendances))
+        <section class="student-aramiscAttendance up_admin_visitor">
             <div class="container-fluid p-0">
                 <div class="white-box mt-40">
                     <div class="row">
                         <div class="col-sm-6 no-gutters">
                             <div class="main-title">
-                                <h3 class="mb-15">@lang('hr.staff_attendance_report')</h3>
+                                <h3 class="mb-15">@lang('hr.staff_aramiscAttendance_report')</h3>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <a href="{{ route('staff-attendance/print', [$role_id, $month, $year]) }}"
+                            <a href="{{ route('staff-aramiscAttendance/print', [$role_id, $month, $year]) }}"
                                 class="primary-btn small fix-gr-bg float-sm-right" target="_blank"><i class="ti-printer"> </i>
                                 @lang('common.print')</a>
                         </div>
@@ -274,8 +274,8 @@
                                             </thead>
     
                                             <tbody>
-                                                @foreach ($attendances as $values)
-                                                    @php $total_attendance = 0; @endphp
+                                                @foreach ($aramiscAttendances as $values)
+                                                    @php $total_aramiscAttendance = 0; @endphp
                                                     @php $count_absent = 0; @endphp
                                                     <tr>
                                                         <td>
@@ -302,7 +302,7 @@
                                                                 @if ($value->attendence_type == 'P')
                                                                     @php
                                                                         $p++;
-                                                                        $total_attendance++;
+                                                                        $total_aramiscAttendance++;
                                                                     @endphp
                                                                 @endif
                                                             @endforeach
@@ -314,7 +314,7 @@
                                                                 @if ($value->attendence_type == 'L')
                                                                     @php
                                                                         $l++;
-                                                                        $total_attendance++;
+                                                                        $total_aramiscAttendance++;
                                                                     @endphp
                                                                 @endif
                                                             @endforeach
@@ -327,7 +327,7 @@
                                                                     @php
                                                                         $a++;
                                                                         $count_absent++;
-                                                                        $total_attendance++;
+                                                                        $total_aramiscAttendance++;
                                                                     @endphp
                                                                 @endif
                                                             @endforeach
@@ -339,7 +339,7 @@
                                                                 @if ($value->attendence_type == 'H')
                                                                     @php
                                                                         $h++;
-                                                                        $total_attendance++;
+                                                                        $total_aramiscAttendance++;
                                                                     @endphp
                                                                 @endif
                                                             @endforeach
@@ -351,7 +351,7 @@
                                                                 @if ($value->attendence_type == 'F')
                                                                     @php
                                                                         $f++;
-                                                                        $total_attendance++;
+                                                                        $total_aramiscAttendance++;
                                                                     @endphp
                                                                 @endif
                                                             @endforeach
@@ -359,11 +359,11 @@
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $total_present = $total_attendance - $count_absent;
+                                                                $total_present = $total_aramiscAttendance - $count_absent;
                                                                 if ($count_absent == 0) {
                                                                     echo '100%';
                                                                 } else {
-                                                                    $percentage = ($total_present / $total_attendance) * 100;
+                                                                    $percentage = ($total_present / $total_aramiscAttendance) * 100;
                                                                     echo number_format((float) $percentage, 2, '.', '') . '%';
                                                                 }
                                                             @endphp

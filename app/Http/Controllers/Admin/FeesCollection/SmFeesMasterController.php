@@ -57,9 +57,9 @@ class SmFeesMasterController extends Controller
                
                 return view('university::fees.fees_master', compact('fees_groups', 'fees_types', 'fees_masters', 'already_assigned'));
             }
-            if(directFees()){
+            if(aramiscDirectFees()){
                 $classes = SmClass::get();
-                return view('backEnd.feesCollection.directFees.fees_master', compact('fees_groups', 'fees_types', 'fees_masters', 'already_assigned','classes'));
+                return view('backEnd.feesCollection.aramiscDirectFees.fees_master', compact('fees_groups', 'fees_types', 'fees_masters', 'already_assigned','classes'));
             }
             return view('backEnd.feesCollection.fees_master', compact('fees_groups', 'fees_types', 'fees_masters', 'already_assigned'));
         } catch (\Exception $e) {
@@ -94,7 +94,7 @@ class SmFeesMasterController extends Controller
                 $fees_type->save();
                 $feesTypeId = $fees_type->id;
             }
-            if (directFees()) {
+            if (aramiscDirectFees()) {
                 $fees_group = new SmFeesGroup();
                 $fees_group->name = $request->name;
                 $fees_group->description = $request->description;
@@ -126,7 +126,7 @@ class SmFeesMasterController extends Controller
                 if(moduleStatusCheck('University')) {
                     $fees_master->fees_group_id = $feesGroupId;
                     $fees_master->un_academic_id = getAcademicId();
-                }elseif(directFees()){
+                }elseif(aramiscDirectFees()){
                     $fees_master->fees_group_id =  $fees_type->fees_group_id;
                     $fees_master->academic_id = getAcademicId();
                     $fees_master->class_id = $request->class;
@@ -139,7 +139,7 @@ class SmFeesMasterController extends Controller
                 }
                 $fees_master->amount = $request->amount;
                 $fees_master->save();
-                if(directFees()){
+                if(aramiscDirectFees()){
                     $this->installmentCreate($fees_master->id, $request);
                     // $this->assignDirectFees(null, $fees_master->class_id, $fees_master->section_id, $fees_master->id);
                 }
@@ -220,10 +220,10 @@ class SmFeesMasterController extends Controller
             if (moduleStatusCheck('University')) {
                 return view('university::fees.fees_master', compact('fees_groups', 'fees_types', 'fees_master', 'fees_masters', 'already_assigned'));
             }
-            if(directFees()){
+            if(aramiscDirectFees()){
                 $classes = SmClass::get();
 
-                return view('backEnd.feesCollection.directFees.fees_master', compact('fees_master','fees_groups', 'fees_types', 'fees_masters', 'already_assigned','classes'));
+                return view('backEnd.feesCollection.aramiscDirectFees.fees_master', compact('fees_master','fees_groups', 'fees_types', 'fees_masters', 'already_assigned','classes'));
             }
             return view('backEnd.feesCollection.fees_master', compact('fees_groups', 'fees_types', 'fees_master', 'fees_masters', 'already_assigned'));
         } catch (\Exception $e) {
@@ -253,7 +253,7 @@ class SmFeesMasterController extends Controller
                 $feesGroup->name = $request->name;
                 $feesGroup->save();
             }
-            if(directFees()){
+            if(aramiscDirectFees()){
                 $fees_type->name = $request->name;
                 $fees_type->save();
                 $feesGroup = SmFeesGroup::find($request->fees_group_id);
@@ -333,7 +333,7 @@ class SmFeesMasterController extends Controller
             $tables = tableList::getTableList($id_key, $request->id);
             
             try {
-                if(directFees()){
+                if(aramiscDirectFees()){
                      $master = SmFeesMaster::find($request->id);
                     if($master){
                         $master_installments = DirectFeesInstallment::where('fees_master_id',$master->id)->get();
@@ -483,7 +483,7 @@ class SmFeesMasterController extends Controller
                     $fees_group_id = $request->fees_group_id;
                     $checked = gbv($studentRecord, 'checked');
                     if($checked){
-                        $this->assignSubjectFees($student_record->id, null, $semester_label_id, $fees_group_id);
+                        $this->aramiscAssignSubjectFees($student_record->id, null, $semester_label_id, $fees_group_id);
                     }else{
                         $this->feesMasterUnAssign($student_record->id, $semester_label_id, $fees_group_id);
                     }
@@ -506,7 +506,7 @@ class SmFeesMasterController extends Controller
                     ]));
                     $this->feesStoreStudentRecord(null, $students, $fees_masters, $request, true);
                 }else{
-                    $students = SmStudent::with(['feesAssign', 'feesPayment', 'feesAssignDiscount', 'forwardBalance', 'user', 'parents', 'parents.parent_user'])
+                    $students = SmStudent::with(['feesAssign', 'aramiscFeesPayment', 'feesAssignDiscount', 'forwardBalance', 'user', 'parents', 'parents.parent_user'])
                         ->whereIn('id', $student_ids)
                          ->get();
                     foreach ($students as $key => $student) {
@@ -730,7 +730,7 @@ class SmFeesMasterController extends Controller
             $student = $studentFromRecord ? $studentRecord->studentDetail : $student ;
             $studentRecordId = $studentFromRecord ? $studentRecord->id : gv($studentRecord, 'record_id') ;
             foreach ($fees_masters as $fees_master) {
-                $payment_info = $student->feesPayment->where('active_status', 1)
+                $payment_info = $student->aramiscFeesPayment->where('active_status', 1)
                     ->where('fees_type_id', $fees_master->fees_type_id)
                     ->where('record_id', $studentRecordId) //record
                     ->count();
@@ -872,7 +872,7 @@ class SmFeesMasterController extends Controller
                 $student = $studentRecord->studentDetail;
                 $studentRecordId = $studentRecord->id;
                 foreach ($fees_masters as $fees_master) {
-                    $payment_info_record_id = $student->feesPayment->where('active_status', 1)
+                    $payment_info_record_id = $student->aramiscFeesPayment->where('active_status', 1)
                         ->where('fees_type_id', $fees_master->fees_type_id)
                         ->where('record_id', $studentRecordId)->pluck('record_id')->first();
                     // $payment_info_record_id = $payment_info->pluck('record_id')->first();

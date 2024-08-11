@@ -342,10 +342,10 @@ class SmSchoolSeeder extends Seeder
 
                     //
                     //Examination
-                    $assignSubjects = SmAssignSubject::where('school_id', $school->id)->where('academic_id', $academic_year->id)->get();
+                    $aramiscAssignSubjects = SmAssignSubject::where('school_id', $school->id)->where('academic_id', $academic_year->id)->get();
                     SmMarksGrade::factory()->times(7)->create($school_academic);
-                    SmExamType::factory()->times(3)->create($school_academic)->each(function ($examTerm) use ($assignSubjects, $school, $academic_year) {
-                        foreach ($assignSubjects as $classSectionSubject) {
+                    SmExamType::factory()->times(3)->create($school_academic)->each(function ($examTerm) use ($aramiscAssignSubjects, $school, $academic_year) {
+                        foreach ($aramiscAssignSubjects as $classSectionSubject) {
                             $s = new SmExamSetup();
                             $s->class_id = $classSectionSubject->class_id;
                             $s->section_id = $classSectionSubject->section_id;
@@ -382,9 +382,9 @@ class SmSchoolSeeder extends Seeder
                             $date = date('Y') . '-' . date('m') . '-' . $d;
                             $sa = new SmStudentAttendance();
                             $sa->student_id = $student->id;
-                            $sa->attendance_type = 'P';
+                            $sa->aramiscAttendance_type = 'P';
                             $sa->notes = 'Sample Attendance for Student';
-                            $sa->attendance_date = $date;
+                            $sa->aramiscAttendance_date = $date;
                             $sa->school_id = $school->id;
                             $sa->academic_id = $academic_year->id;
                             $sa->save();

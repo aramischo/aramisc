@@ -136,10 +136,10 @@ class CreateSmModuleLinksTable extends Migration
         [66, 3, '➡ Student List Edit','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [67, 3, '➡ Student List Delete','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
  
-        [68, 3, 'Student Attendance Menu','student-attendance', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [68, 3, 'Student Attendance Menu','student-aramiscAttendance', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [69, 3, '➡ Student Attendance Add','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
  
-        [70, 3, 'Student Attendance Report Menu','student-attendance-report', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [70, 3, 'Student Attendance Report Menu','student-aramiscAttendance-report', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
  
         [71, 3, 'Student Category Menu','student-category', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [72, 3, '➡ Student Category Add','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -276,12 +276,12 @@ class CreateSmModuleLinksTable extends Migration
         [163, 7, '➡ Staff Directory Edit','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [164, 7, '➡ Staff Directory Delete','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
  
-        [165, 7, 'Staff Attendance Menu','staff-attendance', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [165, 7, 'Staff Attendance Menu','staff-aramiscAttendance', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [166, 7, '➡ Staff Attendance Add','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [167, 7, '➡ Staff Attendance Edit','',0, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [168, 7, '➡ Staff Attendance Delete','',0, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
  
-        [169, 7, 'Staff Attendance Report Menu','staff-attendance-report', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [169, 7, 'Staff Attendance Report Menu','staff-aramiscAttendance-report', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
  
         [170, 7, 'Payroll Menu','payroll',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [171, 7, '➡ Payroll Edit','',0, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -354,7 +354,7 @@ class CreateSmModuleLinksTable extends Migration
         [218, 9, '➡ Exam Schedule Add','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [219, 9, '➡ Exam Schedule Create','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
  
-        [220, 9, 'Exam Attendance Menu','exam-attendance', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [220, 9, 'Exam Attendance Menu','exam-aramiscAttendance', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [221, 9, '➡ Exam Attendance Add','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [222, 9, 'Marks Register Menu','marks-register', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [223, 9, '➡ Marks Register Add','',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],

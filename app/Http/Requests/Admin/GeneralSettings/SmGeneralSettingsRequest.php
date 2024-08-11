@@ -39,7 +39,7 @@ class SmGeneralSettingsRequest extends FormRequest
             'currency_symbol' => "required", 
             'promotionSetting' => "required",
             'ss_page_load' => "required",          
-            'attendance_layout' => "required",
+            'aramiscAttendance_layout' => "required",
             'address' => "required",
         ];
     }

@@ -309,7 +309,7 @@
                             </td>
                         </tr>
                             @php
-                                $payments = App\SmFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
+                                $payments = App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
                                 $i = 0;
                             @endphp
                             @foreach($payments as $payment)

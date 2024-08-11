@@ -112,7 +112,7 @@ class SmFeesCollectController extends Controller
     }
 
 
-    public function collectFeesStudent(Request $request, $id)
+    public function aramiscCollectFeesStudent(Request $request, $id)
     {
         try {
 
@@ -152,7 +152,7 @@ class SmFeesCollectController extends Controller
             $data['applied_discount'] = $applied_discount;
             if (moduleStatusCheck('University')) {
                 $data['feesInstallments'] = UnFeesInstallmentAssign::where('un_academic_id', $student->un_academic_id)->where('un_semester_label_id', $student->un_semester_label_id)->where('record_id', $student->id)->get();
-            } elseif (directFees()) {
+            } elseif (aramiscDirectFees()) {
                 $data['feesInstallments'] = DirectFeesInstallmentAssign::where('academic_id', getAcademicId())->with('payments')->where('record_id', $student->id)->get();
             }
 
@@ -164,7 +164,7 @@ class SmFeesCollectController extends Controller
         }
     }
 
-    public function collectFeesStudentApi(Request $request, $id)
+    public function aramiscCollectFeesStudentApi(Request $request, $id)
     {
         try {
             $student = SmStudent::where('user_id', $id)->where('school_id', Auth::user()->school_id)->first();

@@ -77,8 +77,8 @@
         <li><a href="{{route('administrator/teacher-list')}}">@lang('common.teacher_list')</a></li>
         <li><a href="{{route('administrator/class-list')}}">@lang('common.class_list')</a></li>
         <li><a href="{{route('administrator/class-routine')}}">@lang('academics.class_routine')</a></li>
-        <li><a href="{{route('administrator/student-attendance')}}">@lang('student.student_attendance')</a></li>
-        <li><a href="{{route('administrator/staff-attendance')}}">@lang('hr.staff_attendance')</a></li>
+        <li><a href="{{route('administrator/student-aramiscAttendance')}}">@lang('student.student_aramiscAttendance')</a></li>
+        <li><a href="{{route('administrator/staff-aramiscAttendance')}}">@lang('hr.staff_aramiscAttendance')</a></li>
         <li><a href="{{route('administrator/merit-list-report')}}">@lang('exam.merit_list_report')</a></li>
         <li><a href="{{route('saas_mark_sheet_report_student')}}">@lang('exam.mark_sheet_report')</a></li>
         <li><a href="{{url('administrator/tabulation-sheet-report')}}">@lang('reports.tabulation_sheet_report')</a></li>

@@ -205,7 +205,7 @@ return [
     "weekend" => "উইকএন্ড",
     "signature" => "স্বাক্ষর",
     "all_select" => "সব নির্বাচন",
-    "subject_attendance_layout" => "বিষয় অ্যাটেনডেন্স বিন্যাস",
+    "subject_aramiscAttendance_layout" => "বিষয় অ্যাটেনডেন্স বিন্যাস",
     "setup_exam_rule" => "এক্সাম নিয়ম ব্যবস্থাপনা",
     "format_settings" => "ফরম্যাট সেটিংস",
     "add_content" => "বিষয়বস্তু যোগ করো",

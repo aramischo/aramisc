@@ -20,10 +20,10 @@ class SmTopicsTableSeeder extends Seeder
     {
         // $topic = ['theory', 'poem', 'practical', 'others'];
         // $lesson_id = SmLesson::where('class_id', 1)->where('section_id', 1)->where('school_id', $school_id)->where('academic_id', $academic_id)->first()->id;
-        // $assignSubject = SmAssignSubject::where('school_id', $school_id)
+        // $aramiscAssignSubject = SmAssignSubject::where('school_id', $school_id)
         // ->where('academic_id', $academic_id)
         // ->first();
-        // $is_duplicate = SmLessonTopic::where('class_id', $assignSubject->class_id)->where('lesson_id', $lesson_id)->where('section_id', $assignSubject->sction_id)->where('subject_id', $assignSubject->subject_id)->first();
+        // $is_duplicate = SmLessonTopic::where('class_id', $aramiscAssignSubject->class_id)->where('lesson_id', $lesson_id)->where('section_id', $aramiscAssignSubject->sction_id)->where('subject_id', $aramiscAssignSubject->subject_id)->first();
         // if ($is_duplicate) {
         //     $length = count($topic);
         //     for ($i = 0; $i < $length; $i++) {
@@ -43,9 +43,9 @@ class SmTopicsTableSeeder extends Seeder
         // } else {
   
         //     $smTopic = new SmLessonTopic;
-        //     $smTopic->class_id = $assignSubject->class_id;
-        //     $smTopic->section_id = $assignSubject->section_id;
-        //     $smTopic->subject_id = $assignSubject->subject_id;
+        //     $smTopic->class_id = $aramiscAssignSubject->class_id;
+        //     $smTopic->section_id = $aramiscAssignSubject->section_id;
+        //     $smTopic->subject_id = $aramiscAssignSubject->subject_id;
         //     $smTopic->lesson_id = $lesson_id;
         //     $smTopic->school_id = $school_id;
         //     $smTopic->academic_id = $academic_id;

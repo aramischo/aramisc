@@ -237,7 +237,7 @@ hr{
                                                 </div>
                                                 <div class="offset-2"></div>
                                                 <div>
-                                                    <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->student_photo)}}">
+                                                    <img class="report-admit-img"  src="{{ file_exists(@$aramiscStudentDetails->student_photo) ? asset($aramiscStudentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($aramiscStudentDetails->student_photo)}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -245,27 +245,27 @@ hr{
                                             <div class="row justify-content-between">
                                                 <div class="col-lg-7 text-black"> 
                                                     <h3 style="border-bottm:1px solid #ddd; padding: 15px; text-align:center">@lang('exam.student_information')</h3>
-                                                    <h3>{{  $studentDetails->full_name }}</h3>
+                                                    <h3>{{  $aramiscStudentDetails->full_name }}</h3>
                                                     <div class="row">
                                                         <div class="col-lg-3">
                                                             <p class="mb-0 d-flex">@lang('common.academic_year'): 
                                                                 <span class="primary-color fw-500">{{generalSetting()->session_year}}</span>
                                                             </p>
                                                             <p class="mb-0 d-flex">@lang('student.roll') : 
-                                                                <span class="primary-color fw-500">{{$studentDetails->roll_no}}</span>
+                                                                <span class="primary-color fw-500">{{$aramiscStudentDetails->roll_no}}</span>
                                                             </p>
                                                             <p class="mb-0"> @lang('student.admission_no'):
-                                                                <span class="primary-color fw-500"> {{$studentDetails->admission_no}}</span> 
+                                                                <span class="primary-color fw-500"> {{$aramiscStudentDetails->admission_no}}</span> 
                                                             </p>
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <p class="mb-0"> @lang('common.class') : 
-                                                                <span class="primary-color fw-500">{{ $studentDetails->class_name }}</span>
+                                                                <span class="primary-color fw-500">{{ $aramiscStudentDetails->class_name }}</span>
                                                             </p>
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <p class="mb-0">@lang('common.section') : 
-                                                                <span class="primary-color fw-500">{{ $studentDetails->section_name }}</span>
+                                                                <span class="primary-color fw-500">{{ $aramiscStudentDetails->section_name }}</span>
                                                             </p>
                                                         </div>
                                                     </div>

@@ -254,7 +254,7 @@ class SearchStudentController extends Controller
             return redirect()->back();
         }
     }
-    public function addHomework(Request $request)
+    public function aramiscAddHomework(Request $request)
     {
         $request->validate([
             'class' => "required",
@@ -303,7 +303,7 @@ class SearchStudentController extends Controller
             return redirect()->back();
         }
     }
-    public function homeworkList2(Request $request, $id)
+    public function aramiscHomeworkList2(Request $request, $id)
     {
         try {
             $teacher = DB::table('sm_staffs')
@@ -311,7 +311,7 @@ class SearchStudentController extends Controller
                 ->first();
             $teacher_id = $teacher->id;
 
-            $homeworkLists = SmHomework::where('sm_homeworks.created_by', '=', $teacher_id)
+            $aramiscHomeworkLists = SmHomework::where('sm_homeworks.created_by', '=', $teacher_id)
                 ->join('sm_classes', 'sm_homeworks.class_id', '=', 'sm_classes.id')
                 ->join('sm_sections', 'sm_homeworks.section_id', '=', 'sm_sections.id')
                 ->join('sm_subjects', 'sm_homeworks.subject_id', '=', 'sm_subjects.id')
@@ -324,14 +324,14 @@ class SearchStudentController extends Controller
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
 
-                return ApiBaseMethod::sendResponse($homeworkLists, null);
+                return ApiBaseMethod::sendResponse($aramiscHomeworkLists, null);
             }
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function homeworkList(Request $request, $id)
+    public function aramiscHomeworkList(Request $request, $id)
     {
         try {
             $teacher = SmStaff::where('user_id', '=', $id)->first();
@@ -417,13 +417,13 @@ class SearchStudentController extends Controller
             $previousMonthDetails['day'] = $days2;
             $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
 
-            $attendances = SmStaffAttendence::where('student_id', $teacher->id)
-                ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
-                ->select('attendance_type', 'attendance_date')
+            $aramiscAttendances = SmStaffAttendence::where('student_id', $teacher->id)
+                ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+                ->select('aramiscAttendance_type', 'aramiscAttendance_date')
                 ->where('school_id',Auth::user()->school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                $data['attendances'] = $attendances;
+                $data['aramiscAttendances'] = $aramiscAttendances;
                 $data['previousMonthDetails'] = $previousMonthDetails;
                 $data['days'] = $days;
                 $data['year'] = $year;
@@ -433,13 +433,13 @@ class SearchStudentController extends Controller
                 return ApiBaseMethod::sendResponse($data, null);
             }
             //Test
-            //return view('backEnd.studentPanel.student_attendance', compact('attendances', 'days', 'year', 'month', 'current_day'));
+            //return view('backEnd.studentPanel.student_aramiscAttendance', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function applyLeave(Request $request)
+    public function aramiscApplyLeave(Request $request)
     {
 
 
@@ -506,7 +506,7 @@ class SearchStudentController extends Controller
     }
 
 
-    public function staffLeaveList(Request $request, $id)
+    public function aramiscStaffLeaveList(Request $request, $id)
     {
         try {
             $teacher = SmStaff::where('user_id', '=', $id)->first();
@@ -529,7 +529,7 @@ class SearchStudentController extends Controller
         }
     }
 
-    public function leaveTypeList(Request $request)
+    public function aramiscLeaveTypeList(Request $request)
     {
 
         try {
@@ -556,7 +556,7 @@ class SearchStudentController extends Controller
     // 	$content_type='as assignment, st study material, sy sullabus, ot others download';
     // 	return $content_type;
     // }
-    public function uploadContent(Request $request)
+    public function aramiscUploadContent(Request $request)
     {
 
 
@@ -600,27 +600,27 @@ class SearchStudentController extends Controller
                 $fileName = 'public/uploads/upload_contents/' . $fileName;
             }
 
-            $uploadContents = new SmTeacherUploadContent();
-            $uploadContents->content_title = $request->input('content_title');
-            $uploadContents->content_type = $request->input('content_type');
+            $aramiscUploadContents = new SmTeacherUploadContent();
+            $aramiscUploadContents->content_title = $request->input('content_title');
+            $aramiscUploadContents->content_type = $request->input('content_type');
 
             if ($request->input('available_for') == 'admin') {
-                $uploadContents->available_for_admin = 1;
+                $aramiscUploadContents->available_for_admin = 1;
             } elseif ($request->input('available_for') == 'student') {
                 if (!empty($request->input('all_classes'))) {
-                    $uploadContents->available_for_all_classes = 1;
+                    $aramiscUploadContents->available_for_all_classes = 1;
                 } else {
-                    $uploadContents->class = $request->input('class');
-                    $uploadContents->section = $request->input('section');
+                    $aramiscUploadContents->class = $request->input('class');
+                    $aramiscUploadContents->section = $request->input('section');
                 }
             }
            
-            $uploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
-            $uploadContents->description = $request->input('description');
-            $uploadContents->upload_file = $fileName;
-            $uploadContents->created_by = $request->input('created_by');
-            $uploadContents->academic_id = getAcademicId();
-            $results = $uploadContents->save();
+            $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
+            $aramiscUploadContents->description = $request->input('description');
+            $aramiscUploadContents->upload_file = $fileName;
+            $aramiscUploadContents->created_by = $request->input('created_by');
+            $aramiscUploadContents->academic_id = getAcademicId();
+            $results = $aramiscUploadContents->save();
 
             if ($request->input('content_type') == 'as') {
                 $purpose = 'assignment';

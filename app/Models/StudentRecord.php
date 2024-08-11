@@ -146,7 +146,7 @@ class StudentRecord extends Model
 
     public function studentAttendanceByMonth($month, $year)
     {
-        return $this->studentAttendance()->where('attendance_date', 'like', $year . '-' . $month . '%')->get();
+        return $this->studentAttendance()->where('aramiscAttendance_date', 'like', $year . '-' . $month . '%')->get();
     }
 
     public function getLessonPlanAttribute()
@@ -473,7 +473,7 @@ class StudentRecord extends Model
         return $this->hasMany('Modules\University\Entities\UnFeesInstallmentAssign', 'record_id', 'id');
     }
 
-    public function directFeesInstallments()
+    public function aramiscDirectFeesInstallments()
     {
         return $this->hasMany(DirectFeesInstallmentAssign::class, 'record_id', 'id');
     }
@@ -481,10 +481,10 @@ class StudentRecord extends Model
     public function getWithOutPreSubjectAttribute()
     {
         $preSubjectIds = UnSubjectPreRequisite::pluck('un_subject_id')->toArray();
-        // $assignSubjects = UnAssignSubject::where('un_semester_label_id', $this->un_semester_label_id)
+        // $aramiscAssignSubjects = UnAssignSubject::where('un_semester_label_id', $this->un_semester_label_id)
         //                 ->pluck('un_subject_id')
         //                 ->toArray();
-        $assignSubjects = [];
+        $aramiscAssignSubjects = [];
 
         $studentAssignSubjects = UnSubjectAssignStudent::where('un_semester_label_id', $this->un_semester_label_id)
             ->where('student_id', $this->student_id)
@@ -495,7 +495,7 @@ class StudentRecord extends Model
         $completeSubjects = UnSubjectComplete::where('student_id', $this->student_id)
             // ->where('is_pass', '!=', 'pass')
             ->pluck('un_subject_id')->toArray();
-        $array = array_unique(array_merge($preSubjectIds, $assignSubjects, $completeSubjects));
+        $array = array_unique(array_merge($preSubjectIds, $aramiscAssignSubjects, $completeSubjects));
 
         return UnSubject::where('un_faculty_id', $this->un_faculty_id)
             ->where('un_department_id', $this->un_department_id)
@@ -532,7 +532,7 @@ class StudentRecord extends Model
         return $this->hasOne('Modules\Alumni\Entities\Alumni', 'record_id');
     }
 
-    public function examSchedule()
+    public function aramiscExamSchedule()
     {
         return $this->hasMany(SmExamSchedule::class, 'class_id', 'class_id')->where('section_id', $this->section_id);
     }
@@ -541,7 +541,7 @@ class StudentRecord extends Model
     {
         return $this->hasMany(AssignIncident::class, 'record_id', 'id');
     }
-    public function teacherEvaluation()
+    public function aramiscTeacherEvaluation()
     {
         return $this->hasMany(TeacherEvaluation::class, 'record_id', 'id');
     }

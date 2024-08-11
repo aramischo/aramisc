@@ -290,7 +290,7 @@
     'Teachers' => 'Teachers',
     'Issued books' => 'Issued books',
     'Pending homeworks' => 'Pending homeworks',
-    'attendance in current month' => 'attendance in current month',
+    'aramiscAttendance in current month' => 'aramiscAttendance in current month',
     'Calendar' => 'Calendar',
     'My Profile' => 'My Profile',
     'Profile' => 'Profile',
@@ -395,7 +395,7 @@
     'Biometrics settings' => 'Biometrics settings',
     'Get Attendance' => 'Get Attendance',
     'Import Attendance' => 'Import Attendance',
-    'Staff attendance reports' => 'Staff attendance reports',
-    'Student attendance reports' => 'Student attendance reports',
+    'Staff aramiscAttendance reports' => 'Staff aramiscAttendance reports',
+    'Student aramiscAttendance reports' => 'Student aramiscAttendance reports',
     'G-Meet'=>'G-Meet',
 );

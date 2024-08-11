@@ -256,7 +256,7 @@
                                                     <input type="hidden"
                                                         name="markStore[{{ $record->student_record_id }}][adimission_no]"
                                                         value="{{ $record->studentDetail->admission_no }}">
-                                                    @if (@$absent_check->attendance_type != 'P')
+                                                    @if (@$absent_check->aramiscAttendance_type != 'P')
                                                         <input type="hidden"
                                                             name="markStore[{{ $record->student_record_id }}][absent_students]"
                                                             value="{{ $record->student_record_id }}">
@@ -306,7 +306,7 @@
                                                 <?php $is_absent_check = App\SmMarkStore::un_is_absent_check($record->student_id, $part->exam_term_id, $request, $part->subject_id, $record->student_record_id); ?>
                                                 <td>
                                                     <div class="primary_input">
-                                                        @if (@$absent_check->attendance_type == 'P')
+                                                        @if (@$absent_check->aramiscAttendance_type == 'P')
                                                             <button class="primary-btn small fix-gr-bg"
                                                                 type="button">@lang('exam.present')</button>
                                                         @else
@@ -404,7 +404,7 @@
                                                         <input type="hidden"
                                                             name="markStore[{{ $record->id }}][adimission_no]"
                                                             value="{{ $record->studentDetail->admission_no }}">
-                                                        @if (@$absent_check->attendance_type != 'P' && !isSkip('exam_attendance'))
+                                                        @if (@$absent_check->aramiscAttendance_type != 'P' && !isSkip('exam_aramiscAttendance'))
                                                             <input type="hidden"
                                                                 name="markStore[{{ $record->id }}][absent_students]"
                                                                 value="{{ $record->id }}">
@@ -430,7 +430,7 @@
                                                                     step="any" max="{{ @$part->exam_mark }}"
                                                                     name="markStore[{{ $record->id }}][marks][{{ $part->id }}]"
                                                                     value="{{ !empty($search_mark) ? $search_mark : 0 }}"
-                                                                    {{ @($absent_check->attendance_type == 'A' || @$absent_check->attendance_type == '') && !isSkip('exam_attendance') ? 'readonly' : '' }}>
+                                                                    {{ @($absent_check->aramiscAttendance_type == 'A' || @$absent_check->aramiscAttendance_type == '') && !isSkip('exam_aramiscAttendance') ? 'readonly' : '' }}>
 
                                                                 <input class="primary_input_field" type="hidden"
                                                                     name="markStore[{{ $record->id }}][exam_Sids][{{ $entry_form_count++ }}]"
@@ -450,13 +450,13 @@
                                                             <input class="primary_input_field" type="text"
                                                                 name="markStore[{{ $record->id }}][teacher_remarks]"
                                                                 value="{{ $teacher_remarks }}"
-                                                                {{ @($absent_check->attendance_type == 'A' || @$absent_check->attendance_type == '') && !isSkip('exam_attendance') ? 'readonly' : '' }}>
+                                                                {{ @($absent_check->aramiscAttendance_type == 'A' || @$absent_check->aramiscAttendance_type == '') && !isSkip('exam_aramiscAttendance') ? 'readonly' : '' }}>
                                                         </div>
                                                     </td>
                                                     <?php $is_absent_check = App\SmMarkStore::is_absent_check($record->student_id, $part->exam_term_id, $part->class_id, $part->section_id, $part->subject_id, $record->id); ?>
                                                     <td>
                                                         <div class="primary_input">
-                                                            @if (@$absent_check->attendance_type == 'P')
+                                                            @if (@$absent_check->aramiscAttendance_type == 'P')
                                                                 <button class="primary-btn small fix-gr-bg"
                                                                     type="button">@lang('exam.present')</button>
                                                             @else

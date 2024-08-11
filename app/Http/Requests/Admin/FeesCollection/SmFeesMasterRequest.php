@@ -29,7 +29,7 @@ class SmFeesMasterRequest extends FormRequest
                 'name' =>"required",
                 'amount' => "required",
              ];
-        }elseif(directFees()){
+        }elseif(aramiscDirectFees()){
             return [
                 'name' =>"required",
                 'amount' => "required",

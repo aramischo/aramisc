@@ -1301,9 +1301,9 @@ if (!function_exists('is_absent_check')) {
     function is_absent_check($exam_id, $class_id, $section_id, $subject_id, $student_id)
     {
         try {
-            $exam_attendance = SmExamAttendance::where('exam_id', $exam_id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
-            $exam_attendance_child = SmExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->where('student_id', $student_id)->first();
-            return $exam_attendance_child;
+            $exam_aramiscAttendance = SmExamAttendance::where('exam_id', $exam_id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
+            $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->where('student_id', $student_id)->first();
+            return $exam_aramiscAttendance_child;
         } catch (\Exception $e) {
             $data = [];
             return $data;
@@ -1311,8 +1311,8 @@ if (!function_exists('is_absent_check')) {
     }
 }
 
-if (!function_exists('feesPayment')) {
-    function feesPayment($type_id, $student_id)
+if (!function_exists('aramiscFeesPayment')) {
+    function aramiscFeesPayment($type_id, $student_id)
     {
         try {
             return SmFeesPayment::where('active_status', 1)->where('fees_type_id', $type_id)->where('student_id', $student_id)->get();
@@ -2688,8 +2688,8 @@ const PERMITTED_MODULE = [
 ];
 
 
-if (!function_exists('directFees')) {
-    function directFees()
+if (!function_exists('aramiscDirectFees')) {
+    function aramiscDirectFees()
     {
         if (generalSetting()->direct_fees_assign) {
             return true;
@@ -2796,8 +2796,8 @@ if (!function_exists('fees_payment_status')) {
     }
 }
 
-if (!function_exists('feesPaymentStatus')) {
-    function feesPaymentStatus($installment_id)
+if (!function_exists('aramiscFeesPaymentStatus')) {
+    function aramiscFeesPaymentStatus($installment_id)
     {
         if (moduleStatusCheck('University')) {
             $feesInstallment = UnFeesInstallmentAssign::find($installment_id);

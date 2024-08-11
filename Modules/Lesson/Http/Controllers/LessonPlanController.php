@@ -809,7 +809,7 @@ class LessonPlanController extends Controller
         foreach ($data['period'] as $date) {
             $data['dates'][] = $date->format('Y-m-d');
         }
-        $data['sm_weekends'] = SmWeekend::with('teacherClassRoutineAdmin')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+        $data['sm_weekends'] = SmWeekend::with('aramiscTeacherClassRoutineAdmin')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
         $data['teachers'] = SmStaff::where('active_status', 1)->where(function ($q) {
             $q->where('role_id', 4)->orWhere('previous_role_id', 4);
         })->where('school_id', Auth::user()->school_id)->get();

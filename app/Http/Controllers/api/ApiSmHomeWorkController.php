@@ -29,13 +29,13 @@ class ApiSmHomeWorkController extends Controller
     {
         $this->middleware('PM');
     }
-    public function homeworkList(Request $request, $user_id)
+    public function aramiscHomeworkList(Request $request, $user_id)
     {
         try {
             set_time_limit(900);
             $user = User::select('id', 'role_id')->find($user_id);
             if ($user->role_id == 1 || $user->role_id == 5) {
-                $homeworkLists = SmHomework::orderBy('homework_date','desc')->where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                $aramiscHomeworkLists = SmHomework::orderBy('homework_date','desc')->where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->join('sm_classes', 'sm_classes.id', '=', 'sm_homeworks.class_id')
                     ->join('sm_sections', 'sm_sections.id', '=', 'sm_homeworks.section_id')
                     ->join('users', 'users.id', '=', 'sm_homeworks.created_by')
@@ -47,7 +47,7 @@ class ApiSmHomeWorkController extends Controller
                 $classes = SmClass::where('active_status', '=', '1')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             } else {
-                $homeworkLists = SmHomework::orderBy('homework_date','desc')->where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                $aramiscHomeworkLists = SmHomework::orderBy('homework_date','desc')->where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->join('sm_classes', 'sm_classes.id', '=', 'sm_homeworks.class_id')
                     ->join('sm_sections', 'sm_sections.id', '=', 'sm_homeworks.section_id')
                     ->join('users', 'users.id', '=', 'sm_homeworks.created_by')
@@ -71,7 +71,7 @@ class ApiSmHomeWorkController extends Controller
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['homeworkLists'] = $homeworkLists->toArray();
+                $data['aramiscHomeworkLists'] = $aramiscHomeworkLists->toArray();
                 $data['classes'] = $classes->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
@@ -80,14 +80,14 @@ class ApiSmHomeWorkController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_homeworkList(Request $request, $school_id)
+    public function saas_aramiscHomeworkList(Request $request, $school_id)
     {
         try {
             $user_id = Auth::id();
             set_time_limit(900);
             $user = User::select('id', 'role_id')->find($user_id);
             if ($user->role_id == 1 || $user->role_id == 5) {
-                $homeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                $aramiscHomeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->join('sm_classes', 'sm_classes.id', '=', 'sm_homeworks.class_id')
                     ->join('sm_sections', 'sm_sections.id', '=', 'sm_homeworks.section_id')
                     ->join('users', 'users.id', '=', 'sm_homeworks.created_by')
@@ -99,7 +99,7 @@ class ApiSmHomeWorkController extends Controller
                 $classes = SmClass::where('active_status', '=', '1')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             } else {
-                $homeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                $aramiscHomeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->join('sm_classes', 'sm_classes.id', '=', 'sm_homeworks.class_id')
                     ->join('sm_sections', 'sm_sections.id', '=', 'sm_homeworks.section_id')
                     ->join('users', 'users.id', '=', 'sm_homeworks.created_by')
@@ -123,7 +123,7 @@ class ApiSmHomeWorkController extends Controller
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['homeworkLists'] = $homeworkLists->toArray();
+                $data['aramiscHomeworkLists'] = $aramiscHomeworkLists->toArray();
                 $data['classes'] = $classes->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
@@ -139,7 +139,7 @@ class ApiSmHomeWorkController extends Controller
             set_time_limit(900);
             $user = User::select('id', 'role_id')->find($user_id);
             if ($user->role_id == 1 || $user->role_id == 5) {
-                $homeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                $aramiscHomeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->join('sm_classes', 'sm_classes.id', '=', 'sm_homeworks.class_id')
                     ->join('sm_sections', 'sm_sections.id', '=', 'sm_homeworks.section_id')
                     ->join('users', 'users.id', '=', 'sm_homeworks.created_by')
@@ -151,7 +151,7 @@ class ApiSmHomeWorkController extends Controller
                 $classes = SmClass::where('active_status', '=', '1')->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
             } else {
-                $homeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                $aramiscHomeworkLists = SmHomework::where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->join('sm_classes', 'sm_classes.id', '=', 'sm_homeworks.class_id')
                     ->join('sm_sections', 'sm_sections.id', '=', 'sm_homeworks.section_id')
                     ->join('users', 'users.id', '=', 'sm_homeworks.created_by')
@@ -175,7 +175,7 @@ class ApiSmHomeWorkController extends Controller
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $data['homeworkLists'] = $homeworkLists->toArray();
+                $data['aramiscHomeworkLists'] = $aramiscHomeworkLists->toArray();
                 $data['classes'] = $classes->toArray();
                 return ApiBaseMethod::sendResponse($data, null);
             }
@@ -315,7 +315,7 @@ class ApiSmHomeWorkController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function addHomework(Request $request)
+    public function aramiscAddHomework(Request $request)
     {
 
         if (teacherAccess()) {
@@ -339,7 +339,7 @@ class ApiSmHomeWorkController extends Controller
             $data['classes'] = $classes->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
-        return view('backEnd.homework.addHomework', compact('classes'));
+        return view('backEnd.homework.aramiscAddHomework', compact('classes'));
 
     }
     public function saveHomeworkData(Request $request)
@@ -425,7 +425,7 @@ class ApiSmHomeWorkController extends Controller
 
     }
 
-    public function saas_addHomework(Request $request)
+    public function saas_aramiscAddHomework(Request $request)
     {
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -534,7 +534,7 @@ class ApiSmHomeWorkController extends Controller
                 ->where('id', $record_id)
                 ->with('homework')
                 ->first();
-            $homeworkLists = SmHomework::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', $record->class_id)
+            $aramiscHomeworkLists = SmHomework::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', $record->class_id)
                 ->where('section_id', $record->section_id)
                  ->where('sm_homeworks.academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))
                 ->where('school_id', $school_id)
@@ -542,7 +542,7 @@ class ApiSmHomeWorkController extends Controller
                 ->get();
             $student_homeworks = [];
 
-            foreach ($homeworkLists as $s_homework) {
+            foreach ($aramiscHomeworkLists as $s_homework) {
 
               return  $student_result = $record->homework->where('homework_id', $s_homework->id)->first();
                 $uploadedContent = $student_detail->homeworkContents->where('homework_id', $s_homework->id)->first();
@@ -596,14 +596,14 @@ class ApiSmHomeWorkController extends Controller
                 ->where('student_id', $student->id)
                 ->where('id', $record_id)
                 ->first();
-            $homeworkLists = SmHomework::orderBy('homework_date','desc')->where('class_id', $record->class_id)
+            $aramiscHomeworkLists = SmHomework::orderBy('homework_date','desc')->where('class_id', $record->class_id)
                 ->where('section_id', $record->section_id)
                 ->where('sm_homeworks.academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                 ->where('school_id', 1)
                 ->get();
             $student_homeworks = [];
 
-            foreach ($homeworkLists as $s_homework) {
+            foreach ($aramiscHomeworkLists as $s_homework) {
                 $student_result = $student->homeworks->where('homework_id', $s_homework->id)->first();
                 $d['id'] = $s_homework->id;
                 $d['homework_date'] = $s_homework->homework_date;

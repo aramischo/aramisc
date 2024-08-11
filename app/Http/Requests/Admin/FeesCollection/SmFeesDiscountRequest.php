@@ -34,7 +34,7 @@ class SmFeesDiscountRequest extends FormRequest
             ];
         }
         
-        elseif(directFees()){
+        elseif(aramiscDirectFees()){
             return [
                 'name' => ['required', 'max:200' ,Rule::unique('sm_fees_discounts')->where('school_id', $school_id)->ignore($this->id) ],
                 'code' =>  ['required' ,Rule::unique('sm_fees_discounts')->where('school_id', $school_id)->ignore($this->id) ],

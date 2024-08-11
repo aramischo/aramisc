@@ -64,7 +64,7 @@
                                     </div>
                                 @endif
                                 <div class="col-lg-6 col-md-6 col-6 pull-right">
-                                    <a href="{{ route('university.academics.classRoutinePrint', [$record->un_semester_label_id, $record->un_section_id]) }}"
+                                    <a href="{{ route('university.academics.aramiscClassRoutinePrint', [$record->un_semester_label_id, $record->un_section_id]) }}"
                                         class="primary-btn small fix-gr-bg pull-right" target="_blank"><i
                                             class="ti-printer"> </i> Print</a>
                                 </div>
@@ -204,7 +204,7 @@
                                 @endif
                                 @if (!$routineDashboard)
                                     <div class="col-lg-6 col-md-6 col-6 pull-right">
-                                        <a href="{{ route('classRoutinePrint', [@$record->class_id, @$record->section_id]) }}"
+                                        <a href="{{ route('aramiscClassRoutinePrint', [@$record->class_id, @$record->section_id]) }}"
                                             class="primary-btn small fix-gr-bg pull-right" target="_blank"><i
                                                 class="ti-printer"> </i> Print</a>
                                     </div>

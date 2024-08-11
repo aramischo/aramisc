@@ -29,7 +29,7 @@
                     
                         @if (@$memberDetails->member_type == 2)
                             <img class="student-meta-img img-100"
-                                src="{{ file_exists(@$memberDetails->studentDetails->student_photo) ? asset($memberDetails->studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                src="{{ file_exists(@$memberDetails->aramiscStudentDetails->student_photo) ? asset($memberDetails->aramiscStudentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
                                 alt="">
                         @elseif(@$memberDetails->member_type == 3)
                             <img class="student-meta-img img-100"

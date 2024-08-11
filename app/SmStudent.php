@@ -81,7 +81,7 @@ class SmStudent extends Model
         return $this->belongsTo('App\Role', 'role_id', 'id');
     }
 
-    public function feesPayment()
+    public function aramiscFeesPayment()
     {
         return $this->hasMany(SmFeesPayment::class, 'student_id');
     }
@@ -167,7 +167,7 @@ class SmStudent extends Model
         return $this->belongsTo('App\SmRoomList', 'room_id', 'id');
     }
 
-    public function attendances()
+    public function aramiscAttendances()
     {
         return $this->hasMany(SmStudentAttendance::class, 'student_id');
     }
@@ -214,7 +214,7 @@ class SmStudent extends Model
 
     public function getAttendanceType($month)
     {
-        return $this->attendances()->whereMonth('attendance_date', $month)->get();
+        return $this->aramiscAttendances()->whereMonth('aramiscAttendance_date', $month)->get();
     }
 
     public function getAgeAttribute()
@@ -238,12 +238,12 @@ class SmStudent extends Model
             ->where('section_id', $this->section_id);
     }
 
-    public function assignSubjects()
+    public function aramiscAssignSubjects()
     {
         return $this->hasMany(SmAssignSubject::class, 'class_id', 'class_id')->where('section_id', $this->section_id)->where('active_status', 1);
     }
 
-    public function studentOnlineExams()
+    public function aramiscStudentOnlineExams()
     {
 
         if (moduleStatusCheck('OnlineExam') == true) {
@@ -267,7 +267,7 @@ class SmStudent extends Model
             ->where('section_id', $this->section_id);
     }
 
-    public function assignSubject()
+    public function aramiscAssignSubject()
     {
         return $this->hasMany(SmAssignSubject::class, 'class_id', 'class_id')->where('section_id', $this->section_id)->distinct('teacher_id');
     }
@@ -277,7 +277,7 @@ class SmStudent extends Model
         return $this->hasMany(SmBookIssue::class, 'member_id', 'user_id')->where('issue_status', 'I');
     }
 
-    public function examSchedule()
+    public function aramiscExamSchedule()
     {
         return $this->hasMany(SmExamSchedule::class, 'class_id', 'class_id')->where('section_id', $this->section_id);
     }
@@ -290,11 +290,11 @@ class SmStudent extends Model
 
     public function studentAttendances()
     {
-        return $this->hasMany(SmStudentAttendance::class, 'student_id')->where('attendance_date', 'like', date('Y') . '-' . date('m') . '%')
-            ->where('attendance_type', 'P');
+        return $this->hasMany(SmStudentAttendance::class, 'student_id')->where('aramiscAttendance_date', 'like', date('Y') . '-' . date('m') . '%')
+            ->where('aramiscAttendance_type', 'P');
     }
 
-    public function studentOnlineExam()
+    public function aramiscStudentOnlineExam()
     {
         if (moduleStatusCheck('OnlineExam') == true) {
             return $this->hasMany(InfixStudentTakeOnlineExam::class, 'student_id');
@@ -517,7 +517,7 @@ class SmStudent extends Model
         return $this->hasMany('App\SmStudentPromotion', 'student_id', 'id');
     }
 
-    public function feesPayments()
+    public function aramiscFeesPayments()
     {
         return $this->hasMany(InfixFeesPayment::class, 'student_id');
     }
@@ -642,7 +642,7 @@ class SmStudent extends Model
         }
     }
 
-    public function examAttendances()
+    public function aramiscExamAttendances()
     {
         return $this->hasMany(SmExamAttendanceChild::class, 'student_id');
     }
@@ -690,7 +690,7 @@ class SmStudent extends Model
             ->when($request->un_semester_label_id, function ($q) use ($request) {
                 $q->where('un_semester_label_id', $request->un_semester_label_id);
             })->where('school_id', auth()->user()->school_id)
-            ->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
+            ->where('aramiscAttendance_date', date('Y-m-d', strtotime(request()->aramiscAttendance_date)));
         } else {
             return $this->hasOne(SmStudentAttendance::class, 'student_id')
             ->when(request()->class_id, function($q){
@@ -701,15 +701,15 @@ class SmStudent extends Model
                 $q->where('section_id', request()->section_id);
             }, function($elseQ){
                 $elseQ->where('section_id', request()->class);
-            })->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
+            })->where('aramiscAttendance_date', date('Y-m-d', strtotime(request()->aramiscAttendance_date)));
         }
     }
     public function DateSubjectWiseAttendances()
     {
         if (moduleStatusCheck('University')) {
-            return $this->hasOne(SmSubjectAttendance::class, 'student_id')->where('un_semester_label_id', request()->un_semester_label_id)->where('un_subject_id', request()->un_subject_id)->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
+            return $this->hasOne(SmSubjectAttendance::class, 'student_id')->where('un_semester_label_id', request()->un_semester_label_id)->where('un_subject_id', request()->un_subject_id)->where('aramiscAttendance_date', date('Y-m-d', strtotime(request()->aramiscAttendance_date)));
         } else {
-            return $this->hasOne(SmSubjectAttendance::class, 'student_id')->where('class_id', request()->class)->where('section_id', request()->section)->where('subject_id', request()->subject)->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
+            return $this->hasOne(SmSubjectAttendance::class, 'student_id')->where('class_id', request()->class)->where('section_id', request()->section)->where('subject_id', request()->subject)->where('aramiscAttendance_date', date('Y-m-d', strtotime(request()->aramiscAttendance_date)));
         }
     }
     public function lead()

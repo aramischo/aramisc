@@ -1,16 +1,16 @@
 @extends('backEnd.master')
 @section('title')
-    @lang('teacherEvaluation.teacher_evaluation_setting')
+    @lang('aramiscTeacherEvaluation.teacher_evaluation_setting')
 @endsection
 @section('mainContent')
     <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
-                <h1>@lang('teacherEvaluation.teacher_evaluation_setting')</h1>
+                <h1>@lang('aramiscTeacherEvaluation.teacher_evaluation_setting')</h1>
                 <div class="bc-pages">
-                    <a href="{{ route('dashboard') }}">@lang('teacherEvaluation.dashboard')</a>
-                    <a href="#">@lang('teacherEvaluation.teacher_evaluation')</a>
-                    <a href="#">@lang('teacherEvaluation.settings')</a>
+                    <a href="{{ route('dashboard') }}">@lang('aramiscTeacherEvaluation.dashboard')</a>
+                    <a href="#">@lang('aramiscTeacherEvaluation.teacher_evaluation')</a>
+                    <a href="#">@lang('aramiscTeacherEvaluation.settings')</a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
                             <input type="hidden" name="type" value="evaluation">
                             <div class="white-box">
                                 <div class="main-title">
-                                    <h3 class="mb-15">@lang('teacherEvaluation.evaluation_settings')</h3>
+                                    <h3 class="mb-15">@lang('aramiscTeacherEvaluation.evaluation_settings')</h3>
                                 </div>
                                 <div class="add-visitor">
                                     <div class="row mb-0">
@@ -34,7 +34,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="row">
                                                         <div class="col-lg-6 primary_input sm_mb_20">
-                                                            <label><strong>@lang('teacherEvaluation.evaluation')</strong></label>
+                                                            <label><strong>@lang('aramiscTeacherEvaluation.evaluation')</strong></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -42,24 +42,24 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 primary_input sm_mb_20">
                                                             <input type="radio" name="is_enable"
-                                                                id="teacherEvaluationEnable"
+                                                                id="aramiscTeacherEvaluationEnable"
                                                                 class="common-radio" value="0"
-                                                                {{ $teacherEvaluationSetting->is_enable == 0 ? 'checked' : '' }}>
-                                                            <label for="teacherEvaluationEnable">@lang('teacherEvaluation.enable')</label>
+                                                                {{ $aramiscTeacherEvaluationSetting->is_enable == 0 ? 'checked' : '' }}>
+                                                            <label for="aramiscTeacherEvaluationEnable">@lang('aramiscTeacherEvaluation.enable')</label>
                                                         </div>
                                                         <div class="col-lg-6 primary_input sm_mb_20">
                                                             <input type="radio" name="is_enable"
-                                                                id="teacherEvaluationDisable"
+                                                                id="aramiscTeacherEvaluationDisable"
                                                                 class="common-radio" value="1"
-                                                                {{ $teacherEvaluationSetting->is_enable == 1 ? 'checked' : '' }}>
-                                                            <label for="teacherEvaluationDisable">@lang('teacherEvaluation.disable')</label>
+                                                                {{ $aramiscTeacherEvaluationSetting->is_enable == 1 ? 'checked' : '' }}>
+                                                            <label for="aramiscTeacherEvaluationDisable">@lang('aramiscTeacherEvaluation.disable')</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 mt-10">
                                                     <div class="row">
                                                         <div class="col-lg-6 primary_input sm_mb_20">
-                                                            <label><strong>@lang('teacherEvaluation.evaluation_approval')</strong></label>
+                                                            <label><strong>@lang('aramiscTeacherEvaluation.evaluation_approval')</strong></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -69,15 +69,15 @@
                                                             <input type="radio" name="auto_approval"
                                                                 id="evaluationApprovalAuto"
                                                                 class="common-radio permission-checkAll" value="0"
-                                                                {{ $teacherEvaluationSetting->auto_approval == 0 ? 'checked' : '' }}>
-                                                            <label for="evaluationApprovalAuto">@lang('teacherEvaluation.auto')</label>
+                                                                {{ $aramiscTeacherEvaluationSetting->auto_approval == 0 ? 'checked' : '' }}>
+                                                            <label for="evaluationApprovalAuto">@lang('aramiscTeacherEvaluation.auto')</label>
                                                         </div>
                                                         <div class="col-lg-6 primary_input sm_mb_20">
                                                             <input type="radio" name="auto_approval"
                                                                 id="evaluationApprovalManual"
                                                                 class="common-radio permission-checkAll" value="1"
-                                                                {{ $teacherEvaluationSetting->auto_approval == 1 ? 'checked' : '' }}>
-                                                            <label for="evaluationApprovalManual">@lang('teacherEvaluation.manual')</label>
+                                                                {{ $aramiscTeacherEvaluationSetting->auto_approval == 1 ? 'checked' : '' }}>
+                                                            <label for="evaluationApprovalManual">@lang('aramiscTeacherEvaluation.manual')</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,7 +104,7 @@
                             <input type="hidden" name="type" value="submission">
                             <div class="white-box">
                                 <div class="main-title">
-                                    <h3 class="mb-15">@lang('teacherEvaluation.submission_settings')</h3>
+                                    <h3 class="mb-15">@lang('aramiscTeacherEvaluation.submission_settings')</h3>
                                 </div>
                                 <div class="add-visitor">
                                     <div class="row mb-0">
@@ -113,7 +113,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="row">
                                                         <div class="col-lg-6 primary_input sm_mb_20">
-                                                            <label><strong>@lang('teacherEvaluation.submitted_by')</strong></label>
+                                                            <label><strong>@lang('aramiscTeacherEvaluation.submitted_by')</strong></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,22 +123,22 @@
                                                             <input type="checkbox" name="submitted_by[]"
                                                                 id="submitted_by1"
                                                                 class="common-checkbox permission-checkAll" value="2"
-                                                                {{ in_array('2', $teacherEvaluationSetting->submitted_by) ? 'checked' : '' }}>
-                                                            <label for="submitted_by1">@lang('teacherEvaluation.student')</label>
+                                                                {{ in_array('2', $aramiscTeacherEvaluationSetting->submitted_by) ? 'checked' : '' }}>
+                                                            <label for="submitted_by1">@lang('aramiscTeacherEvaluation.student')</label>
                                                         </div>
                                                         <div class="col-lg-6 primary_input sm_mb_20 p-1">
                                                             <input type="checkbox" name="submitted_by[]"
                                                                 id="submitted_by2"
                                                                 class="common-checkbox permission-checkAll" value="3"
-                                                                {{ in_array('3', $teacherEvaluationSetting->submitted_by) ? 'checked' : '' }}>
-                                                            <label for="submitted_by2">@lang('teacherEvaluation.parent')</label>
+                                                                {{ in_array('3', $aramiscTeacherEvaluationSetting->submitted_by) ? 'checked' : '' }}>
+                                                            <label for="submitted_by2">@lang('aramiscTeacherEvaluation.parent')</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 mt-10">
                                                     <div class="row">
                                                         <div class="col-lg-6 primary_input sm_mb_20">
-                                                            <label><strong>@lang('teacherEvaluation.submission_time')</strong></label>
+                                                            <label><strong>@lang('aramiscTeacherEvaluation.submission_time')</strong></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -148,16 +148,16 @@
                                                             <input type="radio" name="rating_submission_time"
                                                                 id="ratingSubmissionAnytime"
                                                                 class="common-radio permission-checkAll" value="any"
-                                                                {{ $teacherEvaluationSetting->rating_submission_time == 'any' ? 'checked' : '' }}>
-                                                            <label for="ratingSubmissionAnytime">@lang('teacherEvaluation.any_time')</label>
+                                                                {{ $aramiscTeacherEvaluationSetting->rating_submission_time == 'any' ? 'checked' : '' }}>
+                                                            <label for="ratingSubmissionAnytime">@lang('aramiscTeacherEvaluation.any_time')</label>
                                                         </div>
                                                         <div class="col-lg-6 primary_input sm_mb_20">
                                                             <input type="radio" name="rating_submission_time"
                                                                 id="ratingSubmissionFixedtime"
                                                                 class="common-radio permission-checkAll" value="fixed"
-                                                                {{ $teacherEvaluationSetting->rating_submission_time == 'fixed' ? 'checked' : '' }}>
+                                                                {{ $aramiscTeacherEvaluationSetting->rating_submission_time == 'fixed' ? 'checked' : '' }}>
                                                             <label
-                                                                for="ratingSubmissionFixedtime">@lang('teacherEvaluation.fixed_time')</label>
+                                                                for="ratingSubmissionFixedtime">@lang('aramiscTeacherEvaluation.fixed_time')</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -165,7 +165,7 @@
                                                     <div class="row align-items-center mt-20">
                                                         <div class="col-lg-5">
                                                             <div class="primary_input sm_mb_20">
-                                                                <label><strong>@lang('teacherEvaluation.start_date')</strong></label>
+                                                                <label><strong>@lang('aramiscTeacherEvaluation.start_date')</strong></label>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-7 d-flex">
@@ -178,7 +178,7 @@
                                                                                 id="startDate"
                                                                                 type="text"
                                                                                 name="startDate" readonly="true"
-                                                                                value="{{ $teacherEvaluationSetting->from_date ? date('m/d/Y', strtotime($teacherEvaluationSetting->from_date)) : date('m/d/Y') }}"
+                                                                                value="{{ $aramiscTeacherEvaluationSetting->from_date ? date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->from_date)) : date('m/d/Y') }}"
                                                                                 required>
                                                                         </div>
                                                                     </div>
@@ -196,7 +196,7 @@
                                                     <div class="row align-items-center mt-20">
                                                         <div class="col-lg-5">
                                                             <div class="primary_input sm_mb_20">
-                                                                <label><strong>@lang('teacherEvaluation.end_date')</strong></label>
+                                                                <label><strong>@lang('aramiscTeacherEvaluation.end_date')</strong></label>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-7 d-flex">
@@ -209,7 +209,7 @@
                                                                                 id="endDate" type="text"
                                                                                 name="endDate" autocomplete="off"
                                                                                 readonly="true"
-                                                                                value="{{ $teacherEvaluationSetting->to_date ? date('m/d/Y', strtotime($teacherEvaluationSetting->to_date)) : date('m/d/Y', strtotime(' + 1 days')) }}"
+                                                                                value="{{ $aramiscTeacherEvaluationSetting->to_date ? date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->to_date)) : date('m/d/Y', strtotime(' + 1 days')) }}"
                                                                                 required>
                                                                         </div>
                                                                     </div>

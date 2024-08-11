@@ -66,7 +66,7 @@
                                         <tbody>
                                         @foreach($record->OnlineExam  as $online_exam)
                                             @php
-                                                @$submitted_answer = $student->studentOnlineExam->where('online_exam_id',$online_exam->id)->first();
+                                                @$submitted_answer = $student->aramiscStudentOnlineExam->where('online_exam_id',$online_exam->id)->first();
                                             @endphp
                                             @if(!in_array(@$online_exam->id, @$marks_assigned))
                                                 <tr>

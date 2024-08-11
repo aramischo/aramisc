@@ -74,8 +74,8 @@ class SmOptionalSubjectAssignController extends Controller
             $section_id = $request->section_id;
             $classes = SmClass::get();
             $class = SmClass::with('classSection')->where('id', $class_id)->first();
-            $assignSubjects= SmAssignSubject::with('subject')->where('class_id', $class_id)->where('section_id', $section_id)->get();
-            return view('backEnd.academics.assign_optional_subject', compact('classes', 'teachers', 'subjects', 'class_id', 'section_id', 'students', 'subject_id', 'subject_info', 'class', 'assignSubjects'));
+            $aramiscAssignSubjects= SmAssignSubject::with('subject')->where('class_id', $class_id)->where('section_id', $section_id)->get();
+            return view('backEnd.academics.assign_optional_subject', compact('classes', 'teachers', 'subjects', 'class_id', 'section_id', 'students', 'subject_id', 'subject_info', 'class', 'aramiscAssignSubjects'));
         } catch (\Exception $e) { 
              
             Toastr::error('Operation Failed', 'Failed');

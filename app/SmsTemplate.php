@@ -27,7 +27,7 @@ class SmsTemplate extends Model
             $body = str_replace('[password]', '123456', $body);
         } else {
             $body = str_replace('[name]', @$user->full_name, $body);
-            $body = str_replace('[attendance_date]', @$data['attendance_date'], $body);
+            $body = str_replace('[aramiscAttendance_date]', @$data['aramiscAttendance_date'], $body);
             $body = str_replace('[password]', '123456', $body);
         }
 
@@ -61,7 +61,7 @@ class SmsTemplate extends Model
 
         $body = str_replace('[school_name]', gv($data, 'school_name', @generalSetting()->school_name), $body);
 
-        $body = str_replace('[attendance_date]', @$data['attendance_date'], $body);
+        $body = str_replace('[aramiscAttendance_date]', @$data['aramiscAttendance_date'], $body);
 
         $body = str_replace('[exam_date]', @$data['exam_date'], $body);
         $body = str_replace('[exam_time]', @$data['exam_time'], $body);

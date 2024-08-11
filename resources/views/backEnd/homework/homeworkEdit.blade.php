@@ -20,7 +20,7 @@
          <div class="bc-pages">
             <a href="{{route('dashboard')}}">@lang('common.dashboard')</a>
             <a href="{{route('homework-list')}}">@lang('homework.home_work_list')</a>
-            <a href="{{route('homework_edit', [$homeworkList->id])}}">@lang('homework.edit_home_work')</a>
+            <a href="{{route('homework_edit', [$aramiscHomeworkList->id])}}">@lang('homework.edit_home_work')</a>
          </div>
       </div>
    </div>
@@ -40,11 +40,11 @@
             <div class="white-box">
                <div class="">
                   <input type="hidden" name="url" id="url" value="{{URL::to('/')}}"> 
-                  <input type="hidden" name="id" value="{{$homeworkList->id}}"> 
-                  <input type="hidden" name="course_id" value="{{$homeworkList->course_id}}"> 
-                  <input type="hidden" name="class_id" value="{{$homeworkList->class_id}}"> 
-                  <input type="hidden" name="section_id" value="{{$homeworkList->section_id}}"> 
-                  <input type="hidden" name="subject_id" value="{{$homeworkList->subject_id}}">
+                  <input type="hidden" name="id" value="{{$aramiscHomeworkList->id}}"> 
+                  <input type="hidden" name="course_id" value="{{$aramiscHomeworkList->course_id}}"> 
+                  <input type="hidden" name="class_id" value="{{$aramiscHomeworkList->class_id}}"> 
+                  <input type="hidden" name="section_id" value="{{$aramiscHomeworkList->section_id}}"> 
+                  <input type="hidden" name="subject_id" value="{{$aramiscHomeworkList->subject_id}}">
                   
                 @if(moduleStatusCheck('University'))
                     <div class="row mb-30">
@@ -58,7 +58,7 @@
                            <select class="primary_select  form-control{{ $errors->has('class_id') ? ' is-invalid' : '' }}" name="class_id" id="classSelectStudent">
                               <option data-display="@lang('common.select_class') *" value="">@lang('common.select')</option>
                               @foreach($classes as $key=>$value)
-                              <option value="{{$value->id}}" {{$homeworkList->class_id == $value->id? 'selected':''}}>{{$value->class_name}}</option>
+                              <option value="{{$value->id}}" {{$aramiscHomeworkList->class_id == $value->id? 'selected':''}}>{{$value->class_name}}</option>
                               @endforeach
                            </select>
                            
@@ -75,7 +75,7 @@
                            <select class="primary_select  form-control{{ $errors->has('subject_id') ? ' is-invalid' : '' }}" name="subject_id" id="subjectSelect">
                               <option data-display="Select Subject *" value="">@lang('homework.subject') *</option>
                               @foreach($subjects as $subject)
-                              <option value="{{$subject->subject->id}}" {{$homeworkList->subject_id == $subject->subject->id? 'selected':''}}>{{$subject->subject->subject_name}}</option>
+                              <option value="{{$subject->subject->id}}" {{$aramiscHomeworkList->subject_id == $subject->subject->id? 'selected':''}}>{{$subject->subject->subject_name}}</option>
                               @endforeach
                            </select>
                            
@@ -92,7 +92,7 @@
                            <select class="primary_select  form-control{{ $errors->has('section_id') ? ' is-invalid' : '' }}" name="section_id" id="sectionSelectStudent">
                               <option data-display="@lang('common.select_section') *" value="">@lang('common.section') *</option>
                               @foreach($sections as $section)
-                              <option value="{{$section->sectionName->id}}" {{$homeworkList->section_id == $section->sectionName->id? 'selected':''}}>{{$section->sectionName->section_name}}</option>
+                              <option value="{{$section->sectionName->id}}" {{$aramiscHomeworkList->section_id == $section->sectionName->id? 'selected':''}}>{{$section->sectionName->section_name}}</option>
                               @endforeach
                            </select>
                            
@@ -112,7 +112,7 @@
                            <div class="col">
                               <div class="primary_input">
                                  <label class="primary_input_label" for="">@lang('homework.home_work_date') <span class="text-danger"> *</span></label>
-                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('homework_date') ? ' is-invalid' : '' }}" id="homework_date" type="text" name="homework_date" value="{{date('m/d/Y', strtotime($homeworkList->homework_date))}}" readonly="true">
+                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('homework_date') ? ' is-invalid' : '' }}" id="homework_date" type="text" name="homework_date" value="{{date('m/d/Y', strtotime($aramiscHomeworkList->homework_date))}}" readonly="true">
                                  @if ($errors->has('homework_date'))
                                  <span class="text-danger" >
                                  {{ $errors->first('homework_date') }}
@@ -134,7 +134,7 @@
                            <div class="col">
                               <div class="primary_input">
                                  <label class="primary_input_label" for="">@lang('homework.submission_date') <span class="text-danger"> *</span></label>
-                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('submission_date') ? ' is-invalid' : '' }}" id="submission_date" type="text" name="submission_date" value="{{date('m/d/Y', strtotime($homeworkList->submission_date))}}" readonly="true">
+                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('submission_date') ? ' is-invalid' : '' }}" id="submission_date" type="text" name="submission_date" value="{{date('m/d/Y', strtotime($aramiscHomeworkList->submission_date))}}" readonly="true">
                                  @if ($errors->has('submission_date'))
                                  <span class="text-danger" >
                                  {{ $errors->first('submission_date') }}
@@ -156,7 +156,7 @@
                            <div class="col">
                               <div class="primary_input">
                                  <label class="primary_input_label" for="">@lang('homework.marks') <span class="text-danger"> *</span></label>
-                                 <input class="primary_input_field form-control{{ $errors->has('marks') ? ' is-invalid' : '' }}" type="text" name="marks" autocomplete="off" value="{{$homeworkList->marks}}">
+                                 <input class="primary_input_field form-control{{ $errors->has('marks') ? ' is-invalid' : '' }}" type="text" name="marks" autocomplete="off" value="{{$aramiscHomeworkList->marks}}">
                                  @if ($errors->has('marks'))
                                  <span class="text-danger" >
                                  {{ $errors->first('marks') }}
@@ -171,7 +171,7 @@
                            <div class="col">
                               <div class="primary_input">
                                  <label class="primary_input_label" for="">@lang('homework.attach_file') <span class="text-danger"> *</span></label>
-                                 <input class="primary_input_field" type="text" id="placeholderHomeworkName" placeholder="{{$homeworkList->file != ""? getFilePath3($homeworkList->file):__('common.file')}}" readonly>
+                                 <input class="primary_input_field" type="text" id="placeholderHomeworkName" placeholder="{{$aramiscHomeworkList->file != ""? getFilePath3($aramiscHomeworkList->file):__('common.file')}}" readonly>
                                  
                               </div>
                            </div>
@@ -188,7 +188,7 @@
                      <div class="col-lg-12">
                         <div class="primary_input">
                            <label class="primary_input_label" for="">@lang('common.description') <span class="text-danger"> *</span> </label>
-                           <textarea class="primary_input_field form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" cols="0" rows="4" name="description" id="description *">{{$homeworkList->description}}</textarea>
+                           <textarea class="primary_input_field form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" cols="0" rows="4" name="description" id="description *">{{$aramiscHomeworkList->description}}</textarea>
                            
                            @if ($errors->has('description'))
                            <span class="text-danger" >

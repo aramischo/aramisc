@@ -250,12 +250,12 @@
                 <div class="col-lg-9">
                     <ul class="nav nav-tabs tabs_scroll_nav" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#studentProfile" role="tab"
+                            <a class="nav-link active" href="#aramiscStudentProfile" role="tab"
                                data-toggle="tab">@lang('student.profile')</a>
                         </li>
                         @if (generalSetting()->fees_status == 0 && isMenuAllowToShow('fees'))
                             <li class="nav-item">
-                                <a class="nav-link" href="#studentFees" role="tab"
+                                <a class="nav-link" href="#aramiscStudentFees" role="tab"
                                    data-toggle="tab">@lang('fees.fees')</a>
                             </li>
                         @endif
@@ -287,12 +287,12 @@
                         <li class="nav-item">
                             <a class="nav-link {{ Session::get('studentAttendance') == 'active' ? 'active' : '' }} "
                                href="#studentAttendance" role="tab"
-                               data-toggle="tab">@lang('student.student_attendance')</a>
+                               data-toggle="tab">@lang('student.student_aramiscAttendance')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Session::get('subjectAttendance') == 'active' ? 'active' : '' }} "
                                href="#subjectAttendance" role="tab"
-                               data-toggle="tab">@lang('student.subject_attendance')</a>
+                               data-toggle="tab">@lang('student.subject_aramiscAttendance')</a>
                         </li>
                         @if (moduleStatusCheck('Wallet'))
                             @if (userPermission('wallet.my-wallet'))
@@ -322,7 +322,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <!-- Start Profile Tab -->
-                        <div role="tabpanel" class="tab-pane fade  show active" id="studentProfile">
+                        <div role="tabpanel" class="tab-pane fade  show active" id="aramiscStudentProfile">
                             <div class="white-box">
                                 <h4 class="stu-sub-head">@lang('student.personal_info')</h4>
                                 @if (is_show('admission_date'))
@@ -983,7 +983,7 @@
                         </div>
                         <!-- End Profile Tab -->
                         <!-- Start Fees Tab -->
-                        <div role="tabpanel" class="tab-pane fade" id="studentFees">
+                        <div role="tabpanel" class="tab-pane fade" id="aramiscStudentFees">
                             @foreach ($records as $record)
                                 <div class="white-box no-search no-paginate no-table-info mb-2">
                                     <div class="row">
@@ -1045,7 +1045,7 @@
                                                    href="{{ route('university.un-total-fees-modal', [$record->id]) }}">
                                                     <i
                                                             class="ti-plus pr-2"> </i> @lang('fees.add_fees') </a>
-                                            @elseif(directFees())
+                                            @elseif(aramiscDirectFees())
                                                 <a class="primary-btn small fix-gr-bg modalLink"
                                                    data-modal-size="modal-lg"
                                                    title="@lang('fees.add_fees')"
@@ -1056,9 +1056,9 @@
                                     </div>
                                     <div class="table-responsive">
                                         @if (moduleStatusCheck('University'))
-                                            @includeIf('university::include.studentFeesTableView')
-                                        @elseif(directFees())
-                                            @includeIf('backEnd.feesCollection.directFees.studentDirectFeesTableView')
+                                            @includeIf('university::include.aramiscStudentFeesTableView')
+                                        @elseif(aramiscDirectFees())
+                                            @includeIf('backEnd.feesCollection.aramiscDirectFees.studentDirectFeesTableView')
                                         @else
                                             <table class="table school-table-style res_scrol" cellspacing="0"
                                                    width="100%">
@@ -1153,7 +1153,7 @@
                                                             </td>
                                                         </tr>
                                                         @php
-                                                            @$payments = App\SmFeesAssign::feesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->record_id);
+                                                            @$payments = App\SmFeesAssign::aramiscFeesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->record_id);
                                                             $i = 0;
                                                         @endphp
                                                         @foreach ($payments as $payment)
@@ -1815,10 +1815,10 @@
                         </div>
                         <!-- End Timeline Tab -->
                         <!-- Start Attendance Tab -->
-                        @include('backEnd.parentPanel.inc._student_attendance_tab')
+                        @include('backEnd.parentPanel.inc._student_aramiscAttendance_tab')
                         <!-- End Attendance Tab -->
                         <!-- Start Attendance Tab -->
-                        @include('backEnd.parentPanel.inc._subject_attendance_tab')
+                        @include('backEnd.parentPanel.inc._subject_aramiscAttendance_tab')
                         <!-- End Attendance Tab -->
                         <!-- Start Behaviour Records Tab -->
                         @if (moduleStatusCheck('BehaviourRecords'))

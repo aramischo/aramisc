@@ -34,7 +34,7 @@ use Modules\University\Entities\UnFeesInstallmentAssign;
 class SmCollectFeesByPaymentGateway extends Controller
 {
 
-    public function collectFeesByGateway($amount, $student_id, $type)
+    public function aramiscCollectFeesByGateway($amount, $student_id, $type)
     {
         try {
             $amount = $amount;
@@ -49,7 +49,7 @@ class SmCollectFeesByPaymentGateway extends Controller
                     $applied_discount[] = $fees_payment->fees_discount_id;
                 }
             }
-            return view('backEnd.feesCollection.collectFeesByGateway', compact('amount', 'discounts', 'fees_type_id', 'student_id', 'applied_discount'));
+            return view('backEnd.feesCollection.aramiscCollectFeesByGateway', compact('amount', 'discounts', 'fees_type_id', 'student_id', 'applied_discount'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -62,7 +62,7 @@ class SmCollectFeesByPaymentGateway extends Controller
             if(moduleStatusCheck('University')){ 
                 $installment = UnFeesInstallmentAssign::find($request->installment_id);
                 $description = $installment->installment->title ?? 'Fees Payment' ;
-              }elseif(directFees()){
+              }elseif(aramiscDirectFees()){
                   $installment = DirectFeesInstallmentAssign::find($request->installment_id);
                   $description = $installment->installment->title ?? 'Fees Payment' ;
               }
@@ -82,7 +82,7 @@ class SmCollectFeesByPaymentGateway extends Controller
                 $fees_payment->un_fees_installment_id  = $request->installment_id;
                 $fees_payment->un_semester_label_id = $request->un_semester_label_id;
             }
-            elseif(directFees()){
+            elseif(aramiscDirectFees()){
                 $fees_payment->direct_fees_installment_assign_id = $installment->id;
                 $fees_payment->academic_id = getAcademicId();
             }
@@ -159,7 +159,7 @@ class SmCollectFeesByPaymentGateway extends Controller
                     Toastr::success('Operation successful', 'Success');
                 }
                 }
-                elseif(directFees()){
+                elseif(aramiscDirectFees()){
 
                 DirectFeesInstallmentAssign::find( Session::get('installment_id'));
                 $installment = DirectFeesInstallmentAssign::find( Session::get('installment_id'));
@@ -212,7 +212,7 @@ class SmCollectFeesByPaymentGateway extends Controller
     }
 
 
-    public function collectFeesStripe($amount, $student_id, $type)
+    public function aramiscCollectFeesStripe($amount, $student_id, $type)
     {
         try {
             $amount = $amount;
@@ -223,7 +223,7 @@ class SmCollectFeesByPaymentGateway extends Controller
 
             $applied_discount = SmFeesPayment::select('fees_discount_id')->whereIn('fees_discount_id', $discounts->pluck('id')->toArray())->pluck('fees_discount_id')->toArray();
 
-            return view('backEnd.feesCollection.collectFeesStripeView', compact('amount', 'discounts', 'fees_type_id', 'student_id', 'applied_discount', 'stripe_publisher_key'));
+            return view('backEnd.feesCollection.aramiscCollectFeesStripeView', compact('amount', 'discounts', 'fees_type_id', 'student_id', 'applied_discount', 'stripe_publisher_key'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();

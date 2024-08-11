@@ -278,7 +278,7 @@ class SmFeesCarryForwardController extends Controller
     public function feesCarryForwardStore(Request $request)
     {
         try {
-            foreach (gv($request, 'studentFeesInfo') as $studentInfo) {
+            foreach (gv($request, 'aramiscStudentFeesInfo') as $studentInfo) {
                 $type = 'add';
                 if (preg_match('/[+,-]/i', gv($studentInfo, 'balance'), $match)) {
                     $data = $match[0];

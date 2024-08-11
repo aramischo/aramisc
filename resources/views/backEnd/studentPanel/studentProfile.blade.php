@@ -181,8 +181,8 @@
                                         <p class="mb-0">@lang('student.total_pending_home_work')</p>
                                     </div>
                                     <h1 class="gradient-color2">
-                                        @if (isset($homeworkLists))
-                                            {{ count(@$homeworkLists) }}
+                                        @if (isset($aramiscHomeworkLists))
+                                            {{ count(@$aramiscHomeworkLists) }}
                                         @endif
                                     </h1>
                                 </div>
@@ -190,18 +190,18 @@
                         </a>
                     </div>
                 @endif
-                @if (userPermission('dashboard-attendance-in-current-month'))
+                @if (userPermission('dashboard-aramiscAttendance-in-current-month'))
                     <div class="col-lg-3 col-md-6">
-                        <a href="{{ route('student_my_attendance') }}" class="d-block">
+                        <a href="{{ route('student_my_aramiscAttendance') }}" class="d-block">
                             <div class="white-box single-summery blue">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h3>@lang('student.attendance_in_current_month')</h3>
-                                        <p class="mb-0">@lang('student.total_attendance_in_current_month')</p>
+                                        <h3>@lang('student.aramiscAttendance_in_current_month')</h3>
+                                        <p class="mb-0">@lang('student.total_aramiscAttendance_in_current_month')</p>
                                     </div>
                                     <h1 class="gradient-color2">
-                                        @if (isset($attendances))
-                                            {{ count(@$attendances) }}
+                                        @if (isset($aramiscAttendances))
+                                            {{ count(@$aramiscAttendances) }}
                                         @endif
                                     </h1>
                                 </div>
@@ -223,7 +223,7 @@
                             $sub_total = $studentInvoice->Tsubtotal;
                             $feesDue = $amount + $fine - ($paid_amount + $weaver);
                         }
-                        foreach ($record->directFeesInstallments as $feesInstallment) {
+                        foreach ($record->aramiscDirectFeesInstallments as $feesInstallment) {
                             $balance_fees += discount_fees($feesInstallment->amount, $feesInstallment->discount_amount) - $feesInstallment->paid_amount;
                         }
                         foreach ($record->incidents as $incident) {
@@ -279,9 +279,9 @@
                         'routineDashboard' => $routineDashboard,
                     ])
                 @endif
-                @if (userPermission('student_my_attendance'))
-                    @include('backEnd.studentPanel.inc._attendance_statistics')
-                    @include('backEnd.studentPanel.inc._dashboard_subject_attendance_tab')
+                @if (userPermission('student_my_aramiscAttendance'))
+                    @include('backEnd.studentPanel.inc._aramiscAttendance_statistics')
+                    @include('backEnd.studentPanel.inc._dashboard_subject_aramiscAttendance_tab')
                 @endif
                 <div class="col-md-12 mt-40">
                     <div class="white-box">

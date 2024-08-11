@@ -367,8 +367,8 @@
                                                         <td>
                                                             <?php
                                                             if ($value->member_type == '2' || $value->member_type == '10') {
-                                                                if (!empty($value->studentDetails) && !empty($value->studentDetails->full_name)) {
-                                                                    echo $value->studentDetails->full_name;
+                                                                if (!empty($value->aramiscStudentDetails) && !empty($value->aramiscStudentDetails->full_name)) {
+                                                                    echo $value->aramiscStudentDetails->full_name;
                                                                 }
                                                             } elseif ($value->member_type == '3') {
                                                                 if (!empty($value->parentsDetails)) {
@@ -388,8 +388,8 @@
                                                         <td>
                                                             <?php
                                                             if ($value->member_type == '2' || $value->member_type == '10') {
-                                                                if (!empty($value->studentDetails) && !empty($value->studentDetails->email)) {
-                                                                    echo $value->studentDetails->email;
+                                                                if (!empty($value->aramiscStudentDetails) && !empty($value->aramiscStudentDetails->email)) {
+                                                                    echo $value->aramiscStudentDetails->email;
                                                                 }
                                                             } elseif ($value->member_type == '3') {
                                                                 if (!empty($value->parentsDetails) && !empty($value->parentsDetails->guardians_email)) {
@@ -407,8 +407,8 @@
                                                         <td>
                                                             <?php
                                                             if ($value->member_type == '2' || $value->member_type == '10') {
-                                                                if (!empty($value->studentDetails) && !empty($value->studentDetails->mobile)) {
-                                                                    echo $value->studentDetails->mobile;
+                                                                if (!empty($value->aramiscStudentDetails) && !empty($value->aramiscStudentDetails->mobile)) {
+                                                                    echo $value->aramiscStudentDetails->mobile;
                                                                 }
                                                             } elseif ($value->member_type == '3') {
                                                                 if (!empty($value->parentsDetails) && !empty($value->parentsDetails->fathers_mobile)) {

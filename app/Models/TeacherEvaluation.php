@@ -19,7 +19,7 @@ class TeacherEvaluation extends Model
     {
         return $this->belongsTo(SmStaff::class, 'teacher_id', 'id')->withDefault();
     }
-    public function assignSubject()
+    public function aramiscAssignSubject()
     {
         return $this->belongsTo(SmAssignSubject::class, 'subject_id', 'id')->withDefault();
     }

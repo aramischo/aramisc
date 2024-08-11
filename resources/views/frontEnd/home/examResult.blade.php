@@ -594,7 +594,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="report-admit-img profile_100"
-                                                            style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})">
+                                                            style="background-image: url({{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})">
                                                         </div>
                                                     </div>
                                                     {{-- Start  Result Table --}}
@@ -964,10 +964,10 @@
                                                                 class="table @if (resultPrintStatus('vertical_boarder')) mt-5 @endif">
                                                                 <tbody class="spacing">
                                                                     <tr>
-                                                                        <td>@lang('reports.attendance')</td>
+                                                                        <td>@lang('reports.aramiscAttendance')</td>
                                                                         @if (isset($exam_content))
                                                                             <td class="nowrap">
-                                                                                <p>{{ @$student_attendance }}
+                                                                                <p>{{ @$student_aramiscAttendance }}
                                                                                     @lang('reports.of')
                                                                                     {{ @$total_class_days }}</p>
                                                                             </td>

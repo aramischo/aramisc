@@ -51,7 +51,7 @@ class CustomResultSettingController extends Controller
             }
             $meritListSettings = $meritListSettings->first();
 
-            $skipSteps = ['exam_schedule', 'exam_attendance'];
+            $skipSteps = ['exam_schedule', 'exam_aramiscAttendance'];
             $exitSkipSteps = ExamStepSkip::where('school_id', auth()->user()->school_id)->pluck('name')->toArray();
             
             return view('backEnd.systemSettings.custom_result_setting_add', compact('custom_settings', 'exams','edit_data','meritListSettings', 'skipSteps', 'exitSkipSteps'));
@@ -529,7 +529,7 @@ class CustomResultSettingController extends Controller
             $classes = SmClass::get();
             $class = SmClass::findOrfail($request->class);
             $section = SmClass::findOrfail($request->section);
-            $studentDetails = SmStudent::where('sm_students.id', '=', $request->student)
+            $aramiscStudentDetails = SmStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')
@@ -545,7 +545,7 @@ class CustomResultSettingController extends Controller
                 return redirect()->back();
             }
 
-            return view('backEnd.reports.custom_progress_card_report', compact('exams', 'classes', 'studentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student'));
+            return view('backEnd.reports.custom_progress_card_report', compact('exams', 'classes', 'aramiscStudentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -577,7 +577,7 @@ class CustomResultSettingController extends Controller
             $classes = SmClass::get();
             $class = SmClass::findOrfail($request->class);
             $section = SmSection::findOrfail($request->section);
-            $studentDetails = SmStudent::where('sm_students.id', '=', $request->student)
+            $aramiscStudentDetails = SmStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')
@@ -593,7 +593,7 @@ class CustomResultSettingController extends Controller
                 return redirect()->back();
             }
 
-            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'studentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
+            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'aramiscStudentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
 
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -623,7 +623,7 @@ class CustomResultSettingController extends Controller
             $classes = SmClass::get();
             $class = SmClass::findOrfail($request->class);
             $section = SmSection::findOrfail($request->section);
-            $studentDetails = SmStudent::where('sm_students.id', '=', $request->student)
+            $aramiscStudentDetails = SmStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')
@@ -639,7 +639,7 @@ class CustomResultSettingController extends Controller
                 return redirect()->back();
             }
 
-            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'studentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
+            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'aramiscStudentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
 
 
         } catch (\Exception $e) {

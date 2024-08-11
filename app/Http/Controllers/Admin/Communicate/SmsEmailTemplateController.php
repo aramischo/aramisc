@@ -41,7 +41,7 @@ class SmsEmailTemplateController extends Controller
             $data->due_fees = $request->due_fees;
             $data->collect_fees = $request->collect_fees;
             $data->stu_promote = $request->stu_promote;
-            $data->attendance_sms = $request->attendance_sms;
+            $data->aramiscAttendance_sms = $request->aramiscAttendance_sms;
             $data->absent = $request->absent;
             $data->late_sms = $request->late_sms;
             $data->er_checkout = $request->er_checkout;

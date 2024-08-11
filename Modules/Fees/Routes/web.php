@@ -30,7 +30,7 @@ Route::group(['middleware' => ['subdomain']], function () {
         Route::post('fees-invoice-update', [FeesController::class, 'feesInvoiceUpdate'])->name('fees.fees-invoice-update')->middleware('userRolePermission:fees.fees-invoice-edit');
         Route::get('fees-invoice-view/{id}/{state}', [FeesController::class, 'feesInvoiceView'])->name('fees.fees-invoice-view');
         Route::post('fees-invoice-delete', [FeesController::class, 'feesInvoiceDelete'])->name('fees.fees-invoice-delete')->middleware('userRolePermission:fees.fees-invoice-delete');
-        Route::post('fees-payment-store', [FeesController::class, 'feesPaymentStore'])->name('fees.fees-payment-store')->middleware('userRolePermission:fees.add-fees-payment');
+        Route::post('fees-payment-store', [FeesController::class, 'aramiscFeesPaymentStore'])->name('fees.fees-payment-store')->middleware('userRolePermission:fees.add-fees-payment');
         Route::get('single-payment-view/{id}/{type}', [FeesController::class, 'singlePaymentView'])->name('fees.single-payment-view');
         Route::get('add-fees-payment/{id}', [FeesController::class, 'addFeesPayment'])->name('fees.add-fees-payment')->middleware('userRolePermission:fees.add-fees-payment');
         Route::get('delete-single-fees-transcation/{id}', [FeesController::class, 'deleteSingleFeesTranscation'])->name('fees.delete-single-fees-transcation');
@@ -60,10 +60,10 @@ Route::group(['middleware' => ['subdomain']], function () {
         Route::get('fees-report-datatable', [FeesReportController::class, 'feesReportDatatable'])->name('fees.fees-report-datatable')->middleware('userRolePermission:fees.payment-report');
 
         // Student
-        Route::get('student-fees-list/{id}', [StudentFeesController::class, 'studentFeesListParent'])->name('fees.student-fees-list-parent')->middleware('userRolePermission:fees.student-fees-list-parent');
-        Route::get('student-fees-list', [StudentFeesController::class, 'studentFeesList'])->name('fees.student-fees-list')->middleware('userRolePermission:fees.student-fees-list');
+        Route::get('student-fees-list/{id}', [StudentFeesController::class, 'aramiscStudentFeesListParent'])->name('fees.student-fees-list-parent')->middleware('userRolePermission:fees.student-fees-list-parent');
+        Route::get('student-fees-list', [StudentFeesController::class, 'aramiscStudentFeesList'])->name('fees.student-fees-list')->middleware('userRolePermission:fees.student-fees-list');
         Route::get('student-fees-payment/{id}', [StudentFeesController::class, 'studentAddFeesPayment'])->name('fees.student-fees-payment');
-        Route::post('student-fees-payment-store', [StudentFeesController::class, 'studentFeesPaymentStore'])->name('fees.student-fees-payment-store');
+        Route::post('student-fees-payment-store', [StudentFeesController::class, 'aramiscStudentFeesPaymentStore'])->name('fees.student-fees-payment-store');
 
         //Ajax Request
         Route::post('fees-view-payment', [AjaxController::class, 'feesViewPayment'])->name('fees.fees-view-payment')->middleware('userRolePermission:fees.fees-view-payment');

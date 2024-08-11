@@ -233,7 +233,7 @@
         'week_start_day'=>'Week Start Day',
         'time_zone'=>'Time Zone',
         'max_upload_file_size'=>'Max Upload File Size',
-        'subject_attendance_layout'=>'Subject Attendance Layout',
+        'subject_aramiscAttendance_layout'=>'Subject Attendance Layout',
         'copyright_text'=>'Copyright Text',
         'all_select'=>'All Select',
         'assign_optional_subject'=>'Assign Optional Subject',

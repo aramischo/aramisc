@@ -29,7 +29,7 @@ $balance_fees = 0;
             </tr>
         </thead>
         <tbody>
-          @foreach($record->directFeesInstallments as $key=> $feesInstallment)
+          @foreach($record->aramiscDirectFeesInstallments as $key=> $feesInstallment)
           @php 
           $total_fees += discount_fees($feesInstallment->amount , $feesInstallment->discount_amount); 
           $total_paid += $feesInstallment->paid_amount;
@@ -97,7 +97,7 @@ $balance_fees = 0;
         
                                             @if( $feesInstallment->active_status != 1)
                                                 <a class="dropdown-item modalLink" data-modal-size="modal-lg" title=" @lang('fees.add_payment') {{@$feesInstallment->installment->title}}"
-                                                    href="{{route('direct-fees-generate-modal-child', [directFees($feesInstallment->id),$feesInstallment->id,$feesInstallment->record_id ])}}"> 
+                                                    href="{{route('direct-fees-generate-modal-child', [aramiscDirectFees($feesInstallment->id),$feesInstallment->id,$feesInstallment->record_id ])}}"> 
                                                     @lang('fees.add_payment')                                      
                                                 </a>
                                             @endif

@@ -349,8 +349,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @if (isset($uploadContents))
-                                                @foreach ($uploadContents as $key => $value)
+                                            {{-- @if (isset($aramiscUploadContents))
+                                                @foreach ($aramiscUploadContents as $key => $value)
                                                     <tr>
                                                         <td>{{$key+1}}</td>
                                                         <td>{{@$value->content_title}}</td>

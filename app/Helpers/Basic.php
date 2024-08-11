@@ -395,12 +395,12 @@ if (!function_exists('sidebarPermission')) {
 
         if ($permission->module == 'fees_collection') {
             $routeList = ['fees_group', 'fees_type', 'search_fees_due', 'fees_forward'];
-            if ((int)generalSetting()->fees_status != 1 && directFees()) {
+            if ((int)generalSetting()->fees_status != 1 && aramiscDirectFees()) {
                 $access = true;
                 if (in_array($permission->route, $routeList)) {
                     $access = false;
                 }
-            } elseif ((int)generalSetting()->fees_status != 1 && directFees() == false) {
+            } elseif ((int)generalSetting()->fees_status != 1 && aramiscDirectFees() == false) {
                 $access = true;
                 if (in_array($permission->route, $routeList)) {
                     $access = true;

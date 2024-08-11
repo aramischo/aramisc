@@ -104,7 +104,7 @@
                                 <label for="cheque">@lang('fees.cheque')</label>
                             </div>
                             @endif
-                          @if(directFees())  
+                          @if(aramiscDirectFees())  
                             @if(@$data['PayPal']->active_status == 1)
                                 <div class="mr-30">
                                     <input type="radio" name="payment_mode" id="Paypal" value="PayPal" class="common-radio relationButton"  onclick="relationButton('PayPal')" >

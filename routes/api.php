@@ -130,12 +130,12 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     // -----------Start Student Information---------------
     // student list
-    Route::get('student-list', ['as' => 'student_list', 'uses' => 'SmApiController@studentDetails']);
-    Route::get('school/{school_id}/student-list', ['as' => 'saas_student_list', 'uses' => 'SmApiController@saas_studentDetails']);
+    Route::get('student-list', ['as' => 'student_list', 'uses' => 'SmApiController@aramiscStudentDetails']);
+    Route::get('school/{school_id}/student-list', ['as' => 'saas_student_list', 'uses' => 'SmApiController@saas_aramiscStudentDetails']);
 
     // student search
 
-    Route::any('student-list-search', 'SmApiController@studentDetailsSearch');
+    Route::any('student-list-search', 'SmApiController@aramiscStudentDetailsSearch');
     // Route::get('student-list-search', 'SmApiController@student_search_Details');
     Route::get('school/{school_id}/student-list-search', 'SmApiController@saas_student_search_Details');
 
@@ -151,43 +151,43 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
 
     // Student Attendance
-    Route::get('student-attendance', ['as' => 'student_attendance', 'uses' => 'api\ApiSmStudentAttendanceController@student_attendance_index']);
-    Route::get('school/{school_id}/student-attendance', ['as' => 'saas_student_attendance', 'uses' => 'api\ApiSmStudentAttendanceController@saas_student_attendance_index']);
+    Route::get('student-aramiscAttendance', ['as' => 'student_aramiscAttendance', 'uses' => 'api\ApiSmStudentAttendanceController@student_aramiscAttendance_index']);
+    Route::get('school/{school_id}/student-aramiscAttendance', ['as' => 'saas_student_aramiscAttendance', 'uses' => 'api\ApiSmStudentAttendanceController@saas_student_aramiscAttendance_index']);
     Route::post('student-search', 'api\ApiSmStudentAttendanceController@studentSearch');
     Route::post('school/{school_id}/student-search', 'api\ApiSmStudentAttendanceController@saaas_studentSearch');
     Route::get('student-search', 'api\ApiSmStudentAttendanceController@student_search_index');
     Route::get('school/{school_id}/student-search', 'api\ApiSmStudentAttendanceController@saas_student_search_index');
 
-    Route::post('student-attendance-store', 'api\ApiSmStudentAttendanceController@studentAttendanceStore');
-    Route::post('saas-student-attendance-store', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceStore');
+    Route::post('student-aramiscAttendance-store', 'api\ApiSmStudentAttendanceController@studentAttendanceStore');
+    Route::post('saas-student-aramiscAttendance-store', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceStore');
 
-    Route::get('student-attendance-check', 'api\ApiSmStudentAttendanceController@studentAttendanceCheck');
-    Route::get('school/{school_id}/student-attendance-check', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceCheck');
-    Route::get('student-attendance-store-first', 'api\ApiSmStudentAttendanceController@studentAttendanceStoreFirst');
-    Route::get('school/{school_id}/student-attendance-store-first', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceStoreFirst');
-    Route::get('student-attendance-store-second', 'api\ApiSmStudentAttendanceController@studentAttendanceStoreSecond');
-    Route::get('school/{school_id}/student-attendance-store-second', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceStoreSecond');
+    Route::get('student-aramiscAttendance-check', 'api\ApiSmStudentAttendanceController@studentAttendanceCheck');
+    Route::get('school/{school_id}/student-aramiscAttendance-check', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceCheck');
+    Route::get('student-aramiscAttendance-store-first', 'api\ApiSmStudentAttendanceController@studentAttendanceStoreFirst');
+    Route::get('school/{school_id}/student-aramiscAttendance-store-first', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceStoreFirst');
+    Route::get('student-aramiscAttendance-store-second', 'api\ApiSmStudentAttendanceController@studentAttendanceStoreSecond');
+    Route::get('school/{school_id}/student-aramiscAttendance-store-second', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceStoreSecond');
 
 
     //Subject Wise Attendance
 
     Route::get('section-subject', 'api\SubjectWiseAttendanceController@SelectSubject');
-    Route::get('attendance/search-student', 'api\SubjectWiseAttendanceController@studentSearch');
-    Route::get('attendance/store', 'api\SubjectWiseAttendanceController@studentAttendanceStore');
+    Route::get('aramiscAttendance/search-student', 'api\SubjectWiseAttendanceController@studentSearch');
+    Route::get('aramiscAttendance/store', 'api\SubjectWiseAttendanceController@studentAttendanceStore');
 
-    Route::get('student-subject-attendance-check', 'api\SubjectWiseAttendanceController@studentAttendanceCheck');
-    Route::get('student-subject-attendance-store-first', 'api\SubjectWiseAttendanceController@studentAttendanceStoreFirst');
-    Route::get('student-subject-attendance-store-second', 'api\SubjectWiseAttendanceController@studentAttendanceStoreSecond');
+    Route::get('student-subject-aramiscAttendance-check', 'api\SubjectWiseAttendanceController@studentAttendanceCheck');
+    Route::get('student-subject-aramiscAttendance-store-first', 'api\SubjectWiseAttendanceController@studentAttendanceStoreFirst');
+    Route::get('student-subject-aramiscAttendance-store-second', 'api\SubjectWiseAttendanceController@studentAttendanceStoreSecond');
 
 
     // Student Attendance Report
-    Route::get('student-attendance-report', ['as' => 'student_attendance_report_api', 'uses' => 'api\ApiSmStudentAttendanceController@studentAttendanceReport']);
-    Route::get('school/{school_id}/student-attendance-report', ['as' => 'saas_student_attendance_report', 'uses' => 'api\ApiSmStudentAttendanceController@saas_studentAttendanceReport']);
+    Route::get('student-aramiscAttendance-report', ['as' => 'student_aramiscAttendance_report_api', 'uses' => 'api\ApiSmStudentAttendanceController@studentAttendanceReport']);
+    Route::get('school/{school_id}/student-aramiscAttendance-report', ['as' => 'saas_student_aramiscAttendance_report', 'uses' => 'api\ApiSmStudentAttendanceController@saas_studentAttendanceReport']);
 
-    Route::post('student-attendance-report-search', ['as' => 'student_attendance_report_search_api', 'uses' => 'api\ApiSmStudentAttendanceController@studentAttendanceReportSearch']);
-    Route::post('school/{school_id}/student-attendance-report-search', ['as' => 'saas_student_attendance_report_search', 'uses' => 'api\ApiSmStudentAttendanceController@saas_studentAttendanceReportSearch']);
-    Route::get('student-attendance-report-search', 'api\ApiSmStudentAttendanceController@studentAttendanceReport_search');
-    Route::get('school/{school_id}/student-attendance-report-search', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceReport_search');
+    Route::post('student-aramiscAttendance-report-search', ['as' => 'student_aramiscAttendance_report_search_api', 'uses' => 'api\ApiSmStudentAttendanceController@studentAttendanceReportSearch']);
+    Route::post('school/{school_id}/student-aramiscAttendance-report-search', ['as' => 'saas_student_aramiscAttendance_report_search', 'uses' => 'api\ApiSmStudentAttendanceController@saas_studentAttendanceReportSearch']);
+    Route::get('student-aramiscAttendance-report-search', 'api\ApiSmStudentAttendanceController@studentAttendanceReport_search');
+    Route::get('school/{school_id}/student-aramiscAttendance-report-search', 'api\ApiSmStudentAttendanceController@saas_studentAttendanceReport_search');
 
     // Student Category
     Route::get('student-category', ['as' => 'student_category', 'uses' => 'SmApiController@student_type_index']);
@@ -240,28 +240,28 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     // -------------------Teacher Module------------------
     // Start Upload Content
-    Route::get('upload-content', 'SmApiController@uploadContentList');
-    Route::get('school/{school_id}/upload-content', 'SmApiController@saas_uploadContentList');
+    Route::get('upload-content', 'SmApiController@aramiscUploadContentList');
+    Route::get('school/{school_id}/upload-content', 'SmApiController@saas_aramiscUploadContentList');
     Route::post('save-upload-content', 'SmApiController@saveUploadContent'); // incomplete for API
     Route::get('delete-upload-content/{id}', 'SmApiController@deleteUploadContent');
     Route::get('school/{school_id}/delete-upload-content/{id}', 'SmApiController@saas_deleteUploadContent');
     Route::get('upload-content-view/{id}', 'api\ApiSmTeacherController@viewContent');
 
     // Start rest of the routes
-    Route::get('assignment-list', 'SmApiController@assignmentList');
-    Route::get('school/{school_id}/assignment-list', 'SmApiController@saas_assignmentList');
+    Route::get('assignment-list', 'SmApiController@aramiscAssignmentList');
+    Route::get('school/{school_id}/assignment-list', 'SmApiController@saas_aramiscAssignmentList');
     Route::get('study-metarial-list', 'SmApiController@studyMetarialList');
     Route::get('school/{school_id}/study-metarial-list', 'SmApiController@saas_studyMetarialList');
-    Route::get('syllabus-list', 'SmApiController@syllabusList');
-    Route::get('school/{school_id}/syllabus-list', 'SmApiController@saas_syllabusList');
+    Route::get('syllabus-list', 'SmApiController@aramiscSyllabusList');
+    Route::get('school/{school_id}/syllabus-list', 'SmApiController@saas_aramiscSyllabusList');
     Route::get('other-download-list', 'SmApiController@otherDownloadList');
     Route::get('school/{school_id}/other-download-list', 'SmApiController@saas_otherDownloadList');
     // End rest of the routes
 
     // ------------------- End Teacher Module------------------
     //--------------------HomwWork ----------------------
-    Route::get('homework-list', ['as' => 'homework-list', 'uses' => 'api\ApiSmHomeWorkController@homeworkList']);
-    Route::get('add-homeworks', 'api\ApiSmHomeWorkController@addHomework');
+    Route::get('homework-list', ['as' => 'homework-list', 'uses' => 'api\ApiSmHomeWorkController@aramiscHomeworkList']);
+    Route::get('add-homeworks', 'api\ApiSmHomeWorkController@aramiscAddHomework');
     Route::post('save-homework-data', ['as' => 'saveHomeworkData', 'uses' => 'api\ApiSmHomeWorkController@saveHomeworkData']);
 
 
@@ -271,17 +271,17 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     //--------------- Start Fees Collection --------------
 
     // Collect Fees
-    Route::get('collect-fees', ['as' => 'collect_fees', 'uses' => 'SmApiController@collectFees']);
-    Route::get('school/{school_id}/collect-fees', ['as' => 'saas_collect_fees', 'uses' => 'SmApiController@saas_collectFees']);
-    Route::get('fees-collect-student-wise/{id}', ['as' => 'fees_collect_student_wise', 'uses' => 'SmApiController@collectFeesStudentApi']);
-    Route::get('school/{school_id}/fees-collect-student-wise/{id}', ['as' => 'saas_fees_collect_student_wise', 'uses' => 'SmApiController@saas_collectFeesStudentApi']);
-    Route::post('collect-fees', ['as' => 'collect_fees_post', 'uses' => 'SmApiController@collectFeesSearch']);
+    Route::get('collect-fees', ['as' => 'collect_fees', 'uses' => 'SmApiController@aramiscCollectFees']);
+    Route::get('school/{school_id}/collect-fees', ['as' => 'saas_collect_fees', 'uses' => 'SmApiController@saas_aramiscCollectFees']);
+    Route::get('fees-collect-student-wise/{id}', ['as' => 'fees_collect_student_wise', 'uses' => 'SmApiController@aramiscCollectFeesStudentApi']);
+    Route::get('school/{school_id}/fees-collect-student-wise/{id}', ['as' => 'saas_fees_collect_student_wise', 'uses' => 'SmApiController@saas_aramiscCollectFeesStudentApi']);
+    Route::post('collect-fees', ['as' => 'collect_fees_post', 'uses' => 'SmApiController@aramiscCollectFeesSearch']);
 
     //Search Fees Payment
     Route::get('search-fees-payment', ['as' => 'search_fees_payment', 'uses' => 'SmApiController@searchFeesPayment']);
     Route::get('school/{school_id}/search-fees-payment', ['as' => 'saas_search_fees_payment', 'uses' => 'SmApiController@saas_searchFeesPayment']);
-    Route::post('fees-payment-search', ['as' => 'fees_payment_search_post', 'uses' => 'SmApiController@feesPaymentSearch']);
-    Route::post('school/{school_id}/fees-payment-search', ['as' => 'saas_fees_payment_search_post', 'uses' => 'SmApiController@saas_feesPaymentSearch']);
+    Route::post('fees-payment-search', ['as' => 'fees_payment_search_post', 'uses' => 'SmApiController@aramiscFeesPaymentSearch']);
+    Route::post('school/{school_id}/fees-payment-search', ['as' => 'saas_fees_payment_search_post', 'uses' => 'SmApiController@saas_aramiscFeesPaymentSearch']);
     Route::get('fees-payment-search', ['as' => 'fees_payment_search', 'uses' => 'SmApiController@search_Fees_Payment']);
     Route::get('school/{school_id}/fees-payment-search', ['as' => 'saas_fees_payment_search', 'uses' => 'SmApiController@saas_search_Fees_Payment']);
 
@@ -354,13 +354,13 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('fees-discount-assign-store', 'SmApiController@feesDiscountAssignStore');
     Route::get('school/{school_id}/fees-discount-assign-store', 'SmApiController@saas_feesDiscountAssignStore');
 
-    Route::get('fees-generate-modal/{amount}/{student_id}/{type}', 'SmApiController@feesGenerateModal');
-    Route::get('school/{school_id}/fees-generate-modal/{amount}/{student_id}/{type}', 'SmApiController@saas_feesGenerateModal');
+    Route::get('fees-generate-modal/{amount}/{student_id}/{type}', 'SmApiController@aramiscFeesGenerateModal');
+    Route::get('school/{school_id}/fees-generate-modal/{amount}/{student_id}/{type}', 'SmApiController@saas_aramiscFeesGenerateModal');
     Route::get('fees-discount-amount-search', 'SmApiController@feesDiscountAmountSearch');
     Route::get('school/{school_id}/fees-discount-amount-search', 'SmApiController@saas_feesDiscountAmountSearch');
     // delete fees payment
-    Route::post('fees-payment-delete', 'SmApiController@feesPaymentDelete');
-    Route::post('school/{school_id}/fees-payment-delete', 'SmApiController@saas_feesPaymentDelete');
+    Route::post('fees-payment-delete', 'SmApiController@aramiscFeesPaymentDelete');
+    Route::post('school/{school_id}/fees-payment-delete', 'SmApiController@saas_aramiscFeesPaymentDelete');
 
     // Fees carry forward
     Route::get('fees-forward', ['as' => 'fees_forward', 'uses' => 'SmApiController@feesForward']);
@@ -437,17 +437,17 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('school/{school_id}/deleteStaff/{id}', 'SmApiController@saas_deleteStaff');
 
     //Staff Attendance
-    Route::get('staff-attendance', ['as' => 'staff_attendance', 'uses' => 'SmApiController@staffAttendance']);
-    Route::get('school/{school_id}/staff-attendance', ['as' => 'saas_staff_attendance', 'uses' => 'SmApiController@saas_staffAttendance']);
-    Route::post('staff-attendance-search', 'SmApiController@staffAttendanceSearch');
-    Route::post('saas-staff-attendance-search', 'SmApiController@saas_staffAttendanceSearch');
-    Route::post('staff-attendance-store', 'SmApiController@staffAttendanceStore');
-    Route::post('saas-staff-attendance-store', 'SmApiController@saas_staffAttendanceStore');
+    Route::get('staff-aramiscAttendance', ['as' => 'staff_aramiscAttendance', 'uses' => 'SmApiController@staffAttendance']);
+    Route::get('school/{school_id}/staff-aramiscAttendance', ['as' => 'saas_staff_aramiscAttendance', 'uses' => 'SmApiController@saas_staffAttendance']);
+    Route::post('staff-aramiscAttendance-search', 'SmApiController@staffAttendanceSearch');
+    Route::post('saas-staff-aramiscAttendance-search', 'SmApiController@saas_staffAttendanceSearch');
+    Route::post('staff-aramiscAttendance-store', 'SmApiController@staffAttendanceStore');
+    Route::post('saas-staff-aramiscAttendance-store', 'SmApiController@saas_staffAttendanceStore');
 
-    Route::get('staff-attendance-report', ['as' => 'staff_attendance_report', 'uses' => 'SmApiController@staffAttendanceReport']);
-    Route::get('school/{school_id}/staff-attendance-report', ['as' => 'saas_staff_attendance_report', 'uses' => 'SmApiController@saas_staffAttendanceReport']);
-    Route::post('staff-attendance-report-search', ['as' => 'staff_attendance_report_search', 'uses' => 'SmApiController@staffAttendanceReportSearch']);
-    Route::post('school/{school_id}/staff-attendance-report-search', ['as' => 'saas_staff_attendance_report_search', 'uses' => 'SmApiController@saas_staffAttendanceReportSearch']);
+    Route::get('staff-aramiscAttendance-report', ['as' => 'staff_aramiscAttendance_report', 'uses' => 'SmApiController@staffAttendanceReport']);
+    Route::get('school/{school_id}/staff-aramiscAttendance-report', ['as' => 'saas_staff_aramiscAttendance_report', 'uses' => 'SmApiController@saas_staffAttendanceReport']);
+    Route::post('staff-aramiscAttendance-report-search', ['as' => 'staff_aramiscAttendance_report_search', 'uses' => 'SmApiController@staffAttendanceReportSearch']);
+    Route::post('school/{school_id}/staff-aramiscAttendance-report-search', ['as' => 'saas_staff_aramiscAttendance_report_search', 'uses' => 'SmApiController@saas_staffAttendanceReportSearch']);
 
     // Staff designation
     Route::resource('designation', 'api\ApiSmDesignationController');
@@ -497,7 +497,7 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::post('student-apply-leave-store', 'api\ApiSmLeaveController@leaveStoreStudent');
     Route::get('school/{school_id}/student-apply-leave', 'Parent\SmParentPanelController@saas_leaveApply');
     Route::get('student-view-leave-details-apply/{id}', 'Parent\SmParentPanelController@viewLeaveDetails');
-    Route::get('student-apply-leave-edit/{id}', 'Parent\SmParentPanelController@parentLeaveEdit');
+    Route::get('student-apply-leave-edit/{id}', 'Parent\SmParentPanelController@aramiscParentLeaveEdit');
     Route::post('student-apply-leave-update', 'Parent\SmParentPanelController@update');
     // Route::post('student-apply-leave-store', 'Parent\SmParentPanelController@leaveStore');
     Route::get('student-delete-apply-leave/{id}', 'Parent\SmParentPanelController@DeleteLeave');
@@ -525,35 +525,35 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     //--------------- Start Academic Module--------------
 
     // class routine new
-    Route::get('class-routine-new', ['as' => 'class_routine_new_api', 'uses' => 'SmApiController@classRoutine']);
-    Route::get('school/{school_id}/class-routine-new', ['as' => 'saas_class_routine_new', 'uses' => 'SmApiController@saas_classRoutine']);
+    Route::get('class-routine-new', ['as' => 'class_routine_new_api', 'uses' => 'SmApiController@aramiscClassRoutine']);
+    Route::get('school/{school_id}/class-routine-new', ['as' => 'saas_class_routine_new', 'uses' => 'SmApiController@saas_aramiscClassRoutine']);
 
-    Route::post('class-routine-new', 'api\ApiSmClassRoutineController@classRoutineSearch');
-    Route::post('add-new-class-routine-store', 'api\ApiSmClassRoutineController@addNewClassRoutineStore');
+    Route::post('class-routine-new', 'api\ApiSmClassRoutineController@aramiscClassRoutineSearch');
+    Route::post('add-new-class-routine-store', 'api\ApiSmClassRoutineController@aramiscAddNewClassRoutineStore');
     Route::get('student-routine-view/{student_id}/{record_id}', 'api\ApiSmClassRoutineController@studentClassRoutine');
-    Route::get('teacher-routine-view/{techer_id}', 'api\ApiSmClassRoutineController@teacherClassRoutine');
+    Route::get('teacher-routine-view/{techer_id}', 'api\ApiSmClassRoutineController@aramiscTeacherClassRoutine');
     Route::get('class-routine-view/{user_id}/{record_id}', 'api\ApiSmClassRoutineController@studentClassRoutine')->middleware('subdomain');
     Route::post('day-wise-class-routine', 'api\ApiSmClassRoutineController@dayWiseClassRoutine')->name('dayWise_class_routine');
 
-    Route::post('school/{school_id}/class-routine-new', 'SmApiController@saas_classRoutineSearch');
+    Route::post('school/{school_id}/class-routine-new', 'SmApiController@saas_aramiscClassRoutineSearch');
 
     //assign subject
-    Route::get('assign-subject', ['as' => 'assign_subject', 'uses' => 'SmApiController@assignSubject']);
-    Route::get('school/{school_id}/assign-subject', ['as' => 'saas_assign_subject', 'uses' => 'SmApiController@saas_assignSubject']);
+    Route::get('assign-subject', ['as' => 'assign_subject', 'uses' => 'SmApiController@aramiscAssignSubject']);
+    Route::get('school/{school_id}/assign-subject', ['as' => 'saas_assign_subject', 'uses' => 'SmApiController@saas_aramiscAssignSubject']);
     Route::get('assign-subject-create', ['as' => 'assign_subject_create', 'uses' => 'SmApiController@assigSubjectCreate']);
     Route::get('school/{school_id}/assign-subject-create', ['as' => 'saas_assign_subject_create', 'uses' => 'SmApiController@saas_assigSubjectCreate']);
-    Route::post('assign-subject-search', ['as' => 'assign_subject_search', 'uses' => 'SmApiController@assignSubjectSearch']);
-    Route::post('school/{school_id}/assign-subject-search', ['as' => 'saas_assign_subject_search', 'uses' => 'SmApiController@saas_assignSubjectSearch']);
+    Route::post('assign-subject-search', ['as' => 'assign_subject_search', 'uses' => 'SmApiController@aramiscAssignSubjectSearch']);
+    Route::post('school/{school_id}/assign-subject-search', ['as' => 'saas_assign_subject_search', 'uses' => 'SmApiController@saas_aramiscAssignSubjectSearch']);
     Route::get('assign-subject-search', 'SmApiController@assign_Subject_Create');
     Route::get('school/{school_id}/assign-subject-search', 'SmApiController@saas_assign_Subject_Create');
-    Route::post('assign-subject-store', 'SmApiController@assignSubjectStore');
-    Route::post('school/{school_id}/assign-subject-store', 'SmApiController@saas_assignSubjectStore');
-    Route::get('assign-subject-store', 'SmApiController@assignSubject_Create');
-    Route::get('school/{school_id}/assign-subject-store', 'SmApiController@saas_assignSubject_Create');
-    Route::post('assign-subject', 'SmApiController@assignSubjectFind');
-    Route::post('school/{school_id}/assign-subject', 'SmApiController@saas_assignSubjectFind');
-    Route::get('assign-subject-get-by-ajax', 'SmApiController@assignSubjectAjax');
-    Route::get('school/{school_id}/assign-subject-get-by-ajax', 'SmApiController@saas_assignSubjectAjax');
+    Route::post('assign-subject-store', 'SmApiController@aramiscAssignSubjectStore');
+    Route::post('school/{school_id}/assign-subject-store', 'SmApiController@saas_aramiscAssignSubjectStore');
+    Route::get('assign-subject-store', 'SmApiController@aramiscAssignSubject_Create');
+    Route::get('school/{school_id}/assign-subject-store', 'SmApiController@saas_aramiscAssignSubject_Create');
+    Route::post('assign-subject', 'SmApiController@aramiscAssignSubjectFind');
+    Route::post('school/{school_id}/assign-subject', 'SmApiController@saas_aramiscAssignSubjectFind');
+    Route::get('assign-subject-get-by-ajax', 'SmApiController@aramiscAssignSubjectAjax');
+    Route::get('school/{school_id}/assign-subject-get-by-ajax', 'SmApiController@saas_aramiscAssignSubjectAjax');
 
     //Assign Class Teacher
     Route::resource('assign-class-teacher', 'api\ApiSmAssignClassTeacherControler');
@@ -611,8 +611,8 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     //--------------- Start Homework Module--------------
     //homework list
-    Route::get('homework-list/{user_id}', ['uses' => 'api\ApiSmHomeWorkController@homeworkList']);
-    Route::get('school/{school_id}/homework-list', ['as' => 'saas_homework-list', 'uses' => 'api\ApiSmHomeWorkController@saas_homeworkList']);
+    Route::get('homework-list/{user_id}', ['uses' => 'api\ApiSmHomeWorkController@aramiscHomeworkList']);
+    Route::get('school/{school_id}/homework-list', ['as' => 'saas_homework-list', 'uses' => 'api\ApiSmHomeWorkController@saas_aramiscHomeworkList']);
     Route::post('homework-list', ['as' => 'homework-list_post', 'uses' => 'api\ApiSmHomeWorkController@searchHomework']);
     Route::post('school/{school_id}/homework-list', ['as' => 'saas_homework-list_post', 'uses' => 'SmApiController@saas_searchHomework']);
     Route::get('evaluation-homework/{class_id}/{section_id}/{homework_id}', ['as' => 'evaluation-homework', 'uses' => 'api\ApiSmHomeWorkController@evaluationHomework']);
@@ -623,9 +623,9 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::post('school/{school_id}/evaluate-homework', ['as' => 'saas-evaluate-homework', 'uses' => 'api\ApiSmHomeWorkController@saasSaveHomeworkEvaluationData']);
 
 
-    Route::any('add-homework', 'api\ApiSmHomeWorkController@addHomework');
+    Route::any('add-homework', 'api\ApiSmHomeWorkController@aramiscAddHomework');
     Route::post('update-homework', 'api\ApiSmHomeWorkController@homeworkUpdate');
-    Route::any('saas-add-homework', 'api\ApiSmHomeWorkController@saas_addHomework');
+    Route::any('saas-add-homework', 'api\ApiSmHomeWorkController@saas_aramiscAddHomework');
     Route::get('school/{school_id}/homework-list/{id}', 'api\ApiSmHomeWorkController@saas_homework_List_Teacher');
     //--------------- End Homework Module--------------
 
@@ -754,14 +754,14 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::post('school/{school_id}/assign-vehicle-delete', 'SmApiController@saas_Assign_Vehicle_delete');
 
     // student transport report
-    Route::get('student-transport-report', ['as' => 'student_transport_report', 'uses' => 'SmApiController@studentTransportReportApi']);
-    Route::get('school/{school_id}/student-transport-report', ['as' => 'saas_student_transport_report', 'uses' => 'SmApiController@saas_studentTransportReportApi']);
+    Route::get('student-transport-report', ['as' => 'student_transport_report', 'uses' => 'SmApiController@aramiscStudentTransportReportApi']);
+    Route::get('school/{school_id}/student-transport-report', ['as' => 'saas_student_transport_report', 'uses' => 'SmApiController@saas_aramiscStudentTransportReportApi']);
 
-    //Route::get('student-transport-reportApi', ['as' => 'student_transport_report', 'uses' => 'SmTransportController@studentTransportReportApi']);
+    //Route::get('student-transport-reportApi', ['as' => 'student_transport_report', 'uses' => 'SmTransportController@aramiscStudentTransportReportApi']);
 
 
-    Route::post('student-transport-report', ['as' => 'student_transport_report_post', 'uses' => 'SmApiController@studentTransportReportSearch']);
-    Route::post('school/{school_id}/student-transport-report', ['as' => 'saas_student_transport_report_post', 'uses' => 'SmApiController@saas_studentTransportReportSearch']);
+    Route::post('student-transport-report', ['as' => 'student_transport_report_post', 'uses' => 'SmApiController@aramiscStudentTransportReportSearch']);
+    Route::post('school/{school_id}/student-transport-report', ['as' => 'saas_student_transport_report_post', 'uses' => 'SmApiController@saas_aramiscStudentTransportReportSearch']);
     //------------------End Transport Module--------------
 
 
@@ -777,10 +777,10 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::resource('dormitory-list', 'api\ApiSmDormitoryListController');
 
     // Student Dormitory Report
-    Route::get('student-dormitory-report', ['as' => 'student_dormitory_report', 'uses' => 'SmApiController@studentDormitoryReport']);
-    Route::get('school/{school_id}/student-dormitory-report', ['as' => 'saas_student_dormitory_report', 'uses' => 'SmApiController@saas_studentDormitoryReport']);
-    Route::post('student-dormitory-report', ['as' => 'student_dormitory_report_post', 'uses' => 'SmApiController@studentDormitoryReportSearch']);
-    Route::post('school/{school_id}/student-dormitory-report', ['as' => 'saas_student_dormitory_report_post', 'uses' => 'api\ApiSmDormitoryListController@saas_studentDormitoryReportSearch']);
+    Route::get('student-dormitory-report', ['as' => 'student_dormitory_report', 'uses' => 'SmApiController@aramiscStudentDormitoryReport']);
+    Route::get('school/{school_id}/student-dormitory-report', ['as' => 'saas_student_dormitory_report', 'uses' => 'SmApiController@saas_aramiscStudentDormitoryReport']);
+    Route::post('student-dormitory-report', ['as' => 'student_dormitory_report_post', 'uses' => 'SmApiController@aramiscStudentDormitoryReportSearch']);
+    Route::post('school/{school_id}/student-dormitory-report', ['as' => 'saas_student_dormitory_report_post', 'uses' => 'api\ApiSmDormitoryListController@saas_aramiscStudentDormitoryReportSearch']);
 
     // ---------------End Dormitory Module-----------------
 
@@ -824,23 +824,23 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('transaction-report-search', ['as' => 'transaction_report_search', 'uses' => 'SmApiController@transaction_Report']);
 
     // Class Report
-    Route::get('class-report', ['as' => 'class_report', 'uses' => 'SmApiController@classReport']);
-    Route::post('class-report', ['as' => 'class_report_post', 'uses' => 'SmApiController@classReportSearch']);
+    Route::get('class-report', ['as' => 'class_report', 'uses' => 'SmApiController@aramiscClassReport']);
+    Route::post('class-report', ['as' => 'class_report_post', 'uses' => 'SmApiController@aramiscClassReportSearch']);
 
     // class routine report
-    Route::get('class-routine-report', ['as' => 'class_routine_report', 'uses' => 'SmApiController@classRoutineReport']);
-    Route::post('class-routine-report', 'api\ApiSmClassRoutineController@classRoutineReportSearch');
+    Route::get('class-routine-report', ['as' => 'class_routine_report', 'uses' => 'SmApiController@aramiscClassRoutineReport']);
+    Route::post('class-routine-report', 'api\ApiSmClassRoutineController@aramiscClassRoutineReportSearch');
 
     // exam routine student
     Route::get('student-exam-schedule/{student_id}', ['as' => 'student-exam-schedule', 'uses' => 'api\ApiSmExamRoutineController@studentRoutine']);
     Route::post('student-exam-schedule', ['as' => 'student-exam-schedule-search', 'uses' => 'api\ApiSmExamRoutineController@studentExamRoutineSearch']);
     // exam routine report
-    Route::get('exam-routine-report', ['as' => 'exam_routine_report', 'uses' => 'SmApiController@examRoutineReport']);
-    Route::post('exam-routine-report', ['as' => 'exam_routine_report_post', 'uses' => 'api\ApiSmExamRoutineController@examRoutineReportSearch']);
+    Route::get('exam-routine-report', ['as' => 'exam_routine_report', 'uses' => 'SmApiController@aramiscExamRoutineReport']);
+    Route::post('exam-routine-report', ['as' => 'exam_routine_report_post', 'uses' => 'api\ApiSmExamRoutineController@aramiscExamRoutineReportSearch']);
 
     //teacher class routine report
-    Route::get('teacher-class-routine-report', ['as' => 'teacher_class_routine_report', 'uses' => 'SmApiController@teacherClassRoutineReport']);
-    Route::post('teacher-class-routine-report', 'api\ApiSmClassRoutineController@teacherClassRoutineReportSearch');
+    Route::get('teacher-class-routine-report', ['as' => 'teacher_class_routine_report', 'uses' => 'SmApiController@aramiscTeacherClassRoutineReport']);
+    Route::post('teacher-class-routine-report', 'api\ApiSmClassRoutineController@aramiscTeacherClassRoutineReportSearch');
 
     // merit list Report
     Route::get('merit-list-report', ['as' => 'merit_list_report', 'uses' => 'SmApiController@meritListReport']);
@@ -851,12 +851,12 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::post('online-exam-report', ['as' => 'online_exam_report_post', 'uses' => 'SmApiController@onlineExamReportSearch']);
 
     //mark sheet report student
-    Route::get('mark-sheet-report-student', ['as' => 'mark_sheet_report_student', 'uses' => 'SmApiController@markSheetReportStudent']);
-    Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_student_post', 'uses' => 'SmApiController@markSheetReportStudentSearch']);
+    Route::get('mark-sheet-report-student', ['as' => 'mark_sheet_report_student', 'uses' => 'SmApiController@aramiscMarkSheetReportStudent']);
+    Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_student_post', 'uses' => 'SmApiController@aramiscMarkSheetReportStudentSearch']);
 
     //mark sheet report student
     Route::get('mark-sheet-report-student', ['as' => 'mark_sheet_report_student', 'uses' => 'SmApiController@markSheetReport_Student']);
-    Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_student_post', 'uses' => 'SmApiController@markSheetReportStudent_Search']);
+    Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_student_post', 'uses' => 'SmApiController@aramiscMarkSheetReportStudent_Search']);
 
     // Tabulation Sheet Report
     Route::get('tabulation-sheet-report', ['as' => 'tabulation_sheet_report', 'uses' => 'SmApiController@tabulationSheetReport']);
@@ -930,32 +930,32 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::post('school/{school_id}/student-upload-homework', 'api\ApiSmHomeWorkController@saas_studentUploadHomework');
     Route::get('student-dashboard/{id}', 'SmApiController@studentDashboard');
     Route::get('school/{school_id}/student-dashboard/{id}', 'SmApiController@saas_studentDashboard');
-    Route::get('student-my-attendance/{id}/{record_id}', 'api\ApiSmStudentAttendanceController@studentMyAttendanceSearchAPI');
-    Route::get('school/{school_id}/student-my-attendance/{id}/{record_id}', 'api\ApiSmStudentAttendanceController@saas_studentMyAttendanceSearchAPI');
-    Route::get('student-noticeboard/{id}', 'SmApiController@studentNoticeboard');
-    Route::get('school/{school_id}/student-noticeboard/{id}', 'SmApiController@saas_studentNoticeboard');
+    Route::get('student-my-aramiscAttendance/{id}/{record_id}', 'api\ApiSmStudentAttendanceController@aramiscStudentMyAttendanceSearchAPI');
+    Route::get('school/{school_id}/student-my-aramiscAttendance/{id}/{record_id}', 'api\ApiSmStudentAttendanceController@saas_aramiscStudentMyAttendanceSearchAPI');
+    Route::get('student-noticeboard/{id}', 'SmApiController@aramiscStudentNoticeboard');
+    Route::get('school/{school_id}/student-noticeboard/{id}', 'SmApiController@saas_aramiscStudentNoticeboard');
     //------------End Student Dashboard --------------
 
 
     //******************Start Student Panel ********************
 
 
-    Route::get('studentSubject/{id}/{record_id}', 'SmApiController@studentSubjectApi');
-    Route::get('school/{school_id}/studentSubject/{id}/{record_id}', 'SmApiController@saas_studentSubjectApi');
+    Route::get('aramiscStudentSubject/{id}/{record_id}', 'SmApiController@aramiscStudentSubjectApi');
+    Route::get('school/{school_id}/aramiscStudentSubject/{id}/{record_id}', 'SmApiController@saas_aramiscStudentSubjectApi');
     Route::get('student-library/{id}', 'SmApiController@studentLibrary');
     Route::get('school/{school_id}/student-library/{id}', 'SmApiController@saas_studentLibrary');
-    Route::get('studentTeacher/{id}', 'api\ApiSmStudentPanelController@studentTeacherApi');
-    Route::get('school/{school_id}/studentTeacher/{user_id}/{record_id}', 'api\ApiSmStudentPanelController@saas_studentTeacherApi');
+    Route::get('aramiscStudentTeacher/{id}', 'api\ApiSmStudentPanelController@aramiscStudentTeacherApi');
+    Route::get('school/{school_id}/aramiscStudentTeacher/{user_id}/{record_id}', 'api\ApiSmStudentPanelController@saas_aramiscStudentTeacherApi');
 
-    Route::get('studentAssignment/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@studentAssignmentApi');
-    Route::get('studentSyllabus/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@studentSyllabusApi');
+    Route::get('aramiscStudentAssignment/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@aramiscStudentAssignmentApi');
+    Route::get('aramiscStudentSyllabus/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@aramiscStudentSyllabusApi');
     Route::get('studentOtherDownloads/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@studentOtherDownloadsApi');
-    Route::get('school/{school_id}/studentAssignment/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@saas_studentAssignmentApi');
+    Route::get('school/{school_id}/aramiscStudentAssignment/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@saas_aramiscStudentAssignmentApi');
     Route::get('studentDocuments/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@studentsDocumentApi');
     Route::get('school/{school_id}/studentDocuments/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@saas_studentsDocumentApi');
 
-    Route::get('student-dormitory', 'SmApiController@studentDormitoryApi');
-    Route::get('school/{school_id}/student-dormitory', 'SmApiController@saas_studentDormitoryApi');
+    Route::get('student-dormitory', 'SmApiController@aramiscStudentDormitoryApi');
+    Route::get('school/{school_id}/student-dormitory', 'SmApiController@saas_aramiscStudentDormitoryApi');
 
     Route::get('student-exam_schedule/{id}', 'SmApiController@studentExamScheduleApi');
     Route::get('school/{school_id}/student-exam_schedule/{id}', 'SmApiController@saas_studentExamScheduleApi');
@@ -963,12 +963,12 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('student-timeline/{id}', 'SmApiController@studentTimelineApi');
     Route::get('school/{school_id}/student-timeline/{id}', 'SmApiController@saas_studentTimelineApi');
 
-    Route::get('student-online-exam/{user_id}/{record_id}', 'api\ApiSmExamController@studentOnlineExamApi');
-    Route::get('school/{school_id}/student-online-exam/{user_id}/{record_id}', 'api\ApiSmExamController@saas_studentOnlineExamApi');
-    Route::get('choose-exam/{user_id}/{record_id}', 'api\ApiSmExamController@chooseExamApi');
-    Route::get('school/{school_id}/choose-exam/{user_id}/{record_id}', 'api\ApiSmExamController@saas_chooseExamApi');
-    Route::get('online-exam-result/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@examResultApi');
-    Route::get('school/{school_id}/online-exam-result/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@saas_examResultApi');
+    Route::get('student-online-exam/{user_id}/{record_id}', 'api\ApiSmExamController@aramiscStudentOnlineExamApi');
+    Route::get('school/{school_id}/student-online-exam/{user_id}/{record_id}', 'api\ApiSmExamController@saas_aramiscStudentOnlineExamApi');
+    Route::get('choose-exam/{user_id}/{record_id}', 'api\ApiSmExamController@aramiscChooseExamApi');
+    Route::get('school/{school_id}/choose-exam/{user_id}/{record_id}', 'api\ApiSmExamController@saas_aramiscChooseExamApi');
+    Route::get('online-exam-result/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@aramiscExamResultApi');
+    Route::get('school/{school_id}/online-exam-result/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@saas_aramiscExamResultApi');
     Route::get('getGrades/{marks}', 'SmApiController@getGrades');
     Route::get('school/{school_id}/getGrades/{marks}', 'SmApiController@saas_getGrades');
 
@@ -980,8 +980,8 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     Route::get('exam-list/{user_id}/{record_id}', 'api\ApiSmExamController@examListApi');
     Route::get('school/{school_id}/exam-list/{user_id}/{record_id}', 'api\ApiSmExamController@saas_examListApi');
-    Route::get('exam-schedule/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@examScheduleApi');
-    Route::get('school/{school_id}/exam-schedule/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@saas_examScheduleApi');
+    Route::get('exam-schedule/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@aramiscExamScheduleApi');
+    Route::get('school/{school_id}/exam-schedule/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@saas_aramiscExamScheduleApi');
     Route::get('exam-result/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@examResult_Api');
     Route::get('school/{school_id}/exam-result/{user_id}/{exam_id}/{record_id}', 'api\ApiSmExamController@saas_examResult_Api');
 
@@ -994,8 +994,8 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::any('change-password', 'SmApiController@updatePassowrdStoreApi');
     Route::any('school/{school_id}/change-password', 'SmApiController@saas_updatePassowrdStoreApi');
     // exam routine 
-    Route::get('exam-schedule-create', 'api\ApiSmExamRoutineController@examRoutine');
-    Route::post('exam-schedule-create', 'api\ApiSmExamRoutineController@examScheduleSearch');
+    Route::get('exam-schedule-create', 'api\ApiSmExamRoutineController@aramiscExamRoutine');
+    Route::post('exam-schedule-create', 'api\ApiSmExamRoutineController@aramiscExamScheduleSearch');
     Route::post('add-exam-routine-store', 'api\ApiSmExamRoutineController@addExamRoutineStore');
 
     // Parents
@@ -1004,15 +1004,15 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('school/{school_id}/child-list/{id}', 'api\ApiSmParentPanelController@saas_childListApi');
     Route::get('child-info/{id}', 'SmApiController@childProfileApi');
     Route::get('school/{school_id}/child-info/{id}', 'SmApiController@saas_childProfileApi');
-    Route::get('child-fees/{id}', 'SmApiController@collectFeesChildApi');
-    Route::get('school/{school_id}/child-fees/{id}', 'SmApiController@saas_collectFeesChildApi');
-    Route::get('child-class-routine/{id}', 'SmApiController@classRoutineApi');
-    Route::get('school/{school_id}/child-class-routine/{id}', 'SmApiController@saas_classRoutineApi');
+    Route::get('child-fees/{id}', 'SmApiController@aramiscCollectFeesChildApi');
+    Route::get('school/{school_id}/child-fees/{id}', 'SmApiController@saas_aramiscCollectFeesChildApi');
+    Route::get('child-class-routine/{id}', 'SmApiController@aramiscClassRoutineApi');
+    Route::get('school/{school_id}/child-class-routine/{id}', 'SmApiController@saas_aramiscClassRoutineApi');
     Route::get('child-homework/{id}', 'SmApiController@childHomework');
     Route::get('school/{school_id}/child-homework/{id}', 'SmApiController@saas_childHomework');
 
-    Route::get('child-attendance/{id}/{record_id}', 'SmApiController@childAttendanceAPI');
-    Route::get('school/{school_id}/child-attendance/{id}/{record_id}', 'SmApiController@saas_childAttendanceAPI');
+    Route::get('child-aramiscAttendance/{id}/{record_id}', 'SmApiController@childAttendanceAPI');
+    Route::get('school/{school_id}/child-aramiscAttendance/{id}/{record_id}', 'SmApiController@saas_childAttendanceAPI');
 
     Route::get('childInfo/{id}', 'api\ApiSmParentPanelController@childInfo');
     Route::get('school/{school_id}/childInfo/{id}', 'api\ApiSmParentPanelController@saas_childInfo');
@@ -1032,7 +1032,7 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     // https://infixedu.com/api/search-student?section=1&class=2
     // https://infixedu.com/api/search-student?name=Conner Stamm
     // https://infixedu.com/api/search-student?roll_no=28229
-    Route::get('my-routine/{user_id}', 'api\ApiSmClassRoutineController@teacherClassRoutine');
+    Route::get('my-routine/{user_id}', 'api\ApiSmClassRoutineController@aramiscTeacherClassRoutine');
     Route::get('school/{school_id}/my-routine/{id}', 'api\ApiSmClassRoutineController@sassTeacherClassRoutine');
     Route::get('section-routine/{user_id}/{class}/{section}', 'api\ApiSmClassRoutineController@sectionRoutine');
     Route::get('school/{school_id}/section-routine/{user_id}/{class}/{section}', 'SmApiController@saas_sectionRoutine');
@@ -1042,26 +1042,26 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('school/{school_id}/subject/{id}', 'SmApiController@saas_subjectsName');
 
 
-    Route::get('teacher-class-list', 'SmApiController@teacherClassList');
-    Route::get('school/{school_id}/teacher-class-list', 'SmApiController@saas_teacherClassList');
+    Route::get('teacher-class-list', 'SmApiController@aramiscTeacherClassList');
+    Route::get('school/{school_id}/teacher-class-list', 'SmApiController@saas_aramiscTeacherClassList');
     Route::get('teacher-section-list', 'SmApiController@teacherSectionList');
     Route::get('school/{school_id}/teacher-section-list', 'SmApiController@saas_teacherSectionList');
 
 
-    Route::get('my-attendance/{id}', 'api\ApiSmStaffAttendanceController@teacherMyAttendanceSearchAPI');
-    Route::get('school/{school_id}/my-attendance/{id}', 'api\ApiSmStaffAttendanceController@saas_teacherMyAttendanceSearchAPI');
-    Route::get('staff-leave-type', 'SmApiController@leaveTypeList');
-    Route::get('school/{school_id}/staff-leave-type', 'SmApiController@saas_leaveTypeList');
-    Route::any('staff-apply-leave', 'SmApiController@applyLeave');
-    Route::any('saas-staff-apply-leave', 'SmApiController@saas_applyLeave');
-    Route::get('staff-apply-list/{id}', 'SmApiController@staffLeaveList');
-    Route::get('school/{school_id}/staff-apply-list/{id}', 'SmApiController@saas_staffLeaveList');
+    Route::get('my-aramiscAttendance/{id}', 'api\ApiSmStaffAttendanceController@teacherMyAttendanceSearchAPI');
+    Route::get('school/{school_id}/my-aramiscAttendance/{id}', 'api\ApiSmStaffAttendanceController@saas_teacherMyAttendanceSearchAPI');
+    Route::get('staff-leave-type', 'SmApiController@aramiscLeaveTypeList');
+    Route::get('school/{school_id}/staff-leave-type', 'SmApiController@saas_aramiscLeaveTypeList');
+    Route::any('staff-apply-leave', 'SmApiController@aramiscApplyLeave');
+    Route::any('saas-staff-apply-leave', 'SmApiController@saas_aramiscApplyLeave');
+    Route::get('staff-apply-list/{id}', 'SmApiController@aramiscStaffLeaveList');
+    Route::get('school/{school_id}/staff-apply-list/{id}', 'SmApiController@saas_aramiscStaffLeaveList');
 
     // Route::get('upload-content-type', 'teacher\SmAcademicsController@contentType');
-    Route::any('teacher-upload-content', 'SmApiController@uploadContent');
-    Route::any('saas-teacher-upload-content', 'SmApiController@saas_uploadContent');
-    Route::get('content-list', 'api\ApiSmTeacherController@uploadContentList');
-    Route::get('content-list/{user_id}', 'api\ApiSmTeacherController@uploadContentListByUser');
+    Route::any('teacher-upload-content', 'SmApiController@aramiscUploadContent');
+    Route::any('saas-teacher-upload-content', 'SmApiController@saas_aramiscUploadContent');
+    Route::get('content-list', 'api\ApiSmTeacherController@aramiscUploadContentList');
+    Route::get('content-list/{user_id}', 'api\ApiSmTeacherController@aramiscUploadContentListByUser');
     Route::get('school/{school_id}/content-list', 'api\ApiSmTeacherController@saasUploadContentList');
     Route::get('school/{school_id}/admin-content-list', 'api\ApiSmTeacherController@saas_contentList');
     Route::get('delete-content/{id}', 'api\ApiSmTeacherController@deleteContent');
@@ -1069,11 +1069,11 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
 
     //for all staff/student
-    Route::get('pending-leave/{user_id}', 'api\ApiSmLeaveController@pendingLeave');
+    Route::get('pending-leave/{user_id}', 'api\ApiSmLeaveController@aramiscPendingLeave');
 
     //Super Admin Api
     Route::get('pending-leave', 'api\ApiSmLeaveController@allPendingList');
-    Route::get('school/{school_id}/pending-leave', 'SmApiController@saas_pendingLeave');
+    Route::get('school/{school_id}/pending-leave', 'SmApiController@saas_aramiscPendingLeave');
     Route::get('approved-leave', 'SmApiController@approvedLeave');
     Route::get('school/{school_id}/approved-leave', 'SmApiController@saas_approvedLeave');
     Route::get('reject-leave', 'api\ApiSmLeaveController@allRejectedList');
@@ -1106,7 +1106,7 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('myNotification/{user_id}', 'SmApiController@myNotification');
     Route::get('viewNotification/{user_id}/{notification_id}', 'SmApiController@viewNotification');
     Route::get('viewAllNotification/{user_id}', 'SmApiController@viewAllNotification');
-    Route::post('child-bank-slip-store', 'SmApiController@childBankSlipStore');
+    Route::post('child-bank-slip-store', 'SmApiController@aramiscFeesChildBankSlipStore');
     Route::get('banks', 'SmApiController@bankList');
 
     Route::get('room-type-list', 'SmApiController@roomTypeList');
@@ -1150,12 +1150,12 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     Route::get('school/{school_id}/user-demo', 'SmApiController@SaasDemoUser');
     Route::get('currency-converter', 'SmApiController@convertCurrency'); //api/currency-converter?amount=2&from_currency=USD&to_currency=BDT
-    Route::any('student-fees-payment', 'SmApiController@studentFeesPayment');
-    Route::any('school/{school_id}/student-fees-payment', 'SmApiController@saas_studentFeesPayment');
+    Route::any('student-fees-payment', 'SmApiController@aramiscStudentFeesPayment');
+    Route::any('school/{school_id}/student-fees-payment', 'SmApiController@saas_aramiscStudentFeesPayment');
 
     Route::get('banks/{school_id}', 'api\ApiSmSaasBankController@saas_bankList');
-    Route::post('saas-child-bank-slip-store', 'api\ApiSmSaasBankController@saas_childBankSlipStore');
-    Route::get('school/{school_id}/studentSyllabus/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@saas_studentSyllabusApi');
+    Route::post('saas-child-bank-slip-store', 'api\ApiSmSaasBankController@saas_aramiscFeesChildBankSlipStore');
+    Route::get('school/{school_id}/aramiscStudentSyllabus/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@saas_aramiscStudentSyllabusApi');
     Route::get('school/{school_id}/studentOtherDownloads/{user_id}/{record_id}', 'api\ApiSmStudyMaterialController@saas_studentOtherDownloadsApi');
     Route::get('school/{school_id}/room-list', 'api\ApiSmSaasBankController@saas_roomList');
     Route::any('saas-book-category', 'api\ApiSmSaasBankController@saas_bookCategory');
@@ -1166,12 +1166,12 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     //class routine
     Route::get('student-class-routine/{user_id}/{record_id}', 'api\ApiSmClassRoutineController@studentClassRoutine');
-    Route::get('school/{school_id}/student-class-routine/{user_id}/{record_id}', 'api\ApiSmClassRoutineController@sassclassRoutine');
-    Route::post('student-attendance-store-all', 'api\ApiSmStudentAttendanceController@studentStoreAttendanceAllApi');
+    Route::get('school/{school_id}/student-class-routine/{user_id}/{record_id}', 'api\ApiSmClassRoutineController@sassaramiscClassRoutine');
+    Route::post('student-aramiscAttendance-store-all', 'api\ApiSmStudentAttendanceController@studentStoreAttendanceAllApi');
 
     //22/04/22
     //Attendance store all
-    Route::post('student-attendance-store-all', 'api\ApiSmStudentAttendanceController@studentStoreAttendanceAllApi');
+    Route::post('student-aramiscAttendance-store-all', 'api\ApiSmStudentAttendanceController@studentStoreAttendanceAllApi');
 
 
     Route::get('student-fees-installments/{record_id}', 'api\DirectFeesApiController@getInstallments');
@@ -1182,13 +1182,13 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
 
     Route::post('class-section-subjectList', 'api\ApiSmStudentAttendanceController@subjectList');
-    Route::post('student-subject-attendance-store', 'api\ApiSmStudentAttendanceController@studentSubjectAttendanceStore');
-    Route::get('student-subject-attendance/{record_id}', 'api\ApiSmStudentAttendanceController@studentSubjectAttendanceSearch');
-    Route::get('student-subject-attendance-check', 'api\ApiSmStudentAttendanceController@studentSubjectAttendanceCheck');
+    Route::post('student-subject-aramiscAttendance-store', 'api\ApiSmStudentAttendanceController@aramiscStudentSubjectAttendanceStore');
+    Route::get('student-subject-aramiscAttendance/{record_id}', 'api\ApiSmStudentAttendanceController@aramiscStudentSubjectAttendanceSearch');
+    Route::get('student-subject-aramiscAttendance-check', 'api\ApiSmStudentAttendanceController@aramiscStudentSubjectAttendanceCheck');
 
-    Route::get('student-subject-attendance/{user_id}/{record_id}', 'api\ApiSmStudentAttendanceController@studentSubjectAttendanceSearch');
+    Route::get('student-subject-aramiscAttendance/{user_id}/{record_id}', 'api\ApiSmStudentAttendanceController@aramiscStudentSubjectAttendanceSearch');
 
-    Route::get('student-my-subject-attendance/{id}/{record_id}', 'api\ApiSmStudentAttendanceController@studentMySubjectAttendanceSearchAPI');
+    Route::get('student-my-subject-aramiscAttendance/{id}/{record_id}', 'api\ApiSmStudentAttendanceController@studentMySubjectAttendanceSearchAPI');
 });
 
 Route::get('apk-secret', function () {

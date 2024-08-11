@@ -32,8 +32,8 @@ class StudentAttendanceImport implements ToModel, WithStartRow, WithHeadingRow
         if ($student != "") {
             $record = StudentRecord::where('student_id',$student->id )->where('class_id',$this->class)->where('section_id',$this->section)->first();
             return new StudentAttendanceBulk([
-            "attendance_date" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['attendance_date'])->format('Y-m-d'),
-            "attendance_type" => $row['attendance_type'],
+            "aramiscAttendance_date" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['aramiscAttendance_date'])->format('Y-m-d'),
+            "aramiscAttendance_type" => $row['aramiscAttendance_type'],
             "note" => $row['note'],
             "student_id" => $student->id,
             "class_id" => $this->class,
