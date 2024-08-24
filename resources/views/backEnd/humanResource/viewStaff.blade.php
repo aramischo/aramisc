@@ -189,7 +189,7 @@
                     <div class="white-box">
                         <ul class="nav nav-tabs tabs_scroll_nav" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link @if (Session::get('staffDocuments') != 'active' && Session::get('staffTimeline') != 'active') active @endif" href="#aramiscStudentProfile"
+                                <a class="nav-link @if (Session::get('staffDocuments') != 'active' && Session::get('staffTimeline') != 'active') active @endif" href="#studentProfile"
                                     role="tab" data-toggle="tab">@lang('hr.profile')</a>
                             </li>
                             <li class="nav-item">
@@ -218,7 +218,7 @@
                         <div class="tab-content mt-10">
                             <!-- Start Profile Tab -->
                             <div role="tabpanel" class="tab-pane fade @if (Session::get('staffDocuments') != 'active' && Session::get('staffTimeline') != 'active') show active @endif"
-                                id="aramiscStudentProfile">
+                                id="studentProfile">
                                 <div>
                                     <h4 class="stu-sub-head">@lang('hr.personal_info')</h4>
                                     <div class="single-info">

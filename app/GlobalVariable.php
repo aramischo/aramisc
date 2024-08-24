@@ -3,7 +3,7 @@ namespace App;
 use App\SmRolePermission;
 
 use Illuminate\Support\Facades\Auth;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 class GlobalVariable{
 
 	public $Names = array('Aaron', 'Abbey', 'Abbie', 'Abby', 'Abdul', 'Abe', 'Abel', 'Abigail', 'Abraham', 'Abram', 'Ada', 'Adah', 'Adalberto', 'Adaline', 'Adam','Adam', 'Adan', 'Addie', 'Adela', 'Adelaida', 'Adelaide', 'Adele', 'Adelia', 'Adelina', 'Adeline', 'Adell', 'Adella', 'Adelle', 'Adena', 'Adina' );
@@ -12,7 +12,7 @@ class GlobalVariable{
         try {
             $module_links = [];
             
-            $permissions = AramiscPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->get();
+            $permissions = InfixPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->get();
 
             foreach ($permissions as $permission) {
                 $module_links[] = $permission->module_id;
@@ -30,7 +30,7 @@ class GlobalVariable{
             
             $module_links = [];
             
-            $permissions = AramiscPermissionAssign::where('role_id', Auth::user()->role_id)->get();
+            $permissions = InfixPermissionAssign::where('role_id', Auth::user()->role_id)->get();
             
             foreach ($permissions as $permission) {
                 $module_links[] = $permission->module_id;

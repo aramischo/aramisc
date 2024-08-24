@@ -172,7 +172,7 @@ $ttl_rtl = $setting->ttl_rtl;
                             <div class="in_login_page_header">
                                 <h5>{{__('Registration')}} @lang('common.details')</h5>
                             </div>
-                            <form method="POST" class="loginForm" action="{{route('customer_register')}}" id="aramisc_form">
+                            <form method="POST" class="loginForm" action="{{route('customer_register')}}" id="infix_form">
                                 @csrf
 
                                 <input type="hidden" name="school_id" value="1">
@@ -201,7 +201,7 @@ $ttl_rtl = $setting->ttl_rtl;
                             <div class="col-12">
                             {{-- @if (moduleStatusCheck('Saas') == TRUE) --}}
                                     <div class="primary_input mb-40 in_single_input">
-                                        <select class="mb-26 niceSelect aramisc_theme_style w-100 bb form-control{{ $errors->has('school_id') ? ' is-invalid' : '' }}" name="school_id" id="select-school">
+                                        <select class="mb-26 niceSelect infix_theme_style w-100 bb form-control{{ $errors->has('school_id') ? ' is-invalid' : '' }}" name="school_id" id="select-school">
                                             <option data-display="Select School *" value="">Select school *</option>
                                             @foreach($schools as $school)
                                                 <option value="{{$school->id}}"> {{$school->school_name}} </option>
@@ -327,7 +327,7 @@ $ttl_rtl = $setting->ttl_rtl;
 		{
 		$(this).html('Please wait ...')
 			.attr('disabled','disabled');
-		$('#aramisc_form').submit();
+		$('#infix_form').submit();
 		});
 
 	 });

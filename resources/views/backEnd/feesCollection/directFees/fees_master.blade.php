@@ -125,7 +125,7 @@
                                 <input type="hidden" name="id" value="{{isset($fees_master)? $fees_master->id: ''}}">
                                 <input type="hidden" name="fees_group_id" value="{{isset($fees_master)? $fees_master->fees_group_id: ''}}">
                                 <input type="hidden" name="fees_type" value="{{isset($fees_master)? $fees_master->fees_type_id: ''}}">
-                                @if(! aramiscDirectFees())
+                                @if(! directFees())
                                     <div class="primary_datepicker_input">
                                         <div class="row no-gutters input-right-icon mt-25">
                                             <div class="col">

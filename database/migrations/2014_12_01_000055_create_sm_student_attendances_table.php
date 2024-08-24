@@ -15,11 +15,11 @@ class CreateSmStudentAttendancesTable extends Migration
     {
 
 
-        Schema::create('sm_student_aramiscAttendances', function (Blueprint $table) {
+        Schema::create('sm_student_attendances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('aramiscAttendance_type', 10)->nullable()->comment('Present: P Late: L Absent: A Holiday: H Half Day: F');
+            $table->string('attendance_type', 10)->nullable()->comment('Present: P Late: L Absent: A Holiday: H Half Day: F');
             $table->string('notes', 500)->nullable();
-            $table->date('aramiscAttendance_date')->nullable();
+            $table->date('attendance_date')->nullable();
             $table->timestamps();
 
             $table->integer('student_id')->nullable()->unsigned();
@@ -57,6 +57,6 @@ class CreateSmStudentAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sm_student_aramiscAttendances');
+        Schema::dropIfExists('sm_student_attendances');
     }
 }

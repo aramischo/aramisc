@@ -28,8 +28,18 @@ class SmMarkGradeRequest extends FormRequest
         
         if(generalSetting()->result_type != 'mark'){
             return [
-                'grade_name' => ['required', 'max:50' , Rule::unique('sm_marks_grades')->where('school_id', $school_id)->ignore($this->id) ],
-                'gpa' => ['required', Rule::unique('sm_marks_grades')->where('school_id', $school_id)->ignore($this->id) ],
+                'grade_name' => ['required', 'max:50', 
+                    Rule::unique('sm_marks_grades')->where(function ($query) use ($school_id) {
+                        $query->where('school_id', $school_id)
+                            ->where('academic_id', getAcademicId());
+                    })->ignore($this->id)
+                ],
+                'gpa' => ['required', 
+                    Rule::unique('sm_marks_grades')->where(function ($query) use ($school_id) {
+                        $query->where('school_id', $school_id)
+                              ->where('academic_id', getAcademicId());
+                    })->ignore($this->id)
+                ],
                 'percent_from' => "required|min:0",
                 'percent_upto' => "required|gt:percent_from|max:100",
                 'grade_from' => "required|min:0",
@@ -38,7 +48,12 @@ class SmMarkGradeRequest extends FormRequest
             ];
         }else{
             return [
-                'grade_name' => ['required', 'max:50' , Rule::unique('sm_marks_grades')->where('school_id', $school_id)->ignore($this->id) ],
+                'grade_name' => ['required', 'max:50', 
+                    Rule::unique('sm_marks_grades')->where(function ($query) use ($school_id) {
+                        $query->where('school_id', $school_id)
+                            ->where('academic_id', getAcademicId());
+                    })->ignore($this->id)
+                ],
                 'percent_from' => "required|min:0",
                 'percent_upto' => "required|gt:percent_from|max:100",
                 'description'=>'required'

@@ -74,7 +74,7 @@
                                         <td>{{$value->roles->name}}</td>
                                         @if($value->role_id == 2)
                                         @php
-                                        $getBuyerDetails = $value->aramiscStudentDetails;
+                                        $getBuyerDetails = $value->studentDetails;
                                         @endphp
     
     

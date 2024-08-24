@@ -146,7 +146,7 @@
 					</table>
 					<table width="80%" align="center" >
 						<tr>
-							<td colspan="3" class="tdBody">{{ isset($student->id) ? App\SmStudentCertificate::certificateBody($certificate->body, 2,$student->id) : '' }}</td>
+							<td colspan="3" class="tdBody">{{ isset($student->id) ? App\AramiscStudentCertificate::certificateBody($certificate->body, 2,$student->id) : '' }}</td>
 						</tr>
 					</table>
 					<table width="80%" align="center" class="postion_footer_certificate">

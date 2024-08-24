@@ -8,16 +8,16 @@ use App\SmAddIncome;
 use Omnipay\Omnipay;
 use PayPal\Api\Item;
 use PayPal\Api\Payer;
-use App\SmFeesPayment;
+use App\AramiscFeesPayment;
 use PayPal\Api\Amount;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
 use Illuminate\Http\Request;
 use PayPal\Api\RedirectUrls;
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -46,7 +46,7 @@ class PaypalPayment{
 
     public function __construct()
     {
-        $paypalDetails = SmPaymentGatewaySetting::where('school_id',auth()->user()->school_id)
+        $paypalDetails = AramiscPaymentGatewaySetting::where('school_id',auth()->user()->school_id)
                         ->select('gateway_username', 'gateway_password', 'gateway_signature', 'gateway_client_id', 'gateway_secret_key', 'gateway_mode')
                         ->where('gateway_name', '=', 'PayPal')
                         ->first();
@@ -143,7 +143,7 @@ class PaypalPayment{
     public function successCallback()
     {
         $request = App::make(Request::class);
-        $payment_method = SmPaymentMethhod::where('method',"PayPal")->first();
+        $payment_method = AramiscPaymentMethhod::where('method',"PayPal")->first();
       try {
             $payment_id = Session::get('paypal_payment_id');
             Session::forget('paypal_payment_id');
@@ -218,7 +218,7 @@ class PaypalPayment{
                     $sub_payment->balance_amount = ( $payable_amount - ($all_sub_payment + $sub_payment->amount) ); 
                     $result = $sub_payment->save();
                     if($result && $installment){
-                        $fees_payment = new SmFeesPayment();
+                        $fees_payment = new AramiscFeesPayment();
                         $fees_payment->student_id = $installment->student_id;
                         $fees_payment->amount = $sub_payment->amount;
                         $fees_payment->payment_date = date('Y-m-d', strtotime($sub_payment->payment_date));
@@ -280,7 +280,7 @@ class PaypalPayment{
                                 $paid_amount  = $installment_due;
                             }
    
-                           $fees_payment = new SmFeesPayment();
+                           $fees_payment = new AramiscFeesPayment();
                            $fees_payment->student_id = $installment->student_id;
                            $fees_payment->fees_discount_id = !empty($request->fees_discount_id) ? $request->fees_discount_id : "";
                            $fees_payment->discount_amount = !empty($request->applied_amount) ? $request->applied_amount : 0;
@@ -294,7 +294,7 @@ class PaypalPayment{
                            $fees_payment->direct_fees_installment_assign_id = $installment->id;
                        
                             $payment_mode_name= "PayPal";
-                            $payment_method= SmPaymentMethhod::where('method',$payment_mode_name)->first();
+                            $payment_method= AramiscPaymentMethhod::where('method',$payment_mode_name)->first();
                             $installment = DirectFeesInstallmentAssign::find($installment->id);
                             $installment->payment_date =  $newformat;
                             $installment->payment_mode =  "PayPal";
@@ -357,7 +357,7 @@ class PaypalPayment{
                     }
                 } 
                 elseif((Session::get('payment_type') ==  "old_fees" ) && Session::get('fees_payment_id')){
-                    $fees_payment = SmFeesPayment::find(Session::get('fees_payment_id'));
+                    $fees_payment = AramiscFeesPayment::find(Session::get('fees_payment_id'));
                     $fees_payment->active_status = 1;
                     $fees_payment->save();
                     $income_head= generalSetting();

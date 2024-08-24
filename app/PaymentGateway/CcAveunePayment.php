@@ -2,13 +2,13 @@
 namespace App\PaymentGateway;
 
 use App\User;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmAddIncome;
-use App\SmFeesAssign;
-use App\SmFeesPayment;
+use App\AramiscFeesAssign;
+use App\AramiscFeesPayment;
 use App\Models\StudentRecord;
 use App\Traits\CcAveuneTrait;
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +25,7 @@ class CcAveunePayment{
     public function handle($data)
     {
         try{
-            $cc_aveune = SmPaymentGatewaySetting::where('gateway_name', '=', 'CcAveune')
+            $cc_aveune = AramiscPaymentGatewaySetting::where('gateway_name', '=', 'CcAveune')
                                 ->where('school_id',auth()->user()->school_id)
                                 ->select('cca_working_key', 'cca_merchant_id','cca_access_code')
                                 ->first();
@@ -57,7 +57,7 @@ class CcAveunePayment{
     public function successCallback($paymentResponse)
     {
       try {
-            $cc_aveune = SmPaymentGatewaySetting::where('gateway_name', '=', 'CcAveune')
+            $cc_aveune = AramiscPaymentGatewaySetting::where('gateway_name', '=', 'CcAveune')
                                 ->where('school_id',auth()->user()->school_id)
                                 ->select('cca_working_key', 'cca_merchant_id','cca_access_code')
                                 ->first();
@@ -79,7 +79,7 @@ class CcAveunePayment{
                    $order = $information['order_id'];
                    $get_array = explode("_",$order);
                    $payment_id = $get_array[1];
-                   $fees_payment = SmFeesPayment::find($payment_id);
+                   $fees_payment = AramiscFeesPayment::find($payment_id);
                    $payment_type = $get_array[0];
 
                 if( $payment_type = "direct_fees_total"){
@@ -116,7 +116,7 @@ class CcAveunePayment{
                                 $paid_amount  = $installment_due;
                             }
    
-                            $fees_payment = new SmFeesPayment();
+                            $fees_payment = new AramiscFeesPayment();
                             $fees_payment->student_id = $installment->student_id;
                             $fees_payment->amount = $paid_amount;
                             $fees_payment->payment_date = date('Y-m-d');
@@ -128,7 +128,7 @@ class CcAveunePayment{
                             $fees_payment->direct_fees_installment_assign_id = $installment->id;
                         
                             $payment_mode_name= "CcAveune";
-                            $payment_method= SmPaymentMethhod::where('method',$payment_mode_name)->first();
+                            $payment_method= AramiscPaymentMethhod::where('method',$payment_mode_name)->first();
                             $installment = DirectFeesInstallmentAssign::find($installment->id);
                             $installment->payment_date =  $newformat;
                             $installment->payment_mode =  "CcAveune";
@@ -204,7 +204,7 @@ class CcAveunePayment{
                     $result = $sub_payment->save();
 
                     if($result && $installment){
-                        $fees_payment = new SmFeesPayment();
+                        $fees_payment = new AramiscFeesPayment();
                         $fees_payment->student_id = $installment->student_id;
                         $fees_payment->amount = $sub_payment->amount;
                         $fees_payment->payment_date = date('Y-m-d', strtotime($sub_payment->payment_date));
@@ -237,7 +237,7 @@ class CcAveunePayment{
                     }
                     if($result){
                             if($payment_type =="oldFees"){
-                                $fees_assign = SmFeesAssign::find($fees_payment->assign_id)->first();
+                                $fees_assign = AramiscFeesAssign::find($fees_payment->assign_id)->first();
                                 $fees_assign->fees_amount -= floatval($fees_payment->amount);
                                 $fees_assign->save();
                             }

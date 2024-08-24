@@ -1323,7 +1323,7 @@ th:focus {
   padding: 52px 0 0 !important;
 }
 
-.nice-select.aramisc_theme_style .list {
+.nice-select.infix_theme_style .list {
   padding-top: 52px !important;
 }
 
@@ -4375,10 +4375,10 @@ table.dataTable thead .sorting_desc::after {
   top: -14px;
 }
 
-#color_option,
+/* #color_option,
 #MSG91_Settings {
   display: none;
-}
+} */
 
 .sample-selector .form-control {
   border-right: 0 !important;

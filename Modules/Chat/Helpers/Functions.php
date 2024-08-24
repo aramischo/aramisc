@@ -23,6 +23,7 @@ if (!function_exists('createGroupPermission')) {
     {
         $role_id = auth()->user()->role_id;
         if ($role_id == 1) return true;
+        if ($role_id == 5) return true;
         if ($role_id == 3) return false;
 
         if ($role_id == 2){

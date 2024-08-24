@@ -115,38 +115,35 @@
         </div>
 
         @php
-            if(isset($v_custom_field)){
-                $v_name_values= json_decode($v_custom_field->name_value);
+            $v_name_values = [];
+            if (isset($v_custom_field) && !empty($v_custom_field->name_value)) {
+                $v_name_values = json_decode($v_custom_field->name_value);
             }
         @endphp
-        <input type="hidden" value="@lang('student.value')" id="rowLang" >
-        @if (isset($v_custom_field))
-            @if ($v_custom_field->type == "checkboxInput" || $v_custom_field->type == "radioInput" || $v_custom_field->type == "dropdownInput")
-                @foreach ($v_name_values as $v_name_value)
-                    <div class="row mt-30 static d-none">
-                        <div class="col-lg-6">
-                            <div class="primary_input">
-                                <label>{{isset($v_custom_field) ? trans('student.value').' '.$v_name_value : trans('student.value')}}<span class="text-danger"> *</span></label>
-                                <input class="primary_input_field form-control{{ $errors->has('value') ? ' is-invalid' : '' }}" type="text" name="name_value[]" autocomplete="off"
-                                value='{{isset($v_custom_field)? $v_name_value:''}}'>
-                            
-                                
-                            </div>
-                            @if ($errors->has('value'))
-                                <span class="text-danger" >
-                                {{ $errors->first('value') }}
-                                </span>
-                            @endif
+        
+        <input type="hidden" value="@lang('student.value')" id="rowLang">
+        
+        @if (isset($v_custom_field) && in_array($v_custom_field->type, ["checkboxInput", "radioInput", "dropdownInput"]) && is_array($v_name_values))
+            @foreach ($v_name_values as $v_name_value)
+                <div class="row mt-30 static">
+                    <div class="col-lg-6">
+                        <div class="primary_input">
+                            <label>{{ isset($v_custom_field) ? trans('student.value').' '.$v_name_value : trans('student.value') }}<span class="text-danger"> *</span></label>
+                            <input class="primary_input_field form-control{{ $errors->has('value') ? ' is-invalid' : '' }}" type="text" name="name_value[]" autocomplete="off" value="{{ isset($v_custom_field) ? $v_name_value : '' }}">
                         </div>
-                        <div class="col-lg-4">
-                            <button class="primary-btn icon-only fix-gr-bg mt-35" type="button" id="deleteCustRow" {{isset($v_custom_field)? '':'disabled'}} >
-                                <span class="ti-trash"></span>
-                            </button>
-                        </div>
+                        @if ($errors->has('value'))
+                            <span class="text-danger">{{ $errors->first('value') }}</span>
+                        @endif
                     </div>
-                @endforeach
-            @endif
+                    <div class="col-lg-4">
+                        <button class="primary-btn icon-only fix-gr-bg mt-35" type="button" id="deleteCustRow" {{ isset($v_custom_field) ? '' : 'disabled' }}>
+                            <span class="ti-trash"></span>
+                        </button>
+                    </div>
+                </div>
+            @endforeach
         @endif
+    
         <div id="addCustRow"></div>
     </div>
     <div class="col-xl-4 mt-30 widthDropdown d-none">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmNewsPage;
+use App\AramiscNewsPage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -19,10 +19,10 @@ class NewsHeadingController extends Controller
     {
 
         try {
-            $SmNewsPage = SmNewsPage::where('school_id', app('school')->id)->first();
+            $AramiscNewsPage = AramiscNewsPage::where('school_id', app('school')->id)->first();
             $update = "";
 
-            return view('backEnd.frontSettings.news.newsHeadingUpdate', compact('SmNewsPage', 'update'));
+            return view('backEnd.frontSettings.news.newsHeadingUpdate', compact('AramiscNewsPage', 'update'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -33,13 +33,13 @@ class NewsHeadingController extends Controller
     {
         try {
             $path = 'public/uploads/about_page/';
-            $newsHeading = SmNewsPage::where('school_id', app('school')->id)->first();
+            $newsHeading = AramiscNewsPage::where('school_id', app('school')->id)->first();
 
             if ($newsHeading) {
                 $newsHeading->image  = fileUpdate($newsHeading->image,$request->image,$path);
                 $newsHeading->main_image  = fileUpdate($newsHeading->main_image,$request->main_image,$path);
             }else{
-                $newsHeading = new SmNewsPage();
+                $newsHeading = new AramiscNewsPage();
                 $newsHeading->image  = fileUpload($request->image,$path);
                 $newsHeading->main_image  = fileUpload($request->main_image,$path);
                 $newsHeading->school_id = app('school')->id; 

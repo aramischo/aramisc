@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\InfixModuleInfo;
 use Modules\RolePermission\Entities\Permission;
 
 class CreatePermissionSectionsTable extends Migration

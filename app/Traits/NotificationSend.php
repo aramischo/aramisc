@@ -8,13 +8,13 @@ use App\SmSmsGateway;
 use App\Jobs\EmailJob;
 use GuzzleHttp\Client;
 use App\SmEmailSetting;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\Models\StudentRecord;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
-use App\Models\SmNotificationSetting;
+use App\Models\AramiscNotificationSetting;
 use AfricasTalking\SDK\AfricasTalking;
 use App\Notifications\AppNotification;
 use Illuminate\Support\Facades\Config;
@@ -27,7 +27,7 @@ trait NotificationSend
     public function sent_notifications($event, $user_ids, $data, $role_names)
     {
         try {
-            $notificationData = SmNotificationSetting::where('event', $event)
+            $notificationData = AramiscNotificationSetting::where('event', $event)
                 ->where('school_id', auth()->user()->school_id)
                 ->first();
 
@@ -157,7 +157,7 @@ trait NotificationSend
         $subject = $notificationData->subject[$role];
         $templete = $notificationData->template[$role]['Email'];
 
-        $body = SmNotificationSetting::templeteData($templete, $data);
+        $body = AramiscNotificationSetting::templeteData($templete, $data);
         $view = view('backEnd.email.emailBody', compact('body'));
 
         try {
@@ -308,9 +308,9 @@ trait NotificationSend
         }
 
         $templete = $notificationData->template[$role]['Web'];
-        $body = SmNotificationSetting::templeteData($templete, $data);
+        $body = AramiscNotificationSetting::templeteData($templete, $data);
 
-        $notification = new SmNotification;
+        $notification = new AramiscNotification;
         $notification->user_id = gv($data, 'user_id');
         $notification->role_id = gv($data, 'role_id');
         $notification->message = $body;
@@ -333,7 +333,7 @@ trait NotificationSend
 
         try {
             $templete = $notificationData->template[$role]['App'];                  
-            $data['message'] = SmNotificationSetting::templeteData($templete, $data);
+            $data['message'] = AramiscNotificationSetting::templeteData($templete, $data);
             $user = User::find(gv($data, 'user_id'));
             if($user){
                 Notification::send($user, new AppNotification($data));

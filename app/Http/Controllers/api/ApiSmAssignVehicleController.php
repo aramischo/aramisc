@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
-use App\SmRoute;
+use App\AramiscRoute;
 use App\SmVehicle;
 use App\ApiBaseMethod;
 use App\SmAssignVehicle;
@@ -27,7 +27,7 @@ class ApiSmAssignVehicleController extends Controller
     {
 
         try {
-            $routes = SmRoute::where('active_status', 1)->get(['id','title']);
+            $routes = AramiscRoute::where('active_status', 1)->get(['id','title']);
             $vehicles = SmVehicle::select('id', 'vehicle_no')->where('active_status', 1)->get();
             $assign_vehicles = SmAssignVehicle::join('sm_routes','sm_routes.id','=','sm_assign_vehicles.route_id')
             ->join('sm_vehicles','sm_vehicles.id','=','sm_assign_vehicles.vehicle_id')->where('sm_assign_vehicles.active_status', 1)
@@ -133,7 +133,7 @@ class ApiSmAssignVehicleController extends Controller
 
 
         try {
-            $routes = SmRoute::where('active_status', 1)->get();
+            $routes = AramiscRoute::where('active_status', 1)->get();
             $assign_vehicles = SmAssignVehicle::where('active_status', 1)->get();
             $assign_vehicle = SmAssignVehicle::find($id);
             $vehiclesIds = explode(',', $assign_vehicle->vehicle_id);

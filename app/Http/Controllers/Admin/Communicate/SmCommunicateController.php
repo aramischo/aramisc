@@ -11,7 +11,7 @@ use App\User;
 use App\SmClass;
 use App\SmStaff;
 use App\SmParent;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\YearCheck;
 use Carbon\Carbon;
 use Clickatell\Rest;
@@ -21,7 +21,7 @@ use App\GlobalVariable;
 use App\SmEmailSmsLog;
 use App\SmNoticeBoard;
 use App\SmEmailSetting;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\Jobs\SendEmailJob;
 use App\SmGeneralSettings;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\CommunicateNotification;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use App\Http\Requests\Admin\Communicate\SendEmailSmsRequest;
 use App\Models\StudentRecord;
 use Modules\Alumni\Entities\Alumni;
@@ -45,7 +45,7 @@ class SmCommunicateController extends Controller
     public function sendEmailSmsView(Request $request)
     {
         try {
-            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();
@@ -84,7 +84,7 @@ class SmCommunicateController extends Controller
 
                             foreach ($request->role as $role_id) {
                                 if ($role_id == 2) {
-                                    $receiverDetails = SmStudent::select('email', 'full_name', 'mobile')
+                                    $receiverDetails = AramiscStudent::select('email', 'full_name', 'mobile')
                                         ->where('active_status', 1)
                                         ->where('academic_id', getAcademicId())
                                         ->get();
@@ -140,7 +140,7 @@ class SmCommunicateController extends Controller
                             $receiver_numbers = [];
                             foreach ($request->role as $role_id) {
                                 if ($role_id == 2) {
-                                    $receiverDetails = SmStudent::select('email', 'full_name', 'mobile')
+                                    $receiverDetails = AramiscStudent::select('email', 'full_name', 'mobile')
                                         ->where('active_status', 1)
                                         ->where('academic_id', getAcademicId())
                                         ->where('school_id', Auth::user()->school_id)
@@ -287,7 +287,7 @@ class SmCommunicateController extends Controller
                                         ->where('school_id', auth()->user()->school_id)
                                         ->pluck('student_id')->unique();
                                     if ($message == 2) {
-                                        $students = SmStudent::select('email', 'full_name', 'mobile')
+                                        $students = AramiscStudent::select('email', 'full_name', 'mobile')
                                             ->whereIn('id', $student_ids)
                                             ->where('active_status', 1)
                                             ->get();
@@ -299,7 +299,7 @@ class SmCommunicateController extends Controller
                                         $to_email = array_filter($to_email);
                                     }
                                     if ($message == 3) {
-                                        $parents = SmStudent::with(['parents' => function ($q) {
+                                        $parents = AramiscStudent::with(['parents' => function ($q) {
                                             $q->select('id', 'guardians_email', 'guardians_name', 'guardians_mobile');
                                         }])
                                             ->whereIn('id', $student_ids)
@@ -340,7 +340,7 @@ class SmCommunicateController extends Controller
                                         ->where('school_id', auth()->user()->school_id)
                                         ->pluck('student_id')->unique();
                                     if ($message == 2) {
-                                        $students = SmStudent::select('email', 'full_name', 'mobile')
+                                        $students = AramiscStudent::select('email', 'full_name', 'mobile')
                                             ->whereIn('id', $student_ids)
                                             ->where('active_status', 1)
                                             ->get();
@@ -358,7 +358,7 @@ class SmCommunicateController extends Controller
                                         }
                                     }
                                     if ($message == 3) {
-                                        $parents = SmStudent::with(['parents' => function ($q) {
+                                        $parents = AramiscStudent::with(['parents' => function ($q) {
                                             $q->select('id', 'guardians_email', 'guardians_name', 'guardians_mobile');
                                         }])
                                             ->whereIn('id', $student_ids)
@@ -405,12 +405,12 @@ class SmCommunicateController extends Controller
     {
         try {
             if ($request->id == 2) {
-                $allStudents = SmStudent::where('active_status', '=', 1)
+                $allStudents = AramiscStudent::where('active_status', '=', 1)
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
                 $students = [];
                 foreach ($allStudents as $allStudent) {
-                    $students[] = SmStudent::find($allStudent->id);
+                    $students[] = AramiscStudent::find($allStudent->id);
                 }
                 return response()->json([$students]);
             }

@@ -514,29 +514,29 @@ class CreateSmNotificationSettingsTable extends Migration
                 'template' => [
                     "Student" => [
                         "Email" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                         "SMS" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                         "Web" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                         "App" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                     ],
                     "Parent"=> [
                         "Email" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                         "SMS" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                         "Web" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                         "App" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Class: [class], Section: [section]. For any query, please contact with admin." ,
                     ],
                 ],
 
                 'shortcode' => [
-                    "Student" => "[student_name], [class], [section], [aramiscAttendance_type]",
-                    "Parent" => "[parent_name], [student_name], [class], [section], [aramiscAttendance_type]"
+                    "Student" => "[student_name], [class], [section], [attendance_type]",
+                    "Parent" => "[parent_name], [student_name], [class], [section], [attendance_type]"
                 ]
             ],
             [
@@ -688,29 +688,29 @@ class CreateSmNotificationSettingsTable extends Migration
                 'template' => [
                     "Student" => [
                         "Email" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                         "SMS" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                         "Web" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                         "App" => "Dear [student_name],
-                        Your aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                     ],
                     "Parent"=> [
                         "Email" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                         "SMS" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                         "Web" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                         "App" => "Dear [parent_name],
-                        Your child's aramiscAttendance was listed [aramiscAttendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
+                        Your child's attendance was listed [attendance_type] today for Subject: [subject]. For any query, please contact with admin." ,
                     ]
                 ],
 
                 'shortcode' => [
-                    "Student" => "[student_name], [subject], [aramiscAttendance_type]",
-                    "Parent" => "[parent_name], [student_name], [subject], [aramiscAttendance_type]",
+                    "Student" => "[student_name], [subject], [attendance_type]",
+                    "Parent" => "[parent_name], [student_name], [subject], [attendance_type]",
                 ]
             ],
             [
@@ -1190,23 +1190,23 @@ class CreateSmNotificationSettingsTable extends Migration
                 'template' => [
                     "Student" => [
                         "Email" => "Dear [student_name],
-                        Your exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                         "SMS" => "Dear [student_name],
-                        Your exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                         "Web" => "Dear [student_name],
-                        Your exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                         "App" => "Dear [student_name],
-                        Your exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                     ],
                     "Parent"=> [
                         "Email" => "Dear [parent_name],
-                        Your child [student_name]'s exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your child [student_name]'s exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                         "SMS" => "Dear [parent_name],
-                        Your child [student_name]'s exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your child [student_name]'s exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                         "Web" => "Dear [parent_name],
-                        Your child [student_name]'s exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your child [student_name]'s exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                         "App" => "Dear [parent_name],
-                        Your child [student_name]'s exam aramiscAttendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
+                        Your child [student_name]'s exam attendance for Subject: [subject] has been generated. For any query, please contact with admin." ,
                     ],
                 ],
 

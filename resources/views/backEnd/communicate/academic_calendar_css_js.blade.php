@@ -95,7 +95,7 @@
                         $('#SMdate').html(formatDate(event.event.start));
 
                         $('.commonModalContent').addClass('d-none');
-                        $('.aramiscStudyMaterialModal').removeClass('d-none');
+                        $('.studyMaterialModal').removeClass('d-none');
                     } else if (event.event.extendedProps.type == 'event') {
                         $('#Etitle').html(event.event.extendedProps.content_title);
                         $('#Edescription').html(event.event.extendedProps.description);

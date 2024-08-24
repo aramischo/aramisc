@@ -6,7 +6,7 @@ use Modules\MenuManage\Entities\Sidebar;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\InfixModuleInfo;
 
 class CreateSidebarsTable extends Migration
 {

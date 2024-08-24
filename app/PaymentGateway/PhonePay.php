@@ -3,11 +3,11 @@ namespace App\PaymentGateway;
 
 use App\User;
 use App\SmAddIncome;
-use App\SmFeesPayment;
-use App\SmPaymentMethhod;
+use App\AramiscFeesPayment;
+use App\AramiscPaymentMethhod;
 use App\Models\StudentRecord;
 use Ixudra\Curl\Facades\Curl;
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
@@ -29,7 +29,7 @@ class PhonePay {
 
     function __construct()
     {
-        $this->phonePe = SmPaymentGatewaySetting::where('gateway_name','PhonePe')->where('school_id', app('school')->id)->first(['phone_pay_merchant_id','phone_pay_salt_key','phone_pay_salt_index','gateway_mode']);
+        $this->phonePe = AramiscPaymentGatewaySetting::where('gateway_name','PhonePe')->where('school_id', app('school')->id)->first(['phone_pay_merchant_id','phone_pay_salt_key','phone_pay_salt_index','gateway_mode']);
         if($this->phonePe->gateway_mode =="live"){
             $this->submit_url = 'https://api.phonepe.com/apis/hermes/pg/v1/pay';
             $this->check_url= 'https://api.phonepe.com/apis/hermes/pg/v1/status/';
@@ -147,7 +147,7 @@ class PhonePay {
                    
             $output = json_decode($response);
            
-            $payment_method = SmPaymentMethhod::where('method',"PhonePe")->where('school_id', app('school')->id)->first();
+            $payment_method = AramiscPaymentMethhod::where('method',"PhonePe")->where('school_id', app('school')->id)->first();
 
             if($output && $output->code == 'PAYMENT_SUCCESS'){
                 $trx = $output->data->merchantTransactionId;
@@ -225,7 +225,7 @@ class PhonePay {
                                 $paid_amount  = $installment_due;
                             }
     
-                           $fees_payment = new SmFeesPayment();
+                           $fees_payment = new AramiscFeesPayment();
                            $fees_payment->student_id = $installment->student_id;
                            $fees_payment->fees_discount_id = null;
                            $fees_payment->discount_amount = 0;
@@ -239,7 +239,7 @@ class PhonePay {
                            $fees_payment->direct_fees_installment_assign_id = $installment->id;
                        
                             $payment_mode_name= "PhonePe";
-                            $payment_method= SmPaymentMethhod::where('method','PhonePe')->where('school_id', app('school')->id)->first();
+                            $payment_method= AramiscPaymentMethhod::where('method','PhonePe')->where('school_id', app('school')->id)->first();
                             $installment = DirectFeesInstallmentAssign::find($installment->id);
                             $installment->payment_date =  $newformat;
                             $installment->payment_mode =  "PhonePe";
@@ -312,7 +312,7 @@ class PhonePay {
                     $sub_payment->balance_amount = ( $payable_amount - ($all_sub_payment + $sub_payment->amount) ); 
                     $result = $sub_payment->save();
                     if($result && $installment){
-                        $fees_payment = new SmFeesPayment();
+                        $fees_payment = new AramiscFeesPayment();
                         $fees_payment->student_id = $installment->student_id;
                         $fees_payment->amount = $sub_payment->amount;
                         $fees_payment->payment_date = date('Y-m-d', strtotime($sub_payment->payment_date));
@@ -346,7 +346,7 @@ class PhonePay {
                     $role_id =$data[3];
                     $source =$data[4];
 
-                    $fees_payment = SmFeesPayment::find($payment_id);
+                    $fees_payment = AramiscFeesPayment::find($payment_id);
                     $fees_payment->active_status = 1;
                     $fees_payment->save();
                     $income_head = generalSetting();

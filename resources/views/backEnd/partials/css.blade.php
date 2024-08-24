@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="{{asset('public/backEnd/assets/css/croppie.css')}}" />
  @if(userRtlLtl() ==1)
 <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/style.css')}}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/aramisc.css')}}" />
+<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/infix.css')}}" />
 @else
 <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/backend_static_style.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/aramisc.css') }}" />
+<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/infix.css') }}" />
 @endif
 
 <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/vendors_static_style.css') }}" />

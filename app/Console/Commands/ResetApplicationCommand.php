@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\AramiscModuleManager;
+use App\InfixModuleManager;
 use Illuminate\Console\Command;
 use Nwidart\Modules\Facades\Module;
 use Illuminate\Support\Facades\File;
@@ -43,7 +43,7 @@ class ResetApplicationCommand extends Command
         'XenditPayment',
         'KhaltiPayment',
         'Raudhahpay',
-        'AramiscBiometrics',
+        'InfixBiometrics',
         'Gmeet',
         'PhonePay',
         'AiContent',
@@ -98,7 +98,7 @@ class ResetApplicationCommand extends Command
     protected function moduleAcivate()
     {
         foreach ($this->modules as $data) {
-            $module = AramiscModuleManager::where('name', $data)->first();
+            $module = InfixModuleManager::where('name', $data)->first();
             $module->purchase_code = 986532741;
             $module->save();
 

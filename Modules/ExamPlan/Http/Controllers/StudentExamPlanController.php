@@ -2,9 +2,9 @@
 
 namespace Modules\ExamPlan\Http\Controllers;
 
-use App\SmExam;
-use App\SmStudent;
-use App\SmExamSchedule;
+use App\AramiscExam;
+use App\AramiscStudent;
+use App\AramiscExamSchedule;
 use App\SmAssignSubject;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -39,9 +39,9 @@ class StudentExamPlanController extends Controller
     public function admitCardSearch(Request $request)
     {
         try{
-            $smExam = SmExam::findOrFail($request->exam);
+            $smExam = AramiscExam::findOrFail($request->exam);
             if(auth()->user()->role_id == 3){
-                $student = SmStudent::find($request->student_id);
+                $student = AramiscStudent::find($request->student_id);
             }else{
                 $student = Auth::user()->student;
             }
@@ -52,7 +52,7 @@ class StudentExamPlanController extends Controller
                                             ->where('academic_id',getAcademicId())
                                             ->first();
 
-            $exam_routines = SmExamSchedule::where('class_id', $smExam->class_id)
+            $exam_routines = AramiscExamSchedule::where('class_id', $smExam->class_id)
                                             ->where('section_id', $smExam->section_id)
                                             ->where('exam_term_id', $smExam->exam_type_id)
                                             ->orderBy('date', 'ASC')
@@ -88,13 +88,13 @@ class StudentExamPlanController extends Controller
 
             $admit = AdmitCard::find($id);
             $studentRecord = StudentRecord::find($admit->student_record_id);
-            $student = SmStudent::find($studentRecord->student_id);
+            $student = AramiscStudent::find($studentRecord->student_id);
             $setting = AdmitCardSetting::where('school_id',Auth::user()->school_id)
                                          ->where('academic_id',getAcademicId())   
                                         ->first();
             $assign_subjects = SmAssignSubject::where('class_id', $studentRecord->class_id)->where('section_id', $studentRecord->section_id)
                                         ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $exam_routines = SmExamSchedule::where('class_id', $studentRecord->class_id)
+            $exam_routines = AramiscExamSchedule::where('class_id', $studentRecord->class_id)
                                         ->where('section_id', $studentRecord->section_id)
                                         ->where('exam_term_id', $admit->exam_type_id)->orderBy('date', 'ASC')->get();
            

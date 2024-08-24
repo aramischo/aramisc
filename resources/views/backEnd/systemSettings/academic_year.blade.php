@@ -171,20 +171,20 @@
                                                     <option value="App\SmClass"
                                                         @if (isset($academic_year)) @if (in_array('App\SmClass', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('common.class') </option>
-                                                    <option value="App\SmSection"
-                                                        @if (isset($academic_year)) @if (in_array('App\SmSection', @$copy_with_academic_year)) selected @endif
+                                                    <option value="App\AramiscSection"
+                                                        @if (isset($academic_year)) @if (in_array('App\AramiscSection', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('common.section')</option>
                                                     <option value="App\SmSubject"
                                                         @if (isset($academic_year)) @if (in_array('App\SmSubject', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('common.subject')</option>
-                                                    <option value="App\SmExamType"
-                                                        @if (isset($academic_year)) @if (in_array('App\SmExamType', @$copy_with_academic_year)) selected @endif
+                                                    <option value="App\AramiscExamType"
+                                                        @if (isset($academic_year)) @if (in_array('App\AramiscExamType', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('exam.exam_type') </option>
-                                                    <option value="App\SmStudentCategory"
-                                                        @if (isset($academic_year)) @if (in_array('App\SmStudentCategory', @$copy_with_academic_year)) selected @endif
+                                                    <option value="App\AramiscStudentCategory"
+                                                        @if (isset($academic_year)) @if (in_array('App\AramiscStudentCategory', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('student.student_category')</option>
-                                                    <option value="App\SmFeesGroup"
-                                                        @if (isset($academic_year)) @if (in_array('App\SmFeesGroup', @$copy_with_academic_year)) selected @endif
+                                                    <option value="App\AramiscFeesGroup"
+                                                        @if (isset($academic_year)) @if (in_array('App\AramiscFeesGroup', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('fees.fees_group')</option>
                                                     <option value="App\SmLeaveType"
                                                         @if (isset($academic_year)) @if (in_array('App\SmLeaveType', @$copy_with_academic_year)) selected @endif

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Transport;
 
-use App\SmRoute;
+use App\AramiscRoute;
 use App\SmVehicle;
 use App\SmAssignVehicle;
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class SmAssignVehicleController extends Controller
     public function index(Request $request)
     {
         try {
-            $routes = SmRoute::get();
+            $routes = AramiscRoute::get();
             $assign_vehicles = SmAssignVehicle::with('route', 'vehicle')->where('school_id', Auth::user()->school_id)->get();
             $vehicles = SmVehicle::select('id', 'vehicle_no')->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.transport.assign_vehicle', compact('routes', 'assign_vehicles', 'vehicles'));
@@ -74,7 +74,7 @@ class SmAssignVehicleController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $routes = SmRoute::get();
+            $routes = AramiscRoute::get();
             $assign_vehicles = SmAssignVehicle::with('route', 'vehicle')->where('school_id', Auth::user()->school_id)->get();
             $assign_vehicle  = SmAssignVehicle::find($id);
             $vehiclesIds     = explode(',', $assign_vehicle->vehicle_id);

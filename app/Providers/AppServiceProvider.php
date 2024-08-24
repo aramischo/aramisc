@@ -3,7 +3,7 @@ namespace App\Providers;
 
 use App\SmParent;
 use App\Models\Plugin;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\SmGeneralSettings;
 use App\Models\CustomMixin;
 use Spatie\Valuestore\Valuestore;
@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Modules\MenuManage\Entities\Sidebar;
 use Modules\MenuManage\Entities\SidebarNew;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\InfixModuleInfo;
 use Modules\RolePermission\Entities\AssignPermission;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
 
             view()->composer(['backEnd.master', 'backEnd.partials.menu'], function ($view) {
                     $data =[
-                        'notifications' => SmNotification::notifications(),
+                        'notifications' => AramiscNotification::notifications(),
                     ];
                     $view->with($data);
             });
@@ -90,13 +90,13 @@ class AppServiceProvider extends ServiceProvider
                 $view->with($data);
             });
 
-            //if(Storage::exists('.app_installed') && Storage::get('.app_installed')){
+            if(Storage::exists('.app_installed') && Storage::get('.app_installed')){
                 config(['broadcasting.default' => saasEnv('chatting_method')]);
                 config(['broadcasting.connections.pusher.key' => saasEnv('pusher_app_key')]);
                 config(['broadcasting.connections.pusher.secret' => saasEnv('pusher_app_secret')]);
                 config(['broadcasting.connections.pusher.app_id' => saasEnv('pusher_app_id')]);
                 config(['broadcasting.connections.pusher.options.cluster' => saasEnv('pusher_app_cluster')]);
-            //}
+            }
 
         } catch(\Exception $e){
             return false;
@@ -117,14 +117,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton('school_menu_permissions', function () {
             $module_ids = getPlanPermissionMenuModuleId();
-            return AramiscModuleInfo::where('parent_id', 0)->with(['children' ])->whereIn('id', $module_ids)->get();
+            return InfixModuleInfo::where('parent_id', 0)->with(['children' ])->whereIn('id', $module_ids)->get();
         });
 
         $this->app->singleton('permission', function () {
             
-            $aramiscRole = AramiscRole::find(Auth::user()->role_id);
+            $infixRole = InfixRole::find(Auth::user()->role_id);
             $permissionIds = AssignPermission::where('role_id', Auth::user()->role_id)
-            ->when($aramiscRole->is_saas == 0, function($q) {
+            ->when($infixRole->is_saas == 0, function($q) {
                 $q->where('school_id', Auth::user()->school_id);
             })->pluck('permission_id')->toArray();
             
@@ -133,7 +133,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('saasSettings', function () {
-            return \Modules\Saas\Entities\SaasSettings::where('saas_status', 0)->pluck('aramisc_module_id')->toArray();
+            return \Modules\Saas\Entities\SaasSettings::where('saas_status', 0)->pluck('infix_module_id')->toArray();
         });
 
 

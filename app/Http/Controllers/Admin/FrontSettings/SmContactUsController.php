@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 
 class SmContactUsController extends Controller
 {
@@ -19,7 +19,7 @@ class SmContactUsController extends Controller
     public function index()
     {
         try {
-            $module_links = AramiscPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->pluck('module_id')->toArray();
+            $module_links = InfixPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->pluck('module_id')->toArray();
 
             $contact_us = SmContactPage::where('school_id', app('school')->id)->first();
             return view('backEnd.frontSettings.contact_us', compact('contact_us', 'module_links'));

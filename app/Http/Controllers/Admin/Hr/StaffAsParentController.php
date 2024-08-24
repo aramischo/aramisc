@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin\Hr;
 use App\User;
 use App\SmStaff;
 use App\SmParent;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmUserLog;
 use App\SmLanguage;
 use App\SmsTemplate;
 use App\SmDateFormat;
-use App\SmAcademicYear;
-use App\AramiscModuleManager;
+use App\AramiscAcademicYear;
+use App\InfixModuleManager;
 use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -185,7 +185,7 @@ class StaffAsParentController extends Controller
             // System academic session id in session
 
             $all_modules = [];
-            $modules = AramiscModuleManager::select('name')->get();
+            $modules = InfixModuleManager::select('name')->get();
             foreach ($modules as $module) {
                 $all_modules[] = $module->name;
             }
@@ -205,7 +205,7 @@ class StaffAsParentController extends Controller
             if(moduleStatusCheck('University')){
                 $academic_years = Auth::check() ? UnAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
             }else{
-                $academic_years = Auth::check() ? SmAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
+                $academic_years = Auth::check() ? AramiscAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
             }
             session()->put('academic_years', $academic_years);
             //session put sessions and selected language
@@ -232,16 +232,16 @@ class StaffAsParentController extends Controller
             }
             else{
                 if(!$session_id){
-                    $session = SmAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first();
+                    $session = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first();
                 } else{
-                    $session = SmAcademicYear::find($session_id);
+                    $session = AramiscAcademicYear::find($session_id);
                 }
                 session()->put('sessionId', $session->id);
                 session()->put('session', $session); 
             }
 
             if(!$session){
-                $session = SmAcademicYear::where('school_id', Auth::user()->school_id)->first();
+                $session = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->first();
             }
 
 

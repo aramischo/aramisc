@@ -1040,7 +1040,7 @@ $(document).ready(function() {
     });
 });
 
-// Student aramiscAttendance
+// Student attendance
 
 $("#search_student").on("submit", function() {
     var date = $("#startDate").datepicker({ dateFormat: "dd,MM,yyyy" }).val();
@@ -1453,7 +1453,7 @@ $(document).ready(function() {
 });
 
 // add new class routine
-function aramiscExamRoutineCheck() {
+function examRoutineCheck() {
     var date = document.getElementById("startDate").value;
     var i = 0;
     if (date == "") {
@@ -1550,7 +1550,7 @@ function validateAddNewExamRoutine() {
 }
 
 function deleteSubject(value) {
-    var aramiscAssignSubject = document.getElementById("assign-subject");
+    var assignSubject = document.getElementById("assign-subject");
     var valuea = "assign-subject-" + value;
     var child = document.getElementById(valuea);
     child.remove();
@@ -2640,7 +2640,7 @@ $("#mark_holiday").on("click", function() {
     if ($(this).is(":checked")) {
         $("input:radio").removeAttr("checked");
     } else {
-        $("input.aramiscAttendanceP[type=radio]").attr("checked", "checked");
+        $("input.attendanceP[type=radio]").attr("checked", "checked");
     }
 });
 
@@ -3848,15 +3848,15 @@ function selectSubject(a) {
 }
 
 $(document).ready(function() {
-    if ($("input#total-aramiscAttendance").length > 0) {
-        var total_aramiscAttendance = $("input#total-aramiscAttendance").val();
+    if ($("input#total-attendance").length > 0) {
+        var total_attendance = $("input#total-attendance").val();
 
-        var aramiscAttendanceArray = total_aramiscAttendance.split("-");
+        var attendanceArray = total_attendance.split("-");
 
-        $("#total_present").html(aramiscAttendanceArray[0]);
-        $("#total_absent").html(aramiscAttendanceArray[1]);
-        $("#total_late").html(aramiscAttendanceArray[2]);
-        $("#total_halfday").html(aramiscAttendanceArray[3]);
-        $("#total_holiday").html(aramiscAttendanceArray[4]);
+        $("#total_present").html(attendanceArray[0]);
+        $("#total_absent").html(attendanceArray[1]);
+        $("#total_late").html(attendanceArray[2]);
+        $("#total_halfday").html(attendanceArray[3]);
+        $("#total_holiday").html(attendanceArray[4]);
     }
 });

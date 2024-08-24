@@ -4,9 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\ParentRegistration\Entities\SmStudentField;
-use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
+use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
 
-class AddColumToAramiscModuleStudentParentInfos extends Migration
+class AddColumToInfixModuleStudentParentInfos extends Migration
 {
     /**
      * Run the migrations.
@@ -15,25 +15,25 @@ class AddColumToAramiscModuleStudentParentInfos extends Migration
      */
     public function up()
     {
-        Schema::table('aramisc_module_student_parent_infos', function (Blueprint $table) {
-            if (!Schema::hasColumn('aramisc_module_student_parent_infos', 'admin_section')) {
+        Schema::table('infix_module_student_parent_infos', function (Blueprint $table) {
+            if (!Schema::hasColumn('infix_module_student_parent_infos', 'admin_section')) {
                 $table->string('admin_section')->nullable();
             }
         });
 
-        $examPlans = AramiscModuleStudentParentInfo::whereIn('id', [2500, 2501, 2502, 2503])->delete();
-        $aramisc_module_student_parent_infos = [
+        $examPlans = InfixModuleStudentParentInfo::whereIn('id', [2500, 2501, 2502, 2503])->delete();
+        $infix_module_student_parent_infos = [
             [2500, 50, 0, '1', 1,'ExamPlan','','ExamPlan','flaticon-test',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
             [2501, 50, 2500, '2', 1,'Admit Card','admit/card','','chat_box', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
             [2502, 50, 0, '1', 2,'ExamPlan','','ExamPlan','flaticon-test',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
             [2503, 50, 2502, '2', 2,'Admit Card','admit/card','','chat_box', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22']
         ];
-        foreach ($aramisc_module_student_parent_infos as $key=>$value) {
-            $check_exit=AramiscModuleStudentParentInfo::find($value[0]);
+        foreach ($infix_module_student_parent_infos as $key=>$value) {
+            $check_exit=InfixModuleStudentParentInfo::find($value[0]);
             if($check_exit){
                 continue;
             }
-            $examPlan = new AramiscModuleStudentParentInfo;
+            $examPlan = new InfixModuleStudentParentInfo;
             $examPlan->id = $value[0];
             $examPlan->module_id = $value[1];
             $examPlan->parent_id = $value[2];
@@ -93,7 +93,7 @@ class AddColumToAramiscModuleStudentParentInfos extends Migration
                 2502 => 'examplan',
             ];
         foreach ($ids as $key => $admin_section) {
-            $permission = AramiscModuleStudentParentInfo::where('id', $key)->first();
+            $permission = InfixModuleStudentParentInfo::where('id', $key)->first();
             if($permission) 
             {
                 $permission->admin_section = $admin_section;
@@ -146,7 +146,7 @@ class AddColumToAramiscModuleStudentParentInfos extends Migration
      */
     public function down()
     {
-        Schema::table('aramisc_module_student_parent_infos', function (Blueprint $table) {
+        Schema::table('infix_module_student_parent_infos', function (Blueprint $table) {
             //
         });
     }

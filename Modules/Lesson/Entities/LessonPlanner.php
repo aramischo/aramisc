@@ -22,7 +22,7 @@ class LessonPlanner extends Model
 
     public function sectionName()
     {
-        return $this->belongsTo('App\SmSection', 'section_id')->withDefault();
+        return $this->belongsTo('App\AramiscSection', 'section_id')->withDefault();
     }
     public function subject()
     {

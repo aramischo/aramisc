@@ -4,12 +4,12 @@ namespace App\PaymentGateway;
 
 use App\User;
 use App\SmParent;
-use App\SmStudent;
-use App\SmFeesAssign;
-use App\SmFeesMaster;
+use App\AramiscStudent;
+use App\AramiscFeesAssign;
+use App\AramiscFeesMaster;
 use Razorpay\Api\Api;
-use App\SmFeesPayment;
-use App\SmPaymentGatewaySetting;
+use App\AramiscFeesPayment;
+use App\AramiscPaymentGatewaySetting;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Modules\Wallet\Entities\WalletAddMoney;

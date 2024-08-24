@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\SystemSettings;
 use App\SmSmsGateway;
 use GuzzleHttp\Client;
 use App\SmLanguagePhrase;
-use App\AramiscModuleManager;
+use App\InfixModuleManager;
 use Illuminate\Http\Request;
 use App\Models\MaintenanceSetting;
 use Illuminate\Support\Facades\Log;
@@ -13,10 +13,10 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Artisan;
-use Modules\RolePermission\Entities\AramiscRole;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
-use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
+use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
 
 class UtilityController extends Controller
 {
@@ -24,7 +24,7 @@ class UtilityController extends Controller
     public function index(){
         try {
             if(auth()->user()->school_id == 1){
-                $roles = AramiscRole::where('id','!=',1)->get();
+                $roles = InfixRole::where('id','!=',1)->get();
                 $setting = MaintenanceSetting::where('school_id',auth()->user()->school_id)->first();
                 return view('backEnd.systemSettings.utilityView',compact('setting','roles'));
             }else{
@@ -111,7 +111,7 @@ class UtilityController extends Controller
 				'campaign' => $gateway->himalayasms_campaign,
 				'routeid' => $gateway->himalayasms_routeId ,
 				'contacts' => "+9779865383233",
-				'msg' => "Hello I am from aramisc, It Is test example sms",
+				'msg' => "Hello I am from infixedu, It Is test example sms",
 				'type' => "text"
 			],
 			'http_errors' => false

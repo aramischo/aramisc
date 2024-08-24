@@ -62,5 +62,8 @@
     "Add" => "Add",
     "Level Title" => "Level Title",
     "Delete Course Level" => "Delete Course Level",
-        ]
+    'in_minute' => 'in minute',
+    'lmsSelect' => 'Select',
+    'lms_checkout' => 'Checkout',    
+    ]
 ?>

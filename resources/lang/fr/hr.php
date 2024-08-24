@@ -6,7 +6,7 @@ return [
 
 "staff_directory" => "Répertoire du personnel",
 
-"staff_aramiscAttendance_report" => "Rapport sur la participation du personnel",
+"staff_attendance_report" => "Rapport sur la participation du personnel",
 
 "not_generated" => "Non généré",
 
@@ -206,9 +206,9 @@ return [
 
 "upload_document" => "Télécharger le document",
 
-"import_aramiscAttendance" => "Importation de la participation",
+"import_attendance" => "Importation de la participation",
 
-"aramiscAttendance_date" => "Date de participation",
+"attendance_date" => "Date de participation",
 
 "late" => "Late",
 
@@ -336,7 +336,7 @@ return [
 
 "location" => "Emplacement",
 
-"staff_aramiscAttendance" => "Participation des étudiants",
+"staff_attendance" => "Participation des étudiants",
 
 "present" => "Présent",
 
@@ -344,9 +344,9 @@ return [
 
 "visible_to_this_person" => "Visible pour cette personne",
 
-"aramiscAttendance" => "Participation",
+"attendance" => "Participation",
 
-"save_aramiscAttendance" => "Enregistrer la participation",
+"save_attendance" => "Enregistrer la participation",
 
 "paid" => "Payé",
 

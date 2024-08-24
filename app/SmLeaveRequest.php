@@ -11,6 +11,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SmLeaveRequest extends Model
 {
 	use HasFactory;
+
+	protected $casts = [
+		'id' => 'integer',
+		'apply_date' => 'string',
+		'leave_from' => 'string',
+		'leave_to' => 'string',
+		'reason' => 'string',
+		'file' => 'string',
+		'leave_define_id' => 'integer',
+	];
+
+	
     public function leaveType()
 	{
 	  return $this->belongsTo('App\SmLeaveType', 'type_id');
@@ -27,7 +39,7 @@ class SmLeaveRequest extends Model
 	}
 	public function student()
 	{
-	  return $this->belongsTo('App\SmStudent', 'staff_id', 'user_id');
+	  return $this->belongsTo('App\AramiscStudent', 'staff_id', 'user_id');
 	}
 
 	public function user()

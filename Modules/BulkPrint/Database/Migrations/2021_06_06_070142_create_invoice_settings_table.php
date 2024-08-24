@@ -6,8 +6,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Log;
 use Modules\BulkPrint\Entities\InvoiceSetting;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 
 class CreateInvoiceSettingsTable extends Migration
 {
@@ -102,12 +102,12 @@ class CreateInvoiceSettingsTable extends Migration
             $admins=[920,921,922,923,924,925,926];
 
             foreach ($admins as $key => $value) {
-               $check= AramiscModuleInfo::find($value);
+               $check= InfixModuleInfo::find($value);
                if($check){
 
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;
-                $permission ->module_info = AramiscModuleInfo::find($value)->name;
+                $permission ->module_info = InfixModuleInfo::find($value)->name;
                 $permission->role_id = 5;
                 $permission->save();
                }

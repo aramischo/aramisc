@@ -303,7 +303,7 @@
         .meritTableBodyCustomReport{
             padding: 30px;
         }
-        @if(resultPrintStatus('vertical_boarder'))
+        /* @if(resultPrintStatus('vertical_boarder'))
         .border_table td, .border_table th{
             border: 1px solid #000 !important;
             padding: 10px !important;
@@ -311,7 +311,7 @@
         .gray_header_table thead th{
             padding-left: 10px !important;
         }
-        @endif
+        @endif */
     </style>
 </head>
 {{-- <script>
@@ -339,8 +339,8 @@
                                     <div class="thumb_logo">
                                         <img  src="{{asset('/')}}{{generalSetting()->logo}}" alt="{{generalSetting()->school_name}}"></div>
                                     <div class="company_info">
-                                        <h3>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                        <p>{{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}</p>
+                                        <h3>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                        <p>{{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}}</p>
                                         <p>@lang('common.email'):  {{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}},   @lang('common.phone'):  {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}} </p>
                                     </div>
                                 </div>
@@ -410,10 +410,10 @@
                     {{-- <th>@lang('lang.obtained_marks')</th> --}}
                     <th>@lang('exam.total_mark')</th>
                     @if (isset($optional_subject_setup))
-                        <th>@lang('exam.gpa')
+                        {{-- <th>@lang('exam.gpa')
                             <hr>
                             <small>@lang('reports.without_additional')</small>
-                        </th>
+                        </th> --}}
                         <th>@lang('exam.gpa')</th>
                     @else
                         <th>@lang('exam.gpa')</th>
@@ -479,107 +479,106 @@
                             @endphp
                         @endif
                         @if (isset($optional_subject_setup))
-                            <td>
-                                <?php
-                                    if($row->result == $failgpaname->grade_name){
-                                        echo $failgpa;
-                                    }else{
-                                        $total_grade_point = 0;
-                                        $number_of_subject = count($subject_mark)-1;
-                                        $c=0;
+                        {{-- <td>
+                            <?php
+                                if ($row->result == $failgpaname->grade_name) {
+                                    echo $failgpa;
+                                } else {
+                                    $total_grade_point = 0;
+                                    if (is_array($subject_mark)) {
+                                        $number_of_subject = count($subject_mark) - 1;
+                                        $c = 0;
                                         foreach ($subject_mark as $key => $mark) {
-                                            if ($additioncheck['0'] != $mark) {                                                                     
-                                                $grade_gpa = DB::table('sm_marks_grades')->where('percent_from','<=',$mark)->where('percent_upto','>=',$mark)->where('academic_id', getAcademicId())->first();
-                                                $total_grade_point = $total_grade_point + $grade_gpa->gpa;
+                                            if ($additioncheck[0] != $mark) {                                                                     
+                                                $grade_gpa = DB::table('sm_marks_grades')->where('percent_from', '<=', $mark)->where('percent_upto', '>=', $mark)->where('academic_id', getAcademicId())->first();
+                                                $total_grade_point += $grade_gpa->gpa;
                                                 $c++;
                                             }
                                         }
-                                        if($total_grade_point==0){
+                                        if ($total_grade_point == 0) {
                                             echo $failgpa;
-                                        }else{
-                                            if($number_of_subject  == 0){
+                                        } else {
+                                            if ($number_of_subject == 0) {
                                                 echo $failgpa;
-                                            }else{
-                                                echo number_format((float)$total_grade_point/$c, 2, '.', '');
-                                            } 
-                                        } 
+                                            } else {
+                                                echo number_format((float) $total_grade_point / $c, 2, '.', '');
+                                            }
+                                        }
+                                    } else {
+                                        echo $failgpa; // handle case where subject_mark is not an array
+                                    }
+                                }
+                            ?>
+                        </td> --}}
+                        {{-- @if (isset($optional_subject_setup))
+                            @php
+                                $optional_subject_mark = !empty($special_mark[$row->student_id]) ? $special_mark[$row->student_id] : 0;
+                            @endphp
+                            <td>
+                                <?php 
+                                    if ($row->result == $failgpaname->grade_name) {
+                                        echo $failgpa;
+                                    } else {
+                                        $optional_grade_gpa = DB::table('sm_marks_grades')->where('percent_from', '<=', $optional_subject_mark)->where('percent_upto', '>=', $optional_subject_mark)->where('academic_id', getAcademicId())->first();
+                                        $countable_optional_gpa = 0;
+                                        if ($optional_grade_gpa->gpa > $optional_subject_setup->gpa_above) {
+                                            $countable_optional_gpa = $optional_grade_gpa->gpa - $optional_subject_setup->gpa_above;
+                                        }
+                                        $total_grade_point = 0;
+                                        if (is_array($subject_mark)) {
+                                            $number_of_subject = count($subject_mark) - 1;
+                                            foreach ($subject_mark as $mark) {
+                                                $grade_gpa = DB::table('sm_marks_grades')->where('percent_from', '<=', $mark)->where('percent_upto', '>=', $mark)->where('academic_id', getAcademicId())->first();
+                                                $total_grade_point += $grade_gpa->gpa;
+                                            }
+                                            $gpa_with_optional = $total_grade_point - $optional_grade_gpa->gpa + $countable_optional_gpa;
+                                            if ($gpa_with_optional == 0) {
+                                                echo $failgpa;
+                                            } else {
+                                                if ($number_of_subject == 0) {
+                                                    echo $failgpa;
+                                                } else {
+                                                    $grade = number_format((float) $gpa_with_optional / $number_of_subject, 2, '.', '');
+                                                    echo ($grade > $maxGpa) ? $maxGpa : $grade;
+                                                }
+                                            }
+                                        } else {
+                                            echo $failgpa; // handle case where subject_mark is not an array
+                                        }
                                     }
                                 ?>
                             </td>
-                            @if (isset($optional_subject_setup))
-                                @php
-                                    if(!empty($special_mark[$row->student_id])){
-                                                $optional_subject_mark=$special_mark[$row->student_id];
-                                            }else{
-                                                $optional_subject_mark=0;
-                                            }
-                                @endphp
-                                <td>
-                                    <?php 
-                                        if($row->result == $failgpaname->grade_name){
-                                            echo $failgpa;
-                                        }else{
-                                            $optional_grade_gpa = DB::table('sm_marks_grades')->where('percent_from','<=',$optional_subject_mark)->where('percent_upto','>=',$optional_subject_mark)->where('academic_id', getAcademicId())->first();
-                                            $countable_optional_gpa=0;
-                                            if ($optional_grade_gpa->gpa > $optional_subject_setup->gpa_above) {
-                                                $countable_optional_gpa=$optional_grade_gpa->gpa - $optional_subject_setup->gpa_above;
-                                            } else {
-                                                $countable_optional_gpa=0;
-                                            }
-                                            $total_grade_point = 0;
-                                            $number_of_subject = count($subject_mark)-1; 
-                                            foreach ($subject_mark as $mark) {
-
-                                                $grade_gpa = DB::table('sm_marks_grades')->where('percent_from','<=',$mark)->where('percent_upto','>=',$mark)->where('academic_id', getAcademicId())->first();
-                                                $total_grade_point = $total_grade_point + $grade_gpa->gpa;
-            
-                                                
-                                            }
-                                            $gpa_with_optional=$total_grade_point-$optional_grade_gpa->gpa;
-                                            $gpa_with_optional=$gpa_with_optional+$countable_optional_gpa;
-                                                if($gpa_with_optional==0){
-                                                    echo $failgpa;
-                                                }else{
-                                                    if($number_of_subject  == 0){
-                                                        echo $failgpa;
-                                                    }else{
-                                                        $grade=number_format((float)$gpa_with_optional/$number_of_subject, 2, '.', '');
-                                                        if ($grade>$maxGpa) {
-                                                            echo $maxGpa;
-                                                        } else {
-                                                            echo $grade;
-                                                        }
-                                                    } 
-                                                }
-                                        }
-                                    ?>
-                                </td>
-                            @else
-                                <td>
-                                    <?php 
-                                    if($row->result == $failgpaname->grade_name){
+                        @else
+                            <td>
+                                <?php 
+                                    if ($row->result == $failgpaname->grade_name) {
                                         echo $failgpa;
-                                    }else{
-                                    $total_grade_point = 0;
-                                        $number_of_subject = count($subject_mark)-1; 
-                                        foreach ($subject_mark as $mark) {
-                                            $grade_gpa = DB::table('sm_marks_grades')->where('percent_from','<=',$mark)->where('percent_upto','>=',$mark)->where('academic_id', getAcademicId())->first();
-                                            $total_grade_point = $total_grade_point + $grade_gpa->gpa;
-                                        }
-                                        if($total_grade_point==0){
-                                            echo $failgpa;
-                                        }else{
-                                            if($number_of_subject  == 0){
+                                    } else {
+                                        $total_grade_point = 0;
+                                        if (is_array($subject_mark)) {
+                                            $number_of_subject = count($subject_mark) - 1;
+                                            foreach ($subject_mark as $mark) {
+                                                $grade_gpa = DB::table('sm_marks_grades')->where('percent_from', '<=', $mark)->where('percent_upto', '>=', $mark)->where('academic_id', getAcademicId())->first();
+                                                $total_grade_point += $grade_gpa->gpa;
+                                            }
+                                            if ($total_grade_point == 0) {
                                                 echo $failgpa;
-                                            }else{
-                                                echo number_format((float)$total_grade_point/$number_of_subject, 2, '.', '');
-                                            } 
-                                        } 
+                                            } else {
+                                                if ($number_of_subject == 0) {
+                                                    echo $failgpa;
+                                                } else {
+                                                    echo number_format((float) $total_grade_point / $number_of_subject, 2, '.', '');
+                                                }
+                                            }
+                                        } else {
+                                            echo $failgpa; // handle case where subject_mark is not an array
+                                        }
                                     }
-                                    ?>
-                                </td>
-                            @endif
-                        @endif
+                                ?>
+                            </td>
+                        @endif --}}
+                    @endif
+                    
                      </tr> 
                     @endforeach
                 </tbody>

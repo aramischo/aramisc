@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\StudentPromotion;
 use App\SmAssignSubject;
 use App\SmClass;
-use App\SmSection;
+use App\AramiscSection;
 use App\SmSubject;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;

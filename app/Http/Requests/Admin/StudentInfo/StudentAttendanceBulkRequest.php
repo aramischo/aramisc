@@ -25,7 +25,7 @@ class StudentAttendanceBulkRequest extends FormRequest
     {
         $maxFileSize =generalSetting()->file_size*1024;
         return [
-            'aramiscAttendance_date' => 'required|date',
+            'attendance_date' => 'required|date',
             'file' => 'required||mimes:xls,csv,xlsx|max:'.$maxFileSize,
             'class' => 'required|integer',
             'section' => 'required|integer',

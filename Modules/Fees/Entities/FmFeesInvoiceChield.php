@@ -11,6 +11,14 @@ class FmFeesInvoiceChield extends Model
     use HasFactory;
 
     protected $fillable = [];
+
+    protected $casts = [
+        'amount' => 'float',
+        'due_amount' => 'float',
+        'weaver' => 'float',
+        'fine' => 'float',
+    ];
+
     
     protected static function newFactory()
     {

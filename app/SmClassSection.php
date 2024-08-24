@@ -23,19 +23,19 @@ class SmClassSection extends Model
     }
     public function sectionName()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id')->withDefault();
     }
 
     public function sectionNameSaas()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class)->withDefault();
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class)->withDefault();
     }
 
     
 
     public function globalSectionName()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id')->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->withDefault();
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id')->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->withDefault();
     }
 
     public function globalClassName()
@@ -45,10 +45,10 @@ class SmClassSection extends Model
 
     public function students()
     {
-        return $this->hasMany('App\SmStudent', 'section_id', 'section_id');
+        return $this->hasMany('App\AramiscStudent', 'section_id', 'section_id');
     }
     public function sectionWithoutGlobal()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id')->withoutGlobalScopes()->withDefault();
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id')->withoutGlobalScopes()->withDefault();
     }
 }

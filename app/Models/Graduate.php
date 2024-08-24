@@ -17,7 +17,7 @@ class Graduate extends Model
     }
     public function student()
     {
-        return $this->belongsTo('App\SmStudent', 'student_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscStudent', 'student_id', 'id')->withDefault();
     }
 
     public function unSession()
@@ -45,7 +45,7 @@ class Graduate extends Model
     #sm_record_table
     public function section()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id')->withDefault();
     }
 
     public function smClass()

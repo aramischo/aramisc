@@ -5,7 +5,7 @@ namespace Modules\VideoWatch\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AramiscVideoWatch extends Model
+class InfixVideoWatch extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class AramiscVideoWatch extends Model
     
     protected static function newFactory()
     {
-        return \Modules\VideoWatch\Database\factories\AramiscVideoWatchFactory::new();
+        return \Modules\VideoWatch\Database\factories\InfixVideoWatchFactory::new();
     }
 }

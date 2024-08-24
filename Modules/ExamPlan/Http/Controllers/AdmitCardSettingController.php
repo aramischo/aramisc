@@ -2,11 +2,11 @@
 
 namespace Modules\ExamPlan\Http\Controllers;
 
-use App\SmExam;
+use App\AramiscExam;
 use App\SmClass;
-use App\SmStudent;
-use App\SmExamType;
-use App\SmExamSchedule;
+use App\AramiscStudent;
+use App\AramiscExamType;
+use App\AramiscExamSchedule;
 use App\SmAssignSubject;
 use App\Traits\ImageStore;
 use Illuminate\Http\Request;
@@ -169,7 +169,7 @@ class AdmitCardSettingController extends Controller
     public function admitcard()
     {
         try {
-            $exams = SmExamType::where('active_status', 1)
+            $exams = AramiscExamType::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -215,7 +215,7 @@ class AdmitCardSettingController extends Controller
                     ->withInput();
             }
             // dd($request->all());
-            $exam = SmExamSchedule::query();
+            $exam = AramiscExamSchedule::query();
             $exam_id = $request->exam_type;
             $class_id = $request->class;
             $exam->where('school_id', auth()->user()->school_id)->where('academic_id', getAcademicId());
@@ -288,7 +288,7 @@ class AdmitCardSettingController extends Controller
                         ->withInput();
                 }
 
-                $exam = SmExamSchedule::query();
+                $exam = AramiscExamSchedule::query();
                 $exam_id = $request->exam;
                 $class_id = $request->class;
                 $exam->where('school_id', auth()->user()->school_id)->where('academic_id', getAcademicId());
@@ -331,7 +331,7 @@ class AdmitCardSettingController extends Controller
                     $records = $student_records->get();
 
 
-                    $exams = SmExamType::where('active_status', 1)
+                    $exams = AramiscExamType::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
@@ -390,7 +390,7 @@ class AdmitCardSettingController extends Controller
                 }
                 $admitcards = AdmitCard::whereIn('student_record_id', $student_records)->where('exam_type_id', $request->exam_type_id)->with('studentRecord')->get();
                 $assign_subjects = UnAssignSubject::where('un_semester_label_id', $studentRecord->un_semester_label_id)->where('school_id', Auth::user()->school_id)->get();
-                $exam_routines = SmExamSchedule::where('un_semester_label_id', $studentRecord->un_semester_label_id)
+                $exam_routines = AramiscExamSchedule::where('un_semester_label_id', $studentRecord->un_semester_label_id)
                     ->where('un_section_id', $studentRecord->un_section_id)
                     ->where('exam_term_id', $request->exam_type_id)->orderBy('date', 'ASC')->get();
 
@@ -450,7 +450,7 @@ class AdmitCardSettingController extends Controller
                     $admitcards = AdmitCard::whereIn('student_record_id', $student_records)->where('exam_type_id', $request->exam_type_id)->with('studentRecord')->get();
                     $assign_subjects = SmAssignSubject::where('class_id', $studentRecord->class_id)->where('section_id', $studentRecord->section_id)
                         ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                    $exam_routines = SmExamSchedule::where('class_id', $studentRecord->class_id)
+                    $exam_routines = AramiscExamSchedule::where('class_id', $studentRecord->class_id)
                         ->where('section_id', $studentRecord->section_id)
                         ->where('exam_term_id', $request->exam_type_id)->orderBy('date', 'ASC')->get();
     

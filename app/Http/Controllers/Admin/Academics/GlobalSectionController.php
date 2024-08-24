@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Academics;
 
 use App\SmClass;
-use App\SmSection;
+use App\AramiscSection;
 use App\YearCheck;
 use App\ApiBaseMethod;
 use App\SmClassSection;
@@ -27,7 +27,7 @@ class GlobalSectionController extends Controller
     public function index(Request $request)
     {
         try {
-            $sections = SmSection::query();
+            $sections = AramiscSection::query();
             $parentSection = true;
             $sections = $sections->withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->whereNull('parent_id')->where('school_id',auth()->user()->school_id)->get();
             $unAcademics = null;
@@ -53,7 +53,7 @@ class GlobalSectionController extends Controller
             return redirect()->back();
         }
         try {
-            $section = new SmSection();
+            $section = new AramiscSection();
             $section->section_name = $request->name;
             $section->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
             $section->school_id = Auth::user()->school_id;
@@ -80,12 +80,12 @@ class GlobalSectionController extends Controller
     {
 
         try {
-            $section = SmSection::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('id',$id)->where('school_id',auth()->user()->school_id)->first();
+            $section = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('id',$id)->where('school_id',auth()->user()->school_id)->first();
             if(is_null($section)){
                 Toastr::error('Operation Failed', 'Failed');
                 return redirect()->back();
             }
-            $sections = SmSection::query();
+            $sections = AramiscSection::query();
             if(moduleStatusCheck('University')){
             $data = $sections->where('un_academic_id',getAcademicId());
             }else{
@@ -110,7 +110,7 @@ class GlobalSectionController extends Controller
     public function update(SectionRequest $request)
     {
         try {
-            $section = SmSection::find($request->id);
+            $section = AramiscSection::find($request->id);
             $section->section_name = $request->name;
             $result = $section->save();
 
@@ -127,7 +127,7 @@ class GlobalSectionController extends Controller
         
             $tables = SmClassSection::where('section_id', $id)->first();
                 if ($tables == null) {
-                          SmSection::destroy($request->id);
+                          AramiscSection::destroy($request->id);
                           Toastr::success('Operation successful', 'Success');
                           return redirect('section');
                 } else {

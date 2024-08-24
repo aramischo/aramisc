@@ -5,8 +5,8 @@ namespace Modules\Lesson\Http\Controllers\api;
 use App\SmClass;
 use App\SmStaff;
 use App\SmLesson;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmSubject;
 use App\SmWeekend;
 use Carbon\Carbon;
@@ -33,7 +33,7 @@ class StudentLessonApiController extends Controller
     public function index(Request $request, $user_id, $record_id)
     {
         try {
-            $student_detail = SmStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->first(['id','school_id']);
+            $student_detail = AramiscStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->first(['id','school_id']);
             $gs = SmGeneralSettings::where('school_id',$student_detail->school_id)->first('week_start_id');
              $this_week = $weekNumber = date("W");
             $week_end = SmWeekend::withOutGlobalScope(SchoolScope::class)->where('id',$gs->week_start_id)->value('name');
@@ -74,7 +74,7 @@ class StudentLessonApiController extends Controller
     {
         try {
 
-            $student_id = SmStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->value('id');
+            $student_id = AramiscStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->value('id');
             //return $student_detail;
 
             $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();

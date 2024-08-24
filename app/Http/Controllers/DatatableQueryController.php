@@ -3,36 +3,36 @@
 namespace App\Http\Controllers;
 
 use DateTime;
-use App\SmBook;
-use App\SmItem;
+use App\AramiscBook;
+use App\AramiscItem;
 use DataTables;
 use App\SmClass;
 use App\SmStaff;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmUserLog;
 use App\SmHomework;
 use App\SmAddIncome;
-use App\SmBookIssue;
-use App\SmComplaint;
+use App\AramiscBookIssue;
+use App\AramiscComplaint;
 use App\SmAddExpense;
 use App\SmEmailSmsLog;
-use App\SmFeesPayment;
-use App\SmItemReceive;
+use App\AramiscFeesPayment;
+use App\AramiscItemReceive;
 use App\SmLeaveDefine;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\SmClassTeacher;
 use App\SmLeaveRequest;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\SmAssignSubject;
 use App\SmBankPaymentSlip;
 use App\Models\FeesInvoice;
-use App\SmStudentAttendance;
+use App\AramiscStudentAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\SmAssignClassTeacher;
 use Illuminate\Support\Carbon;
-use App\SmTeacherUploadContent;
+use App\AramiscTeacherUploadContent;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -43,11 +43,11 @@ use Modules\Alumni\Entities\Graduate;
 
 class DatatableQueryController extends Controller
 {
-    public function aramiscStudentDetailsDatatable(Request $request)
+    public function studentDetailsDatatable(Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
-            $sessions = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $academic_year = $request->academic_year;
             $class_id = $request->class_id;
             $name = $request->name;
@@ -101,7 +101,7 @@ class DatatableQueryController extends Controller
             });
             
            $student_records = $records->where('is_promote', 0)->whereHas('student')->get(['student_id'])->unique('student_id')->toArray();
-           $all_students =  SmStudent::with('studentRecords','studentRecords.class','studentRecords.section')->whereIn('id',$student_records)
+           $all_students =  AramiscStudent::with('studentRecords','studentRecords.class','studentRecords.section')->whereIn('id',$student_records)
                                 ->where('active_status', 1)
                                 ->with(array('parents' => function ($query) {
                                     $query->select('id', 'fathers_name');
@@ -118,7 +118,7 @@ class DatatableQueryController extends Controller
 
                              
 
-            $students = SmStudent::with(['gender', 'studentRecords' => function ($q) use ($request) {
+            $students = AramiscStudent::with(['gender', 'studentRecords' => function ($q) use ($request) {
                 return $q->when(moduleStatusCheck('University') && $request->filled('un_academic_id'), function ($u_query) use ($request) {
                         $u_query->where('un_academic_id', $request->un_academic_id);
                     }, function ($query) use ($request) {
@@ -267,7 +267,7 @@ class DatatableQueryController extends Controller
         })
         ->distinct('student_id')->pluck('student_id')->toArray();
 
-        $students = SmStudent::query();
+        $students = AramiscStudent::query();
         $students->where('active_status', 1);
 
        
@@ -354,7 +354,7 @@ class DatatableQueryController extends Controller
     {
 
         try {
-            // $date = $request->aramiscAttendance_date;
+            // $date = $request->attendance_date;
             if (getClassActeacherAccesscess()) {
                 $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             } else {
@@ -367,26 +367,26 @@ class DatatableQueryController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             }
-            $students = SmStudent::where('class_id', $class)->where('section_id', $section)->where('active_status', 1)
+            $students = AramiscStudent::where('class_id', $class)->where('section_id', $section)->where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)->get();
 
             if ($students->isEmpty()) {
                 Toastr::error('No Result Found', 'Failed');
-                return redirect('student-aramiscAttendance');
+                return redirect('student-attendance');
             }
 
             $already_assigned_students = [];
             $new_students = [];
-            $aramiscAttendance_type = "";
+            $attendance_type = "";
             foreach ($students as $student) {
-                $aramiscAttendance = SmStudentAttendance::where('student_id', $student->id)
-                    ->where('aramiscAttendance_date', date('Y-m-d', $date))
+                $attendance = AramiscStudentAttendance::where('student_id', $student->id)
+                    ->where('attendance_date', date('Y-m-d', $date))
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
-                if ($aramiscAttendance != "") {
-                    $already_assigned_students[] = $aramiscAttendance;
-                    $aramiscAttendance_type = $aramiscAttendance->aramiscAttendance_type;
+                if ($attendance != "") {
+                    $already_assigned_students[] = $attendance;
+                    $attendance_type = $attendance->attendance_type;
                 } else {
                     $new_students[] = $student;
                 }
@@ -394,7 +394,7 @@ class DatatableQueryController extends Controller
             $class_id = $class;
             $section_id = $section;
             $class_info = SmClass::find($class);
-            $section_info = SmSection::find($section);
+            $section_info = AramiscSection::find($section);
 
             $search_info['class_name'] = $class_info->class_name;
             $search_info['section_name'] = $section_info->section_name;
@@ -406,18 +406,18 @@ class DatatableQueryController extends Controller
                 $all_students[$value->student_id]['admission_no'] = $value->studentInfo->admission_no;
                 $all_students[$value->student_id]['roll_no'] = $value->studentInfo->roll_no;
                 $all_students[$value->student_id]['full_name'] = $value->studentInfo->full_name;
-                $all_students[$value->student_id]['aramiscAttendance_type'] = $value->aramiscAttendance_type;
+                $all_students[$value->student_id]['attendance_type'] = $value->attendance_type;
                 $all_students[$value->student_id]['notes'] = $value->notes;
-                $all_students[$value->student_id]['aramiscAttendance_date'] = $value->aramiscAttendance_date;
+                $all_students[$value->student_id]['attendance_date'] = $value->attendance_date;
             }
             foreach ($new_students as $key => $value) {
                 $all_students[$value->id]['std_id'] = $value->id;
                 $all_students[$value->id]['admission_no'] = $value->admission_no;
                 $all_students[$value->id]['roll_no'] = $value->roll_no;
                 $all_students[$value->id]['full_name'] = $value->full_name;
-                $all_students[$value->id]['aramiscAttendance_type'] = '';
+                $all_students[$value->id]['attendance_type'] = '';
                 $all_students[$value->id]['notes'] = '';
-                $all_students[$value->id]['aramiscAttendance_date'] = '';
+                $all_students[$value->id]['attendance_date'] = '';
             }
             // return $all_students;
 
@@ -437,20 +437,20 @@ class DatatableQueryController extends Controller
 
                     $btn = '<div class="d-flex radio-btn-flex">
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceP' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'P' ? 'checked' : '') . ' value="P" class="common-radio aramiscAttendanceP aramiscAttendance_type">
-                                        <label for="aramiscAttendanceP' . $row['std_id'] . '">' . app('translator')->get('common.present') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceP' . $row['std_id'] . '"' . ($row['attendance_type'] == 'P' ? 'checked' : '') . ' value="P" class="common-radio attendanceP attendance_type">
+                                        <label for="attendanceP' . $row['std_id'] . '">' . app('translator')->get('common.present') . '</label>
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceL' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'L' ? 'checked' : '') . ' value="L" class="common-radio aramiscAttendanceL aramiscAttendance_type">
-                                        <label for="aramiscAttendanceL' . $row['std_id'] . '">' . app('translator')->get('common.late') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceL' . $row['std_id'] . '"' . ($row['attendance_type'] == 'L' ? 'checked' : '') . ' value="L" class="common-radio attendanceL attendance_type">
+                                        <label for="attendanceL' . $row['std_id'] . '">' . app('translator')->get('common.late') . '</label>
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceA' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'A' ? 'checked' : '') . ' value="A" class="common-radio aramiscAttendanceA aramiscAttendance_type">
-                                        <label for="aramiscAttendanceA' . $row['std_id'] . '">' . app('translator')->get('common.absent') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceA' . $row['std_id'] . '"' . ($row['attendance_type'] == 'A' ? 'checked' : '') . ' value="A" class="common-radio attendanceA attendance_type">
+                                        <label for="attendanceA' . $row['std_id'] . '">' . app('translator')->get('common.absent') . '</label>
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" data-id="' . $row['std_id'] . '" name="aramiscAttendance[' . $row['std_id'] . ']" id="aramiscAttendanceF' . $row['std_id'] . '"' . ($row['aramiscAttendance_type'] == 'F' ? 'checked' : '') . ' value="F" class="common-radio aramiscAttendanceF aramiscAttendance_type">
-                                        <label for="aramiscAttendanceF' . $row['std_id'] . '">' . app('translator')->get('common.half_day') . '</label>
+                                        <input type="radio" data-id="' . $row['std_id'] . '" name="attendance[' . $row['std_id'] . ']" id="attendanceF' . $row['std_id'] . '"' . ($row['attendance_type'] == 'F' ? 'checked' : '') . ' value="F" class="common-radio attendanceF attendance_type">
+                                        <label for="attendanceF' . $row['std_id'] . '">' . app('translator')->get('common.half_day') . '</label>
                                     </div>
                                        
     
@@ -464,7 +464,7 @@ class DatatableQueryController extends Controller
             // }
 
 
-            return view('backEnd.studentInformation.student_aramiscAttendance', compact('classes', 'date', 'class_id', 'section_id', 'date', 'already_assigned_students', 'new_students', 'aramiscAttendance_type', 'search_info'));
+            return view('backEnd.studentInformation.student_attendance', compact('classes', 'date', 'class_id', 'section_id', 'date', 'already_assigned_students', 'new_students', 'attendance_type', 'search_info'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -648,121 +648,118 @@ class DatatableQueryController extends Controller
 
     public function bankPaymentSlipAjax(Request $request)
     {
-        $bank_slips = SmBankPaymentSlip::query();
-        if(moduleStatusCheck('University')){
-            $bank_slips->where('un_academic_id', getAcademicId());
-            if ($request->un_semester_label_id != "") {
-                $bank_slips->where('un_semester_label_id', $request->un_semester_label_id);
+        try {
+            $bank_slips = SmBankPaymentSlip::query();
+            if (moduleStatusCheck('University')) {
+                $bank_slips->where('un_academic_id', getAcademicId());
+                if ($request->un_semester_label_id != "") {
+                    $bank_slips->where('un_semester_label_id', $request->un_semester_label_id);
+                }
+            } else {
+                $bank_slips->where('academic_id', getAcademicId());
+                if ($request->class != "") {
+                    $bank_slips->where('class_id', $request->class);
+                }
+                if ($request->section != "") {
+                    $bank_slips->where('section_id', $request->section);
+                }
+                if ($request->payment_date != "") {
+                    $date = strtotime($request->payment_date);
+                    $new_format = date('Y-m-d', $date);
+                    $bank_slips->where('date', $new_format);
+                }
             }
-        }else{
-            $bank_slips->where('academic_id', getAcademicId());
-            if ($request->class != "") {
-                $bank_slips->where('class_id', $request->class);
+
+            if ($request->approve_status != "") {
+                $bank_slips->where('approve_status', $request->approve_status);
             }
-            if ($request->section != "") {
-                $bank_slips->where('section_id', $request->section);
-            }
-            if ($request->payment_date != "") {
-                $date = strtotime($request->payment_date);
-                $new_format = date('Y-m-d', $date);
-                $bank_slips->where('date', $new_format);
-            }
+            $bank_slips = $bank_slips->with('studentInfo', 'installmentAssign.installment', 'feesType')
+                ->where('school_id', Auth::user()->school_id)
+                ->where('approve_status', 0)
+                ->orderBy('id', 'desc');
+            // return $bank_slips->get();
+            return Datatables::of($bank_slips)
+                ->addIndexColumn()
+                ->addColumn('date', function ($row) {
+                    $date = dateConvert(@$row->created_at);
+                    return $date;
+                })
+                ->rawColumns(['date'])
+                ->addColumn('status', function ($row) {
+                    if ($row->approve_status == 0) {
+                        $btn = '<button class="primary-btn small bg-warning text-white border-0">' . app('translator')->get('common.pending') . '</button>';
+                    } elseif ($row->approve_status == 1) {
+                        $btn = '<button class="primary-btn small bg-success text-white border-0  tr-bg">' . app('translator')->get('common.approved') . '</button>';
+                    } elseif ($row->approve_status == 2) {
+                        $btn = '<button class="primary-btn small bg-danger text-white border-0  tr-bg">' . app('translator')->get('common.rejected') . '</button>';
+                    }
+                    return $btn;
+                })
+                ->addColumn('p_amount', function ($row) {
+                    return generalSetting()->currency_symbol . ' ' . $row->amount;
+                })
+                ->addColumn('slip', function ($row) {
+                    if (!empty($row->slip)) {
+                        $btn = '<a class="text-color" data-toggle="modal" data-target="#showCertificateModal(' . $row->id . ');" href="#">' . app('translator')->get('common.approve') . '</a>';
+                    } else {
+                        if ($row->approve_status == 0) {
+                            $btn = '<div class="dropdown CRM_dropdown">
+                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">' . app('translator')->get('common.select') . '</button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                                <a onclick="enableId(' . $row->id . ');" class="dropdown-item" href="#" data-toggle="modal" data-target="#enableStudentModal" data-id="' . $row->id . '"  >' . app('translator')->get('common.approve') . '</a>' .
+                                                '<a onclick="rejectPayment(' . $row->id . ');" class="dropdown-item" href="#" data-toggle="modal" data-id="' . $row->id . '"  >' . app('translator')->get('common.reject') . '</a>' .
+                                        '</div>
+                                    </div>';
+                        } elseif ($row->approve_status == 1) {
+                            $btn = '<div class="dropdown">
+                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">' . app('translator')->get('common.select') . '</button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#">' . app('translator')->get('common.approved') . '</a>' .
+                                        '</div>
+                                    </div>';
+                        } elseif ($row->approve_status == 2) {
+                            $btn = '<div class="dropdown">
+                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">' . app('translator')->get('common.select') . '</button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                                <a onclick="viewReason(' . $row->id . ');" class="dropdown-item ' . "reason" . $row->id . '" href="#" data-reason="' . $row->reason . '"  >' . app('translator')->get('common.view') . '</a>' .
+                                        '</div>
+                                    </div>';
+                        }
+                    }
+                    return $btn;
+                })
+                
+                ->rawColumns(['status', 'action', 'slip'])
+                ->make(true);
+        } catch (\Throwable $th) {
+            dd($th);
         }
-       
-        if ($request->approve_status != "") {
-            $bank_slips->where('approve_status', $request->approve_status);
-        }
-        $bank_slips = $bank_slips->with('studentInfo','installmentAssign.installment','feesType')
-        ->where('school_id',Auth::user()->school_id)
-        ->where('approve_status',0)
-        ->orderBy('id', 'desc');
-
-        return Datatables::of($bank_slips)
-            ->addIndexColumn()
-            ->addColumn('date', function ($row) {
-                $date = dateConvert(@$row->created_at);
-                return $date;
-            })
-            ->rawColumns(['date'])
-            ->addColumn('status', function ($row) {
-                if ($row->approve_status == 0) {
-                    $btn = '<button class="primary-btn small bg-warning text-white border-0">' . app('translator')->get('common.pending') . '</button>';
-                } elseif ($row->approve_status == 1) {
-                    $btn = '<button class="primary-btn small bg-success text-white border-0  tr-bg">' . app('translator')->get('common.approved') . '</button>';
-                } elseif ($row->approve_status == 2) {
-                    $btn = '<button class="primary-btn small bg-danger text-white border-0  tr-bg">' . app('translator')->get('common.rejected') . '</button>';
-                }
-                return $btn;
-            })
-            ->addColumn('p_amount' , function ($row){
-                return generalSetting()->currency_symbol.' '.$row->amount ;
-            })
-            ->addColumn('slip', function ($row) {
-                if ((!empty($row->slip))) {
-                    $btn = '<a class="text-color" data-toggle="modal" data-target="#showCertificateModal(' . $row->id . ');" href="#">' . app('translator')->get('common.approve') . '</a>';
-                } else {
-                    $btn = "";
-                }
-                return $btn;
-            })
-            ->addColumn('action', function ($row) {
-                if ($row->approve_status == 0) {
-                    $btn = '<div class="dropdown CRM_dropdown">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">' . app('translator')->get('common.select') . '</button>
-
-                                <div class="dropdown-menu dropdown-menu-right">
-                                        <a onclick="enableId(' . $row->id . ');" class="dropdown-item" href="#" data-toggle="modal" data-target="#enableStudentModal" data-id="' . $row->id . '"  >' . app('translator')->get('common.approve') . '</a>' .
-                        '<a onclick="rejectPayment(' . $row->id . ');" class="dropdown-item" href="#" data-toggle="modal" data-id="' . $row->id . '"  >' . app('translator')->get('common.reject') . '</a>' .
-                        '</div>
-                                </div>';
-                } elseif ($row->approve_status == 1) {
-                    $btn = '<div class="dropdown">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">' . app('translator')->get('common.select') . '</button>
-
-                                <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">' . app('translator')->get('common.approved') . '</a>' .
-                        '</div>
-                                </div>';
-                } elseif ($row->approve_status == 2) {
-                    $btn = '<div class="dropdown">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">' . app('translator')->get('common.select') . '</button>
-
-                                <div class="dropdown-menu dropdown-menu-right">
-                                        <a onclick="viewReason(' . $row->id . ');" class="dropdown-item ' . "reason" . $row->id . '" href="#" data-reason="' . $row->reason . '"  >' . app('translator')->get('common.view') . '</a>' .
-                        '</div>
-                                </div>';
-                }
-
-                return $btn;
-            })
-            ->rawColumns(['status', 'action', 'slip'])
-            ->make(true);
-
     }
 
 
-    public function aramiscAssignmentList()
+
+    public function assignmentList()
     {
 
         $user = Auth()->user();
 
         if (teacherAccess()) {
-            SmNotification::where('user_id', $user->id)->where('role_id', 1)->update(['is_read' => 1]);
+            AramiscNotification::where('user_id', $user->id)->where('role_id', 1)->update(['is_read' => 1]);
         }
 
         if (!teacherAccess()) {
-            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
+            $uploadContents = AramiscTeacherUploadContent::where('content_type', 'as')
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
                             ->whereNullLms();
         } else {
-            $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
+            $uploadContents = AramiscTeacherUploadContent::where(function ($q) {
                 $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
             })->where('content_type', 'as')->whereNullLms()->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id);
         }
      
-        return Datatables::of($aramiscUploadContents)
+        return Datatables::of($uploadContents)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
 
@@ -882,16 +879,16 @@ class DatatableQueryController extends Controller
     }
 
 
-    public function aramiscSyllabusList()
+    public function syllabusList()
     {
         try {
             if (!teacherAccess()) {
-                $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')
+                $uploadContents = AramiscTeacherUploadContent::where('content_type', 'sy')
                     ->whereNullLms()
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id);
             } else {
-                $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
+                $uploadContents = AramiscTeacherUploadContent::where(function ($q) {
                     $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
                 })->where('content_type', 'sy')
                 ->whereNullLms()
@@ -899,8 +896,8 @@ class DatatableQueryController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ;
             }
-            // return  $aramiscUploadContents;
-            return Datatables::of($aramiscUploadContents)
+            // return  $uploadContents;
+            return Datatables::of($uploadContents)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
 
@@ -996,7 +993,7 @@ class DatatableQueryController extends Controller
 
     public function complaintDetailsDatatable(Request $request){
         if ($request->ajax()) {
-            $complaints = SmComplaint::with('complaintType','complaintSource');
+            $complaints = AramiscComplaint::with('complaintType','complaintSource');
             return Datatables::of($complaints)
             ->addIndexColumn()
             ->addColumn('c_date', function ($row) {
@@ -1032,7 +1029,7 @@ class DatatableQueryController extends Controller
 
     public function unAssignStudentList(Request $request){
         if ($request->ajax()) {
-            $all_students = SmStudent::with('parents','gender','category')->wheredoesnthave('studentRecords')->where('school_id', Auth::user()->school_id)->where('academic_id',getAcademicId());
+            $all_students = AramiscStudent::with('parents','gender','category')->wheredoesnthave('studentRecords')->where('school_id', Auth::user()->school_id)->where('academic_id',getAcademicId());
             return Datatables::of($all_students)
                 ->addIndexColumn()
                 ->addColumn('dob', function ($row) {
@@ -1088,7 +1085,7 @@ class DatatableQueryController extends Controller
                             ->where('school_id', Auth::user()->school_id)
                             ->pluck('student_id')->unique();
 
-          $students =  SmStudent::query();
+          $students =  AramiscStudent::query();
           $students->whereIn('id',$student_ids);
           $students->when($request->name, function ($query) use ($request) {
             $query->where('full_name', 'like', '%' . $request->name . '%');
@@ -1164,20 +1161,20 @@ class DatatableQueryController extends Controller
         }
     }
 
-    public function aramiscUploadContentListDatatable(Request $request){
+    public function uploadContentListDatatable(Request $request){
 
         if( $request->ajax()){
             $user = Auth()->user();
             if (teacherAccess()) {
-                SmNotification::where('user_id', $user->id)->where('role_id', 1)->update(['is_read' => 1]);
+                AramiscNotification::where('user_id', $user->id)->where('role_id', 1)->update(['is_read' => 1]);
             }
             if (!teacherAccess()) {
-                $aramiscUploadContents = SmTeacherUploadContent::where('academic_id', getAcademicId())
+                $uploadContents = AramiscTeacherUploadContent::where('academic_id', getAcademicId())
                                 ->where('school_id', Auth::user()->school_id)
                                 ->whereNullLms()
                                 ->latest();
             } else {
-                $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
+                $uploadContents = AramiscTeacherUploadContent::where(function ($q) {
                     $q->where('created_by', Auth::user()->id);
                 })->whereNullLms()->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
@@ -1186,7 +1183,7 @@ class DatatableQueryController extends Controller
 
            
          try{
-            return Datatables::of($aramiscUploadContents)
+            return Datatables::of($uploadContents)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
                 return dateConvert(@$row->created_at);
@@ -1278,28 +1275,28 @@ class DatatableQueryController extends Controller
         }
     }
 
-    public function aramiscOtherDownloadList()
+    public function otherDownloadList()
     {
 
         $user = Auth()->user();
 
         if (teacherAccess()) {
-            SmNotification::where('user_id', $user->id)->where('role_id', 1)->update(['is_read' => 1]);
+            AramiscNotification::where('user_id', $user->id)->where('role_id', 1)->update(['is_read' => 1]);
         }
 
         if (!teacherAccess()) {
-            $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')
+            $uploadContents = AramiscTeacherUploadContent::where('content_type', 'ot')
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
                             ->whereNullLms();
         } else {
-            $aramiscUploadContents = SmTeacherUploadContent::where(function ($q) {
+            $uploadContents = AramiscTeacherUploadContent::where(function ($q) {
                 $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
             })->where('content_type', 'ot')->whereNullLms()->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id);
         }
      
-        return Datatables::of($aramiscUploadContents)
+        return Datatables::of($uploadContents)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
                 return dateConvert(@$row->created_at);
@@ -1379,8 +1376,8 @@ class DatatableQueryController extends Controller
         if($request->ajax()){
             $date_from = date('Y-m-d', strtotime($request->date_from));
             $date_to = date('Y-m-d', strtotime($request->date_to));
-            $fees_payments = SmFeesPayment::query();
-            $fees_payments = $fees_payments->when(aramiscDirectFees(), function($q){
+            $fees_payments = AramiscFeesPayment::query();
+            $fees_payments = $fees_payments->when(directFees(), function($q){
                 $q->whereNotNull('installment_payment_id');
             });
 
@@ -1434,7 +1431,7 @@ class DatatableQueryController extends Controller
             ->addColumn('invoice', function($row){
                 if(moduleStatusCheck('University')){
                     universityFeesInvoice(@$fees_payment->installmentPayment->invoice_no);
-                }elseif(aramiscDirectFees()){
+                }elseif(directFees()){
                     $invoice_setting = FeesInvoice::where('school_id', auth()->user()->school_id)->first(['prefix','start_form']);
                     return sm_fees_invoice($row->installmentPayment->invoice_no ,$invoice_setting);
                 }else{
@@ -1464,7 +1461,7 @@ class DatatableQueryController extends Controller
                                             <a data-modal-size="modal-lg" target="_blank" class="dropdown-item" href="' . route('fees_collect_student_wise', [$row->recordDetail->id]) . '">' . app('translator')->get('common.view') . '</a>' .
                     ((userPermission('edit-fees-payment') === true  && $row->assign_id !=null)? '<a class="dropdown-item modalLink" data-modal-size="modal-lg" title="' . __('fees.edit_fees_payment') . '" href="' . route('edit-fees-payment', [$row->id]) . '">' . app('translator')->get('fees.edit_fees') . '</a>' : '') .
 
-                    (! moduleStatusCheck('University') && aramiscDirectFees() == false  ? (Config::get('app.app_sync') ? '<span  data-toggle="tooltip" title="Disabled For Demo "><a  class="dropdown-item" href="#"  >' . app('translator')->get('common.disable') . '</a></span>' :
+                    (! moduleStatusCheck('University') && directFees() == false  ? (Config::get('app.app_sync') ? '<span  data-toggle="tooltip" title="Disabled For Demo "><a  class="dropdown-item" href="#"  >' . app('translator')->get('common.disable') . '</a></span>' :
                         '<a onclick="deleteFeesPayment(' . $row->id . ');"  class="dropdown-item" href="#" data-toggle="modal" data-id="' . $row->id . '"  >' . app('translator')->get('common.delete') . '</a>') : '') .
 
 
@@ -1711,7 +1708,7 @@ class DatatableQueryController extends Controller
         }
 
 
-        public function aramiscHomeworkListAjax(Request $request){
+        public function homeworkListAjax(Request $request){
 
             if( $request->ajax()){
                     $all_homeworks = SmHomework::query();
@@ -1732,12 +1729,12 @@ class DatatableQueryController extends Controller
                     $all_homeworks->where('school_id',Auth::user()->school_id)->orderby('id','DESC')
                         ->where('academic_id', getAcademicId());
                     if (teacherAccess()) {
-                        $aramiscHomeworkLists = $all_homeworks->where('created_by',Auth::user()->id);
+                        $homeworkLists = $all_homeworks->where('created_by',Auth::user()->id);
                     } else {
-                        $aramiscHomeworkLists = $all_homeworks;
+                        $homeworkLists = $all_homeworks;
                     }
 
-                    return Datatables::of($aramiscHomeworkLists)
+                    return Datatables::of($homeworkLists)
                     ->addIndexColumn()
                     ->addColumn('homework_date', function ($row) {
                         return dateConvert(@$row->homework_date);
@@ -1774,7 +1771,7 @@ class DatatableQueryController extends Controller
 
         public function bookListAjax(Request $request){
             if($request->ajax()){
-                $books = SmBook::leftjoin('sm_subjects', 'sm_books.book_subject_id', '=', 'sm_subjects.id')
+                $books = AramiscBook::leftjoin('sm_subjects', 'sm_books.book_subject_id', '=', 'sm_subjects.id')
                     ->leftjoin('sm_book_categories', 'sm_books.book_category_id', '=', 'sm_book_categories.id')
                     ->select('sm_books.*', 'sm_subjects.subject_name', 'sm_book_categories.category_name')
                     ->orderby('sm_books.id', 'DESC');
@@ -1806,7 +1803,7 @@ class DatatableQueryController extends Controller
 
             if($request->ajax()){
 
-                $all_issue_books = SmBookIssue::query();
+                $all_issue_books = AramiscBookIssue::query();
                 $all_issue_books =  $all_issue_books->whereHas('books')->with(['user:full_name,id','books:id,book_subject_id,book_title,book_number,isbn_no,author_name','books.bookSubject']);
 
                 $all_issue_books->when($request->book_id, function ($query) use ($request) {
@@ -1860,7 +1857,7 @@ class DatatableQueryController extends Controller
         public function itemsListAjax(Request $request){
 
             if($request->ajax()){
-                $items = SmItem::with('category')->where('school_id',Auth::user()->school_id);
+                $items = AramiscItem::with('category')->where('school_id',Auth::user()->school_id);
                 return Datatables::of($items)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -1886,7 +1883,7 @@ class DatatableQueryController extends Controller
 
         public function itemReceiveListAjax(Request $request){
             if($request->ajax()){
-                $allItemReceiveLists = SmItemReceive::with('suppliers','paymentMethodName','bankName','itemPayments');
+                $allItemReceiveLists = AramiscItemReceive::with('suppliers','paymentMethodName','bankName','itemPayments');
 
                 return Datatables::of($allItemReceiveLists)
                 ->addIndexColumn()
@@ -1955,9 +1952,9 @@ class DatatableQueryController extends Controller
         }
 
 
-        public function aramiscStudentTransportReportAjax(Request $request){
+        public function studentTransportReportAjax(Request $request){
             if($request->ajax()){
-                $students = SmStudent::with('studentRecord.class','studentRecord.section','parents','route','vehicle','drivers')->whereHas('vehicle');
+                $students = AramiscStudent::with('studentRecord.class','studentRecord.section','parents','route','vehicle','drivers')->whereHas('vehicle');
                 return Datatables::of($students)
                 ->addIndexColumn()
                 ->addColumn('class_section', function ($row) {

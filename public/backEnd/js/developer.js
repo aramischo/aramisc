@@ -215,7 +215,7 @@
 
     // select item name from selecting item category name
     $(document).ready(function() {
-        $("#aramisc_theme_style").on("change", function() {
+        $("#infix_theme_style").on("change", function() {
             var url = $("#url").val();
             var formData = {
                 id: $(this).val(),
@@ -288,7 +288,7 @@
 
     // select item name from selecting item category name
     $(document).ready(function() {
-        $("#aramisc_theme_rtl").on("change", function() {
+        $("#infix_theme_rtl").on("change", function() {
             var url = $("#url").val();
             var formData = {
                 id: $(this).val(),
@@ -308,7 +308,7 @@
     });
 
     $(document).ready(function() {
-        $("#aramisc_session").on("change", function() {
+        $("#infix_session").on("change", function() {
             var url = $("#url").val();
             var formData = {
                 id: $(this).val(),
@@ -694,7 +694,7 @@
 
                 $("#select_student").find("option").not(":first").remove();
                 $("#select_student_div ul").find("li").not(":first").remove();
-                $("#member_type_hidden").addValue("");
+                //$("#member_type_hidden").addValue("");
 
                 var url = $("#url").val();
                 var formData = {

@@ -2,8 +2,8 @@
 
 use App\GlobalVariable;
 use App\SmClass;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmSubject;
 use App\SmCurrency;
 use App\Models\Theme;
@@ -182,7 +182,7 @@ if (!function_exists('students')) {
                 $q->where('academic_id', $academic_year);
             })->where('school_id', auth()->user()->school_id)->pluck('student_id')->unique()->toArray();
 
-        $students = SmStudent::withOutGlobalScopes()->whereIn('id', $student_ids)->get();
+        $students = AramiscStudent::withOutGlobalScopes()->whereIn('id', $student_ids)->get();
 
         return $students;
 
@@ -220,7 +220,7 @@ if (!function_exists('subjectSections')) {
             ->distinct(['class_id', 'section_id'])
             ->pluck('section_id')
             ->toArray();
-        return SmSection::whereIn('id', $sectionIds)->get(['id', 'section_name']);
+        return AramiscSection::whereIn('id', $sectionIds)->get(['id', 'section_name']);
 
     }
 }
@@ -395,12 +395,12 @@ if (!function_exists('sidebarPermission')) {
 
         if ($permission->module == 'fees_collection') {
             $routeList = ['fees_group', 'fees_type', 'search_fees_due', 'fees_forward'];
-            if ((int)generalSetting()->fees_status != 1 && aramiscDirectFees()) {
+            if ((int)generalSetting()->fees_status != 1 && directFees()) {
                 $access = true;
                 if (in_array($permission->route, $routeList)) {
                     $access = false;
                 }
-            } elseif ((int)generalSetting()->fees_status != 1 && aramiscDirectFees() == false) {
+            } elseif ((int)generalSetting()->fees_status != 1 && directFees() == false) {
                 $access = true;
                 if (in_array($permission->route, $routeList)) {
                     $access = true;

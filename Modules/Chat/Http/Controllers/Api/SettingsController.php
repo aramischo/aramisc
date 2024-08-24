@@ -83,8 +83,8 @@ class SettingsController extends Controller
     {
         try {
             $subjects = SmAssignSubject::all();
-            foreach ($subjects as $aramiscAssignSubject) {
-                event(new CreateClassGroupChat($aramiscAssignSubject));
+            foreach ($subjects as $assignSubject) {
+                event(new CreateClassGroupChat($assignSubject));
             }
 //            clasteacher to all student
 

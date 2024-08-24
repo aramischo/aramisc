@@ -250,12 +250,12 @@
                 <div class="col-lg-9">
                     <ul class="nav nav-tabs tabs_scroll_nav" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#aramiscStudentProfile" role="tab"
+                            <a class="nav-link active" href="#studentProfile" role="tab"
                                data-toggle="tab">@lang('student.profile')</a>
                         </li>
                         @if (generalSetting()->fees_status == 0 && isMenuAllowToShow('fees'))
                             <li class="nav-item">
-                                <a class="nav-link" href="#aramiscStudentFees" role="tab"
+                                <a class="nav-link" href="#studentFees" role="tab"
                                    data-toggle="tab">@lang('fees.fees')</a>
                             </li>
                         @endif
@@ -287,12 +287,12 @@
                         <li class="nav-item">
                             <a class="nav-link {{ Session::get('studentAttendance') == 'active' ? 'active' : '' }} "
                                href="#studentAttendance" role="tab"
-                               data-toggle="tab">@lang('student.student_aramiscAttendance')</a>
+                               data-toggle="tab">@lang('student.student_attendance')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Session::get('subjectAttendance') == 'active' ? 'active' : '' }} "
                                href="#subjectAttendance" role="tab"
-                               data-toggle="tab">@lang('student.subject_aramiscAttendance')</a>
+                               data-toggle="tab">@lang('student.subject_attendance')</a>
                         </li>
                         @if (moduleStatusCheck('Wallet'))
                             @if (userPermission('wallet.my-wallet'))
@@ -322,7 +322,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <!-- Start Profile Tab -->
-                        <div role="tabpanel" class="tab-pane fade  show active" id="aramiscStudentProfile">
+                        <div role="tabpanel" class="tab-pane fade  show active" id="studentProfile">
                             <div class="white-box">
                                 <h4 class="stu-sub-head">@lang('student.personal_info')</h4>
                                 @if (is_show('admission_date'))
@@ -983,7 +983,7 @@
                         </div>
                         <!-- End Profile Tab -->
                         <!-- Start Fees Tab -->
-                        <div role="tabpanel" class="tab-pane fade" id="aramiscStudentFees">
+                        <div role="tabpanel" class="tab-pane fade" id="studentFees">
                             @foreach ($records as $record)
                                 <div class="white-box no-search no-paginate no-table-info mb-2">
                                     <div class="row">
@@ -1045,7 +1045,7 @@
                                                    href="{{ route('university.un-total-fees-modal', [$record->id]) }}">
                                                     <i
                                                             class="ti-plus pr-2"> </i> @lang('fees.add_fees') </a>
-                                            @elseif(aramiscDirectFees())
+                                            @elseif(directFees())
                                                 <a class="primary-btn small fix-gr-bg modalLink"
                                                    data-modal-size="modal-lg"
                                                    title="@lang('fees.add_fees')"
@@ -1056,9 +1056,9 @@
                                     </div>
                                     <div class="table-responsive">
                                         @if (moduleStatusCheck('University'))
-                                            @includeIf('university::include.aramiscStudentFeesTableView')
-                                        @elseif(aramiscDirectFees())
-                                            @includeIf('backEnd.feesCollection.aramiscDirectFees.studentDirectFeesTableView')
+                                            @includeIf('university::include.studentFeesTableView')
+                                        @elseif(directFees())
+                                            @includeIf('backEnd.feesCollection.directFees.studentDirectFeesTableView')
                                         @else
                                             <table class="table school-table-style res_scrol" cellspacing="0"
                                                    width="100%">
@@ -1098,11 +1098,11 @@
                                                             @$student_id = @$fees_assigned->student_id;
                                                         @endphp
                                                         @php
-                                                            @$paid = App\SmFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
+                                                            @$paid = App\AramiscFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
                                                             @$total_grand_paid += @$paid;
                                                         @endphp
                                                         @php
-                                                            @$fine = App\SmFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
+                                                            @$fine = App\AramiscFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
                                                             @$total_fine += @$fine;
                                                         @endphp
 
@@ -1153,7 +1153,7 @@
                                                             </td>
                                                         </tr>
                                                         @php
-                                                            @$payments = App\SmFeesAssign::aramiscFeesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->record_id);
+                                                            @$payments = App\AramiscFeesAssign::feesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->record_id);
                                                             $i = 0;
                                                         @endphp
                                                         @foreach ($payments as $payment)
@@ -1343,7 +1343,7 @@
                                     <div class="white-box no-search no-paginate no-table-info mb-2">
                                         @foreach($exam_terms as $exam)
                                             @php
-                                                $get_results = App\SmStudent::getExamResult(@$exam->id, @$record);
+                                                $get_results = App\AramiscStudent::getExamResult(@$exam->id, @$record);
                                             @endphp
                                             @if($get_results)
                                                 <div class="main-title">
@@ -1399,8 +1399,8 @@
                                                                             $get_subject_marks = subjectFullMark ($mark->exam_type_id, $mark->subject_id,
                                                                             $mark->studentRecord->class_id, $mark->studentRecord->section_id);
 
-                                                                            $subject_marks = App\SmStudent::fullMarksBySubject($exam->id, $mark->subject_id);
-                                                                            $schedule_by_subject = App\SmStudent::scheduleBySubject($exam->id,
+                                                                            $subject_marks = App\AramiscStudent::fullMarksBySubject($exam->id, $mark->subject_id);
+                                                                            $schedule_by_subject = App\AramiscStudent::scheduleBySubject($exam->id,
                                                                             $mark->subject_id, @$record);
                                                                             $result_subject = 0;
                                                                             if(@generalSetting()->result_type == 'mark'){
@@ -1815,10 +1815,10 @@
                         </div>
                         <!-- End Timeline Tab -->
                         <!-- Start Attendance Tab -->
-                        @include('backEnd.parentPanel.inc._student_aramiscAttendance_tab')
+                        @include('backEnd.parentPanel.inc._student_attendance_tab')
                         <!-- End Attendance Tab -->
                         <!-- Start Attendance Tab -->
-                        @include('backEnd.parentPanel.inc._subject_aramiscAttendance_tab')
+                        @include('backEnd.parentPanel.inc._subject_attendance_tab')
                         <!-- End Attendance Tab -->
                         <!-- Start Behaviour Records Tab -->
                         @if (moduleStatusCheck('BehaviourRecords'))

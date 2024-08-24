@@ -40,7 +40,7 @@
                                                 <input
                                                     class="primary_input_field "
                                                     type="text" name="title" autocomplete="off"
-                                                    value="{{isset($update)? ($SmNewsPage != ''? $SmNewsPage->title:''):''}}">
+                                                    value="{{isset($update)? ($AramiscNewsPage != ''? $AramiscNewsPage->title:''):''}}">
                                                 
                                                 
                                                 @if ($errors->has('title'))
@@ -52,7 +52,7 @@
                                             <div class="primary_input mt-15">
                                                 <div class="primary_input">
                                                     <label class="primary_input_label" for="">@lang('common.description') <span class="text-danger"> *</span> </label>
-                                                    <textarea class="primary_input_field form-control" cols="0" rows="5" name="description" id="description">{{isset($update)? ($SmNewsPage != ''? $SmNewsPage->description:''):'' }}</textarea>
+                                                    <textarea class="primary_input_field form-control" cols="0" rows="5" name="description" id="description">{{isset($update)? ($AramiscNewsPage != ''? $AramiscNewsPage->description:''):'' }}</textarea>
                                                     
                                                     @if($errors->has('description'))
                                                         <span class="text-danger" >
@@ -65,7 +65,7 @@
                                                 <input
                                                     class="primary_input_field form-control{{ $errors->has('main_title') ? ' is-invalid' : '' }}"
                                                     type="text" name="main_title" autocomplete="off"
-                                                    value="{{isset($update)? ($SmNewsPage != ''? $SmNewsPage->main_title:''):''}}">
+                                                    value="{{isset($update)? ($AramiscNewsPage != ''? $AramiscNewsPage->main_title:''):''}}">
                                                
                                                 
                                                 @if ($errors->has('main_title'))
@@ -77,7 +77,7 @@
                                             <div class="primary_input mt-15">
                                                 <div class="primary_input">
                                                     <label class="primary_input_label" for="">@lang('front_settings.main_description') <span class="text-danger"> *</span> </label>
-                                                    <textarea class="primary_input_field form-control" cols="0" rows="5" name="main_description" id="main_description">{{isset($update)? ($SmNewsPage != ''? $SmNewsPage->main_description:''):'' }}</textarea>
+                                                    <textarea class="primary_input_field form-control" cols="0" rows="5" name="main_description" id="main_description">{{isset($update)? ($AramiscNewsPage != ''? $AramiscNewsPage->main_description:''):'' }}</textarea>
                                                     
                                                     @if($errors->has('main_description'))
                                                         <span class="text-danger" >
@@ -90,7 +90,7 @@
                                                 <input
                                                     class="primary_input_field form-control{{ $errors->has('button_text') ? ' is-invalid' : '' }}"
                                                     type="text" name="button_text" autocomplete="off"
-                                                    value="{{isset($update)? ($SmNewsPage != ''? $SmNewsPage->button_text:''):'' }}">
+                                                    value="{{isset($update)? ($AramiscNewsPage != ''? $AramiscNewsPage->button_text:''):'' }}">
                                                 
                                                 
                                                 @if ($errors->has('button_text'))
@@ -104,7 +104,7 @@
                                                 <input
                                                     class="primary_input_field form-control{{ $errors->has('button_text') ? ' is-invalid' : '' }}"
                                                     type="text" name="button_url" autocomplete="off"
-                                                    value="{{isset($update)? ($SmNewsPage != ''? $SmNewsPage->button_url:''):'' }}">
+                                                    value="{{isset($update)? ($AramiscNewsPage != ''? $AramiscNewsPage->button_url:''):'' }}">
                                                 
                                                 
                                                 @if ($errors->has('button_url'))
@@ -132,7 +132,7 @@
                                             <div class="primary_input">
                                                 <div class="primary_file_uploader">
                                                     <input class="primary_input_field form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" id="placeholderInput" type="text"
-                                                    placeholder="{{isset($update)? (($SmNewsPage and $SmNewsPage->image) !="") ? getFilePath3($SmNewsPage->image) :trans('common.image') .' *' :trans('common.image') .' *' }}"
+                                                    placeholder="{{isset($update)? (($AramiscNewsPage and $AramiscNewsPage->image) !="") ? getFilePath3($AramiscNewsPage->image) :trans('common.image') .' *' :trans('common.image') .' *' }}"
                                                     readonly>
                                                     <button class="" type="button">
                                                         <label class="primary-btn small fix-gr-bg" for="browseFile">{{ __('common.browse') }}</label>
@@ -149,7 +149,7 @@
                                             <div class="primary_input">
                                                 <div class="primary_file_uploader">
                                                     <input class="primary_input_field form-control{{ $errors->has('main_image') ? ' is-invalid' : '' }}" id="placeholderIn" type="text"
-                                                    placeholder="{{isset($update)? ($SmNewsPage and $SmNewsPage->main_image !="") ? getFilePath3($SmNewsPage->main_image) :trans('common.main') .' '. trans('common.image') .' *' :trans('common.main') .' '. trans('common.image') .' *' }}"
+                                                    placeholder="{{isset($update)? ($AramiscNewsPage and $AramiscNewsPage->main_image !="") ? getFilePath3($AramiscNewsPage->main_image) :trans('common.main') .' '. trans('common.image') .' *' :trans('common.main') .' '. trans('common.image') .' *' }}"
                                                     readonly>
                                                     <button class="" type="button">
                                                         <label class="primary-btn small fix-gr-bg" for="browseFil">{{ __('common.browse') }}</label>
@@ -195,7 +195,7 @@
         </div>
     </section>
 
-    @if($SmNewsPage)
+    @if($AramiscNewsPage)
     <div class="modal fade admin-query" id="showimageModal">
         <div class="modal-dialog modal-dialog-centered large-modal">
             <div class="modal-content">
@@ -210,12 +210,12 @@
                             <div class="col-lg-12 text-center">
                                 <div class="mt-20">
                                     <section class="container box-1420">
-                                        <div class="banner-area" style="background: linear-gradient(0deg, rgba(124, 50, 255, 0.6), rgba(199, 56, 216, 0.6)), url({{$SmNewsPage->image != ""? $SmNewsPage->image : '../img/client/common-banner1.jpg'}}) no-repeat center;background-size: 100%">
+                                        <div class="banner-area" style="background: linear-gradient(0deg, rgba(124, 50, 255, 0.6), rgba(199, 56, 216, 0.6)), url({{$AramiscNewsPage->image != ""? $AramiscNewsPage->image : '../img/client/common-banner1.jpg'}}) no-repeat center;background-size: 100%">
                                             <div class="banner-inner">
                                                 <div class="banner-content">
-                                                    <h2 style="color: whitesmoke">{{$SmNewsPage->title}}</h2>
-                                                    <p style="color: whitesmoke">{{$SmNewsPage->description}}</p>
-                                                    <a class="primary-btn fix-gr-bg semi-large" href="{{$SmNewsPage->button_url}}">{{$SmNewsPage->button_text}}</a>
+                                                    <h2 style="color: whitesmoke">{{$AramiscNewsPage->title}}</h2>
+                                                    <p style="color: whitesmoke">{{$AramiscNewsPage->description}}</p>
+                                                    <a class="primary-btn fix-gr-bg semi-large" href="{{$AramiscNewsPage->button_url}}">{{$AramiscNewsPage->button_text}}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,17 +224,17 @@
                                         <div class="col-md-6">
                                             <div class="academic-item">
                                                 <div class="academic-img">
-                                                    <img class="img-fluid" src="{{asset($SmNewsPage->main_image)}}" alt="">
+                                                    <img class="img-fluid" src="{{asset($AramiscNewsPage->main_image)}}" alt="">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="academic-text mt-30">
                                                 <h4>
-                                                    {{$SmNewsPage->main_title}}
+                                                    {{$AramiscNewsPage->main_title}}
                                                 </h4>
                                                 <p>
-                                                    {{$SmNewsPage->main_description}}
+                                                    {{$AramiscNewsPage->main_description}}
                                                 </p>
                                             </div>
                                         </div>

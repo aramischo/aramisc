@@ -25,7 +25,7 @@ class UserRepository {
             ->whereNotIn('id', $blocks)
             ->paginate(10);
 
-        // ==aramisc==
+        // ==InfixEdu==
 
         if(app('general_settings')->get('chat_open') == 'no'){
             if (app('general_settings')->get('chat_can_teacher_chat_with_parents') == 'no'){
@@ -37,7 +37,7 @@ class UserRepository {
             }
         }
 
-        // ==End aramisc==
+        // ==End InfixEdu==
 
 
         return $users;

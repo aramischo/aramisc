@@ -96,7 +96,7 @@
     
                                 $issueBooks = $student_detail->bookIssue;
     
-                                $aramiscHomeworkLists = 0;
+                                $homeworkLists = 0;
                                 $totalSubjects = 0;
                                 $totalOnlineExams = 0;
                                 $totalTeachers = 0;
@@ -107,11 +107,11 @@
                                 $pendingHomework = 0;
     
                                 foreach ($student_detail->studentRecords as $record) {
-                                    $aramiscHomeworkLists += $record->getHomeWorkAttribute()->count();
+                                    $homeworkLists += $record->getHomeWorkAttribute()->count();
                                     $totalSubjects += $record->getAssignSubjectAttribute()->count();
                                     $totalTeachers += $record->getStudentTeacherAttribute()->count();
                                     $totalOnlineExams += $record->getOnlineExamAttribute()->count();
-                                    $totalExams += $record->aramiscExamSchedule()->count();
+                                    $totalExams += $record->examSchedule()->count();
     
                                     foreach ($record->feesInvoice as $key => $studentInvoice) {
                                         $amount = $studentInvoice->Tamount;
@@ -121,7 +121,7 @@
                                         $sub_total = $studentInvoice->Tsubtotal;
                                         $feesDue = $amount + $fine - ($paid_amount + $weaver);
                                     }
-                                    foreach ($record->aramiscDirectFeesInstallments as $feesInstallment) {
+                                    foreach ($record->directFeesInstallments as $feesInstallment) {
                                         $balance_fees += discount_fees($feesInstallment->amount, $feesInstallment->discount_amount) - $feesInstallment->paid_amount;
                                     }
                                     foreach ($record->incidents as $incident) {
@@ -129,7 +129,7 @@
                                     }
                                 }
     
-                                $aramiscAttendances = $student_detail->studentAttendances->where('academic_id', generalSetting()->session_id);
+                                $attendances = $student_detail->studentAttendances->where('academic_id', generalSetting()->session_id);
                             @endphp
                         </div>
                     </div>
@@ -254,8 +254,8 @@
                                                 <p class="mb-0">@lang('parent.total_pending_home_work')</p>
                                             </div>
                                             <h1 class="gradient-color2">
-                                                @if (isset($aramiscHomeworkLists))
-                                                    {{ $aramiscHomeworkLists }}
+                                                @if (isset($homeworkLists))
+                                                    {{ $homeworkLists }}
                                                 @endif
                                             </h1>
                                         </div>
@@ -263,18 +263,18 @@
                                 </a>
                             </div>
                         @endif
-                        @if (userPermission('parent-dashboard-aramiscAttendance-in-current-month'))
+                        @if (userPermission('parent-dashboard-attendance-in-current-month'))
                             <div class="col-lg-3 col-md-6">
-                                <a href="{{ route('parent_aramiscAttendance', $children->id) }}" class="d-block">
+                                <a href="{{ route('parent_attendance', $children->id) }}" class="d-block">
                                     <div class="white-box single-summery fuchsia">
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <h3>@lang('parent.aramiscAttendance_in_current_month')</h3>
-                                                <p class="mb-0">@lang('parent.total_aramiscAttendance_in_current_month')</p>
+                                                <h3>@lang('parent.attendance_in_current_month')</h3>
+                                                <p class="mb-0">@lang('parent.total_attendance_in_current_month')</p>
                                             </div>
                                             <h1 class="gradient-color2">
-                                                @if (isset($aramiscAttendances))
-                                                    {{ count($aramiscAttendances) }}
+                                                @if (isset($attendances))
+                                                    {{ count($attendances) }}
                                                 @endif
                                             </h1>
                                         </div>
@@ -495,17 +495,17 @@
                 @endif
                 </div>
 
-                @if (userPermission('parent_aramiscAttendance'))
+                @if (userPermission('parent_attendance'))
                     <div class="row mt-40">
                         @php
                             $now = Carbon::now();
                             $year = $now->year;
                             $month = $now->month;
                             $days = cal_days_in_month(CAL_GREGORIAN, $now->month, $now->year);
-                            $aramiscAttendance = $children->aramiscAttendances;
+                            $attendance = $children->attendances;
                         @endphp
-                        @include('backEnd.parentPanel.inc._parent_dashboard_aramiscAttendance_statistics')
-                        @include('backEnd.parentPanel.inc._dashboard_subject_aramiscAttendance_tab')
+                        @include('backEnd.parentPanel.inc._parent_dashboard_attendance_statistics')
+                        @include('backEnd.parentPanel.inc._dashboard_subject_attendance_tab')
                     </div>
                 @endif
                 
@@ -550,7 +550,7 @@
                                                 return $item->exam_type_id . $item->class_id . $item->section_id;
                                             }) as $key => $exam)
                                                 @php
-                                                    $exam_routines = App\SmExamSchedule::getAllExams($exam->class_id, $exam->section_id, $exam->exam_type_id);
+                                                    $exam_routines = App\AramiscExamSchedule::getAllExams($exam->class_id, $exam->section_id, $exam->exam_type_id);
                                                 @endphp
                                                 <div class="tab-pane fade @if ($key == 0) active show @endif"
                                                     id="home{{ $children->id . $exam->id }}" role="tabpanel"

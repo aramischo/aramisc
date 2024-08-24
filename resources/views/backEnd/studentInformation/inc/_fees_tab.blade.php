@@ -1,4 +1,4 @@
-<div role="tabpanel" class="tab-pane fade" id="aramiscStudentFees">
+<div role="tabpanel" class="tab-pane fade" id="studentFees">
 
     @foreach ($records as $record)
         <div class="no-search no-paginate no-table-info mb-2">
@@ -55,7 +55,7 @@
                             title="@lang('fees.add_fees')"
                             href="{{ route('university.un-total-fees-modal', [$record->id]) }}"> <i
                                 class="ti-plus pr-2"> </i> @lang('fees.add_fees') </a>
-                    @elseif(aramiscDirectFees())
+                    @elseif(directFees())
                         <a class="primary-btn small fix-gr-bg modalLink" data-modal-size="modal-lg"
                             title="@lang('fees.add_fees')" href="{{ route('direct-fees-total-payment', [$record->id]) }}">
                             <i class="ti-plus pr-2"> </i> @lang('fees.add_fees') </a>
@@ -64,9 +64,9 @@
             </div>
             <div class="table-responsive">
                 @if (moduleStatusCheck('University'))
-                    @includeIf('university::include.aramiscStudentFeesTableView')
-                @elseif(aramiscDirectFees())
-                    @includeIf('backEnd.feesCollection.aramiscDirectFees.studentDirectFeesTableView')
+                    @includeIf('university::include.studentFeesTableView')
+                @elseif(directFees())
+                    @includeIf('backEnd.feesCollection.directFees.studentDirectFeesTableView')
                 @else
                     <table class="table school-table-style res_scrol" cellspacing="0" width="100%">
                         <thead>
@@ -105,11 +105,11 @@
                                         @$student_id = @$fees_assigned->student_id;
                                     @endphp
                                     @php
-                                        @$paid = App\SmFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
+                                        @$paid = App\AramiscFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
                                         @$total_grand_paid += @$paid;
                                     @endphp
                                     @php
-                                        @$fine = App\SmFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
+                                        @$fine = App\AramiscFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
                                         @$total_fine += @$fine;
                                     @endphp
 
@@ -160,7 +160,7 @@
                                         </td>
                                     </tr>
                                     @php
-                                        @$payments = App\SmFeesAssign::aramiscFeesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->record_id);
+                                        @$payments = App\AramiscFeesAssign::feesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->record_id);
                                         $i = 0;
                                     @endphp
                                     @foreach ($payments as $payment)

@@ -2,11 +2,11 @@
 
 namespace App\Traits;
 
-use App\SmFeesType;
-use App\SmFeesGroup;
-use App\SmFeesAssign;
-use App\SmFeesMaster;
-use App\SmFeesDiscount;
+use App\AramiscFeesType;
+use App\AramiscFeesGroup;
+use App\AramiscFeesAssign;
+use App\AramiscFeesMaster;
+use App\AramiscFeesDiscount;
 use App\Models\StudentRecord;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -20,26 +20,26 @@ use Modules\University\Entities\UnFeesInstallAssignChildPayment;
 trait FeesAssignTrait
 {
 
-    public function aramiscAssignSubjectFees($student_record, $subject_id, $semester_label_id, $fees_group_id = null, $withOutSubject = null)
+    public function assignSubjectFees($student_record, $subject_id, $semester_label_id, $fees_group_id = null, $withOutSubject = null)
     {
         try{
             $studentRecord = StudentRecord::find($student_record);
             $already_paid = 0;  
             if ($fees_group_id != null) {
-                $fees_master = SmFeesMaster::where('fees_group_id', $fees_group_id)
+                $fees_master = AramiscFeesMaster::where('fees_group_id', $fees_group_id)
                 ->first();
             } else {
-                $fees_master = SmFeesMaster::where('un_semester_label_id',$semester_label_id)->where('un_subject_id', $subject_id)->first();
+                $fees_master = AramiscFeesMaster::where('un_semester_label_id',$semester_label_id)->where('un_subject_id', $subject_id)->first();
                     if(is_null($fees_master)){
                         $subeject = UnSubject::find($subject_id);
                         $sem_label = UnSemesterLabel::find($semester_label_id);
-                        $fees_group = new SmFeesGroup();
+                        $fees_group = new AramiscFeesGroup();
                         $fees_group->name = $subeject->subject_name;
                         $fees_group->school_id = Auth::user()->school_id;
                         $fees_group->un_academic_id = getAcademicId();
                         $fees_group->save();
                         $feesGroupId = $fees_group->id;
-                        $fees_type = new SmFeesType();
+                        $fees_type = new AramiscFeesType();
                         $fees_type->name =$subeject->subject_name;
                         $fees_type->fees_group_id = $feesGroupId;
                         $fees_type->school_id = Auth::user()->school_id;
@@ -49,7 +49,7 @@ trait FeesAssignTrait
             
                         $year = date('Y');
                         $amount = ($subeject->number_of_hours * $sem_label->fees_per_hour);
-                        $fees_master = new SmFeesMaster();
+                        $fees_master = new AramiscFeesMaster();
                         $fees_master->fees_group_id = $fees_type->fees_group_id;
                         $fees_master->fees_type_id = $feesTypeId;
                         $fees_master->un_subject_id = $subeject->id;
@@ -62,7 +62,7 @@ trait FeesAssignTrait
                     }
             }
             if ($fees_master) {
-                $exist = SmFeesAssign::where('fees_master_id', $fees_master->id)
+                $exist = AramiscFeesAssign::where('fees_master_id', $fees_master->id)
                     ->where('un_semester_label_id', $semester_label_id)
                     ->where('un_academic_id', getAcademicId())
                     ->where('record_id', $student_record)
@@ -70,7 +70,7 @@ trait FeesAssignTrait
                    
                 if (!$exist) {
                     $studentRecord = StudentRecord::find($student_record);
-                    $assign_fees = new SmFeesAssign();
+                    $assign_fees = new AramiscFeesAssign();
                     $assign_fees->fees_amount = $fees_master->amount;
                     $assign_fees->fees_master_id = $fees_master->id;
                     $assign_fees->student_id = $studentRecord->student_id;
@@ -217,7 +217,7 @@ trait FeesAssignTrait
 
     public function assignDiscount($discount_id,$record_id){
         
-        $fees_discount = SmFeesDiscount::find($discount_id);
+        $fees_discount = AramiscFeesDiscount::find($discount_id);
         $installments = UnFeesInstallmentAssign::where('record_id',$record_id)->get();
         $discount_amount = $fees_discount->amount;
         $extra_credit = 0;
@@ -265,9 +265,9 @@ trait FeesAssignTrait
 
     public function feesMasterUnAssign($record_id, $semester_label_id, $fees_group_id){
         $studentRecord = StudentRecord::find($record_id);
-        $fees_master = SmFeesMaster::where('fees_group_id', $fees_group_id)->first();
+        $fees_master = AramiscFeesMaster::where('fees_group_id', $fees_group_id)->first();
         $installments  = UnFeesInstallmentAssign::where('record_id',$record_id)->where('un_semester_label_id',$semester_label_id)->get();
-        $selectedAssignFees = SmFeesAssign::where('un_semester_label_id', $semester_label_id)
+        $selectedAssignFees = AramiscFeesAssign::where('un_semester_label_id', $semester_label_id)
                                     ->where('un_academic_id', getAcademicId())
                                     ->where('record_id', $record_id)
                                     ->where('fees_master_id',$fees_master->id)

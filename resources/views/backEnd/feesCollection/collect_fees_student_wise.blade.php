@@ -122,8 +122,7 @@ $record = $student;
                                                 @if(moduleStatusCheck('University'))
                                                     {{@$student->unDepartment->name}}
                                                 @else 
-                                                     {{@$student->class->class_name .'('.@$student->section->section_name.')'}}
-                                                
+                                                    {{@$student->class->class_name .'('.@$student->section->section_name.')'}}
                                                 @endif 
                                             </div>
                                         </div>
@@ -342,7 +341,7 @@ $record = $student;
                                                       @lang('common.edit')
                                                   </a>
                                               @endif
-                                              @if (userPermission('aramiscDirectFees.deleteSubPayment'))
+                                              @if (userPermission('directFees.deleteSubPayment'))
                                                   <a onclick="deletePayment({{$payment->id}});"  class="dropdown-item" href="#" data-toggle="modal">
                                                       @lang('common.delete')
                                                   </a>
@@ -457,13 +456,18 @@ $record = $student;
                     </table>
                 </x-table>
 
-                @elseif(aramiscDirectFees())
+                @elseif(directFees())
                 <x-table>
                     <table id="" class="table school-table-style-parent-fees" cellspacing="0" width="100%">
                                            
                         <thead>
                             <tr>
                                 <td class="text-right" colspan="14">
+                                    <style>
+                                        a.modalLink {
+                                            font-size: 12px !important;
+                                        }
+                                    </style>
                                     <a class="primary-btn small fix-gr-bg modalLink" data-modal-size="modal-lg" title="@lang('fees.add_fees')" href="{{route('direct-fees-total-payment', [$student->id])}}"0>
                                             <i class="ti-plus pr-2"></i> @lang('fees.add_fees') 
                                     </a>
@@ -595,11 +599,11 @@ $record = $student;
     
                                               <a class="dropdown-item modalLink" data-modal-size="modal-md" 
                                               title="@lang('fees.installment'): {{@$feesInstallment->installment->title}}, @lang('fees.payment_ID'): {{@$payment->fees_type_id.'/'.@$payment->id}}"
-                                              href="{{route('aramiscDirectFees.editSubPaymentModal',[$payment->id,$payment->paid_amount])}}" >@lang('common.edit') </a>
+                                              href="{{route('directFees.editSubPaymentModal',[$payment->id,$payment->paid_amount])}}" >@lang('common.edit') </a>
     
                                               <a onclick="deletePayment({{$payment->id}});"  class="dropdown-item" href="#" data-toggle="modal">@lang('common.delete')</a>
     
-                                              <a class="dropdown-item" target="_blank"  href="{{route('aramiscDirectFees.viewPaymentReceipt',[$payment->id])}}"> 
+                                              <a class="dropdown-item" target="_blank"  href="{{route('directFees.viewPaymentReceipt',[$payment->id])}}"> 
                                                 @lang('fees.receipt')                                      
                                             </a>
                                           </div>
@@ -754,7 +758,7 @@ $record = $student;
                                         {{ Form::close() }}
                                        
                             <div class="modal-body">
-                                    {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'aramiscDirectFees.deleteSubPayment',
+                                    {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'directFees.deleteSubPayment',
                                         'method' => 'POST']) }}
                                
                                     <input type="hidden" name="sub_payment_id">   
@@ -828,9 +832,9 @@ $record = $student;
                                     $discount_amount = $fees_assigned->applied_discount;
                                     $total_discount += $discount_amount;
                                     $student_id = $fees_assigned->student_id;
-                                    $paid = App\SmFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'amount' ,$fees_assigned->record_id);
+                                    $paid = App\AramiscFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'amount' ,$fees_assigned->record_id);
                                     $total_grand_paid += $paid;
-                                    $fine = App\SmFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
+                                    $fine = App\AramiscFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
                                     $total_fine += $fine;
                                     $total_paid = $discount_amount + $paid;
                                 @endphp
@@ -884,6 +888,7 @@ $record = $student;
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 @if(userPermission('fees-generate-modal'))
                                                     @if($balance_amount != 0) 
+                                                        @php $balance_amount = $balance_amount*100;@endphp
                                                         <a class="dropdown-item modalLink" data-modal-size="modal-lg" 
                                                         title="{{@$fees_assigned->feesGroupMaster->feesGroups->name.': '. $fees_assigned->feesGroupMaster->feesTypes->name}}"  
                                                         href="{{route('fees-generate-modal', [$balance_amount, $fees_assigned->student_id, $fees_assigned->feesGroupMaster->fees_type_id,$fees_assigned->fees_master_id,$fees_assigned->id,$fees_assigned->record_id])}}" >@lang('fees.add_fees') </a>
@@ -896,7 +901,7 @@ $record = $student;
                                     </td>
                                 </tr>
                                     @php
-                                        $payments = App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
+                                        $payments = App\AramiscFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
                                         $i = 0;
                                     @endphp
                                     @foreach($payments as $payment)
@@ -1006,7 +1011,7 @@ $record = $student;
 </div>
 @endif 
 
-@if(aramiscDirectFees())
+@if(directFees())
 <div class="modal fade admin-query" id="deletePaymentModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -1016,7 +1021,7 @@ $record = $student;
             </div>
 
             <div class="modal-body">
-                    {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'aramiscDirectFees.deleteSubPayment',
+                    {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'directFees.deleteSubPayment',
                         'method' => 'POST']) }}
                
                     <input type="hidden" name="sub_payment_id">   

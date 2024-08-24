@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class SmRolePermissionController extends Controller
 {
@@ -24,11 +24,11 @@ class SmRolePermissionController extends Controller
     public function assignPermission(Request $request,$id){
 
 		try{
-			// $role = AramiscRole::find($id);
+			// $role = InfixRole::find($id);
 			 if (checkAdmin()) {
-				$role = AramiscRole::find($id);
+				$role = InfixRole::find($id);
 			}else{
-				$role = AramiscRole::where('id',$id)->where('school_id',Auth::user()->school_id)->first();
+				$role = InfixRole::where('id',$id)->where('school_id',Auth::user()->school_id)->first();
 			}
 			$modulesRole = SmModule::where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
 			$role_permissions = SmRolePermission::where('role_id', $id)->where('school_id',Auth::user()->school_id)->get();

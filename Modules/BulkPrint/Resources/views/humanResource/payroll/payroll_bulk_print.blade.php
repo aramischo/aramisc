@@ -17,7 +17,7 @@
 </section>
 <section class="admin-visitor-area up_admin_visitor">
     <div class="container-fluid p-0">
-        @if(userPermission(173))
+        @if(userPermission('payroll-bulk-print'))
         <div class="row">
            <div class="col-lg-12">         
             <div class="white-box">
@@ -154,18 +154,18 @@
                                     <div class="dropdown-menu dropdown-menu-right">
                                     @if(!empty($getPayrollDetails))
                                         @if($getPayrollDetails->payroll_status == 'G')
-                                            @if(userPermission(176))
+                                            @if(userPermission('pay-payroll'))
                                                 <a class="dropdown-item modalLink" data-modal-size="modal-lg" title="@lang('hr.proceed_to_pay')" href="{{route('pay-payroll',[$getPayrollDetails->id,$value->role_id])}}">@lang('hr.proceed_to_pay')</a>
                                             @endif
                                                 <a class="dropdown-item" href="{{route('print-payslip', $getPayrollDetails->id)}}">@lang('common.print')</a>
                                         @endif
                                         @if($getPayrollDetails->payroll_status == 'P')
-                                            @if(userPermission(177))
+                                            @if(userPermission('view-payslip'))
                                                 <a class="dropdown-item modalLink" data-modal-size="modal-lg" title="@lang('hr.view_payslip')" href="{{route('view-payslip', $getPayrollDetails->id)}}">@lang('hr.view_payslip')</a>
                                             @endif
                                         @endif
                                     @else
-                                        @if(userPermission(174))
+                                        @if(userPermission('generate-Payroll'))
                                             <a class="dropdown-item" href="{{route('generate-Payroll',[@$value->id,@$payroll_month,@$payroll_year])}}">@lang('hr.generate_payroll')</a>
                                         @endif
                                     @endif

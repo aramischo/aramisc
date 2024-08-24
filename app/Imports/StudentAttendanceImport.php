@@ -3,10 +3,10 @@
 namespace App\Imports;
 
 use DB;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\Models\StudentRecord;
 use App\StudentAttendanceBulk;
-use App\SmStudentAttendanceImport;
+use App\AramiscStudentAttendanceImport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -28,12 +28,12 @@ class StudentAttendanceImport implements ToModel, WithStartRow, WithHeadingRow
     }
     public function model(array $row)
     {
-        $student = SmStudent::select('id')->where('admission_no', $row['admission_no'])->where('school_id', Auth::user()->school_id)->first();
+        $student = AramiscStudent::select('id')->where('admission_no', $row['admission_no'])->where('school_id', Auth::user()->school_id)->first();
         if ($student != "") {
             $record = StudentRecord::where('student_id',$student->id )->where('class_id',$this->class)->where('section_id',$this->section)->first();
             return new StudentAttendanceBulk([
-            "aramiscAttendance_date" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['aramiscAttendance_date'])->format('Y-m-d'),
-            "aramiscAttendance_type" => $row['aramiscAttendance_type'],
+            "attendance_date" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['attendance_date'])->format('Y-m-d'),
+            "attendance_type" => $row['attendance_type'],
             "note" => $row['note'],
             "student_id" => $student->id,
             "class_id" => $this->class,

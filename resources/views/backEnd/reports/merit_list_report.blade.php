@@ -255,10 +255,10 @@
                                                 </div>
                                                 <div class="col-lg-6 ml-30">
                                                     <h3 class="text-white">
-                                                        {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}}
+                                                        {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}}
                                                     </h3>
                                                     <p class="text-white mb-0">
-                                                        {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}
+                                                        {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}}
                                                     </p>
                                                     <p class="text-white mb-0">@lang('common.email'):
                                                         {{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}},
@@ -338,7 +338,7 @@
                                                         @foreach($allresult_data as $key=>$row)
                                                         @php
                                                         $student_detail =
-                                                        App\SmStudent::where('id','=',$row->student_id)->first();
+                                                        App\AramiscStudent::where('id','=',$row->student_id)->first();
                                                         $optional_subject='';
                                                         $get_optional_subject=App\SmOptionalSubjectAssign::where('student_id','=',$student_detail->id)
                                                         ->where('session_id','=',$student_detail->session_id)
@@ -377,7 +377,6 @@
                                                             <td>{{$row->studentinfo->roll_no}}</td>
                                                             <td>{{$key+1}}</td>
                                                             <td>{{$row->total_marks}}</td>
-                                                            <td>{{number_format($row->gpa_point, 2, '.', '')}}</td>
                                                             <td>
                                                                 <?php
                                                                         if($row->result == $failgpaname->gpa){
@@ -391,6 +390,7 @@
                                                                         }
                                                                     ?>
                                                             </td>
+                                                            <td>{{number_format($row->gpa_point, 2, '.', '')}}</td>
                                                             @foreach($markslist as $mark)
                                                             <td> {{!empty($mark)?$mark:0}}</td>
                                                             @endforeach

@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\User;
 use App\SmToDo;
 use App\SmClass;
-use App\SmEvent;
+use App\AramiscEvent;
 use App\SmStaff;
 use App\SmSchool;
-use App\SmHoliday;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscHoliday;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmUserLog;
 use App\YearCheck;
 use Carbon\Carbon;
@@ -19,10 +19,10 @@ use App\CheckSection;
 use App\GlobalVariable;
 use App\SmAddExpense;
 use App\SmNoticeBoard;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\SmClassSection;
 use App\SmGeneralSettings;
-use App\AramiscModuleManager;
+use App\InfixModuleManager;
 use App\Models\DueFeesLoginPrevent;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use Modules\Lead\Entities\LeadReminder;
 use Modules\Saas\Entities\SmPackagePlan;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\Wallet\Entities\WalletTransaction;
 use Modules\Saas\Entities\SmSubscriptionPayment;
 
@@ -237,7 +237,7 @@ class HomeController extends Controller
 
 
             if (Auth::user()->role_id == 4) {
-                $events = SmEvent::where('active_status', 1)
+                $events = AramiscEvent::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->where(function ($q) {
@@ -245,7 +245,7 @@ class HomeController extends Controller
                     })
                     ->get();
             } else {
-                $events = SmEvent::where('active_status', 1)
+                $events = AramiscEvent::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->where('for_whom', 'All')
@@ -256,7 +256,7 @@ class HomeController extends Controller
                 ->where('active_status', 1);
 
 
-            $holidays = SmHoliday::where('active_status', 1)
+            $holidays = AramiscHoliday::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', $school_id)
                 ->get();
@@ -309,7 +309,7 @@ class HomeController extends Controller
 
             $all_staffs= $staffs->where('role_id', '!=', 1)
                 ->where('school_id', $school_id)->get();
-            $all_students = SmStudent::where('active_status', 1)
+            $all_students = AramiscStudent::where('active_status', 1)
                 ->where('school_id', $school_id)->get();
             $data =[
                 'totalStudents' =>$all_students->count(),
@@ -349,12 +349,12 @@ class HomeController extends Controller
             }
 
             $data['settings'] = SmCalendarSetting::get();
-            $data['roles'] = AramiscRole::where(function ($q) {
+            $data['roles'] = InfixRole::where(function ($q) {
                 $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
             })
             ->whereNotIn('id', [1, 2])
             ->get();
-            $academicCalendar = new SmAcademicCalendarController();
+            $academicCalendar = new AramiscAcademicCalendarController();
             $data['events'] = $academicCalendar->calenderData();
             if(isSubscriptionEnabled()){
                 return view('backEnd.dashboard',compact('chart_data','chart_data_yearly','calendar_events','package_info'))->with($data);

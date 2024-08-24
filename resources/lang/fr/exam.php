@@ -52,7 +52,7 @@ return [
 
 "seat_plan" => "Plan de siège",
 
-"exam_aramiscAttendance" => "Présence d'exam",
+"exam_attendance" => "Présence d'exam",
 
 "marks_grade" => "Classe de marques",
 
@@ -148,7 +148,7 @@ return [
 
 "exam_not_found" => "Le planning d'extension n'est pas disponible.",
 
-"aramiscAttendance_create" => "Création de la participation",
+"attendance_create" => "Création de la participation",
 
 "grade" => "Grade",
 
@@ -288,7 +288,7 @@ return [
 
 "question_pdf" => "Question Pdf",
 
-"subject_aramiscAttendance_layout" => "Présentation de la participation des sujets",
+"subject_attendance_layout" => "Présentation de la participation des sujets",
 
 "published" => "Publié",
 
@@ -398,9 +398,9 @@ return [
 
 "add_marks" => "Ajouter des marques",
 
-"aramiscAttendance" => "Participation",
+"attendance" => "Participation",
 
-"save_aramiscAttendance" => "Enregistrer la participation",
+"save_attendance" => "Enregistrer la participation",
 
 "exam_schedule_create" => "Créer une planification d'extension",
 
@@ -412,7 +412,7 @@ return [
 
 "delete_instruction" => "Instruction de suppression",
 
-"exam_aramiscAttendance_create" => "Création d'une participation à l'examen",
+"exam_attendance_create" => "Création d'une participation à l'examen",
 
 "setup_exam_rule" => "Configurer la règle Exam",
 

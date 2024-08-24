@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SmExamSignature;
+use App\Models\AramiscExamSignature;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,7 +12,7 @@ class ExamSignatureSettingsController extends Controller
 
     public function index()
     {
-        $allSignature = SmExamSignature::get();
+        $allSignature = AramiscExamSignature::get();
         return view('backEnd.examination.examSignatureSettings', compact('allSignature'));
     }
 
@@ -42,7 +42,7 @@ class ExamSignatureSettingsController extends Controller
     public function update(Request $request)
     {
         try{
-            $allDataDeletes = SmExamSignature::get();
+            $allDataDeletes = AramiscExamSignature::get();
             foreach($allDataDeletes as $allDataDelete){
                 $allDataDelete->delete();
             }
@@ -60,7 +60,7 @@ class ExamSignatureSettingsController extends Controller
 
     private function formatData($request){
         $destination='public/uploads/upload_contents/';
-        $storeData = new SmExamSignature();
+        $storeData = new AramiscExamSignature();
         $storeData->title = gv($request, 'title');
         if(gv($request, 'image_path')){
             if(gv($request, 'signature')){

@@ -4,14 +4,14 @@ namespace App\Http\Controllers\api;
 
 use App\User;
 use App\SmStaff;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmLeaveType;
 use App\ApiBaseMethod;
 use App\SmLeaveDefine;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\SmClassTeacher;
 use App\SmLeaveRequest;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\SmGeneralSettings;
 use Illuminate\Http\Request;
 use App\SmAssignClassTeacher;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class ApiSmLeaveController extends Controller
 {
@@ -49,7 +49,7 @@ class ApiSmLeaveController extends Controller
                 $leaves=DB::table('sm_leave_defines')->where('role_id', $user->role_id)
                 ->join('sm_leave_types', 'sm_leave_types.id', '=', 'sm_leave_defines.type_id')
                 ->where('sm_leave_defines.user_id',$user_id)
-                ->where('sm_leave_defines.academic_id',SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
+                ->where('sm_leave_defines.academic_id',AramiscAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
                 ->where('sm_leave_defines.school_id',$request->user()->school_id)  
                 ->select('sm_leave_types.id','sm_leave_types.type','sm_leave_defines.days')         
                 ->get();
@@ -83,7 +83,7 @@ class ApiSmLeaveController extends Controller
                 $leaves=DB::table('sm_leave_defines')->where('role_id', $user->role_id)
                 ->join('sm_leave_types', 'sm_leave_types.id', '=', 'sm_leave_defines.type_id')
                 ->where('sm_leave_defines.user_id',$user_id)
-                ->where('sm_leave_defines.academic_id',SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
+                ->where('sm_leave_defines.academic_id',AramiscAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
                 ->where('sm_leave_defines.school_id',$request->user()->school_id)  
                 ->select('sm_leave_types.id','sm_leave_types.type','sm_leave_defines.days')         
                 ->get();
@@ -123,10 +123,10 @@ class ApiSmLeaveController extends Controller
     {
         try {
             $user =User::find($user_id);
-              $std_id = SmStudent::leftjoin('sm_parents','sm_parents.id','sm_students.parent_id')
+              $std_id = AramiscStudent::leftjoin('sm_parents','sm_parents.id','sm_students.parent_id')
                                 ->where('sm_parents.user_id',$user->id)
                                 ->where('sm_students.active_status', 1)
-                                ->where('sm_students.academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
+                                ->where('sm_students.academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
                                 ->where('sm_students.school_id',$request->user()->school_id)
                                 ->select('sm_students.user_id')
                                 ->first();
@@ -141,7 +141,7 @@ class ApiSmLeaveController extends Controller
                 ->where('sm_leave_requests.approve_status', '=', 'P')
                 ->where('sm_leave_requests.active_status', 1)
                 ->join('sm_leave_types', 'sm_leave_types.id', '=', 'sm_leave_requests.type_id')
-                ->where('sm_leave_requests.academic_id', SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
+                ->where('sm_leave_requests.academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id))
                 ->where('sm_leave_requests.school_id',$request->user()->school_id)
                 ->select('sm_leave_requests.id','sm_leave_types.type','sm_leave_requests.apply_date','sm_leave_requests.leave_from','sm_leave_requests.leave_to','sm_leave_requests.approve_status','sm_leave_requests.active_status')
                 ->get();
@@ -215,12 +215,12 @@ class ApiSmLeaveController extends Controller
             $apply_leave->reason = $request->reason;
             $apply_leave->file = $fileName;
             $apply_leave->school_id = $request->user()->school_id;
-            $apply_leave->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
+            $apply_leave->academic_id = AramiscAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
             $result = $apply_leave->save();
 
          
             if($user->role_id==2){
-                $student=SmStudent::where('user_id',$request->login_id)->first();
+                $student=AramiscStudent::where('user_id',$request->login_id)->first();
 
                 $teacher_assign=SmAssignClassTeacher::where('class_id',$student->class_id)->where('section_id',$student->section_id)->first();
                 if($teacher_assign){
@@ -228,7 +228,7 @@ class ApiSmLeaveController extends Controller
                                             ->where('assign_class_teacher_id',$teacher_assign->id)
                                             ->first();  
                                             
-                   $notification = new SmNotification();
+                   $notification = new AramiscNotification();
                     $notification->message = $student->full_name .'Apply For Leave';
                     $notification->is_read = 0;
                     $notification->url = "pending-leave";
@@ -247,7 +247,7 @@ class ApiSmLeaveController extends Controller
             if($result){
                 $users = User::whereIn('role_id',[1,5])->where('school_id', $request->user()->school_id)->get();
                 foreach($users as $user){
-                    $notification = new SmNotification();
+                    $notification = new AramiscNotification();
                     $notification->message = $user->full_name .'Apply For Leave';
                     $notification->is_read = 0;
                     $notification->url = "pending-leave";
@@ -309,7 +309,7 @@ class ApiSmLeaveController extends Controller
     //     "message": null
     // }
 
-    public function aramiscPendingLeave(Request $request,$user_id){
+    public function pendingLeave(Request $request,$user_id){
         try {
             $user =User::select('id','role_id')->find($user_id);
             $staff = SmStaff::where('user_id', $user->id)->first();
@@ -395,13 +395,13 @@ class ApiSmLeaveController extends Controller
             $result = $leave_request_data->save();
 
 
-            $notification = new SmNotification;         
+            $notification = new AramiscNotification;         
             $notification->user_id = $leave_request_data->staff_id;
             $notification->role_id = $role_id;
             $notification->date = date('Y-m-d');
             $notification->message = 'Leave status updated';
             $notification->school_id =$request->user()->school_id;
-            $notification->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
+            $notification->academic_id = AramiscAcademicYear::API_ACADEMIC_YEAR($request->user()->school_id);
             $notification->save();
 
 

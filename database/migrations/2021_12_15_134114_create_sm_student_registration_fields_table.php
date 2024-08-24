@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use App\Models\SmStudentRegistrationField;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\InfixModuleInfo;
 
 class CreateSmStudentRegistrationFieldsTable extends Migration
 {
@@ -300,7 +300,7 @@ class CreateSmStudentRegistrationFieldsTable extends Migration
             Log::info($e);
         }
 
-            $new = new AramiscModuleInfo();
+            $new = new InfixModuleInfo();
             $new->id = 951;
             $new->module_id = 3;
             $new->parent_id = 61;

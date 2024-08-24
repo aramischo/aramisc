@@ -5,7 +5,7 @@ namespace Modules\Lesson\Http\Controllers\Parent;
 use App\Models\StudentRecord;
 use App\SmClass;
 use App\SmClassTime;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmWeekend;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
@@ -37,7 +37,7 @@ class ParentLessonPlanController extends Controller
                 $dates[] = $date->format('Y-m-d');
 
             }
-            $student_detail = SmStudent::where('id', $id)->first();
+            $student_detail = AramiscStudent::where('id', $id)->first();
 
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;
@@ -59,7 +59,7 @@ class ParentLessonPlanController extends Controller
 
         try {
 
-            $student_detail = SmStudent::where('id', $id)->first();
+            $student_detail = AramiscStudent::where('id', $id)->first();
 
             $alllessonPlanner = LessonPlanner::where('active_status', 1)
                 ->get();
@@ -98,7 +98,7 @@ class ParentLessonPlanController extends Controller
 
         }
 
-        $student_detail = SmStudent::where('id', $id)->first();
+        $student_detail = AramiscStudent::where('id', $id)->first();
         //return $student_detail;
         $class_id = $student_detail->class_id;
         $section_id = $student_detail->section_id;
@@ -128,7 +128,7 @@ class ParentLessonPlanController extends Controller
 
         }
 
-        $student_detail = SmStudent::where('id', $id)->first();
+        $student_detail = AramiscStudent::where('id', $id)->first();
         //return $student_detail;
         $class_id = $student_detail->class_id;
         $section_id = $student_detail->section_id;

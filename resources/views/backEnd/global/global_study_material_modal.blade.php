@@ -1,7 +1,7 @@
 <div class="container-fluid">
      <div class="row">
          <div class="col-lg-12">
-             {{ Form::open(['class' => 'form-horizontal','files' => true,'route' => 'aramiscStudyMaterialAssigned','method' => 'POST']) }}
+             {{ Form::open(['class' => 'form-horizontal','files' => true,'route' => 'studyMaterialAssigned','method' => 'POST']) }}
                  <table id="" class="display school-table school-table-style-parent-fees" cellspacing="0" width="100%">
                      <thead>
                          <tr>
@@ -11,7 +11,7 @@
                          </tr>
                      </thead>
                      <tbody>
-                         @foreach ($aramiscUploadContents as $value)
+                         @foreach ($uploadContents as $value)
                          <tr>
                              <td>
                                  <input type="checkbox" id="study_mat.{{$value->id}}" class="common-checkbox study_material" name="study_material[]" value="{{$value->id}}">

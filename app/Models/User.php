@@ -4,12 +4,12 @@ namespace App\Models;
 
 use App\SmStaff;
 use App\SmParent;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\Envato\Envato;
 use GuzzleHttp\Client;
-use App\SmStudentGroup;
+use App\AramiscStudentGroup;
 use App\SmGeneralSettings;
-use App\SmStudentCategory;
+use App\AramiscStudentCategory;
 use App\Traits\UserChatMethods;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function student()
     {
-        return $this->belongsTo('App\SmStudent', 'id', 'user_id');
+        return $this->belongsTo('App\AramiscStudent', 'id', 'user_id');
     }
     public function staff()
     {
@@ -86,11 +86,11 @@ class User extends Authenticatable
 
     public function category()
     {
-        return $this->belongsTo(SmStudentCategory::class,'category_id','id');
+        return $this->belongsTo(AramiscStudentCategory::class,'category_id','id');
     }
     public function group()
     {
-        return $this->belongsTo(SmStudentGroup::class,'group_id','id');
+        return $this->belongsTo(AramiscStudentGroup::class,'group_id','id');
     }
 
     public function parent()
@@ -105,13 +105,13 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
     }
 
     public function getProfileAttribute()
     {
         $role_id = Auth::user()->role_id;
-        $student = SmStudent::where('user_id', Auth::user()->id)->first();
+        $student = AramiscStudent::where('user_id', Auth::user()->id)->first();
         $parent = SmParent::where('user_id', Auth::user()->id)->first();
         $staff = SmStaff::where('user_id', Auth::user()->id)->first();
         if ($role_id == 2)

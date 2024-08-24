@@ -95,7 +95,7 @@ class CreateSmStudentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('role_id')->nullable()->unsigned();
-            $table->foreign('role_id')->references('id')->on('aramisc_roles')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('infix_roles')->onDelete('cascade');
 
             $table->integer('gender_id')->nullable()->unsigned();
             $table->foreign('gender_id')->references('id')->on('sm_base_setups')->onDelete('set null');

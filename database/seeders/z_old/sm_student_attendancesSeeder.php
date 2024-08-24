@@ -7,7 +7,7 @@ use App\SmStudentAttendance;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
-class sm_student_aramiscAttendancesSeeder extends Seeder
+class sm_student_attendancesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -40,9 +40,9 @@ class sm_student_aramiscAttendancesSeeder extends Seeder
 
                     $sa                  = new SmStudentAttendance();
                     $sa->student_id      = $student->id;
-                    $sa->aramiscAttendance_type = $status;
+                    $sa->attendance_type = $status;
                     $sa->notes           = 'Sample Attendance for ' . $str;
-                    $sa->aramiscAttendance_date = $str;
+                    $sa->attendance_date = $str;
                     $sa->created_at = date('Y-m-d h:i:s');
                     $sa->save();
                 }

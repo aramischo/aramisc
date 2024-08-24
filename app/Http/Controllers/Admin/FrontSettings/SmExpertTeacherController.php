@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SmExpertTeacher;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class SmExpertTeacherController extends Controller
 {
@@ -19,7 +19,7 @@ class SmExpertTeacherController extends Controller
     {
         try {
             $expertTeachers = SmExpertTeacher::where('school_id', auth()->user()->school_id)->orderBy('position', 'asc')->with('staff.designations')->get();
-            $roles = AramiscRole::where('active_status', '=', '1')
+            $roles = InfixRole::where('active_status', '=', '1')
                 ->whereNotIn('id', [1, 2, 3, 10])
                 ->where(function ($q) {
                     $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');

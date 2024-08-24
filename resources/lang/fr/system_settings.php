@@ -662,9 +662,9 @@ return [
 
 "expaire_date" => "Date d'expiration",
 
-"aramisc" => "Aramisc",
+"infix_edu" => "Infix Edu",
 
-"aramisc_clasified" => "Aramisc classifié",
+"infix_clasified" => "Infix classifié",
 
 "purchase_list" => "Liste d'achats",
 
@@ -686,7 +686,7 @@ return [
 
 "fcm_key" => "CLÉ FCM",
 
-"subject_aramiscAttendance_layout" => "Présentation de la participation des sujets",
+"subject_attendance_layout" => "Présentation de la participation des sujets",
 
 "make_default" => "Définir par défaut",
 

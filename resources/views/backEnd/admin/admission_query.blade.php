@@ -22,7 +22,7 @@
             {{-- <div class="row align-items-center">
                 
             </div> --}}
-            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'admission-query-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
+            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'admission-query-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="white-box">
@@ -47,8 +47,7 @@
                             
                             <div class="col-lg-3">
                                 <div class="primary_input mb-15">
-                                    <label class="primary_input_label" for="">@lang('admin.date_from') <span
-                                            class="text-danger"> *</span></label>
+                                    <label class="primary_input_label" for="">@lang('admin.date_from')</label>
                                     <div class="primary_datepicker_input">
                                         <div class="no-gutters input-right-icon">
                                             <div class="col">
@@ -71,8 +70,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="primary_input mb-15">
-                                    <label class="primary_input_label" for="">@lang('admin.date_to') <span
-                                            class="text-danger"> *</span></label>
+                                    <label class="primary_input_label" for="">@lang('admin.date_to')</label>
                                     <div class="primary_datepicker_input">
                                         <div class="no-gutters input-right-icon">
                                             <div class="col">
@@ -96,12 +94,11 @@
 
                             <div class="col-lg-3">
                                 <div class="primary_input">
-                                    <label class="primary_input_label" for="">@lang('admin.source') <span
-                                            class="text-danger"> *</span></label>
+                                    <label class="primary_input_label" for="">@lang('admin.source') </label>
                                     <select name="source"
                                         class="primary_select  form-control {{ $errors->has('select_source') ? ' is-invalid' : '' }}">
-                                        <option data-display="@lang('admin.select_source') *"
-                                            value="">@lang('admin.select_source') *
+                                        <option data-display="@lang('admin.select_source') "
+                                            value="">@lang('admin.select_source') 
                                         </option>
                                         @foreach ($sources as $source)
                                             <option value="{{ @$source->id }}"
@@ -115,13 +112,12 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="primary_input">
-                                    <label class="primary_input_label" for="">@lang('common.status') <span
-                                            class="text-danger"> *</span></label>
+                                    <label class="primary_input_label" for="">@lang('common.status') </label>
                                     <select
                                         class="primary_select  form-control {{ $errors->has('select_status') ? ' is-invalid' : '' }}"
                                         name="status">
-                                        <option data-display="@lang('admin.select_status') *"
-                                            value="">@lang('admin.Status') *
+                                        <option data-display="@lang('admin.select_status') "
+                                            value="">@lang('admin.Status') 
                                         </option>
                                         <option value="1"
                                             {{ isset($status_id) ? ($status_id == '1' ? 'selected' : '') : '' }}>

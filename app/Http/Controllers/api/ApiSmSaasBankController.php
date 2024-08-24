@@ -4,16 +4,16 @@ namespace App\Http\Controllers\api;
 
 use App\Scopes\StatusAcademicSchoolScope;
 use App\User;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\ApiBaseMethod;
 use App\SmBankAccount;
-use App\SmAcademicYear;
-use App\SmBookCategory;
-use App\SmNotification;
-use App\SmPaymentMethhod;
+use App\AramiscAcademicYear;
+use App\AramiscBookCategory;
+use App\AramiscNotification;
+use App\AramiscPaymentMethhod;
 use App\SmBankPaymentSlip;
 use Illuminate\Http\Request;
-use App\SmTeacherUploadContent;
+use App\AramiscTeacherUploadContent;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\StudentRecord;
@@ -25,7 +25,7 @@ class ApiSmSaasBankController extends Controller
     public function saas_bankList(Request $request,$school_id){
         try {
              $banks=SmBankAccount::where('active_status',1)
-                            ->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))
+                            ->where('academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($school_id))
                             ->where('school_id',$school_id)->get(['id','bank_name','account_name','account_number']);
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
@@ -37,7 +37,7 @@ class ApiSmSaasBankController extends Controller
         }
        
     }
-    public function saas_aramiscFeesChildBankSlipStore(Request $request)
+    public function saas_childBankSlipStore(Request $request)
     {
         if(ApiBaseMethod::checkUrl($request->fullUrl())){
             $input = $request->all();
@@ -80,12 +80,12 @@ class ApiSmSaasBankController extends Controller
                 $fileName = 'public/uploads/bankSlip/' . $fileName;
             }
 
-            $student=SmStudent::where('user_id',$request->user_id)->first();
+            $student=AramiscStudent::where('user_id',$request->user_id)->first();
 
             $date = strtotime($request->date);
             $newformat = date('Y-m-d', $date);
             $payment_mode_name=ucwords($request->payment_mode);
-            $payment_method=SmPaymentMethhod::where('method',$payment_mode_name)->first();
+            $payment_method=AramiscPaymentMethhod::where('method',$payment_mode_name)->first();
 
             $payment = new SmBankPaymentSlip();
             $payment->date = $newformat;
@@ -101,13 +101,13 @@ class ApiSmSaasBankController extends Controller
             $payment->class_id = $request->class_id;
             $payment->section_id = $request->section_id;
             $payment->school_id = $request->school_id;
-            $payment->academic_id = SmAcademicYear::API_ACADEMIC_YEAR($request->school_id);
+            $payment->academic_id = AramiscAcademicYear::API_ACADEMIC_YEAR($request->school_id);
             $result=$payment->save();
 
             if($result){
                 $users = User::whereIn('role_id',[1,5])->where('school_id', 1)->get();
                 foreach($users as $user){
-                    $notification = new SmNotification();
+                    $notification = new AramiscNotification();
                     $notification->message = $student->full_name .'Payment Recieve';
                     $notification->is_read = 0;
                     $notification->url = "bank-payment-slip";
@@ -140,14 +140,14 @@ class ApiSmSaasBankController extends Controller
 
     public function saas_roomList(Request $request)
     {
-        $aramiscStudentDormitory = DB::table('sm_room_lists')
+        $studentDormitory = DB::table('sm_room_lists')
             ->join('sm_dormitory_lists', 'sm_room_lists.dormitory_id', '=', 'sm_dormitory_lists.id')
             ->join('sm_room_types', 'sm_room_lists.room_type_id', '=', 'sm_room_types.id')
             ->select('sm_room_lists.id', 'sm_dormitory_lists.dormitory_name', 'sm_room_lists.name as room_number', 'sm_room_lists.number_of_bed', 'sm_room_lists.cost_per_bed', 'sm_room_lists.active_status')
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-            return ApiBaseMethod::sendResponse($aramiscStudentDormitory, null);
+            return ApiBaseMethod::sendResponse($studentDormitory, null);
         }
     }
 
@@ -172,7 +172,7 @@ class ApiSmSaasBankController extends Controller
             }
          }
         try{
-            $categories = new SmBookCategory();
+            $categories = new AramiscBookCategory();
             $categories->category_name = $request->category_name;
             $categories->school_id = $request->school_id;          
             $results = $categories->save();

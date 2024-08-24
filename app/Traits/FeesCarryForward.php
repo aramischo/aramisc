@@ -3,16 +3,16 @@
 namespace App\Traits;
 
 use Carbon\Carbon;
-use App\SmFeesCarryForward;
+use App\AramiscFeesCarryForward;
 use Illuminate\Http\Request;
 use App\Models\FeesCarryForwardSettings;
 use App\Models\DirectFeesInstallmentAssign;
-use App\Http\Controllers\Admin\FeesCollection\SmFeesController;
+use App\Http\Controllers\Admin\FeesCollection\AramiscFeesController;
 
 trait FeesCarryForward{
 
     public function feesCarryForwardInstallment($studentRecord, $fees_master, $assign_fees, $installMentID, $payableAmount = null){
-        $carryForward = SmFeesCarryForward::where('student_id', $studentRecord->id)->first();
+        $carryForward = AramiscFeesCarryForward::where('student_id', $studentRecord->id)->first();
         if(!$carryForward){
             return ;
         }
@@ -37,7 +37,7 @@ trait FeesCarryForward{
                 $assignInstallment->school_id = auth()->user()->school_id;
                 $assignInstallment->save();
     
-                $updateCarry = SmFeesCarryForward::where('student_id', $studentRecord->id)->first();
+                $updateCarry = AramiscFeesCarryForward::where('student_id', $studentRecord->id)->first();
                 $updateCarry->balance = NULL;
                 $updateCarry->balance_type = 'add';
                 $updateCarry->update();
@@ -57,10 +57,10 @@ trait FeesCarryForward{
                     ]);
                      
     
-                    $feesController = new SmFeesController();
+                    $feesController = new AramiscFeesController();
                     $feesController->addPayment($request);
     
-                    $updateCarry = SmFeesCarryForward::where('student_id', $studentRecord->id)->first();
+                    $updateCarry = AramiscFeesCarryForward::where('student_id', $studentRecord->id)->first();
                     $updateCarry->balance = $addBalance;
                     $updateCarry->balance_type = 'add';
                     $updateCarry->update();
@@ -78,10 +78,10 @@ trait FeesCarryForward{
                         'payment_mode' => $settings->payment_gateway,
                     ]);
     
-                    $feesController = new SmFeesController();
+                    $feesController = new AramiscFeesController();
                     $feesController->addPayment($request);
     
-                    $updateCarry = SmFeesCarryForward::where('student_id', $studentRecord->id)->first();
+                    $updateCarry = AramiscFeesCarryForward::where('student_id', $studentRecord->id)->first();
                     $updateCarry->balance = NULL;
                     $updateCarry->balance_type = 'add';
                     $updateCarry->update();

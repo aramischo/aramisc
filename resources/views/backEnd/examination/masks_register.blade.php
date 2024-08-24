@@ -80,7 +80,7 @@
                                         @foreach ($exams as $exam)
                                             <option value="{{ $exam->id }}"
                                                 {{ isset($exam_id) ? ($exam_id == $exam->id ? 'selected' : '') : '' }}>
-                                                {{ $exam->examType->title }}/{{ $exam->class->class_name }}({{ $exam->section->section_name }})
+                                                {{ $exam->title }}
                                             </option>
                                         @endforeach
                                     </select>

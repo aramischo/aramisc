@@ -22,6 +22,11 @@ class SmClass extends Model
         static::addGlobalScope(new GlobalAcademicScope);
     }
 
+    protected $casts = [
+        'id'            => 'integer',
+        'class_name'    => 'string',
+    ];
+
 
     public function classSection()
     {
@@ -30,17 +35,17 @@ class SmClass extends Model
       
     }
     public function classSectionAll(){
-        return $this->belongsToMany('App\SmSection','sm_class_sections','class_id','section_id');
+        return $this->belongsToMany('App\AramiscSection','sm_class_sections','class_id','section_id');
     }
 
     public function sectionName()
     {
-        return $this->belongsTo('App\SmSection', 'section_id');
+        return $this->belongsTo('App\AramiscSection', 'section_id');
     }
 
     public function sections()
     {
-        return $this->hasMany('App\SmSection', 'id', 'section_id');
+        return $this->hasMany('App\AramiscSection', 'id', 'section_id');
     }
 
     public function records()
@@ -69,7 +74,7 @@ class SmClass extends Model
 
     public function students()
     {
-        return $this->hasMany('App\SmStudent', 'user_id', 'id');
+        return $this->hasMany('App\AramiscStudent', 'user_id', 'id');
     }
 
     public function subjects()
@@ -84,6 +89,6 @@ class SmClass extends Model
 
     public function academic()
     {
-        return $this->belongsTo('App\SmAcademicYear', 'academic_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscAcademicYear', 'academic_id', 'id')->withDefault();
     }
 }

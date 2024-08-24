@@ -66,5 +66,6 @@ return  [
         'waiver_report'=> 'Waiver Report',
         'group_fees_generate_seperate_invoice'=> 'Group Fees Generate Seperate Invoice',
         'max_10_characters' => 'Max 10 characters',
-        'total_service_charge' => 'Total Service Charge'
+        'total_service_charge' => 'Total Service Charge',
+        'import-staff' => 'Import Staff'
  ];

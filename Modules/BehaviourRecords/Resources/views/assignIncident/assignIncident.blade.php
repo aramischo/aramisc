@@ -28,7 +28,7 @@
     </section>
     <section class="admin-visitor-area up_admin_visitor">
         <div class="container-fluid p-0">
-            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'behaviour_records.assign_incident_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
+            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'behaviour_records.assign_incident_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="white-box filter_card">
@@ -216,7 +216,7 @@
                 data: {
                     studentId: studentId
                 },
-                url: "/behaviour_records/get_student_incident",
+                url: "{{ route('behaviour_records.get_student_incident') }}",
                 dataType: "html",
                 success: function(response) {
                     $('#assign_incident_list').html(response);
@@ -382,7 +382,7 @@
             $.ajax({
                 type: "POST",
                 data: data,
-                url: "/behaviour_records/assign_incident_save",
+                url: "{{ route('behaviour_records.assign_incident_save') }}",
                 dataType: "json",
                 success: function(response) {
                     if ($('#selectIncidents').val() == '') {
@@ -402,10 +402,12 @@
         function assignViewDelete(id) {
             var assign_incident_id = id;
             let student_id = $('#assign_view_incident_id').val();
+            var deleteIncidentUrlTemplate = "{{ route('behaviour_records.assign_incident_delete', ['id' => ':id']) }}";
+            let url = deleteIncidentUrlTemplate.replace(':id', assign_incident_id);
             $.ajax({
                 type: "DELETE",
                 data: assign_incident_id,
-                url: "/behaviour_records/assign_incident_delete/" + assign_incident_id,
+                url: url ,
                 dataType: "json",
                 success: function(response) {
                     toastr.success(response.message, 'Success');

@@ -12,10 +12,10 @@ class SmResultStore extends Model
 {
     use HasFactory;
     public function studentInfo(){
-    	return $this->belongsTo('App\SmStudent', 'student_id', 'id');
+    	return $this->belongsTo('App\AramiscStudent', 'student_id', 'id');
     }
     public function exam(){
-        return $this->belongsTo(SmExamType::class, 'exam_type_id');
+        return $this->belongsTo(AramiscExamType::class, 'exam_type_id');
     }
 
     public function subject(){
@@ -26,7 +26,7 @@ class SmResultStore extends Model
     }
      public function section()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id');
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
     }
 
      public function studentRecord()

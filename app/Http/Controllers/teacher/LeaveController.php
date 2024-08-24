@@ -22,7 +22,7 @@ class LeaveController extends Controller
         // User::checkAuth();
 	}
 
-    public function aramiscLeaveTypeList(Request $request)
+    public function leaveTypeList(Request $request)
     {
         try {
             $leave_type = DB::table('sm_leave_defines')
@@ -42,7 +42,7 @@ class LeaveController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscStaffLeaveList(Request $request, $id)
+    public function staffLeaveList(Request $request, $id)
     {
         try {
             $teacher = SmStaff::where('user_id', '=', $id)->first();
@@ -64,7 +64,7 @@ class LeaveController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscApplyLeave(Request $request)
+    public function applyLeave(Request $request)
     {
         $input = $request->all();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {

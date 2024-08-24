@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\SmParent;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\ApiBaseMethod;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class ApiSmParentPanelController extends Controller
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
 
-                $user = SmStudent::withoutGlobalScope(SchoolScope::class)->with('parents', 'studentRecords')->where('user_id', $user_id)->first();
+                $user = AramiscStudent::withoutGlobalScope(SchoolScope::class)->with('parents', 'studentRecords')->where('user_id', $user_id)->first();
                 $data = [];
 
                 $data['user'] = $user->toArray();
@@ -73,7 +73,7 @@ class ApiSmParentPanelController extends Controller
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
 
-                $user =  SmStudent::with('parents', 'studentRecords')->where('user_id', $user_id)->where('school_id', $school_id)->first();
+                $user =  AramiscStudent::with('parents', 'studentRecords')->where('user_id', $user_id)->where('school_id', $school_id)->first();
                 $data = [];
 
                 $data['user'] = @$user->toArray();
@@ -126,7 +126,7 @@ class ApiSmParentPanelController extends Controller
     {
 
         $parent = SmParent::where('user_id', $id)->first();
-        $students = SmStudent::where('parent_id', $parent->id)->get();
+        $students = AramiscStudent::where('parent_id', $parent->id)->get();
         $student_info=[];
         foreach ($students as $student) {
             $class_sec = [];
@@ -158,7 +158,7 @@ class ApiSmParentPanelController extends Controller
     {
         $data['student_info']=[];
         $parent = SmParent::where('user_id', $id)->where('school_id', $school_id)->first();
-        $students = SmStudent::where('parent_id', $parent->id)->where('school_id', $school_id)->get();
+        $students = AramiscStudent::where('parent_id', $parent->id)->where('school_id', $school_id)->get();
         $student_info=[];
         foreach ($students as $student) {
             $class_sec = [];

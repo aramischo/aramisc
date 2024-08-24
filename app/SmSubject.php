@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SmSubject extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'id'            => 'integer',
+        'subject_name'  => 'string',
+        'subject_code'  => 'string',
+        'subject_type'  => 'string',
+    ];
+
     
     protected static function boot()
     {

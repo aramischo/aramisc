@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\SmStudent;
-use App\SmExamSetup;
+use App\AramiscStudent;
+use App\AramiscExamSetup;
 use App\SmMarkStore;
 use App\SmMarksGrade;
 use App\SmOptionalSubjectAssign;
@@ -22,6 +22,13 @@ class SmAssignSubject extends Model
         static::addGlobalScope(new StatusAcademicSchoolScope);
     }
     use HasFactory;
+    protected $casts = [
+        'class_id' => 'integer',
+        'section_id' => 'integer',
+        'active_status' => 'integer',
+        'subject_id' => 'integer',
+    ];
+    
     public function subject()
     {
         return $this->belongsTo('App\SmSubject', 'subject_id', 'id')->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->withDefault();
@@ -49,12 +56,12 @@ class SmAssignSubject extends Model
 
     public function section()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id');
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
     }
 
-    public function aramiscExamSetups()
+    public function examSetups()
     {
-        return $this->hasMany(SmExamSetup::class, 'class_id', 'class_id')->where('class_id', $this->class_id)
+        return $this->hasMany(AramiscExamSetup::class, 'class_id', 'class_id')->where('class_id', $this->class_id)
             ->where('section_id', $this->section_id);
     }
 
@@ -65,19 +72,19 @@ class SmAssignSubject extends Model
     }
     public function exam()
     {
-        return $this->hasOne(SmExam::class, 'subject_id', 'subject_id');
+        return $this->hasOne(AramiscExam::class, 'subject_id', 'subject_id');
     }
 
-    public function aramiscExamSchedule()
+    public function examSchedule()
     {
-        return $this->hasMany(SmExamSchedule::class, 'subject_id', 'subject_id')
+        return $this->hasMany(AramiscExamSchedule::class, 'subject_id', 'subject_id')
             ->where('class_id', $this->class_id)->where('section_id', $this->section_id);
     }
 
     public static function getNumberOfPart($subject_id, $class_id = null, $section_id, $exam_term_id)
     {
         try {
-            $results = SmExamSetup::where([
+            $results = AramiscExamSetup::where([
                 ['class_id', $class_id],
                 ['subject_id', $subject_id],
                 ['section_id', $section_id],
@@ -92,8 +99,8 @@ class SmAssignSubject extends Model
     public static function un_getNumberOfPart($subject_id, $exam_type, $request)
     {
         try {
-            $SmExamSetup = SmExamSetup::query();
-            $results = universityFilter($SmExamSetup, $request)
+            $AramiscExamSetup = AramiscExamSetup::query();
+            $results = universityFilter($AramiscExamSetup, $request)
                 ->where([
                     ['un_subject_id', $subject_id],
                     ['exam_term_id', $exam_type],
@@ -109,7 +116,7 @@ class SmAssignSubject extends Model
     public static function getNumberOfPartStudent($subject_id, $class_id, $section_id, $exam_term_id)
     {
         try {
-            $results = SmExamSetup::where([
+            $results = AramiscExamSetup::where([
                 ['class_id', $class_id],
                 ['subject_id', $subject_id],
                 ['section_id', $section_id],
@@ -227,7 +234,7 @@ class SmAssignSubject extends Model
     public static function getSubjectMark($subject_id, $class_id, $section_id, $exam_term_id)
     {
         try {
-            $results = SmExamSetup::where([
+            $results = AramiscExamSetup::where([
                 ['class_id', $class_id],
                 ['subject_id', $subject_id],
                 ['section_id', $section_id],
@@ -246,7 +253,7 @@ class SmAssignSubject extends Model
         try {
             $this_student_failed = 0;
             $total_gpa_point = 0;
-            $student_info = SmStudent::where('id', '=', $student_id)->first();
+            $student_info = AramiscStudent::where('id', '=', $student_id)->first();
             $optional_subject = SmOptionalSubjectAssign::where('student_id', '=', $student_info->id)->where('session_id', '=', $student_info->session_id)->first();
             $subjects = SmAssignSubject::where([['class_id', $class_id], ['section_id', $section_id]])->get();
             $assign_subjects = SmAssignSubject::where([['class_id', $class_id], ['section_id', $section_id]])->get();
@@ -314,7 +321,7 @@ class SmAssignSubject extends Model
         try {
             $this_student_failed = 0;
             $total_gpa_point = 0;
-            $student_info = SmStudent::where('id', '=', $student_id)->first();
+            $student_info = AramiscStudent::where('id', '=', $student_id)->first();
             $optional_subject = SmOptionalSubjectAssign::where('student_id', '=', $student_info->id)->where('session_id', '=', $student_info->session_id)->first();
 
             $subjects = SmAssignSubject::where([['class_id', $class_id], ['section_id', $section_id]])->get();
@@ -364,7 +371,7 @@ class SmAssignSubject extends Model
     public static function subjectPosition($subject_id, $class_id, $custom_result)
     {
 
-        $students = SmStudent::where('class_id', $class_id)->get();
+        $students = AramiscStudent::where('class_id', $class_id)->get();
 
         $subject_mark_array = [];
         foreach ($students as $student) {
@@ -400,7 +407,7 @@ class SmAssignSubject extends Model
     {
         return $query->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id);
     }
-    public function aramiscTeacherEvaluation()
+    public function teacherEvaluation()
     {
         return $this->hasMany(TeacherEvaluation::class, 'record_id', 'id');
     }

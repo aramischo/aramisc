@@ -7,17 +7,17 @@ use App\User;
 use App\SmClass;
 use App\SmStaff;
 use App\SmParent;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\YearCheck;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\StudentRecord;
-use App\SmSection;
+use App\AramiscSection;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class SmLoginAccessControlController extends Controller
 {
@@ -32,7 +32,7 @@ class SmLoginAccessControlController extends Controller
     {
 
         try {
-            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();
@@ -62,13 +62,13 @@ class SmLoginAccessControlController extends Controller
 
         try {
             $role = $request->role;
-            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();
-            $students = SmStudent::query();
+            $students = AramiscStudent::query();
             $class = SmClass::find($request->class);
-            $section = SmSection::find($request->section);
+            $section = AramiscSection::find($request->section);
             $records = StudentRecord::query();
             if ($request->role == "2") {
                 if (moduleStatusCheck('University')) {

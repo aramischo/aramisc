@@ -4,7 +4,7 @@ namespace Modules\DownloadCenter\Http\Controllers;
 
 use App\Role;
 use App\User;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmClassSection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -20,7 +20,7 @@ class ContentShareListController extends Controller
     {
         try {
             if (auth()->user()->role_id == 2) {
-                $student = SmStudent::where('user_id', auth()->user()->id)->with('studentRecord')->first();
+                $student = AramiscStudent::where('user_id', auth()->user()->id)->with('studentRecord')->first();
                 $allSharedContents = ContentShareList::get();
                 $sharedContents = [];
                 foreach ($allSharedContents as $allSharedContent) {
@@ -156,7 +156,7 @@ class ContentShareListController extends Controller
     public function parentContentShareList($id)
     {
         try {
-            $student_detail = SmStudent::where('id', $id)->with('studentRecord')->first();
+            $student_detail = AramiscStudent::where('id', $id)->with('studentRecord')->first();
             $records = studentRecords(null, $student_detail->id)->get();
             $allSharedContents = ContentShareList::get();
             $sharedContents = [];

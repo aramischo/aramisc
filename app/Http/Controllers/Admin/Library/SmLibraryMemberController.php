@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin\Library;
 use App\Role;
 use App\User;
 use App\SmClass;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\YearCheck;
-use App\SmBookIssue;
+use App\AramiscBookIssue;
 use App\ApiBaseMethod;
 use App\SmLibraryMember;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
 
 class SmLibraryMemberController extends Controller
@@ -34,12 +34,12 @@ class SmLibraryMemberController extends Controller
     {
 
         try {
-            $libraryMembers = SmLibraryMember::with('roles', 'aramiscStudentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('active_status', '=', 1)
+            $libraryMembers = SmLibraryMember::with('roles', 'studentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('active_status', '=', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->orderby('id', 'ASC')
                 ->get();
 
-            $roles = AramiscRole::where(function ($q) {
+            $roles = InfixRole::where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -69,7 +69,7 @@ class SmLibraryMemberController extends Controller
 
         $student_staff_id = '';
         if (!empty($request->student)) {
-            $student = SmStudent::where('user_id', $request->student)->first();
+            $student = AramiscStudent::where('user_id', $request->student)->first();
             $student_staff_id = $student->user_id;
 
             $isData = SmLibraryMember::where('student_staff_id', '=', $student_staff_id)->first();
@@ -79,7 +79,7 @@ class SmLibraryMemberController extends Controller
             }
         }
         if (!empty($request->parent)) {
-            $parent = SmStudent::whereHas('parents', function ($q) use ($request) {
+            $parent = AramiscStudent::whereHas('parents', function ($q) use ($request) {
                 $q->where('user_id', $request->parent);
             })->with('parents')->first();
             $student_staff_id = $parent->parents->user_id;
@@ -138,8 +138,8 @@ class SmLibraryMemberController extends Controller
 
                 $results = $members->save();
                 if ($request->member_type == 2) {
-                    $data['class_id'] = $members->aramiscStudentDetails->studentRecord->class_id;
-                    $data['section_id'] = $members->aramiscStudentDetails->studentRecord->section_id;
+                    $data['class_id'] = $members->studentDetails->studentRecord->class_id;
+                    $data['section_id'] = $members->studentDetails->studentRecord->section_id;
                     $records = $this->studentRecordInfo($data['class_id'], $data['section_id'])->pluck('studentDetail.user_id');
                     $this->sent_notifications('Add_Library_Member', $records, $data, ['Student', 'Parent']);
                 }
@@ -167,7 +167,7 @@ class SmLibraryMemberController extends Controller
             $tables = "";
             try {
                 $members = SmLibraryMember::find($id);
-                $isExist_member_id = SmBookIssue::select('id', 'issue_status')
+                $isExist_member_id = AramiscBookIssue::select('id', 'issue_status')
                     ->where('member_id', '=', $members->student_staff_id)
                     ->where('issue_status', '=', 'I')
                     ->first();

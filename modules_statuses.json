@@ -1,5 +1,5 @@
 {
-    "AramiscBiometrics": false,
+    "InfixBiometrics": false,
     "FeesCollection": false,
     "ResultReports": false,
     "TemplateSettings": true,

@@ -6,9 +6,9 @@ use App\Models\Graduate;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Scopes\StatusAcademicSchoolScope;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\SmClass;
-use App\SmStudent;
+use App\AramiscStudent;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Contracts\Support\Renderable;
@@ -22,7 +22,7 @@ class GraduateListController extends Controller
     public function index()
     {
         $graduates = Graduate::where('school_id',auth()->user()->school_id)->with('student','section','smClass','unFaculty','unDepartment')->get();
-        $sessions = SmAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+        $sessions = AramiscAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
         $classes  = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id)->get();
         return view('backEnd.graduate.graduate_list',compact('graduates','sessions','classes'));
@@ -31,7 +31,7 @@ class GraduateListController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
-            $sessions = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $academic_year = $request->academic_year;
             $class_id = $request->class_id;
             $name = $request->name;
@@ -170,18 +170,18 @@ class GraduateListController extends Controller
         try{
             $graduate = Graduate::where('id',$id)->first();
             if($graduate != null) {
-                $aramiscStudentDetails = $graduate->student;
+                $studentDetails = $graduate->student;
             } else {
                 $alumni = Alumni::where('student_id',$id)->first();
-                $aramiscStudentDetails = $alumni->student;
+                $studentDetails = $alumni->student;
             }
-            $studentRecords = StudentRecord::where('student_id',$aramiscStudentDetails->id)->distinct('un_academic_id')->get(); 
-            $studentRecordDetails =  StudentRecord::where('student_id',$aramiscStudentDetails->id);
+            $studentRecords = StudentRecord::where('student_id',$studentDetails->id)->distinct('un_academic_id')->get(); 
+            $studentRecordDetails =  StudentRecord::where('student_id',$studentDetails->id);
             $tabPrint = 1;
             $semesterLabel = '';
             return view('backEnd.graduate.transcript.studentTranscript',
             compact('studentRecordDetails',
-                'aramiscStudentDetails',
+                'studentDetails',
                 'studentRecords',
                 'tabPrint',
                 'semesterLabel',
@@ -199,14 +199,14 @@ class GraduateListController extends Controller
     {
         try{
             $graduate = Graduate::find($id);
-            $aramiscStudentDetails = $graduate->student;
-            $studentRecords = StudentRecord::where('student_id',$aramiscStudentDetails->id)->distinct('un_academic_id')->get(); 
-            $studentRecordDetails =  StudentRecord::where('student_id',$aramiscStudentDetails->id);
+            $studentDetails = $graduate->student;
+            $studentRecords = StudentRecord::where('student_id',$studentDetails->id)->distinct('un_academic_id')->get(); 
+            $studentRecordDetails =  StudentRecord::where('student_id',$studentDetails->id);
             $tabPrint = 1;
             $semesterLabel = '';
             return view('backEnd.graduate.transcript.studentTranscriptPrint',
             compact('studentRecordDetails',
-                'aramiscStudentDetails',
+                'studentDetails',
                 'studentRecords',
                 'tabPrint',
                 'semesterLabel',
@@ -242,7 +242,7 @@ class GraduateListController extends Controller
     {
         try{
             $graduate = Graduate::find($request->id);
-            $student = SmStudent::find($graduate->student_id);
+            $student = AramiscStudent::find($graduate->student_id);
             $studentRecord = StudentRecord::where('student_id',$student->id)->where('school_id', Auth::user()->school_id)->first();
             $studentRecord->is_graduate = 0;
             $studentRecord->is_promote  = 0;

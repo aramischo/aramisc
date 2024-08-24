@@ -197,9 +197,9 @@
                                     <option data-display="@lang('common.select_section') *"
                                             value="">@lang('common.select_section') *
                                     </option>
-                                    @if(isset($aramiscStudentDetails))
-                                    <option data-display="{{$aramiscStudentDetails->section->section_name}}"
-                                            value="{{$aramiscStudentDetails->section->id}}" selected>{{$aramiscStudentDetails->section->section_name}}
+                                    @if(isset($studentDetails))
+                                    <option data-display="{{$studentDetails->section->section_name}}"
+                                            value="{{$studentDetails->section->id}}" selected>{{$studentDetails->section->section_name}}
                                     </option>
                                     @endif 
                                 </select>
@@ -220,9 +220,9 @@
                                             value="">@lang('common.select_student') *
                                     </option>
 
-                                    @if(isset($aramiscStudentDetails))
-                                    <option data-display="{{$aramiscStudentDetails->student->full_name}}"
-                                            value="{{$aramiscStudentDetails->student->id}}" selected>{{$aramiscStudentDetails->student->full_name}}
+                                    @if(isset($studentDetails))
+                                    <option data-display="{{$studentDetails->student->full_name}}"
+                                            value="{{$studentDetails->student->id}}" selected>{{$studentDetails->student->full_name}}
                                     </option>
                                     @endif 
 
@@ -283,10 +283,10 @@
                                                             </div>
                                                             <div class="col-lg-6 ml-30">
                                                                 <h3 class="text-white"> 
-                                                                    {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}}
+                                                                    {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} 
                                                                 </h3> 
                                                                 <p class="text-white mb-0">
-                                                                    {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}
+                                                                    {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} 
                                                                 </p>
                                                                 <p class="text-white mb-0">
                                                                     @lang('common.email'):  {{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}},   @lang('common.phone'):  {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}} 
@@ -295,7 +295,7 @@
                                                             <div class="offset-2">
                                                             </div>
                                                         </div>
-                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
 
                                             </div>
                                         <div class="card-body">
@@ -306,29 +306,29 @@
                                                             @lang('exam.student_final_mark_sheet')
                                                         </h3>
                                                         <h3>
-                                                            {{$aramiscStudentDetails->studentDetail->full_name}}
+                                                            {{$studentDetails->studentDetail->full_name}}
                                                         </h3>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <p class="mb-0">
-                                                                    @lang('common.academic_year') : &nbsp;<span class="primary-color fw-500">{{ @$aramiscStudentDetails->academic->year }}</span>
+                                                                    @lang('common.academic_year') : &nbsp;<span class="primary-color fw-500">{{ @$studentDetails->academic->year }}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('common.section') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $aramiscStudentDetails->section->section_name }}</span>
+                                                                    @lang('common.section') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $studentDetails->section->section_name }}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('common.class') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $aramiscStudentDetails->class->class_name }}</span>
+                                                                    @lang('common.class') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{ $studentDetails->class->class_name }}</span>
                                                                 </p>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <p class="mb-0">
-                                                                    @lang('student.admission_no') : <span class="primary-color fw-500">{{$aramiscStudentDetails->studentDetail->admission_no}}</span>
+                                                                    @lang('student.admission_no') : <span class="primary-color fw-500">{{$studentDetails->studentDetail->admission_no}}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('student.roll') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{$aramiscStudentDetails->roll_no}}</span>
+                                                                    @lang('student.roll') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{$studentDetails->roll_no}}</span>
                                                                 </p>
                                                                 <p class="mb-0">
-                                                                    @lang('exam.pass_mark') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{@$aramiscStudentDetails->class->pass_mark}}</span>
+                                                                    @lang('exam.pass_mark') : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="primary-color fw-500">{{@$studentDetails->class->pass_mark}}</span>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -417,7 +417,7 @@
                                                                      
                                                                         <th class="text-center">@lang('exam.total_average')</th>
                                                                         <th class="text-center"></th>
-                                                                        <th class="text-center">{{@$aramiscStudentDetails->class->pass_mark}}</th>
+                                                                        <th class="text-center">{{@$studentDetails->class->pass_mark}}</th>
                                                                         @if(count($result_setting))
                                                                             @foreach($result_setting as $exam)
                                                                             <th class="text-center">{{allExamSubjectMark($record_id,$exam->id)[0]}}</th>
@@ -429,7 +429,7 @@
                                                                         @endif 
                                                                         <th class="text-center">{{allExamSubjectMarkAverage($record_id,$all_subject_ids)}}</th>
                                                                         <th class="text-center">
-                                                                              @if( allExamSubjectMarkAverage($record_id,$all_subject_ids) >= $aramiscStudentDetails->class->pass_mark)
+                                                                              @if( allExamSubjectMarkAverage($record_id,$all_subject_ids) >= $studentDetails->class->pass_mark)
                                                                               @lang('exam.pass')
                                                                               @else
                                                                               @lang('exam.fail')

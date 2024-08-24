@@ -15,10 +15,10 @@ class SmCourseTableSeeder extends Seeder
     {
         DB::table('sm_courses')->insert([
             [
-                'title' => 'aramisc Professional Writing Workshop',
+                'title' => 'InfixEdu Professional Writing Workshop',
                 'image' => 'public/uploads/theme/edulia/course/academic1.jpg',
                 
-                'overview' => 'aramisc School invites you to participate in our esteemed Creative Writing Workshop, designed to cultivate and refine your writing skills in a professional setting. 
+                'overview' => 'InfixEdu School invites you to participate in our esteemed Creative Writing Workshop, designed to cultivate and refine your writing skills in a professional setting. 
 
                 Distinguished writers and aspiring authors alike are welcome to join us for an immersive experience, where we delve into the intricacies of creative expression and storytelling. 
                 
@@ -50,10 +50,10 @@ class SmCourseTableSeeder extends Seeder
                 
                 Secure your place today to embark on a writing journey that combines professionalism with creative exploration. For inquiries and registrations, please contact [Insert Contact Information].
                 
-                Join aramisc School in elevating the art of writing to new heights! ',
+                Join InfixEdu School in elevating the art of writing to new heights! ',
                 
                 'outline' => 'Overview:
-                The "aramisc Writing Workshop" provides a dynamic platform for individuals to refine their writing skills in a professional setting. Tailored for students of all ages and aspiring writers, this workshop combines structured exercises, creative storytelling games, and expressive poetry activities to enhance participants\' literary prowess. Facilitated by experts, attendees can expect a comprehensive exploration of the art of writing, fostering collaborative learning through team-building word challenges. Join us for an enriching experience that includes exclusive materials, a certificate of participation, and valuable networking opportunities. Elevate your writing journey with the aramisc Writing Workshop.',
+                The "InfixEdu Writing Workshop" provides a dynamic platform for individuals to refine their writing skills in a professional setting. Tailored for students of all ages and aspiring writers, this workshop combines structured exercises, creative storytelling games, and expressive poetry activities to enhance participants\' literary prowess. Facilitated by experts, attendees can expect a comprehensive exploration of the art of writing, fostering collaborative learning through team-building word challenges. Join us for an enriching experience that includes exclusive materials, a certificate of participation, and valuable networking opportunities. Elevate your writing journey with the InfixEdu Writing Workshop.',
 
                 'prerequisites' => 'Module 1: Introduction to Creative Writing
 
@@ -105,9 +105,9 @@ class SmCourseTableSeeder extends Seeder
                 - Recognition of Participants\' Achievements
                 - Networking Opportunities and Closing Remarks
                 
-                Note: The curriculum is subject to adjustments based on participants\' needs and progress throughout the aramisc Writing Workshop.',
+                Note: The curriculum is subject to adjustments based on participants\' needs and progress throughout the InfixEdu Writing Workshop.',
 
-                'resources' => 'Instructors for "aramisc Writing Workshop":
+                'resources' => 'Instructors for "InfixEdu Writing Workshop":
 
                     1. Dr. Emily Thompson
                         - Background: Ph.D. in Creative Writing
@@ -125,10 +125,10 @@ class SmCourseTableSeeder extends Seeder
                         - Background: M.F.A. in Creative Writing
                         - Expertise: Character Development, Storytelling Games
                     
-                    These seasoned professionals bring a wealth of experience to the aramisc Writing Workshop, ensuring a diverse and comprehensive learning experience for participants. Each instructor is dedicated to fostering creativity, refining writing skills, and guiding participants towards achieving their literary goals.',
+                    These seasoned professionals bring a wealth of experience to the InfixEdu Writing Workshop, ensuring a diverse and comprehensive learning experience for participants. Each instructor is dedicated to fostering creativity, refining writing skills, and guiding participants towards achieving their literary goals.',
 
-                'stats' => 'Review of aramisc Writing Workshop: Unlocking Creative Potential
-                I recently had the privilege of attending the aramisc Writing Workshop, and it exceeded all my expectations. The workshop offered a well-rounded curriculum that catered to writers of various skill levels, from beginners to seasoned wordsmiths.
+                'stats' => 'Review of InfixEdu Writing Workshop: Unlocking Creative Potential
+                I recently had the privilege of attending the InfixEdu Writing Workshop, and it exceeded all my expectations. The workshop offered a well-rounded curriculum that catered to writers of various skill levels, from beginners to seasoned wordsmiths.
                 
                 The instructors, each a specialist in their field, brought a unique perspective to the sessions. Dr. Emily Thompson\'s insights into fiction writing and plot development were invaluable, and Prof. Christopher Rodriguez\'s poetic expertise added a delightful dimension to the workshop.
                 
@@ -136,9 +136,9 @@ class SmCourseTableSeeder extends Seeder
                 
                 The workshop\'s structure allowed for a seamless progression from foundational concepts to advanced techniques. I particularly appreciated the individual attention given during the final projects and presentations, where constructive feedback from both instructors and peers proved instrumental in refining our work.
                 
-                The aramisc Writing Workshop not only enhanced my writing skills but also provided a supportive environment for personal growth. The networking opportunities were an unexpected bonus, connecting me with like-minded individuals who share a passion for the written word.
+                The InfixEdu Writing Workshop not only enhanced my writing skills but also provided a supportive environment for personal growth. The networking opportunities were an unexpected bonus, connecting me with like-minded individuals who share a passion for the written word.
                 
-                In conclusion, if you\'re looking to elevate your writing abilities in a collaborative and inspiring setting, the aramisc Writing Workshop is an exceptional choice. I left the workshop feeling inspired, motivated, and equipped with a toolkit of writing techniques that will undoubtedly shape my future creative endeavors.',
+                In conclusion, if you\'re looking to elevate your writing abilities in a collaborative and inspiring setting, the InfixEdu Writing Workshop is an exceptional choice. I left the workshop feeling inspired, motivated, and equipped with a toolkit of writing techniques that will undoubtedly shape my future creative endeavors.',
 
                 'active_status' => 1,
             ],
@@ -147,9 +147,9 @@ class SmCourseTableSeeder extends Seeder
                 'title' => 'Mathematics Mastery Program',
                 'image' => 'public/uploads/theme/edulia/course/academic2.jpg',
                 
-                'overview' => 'The Mathematics Mastery Program at aramisc is designed to instill a deep understanding and proficiency in mathematical concepts. Tailored for students of all levels, this program employs a comprehensive approach to foster critical thinking and problem-solving skills.',
+                'overview' => 'The Mathematics Mastery Program at InfixEdu is designed to instill a deep understanding and proficiency in mathematical concepts. Tailored for students of all levels, this program employs a comprehensive approach to foster critical thinking and problem-solving skills.',
                 
-                'outline' => 'The Mathematics Mastery Program at aramisc is designed to instill a deep understanding and proficiency in mathematical concepts. Tailored for students of all levels, this program employs a comprehensive approach to foster critical thinking and problem-solving skills.',
+                'outline' => 'The Mathematics Mastery Program at InfixEdu is designed to instill a deep understanding and proficiency in mathematical concepts. Tailored for students of all levels, this program employs a comprehensive approach to foster critical thinking and problem-solving skills.',
 
                 'prerequisites' => 'Module 1: Foundations of Mathematics
 
@@ -201,13 +201,13 @@ class SmCourseTableSeeder extends Seeder
                     - Background: M.S. in Applied Mathematics
                     - Expertise: Advanced Topics in Calculus, Real-world Applications',
 
-                'stats' => 'Enrolling in the Mathematics Mastery Program at aramisc has been a transformative experience. The curriculum\'s structured progression has equipped me with a solid foundation in fundamental concepts, and the instructors\' expertise ensures a clear understanding of complex topics.
+                'stats' => 'Enrolling in the Mathematics Mastery Program at InfixEdu has been a transformative experience. The curriculum\'s structured progression has equipped me with a solid foundation in fundamental concepts, and the instructors\' expertise ensures a clear understanding of complex topics.
 
                 Dr. Catherine Rodriguez\'s approach to teaching calculus demystifies intricate concepts, making them accessible and applicable. Prof. Jonathan Miller\'s engaging sessions on statistics have enhanced my ability to analyze and interpret data effectively.
                 
                 Ms. Rachel Turner\'s dedication to building a strong foundation in mathematics through the early modules has been invaluable. Mr. David Harris\'s real-world applications module brought the abstract nature of mathematics to life, showcasing its relevance across diverse fields.
                 
-                The Mathematics Mastery Program at aramisc has not only sharpened my mathematical skills but has also cultivated a genuine passion for the subject. The program\'s holistic approach, expert instructors, and practical applications make it a standout choice for anyone seeking to master mathematics.',
+                The Mathematics Mastery Program at InfixEdu has not only sharpened my mathematical skills but has also cultivated a genuine passion for the subject. The program\'s holistic approach, expert instructors, and practical applications make it a standout choice for anyone seeking to master mathematics.',
 
                 'active_status' => 1,
             ],
@@ -216,9 +216,9 @@ class SmCourseTableSeeder extends Seeder
                 'title' => 'Coding and Robotics Lab',
                 'image' => 'public/uploads/theme/edulia/course/academic3.jpg',
                 
-                'overview' => 'The Coding and Robotics Lab at aramisc offers an immersive learning experience that blends coding principles with hands-on robotics projects. Geared towards students with varying levels of coding proficiency, this lab equips participants with practical skills and fosters a passion for technology and innovation.',
+                'overview' => 'The Coding and Robotics Lab at InfixEdu offers an immersive learning experience that blends coding principles with hands-on robotics projects. Geared towards students with varying levels of coding proficiency, this lab equips participants with practical skills and fosters a passion for technology and innovation.',
                 
-                'outline' => 'The Coding and Robotics Lab at aramisc offers an immersive learning experience that blends coding principles with hands-on robotics projects. Geared towards students with varying levels of coding proficiency, this lab equips participants with practical skills and fosters a passion for technology and innovation.',
+                'outline' => 'The Coding and Robotics Lab at InfixEdu offers an immersive learning experience that blends coding principles with hands-on robotics projects. Geared towards students with varying levels of coding proficiency, this lab equips participants with practical skills and fosters a passion for technology and innovation.',
 
                 'prerequisites' => 'Module 1: Introduction to Coding
 
@@ -263,13 +263,13 @@ class SmCourseTableSeeder extends Seeder
                 Background: M.Sc. in Electrical Engineering
                 Expertise: Basic Electronics and Circuitry, Ethical Considerations in Robotics',
 
-                'stats' => 'Enrolling in the Coding and Robotics Lab at aramisc has been a game-changer for me. The curriculum\'s balance between coding theory and practical robotics applications has provided a well-rounded understanding of these technologies.
+                'stats' => 'Enrolling in the Coding and Robotics Lab at InfixEdu has been a game-changer for me. The curriculum\'s balance between coding theory and practical robotics applications has provided a well-rounded understanding of these technologies.
 
                 Dr. Alan Carter\'s clear explanations and engaging coding exercises in the introductory modules laid a strong foundation. Prof. Michelle Adams\' expertise in robotics made the transition to hands-on projects seamless, and Mr. Daniel Miller\'s guidance on coding best practices has been invaluable.
                 
                 Ms. Emily Turner\'s sessions on electronics and ethical considerations in robotics added a thoughtful dimension to the program. The real-world applications module brought everything together, showcasing the limitless possibilities of coding and robotics.
                 
-                The Coding and Robotics Lab at aramisc has not only broadened my technical skills but has also sparked a genuine interest in exploring the intersection of coding and robotics in various fields. The knowledgeable instructors and practical approach make this lab an exceptional choice for anyone passionate about technology.',
+                The Coding and Robotics Lab at InfixEdu has not only broadened my technical skills but has also sparked a genuine interest in exploring the intersection of coding and robotics in various fields. The knowledgeable instructors and practical approach make this lab an exceptional choice for anyone passionate about technology.',
 
                 'active_status' => 1,
             ],

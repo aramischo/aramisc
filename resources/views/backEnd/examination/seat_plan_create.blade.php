@@ -75,7 +75,7 @@
                                 <select class="primary_select form-control{{ $errors->has('section') ? ' is-invalid' : '' }} select_section" id="select_section" name="section">
                                     <option data-display="@lang('common.select_section') *" value="">@lang('common.select_section') *</option>
                                     @if(isset($section_id))
-                                        <option value="" selected>@php $section = App\SmSection::select('section_name')->where('id', $section_id)->first();
+                                        <option value="" selected>@php $section = App\AramiscSection::select('section_name')->where('id', $section_id)->first();
                                 echo $section->section_name; @endphp</option>
                                     @endif
                                 </select>

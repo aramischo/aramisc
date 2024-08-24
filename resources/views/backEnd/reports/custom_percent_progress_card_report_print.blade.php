@@ -573,11 +573,11 @@
                                          alt="{{generalSetting()->school_name}}">
                                 </div>
                                 <div class="company_info">
-                                    <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                    <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Aramisc School Address'}}</h5>
+                                    <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                    <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Infix School Address'}}</h5>
                                     <h5>
                                         @lang('common.email')
-                                        : {{isset(generalSetting()->email)?generalSetting()->email:'admin@aramisc.com'}}
+                                        : {{isset(generalSetting()->email)?generalSetting()->email:'admin@infixedu.com'}}
                                         @lang('common.phone')
                                         : {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}
                                     </h5>
@@ -737,7 +737,7 @@
                         style="border-bottom: 1px solid #000 !important; ">@lang('common.subjects')</th>
                     @foreach($assinged_exam_types as $assinged_exam_type)
                         @php
-                            $exam_type = App\SmExamType::examType($assinged_exam_type);
+                            $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                         @endphp
                         <th colspan="{{(@generalSetting()->result_type == 'mark')? 2: 1}}">{{$exam_type->title}}</th>
                     @endforeach
@@ -879,7 +879,7 @@
                     @endphp
                     @foreach($assinged_exam_types as $assinged_exam_type)
                         @php
-                            $exam_type = App\SmExamType::examType($assinged_exam_type);
+                            $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                             $term_base_gpa=termWiseGpa($assinged_exam_type, $student_id);
                             $with_percent_average_gpa +=$term_base_gpa;
 

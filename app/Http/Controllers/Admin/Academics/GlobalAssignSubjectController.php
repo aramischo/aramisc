@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Academics;
 
-use App\SmExam;
+use App\AramiscExam;
 use App\SmClass;
 use App\SmStaff;
-use App\SmSection;
+use App\AramiscSection;
 use App\SmSubject;
 use App\YearCheck;
-use App\SmExamType;
-use App\SmExamSetup;
+use App\AramiscExamType;
+use App\AramiscExamSetup;
 use App\ApiBaseMethod;
 use App\SmClassSection;
 use App\SmAssignSubject;
 use Illuminate\Http\Request;
 use App\Traits\CcAveuneTrait;
-use App\SmTeacherUploadContent;
+use App\AramiscTeacherUploadContent;
 use App\Scopes\AcademicSchoolScope;
 use App\Scopes\GlobalAcademicScope;
 use App\Events\CreateClassGroupChat;
@@ -117,7 +117,7 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function aramiscAssignSubjectAjax(Request $request)
+    public function assignSubjectAjax(Request $request)
     {
         try {
             $subjects = SmSubject::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
@@ -128,7 +128,7 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function aramiscAssignSubjectStore(Request $request)
+    public function assignSubjectStore(Request $request)
     {
         try {
             if(empty($request->all())) {
@@ -240,7 +240,7 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function aramiscAssignSubjectFind(Request $request)
+    public function assignSubjectFind(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -281,8 +281,7 @@ class GlobalAssignSubjectController extends Controller
         }
     }
 
-    public function 
-	aramiscLoadAssignedSubject(Request $request){
+    public function loadAssignedSubject(Request $request){
         
         $assignedClass = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($request->assignedClass);
         if($assignedClass){
@@ -290,7 +289,7 @@ class GlobalAssignSubjectController extends Controller
             $class_id = $assignedClass->class_id;
             $section_id = $assignedClass->section_id;
             $subjects = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id',$class_id)->where('section_id',$section_id)->with('subject')->get();
-            $globalStudyMat = SmTeacherUploadContent::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class',$class_id)->where('section',$section_id)->count();
+            $globalStudyMat = AramiscTeacherUploadContent::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class',$class_id)->where('section',$section_id)->count();
            
             $data['subjects'] = $subjects;
             $data['class_id'] = $class_id;
@@ -344,9 +343,9 @@ class GlobalAssignSubjectController extends Controller
             
             if($global_assignedClass){
                 $global_class = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($global_assignedClass->class_id);
-                $global_section = SmSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($global_assignedClass->section_id);
+                $global_section = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($global_assignedClass->section_id);
                 $existClass = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('parent_id',$global_class->id)->first();
-                $existSection = SmSection::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('parent_id',$global_section->id)->first();
+                $existSection = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('parent_id',$global_section->id)->first();
                 
                 if(! $existClass){
                     $class = new SmClass();
@@ -363,7 +362,7 @@ class GlobalAssignSubjectController extends Controller
                 }
                 
                 if(! $existSection){
-                    $section = new SmSection();
+                    $section = new AramiscSection();
                     $section->parent_id = $global_section->id;
                     $section->section_name = $global_section->section_name;
                     $section->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
@@ -427,17 +426,17 @@ class GlobalAssignSubjectController extends Controller
 
                 if($request->exams){
                     foreach($request->exams as $exam_id){
-                        $parentExam = SmExam::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($exam_id);
+                        $parentExam = AramiscExam::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($exam_id);
                         $subject = SmSubject::where('parent_id', $parentExam->subject_id)->first(); 
                         $class = SmClass::where('parent_id', $parentExam->class_id)->first();
-                        $section = SmSection::where('parent_id', $parentExam->section_id)->first();
-                        $examType = SmExamType::where('parent_id', $parentExam->exam_type_id)->first();
+                        $section = AramiscSection::where('parent_id', $parentExam->section_id)->first();
+                        $examType = AramiscExamType::where('parent_id', $parentExam->exam_type_id)->first();
                        
                         if($parentExam){
-                            $parentExamSetups = SmExamSetup::where('exam_id',$parentExam->id)->get();
+                            $parentExamSetups = AramiscExamSetup::where('exam_id',$parentExam->id)->get();
                             if(! $examType){
-                                $parentExamType = SmExamType::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('id', $parentExam->exam_type_id)->first();
-                                $newExamType = new SmExamType();
+                                $parentExamType = AramiscExamType::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('id', $parentExam->exam_type_id)->first();
+                                $newExamType = new AramiscExamType();
                                 $newExamType->parent_id = $parentExamType->id;
                                 $newExamType->title = $parentExamType->title;
                                 $newExamType->active_status = 1;
@@ -449,7 +448,7 @@ class GlobalAssignSubjectController extends Controller
                                 $exam_type_id = $examType->id;
                             }
         
-                            $newExam = new SmExam();
+                            $newExam = new AramiscExam();
                             $newExam->parent_id = $parentExam->id;
                             $newExam->class_id = $class->id;
                             $newExam->section_id = $section->id;
@@ -464,7 +463,7 @@ class GlobalAssignSubjectController extends Controller
                             $result = $newExam->save();
                             if($result){
                                 foreach($parentExamSetups as $parentExamSetup){
-                                    $newSetupExam = new SmExamSetup();
+                                    $newSetupExam = new AramiscExamSetup();
                                     $newSetupExam->exam_id = $newExam->id;
                                     $newSetupExam->class_id =$newExam->class_id;
                                     $newSetupExam->section_id = $newExam->section_id;

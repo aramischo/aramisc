@@ -4,7 +4,7 @@ namespace Modules\Lesson\Http\Controllers;
 use DataTables;
 use App\SmClass;
 use App\SmStaff;
-use App\SmSection;
+use App\AramiscSection;
 use App\SmSubject;
 use App\YearCheck;
 use App\SmAssignSubject;
@@ -316,7 +316,7 @@ class SmTopicController extends Controller
                 ->get();
         }
         $data['subjects'] = SmSubject::get();
-        $data['sections'] = SmSection::get();
+        $data['sections'] = AramiscSection::get();
         return $data;
     }
 }

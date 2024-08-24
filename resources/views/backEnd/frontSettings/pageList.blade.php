@@ -26,7 +26,7 @@
                                 <h3 class="mb-15">@lang('front_settings.pages_list')</h3>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-6 text-right mb-15">
+                        <div class="col-lg-6 col-6 text-right mb-15 mb-45">
                             @if(userPermission("save-page-data"))
                                 <a href="{{route('create-page')}}" class="primary-btn small fix-gr-bg">
                                     <span class="ti-plus pr-2"></span>

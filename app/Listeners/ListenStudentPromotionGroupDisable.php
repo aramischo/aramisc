@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\StudentPromotionGroupDisable;
 use App\SmAssignSubject;
 use App\SmClass;
-use App\SmSection;
+use App\AramiscSection;
 use App\SmStaff;
 use App\SmSubject;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,7 +38,7 @@ class ListenStudentPromotionGroupDisable
 
     public function groupName($schoolId,$classId, $sectionId,$subjectId, $teacherId){
         $class = SmClass::find($classId);
-        $section = SmSection::find($sectionId);
+        $section = AramiscSection::find($sectionId);
         $subject = SmSubject::find($subjectId);
 
         $code = $schoolId.$classId.$sectionId.$subjectId.$teacherId;

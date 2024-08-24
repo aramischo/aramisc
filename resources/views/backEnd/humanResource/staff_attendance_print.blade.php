@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}" @if(userRtlLtl()==1) dir="rtl" class="rtl" @endif>
 
 <head>
-    <title>@lang('hr.staff_aramiscAttendance') </title>
+    <title>@lang('hr.staff_attendance') </title>
     <meta charset="utf-8">
 </head>
 
@@ -16,9 +16,9 @@ td {
     text-align: center !important;
 }
 
-#aramiscAttendance.th,
-#aramiscAttendance.tr,
-#aramiscAttendance.td {
+#attendance.th,
+#attendance.tr,
+#attendance.td {
     font-size: 10px !important;
     padding: 0px !important;
     text-align: center !important;
@@ -26,29 +26,29 @@ td {
     vertical-align: middle !important;
 }
 
-#aramiscAttendance th {
+#attendance th {
     background: #ddd;
     text-align: center;
 }
 
-#aramiscAttendance {
+#attendance {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#aramiscAttendance tr {
+#attendance tr {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#aramiscAttendance th {
+#attendance th {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center !important;
     font-size: 11px;
 }
 
-#aramiscAttendance td {
+#attendance td {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
@@ -80,10 +80,10 @@ if (is_chrome) {
                 </td>
                 <td>
                     <h3 style="font-size:22px !important" class="text-white">
-                        {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}}
+                        {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}}
                     </h3>
                     <p style="font-size:18px !important" class="text-white mb-0">
-                        {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                        {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
                 </td>
                 <td style="text-aligh:center">
                     <p style="font-size:14px !important; border-bottom:1px solid gray" align="left" class="text-white">
@@ -98,9 +98,9 @@ if (is_chrome) {
         </table>
 
 
-        <h3 style="text-align:center">@lang('hr.staff_aramiscAttendance_report')</h3>
+        <h3 style="text-align:center">@lang('hr.staff_attendance_report')</h3>
 
-        <table id="aramiscAttendance" style="width: 100%; table-layout: fixed">
+        <table id="attendance" style="width: 100%; table-layout: fixed">
 
 
             <tr>
@@ -123,8 +123,8 @@ if (is_chrome) {
                     @endfor
             </tr>
 
-            @foreach($aramiscAttendances as $values)
-            @php $total_aramiscAttendance = 0; @endphp
+            @foreach($attendances as $values)
+            @php $total_attendance = 0; @endphp
             @php $count_absent = 0; @endphp
             <tr>
                 <td>
@@ -149,7 +149,7 @@ if (is_chrome) {
                     @php $p = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'P')
-                    @php $p++; $total_aramiscAttendance++; @endphp
+                    @php $p++; $total_attendance++; @endphp
                     @endif
                     @endforeach
                     {{$p}}
@@ -158,7 +158,7 @@ if (is_chrome) {
                     @php $l = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'L')
-                    @php $l++; $total_aramiscAttendance++; @endphp
+                    @php $l++; $total_attendance++; @endphp
                     @endif
                     @endforeach
                     {{$l}}
@@ -167,7 +167,7 @@ if (is_chrome) {
                     @php $a = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'A')
-                    @php $a++; $count_absent++; $total_aramiscAttendance++; @endphp
+                    @php $a++; $count_absent++; $total_attendance++; @endphp
                     @endif
                     @endforeach
                     {{$a}}
@@ -176,7 +176,7 @@ if (is_chrome) {
                     @php $h = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'H')
-                    @php $h++; $total_aramiscAttendance++; @endphp
+                    @php $h++; $total_attendance++; @endphp
                     @endif
                     @endforeach
                     {{$h}}
@@ -185,18 +185,18 @@ if (is_chrome) {
                     @php $f = 0; @endphp
                     @foreach($values as $value)
                     @if($value->attendence_type == 'F')
-                    @php $f++; $total_aramiscAttendance++; @endphp
+                    @php $f++; $total_attendance++; @endphp
                     @endif
                     @endforeach
                     {{$f}}
                 </td>
                 <td>
                     @php
-                    $total_present = $total_aramiscAttendance - $count_absent;
+                    $total_present = $total_attendance - $count_absent;
                     if($count_absent == 0){
                     echo '100%';
                     }else{
-                    $percentage = $total_present / $total_aramiscAttendance * 100;
+                    $percentage = $total_present / $total_attendance * 100;
                     echo number_format((float)$percentage, 2, '.', '').'%';
                     }
                     @endphp

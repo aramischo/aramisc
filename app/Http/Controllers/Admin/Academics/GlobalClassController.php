@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Academics;
 
 use App\SmClass;
-use App\SmSection;
+use App\AramiscSection;
 use App\tableList;
 use App\YearCheck;
 use App\SmClassSection;
@@ -27,7 +27,7 @@ class GlobalClassController extends Controller
     public function index(Request $request)
     {
         try {
-            $sections = SmSection::withoutGlobalScope(GlobalAcademicScope::class)->where('school_id',auth()->user()->school_id)->whereNULL('parent_id')->get();
+            $sections = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->where('school_id',auth()->user()->school_id)->whereNULL('parent_id')->get();
             $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
             return view('backEnd.global.global_class', compact('classes', 'sections'));
         } catch (\Exception $e) {
@@ -82,7 +82,7 @@ class GlobalClassController extends Controller
                 $sectionId[] = $sectionByName->section_id;
             }
             
-            $sections = SmSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', '=', 1)->where('school_id', Auth::user()->school_id)->get();
+            $sections = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', '=', 1)->where('school_id', Auth::user()->school_id)->get();
             $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->withCount('records')->get();
             return view('backEnd.global.global_class', compact('classById', 'classes', 'sections', 'sectionId'));
         } catch (\Exception $e) {

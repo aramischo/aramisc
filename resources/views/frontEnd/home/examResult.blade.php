@@ -1,4 +1,4 @@
-@php $page_title="All about Aramisc School management system; School management software"; @endphp
+@php $page_title="All about Infix School management system; School management software"; @endphp
 @extends('frontEnd.home.front_master')
 @push('css')
     <link rel="stylesheet" href="{{ asset('public/') }}/frontend/css/new_style.css" />
@@ -580,10 +580,10 @@
                                                             <div class="col-lg-8 text-center">
                                                                 <h3 class="text-white"
                                                                     style="font-size: 30px;margin-bottom: 0px;">
-                                                                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Aramisc School Management ERP' }}
+                                                                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Infix School Management ERP' }}
                                                                 </h3>
                                                                 <p class="text-white mb-0" style="font-size: 16px;">
-                                                                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Aramisc School Address' }}
+                                                                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Infix School Address' }}
                                                                 </p>
                                                                 <p class="text-white mb-0" style="font-size: 16px;">
                                                                     @lang('common.email'): <span
@@ -594,7 +594,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="report-admit-img profile_100"
-                                                            style="background-image: url({{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})">
+                                                            style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})">
                                                         </div>
                                                     </div>
                                                     {{-- Start  Result Table --}}
@@ -964,10 +964,10 @@
                                                                 class="table @if (resultPrintStatus('vertical_boarder')) mt-5 @endif">
                                                                 <tbody class="spacing">
                                                                     <tr>
-                                                                        <td>@lang('reports.aramiscAttendance')</td>
+                                                                        <td>@lang('reports.attendance')</td>
                                                                         @if (isset($exam_content))
                                                                             <td class="nowrap">
-                                                                                <p>{{ @$student_aramiscAttendance }}
+                                                                                <p>{{ @$student_attendance }}
                                                                                     @lang('reports.of')
                                                                                     {{ @$total_class_days }}</p>
                                                                             </td>

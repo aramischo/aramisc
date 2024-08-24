@@ -24,7 +24,7 @@ class SmLesson extends Model
     }
     public function section()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id');
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
     }
     public function subject()
     {

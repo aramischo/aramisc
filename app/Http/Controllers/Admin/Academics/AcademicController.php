@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Academics;
 
 use App\SmClass;
-use App\SmSection;
-use App\SmStudent;
-use App\SmFeesAssign;
-use App\SmFeesMaster;
+use App\AramiscSection;
+use App\AramiscStudent;
+use App\AramiscFeesAssign;
+use App\AramiscFeesMaster;
 use App\ApiBaseMethod;
-use App\SmFeesPayment;
+use App\AramiscFeesPayment;
 use App\SmClassRoutine;
 use App\SmAssignSubject;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class AcademicController extends Controller
         // // User::checkAuth();
     }
 
-    public function aramiscClassRoutine()
+    public function classRoutine()
     {
         try {
             $classes = SmClass::get();
@@ -36,7 +36,7 @@ class AcademicController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscClassRoutineCreate()
+    public function classRoutineCreate()
     {
         try {
             $classes = SmClass::get();
@@ -48,7 +48,7 @@ class AcademicController extends Controller
     }
 
 
-    public function aramiscAssignRoutineSearch(Request $request)
+    public function assignRoutineSearch(Request $request)
     {
         $request->validate([
             'class' => 'required',
@@ -74,7 +74,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function aramiscAssignRoutineStore(Request $request)
+    public function assignRoutineStore(Request $request)
     {
         try {
             $class_routine = SmClassRoutine::where('class_id', $request->class_id)
@@ -128,7 +128,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function aramiscClassRoutineReportSearch(Request $request)
+    public function classRoutineReportSearch(Request $request)
     {
         $request->validate([
             'class' => 'required',
@@ -148,7 +148,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function aramiscClassReport(Request $request)
+    public function classReport(Request $request)
     {
         try {
 
@@ -164,7 +164,7 @@ class AcademicController extends Controller
         }
     }
 
-    public function aramiscClassReportSearch(Request $request)
+    public function classReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -184,12 +184,12 @@ class AcademicController extends Controller
             $class = SmClass::where('id', $request->class)->first();
 
             if ($request->section != "") {
-                $section = SmSection::where('id', $request->section)->first();
+                $section = AramiscSection::where('id', $request->section)->first();
             } else {
                 $section = '';
             }
 
-            $students = SmStudent::query();
+            $students = AramiscStudent::query();
             $students->where('active_status', 1);
             if ($request->section != "") {
                 $students->where('section_id', $request->section);
@@ -224,16 +224,16 @@ class AcademicController extends Controller
             $total_collection = 0;
             $total_assign = 0;
             foreach ($students as $student) {
-                $fees_assigns = SmFeesAssign::where("student_id", $student->id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $fees_assigns = AramiscFeesAssign::where("student_id", $student->id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 foreach ($fees_assigns as $fees_assign) {
-                    $fees_masters = SmFeesMaster::where('id', $fees_assign->fees_master_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                    $fees_masters = AramiscFeesMaster::where('id', $fees_assign->fees_master_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                     foreach ($fees_masters as $fees_master) {
-                        $total_collection = $total_collection + SmFeesPayment::where('active_status',1)->where('student_id', $student->id)->where('fees_type_id', $fees_master->fees_type_id)->sum('amount');
+                        $total_collection = $total_collection + AramiscFeesPayment::where('active_status',1)->where('student_id', $student->id)->where('fees_type_id', $fees_master->fees_type_id)->sum('amount');
                     }
                 }
 
                 foreach ($fees_assigns as $fees_assign) {
-                    $fees_master = SmFeesMaster::where('id', $fees_assign->fees_master_id)->first();
+                    $fees_master = AramiscFeesMaster::where('id', $fees_assign->fees_master_id)->first();
                     $total_assign = $total_assign + $fees_master->amount;
                 }
             }

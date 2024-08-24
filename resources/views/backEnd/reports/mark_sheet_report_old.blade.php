@@ -196,8 +196,8 @@
                                                     <img class="logo-img" src="{{ generalSetting()->logo }}" alt="">
                                                     </div>
                                                     <div class="col-lg-6 ml-30">
-                                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3> 
+                                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
                                                         <p class="text-white mb-0">Email:  {{isset($email)?$email:'admin@demo.com'}} ,   Phone:  {{isset(generalSetting()->phone)?generalSetting()->phone:'admin@demo.com'}} </p> 
                                                     </div>
                                                     <div class="offset-2">
@@ -205,7 +205,7 @@
                                                     </div>
                                                 </div>
                                         {{-- <div>
-                                            <img class="report-admit-img"  src="{{ file_exists(@$aramiscStudentDetails->student_photo) ? asset($aramiscStudentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($aramiscStudentDetails->student_photo)}}">
+                                            <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->student_photo)}}">
                                         </div> --}}
                                         
                                         
@@ -216,7 +216,7 @@
                                                     <div class="col-lg-8">
                                                         <div class="row"> 
                                                             <div class="col-lg-2">
-                                                                <img class="report-admit-img"  src="{{ file_exists(@$aramiscStudentDetails->student_photo) ? asset($aramiscStudentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($aramiscStudentDetails->student_photo)}}">
+                                                                <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->student_photo)}}">
                                                             </div>
                                                             <div class="col-lg-8">
                                                                  <table class="table">

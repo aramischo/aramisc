@@ -24,7 +24,7 @@
         </thead>
         <tbody>
 
-            @foreach ($record->aramiscDirectFeesInstallments as $key => $feesInstallment)
+            @foreach ($record->directFeesInstallments as $key => $feesInstallment)
                 @php
                     $total_fees += discount_fees($feesInstallment->amount, $feesInstallment->discount_amount);
                     $total_paid += $feesInstallment->paid_amount;
@@ -125,13 +125,13 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item modalLink" data-modal-size="modal-md"
                                         title="{{ @$feesInstallment->installment->title }} / {{ @$payment->fees_type_id . '/' . @$payment->id }}"
-                                        href="{{ route('aramiscDirectFees.editSubPaymentModal', [$payment->id, $payment->paid_amount]) }}">@lang('common.edit')
+                                        href="{{ route('directFees.editSubPaymentModal', [$payment->id, $payment->paid_amount]) }}">@lang('common.edit')
                                     </a>
                                     <a onclick="deletePayment({{ $payment->id }});" class="dropdown-item"
                                         href="#" data-toggle="modal">@lang('common.delete')</a>
 
                                     <a class="dropdown-item" target="_blank"
-                                        href="{{ route('aramiscDirectFees.viewPaymentReceipt', [$payment->id]) }}">
+                                        href="{{ route('directFees.viewPaymentReceipt', [$payment->id]) }}">
                                         @lang('fees.receipt')
                                     </a>
                                 </div>
@@ -249,7 +249,7 @@
                 {{ Form::open([
                     'class' => 'form-horizontal',
                     'files' => true,
-                    'route' => 'aramiscDirectFees.deleteSubPayment',
+                    'route' => 'directFees.deleteSubPayment',
                     'method' => 'POST',
                 ]) }}
 

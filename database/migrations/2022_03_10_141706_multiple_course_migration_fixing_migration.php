@@ -52,29 +52,29 @@ class MultipleCourseMigrationFixingMigration extends Migration
 
         // Attendance data migration
 
-        $aramiscAttendances = \App\SmStudentAttendance::withOutGlobalScope(AcademicSchoolScope::class)->get();
+        $attendances = \App\SmStudentAttendance::withOutGlobalScope(AcademicSchoolScope::class)->get();
 
-        foreach ($aramiscAttendances as $aramiscAttendance) {
-            $record = \App\Models\StudentRecord::where(['student_id' => $aramiscAttendance->student_id, 'school_id' => $aramiscAttendance->school_id, 'academic_id' => $aramiscAttendance->academic_id, 'class_id' => $aramiscAttendance->class_id, 'section_id' => $aramiscAttendance->section_id])->first();
-            $aramiscAttendance->student_record_id = optional($record)->id;
-            $aramiscAttendance->save();
+        foreach ($attendances as $attendance) {
+            $record = \App\Models\StudentRecord::where(['student_id' => $attendance->student_id, 'school_id' => $attendance->school_id, 'academic_id' => $attendance->academic_id, 'class_id' => $attendance->class_id, 'section_id' => $attendance->section_id])->first();
+            $attendance->student_record_id = optional($record)->id;
+            $attendance->save();
         }
 
         $subjectAttendances = \App\SmSubjectAttendance::all();
 
-        foreach ($subjectAttendances as $aramiscAttendance) {
-            $record = \App\Models\StudentRecord::where(['student_id' => $aramiscAttendance->student_id, 'school_id' => $aramiscAttendance->school_id, 'academic_id' => $aramiscAttendance->academic_id, 'class_id' => $aramiscAttendance->class_id, 'section_id' => $aramiscAttendance->section_id])->first();
-            $aramiscAttendance->student_record_id = optional($record)->id;
-            $aramiscAttendance->save();
+        foreach ($subjectAttendances as $attendance) {
+            $record = \App\Models\StudentRecord::where(['student_id' => $attendance->student_id, 'school_id' => $attendance->school_id, 'academic_id' => $attendance->academic_id, 'class_id' => $attendance->class_id, 'section_id' => $attendance->section_id])->first();
+            $attendance->student_record_id = optional($record)->id;
+            $attendance->save();
         }
 
 
-        $aramiscExamAttendances = \App\SmExamAttendanceChild::all();
+        $examAttendances = \App\SmExamAttendanceChild::all();
 
-        foreach ($aramiscExamAttendances as $aramiscExamAttendance) {
-            $record = \App\Models\StudentRecord::where(['student_id' => $aramiscExamAttendance->student_id, 'school_id' => $aramiscExamAttendance->school_id, 'academic_id' => $aramiscExamAttendance->academic_id, 'class_id' => $aramiscExamAttendance->class_id, 'section_id' => $aramiscExamAttendance->section_id])->first();
-            $aramiscExamAttendance->student_record_id = optional($record)->id;
-            $aramiscExamAttendance->save();
+        foreach ($examAttendances as $examAttendance) {
+            $record = \App\Models\StudentRecord::where(['student_id' => $examAttendance->student_id, 'school_id' => $examAttendance->school_id, 'academic_id' => $examAttendance->academic_id, 'class_id' => $examAttendance->class_id, 'section_id' => $examAttendance->section_id])->first();
+            $examAttendance->student_record_id = optional($record)->id;
+            $examAttendance->save();
         }
 
         $datas = \App\SmResultStore::all();

@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\SmBookCategory;
+use App\AramiscBookCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -17,7 +17,7 @@ class UniqueCategory implements Rule
     public function passes($attribute, $value)
     {
 
-        $isExist= SmBookCategory::where('id','!=',$this->id)->where('school_id', Auth::user()->school_id)->where('category_name', $value)->exists();
+        $isExist= AramiscBookCategory::where('id','!=',$this->id)->where('school_id', Auth::user()->school_id)->where('category_name', $value)->exists();
         
         if ($isExist) {
             return false;

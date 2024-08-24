@@ -125,7 +125,7 @@ $days = $days_between + 1;
                             @lang('leave.leave_status')
                         </div>
                     </div>
-                        @if (Auth::user()->role_id==1 || Auth::user()->role_id==4)
+                        @if (Auth::user()->role_id==1 || Auth::user()->role_id==4 || userPermission('approve-leave-edit','approve-leave-delete'))
                                 <div class="col-lg-4 col-md-7">
                                     <div class="d-flex radio-btn-flex flex-column">
                                         <div class="d-flex mb-2">

@@ -6,15 +6,15 @@ use App\Role;
 use App\SmClass;
 use App\SmStaff;
 use App\SmParent;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmBankAccount;
-use App\SmStudentIdCard;
+use App\AramiscStudentIdCard;
 use App\SmGeneralSettings;
 use App\SmHrPayrollGenerate;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\SmHrPayrollEarnDeduc;
-use App\SmStudentCertificate;
+use App\AramiscStudentCertificate;
 use Modules\Lms\Entities\Course;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Routing\Controller;
@@ -24,7 +24,7 @@ use Modules\Fees\Entities\FmFeesInvoice;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Renderable;
 use Modules\BulkPrint\Entities\InvoiceSetting;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\BulkPrint\Entities\FeesInvoiceSetting;
 use Modules\Fees\Http\Controllers\FeesReportController;
 
@@ -42,8 +42,8 @@ class BulkPrintController extends Controller
     }
     public function studentidBulkPrint(){
         try {
-            $id_cards = SmStudentIdCard::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $roles = AramiscRole::where('is_saas',0)->where('active_status', '=', 1)
+            $id_cards = AramiscStudentIdCard::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $roles = InfixRole::where('is_saas',0)->where('active_status', '=', 1)
                 ->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })
@@ -69,17 +69,17 @@ class BulkPrintController extends Controller
         
         try {  
         if($request->role==2){
-            $s_students=SmStudent::query()->with('parents', 'bloodGroup');
+            $s_students=AramiscStudent::query()->with('parents', 'bloodGroup');
             
             $s_students = $s_students->status()->get();
         }elseif($request->role==3){
-            $studentGuardian = SmStudent::where('school_id', Auth::user()->school_id)->get('parent_id');
+            $studentGuardian = AramiscStudent::where('school_id', Auth::user()->school_id)->get('parent_id');
             $s_students = SmParent::whereIn('id',$studentGuardian)->get();
         }
         else{
             $s_students=SmStaff::where('role_id',$request->role)->status()->get();
         }
-        $id_card = SmStudentIdCard::status()->find($request->id_card);
+        $id_card = AramiscStudentIdCard::status()->find($request->id_card);
 
         $role_id=$request->role;
 
@@ -99,7 +99,7 @@ class BulkPrintController extends Controller
         try {
             
             $role_id=$request->role_id;
-            $id_cards = SmStudentIdCard::where('active_status',1)->get();
+            $id_cards = AramiscStudentIdCard::where('active_status',1)->get();
             $idCards=[];
             foreach($id_cards as $id_card){
                 $role_ids=json_decode($id_card->role_id);
@@ -122,7 +122,7 @@ class BulkPrintController extends Controller
         try {
             //code...
             $id=$request->id;
-            $id_card = SmStudentIdCard::status()->find($id);
+            $id_card = AramiscStudentIdCard::status()->find($id);
             $role_ids=json_decode($id_card->role_id);
             $roles=[];
             foreach($role_ids as $role){
@@ -141,7 +141,7 @@ class BulkPrintController extends Controller
     }
     public function staffidBulkPrint(){
         try {
-            $id_cards = SmStudentIdCard::where('active_status', 1)->where('role_id','!=','["2"]')->where('school_id', Auth::user()->school_id)->get(['id','title']);
+            $id_cards = AramiscStudentIdCard::where('active_status', 1)->where('role_id','!=','["2"]')->where('school_id', Auth::user()->school_id)->get(['id','title']);
             $roles = Role::where('school_id', Auth::user()->school_id)->whereNotIn('id',[1,2,3])->get();
             return view('bulkprint::admin.staff_generate_id_card', compact('id_cards','roles'));
         } catch (\Exception $e) {
@@ -168,7 +168,7 @@ class BulkPrintController extends Controller
     
         
             if($request->role==2){
-                $s_students=SmStudent::query();
+                $s_students=AramiscStudent::query();
                 if($request->class){
                     $s_students->where('class_id',$request->class_id);
                 }
@@ -183,7 +183,7 @@ class BulkPrintController extends Controller
                $s_students=SmStaff::whereIn('role_id',$request->role_id)->status()->get();
     
            }
-           $id_card = SmStudentIdCard::status()->find($request->id_card);
+           $id_card = AramiscStudentIdCard::status()->find($request->id_card);
     
               $role_id=$request->role;
   
@@ -328,7 +328,7 @@ class BulkPrintController extends Controller
     public function payrollBulkPrint(){
         
 		try{
-			$roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+			$roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })
 			->orderBy('name','asc')
@@ -402,9 +402,9 @@ class BulkPrintController extends Controller
     }
     public function certificateBulkPrint(){
         try {
-            $roles = AramiscRole::where('id', '!=', 1)->Where('type', 'System')->get();
+            $roles = InfixRole::where('id', '!=', 1)->Where('type', 'System')->get();
             $classes = SmClass::get();
-            $certificates = SmStudentCertificate::get();
+            $certificates = AramiscStudentCertificate::get();
             return view('bulkprint::admin.generate_certificate_bulk', compact('roles','classes', 'certificates'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -439,13 +439,13 @@ class BulkPrintController extends Controller
                     $query->where('academic_id', getAcademicId());
                 })->where('school_id', auth()->user()->school_id)->get()->pluck('student_id')->toArray();
             }
-            $data['students'] = SmStudent::whereIn('id', $student_ids)->get();
+            $data['students'] = AramiscStudent::whereIn('id', $student_ids)->get();
             $data['users'] =$data['students'] ;
-            $data['certificate'] = SmStudentCertificate::find($request->certificate);
+            $data['certificate'] = AramiscStudentCertificate::find($request->certificate);
 
-            $data['roles'] = AramiscRole::where('id', '!=', 1)->Where('type', 'System')->get();
+            $data['roles'] = InfixRole::where('id', '!=', 1)->Where('type', 'System')->get();
             $data['classes'] = SmClass::get();
-            $data['certificates'] = SmStudentCertificate::get();
+            $data['certificates'] = AramiscStudentCertificate::get();
             $data['type'] = 'school';
             $data['gridGap'] = $request->grid_gap;
             return view('bulkprint::admin.student_certificate_bulk_print', $data);
@@ -474,9 +474,9 @@ class BulkPrintController extends Controller
             foreach ($courseLogs as $courseLog) {
                 $studenId []= $courseLog->student_id;
             }
-            $users =SmStudent::whereIn('user_id', $studenId)->get();
+            $users =AramiscStudent::whereIn('user_id', $studenId)->get();
             
-            $certificate = SmStudentCertificate::find($courses->certificate_id);
+            $certificate = AramiscStudentCertificate::find($courses->certificate_id);
             $gridGap = $request->grid_gap;
 
             $type = 'school';

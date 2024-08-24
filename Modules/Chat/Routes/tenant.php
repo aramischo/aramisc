@@ -11,11 +11,12 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
 use Modules\Chat\Http\Controllers\ChatController;
-use Modules\Chat\Http\Controllers\Edu\SettingsController;
+use Modules\Chat\Http\Controllers\UserController;
 use Modules\Chat\Http\Controllers\GroupChatController;
 use Modules\Chat\Http\Controllers\InvitationController;
-use Modules\Chat\Http\Controllers\UserController;
+use Modules\Chat\Http\Controllers\Edu\SettingsController;
 
 Route::prefix('chat')->middleware('auth')->group(function() {
 

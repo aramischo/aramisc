@@ -13,14 +13,14 @@ class CreateSmExamAttendanceChildrenTable extends Migration
      */
     public function up()
     {
-        Schema::create('sm_exam_aramiscAttendance_children', function (Blueprint $table) {
+        Schema::create('sm_exam_attendance_children', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('aramiscAttendance_type',2)->nullable()->comment('P = present A = Absent');
+            $table->string('attendance_type',2)->nullable()->comment('P = present A = Absent');
             $table->tinyInteger('active_status')->default(1);
             $table->timestamps();
 
-            $table->integer('exam_aramiscAttendance_id')->nullable()->unsigned();
-            $table->foreign('exam_aramiscAttendance_id')->references('id')->on('sm_exam_aramiscAttendances')->onDelete('cascade');
+            $table->integer('exam_attendance_id')->nullable()->unsigned();
+            $table->foreign('exam_attendance_id')->references('id')->on('sm_exam_attendances')->onDelete('cascade');
 
             $table->bigInteger('student_record_id')->nullable()->unsigned();
             $table->foreign('student_record_id')->references('id')->on('student_records')->onDelete('cascade');
@@ -53,6 +53,6 @@ class CreateSmExamAttendanceChildrenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sm_exam_aramiscAttendance_children');
+        Schema::dropIfExists('sm_exam_attendance_children');
     }
 }

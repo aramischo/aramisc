@@ -34,8 +34,8 @@ class sm_booksSeeder extends Seeder
         $store->book_title = $book;
         $store->book_number = 'B-'.$i;
         $store->isbn_no = 'ISBN-0'.$i; 
-        $store->publisher_name = 'Aramisc';
-        $store->author_name = 'Author Aramisc'; 
+        $store->publisher_name = 'Infix';
+        $store->author_name = 'Author Infix'; 
         // $store->subject_id = 1+ $i%5;
         $store->rack_number = $i;
         $store->quantity =100+ $i;

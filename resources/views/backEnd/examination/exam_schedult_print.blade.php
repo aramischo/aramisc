@@ -26,13 +26,13 @@
         $address =$generalSetting->address;
         $phone =$generalSetting->phone; 
     } 
-    $exam=App\SmExamType::find(@$exam_id);
+    $exam=App\AramiscExamType::find(@$exam_id);
     $class=App\SmClass::find(@$class_id);
     
     if($section_id==0){
         $section='All Sections';
     }else{
-        $section=App\SmSection::find(@$section_id);
+        $section=App\AramiscSection::find(@$section_id);
         $section=$section->section_name;
     }
 @endphp
@@ -44,8 +44,8 @@
                                 <img class="logo-img" src="{{ url('/')}}/{{@generalSetting()->logo }}" alt=""> 
                             </td>
                             <td> 
-                                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3> 
+                                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p> 
                                 <p style="font-size:15px !important" class="text-white mb-0"> @lang('exam.exam_schedule') </p> 
                           </td>
                             <td style="text-aligh:center"> 
@@ -79,7 +79,7 @@
                             @endif
                             @foreach($exam_periods as $exam_period)
                                 @php
-                                $assigned_routine = App\SmExamSchedule::assignedRoutine($class_id, $assign_subject->section_id, $exam_id, $assign_subject->subject_id, $exam_period->id);
+                                $assigned_routine = App\AramiscExamSchedule::assignedRoutine($class_id, $assign_subject->section_id, $exam_id, $assign_subject->subject_id, $exam_period->id);
                                     // $assigned_routine = getScheduleSubject($class_id, $section_id, $exam_id, $exam_period->id, $exam_date);
                                 @endphp
                             <td nowrap>

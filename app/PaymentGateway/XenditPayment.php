@@ -3,10 +3,10 @@ namespace App\PaymentGateway;
 
 use App\User;
 use App\SmParent;
-use App\SmStudent;
+use App\AramiscStudent;
 use Xendit\Xendit;
-use App\SmFeesPayment;
-use App\SmPaymentGatewaySetting;
+use App\AramiscFeesPayment;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Session;
@@ -20,7 +20,7 @@ class XenditPayment {
     public function handle($data)
     {
         try{
-           $xendit_config = SmPaymentGatewaySetting::where('gateway_name','Xendit')
+           $xendit_config = AramiscPaymentGatewaySetting::where('gateway_name','Xendit')
            ->where('school_id',auth()->user()->school_id)
            ->first('gateway_secret_key');
 
@@ -35,7 +35,7 @@ class XenditPayment {
                     if(array_key_exists('service_charge', $data)) {
                         $amount = $data['amount'] + $data['service_charge'];
                     }
-                    $student = SmStudent::where('user_id', $data['user_id'])->first();
+                    $student = AramiscStudent::where('user_id', $data['user_id'])->first();
                     if(!($student->email)){
                         $parent = SmParent::find($student->parent_id);
                         $email =  $parent->guardians_email;
@@ -76,7 +76,7 @@ class XenditPayment {
                     }
                 }elseif($data['type'] == "Fees"){
                     $email = "";
-                    $student = SmStudent::find($data['student_id']);
+                    $student = AramiscStudent::find($data['student_id']);
                     if(!($student->email)){
                         $parent = SmParent::find($student->parent_id);
                         $email =  $parent->guardians_email;
@@ -104,7 +104,7 @@ class XenditPayment {
                     return $createInvoice['invoice_url'];
                   }
                 }elseif($data['type'] == "Lms"){
-                    $student = SmStudent::where('user_id', $data['user_id'])->first();
+                    $student = AramiscStudent::where('user_id', $data['user_id'])->first();
                     if(!($student->email)){
                         $parent = SmParent::find($student->parent_id);
                         $email =  $parent->guardians_email;
@@ -199,7 +199,7 @@ class XenditPayment {
         try{
             $payment_id =  Session::get('xendit_payment_id');
             if($payment_id ){
-                $success_payment = SmFeesPayment::find($payment_id);
+                $success_payment = AramiscFeesPayment::find($payment_id);
                 $success_payment->delete();
                 Session::forget('xendit_payment_id');
                 if(auth()->user()->role_id == 2){

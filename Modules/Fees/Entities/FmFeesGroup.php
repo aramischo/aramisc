@@ -15,6 +15,12 @@ class FmFeesGroup extends Model
     }
 
     protected $fillable = [];
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'description' => 'string',
+    ];
     
     protected static function newFactory()
     {

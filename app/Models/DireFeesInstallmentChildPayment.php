@@ -16,7 +16,7 @@ class DireFeesInstallmentChildPayment extends Model
 
     public function student()
     {
-        return $this->belongsTo('App\SmStudent', 'student_id', 'id');
+        return $this->belongsTo('App\AramiscStudent', 'student_id', 'id');
     }
 
     

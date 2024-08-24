@@ -412,15 +412,15 @@
                                         <img  src="{{asset('/')}}{{generalSetting()->logo }}" alt="{{generalSetting()->school_name}}">
                                     </div>
                                     <div class="company_info">
-                                        <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                        <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Aramisc School Address'}}</h5>
+                                        <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                        <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Infix School Address'}}</h5>
                                         <h5>
-                                            @lang('common.email'): {{isset(generalSetting()->email)?generalSetting()->email:'admin@aramisc.com'}}
+                                            @lang('common.email'): {{isset(generalSetting()->email)?generalSetting()->email:'admin@infixedu.com'}} 
                                             @lang('common.phone'): {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}
                                         </h5>
                                     </div>
                                     <div class="profile_thumb">
-                                        <img src="{{ file_exists(@$aramiscStudentDetails->student_photo) ? asset($aramiscStudentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" alt="{{$aramiscStudentDetails->full_name}}" height="100" width="100">
+                                        <img src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" alt="{{$studentDetails->full_name}}" height="100" width="100">
                                     </div>
                                 </div>
                             </td>
@@ -453,7 +453,7 @@
                                    <tr>
                                        <td>
                                             <p class="line_grid_update">
-                                                {{$aramiscStudentDetails->full_name}}
+                                                {{$studentDetails->full_name}}
                                             </p>
                                         </td>
                                    </tr>
@@ -473,7 +473,7 @@
                                                     <span>@lang('common.class')</span>
                                                     <span>:</span>
                                                 </span>
-                                                {{@$aramiscStudentDetails->class_name}}
+                                                {{@$studentDetails->class_name}}
                                             </p>
                                         </td>
                                    </tr>
@@ -485,7 +485,7 @@
                                                     <span>@lang('student.roll_no')</span>
                                                     <span>:</span>
                                                 </span>
-                                                {{$aramiscStudentDetails->roll_no}}
+                                                {{$studentDetails->roll_no}}
                                             </p>
                                         </td>
                                         <td>
@@ -494,7 +494,7 @@
                                                     <span>@lang('common.section')</span>
                                                     <span>:</span>
                                                 </span>
-                                                {{ $aramiscStudentDetails->section_name }}
+                                                {{ $studentDetails->section_name }}
                                             </p>
                                         </td>
                                    </tr>
@@ -506,7 +506,7 @@
                                                     <span>@lang('student.admission_no')</span>
                                                     <span>:</span>
                                                 </span>
-                                                {{$aramiscStudentDetails->admission_no}}
+                                                {{$studentDetails->admission_no}}
                                             </p>
                                         </td>
                                         <td>
@@ -555,7 +555,7 @@
                             <th rowspan="2">@lang('common.subjects')</th>
                             @foreach($assinged_exam_types as $assinged_exam_type)
                             @php
-                                $exam_type = App\SmExamType::examType($assinged_exam_type);
+                                $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                             @endphp
                             <th colspan="4">{{$exam_type->title}}</th>
                             @endforeach
@@ -690,7 +690,7 @@
                             @endphp
                             @foreach($assinged_exam_types as $assinged_exam_type)
                             @php
-                                $exam_type = App\SmExamType::examType($assinged_exam_type);
+                                $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                                 $term_base_gpa=termWiseGpa($assinged_exam_type, $student_id);
                                 $with_percent_average_gpa +=$term_base_gpa;
     

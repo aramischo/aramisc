@@ -3,10 +3,10 @@
 namespace Modules\ExamPlan\Http\Controllers;
 
 use App\SmClass;
-use App\SmStudent;
-use App\SmExamType;
+use App\AramiscStudent;
+use App\AramiscExamType;
 use App\SmSeatPlan;
-use App\SmExamSchedule;
+use App\AramiscExamSchedule;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Traits\NotificationSend;
@@ -69,7 +69,7 @@ class SeatPlanSettingController extends Controller
     public function seatplan()
     {
         try {
-            $exams = SmExamType::where('active_status', 1)
+            $exams = AramiscExamType::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -116,7 +116,7 @@ class SeatPlanSettingController extends Controller
         // dd($request->all());
         try {
 
-            $exam = SmExamSchedule::query();
+            $exam = AramiscExamSchedule::query();
             $exam_id = $request->exam_type;
             // $class_id = $request->class;
             $exam->where('school_id', auth()->user()->school_id)->where('un_academic_id', getAcademicId());
@@ -187,7 +187,7 @@ class SeatPlanSettingController extends Controller
                         ->withInput();
                 }
 
-                $exam = SmExamSchedule::query();
+                $exam = AramiscExamSchedule::query();
                 $exam_id = $request->exam;
                 $class_id = $request->class;
                 $exam->where('school_id', auth()->user()->school_id)->where('academic_id', getAcademicId());
@@ -229,7 +229,7 @@ class SeatPlanSettingController extends Controller
 
                     $records = $student_records->get();
 
-                    $exams = SmExamType::where('active_status', 1)
+                    $exams = AramiscExamType::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
@@ -283,8 +283,8 @@ class SeatPlanSettingController extends Controller
                         $this->sent_notifications('Exam_Seat_Plan', $records, $data, ['Student', 'Parent']);
 
                         $student_id = StudentRecord::find($record)->student_id;
-                        $student = SmStudent::find($student_id);
-                        $exam_type = SmExamType::find($request->exam_type_id);
+                        $student = AramiscStudent::find($student_id);
+                        $exam_type = AramiscExamType::find($request->exam_type_id);
                     }
                 }
                 $seat_plans = SeatPlan::with('studentRecord.studentDetail')->where('exam_type_id', $request->exam_type_id)->where('school_id', Auth::user()->school_id)->where('un_academic_id', getAcademicId())->whereIn('student_record_id', $student_records)->get();
@@ -338,8 +338,8 @@ class SeatPlanSettingController extends Controller
                             $this->sent_notifications('Exam_Seat_Plan', $records, $data, ['Student', 'Parent']);
 
                             $student_id = StudentRecord::find($record)->student_id;
-                            $student = SmStudent::find($student_id);
-                            $exam_type = SmExamType::find($request->exam_type_id);
+                            $student = AramiscStudent::find($student_id);
+                            $exam_type = AramiscExamType::find($request->exam_type_id);
                         }
                     }
                     $seat_plans = SeatPlan::with('studentRecord.studentDetail')->where('exam_type_id', $request->exam_type_id)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->whereIn('student_record_id', $student_records)->get();

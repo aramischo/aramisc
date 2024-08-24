@@ -24,7 +24,7 @@ class staffAttendanceBulkStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'aramiscAttendance_date' => 'required|date',
+            'attendance_date' => 'required|date',
             'file' => 'required|mimes:xlsx, csv'
         ];
     }

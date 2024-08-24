@@ -62,8 +62,8 @@
                     </thead>
 
                     <tbody>
-                        @if(isset($aramiscUploadContents))
-                        @foreach($aramiscUploadContents as $value)
+                        @if(isset($uploadContents))
+                        @foreach($uploadContents as $value)
                         <tr>
 
                             <td>{{@$value->content_title}}</td>

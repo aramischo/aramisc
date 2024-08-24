@@ -4,8 +4,8 @@ namespace Modules\Lesson\Http\Controllers\Student;
 use App\SmClass;
 use App\SmStaff;
 use App\SmLesson;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmSubject;
 use App\SmWeekend;
 use Carbon\Carbon;
@@ -44,7 +44,7 @@ class StudentLessonPlanController extends Controller
                     $dates[] = $date->format('Y-m-d');
                  
              }
-            $student_detail = SmStudent::where('user_id', auth()->user()->id)->first();
+            $student_detail = AramiscStudent::where('user_id', auth()->user()->id)->first();
             //return $student_detail;
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;
@@ -68,7 +68,7 @@ class StudentLessonPlanController extends Controller
         } else {
             $login_id = Auth::user()->id;
         }
-        $student_detail = SmStudent::where('user_id', $login_id)->first();
+        $student_detail = AramiscStudent::where('user_id', $login_id)->first();
         $class=$student_detail->class_id;
         $section=$student_detail->section_id;       
         $academic_id=$student_detail->academic_id;
@@ -111,7 +111,7 @@ class StudentLessonPlanController extends Controller
                 }
             }
 
-            $student_detail = SmStudent::where('user_id', $user_id)->first();
+            $student_detail = AramiscStudent::where('user_id', $user_id)->first();
             //return $student_detail;
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;
@@ -155,7 +155,7 @@ class StudentLessonPlanController extends Controller
                 }
             }
 
-            $student_detail = SmStudent::where('user_id', $user_id)->first();
+            $student_detail = AramiscStudent::where('user_id', $user_id)->first();
             //return $student_detail;
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;

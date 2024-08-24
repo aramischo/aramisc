@@ -67,12 +67,12 @@
 <div role="tabpanel" class="tab-pane fade" id="subjectAttendance">
     <div class="p-3">
         @if (isset($subjectAttendance))
-            <section class="student-aramiscAttendance">
+            <section class="student-attendance">
                 <div class="container-fluid p-0">
                     <div class="row">
                         <div class="col-lg-6 p-0 no-gutters">
                             <div class="main-title mb-15">
-                                <h3 class="mb-0">@lang('student.student_aramiscAttendance_report')
+                                <h3 class="mb-0">@lang('student.student_attendance_report')
                                     <small>
                                         <span class="text-success">P:<span id="total_present"></span></span>
                                         <span class="text-warning">L:<span id="total_late"></span></span>
@@ -85,7 +85,7 @@
                         </div>
                         {{-- <div class="col-lg-6 no-gutters mb-30">
                             @if (userPermission(536))
-                                <a href="{{ route('subject-aramiscAttendance/print', [$class_id, $section_id, $month, $year]) }}"
+                                <a href="{{ route('subject-attendance/print', [$class_id, $section_id, $month, $year]) }}"
                                     class="primary-btn small fix-gr-bg pull-right" target="_blank"><i
                                         class="ti-printer">
                                     </i>@lang('common.print')</a>
@@ -139,7 +139,7 @@
                                     @php
                                         $last_key_number = array_key_last([$subjectAttendance]);
                                     @endphp
-                                    @php $total_aramiscAttendance = 0; @endphp
+                                    @php $total_attendance = 0; @endphp
                                     @php $count_absent = 0; @endphp
                                     <tr>
                                         <td>
@@ -151,10 +151,10 @@
                                         <td>
                                             @php $p = 0; @endphp
                                             @foreach ($subjectAttendance as $value)
-                                                @if ($value->aramiscAttendance_type == 'P')
+                                                @if ($value->attendance_type == 'P')
                                                     @php
                                                         $p++;
-                                                        $total_aramiscAttendance++;
+                                                        $total_attendance++;
                                                         $total_grand_present++;
                                                     @endphp
                                                 @endif
@@ -164,10 +164,10 @@
                                         <td>
                                             @php $l = 0; @endphp
                                             @foreach ($subjectAttendance as $value)
-                                                @if ($value->aramiscAttendance_type == 'L')
+                                                @if ($value->attendance_type == 'L')
                                                     @php
                                                         $l++;
-                                                        $total_aramiscAttendance++;
+                                                        $total_attendance++;
                                                         $total_late++;
                                                     @endphp
                                                 @endif
@@ -177,11 +177,11 @@
                                         <td>
                                             @php $a = 0; @endphp
                                             @foreach ($subjectAttendance as $value)
-                                                @if ($value->aramiscAttendance_type == 'A')
+                                                @if ($value->attendance_type == 'A')
                                                     @php
                                                         $a++;
                                                         $count_absent++;
-                                                        $total_aramiscAttendance++;
+                                                        $total_attendance++;
                                                         $total_absent++;
                                                     @endphp
                                                 @endif
@@ -191,10 +191,10 @@
                                         <td>
                                             @php $f = 0; @endphp
                                             @foreach ($subjectAttendance as $value)
-                                                @if ($value->aramiscAttendance_type == 'F')
+                                                @if ($value->attendance_type == 'F')
                                                     @php
                                                         $f++;
-                                                        $total_aramiscAttendance++;
+                                                        $total_attendance++;
                                                         $total_halfday++;
                                                     @endphp
                                                 @endif
@@ -204,10 +204,10 @@
                                         <td>
                                             @php $h = 0; @endphp
                                             @foreach ($subjectAttendance as $value)
-                                                @if ($value->aramiscAttendance_type == 'H')
+                                                @if ($value->attendance_type == 'H')
                                                     @php
                                                         $h++;
-                                                        $total_aramiscAttendance++;
+                                                        $total_attendance++;
                                                         $total_holiday++;
                                                     @endphp
                                                 @endif
@@ -216,15 +216,15 @@
                                         </td>
                                         <td>
                                             @php
-                                                $total_present = $total_aramiscAttendance - $count_absent;
+                                                $total_present = $total_attendance - $count_absent;
                                             @endphp
-                                            {{ $total_present . '/' . $total_aramiscAttendance }}
+                                            {{ $total_present . '/' . $total_attendance }}
                                             <hr>
                                             @php
                                                 if ($count_absent == 0) {
                                                     echo '100%';
                                                 } else {
-                                                    $percentage = ($total_present / $total_aramiscAttendance) * 100;
+                                                    $percentage = ($total_present / $total_attendance) * 100;
                                                     echo number_format((float) $percentage, 2, '.', '') . '%';
                                                 }
                                             @endphp
@@ -241,9 +241,9 @@
                                                     $date_total_class = 0;
                                                 @endphp
                                                 @foreach ($subjectAttendance as $key => $value)
-                                                    @if (strtotime($value->aramiscAttendance_date) == strtotime($date))
+                                                    @if (strtotime($value->attendance_date) == strtotime($date))
                                                         @php
-                                                            if ($value->aramiscAttendance_type == 'P' || $value->aramiscAttendance_type == 'F' || $value->aramiscAttendance_type == 'L') {
+                                                            if ($value->attendance_type == 'P' || $value->attendance_type == 'F' || $value->attendance_type == 'L') {
                                                                 $date_present++;
                                                             } else {
                                                                 $date_absent++;

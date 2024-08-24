@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\StudentInfo;
 
 use App\SmClass;
-use App\SmStudent;
-use App\SmAcademicYear;
+use App\AramiscStudent;
+use App\AramiscAcademicYear;
 use App\SmClassTeacher;
 use App\Traits\CustomFields;
 use Illuminate\Http\Request;
@@ -43,21 +43,21 @@ class StudentMultiRecordController extends Controller
             })->pluck('student_id')->toArray();
 
 
-            $students = SmStudent::whereIn('id', $record_student_ids)->where('active_status', 1)->get();
+            $students = AramiscStudent::whereIn('id', $record_student_ids)->where('active_status', 1)->get();
         }
         $selected['student_id'] = $request->student;
         $selected['academic_year'] = $request->academic_year;
         $selected['class_id'] = $request->class_id;
         $selected['section_id'] = $request->section_id;
 
-        $sessions = SmAcademicYear::where('school_id', auth()->user()->school_id)->get();
+        $sessions = AramiscAcademicYear::where('school_id', auth()->user()->school_id)->get();
         $classes = SmClass::get();
         return view('backEnd.studentInformation.multi_class_student', compact('sessions', 'students', 'classes', 'data', 'selected'));
     }
     public function studentMultiRecord($student_id)
     {
         $classes = SmClass::get();
-        $student = SmStudent::findOrFail($student_id);
+        $student = AramiscStudent::findOrFail($student_id);
         return view('backEnd.studentInformation.inc._multiple_class_record', compact('student', 'classes'));
     }
     public function multiRecordStore(Request $request)
@@ -227,7 +227,7 @@ class StudentMultiRecordController extends Controller
         $studentRecord->academic_id = $request->session ?? getAcademicId();
         $studentRecord->save();
 
-        $class_teacher = SmClassTeacher::whereHas('aramiscTeacherClass', function ($q) use ($request) {
+        $class_teacher = SmClassTeacher::whereHas('teacherClass', function ($q) use ($request) {
             $q->where('active_status', 1)
                 ->where('class_id', $request->class)
                 ->where('section_id', $request->section);
@@ -243,9 +243,9 @@ class StudentMultiRecordController extends Controller
             $this->sent_notifications('Multi_Class', [$studentRecord->studentDetail->user_id], $data, ['Student', 'Parent']);
         }
         if (moduleStatusCheck('University')) {
-            $this->aramiscAssignSubjectStudent($studentRecord, $pre_record);
+            $this->assignSubjectStudent($studentRecord, $pre_record);
         }
-        if (aramiscDirectFees()) {
+        if (directFees()) {
             $this->assignDirectFees($studentRecord->id, $studentRecord->class_id, $studentRecord->section_id, null);
         }
 
@@ -255,7 +255,7 @@ class StudentMultiRecordController extends Controller
             'academic_id' => $request->session,
             'school_id' => auth()->user()->school_id
         ])->get();
-        $student = SmStudent::where('school_id', auth()->user()->school_id)->find($request->student_id);
+        $student = AramiscStudent::where('school_id', auth()->user()->school_id)->find($request->student_id);
         if ($student) {
             $user = $student->user;
             foreach ($groups as $group) {

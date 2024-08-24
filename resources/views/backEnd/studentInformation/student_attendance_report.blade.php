@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 @section('title')
-@lang('student.student_aramiscAttendance_report')
+@lang('student.student_attendance_report')
 @endsection
 
 @section('mainContent')
@@ -73,11 +73,11 @@
 <section class="sms-breadcrumb mb-20 up_breadcrumb">
     <div class="container-fluid">
         <div class="row justify-content-between">
-            <h1>@lang('student.student_aramiscAttendance_report')</h1>
+            <h1>@lang('student.student_attendance_report')</h1>
             <div class="bc-pages">
                 <a href="{{route('dashboard')}}">@lang('common.dashboard')</a>
                 <a href="#">@lang('student.student_information')</a>
-                <a href="#">@lang('student.student_aramiscAttendance_report')</a>
+                <a href="#">@lang('student.student_attendance_report')</a>
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                    {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'student_aramiscAttendance_report_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'search_student']) }}
+                    {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'student_attendance_report_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'search_student']) }}
                     <div class="row">
                         @php $current_month = date('m'); @endphp
                         <input type="hidden" name="url" id="url" value="{{URL::to('/')}}">
@@ -290,19 +290,19 @@
         </div>
     </div>
 </section>
-@if(isset($aramiscAttendances))
+@if(isset($attendances))
 <style>
     .dataTables_filter {
         margin-top: 30px;
     }
 </style>
-<section class="student-aramiscAttendance">
+<section class="student-attendance">
     <div class="container-fluid p-0">
         <div class="white-box mt-40">
             <div class="row">
                 <div class="col-lg-12 no-gutters d-flex align-items-center justify-content-between">
                     <div class="main-title">
-                        <h3 class="mb-15">@lang('student.student_aramiscAttendance_report')
+                        <h3 class="mb-15">@lang('student.student_attendance_report')
                             <small> <span class="text-success">P:<span id="total_present"></span></span>
                                 <span class="text-warning">L:<span id="total_late"></span></span>
                                 <span class="text-danger">A:<span id="total_absent"></span></span>
@@ -312,11 +312,11 @@
                     </div>
     
                     @if(moduleStatusCheck('University'))
-                    <a href="{{route('un-student-aramiscAttendance-print', [$un_semester_label_id, $month, $year])}}"
+                    <a href="{{route('un-student-attendance-print', [$un_semester_label_id, $month, $year])}}"
                         class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer">
                         </i>@lang('common.print')</a>
                     @else
-                    <a href="{{route('student-aramiscAttendance-print', [$class_id, $section_id, $month, $year])}}"
+                    <a href="{{route('student-attendance-print', [$class_id, $section_id, $month, $year])}}"
                         class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer">
                         </i>@lang('common.print')</a>
                     @endif
@@ -365,9 +365,9 @@
                                     $total_holiday = 0;
                                     $total_halfday = 0;
                                     @endphp
-                                    @foreach($aramiscAttendances as $values)
+                                    @foreach($attendances as $values)
                                     @if($values[0]->studentInfo)
-                                    @php $total_aramiscAttendance = 0; @endphp
+                                    @php $total_attendance = 0; @endphp
                                     @php $count_absent = 0; @endphp
                                     <tr>
                                         <td>
@@ -391,8 +391,8 @@
                                         <td>
                                             @php $p = 0; @endphp
                                             @foreach($values as $value)
-                                            @if($value->aramiscAttendance_type == 'P')
-                                            @php $p++; $total_aramiscAttendance++; $total_grand_present++; @endphp
+                                            @if($value->attendance_type == 'P')
+                                            @php $p++; $total_attendance++; $total_grand_present++; @endphp
                                             @endif
                                             @endforeach
                                             {{$p}}
@@ -400,8 +400,8 @@
                                         <td>
                                             @php $l = 0; @endphp
                                             @foreach($values as $value)
-                                            @if($value->aramiscAttendance_type == 'L')
-                                            @php $l++; $total_aramiscAttendance++; $total_late++; @endphp
+                                            @if($value->attendance_type == 'L')
+                                            @php $l++; $total_attendance++; $total_late++; @endphp
                                             @endif
                                             @endforeach
                                             {{$l}}
@@ -409,8 +409,8 @@
                                         <td>
                                             @php $a = 0; @endphp
                                             @foreach($values as $value)
-                                            @if($value->aramiscAttendance_type == 'A')
-                                            @php $a++; $count_absent++; $total_aramiscAttendance++; $total_absent++; @endphp
+                                            @if($value->attendance_type == 'A')
+                                            @php $a++; $count_absent++; $total_attendance++; $total_absent++; @endphp
                                             @endif
                                             @endforeach
                                             {{$a}}
@@ -419,8 +419,8 @@
                                         <td>
                                             @php $f = 0; @endphp
                                             @foreach($values as $value)
-                                            @if($value->aramiscAttendance_type == 'F')
-                                            @php $f++; $total_aramiscAttendance++; $total_halfday++; @endphp
+                                            @if($value->attendance_type == 'F')
+                                            @php $f++; $total_attendance++; $total_halfday++; @endphp
                                             @endif
                                             @endforeach
                                             {{$f}}
@@ -428,19 +428,19 @@
                                         <td>
                                             @php $h = 0; @endphp
                                             @foreach($values as $value)
-                                            @if($value->aramiscAttendance_type == 'H')
-                                            @php $h++; $total_aramiscAttendance++; $total_holiday++; @endphp
+                                            @if($value->attendance_type == 'H')
+                                            @php $h++; $total_attendance++; $total_holiday++; @endphp
                                             @endif
                                             @endforeach
                                             {{$h}}
                                         </td>
                                         <td>
                                             @php
-                                            $total_present = $total_aramiscAttendance - $count_absent;
+                                            $total_present = $total_attendance - $count_absent;
                                             if($count_absent == 0){
                                             echo '100%';
                                             }else{
-                                            $percentage = $total_present / $total_aramiscAttendance * 100;
+                                            $percentage = $total_present / $total_attendance * 100;
                                             echo number_format((float)$percentage, 2, '.', '').'%';
                                             }
                                             @endphp
@@ -449,8 +449,8 @@
                                         @for($i = 1; $i<=$days; $i++) @php $date=$year.'-'.$month.'-'.$i; $y=0; @endphp <td
                                             width="3%" class="{{($i<=18)? 'all':'none'}}">
                                             @foreach($values as $value)
-                                            @if(strtotime($value->aramiscAttendance_date) == strtotime($date))
-                                            {{$value->aramiscAttendance_type}}
+                                            @if(strtotime($value->attendance_date) == strtotime($date))
+                                            {{$value->attendance_type}}
                                             @endif
                                             @endforeach
                                             </td>
@@ -462,7 +462,7 @@
                             </table>
                         </div>
                     </div>
-                    <input type="hidden" id="total-aramiscAttendance"
+                    <input type="hidden" id="total-attendance"
                         value="{{$total_grand_present.'-'.$total_absent.'-'.$total_late.'-'.$total_halfday.'-'.$total_holiday}}">
                 </div>
             </div>

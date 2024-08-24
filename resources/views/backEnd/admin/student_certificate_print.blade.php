@@ -287,7 +287,7 @@
                                         {{ @$certificate->date }}</div>
                                 </div>
                                 <div class="edu_summernote" style="text-align: center; margin-top: 7%;">
-                                    {{ isset($student['student_id']) ? App\SmStudentCertificate::certificateBody($certificate->body, 2, $student['student_id']) : '' }}
+                                    {{ isset($student['student_id']) ? App\AramiscStudentCertificate::certificateBody($certificate->body, 2, $student['student_id']) : '' }}
                                 </div>
                                 <div style="text-align: center; margin-top: 20%; display:flex;">
                                     <div
@@ -322,7 +322,7 @@
 
 
 
-    <script src="{{ asset('https://aramisc.test/public/backEnd/vendors/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('https://infix_edu.test/public/backEnd/vendors/js/jquery-3.2.1.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
     <script>

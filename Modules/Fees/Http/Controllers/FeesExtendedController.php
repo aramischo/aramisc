@@ -7,7 +7,7 @@ use App\SmSchool;
 use App\SmAddIncome;
 use App\SmBankAccount;
 use App\SmBankStatement;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -97,7 +97,7 @@ class FeesExtendedController extends Controller
                 
                 // Bank
                 if ($request->payment_method == "Bank") {
-                    $payment_method = SmPaymentMethhod::where('method', $request->payment_method)->first();
+                    $payment_method = AramiscPaymentMethhod::where('method', $request->payment_method)->first();
                     $bank = SmBankAccount::where('id', $request->bank)
                         ->where('school_id', Auth::user()->school_id)
                         ->first();
@@ -152,7 +152,7 @@ class FeesExtendedController extends Controller
             $storeFeesInvoiceChield->update();
 
             // Income
-            $payment_method = SmPaymentMethhod::where('method', $transcation->payment_method)->first();
+            $payment_method = AramiscPaymentMethhod::where('method', $transcation->payment_method)->first();
             $income_head = generalSetting();
 
             $add_income = new SmAddIncome();

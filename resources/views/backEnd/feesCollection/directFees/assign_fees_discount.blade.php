@@ -90,7 +90,7 @@
                 </div>
             </div>
             @if(!empty($students))
-                {{ Form::open(['class' => 'form-horizontal', 'method' => 'POST', 'route' => 'aramiscDirectFees.fees-discount-assign-store'])}}
+                {{ Form::open(['class' => 'form-horizontal', 'method' => 'POST', 'route' => 'directFees.fees-discount-assign-store'])}}
                     <div class="row mt-40">
                         <div class="col-lg-12">
                             <div class="row mb-30">

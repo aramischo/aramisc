@@ -133,7 +133,7 @@
 						</tr>
 					</table>
                               @php 
-                              $body = App\SmStudentCertificate::certificateBody($certificate->body, 2,$student->studentDetail->id);
+                              $body = App\AramiscStudentCertificate::certificateBody($certificate->body, 2,$student->studentDetail->id);
                               @endphp 
 					<table width="80%" align="center" >
 						<tr>

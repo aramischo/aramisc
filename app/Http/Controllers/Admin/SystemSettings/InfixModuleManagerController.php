@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\SystemSettings;
 
-use App\AramiscModuleManager;
+use App\InfixModuleManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AramiscModuleManagerController extends Controller
+class InfixModuleManagerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class AramiscModuleManagerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\AramiscModuleManager  $aramiscModuleManager
+     * @param  \App\InfixModuleManager  $infixModuleManager
      * @return \Illuminate\Http\Response
      */
-    public function show(AramiscModuleManager $aramiscModuleManager)
+    public function show(InfixModuleManager $infixModuleManager)
     {
         //
     }
@@ -53,10 +53,10 @@ class AramiscModuleManagerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\AramiscModuleManager  $aramiscModuleManager
+     * @param  \App\InfixModuleManager  $infixModuleManager
      * @return \Illuminate\Http\Response
      */
-    public function edit(AramiscModuleManager $aramiscModuleManager)
+    public function edit(InfixModuleManager $infixModuleManager)
     {
         //
     }
@@ -65,10 +65,10 @@ class AramiscModuleManagerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AramiscModuleManager  $aramiscModuleManager
+     * @param  \App\InfixModuleManager  $infixModuleManager
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AramiscModuleManager $aramiscModuleManager)
+    public function update(Request $request, InfixModuleManager $infixModuleManager)
     {
         //
     }
@@ -76,10 +76,10 @@ class AramiscModuleManagerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\AramiscModuleManager  $aramiscModuleManager
+     * @param  \App\InfixModuleManager  $infixModuleManager
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AramiscModuleManager $aramiscModuleManager)
+    public function destroy(InfixModuleManager $infixModuleManager)
     {
         //
     }

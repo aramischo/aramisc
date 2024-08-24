@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 @section('title')
-    @lang('exam.exam_aramiscAttendance_create')
+    @lang('exam.exam_attendance_create')
 @endsection
 @section('mainContent')
     @push('css')
@@ -14,12 +14,12 @@
     <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
-                <h1>@lang('exam.exam_aramiscAttendance')</h1>
+                <h1>@lang('exam.exam_attendance')</h1>
                 <div class="bc-pages">
                     <a href="{{ route('dashboard') }}">@lang('common.dashboard')</a>
                     <a href="#">@lang('exam.examination')</a>
-                    <a href="{{ route('exam_aramiscAttendance') }}">@lang('exam.exam_aramiscAttendance')</a>
-                    <a href="{{ route('exam_aramiscAttendance_create') }}">@lang('exam.exam_aramiscAttendance_create')</a>
+                    <a href="{{ route('exam_attendance') }}">@lang('exam.exam_attendance')</a>
+                    <a href="{{ route('exam_attendance_create') }}">@lang('exam.exam_attendance_create')</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'exam_aramiscAttendance_create_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'search_student']) }}
+                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'exam_attendance_create_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'search_student']) }}
                         <div class="row">
                             <input type="hidden" name="url" id="url" value="{{ URL::to('/') }}">
                             @if (moduleStatusCheck('University'))
@@ -168,7 +168,7 @@
             </div>
 
             @if (isset($students))
-                {{ Form::open(['class' => 'form-horizontal', 'route' => 'exam-aramiscAttendance-store', 'method' => 'POST']) }}
+                {{ Form::open(['class' => 'form-horizontal', 'route' => 'exam-attendance-store', 'method' => 'POST']) }}
                 @if (moduleStatusCheck('University'))
                     <input type="hidden" name="un_session_id" value="{{ @$un_session->id }}">
                     <input type="hidden" name="un_faculty_id" value="{{ @$un_faculty->id }}">
@@ -188,7 +188,7 @@
                                         <div class="row">
                                             <div class="col-lg-12 no-gutters mb-15">
                                                 <div class="main-title">
-                                                    <h3>@lang('exam.exam_aramiscAttendance') | <strong>@lang('exam.subject')</strong>:
+                                                    <h3>@lang('exam.exam_attendance') | <strong>@lang('exam.subject')</strong>:
                                                         {{ $subjectName->subject_name }}</h3>
                                                     @includeIf('university::exam._university_info')
                                                 </div>
@@ -202,12 +202,12 @@
                                                         <th width="25%">@lang('student.admission_no')</th>
                                                         <th width="25%">@lang('student.student_name')</th>
                                                         <th width="25%">@lang('student.roll_number')</th>
-                                                        <th width="25%">@lang('exam.aramiscAttendance')</th>
+                                                        <th width="25%">@lang('exam.attendance')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                    @if (count($exam_aramiscAttendance_childs) == 0)
+                                                    @if (count($exam_attendance_childs) == 0)
                                                         @foreach ($students as $record)
                                                             <tr>
                                                                 <td>{{ @$record->studentDetail->admission_no }}</td>
@@ -217,33 +217,33 @@
                                                                     <div class="d-flex radio-btn-flex">
                                                                         <div class="mr-20">
                                                                             <input type="hidden"
-                                                                                name="aramiscAttendance[{{ @$record->student_record_id }}]"
+                                                                                name="attendance[{{ @$record->student_record_id }}]"
                                                                                 value="{{ @$record->student_record_id }}">
                                                                             <input type="hidden"
-                                                                                name="aramiscAttendance[{{ @$record->student_record_id }}][student]"
+                                                                                name="attendance[{{ @$record->student_record_id }}][student]"
                                                                                 value="{{ @$record->student_id }}">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$record->student_record_id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceP{{ @$record->student_record_id }}"
+                                                                                name="attendance[{{ @$record->student_record_id }}][attendance_type]"
+                                                                                id="attendanceP{{ @$record->student_record_id }}"
                                                                                 value="P" class="common-radio attd"
                                                                                 checked>
                                                                             <label
-                                                                                for="aramiscAttendanceP{{ $record->id }}">@lang('student.present')</label>
+                                                                                for="attendanceP{{ $record->id }}">@lang('student.present')</label>
                                                                         </div>
                                                                         <div class="mr-20">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$record->student_record_id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceL{{ @$record->student_record_id }}"
+                                                                                name="attendance[{{ @$record->student_record_id }}][attendance_type]"
+                                                                                id="attendanceL{{ @$record->student_record_id }}"
                                                                                 value="A" class="common-radio">
                                                                             <label
-                                                                                for="aramiscAttendanceL{{ $record->student_record_id }}">@lang('student.absent')</label>
+                                                                                for="attendanceL{{ $record->student_record_id }}">@lang('student.absent')</label>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
                                                     @else
-                                                        @foreach ($exam_aramiscAttendance_childs as $student)
+                                                        @foreach ($exam_attendance_childs as $student)
                                                             <tr>
                                                                 <td>{{ @$student->studentInfo != '' ? @$student->studentInfo->admission_no : '' }}
                                                                 </td>
@@ -253,29 +253,29 @@
                                                                 </td>
                                                                 <td>
                                                                     <input type="hidden"
-                                                                        name="aramiscAttendance[{{ @$student->student_record_id }}]"
+                                                                        name="attendance[{{ @$student->student_record_id }}]"
                                                                         value="{{ @$student->student_record_id }}">
                                                                     <input type="hidden"
-                                                                        name="aramiscAttendance[{{ @$student->student_record_id }}][student]"
+                                                                        name="attendance[{{ @$student->student_record_id }}][student]"
                                                                         value="{{ @$student->student_id }}">
                                                                     <div class="d-flex radio-btn-flex">
                                                                         <div class="mr-20">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$student->student_record_id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceP{{ @$student->student_record_id }}"
+                                                                                name="attendance[{{ @$student->student_record_id }}][attendance_type]"
+                                                                                id="attendanceP{{ @$student->student_record_id }}"
                                                                                 value="P" class="common-radio"
-                                                                                {{ @$student->aramiscAttendance_type == 'P' ? 'checked' : '' }}>
+                                                                                {{ @$student->attendance_type == 'P' ? 'checked' : '' }}>
                                                                             <label
-                                                                                for="aramiscAttendanceP{{ @$student->student_record_id }}">@lang('student.present')</label>
+                                                                                for="attendanceP{{ @$student->student_record_id }}">@lang('student.present')</label>
                                                                         </div>
                                                                         <div class="mr-20">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$student->student_record_id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceL{{ @$student->student_record_id }}"
+                                                                                name="attendance[{{ @$student->student_record_id }}][attendance_type]"
+                                                                                id="attendanceL{{ @$student->student_record_id }}"
                                                                                 value="A" class="common-radio"
-                                                                                {{ @$student->aramiscAttendance_type == 'A' ? 'checked' : '' }}>
+                                                                                {{ @$student->attendance_type == 'A' ? 'checked' : '' }}>
                                                                             <label
-                                                                                for="aramiscAttendanceL{{ @$student->student_record_id }}">@lang('student.absent')</label>
+                                                                                for="attendanceL{{ @$student->student_record_id }}">@lang('student.absent')</label>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -287,7 +287,7 @@
                                         </div>
                                         <div class="text-center mt-3">
                                             <button type="submit" class="primary-btn fix-gr-bg nowrap submit">
-                                                @lang('exam.save_aramiscAttendance')
+                                                @lang('exam.save_attendance')
                                             </button>
                                         </div>
                                     </div>
@@ -310,7 +310,7 @@
                                         <div class="row">
                                             <div class="col-lg-12 no-gutters">
                                                 <div class="main-title">
-                                                    <h3 class="mb-15">@lang('exam.exam_aramiscAttendance') | <small>@lang('common.class'):
+                                                    <h3 class="mb-15">@lang('exam.exam_attendance') | <small>@lang('common.class'):
                                                             {{ $search_info['class_name'] }}, @lang('common.section'):
                                                             {{ $search_info['section_name'] }}, @lang('common.subject'):
                                                             {{ $search_info['subject_name'] }}</small></h3>
@@ -327,13 +327,13 @@
                                                         <th width="25%">@lang('student.student_name')</th>
                                                         <th width="25%">@lang('common.class_Sec')</th>
                                                         <th width="25%">@lang('student.roll_number')</th>
-                                                        <th width="25%">@lang('exam.aramiscAttendance')</th>
+                                                        <th width="25%">@lang('exam.attendance')</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
 
-                                                    @if (count($exam_aramiscAttendance_childs) == 0)
+                                                    @if (count($exam_attendance_childs) == 0)
                                                         @foreach ($students as $record)
                                                             <tr>
                                                                 <td>{{ @$record->studentDetail->admission_no }}</td>
@@ -346,39 +346,39 @@
                                                                     <div class="d-flex radio-btn-flex">
                                                                         <div class="mr-20">
                                                                             <input type="hidden"
-                                                                                name="aramiscAttendance[{{ @$record->id }}]"
+                                                                                name="attendance[{{ @$record->id }}]"
                                                                                 value="{{ @$record->id }}">
                                                                             <input type="hidden"
-                                                                                name="aramiscAttendance[{{ @$record->id }}][student]"
+                                                                                name="attendance[{{ @$record->id }}][student]"
                                                                                 value="{{ @$record->student_id }}">
                                                                             <input type="hidden"
-                                                                                name="aramiscAttendance[{{ @$record->id }}][class]"
+                                                                                name="attendance[{{ @$record->id }}][class]"
                                                                                 value="{{ @$record->class_id }}">
                                                                             <input type="hidden"
-                                                                                name="aramiscAttendance[{{ @$record->id }}][section]"
+                                                                                name="attendance[{{ @$record->id }}][section]"
                                                                                 value="{{ @$record->section_id }}">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$record->id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceP{{ @$record->id }}"
+                                                                                name="attendance[{{ @$record->id }}][attendance_type]"
+                                                                                id="attendanceP{{ @$record->id }}"
                                                                                 value="P" class="common-radio attd"
                                                                                 checked>
                                                                             <label
-                                                                                for="aramiscAttendanceP{{ $record->id }}">@lang('student.present')</label>
+                                                                                for="attendanceP{{ $record->id }}">@lang('student.present')</label>
                                                                         </div>
                                                                         <div class="mr-20">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$record->id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceL{{ @$record->id }}"
+                                                                                name="attendance[{{ @$record->id }}][attendance_type]"
+                                                                                id="attendanceL{{ @$record->id }}"
                                                                                 value="A" class="common-radio">
                                                                             <label
-                                                                                for="aramiscAttendanceL{{ $record->id }}">@lang('student.absent')</label>
+                                                                                for="attendanceL{{ $record->id }}">@lang('student.absent')</label>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
                                                     @else
-                                                        @foreach ($exam_aramiscAttendance_childs as $student)
+                                                        @foreach ($exam_attendance_childs as $student)
                                                             <tr>
                                                                 <td>
                                                                     {{ @$student->studentInfo != '' ? @$student->studentInfo->admission_no : '' }}
@@ -393,35 +393,35 @@
                                                                 </td>
                                                                 <td>
                                                                     <input type="hidden"
-                                                                        name="aramiscAttendance[{{ @$student->student_record_id }}]"
+                                                                        name="attendance[{{ @$student->student_record_id }}]"
                                                                         value="{{ @$student->student_record_id }}">
                                                                     <input type="hidden"
-                                                                        name="aramiscAttendance[{{ @$student->student_record_id }}][student]"
+                                                                        name="attendance[{{ @$student->student_record_id }}][student]"
                                                                         value="{{ @$student->student_id }}">
                                                                     <input type="hidden"
-                                                                        name="aramiscAttendance[{{ @$student->student_record_id }}][class]"
+                                                                        name="attendance[{{ @$student->student_record_id }}][class]"
                                                                         value="{{ @$student->class_id }}">
                                                                     <input type="hidden"
-                                                                        name="aramiscAttendance[{{ @$student->student_record_id }}][section]"
+                                                                        name="attendance[{{ @$student->student_record_id }}][section]"
                                                                         value="{{ @$student->section_id }}">
                                                                     <div class="d-flex radio-btn-flex">
                                                                         <div class="mr-20">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$student->student_record_id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceP{{ @$student->student_record_id }}"
+                                                                                name="attendance[{{ @$student->student_record_id }}][attendance_type]"
+                                                                                id="attendanceP{{ @$student->student_record_id }}"
                                                                                 value="P" class="common-radio"
-                                                                                {{ @$student->aramiscAttendance_type == 'P' ? 'checked' : '' }}>
+                                                                                {{ @$student->attendance_type == 'P' ? 'checked' : '' }}>
                                                                             <label
-                                                                                for="aramiscAttendanceP{{ @$student->student_record_id }}">@lang('student.present')</label>
+                                                                                for="attendanceP{{ @$student->student_record_id }}">@lang('student.present')</label>
                                                                         </div>
                                                                         <div class="mr-20">
                                                                             <input type="radio"
-                                                                                name="aramiscAttendance[{{ @$student->student_record_id }}][aramiscAttendance_type]"
-                                                                                id="aramiscAttendanceL{{ @$student->student_record_id }}"
+                                                                                name="attendance[{{ @$student->student_record_id }}][attendance_type]"
+                                                                                id="attendanceL{{ @$student->student_record_id }}"
                                                                                 value="A" class="common-radio"
-                                                                                {{ @$student->aramiscAttendance_type == 'A' ? 'checked' : '' }}>
+                                                                                {{ @$student->attendance_type == 'A' ? 'checked' : '' }}>
                                                                             <label
-                                                                                for="aramiscAttendanceL{{ @$student->student_record_id }}">@lang('student.absent')</label>
+                                                                                for="attendanceL{{ @$student->student_record_id }}">@lang('student.absent')</label>
                                                                         </div>
                                                                     </div>
                                         </div>
@@ -440,26 +440,26 @@
                             <td>
                                 <div class="d-flex radio-btn-flex">
                                     <div class="mr-20">
-                                        <input type="hidden" name="aramiscAttendance[{{ @$student_record->id }}]"
+                                        <input type="hidden" name="attendance[{{ @$student_record->id }}]"
                                             value="{{ @$student_record->id }}">
-                                        <input type="hidden" name="aramiscAttendance[{{ @$student_record->id }}][student]"
+                                        <input type="hidden" name="attendance[{{ @$student_record->id }}][student]"
                                             value="{{ @$student_record->student_id }}">
-                                        <input type="hidden" name="aramiscAttendance[{{ @$student_record->id }}][class]"
+                                        <input type="hidden" name="attendance[{{ @$student_record->id }}][class]"
                                             value="{{ @$student_record->class_id }}">
-                                        <input type="hidden" name="aramiscAttendance[{{ @$student_record->id }}][section]"
+                                        <input type="hidden" name="attendance[{{ @$student_record->id }}][section]"
                                             value="{{ @$student_record->section_id }}">
                                         <input type="radio"
-                                            name="aramiscAttendance[{{ @$student_record->id }}][aramiscAttendance_type]"
-                                            id="aramiscAttendanceP{{ @$student_record->id }}" value="P"
+                                            name="attendance[{{ @$student_record->id }}][attendance_type]"
+                                            id="attendanceP{{ @$student_record->id }}" value="P"
                                             class="common-radio attd">
-                                        <label for="aramiscAttendanceP{{ $student_record->id }}">@lang('student.present')</label>
+                                        <label for="attendanceP{{ $student_record->id }}">@lang('student.present')</label>
                                     </div>
                                     <div class="mr-20">
                                         <input type="radio"
-                                            name="aramiscAttendance[{{ @$student_record->id }}][aramiscAttendance_type]"
-                                            id="aramiscAttendanceL{{ @$student_record->id }}" value="A"
+                                            name="attendance[{{ @$student_record->id }}][attendance_type]"
+                                            id="attendanceL{{ @$student_record->id }}" value="A"
                                             class="common-radio">
-                                        <label for="aramiscAttendanceL{{ $student_record->id }}">@lang('student.absent')</label>
+                                        <label for="attendanceL{{ $student_record->id }}">@lang('student.absent')</label>
                                     </div>
                                 </div>
                             </td>
@@ -471,7 +471,7 @@
             </table>
             <div class="text-center mt-3">
                 <button type="submit" class="primary-btn fix-gr-bg nowrap submit">
-                    @lang('exam.save_aramiscAttendance')
+                    @lang('exam.save_attendance')
                 </button>
             </div>
         </div>

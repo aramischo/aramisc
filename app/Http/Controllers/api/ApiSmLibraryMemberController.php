@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\api;
 
 use App\SmClass;
-use App\SmBookIssue;
+use App\AramiscBookIssue;
 use App\ApiBaseMethod;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\SmLibraryMember;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class ApiSmLibraryMemberController extends Controller
 {
@@ -32,7 +32,7 @@ class ApiSmLibraryMemberController extends Controller
         try {
             //$libraryMembers = SmLibraryMember::where('active_status', '=', 1)->get();
             $libraryMembers = SmLibraryMember::where('active_status', '=', 1)->get();
-            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
+            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::all();
@@ -243,7 +243,7 @@ class ApiSmLibraryMemberController extends Controller
 
             try {
 
-                $isExist_member_id = SmBookIssue::select('id', 'issue_status')
+                $isExist_member_id = AramiscBookIssue::select('id', 'issue_status')
                     ->where('member_id', '=', $id)
                     ->where('issue_status', '=', 'I')
                     ->first();
@@ -359,7 +359,7 @@ class ApiSmLibraryMemberController extends Controller
             $members->student_staff_id = $student_staff_id;
             $members->member_ud_id = $request->member_ud_id;
             $members->created_by = $user_id;
-            $members->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
+            $members->academic_id = AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
             $results = $members->save();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -448,7 +448,7 @@ class ApiSmLibraryMemberController extends Controller
             $members->member_ud_id = $request->member_ud_id;
             $members->school_id = $request->school_id;
             $members->created_by = $created_by;
-            $members->academic_id = SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
+            $members->academic_id = AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
             $results = $members->save();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {

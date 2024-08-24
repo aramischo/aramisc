@@ -137,7 +137,7 @@ return [
     "examination" => "Examen",
     "exam" => "Exam",
     "timeline" => "Chronologie",
-    "aramiscAttendance" => "Participation",
+    "attendance" => "Participation",
     "transfer" => "Transfert",
     "testimonial" => "Témoignage",
     "homework" => "Travail à domicile",
@@ -423,7 +423,7 @@ return [
     "Teachers" => "Enseignants",
     "Issued books" => "Livres émis",
     "Pending homeworks" => "Travaux à domicile en attente",
-    "aramiscAttendance in current month" => "Participation au mois en cours",
+    "attendance in current month" => "Participation au mois en cours",
     "Calendar" => "Calendrier",
     "Profile" => "Profil",
     "Document" => "Document",
@@ -459,4 +459,5 @@ return [
     "PDF Exam Result" => "Résultat de l'examen PDF",
     "Pdf Exam" => "Exam Pdf",
     "Pdf Exam Result" => "Résultat de l'examen Pdf",
+    'weekend-store' => 'Weekend Store',
     ];

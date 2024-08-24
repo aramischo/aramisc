@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin\SystemSettings;
 
 use App\User;
-use App\SmExam;
+use App\AramiscExam;
 use ZipArchive;
 use App\SmClass;
 use App\SmStaff;
 use App\Language;
 use App\SmBackup;
 use App\SmSchool;
-use App\SmCountry;
-use App\SmSection;
+use App\AramiscCountry;
+use App\AramiscSection;
 use App\SmSubject;
 use App\SmWeekend;
 use App\SmCurrency;
-use App\SmExamType;
+use App\AramiscExamType;
 use App\SmLanguage;
 use App\SmTimeZone;
 use App\Models\Theme;
@@ -23,12 +23,12 @@ use App\SmDateFormat;
 use App\SmSmsGateway;
 use App\ApiBaseMethod;
 use App\SmBankAccount;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\SmEmailSetting;
 use App\SmAssignSubject;
 use App\SmSystemVersion;
 use App\SmChartOfAccount;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use App\SmGeneralSettings;
 use App\SmHomePageSetting;
 use App\Traits\UploadTheme;
@@ -37,7 +37,7 @@ use Illuminate\Http\Request;
 use App\Models\VersionHistory;
 use App\SmFrontendPersmission;
 use Illuminate\Support\Carbon;
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Nwidart\Modules\Facades\Module;
@@ -74,7 +74,6 @@ class SmSystemSettingController extends Controller
         }
     }
 
-
     public function sendTestMail()
     {
         $e = SmEmailSetting::where('active_status',1)->where('school_id', Auth::user()->school_id)->first();
@@ -93,7 +92,7 @@ class SmSystemSettingController extends Controller
             return redirect()->back();
         }
         try {
-            $reciver_email = 'spn106@gmail.com';
+            $reciver_email = Auth::user()->email ?? User::find(1)->email;
             $receiver_name = Auth::user()->full_name;
             $compact['user_name'] = $receiver_name;
 
@@ -110,11 +109,11 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            return $exams = SmExam::where('academic_id', getAcademicId())->get();
-            $exams_types = SmExamType::where('academic_id', getAcademicId())->get();
+            return $exams = AramiscExam::where('academic_id', getAcademicId())->get();
+            $exams_types = AramiscExamType::where('academic_id', getAcademicId())->get();
             $classes = SmClass::where('academic_id', getAcademicId())->where('active_status', 1)->get();
             $subjects = SmSubject::where('academic_id', getAcademicId())->where('active_status', 1)->get();
-            $sections = SmSection::where('academic_id', getAcademicId())->where('active_status', 1)->get();
+            $sections = AramiscSection::where('academic_id', getAcademicId())->where('active_status', 1)->get();
             return view('frontEnd.home.light_news', compact('exams', 'classes', 'subjects', 'exams_types', 'sections'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -139,7 +138,7 @@ class SmSystemSettingController extends Controller
         try {
             $user = User::where('id', $request->id)->first();
             if ($user->notificationToken != '') {
-                //echo 'Aramisc';
+                //echo 'Infix Edu';
                 define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                 //   $registrationIds = ;
                 #prep the bundle
@@ -1190,12 +1189,12 @@ class SmSystemSettingController extends Controller
       
         try {
             $editData = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
-            $session_ids = SmAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->get();
+            $session_ids = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->get();
             $dateFormats = SmDateFormat::where('active_status', 1)->get();
             $languages = SmLanguage::where('school_id',auth()->user()->school_id)->get();
-            $countries = SmCountry::select('currency')->distinct('currency')->get();
+            $countries = AramiscCountry::select('currency')->distinct('currency')->get();
             $currencies = SmCurrency::where('school_id',auth()->user()->school_id)->get();
-            $academic_years = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $academic_years = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $time_zones = SmTimeZone::all();
             $weekends = SmWeekend::where('school_id', Auth::user()->school_id)->get();
 
@@ -1256,7 +1255,7 @@ class SmSystemSettingController extends Controller
                 $generalSettData->lms_checkout       = $request->lms_checkout;
             }
 
-            $generalSettData->aramiscAttendance_layout       = $request->aramiscAttendance_layout;
+            $generalSettData->attendance_layout       = $request->attendance_layout;
             $generalSettData->copyright_text  = $request->copyright_text;
             $generalSettData->multiple_roll  = $request->multiple_roll;
             $generalSettData->direct_fees_assign  = $request->direct_fees_assign;
@@ -1638,7 +1637,7 @@ class SmSystemSettingController extends Controller
             $statement = "SELECT P.id as PID, D.id as DID, P.active_status as IsActive, P.method, D.* FROM sm_payment_methhods as P, sm_payment_gateway_settings D WHERE P.gateway_id=D.id";
             $PaymentMethods = DB::select($statement);
 
-            $paymeny_gateway = SmPaymentMethhod::query();
+            $paymeny_gateway = AramiscPaymentMethhod::query();
             $paymeny_gateway = $paymeny_gateway->where('school_id', Auth::user()->school_id);
             if(moduleStatusCheck('XenditPayment') == False){
                 $paymeny_gateway->where('method','!=','Xendit');
@@ -1669,7 +1668,7 @@ class SmSystemSettingController extends Controller
            
             $paymeny_gateway = $paymeny_gateway->withoutGlobalScope(ActiveStatusSchoolScope::class);
             $paymeny_gateway = $paymeny_gateway->get();
-            $paymeny_gateway_settings = SmPaymentGatewaySetting::query();
+            $paymeny_gateway_settings = AramiscPaymentGatewaySetting::query();
             $paymeny_gateway_settings = $paymeny_gateway_settings->where('school_id', Auth::user()->school_id);
             if(moduleStatusCheck('XenditPayment') == False){
                 $paymeny_gateway_settings->where('gateway_name','!=','Xendit');
@@ -1703,7 +1702,7 @@ class SmSystemSettingController extends Controller
 
             $paymeny_gateway_settings = $paymeny_gateway_settings->get();
 
-            $payment_methods = SmPaymentMethhod::query();
+            $payment_methods = AramiscPaymentMethhod::query();
             $payment_methods = $payment_methods->where('school_id', Auth::user()->school_id);
             if(moduleStatusCheck('XenditPayment') == False){
                 $payment_methods->where('method','!=','Xendit');
@@ -1750,7 +1749,7 @@ class SmSystemSettingController extends Controller
                 'phone_pay_merchant_id','phone_pay_salt_key','phone_pay_salt_index'
             ];
             $count = 0;
-            $gatewayDetails = SmPaymentGatewaySetting::where('gateway_name', $request->gateway_name)->where('school_id', Auth::user()->school_id)->first();
+            $gatewayDetails = AramiscPaymentGatewaySetting::where('gateway_name', $request->gateway_name)->where('school_id', Auth::user()->school_id)->first();
 
             foreach ($paymeny_gateway as $input_field) {
                 if (isset($request->$input_field) && !empty($request->$input_field)) {
@@ -1780,11 +1779,11 @@ class SmSystemSettingController extends Controller
         );
 
         try {
-            $update = SmPaymentMethhod::where('school_id', Auth::user()->school_id)
+            $update = AramiscPaymentMethhod::where('school_id', Auth::user()->school_id)
                 ->where('active_status', '=', 1)
                 ->update(['active_status' => 0]);
             foreach ($request->gateways as $pid => $isChecked) {
-                $results = SmPaymentMethhod::where('school_id', Auth::user()->school_id)
+                $results = AramiscPaymentMethhod::where('school_id', Auth::user()->school_id)
                     ->where('id', '=', $pid)
                     ->withoutGlobalScope(ActiveStatusSchoolScope::class)
                     ->update(['active_status' => 1]);
@@ -1814,10 +1813,10 @@ class SmSystemSettingController extends Controller
             $paypal_secret_id = $_POST['paypal_secret_id'];
 
             if ($gateway_id) {
-                $gatewayDetails = SmPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('id', $gateway_id)->first();
+                $gatewayDetails = AramiscPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('id', $gateway_id)->first();
                 if (!empty($gatewayDetails)) {
 
-                    $gatewayDetails = SmPaymentGatewaySetting::find($gatewayDetails->id);
+                    $gatewayDetails = AramiscPaymentGatewaySetting::find($gatewayDetails->id);
                     $gatewayDetails->paypal_username = $paypal_username;
                     $gatewayDetails->paypal_password = $paypal_password;
                     $gatewayDetails->paypal_signature = $paypal_signature;
@@ -1826,7 +1825,7 @@ class SmSystemSettingController extends Controller
                     $results = $gatewayDetails->update();
                 } else {
 
-                    $gatewayDetail = new SmPaymentGatewaySetting();
+                    $gatewayDetail = new AramiscPaymentGatewaySetting();
                     $gatewayDetail->paypal_username = $paypal_username;
                     $gatewayDetail->paypal_password = $paypal_password;
                     $gatewayDetail->paypal_signature = $paypal_signature;
@@ -1859,14 +1858,14 @@ class SmSystemSettingController extends Controller
             $stripe_api_secret_key = $_POST['stripe_api_secret_key'];
             $stripe_publisher_key = $_POST['stripe_publisher_key'];
             if ($gateway_id) {
-                $gatewayDetails = SmPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('id', $gateway_id)->where('school_id', Auth::user()->school_id)->first();
+                $gatewayDetails = AramiscPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('id', $gateway_id)->where('school_id', Auth::user()->school_id)->first();
                 if (!empty($gatewayDetails)) {
-                    $gatewayDetails = SmPaymentGatewaySetting::find($gatewayDetails->id);
+                    $gatewayDetails = AramiscPaymentGatewaySetting::find($gatewayDetails->id);
                     $gatewayDetails->stripe_api_secret_key = $stripe_api_secret_key;
                     $gatewayDetails->stripe_publisher_key = $stripe_publisher_key;
                     $results = $gatewayDetails->update();
                 } else {
-                    $gatewayDetail = new SmPaymentGatewaySetting();
+                    $gatewayDetail = new AramiscPaymentGatewaySetting();
                     $gatewayDetail->stripe_api_secret_key = $stripe_api_secret_key;
                     $gatewayDetail->stripe_publisher_key = $stripe_publisher_key;
                     $gatewayDetail->school_id = Auth::user()->school_id;
@@ -1892,16 +1891,16 @@ class SmSystemSettingController extends Controller
             $pay_u_money_salt = $_POST['pay_u_money_salt'];
 
             if ($gateway_id) {
-                $gatewayDetails = SmPaymentGatewaySetting::where('id', $gateway_id)->first();
+                $gatewayDetails = AramiscPaymentGatewaySetting::where('id', $gateway_id)->first();
                 if (!empty($gatewayDetails)) {
 
-                    $gatewayDetails = SmPaymentGatewaySetting::find($gatewayDetails->id);
+                    $gatewayDetails = AramiscPaymentGatewaySetting::find($gatewayDetails->id);
                     $gatewayDetails->pay_u_money_key = $pay_u_money_key;
                     $gatewayDetails->pay_u_money_salt = $pay_u_money_salt;
                     $results = $gatewayDetails->update();
                 } else {
 
-                    $gatewayDetail = new SmPaymentGatewaySetting();
+                    $gatewayDetail = new AramiscPaymentGatewaySetting();
                     $gatewayDetail->pay_u_money_key = $pay_u_money_key;
                     $gatewayDetail->pay_u_money_salt = $pay_u_money_salt;
                     $gatewayDetail->school_id = Auth::user()->school_id;
@@ -1938,11 +1937,11 @@ class SmSystemSettingController extends Controller
             $gateway_id = $_POST['gateway_id'];
 
             if ($gateway_id) {
-                $gatewayDetails = SmPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)
+                $gatewayDetails = AramiscPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)
                     ->update(['active_status' => 0]);
             }
 
-            $results = SmPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('gateway_name', '=', $gateway_id)
+            $results = AramiscPaymentGatewaySetting::where('school_id', Auth::user()->school_id)->where('gateway_name', '=', $gateway_id)
                 ->update(['active_status' => 1]);
 
             if ($results) {
@@ -2204,8 +2203,8 @@ class SmSystemSettingController extends Controller
                 "sm_email_sms_logs",
                 "sm_events",
                 "sm_exams",
-                "sm_exam_aramiscAttendances",
-                "sm_exam_aramiscAttendance_children",
+                "sm_exam_attendances",
+                "sm_exam_attendance_children",
                 "sm_exam_marks_registers",
                 "sm_exam_schedules",
                 "sm_exam_schedule_subjects",
@@ -2268,11 +2267,11 @@ class SmSystemSettingController extends Controller
                 "sm_sections",
                 "sm_send_messages",
                 "sm_setup_admins",
-                "sm_staff_aramiscAttendance_imports",
+                "sm_staff_attendance_imports",
                 "sm_staff_attendences",
                 "sm_students",
-                "sm_student_aramiscAttendances",
-                "sm_student_aramiscAttendance_imports",
+                "sm_student_attendances",
+                "sm_student_attendance_imports",
                 "sm_student_categories",
                 "sm_student_certificates",
                 "sm_student_documents",
@@ -2285,7 +2284,7 @@ class SmSystemSettingController extends Controller
                 "sm_student_take_onln_ex_ques_options",
                 "sm_student_timelines",
                 "sm_subjects",
-                "sm_subject_aramiscAttendances",
+                "sm_subject_attendances",
                 "sm_suppliers",
                 "sm_teacher_upload_contents",
                 "sm_temporary_meritlists",
@@ -2299,7 +2298,7 @@ class SmSystemSettingController extends Controller
 
 
             $MyUpdatedTable = [];
-            $academicYears = SmAcademicYear::select('year', 'id', 'school_id')->get();
+            $academicYears = AramiscAcademicYear::select('year', 'id', 'school_id')->get();
             $ids = [];
             foreach ($table_list as $table) {
 
@@ -2338,8 +2337,8 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            if (!Schema::hasTable('aramisc_module_managers')) {
-                Artisan::call('migrate --path=/database/migrations/2020_06_10_193309_create_aramisc_module_managers_table.php');
+            if (!Schema::hasTable('infix_module_managers')) {
+                Artisan::call('migrate --path=/database/migrations/2020_06_10_193309_create_infix_module_managers_table.php');
             }
 
             Artisan::call('cache:clear');
@@ -2379,8 +2378,8 @@ class SmSystemSettingController extends Controller
                 "sm_email_sms_logs",
                 "sm_events",
                 "sm_exams",
-                "sm_exam_aramiscAttendances",
-                "sm_exam_aramiscAttendance_children",
+                "sm_exam_attendances",
+                "sm_exam_attendance_children",
                 "sm_exam_marks_registers",
                 "sm_exam_schedules",
                 "sm_exam_schedule_subjects",
@@ -2448,11 +2447,11 @@ class SmSystemSettingController extends Controller
                 "sm_sections",
                 "sm_send_messages",
                 "sm_setup_admins",
-                "sm_staff_aramiscAttendance_imports",
+                "sm_staff_attendance_imports",
                 "sm_staff_attendences",
                 "sm_students",
-                "sm_student_aramiscAttendances",
-                "sm_student_aramiscAttendance_imports",
+                "sm_student_attendances",
+                "sm_student_attendance_imports",
                 "sm_student_categories",
                 "sm_student_certificates",
                 "sm_student_documents",
@@ -2466,7 +2465,7 @@ class SmSystemSettingController extends Controller
                 "sm_student_take_onln_ex_ques_options",
                 "sm_student_timelines",
                 "sm_subjects",
-                "sm_subject_aramiscAttendances",
+                "sm_subject_attendances",
                 "sm_suppliers",
                 "sm_teacher_upload_contents",
                 "sm_temporary_meritlists",
@@ -2706,7 +2705,7 @@ class SmSystemSettingController extends Controller
                     $year = date('Y', strtotime($data->start_date));
                     $selected->un_academic_id = $request->id;
                 }else{
-                    $data = SmAcademicYear::find($request->id);
+                    $data = AramiscAcademicYear::find($request->id);
                     $year = $data->year;
 
                     $selected->session_id = $request->id;
@@ -3159,7 +3158,7 @@ class SmSystemSettingController extends Controller
         $editData = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
         $school = SmSchool::where('id', '=', Auth::user()->school_id)->first();
 
-        $academic_year = SmAcademicYear::findOrfail(@$editData->session_id);
+        $academic_year = AramiscAcademicYear::findOrfail(@$editData->session_id);
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
 
             return ApiBaseMethod::sendResponse($editData, null);

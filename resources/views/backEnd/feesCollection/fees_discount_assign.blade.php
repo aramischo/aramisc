@@ -154,13 +154,13 @@
                                                             <td>
                                                                 @php
                                                                     if ($fees_discount->type=='once') {
-                                                                    $checkPayment=App\SmFeesDiscount::CheckAppliedDiscount($fees_discount_id,$student->id, $student->id);
+                                                                    $checkPayment=App\AramiscFeesDiscount::CheckAppliedDiscount($fees_discount_id,$student->id, $student->id);
                                                                     $show='';
                                                                         if ($checkPayment=='false') {
                                                                             $show='disabled';
                                                                         }
                                                                     } else {
-                                                                    $checkPayment=App\SmFeesDiscount::CheckAppliedYearlyDiscount($fees_discount_id,$student->id, $student->id);
+                                                                    $checkPayment=App\AramiscFeesDiscount::CheckAppliedYearlyDiscount($fees_discount_id,$student->id, $student->id);
                                                                     $show='';
                                                                         if ($checkPayment=='false') {
                                                                             $show='disabled';
@@ -203,7 +203,7 @@
                                                                                 @endphp
                                                                                     <option value="" disabled >{{$fees_group->name}} </option>
                                                                                         @php
-                                                                                            $studentAssingFees_types=App\SmFeesAssign::aramiscStudentFeesTypeDiscount($fees_group->group_id,$student->student_id,$fees_discount->amount, $student->id);
+                                                                                            $studentAssingFees_types=App\AramiscFeesAssign::studentFeesTypeDiscount($fees_group->group_id,$student->student_id,$fees_discount->amount, $student->id);
                                                                                         @endphp
                                                                                     @foreach ($studentAssingFees_types as $fees_type)
                                                                                         <option value="{{$fees_type->id}}">{{$fees_type->name}}</option>

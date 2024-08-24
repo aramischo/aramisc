@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\OnlineExam;
 
 use App\SmClass;
 use App\SmStaff;
-use App\SmSection;
+use App\AramiscSection;
 use App\YearCheck;
 use App\SmQuestionBank;
 use App\SmAssignSubject;
@@ -50,7 +50,7 @@ class SmQuestionBankController extends Controller
             } else {
                 $classes = SmClass::get();
             }
-            $sections = SmSection::get();
+            $sections = AramiscSection::get();
             return view('backEnd.examination.question_bank', compact('banks', 'levels', 'groups', 'classes', 'sections'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -489,7 +489,7 @@ class SmQuestionBankController extends Controller
             } else {
                 $classes = SmClass::get();
             }
-            $sections = SmSection::get();
+            $sections = AramiscSection::get();
             $editData = $bank; // For university module
             return view('backEnd.examination.question_bank', compact('levels', 'groups', 'banks', 'bank', 'classes', 'sections', 'editData'));
         } catch (\Exception $e) {

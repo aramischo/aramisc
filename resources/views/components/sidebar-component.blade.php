@@ -6,7 +6,7 @@
 <nav id="sidebar" class="sidebar">
 
     <div class="sidebar-header update_sidebar">
-        @if (Auth::user()->role_id != 2 && Auth::user()->role_id != 3 && Auth::user()->role_id != 10)
+        @if (Auth::user()->role_id != 2 && Auth::user()->role_id != 3 && Auth::user()->role_id != App\GlobalVariable::isAlumni())
             @if (userPermission('dashboard'))
                 @if (moduleStatusCheck('Saas') == true &&
                         Auth::user()->is_administrator == 'yes' &&
@@ -115,7 +115,7 @@
                     @endisset
                 @endif
 
-                @if(auth()->user()->role_id == 10)
+                @if(auth()->user()->role_id == App\GlobalVariable::isAlumni())
                     @isset($sidebar_menus)                                    
                         @foreach ($sidebar_menus as $sidebar_menu)
                             @if(sidebarPermission($sidebar_menu->permissionInfo)==true)

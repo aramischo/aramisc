@@ -73,7 +73,7 @@
 					<td style="text-align: right;" class="tdWidth">@lang('common.date'): {{ @$certificate->date}}</td>
 				</tr>
 				<tr>
-					<td colspan="3" class="tdBody">{{ isset($student->id) ? App\SmStudentCertificate::certificateBody($certificate->body, $student->id) : '' }}</td>
+					<td colspan="3" class="tdBody">{{ isset($student->id) ? App\AramiscStudentCertificate::certificateBody($certificate->body, $student->id) : '' }}</td>
 				</tr>
 				<tr>
 					<td style="text-align: left;" class="tdWidth">{{ @$certificate->footer_left_text}}</td>

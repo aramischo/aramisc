@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use DB;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use App\Role;
 use Validator;
 use App\SmLeaveType;
@@ -27,7 +27,7 @@ class ApiSmLeaveDefineController extends Controller
         
         try{
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = AramiscRole::where('active_status', '=', '1')->where(function ($q) {
+            $roles = InfixRole::where('active_status', '=', '1')->where(function ($q) {
                 $q->where('school_id', 1)->orWhere('type', 'System');
             })->where('id', '!=', 1)/* ->where('id', '!=', 2) */->where('id', '!=', 3)->where('id', '!=', 10)->get();
             $leave_defines = SmLeaveDefine::where('active_status', 1)->get();
@@ -123,7 +123,7 @@ class ApiSmLeaveDefineController extends Controller
         
         try{
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
+            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $leave_defines = SmLeaveDefine::where('active_status', 1)->get();

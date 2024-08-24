@@ -230,7 +230,7 @@
                                                         
                                                         userPermission(264) ? 
                                                             '<a class="dropdown-item" data-toggle="modal"
-                                                               data-target="#aramiscDeleteClassModal'.$class->id.'"
+                                                               data-target="#deleteClassModal'.$class->id.'"
                                                                href="'.route('global_class_delete', [@$class->id]).'">'.__('common.delete').'</a>' : null,
     
                                                         ];
@@ -239,7 +239,7 @@
                                             </td>
                                         </tr>
     
-                                        <div class="modal fade admin-query" id="aramiscDeleteClassModal{{@$class->id}}">
+                                        <div class="modal fade admin-query" id="deleteClassModal{{@$class->id}}">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -291,7 +291,7 @@
                 type:'GET',
                 data: formData,
                 dataType:"json",
-                url: "{{route('aramiscLoadAssignedSubject')}}",
+                url: "{{route('loadAssignedSubject')}}",
                 success:function(data){
                     $('#classSectionWiseSubjects_'+ data.class_id).html(data.html);
                     $('#classSectionWiseStudyMat_'+ data.class_id).html(data.html2);

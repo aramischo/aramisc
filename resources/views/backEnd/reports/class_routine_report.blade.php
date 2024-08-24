@@ -92,9 +92,9 @@
                 </div>
                 <div class="col-lg-8 pull-right">
                     @if(moduleStatusCheck('University'))
-                    <a href="{{route('university.academics.aramiscClassRoutinePrint', [$un_semester_label_id, $un_section_id])}}" class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer"> </i> @lang('reports.print')</a>
+                    <a href="{{route('university.academics.classRoutinePrint', [$un_semester_label_id, $un_section_id])}}" class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer"> </i> @lang('reports.print')</a>
                     @else
-                    <a href="{{route('aramiscClassRoutinePrint', [$class_id, $section_id])}}" class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer"> </i> @lang('reports.print')</a>
+                    <a href="{{route('classRoutinePrint', [$class_id, $section_id])}}" class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer"> </i> @lang('reports.print')</a>
                     @endif 
                 </div>
             </div>
@@ -112,7 +112,7 @@
                                 @endphp
                             @foreach($sm_weekends as $sm_weekend)
                             @php
-                            $count = $sm_weekend->aramiscClassRoutine()->where('class_id', $class_id)->where('section_id', $section_id)->count();
+                            $count = $sm_weekend->classRoutine()->where('class_id', $class_id)->where('section_id', $section_id)->count();
                             @endphp
                               
                                 @if( $count >$height)
@@ -136,7 +136,7 @@
                         
                             $i = 0;
                         @endphp
-                        @foreach($sm_weekend->aramiscClassRoutine()->where('class_id', $class_id)->where('section_id', $section_id)->get() as $routine)
+                        @foreach($sm_weekend->classRoutine()->where('class_id', $class_id)->where('section_id', $section_id)->get() as $routine)
                         
                             @php
                             if(!in_array($routine->id, $used)){

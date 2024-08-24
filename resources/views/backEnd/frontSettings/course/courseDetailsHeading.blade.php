@@ -39,7 +39,7 @@
                                                 <input
                                                     class="primary_input_field "
                                                     type="text" name="title" autocomplete="off"
-                                                    value="{{isset($update)? ($SmCoursePage != ''? $SmCoursePage->title:''):''}}">
+                                                    value="{{isset($update)? ($AramiscCoursePage != ''? $AramiscCoursePage->title:''):''}}">
                                               
                                                 
                                                 @if ($errors->has('title'))
@@ -51,7 +51,7 @@
                                             <div class="primary_input mt-25">
                                                 <div class="primary_input">
                                                     <label> @lang('common.description') <span class="text-danger"> *</span> </label>
-                                                    <textarea class="primary_input_field form-control" cols="0" rows="5" name="description" id="description">{{isset($update)? ($SmCoursePage != ''? $SmCoursePage->description:''):'' }}</textarea>
+                                                    <textarea class="primary_input_field form-control" cols="0" rows="5" name="description" id="description">{{isset($update)? ($AramiscCoursePage != ''? $AramiscCoursePage->description:''):'' }}</textarea>
                                                     
                                                     @if($errors->has('description'))
                                                         <span class="text-danger" >
@@ -65,7 +65,7 @@
                                                 <input
                                                     class="primary_input_field form-control{{ $errors->has('button_text') ? ' is-invalid' : '' }}"
                                                     type="text" name="button_text" autocomplete="off"
-                                                    value="{{isset($update)? ($SmCoursePage != ''? $SmCoursePage->button_text:''):'' }}">
+                                                    value="{{isset($update)? ($AramiscCoursePage != ''? $AramiscCoursePage->button_text:''):'' }}">
                                                
                                                 
                                                 @if ($errors->has('button_text'))
@@ -80,7 +80,7 @@
                                                 <input
                                                     class="primary_input_field form-control{{ $errors->has('button_text') ? ' is-invalid' : '' }}"
                                                     type="text" name="button_url" autocomplete="off"
-                                                    value="{{isset($update)? ($SmCoursePage != ''? $SmCoursePage->button_url:''):'' }}">
+                                                    value="{{isset($update)? ($AramiscCoursePage != ''? $AramiscCoursePage->button_url:''):'' }}">
                                                
                                                 @if ($errors->has('button_url'))
                                                     <span class="text-danger" >
@@ -97,7 +97,7 @@
                                             <div class="primary_input">
                                                 <div class="primary_file_uploader">
                                                     <input class="primary_input_field form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" id="placeholderInput" type="text"
-                                                       placeholder="{{isset($update)? ($SmCoursePage and $SmCoursePage->image !="") ? getFilePath3($SmCoursePage->image) :trans('front_settings.image') .' *' :trans('front_settings.image') .' *' }}"
+                                                       placeholder="{{isset($update)? ($AramiscCoursePage and $AramiscCoursePage->image !="") ? getFilePath3($AramiscCoursePage->image) :trans('front_settings.image') .' *' :trans('front_settings.image') .' *' }}"
                                                        readonly>
                                                     <button class="" type="button">
                                                         <label class="primary-btn small fix-gr-bg" for="browseFile">{{ __('common.browse') }}</label>
@@ -151,12 +151,12 @@
                             <div class="col-lg-12 text-center">
                                 <div class="mt-20">
                                     <section class="container box-1420">
-                                        <div class="banner-area" style="background: linear-gradient(0deg, rgba(124, 50, 255, 0.6), rgba(199, 56, 216, 0.6)), url({{@$SmCoursePage->image != ""? @$SmCoursePage->image : '../img/client/common-banner1.jpg'}}) no-repeat center;background-size: 100%">
+                                        <div class="banner-area" style="background: linear-gradient(0deg, rgba(124, 50, 255, 0.6), rgba(199, 56, 216, 0.6)), url({{@$AramiscCoursePage->image != ""? @$AramiscCoursePage->image : '../img/client/common-banner1.jpg'}}) no-repeat center;background-size: 100%">
                                             <div class="banner-inner">
                                                 <div class="banner-content">
-                                                    <h2 style="color: whitesmoke">{{@$SmCoursePage->title}}</h2>
-                                                    <p style="color: whitesmoke">{{@$SmCoursePage->description}}</p>
-                                                    <a class="primary-btn fix-gr-bg semi-large" href="{{@$SmCoursePage->button_url}}">{{@$SmCoursePage->button_text}}</a>
+                                                    <h2 style="color: whitesmoke">{{@$AramiscCoursePage->title}}</h2>
+                                                    <p style="color: whitesmoke">{{@$AramiscCoursePage->description}}</p>
+                                                    <a class="primary-btn fix-gr-bg semi-large" href="{{@$AramiscCoursePage->button_url}}">{{@$AramiscCoursePage->button_text}}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,17 +165,17 @@
                                         <div class="col-md-6">
                                             <div class="academic-item">
                                                 <div class="academic-img">
-                                                    <img class="img-fluid" src="{{asset(@$SmCoursePage->main_image)}}" alt="">
+                                                    <img class="img-fluid" src="{{asset(@$AramiscCoursePage->main_image)}}" alt="">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="academic-text mt-30">
                                                 <h4>
-                                                    {{@$SmCoursePage->main_title}}
+                                                    {{@$AramiscCoursePage->main_title}}
                                                 </h4>
                                                 <p>
-                                                    {{@$SmCoursePage->main_description}}
+                                                    {{@$AramiscCoursePage->main_description}}
                                                 </p>
                                             </div>
                                         </div>

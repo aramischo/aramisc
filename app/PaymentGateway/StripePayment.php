@@ -5,9 +5,9 @@ use App\User;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\SmAddIncome;
-use App\SmFeesPayment;
-use App\SmPaymentMethhod;
-use App\SmPaymentGatewaySetting;
+use App\AramiscFeesPayment;
+use App\AramiscPaymentMethhod;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class StripePayment{
 
     public function handle($data)
     {
-        $payment_setting = SmPaymentGatewaySetting::where('gateway_name', 'Stripe')->where('school_id', Auth::user()->school_id)->first();
+        $payment_setting = AramiscPaymentGatewaySetting::where('gateway_name', 'Stripe')->where('school_id', Auth::user()->school_id)->first();
 
         Stripe::setApiKey($payment_setting->gateway_secret_key);
 
@@ -68,7 +68,7 @@ class StripePayment{
                         $paid_amount  = $installment_due;
                     }
 
-                   $fees_payment = new SmFeesPayment();
+                   $fees_payment = new AramiscFeesPayment();
                    $fees_payment->student_id = $installment->student_id;
                    $fees_payment->fees_discount_id = !empty($request->fees_discount_id) ? $request->fees_discount_id : "";
                    $fees_payment->discount_amount = !empty($request->applied_amount) ? $request->applied_amount : 0;
@@ -82,7 +82,7 @@ class StripePayment{
                    $fees_payment->direct_fees_installment_assign_id = $installment->id;
                
                     $payment_mode_name=ucwords($data['method']);
-                    $payment_method= SmPaymentMethhod::where('method',$payment_mode_name)->first();
+                    $payment_method= AramiscPaymentMethhod::where('method',$payment_mode_name)->first();
                     $installment = DirectFeesInstallmentAssign::find($installment->id);
                     $installment->payment_date =  $newformat;
                     $installment->payment_mode = $data['method'];
@@ -201,7 +201,7 @@ class StripePayment{
             $sub_payment->balance_amount = ( $payable_amount - ($all_sub_payment + $sub_payment->amount) ); 
             $result = $sub_payment->save();
             if($result && $installment){
-                $fees_payment = new SmFeesPayment();
+                $fees_payment = new AramiscFeesPayment();
                 $fees_payment->student_id = $installment->student_id;
                 $fees_payment->amount = $sub_payment->amount;
                 $fees_payment->payment_date = date('Y-m-d', strtotime($sub_payment->payment_date));

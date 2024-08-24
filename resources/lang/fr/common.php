@@ -342,9 +342,9 @@ return [
 
 "expaire_date" => "Date d'expiration",
 
-"aramisc" => "Aramisc",
+"infix_edu" => "Infix Edu",
 
-"aramisc_clasified" => "Aramisc classifié",
+"infix_clasified" => "Infix classifié",
 
 "date_|_day" => "Date | Jour",
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
@@ -37,7 +37,7 @@ class GatewayPaymentController extends Controller
             $data['amount'] = $request->amount;
             $data['assign_id'] = $request->assign_id;
             $data['student_id'] = $request->student_id;
-            $data['method'] = SmPaymentMethhod::find($request->payment_method)->method;
+            $data['method'] = AramiscPaymentMethhod::find($request->payment_method)->method;
             $classMap = config('paymentGateway.'.$data['method']);
             $make_payment = new $classMap();
            return $make_payment->handle($data);
@@ -70,7 +70,7 @@ class GatewayPaymentController extends Controller
             $data['amount'] = $request->amount;
             $data['assign_id'] = $request->assign_id;
             $data['student_id'] = $request->student_id;
-            $data['method'] = SmPaymentMethhod::find($request->payment_method)->method;
+            $data['method'] = AramiscPaymentMethhod::find($request->payment_method)->method;
             $classMap = config('paymentGateway.'.$data['method']);
             $make_payment = new $classMap();
             $make_payment->handle($data);

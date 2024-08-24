@@ -49,7 +49,7 @@
             @foreach ($student_detail->studentRecords as $record)
                 @foreach ($exam_terms as $key=>$exam)
                     @php
-                        $get_results = App\SmStudent::getExamResult(@$exam->id, @$record);                       
+                        $get_results = App\AramiscStudent::getExamResult(@$exam->id, @$record);                       
                     @endphp
                     @if ($get_results)
                         <div class=@if ($key != 0) mt-40 @endif>
@@ -102,8 +102,8 @@
                                                 $temp_gpa[] = $mark->total_gpa_point;
                                                 $get_subject_marks = subjectFullMark($mark->exam_type_id, $mark->subject_id, $mark->studentRecord->class_id, $mark->studentRecord->section_id);
                                                 
-                                                $subject_marks = App\SmStudent::fullMarksBySubject($exam->id, $mark->subject_id);
-                                                $schedule_by_subject = App\SmStudent::scheduleBySubject($exam->id, $mark->subject_id, @$record);
+                                                $subject_marks = App\AramiscStudent::fullMarksBySubject($exam->id, $mark->subject_id);
+                                                $schedule_by_subject = App\AramiscStudent::scheduleBySubject($exam->id, $mark->subject_id, @$record);
                                                 $result_subject = 0;
                                                 if (@generalSetting()->result_type == 'mark') {
                                                     $grand_total_marks += subject100PercentMark();

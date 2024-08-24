@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\StaffImportBulkTemporary;
 use App\Http\Requests\StaffImportRequestForm;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use App\Http\Controllers\Admin\Hr\SmStaffController;
 
 class ImportController extends Controller
@@ -24,7 +24,7 @@ class ImportController extends Controller
     public function index()
     {
         $data['genders'] = SmBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
-        $data['roles'] = AramiscRole::where('is_saas', 0)
+        $data['roles'] = InfixRole::where('is_saas', 0)
             ->where('active_status', 1)
             ->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
@@ -63,7 +63,7 @@ class ImportController extends Controller
                             return redirect()->route('staff_directory');
                         }
                     }
-                    $role_id = AramiscRole::where('name', $singleStaff->role)
+                    $role_id = InfixRole::where('name', $singleStaff->role)
                         ->where(function ($q) {
                             $q->where('school_id', auth()->user()->school_id)
                                 ->orWhere('type', 'System');

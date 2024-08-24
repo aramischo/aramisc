@@ -1,5 +1,5 @@
 <?php
-$project_name = 'aramisc';
+$project_name = 'InfixEdu';
 function getStorageFile($file_name)
 {
     $file = 'storage/app/.' . $file_name;
@@ -16,7 +16,7 @@ function getStorageFile($file_name)
 <head>
     <meta name="author" content="spondonit">
     <meta name="descripton" content="A project of spondonit">
-    <title>Version | aramisc</title>
+    <title>Version | InfixEdu</title>
 </head>
 
 <body>

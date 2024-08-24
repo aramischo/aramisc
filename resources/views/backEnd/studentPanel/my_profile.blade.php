@@ -9,15 +9,15 @@
                 margin-left: 10px;
             }
 
-            /* #aramiscStudentOnlineExam table.dataTable thead .sorting:after,
-            #aramiscStudentOnlineExam table.dataTable thead .sorting_asc:after,
+            /* #studentOnlineExam table.dataTable thead .sorting:after,
+            #studentOnlineExam table.dataTable thead .sorting_asc:after,
             #leaves table.dataTable thead .sorting:after,
             #leaves table.dataTable thead .sorting_asc:after {
                 top: 10px !important;
                 left: 4px !important;
             }
 
-            #aramiscStudentOnlineExam table.dataTable thead .sorting_desc:after,
+            #studentOnlineExam table.dataTable thead .sorting_desc:after,
             #leaves table.dataTable thead .sorting_desc:after {
                 top: 10px !important;
                 left: 4px !important;
@@ -81,17 +81,17 @@
                 white-space: nowrap;
             }
 
-            div#aramiscStudentOnlineExam table.dataTable .sorting_asc:after{
+            div#studentOnlineExam table.dataTable .sorting_asc:after{
                 left: 4px!important;
                 top: 10px;
             }
 
-            div#aramiscStudentOnlineExam table.dataTable .sorting:after{
+            div#studentOnlineExam table.dataTable .sorting:after{
                 left: 4px!important;
                 top: 10px;
             }
 
-            div#aramiscStudentOnlineExam table.dataTable .sorting_desc:after{
+            div#studentOnlineExam table.dataTable .sorting_desc:after{
                 left: 4px!important;
                 top: 10px;
             }
@@ -151,14 +151,14 @@
                         <ul class="nav nav-tabs tabs_scroll_nav mb-10" role="tablist">
                             @if (userPermission('student-profile.profile'))
                                 <li class="nav-item">
-                                    <a class="nav-link @if (Session::get('studentDocuments') != 'active' && Session::get('studentTimeline') != 'active') active @endif" href="#aramiscStudentProfile"
+                                    <a class="nav-link @if (Session::get('studentDocuments') != 'active' && Session::get('studentTimeline') != 'active') active @endif" href="#studentProfile"
                                         role="tab" data-toggle="tab"> @lang('student.profile') </a>
                                 </li>
                             @endif
                             @if (generalSetting()->fees_status == 0)
                                 @if (userPermission('student-profile.fees'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#aramiscStudentFees" role="tab"
+                                        <a class="nav-link" href="#studentFees" role="tab"
                                             data-toggle="tab">@lang('fees.fees')</a>
                                     </li>
                                 @endif
@@ -183,7 +183,7 @@
                             @endif
     
                             <li class="nav-item">
-                                <a class="nav-link" href="#aramiscStudentOnlineExam" role="tab"
+                                <a class="nav-link" href="#studentOnlineExam" role="tab"
                                     data-toggle="tab">@lang('exam.online_exam')</a>
                             </li>
                             @if (userPermission('student-profile.document'))
@@ -207,11 +207,11 @@
                             @endif
                             <li class="nav-item">
                                 <a class="nav-link {{ Session::get('studentAttendance') == 'active' ? 'active' : '' }} "
-                                    href="#studentAttendance" role="tab" data-toggle="tab">@lang('student.my_aramiscAttendance')</a>
+                                    href="#studentAttendance" role="tab" data-toggle="tab">@lang('student.my_attendance')</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Session::get('subjectAttendance') == 'active' ? 'active' : '' }} "
-                                    href="#subjectAttendance" role="tab" data-toggle="tab">@lang('student.subject_aramiscAttendance')</a>
+                                    href="#subjectAttendance" role="tab" data-toggle="tab">@lang('student.subject_attendance')</a>
                             </li>
                             @if (moduleStatusCheck('Wallet'))
                                 @if (userPermission('wallet.my-wallet'))
@@ -243,7 +243,7 @@
                         <div class="tab-content">
                             <!-- Start Profile Tab -->
                             <div role="tabpanel" class="tab-pane fade @if (Session::get('studentDocuments') != 'active' && Session::get('studentTimeline') != 'active') show active @endif"
-                                id="aramiscStudentProfile">
+                                id="studentProfile">
                                 <div>
                                     <h4 class="stu-sub-head">@lang('student.personal_info')</h4>
                                     @if (is_show('admission_date'))
@@ -917,7 +917,7 @@
                             <!-- End Profile Tab -->
     
                             <!-- Start Fees Tab -->
-                            <div role="tabpanel" class="tab-pane fade" id="aramiscStudentFees">
+                            <div role="tabpanel" class="tab-pane fade" id="studentFees">
                                 <div class="table-responsive">
                                     @foreach ($records as $record)
                                         <div class="no-search no-paginate no-table-info mb-2">
@@ -974,8 +974,8 @@
                                             </div>
                                             @if (moduleStatusCheck('University'))
                                                 @includeIf('university::include.studentPanelFeesPay')
-                                            @elseif(aramiscDirectFees())
-                                                @includeIf('backEnd.feesCollection.aramiscDirectFees.studentDirectFeesPay')
+                                            @elseif(directFees())
+                                                @includeIf('backEnd.feesCollection.directFees.studentDirectFeesPay')
                                             @else
                                                 <table class="table school-table-style" cellspacing="0" width="100%">
                                                     <thead>
@@ -1021,11 +1021,11 @@
                                                                     @$student_id = @$fees_assigned->student_id;
                                                                 @endphp
                                                                 @php
-                                                                    @$paid = App\SmFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
+                                                                    @$paid = App\AramiscFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
                                                                     @$total_grand_paid += @$paid;
                                                                 @endphp
                                                                 @php
-                                                                    @$fine = App\SmFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
+                                                                    @$fine = App\AramiscFeesAssign::discountSum(@$fees_assigned->student_id, @$fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
                                                                     @$total_fine += @$fine;
                                                                 @endphp
     
@@ -1080,7 +1080,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 @php
-                                                                    @$payments = App\SmFeesAssign::aramiscFeesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->recordDetail->id);
+                                                                    @$payments = App\AramiscFeesAssign::feesPayment(@$fees_assigned->feesGroupMaster->feesTypes->id, @$fees_assigned->student_id, $fees_assigned->recordDetail->id);
                                                                     $i = 0;
                                                                 @endphp
     
@@ -1273,7 +1273,7 @@
                                     <div class="no-search no-paginate no-table-info mb-2">
                                         @foreach ($exam_terms as $exam)
                                             @php
-                                                $get_results = App\SmStudent::getExamResult(@$exam->id, @$record);
+                                                $get_results = App\AramiscStudent::getExamResult(@$exam->id, @$record);
                                             @endphp
                                             @if ($get_results)
                                                 <div class="main-title">
@@ -1325,8 +1325,8 @@
                                                                         $temp_gpa[] = $mark->total_gpa_point;
                                                                         $get_subject_marks = subjectFullMark($mark->exam_type_id, $mark->subject_id, $mark->studentRecord->class_id, $mark->studentRecord->section_id);
     
-                                                                        $subject_marks = App\SmStudent::fullMarksBySubject($exam->id, $mark->subject_id);
-                                                                        $schedule_by_subject = App\SmStudent::scheduleBySubject($exam->id, $mark->subject_id, @$record);
+                                                                        $subject_marks = App\AramiscStudent::fullMarksBySubject($exam->id, $mark->subject_id);
+                                                                        $schedule_by_subject = App\AramiscStudent::scheduleBySubject($exam->id, $mark->subject_id, @$record);
                                                                         $result_subject = 0;
                                                                         if (@generalSetting()->result_type == 'mark') {
                                                                             $grand_total_marks += subject100PercentMark();
@@ -1471,7 +1471,7 @@
                             <script src="{{ url('Modules\University\Resources\assets\js\app.js') }}"></script>
                         @endif
                         <!-- Start Online Exam Tab -->
-                        <div role="tabpanel" class="tab-pane fade" id="aramiscStudentOnlineExam">
+                        <div role="tabpanel" class="tab-pane fade" id="studentOnlineExam">
                             @php
                                 $exam_count = count($exam_terms);
                             @endphp
@@ -1924,11 +1924,11 @@
                         <!-- End Timeline Tab -->
     
                         <!-- Start Attendance Tab -->
-                        @include('backEnd.studentPanel.inc._student_aramiscAttendance_tab')
+                        @include('backEnd.studentPanel.inc._student_attendance_tab')
                         <!-- End Attendance Tab -->
     
                         <!-- Start Attendance Tab -->
-                        @include('backEnd.studentPanel.inc._subject_aramiscAttendance_tab')
+                        @include('backEnd.studentPanel.inc._subject_attendance_tab')
                         <!-- End Attendance Tab -->
     
                         <!-- Start Behaviour Records Tab -->

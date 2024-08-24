@@ -403,7 +403,7 @@ creator:rashed;
 /*============= 29 jan last up =========== */
 
 @media (max-width: 991px) {
-    .md_aramisc_50 {
+    .md_infix_50 {
         margin-top: 50px;
     }
     .admin .navbar .navbar-collapse {
@@ -803,7 +803,7 @@ a#close_sidebar i {
         border-radius: 50%;
     }
 
-    .aramisc_991_mb_15 {
+    .infix_991_mb_15 {
         margin-bottom: 15px;
     }
     
@@ -890,7 +890,7 @@ a#close_sidebar i {
 /* min 768 - 991.98 */
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .aramisc_up_mt {
+    .infix_up_mt {
         margin-top: 30px;
     }
     .mt-md-30 {
@@ -954,7 +954,7 @@ a#close_sidebar i {
     .fc-basic-view .fc-body .fc-row {
         min-height: auto !important;
     }
-    .lg_aramisc_50 {
+    .lg_infix_50 {
         margin-top: 50px;
     }
     .nav.navbar-nav.mr-auto.nav-buttons.flex-sm-row {

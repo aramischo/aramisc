@@ -427,12 +427,12 @@ table.dataTable thead tr th {
     border-bottom: 1px solid var(--border_color) !important
 }
 
-.aramiscClassRoutineTable thead tr th {
+.classRoutineTable thead tr th {
     background-color: var(--table_header) !important;
     padding-left: 12px
 }
 
-.aramiscClassRoutineTable tbody tr td {
+.classRoutineTable tbody tr td {
     border-bottom: 1px solid var(--border_color) !important
 }
 

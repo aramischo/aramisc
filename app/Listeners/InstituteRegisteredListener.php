@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Models\SmStaffRegistrationField;
-use App\Models\SmStudentRegistrationField;
+use App\Models\AramiscStudentRegistrationField;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
@@ -183,9 +183,9 @@ class InstituteRegisteredListener
             'current_address', 'permanent_address'];
 
         foreach ($request_fields as $key => $value) {
-            $exit = SmStudentRegistrationField::where('school_id', $school->id)->where('field_name', $value)->first();
+            $exit = AramiscStudentRegistrationField::where('school_id', $school->id)->where('field_name', $value)->first();
             if (!$exit) {
-                $field = new SmStudentRegistrationField;
+                $field = new AramiscStudentRegistrationField;
                 $field->position = $key + 1;
                 $field->field_name = $value;
                 $field->label_name = $value;

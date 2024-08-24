@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmsTemplate;
 use Illuminate\Support\Str;
 use App\SmSubjectAttendance;
@@ -52,17 +52,17 @@ class SendAbsentNotification extends Command
         ->where('active_status', 1)
         ->first();
         if ($setup) {
-            $is_school_day=SmSubjectAttendance::where('aramiscAttendance_type','P')->where('aramiscAttendance_date',date('Y-m-d'))->first();
+            $is_school_day=SmSubjectAttendance::where('attendance_type','P')->where('attendance_date',date('Y-m-d'))->first();
             $now =  strtotime(date('H:i'));
             $setup_time=(strtotime($setup->time_from));
     
             if ($is_school_day) {
     
-                    $absent_student=SmSubjectAttendance::where('aramiscAttendance_type','A')
-                    ->where('aramiscAttendance_date',date('Y-m-d'))
-                    ->leftjoin('sm_students','sm_students.id','=','sm_subject_aramiscAttendances.student_id')
+                    $absent_student=SmSubjectAttendance::where('attendance_type','A')
+                    ->where('attendance_date',date('Y-m-d'))
+                    ->leftjoin('sm_students','sm_students.id','=','sm_subject_attendances.student_id')
                     ->leftjoin('sm_parents','sm_parents.id','=','sm_students.parent_id')
-                    ->select('sm_subject_aramiscAttendances.*')
+                    ->select('sm_subject_attendances.*')
                     ->get();
             
                     $students=[];
@@ -83,7 +83,7 @@ class SendAbsentNotification extends Command
                     foreach (array_unique($students) as $key => $student_id) {
         
                         $absent_subjects=SmSubjectAttendance::getAbsentSubjectList($student_id);//Array
-                        $student_info=SmStudent::find($student_id);
+                        $student_info=AramiscStudent::find($student_id);
                         $guardian_name=$student_info->parents->guardians_name;
                         $guardian_mobile=$student_info->parents->guardians_mobile;
         

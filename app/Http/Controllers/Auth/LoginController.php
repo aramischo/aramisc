@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\AramiscModuleManager;
-use App\SmAcademicYear;
+use App\InfixModuleManager;
+use App\AramiscAcademicYear;
 use App\SmBackgroundSetting;
 use App\SmDateFormat;
 use App\SmGeneralSettings;
@@ -12,7 +12,7 @@ use App\SmLanguage;
 use App\SmSchool;
 use App\SmStaff;
 use App\SmsTemplate;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmStyle;
 use App\SmUserLog;
 use App\User;
@@ -238,7 +238,7 @@ class LoginController extends Controller
             // System academic session id in session
 
             $all_modules = [];
-            $modules = AramiscModuleManager::select('name')->get();
+            $modules = InfixModuleManager::select('name')->get();
             foreach ($modules as $module) {
                 $all_modules[] = $module->name;
             }
@@ -263,14 +263,14 @@ class LoginController extends Controller
             if (moduleStatusCheck('University')) {
                 $academic_years = Auth::check() ? UnAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
             } else {
-                $academic_years = Auth::check() ? SmAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
+                $academic_years = Auth::check() ? AramiscAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
             }
             session()->put('academic_years', $academic_years);
             //session put sessions and selected language
 
 
             if (Auth::user()->role_id == 2) {
-                $profile = SmStudent::where('user_id', Auth::id())->withOutGlobalScopes([StatusAcademicSchoolScope::class])->first();
+                $profile = AramiscStudent::where('user_id', Auth::id())->withOutGlobalScopes([StatusAcademicSchoolScope::class])->first();
 
                 session()->put('profile', @$profile->student_photo);
                 // $session_id = $profile ? $profile->academic_id : generalSetting()->session_id;
@@ -296,12 +296,12 @@ class LoginController extends Controller
                 session()->put('session', $session);
             } else {
                 if (!$session_id) {
-                    $session = SmAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first();
+                    $session = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first();
                 } else {
-                    $session = SmAcademicYear::find($session_id);
+                    $session = AramiscAcademicYear::find($session_id);
                 }
                 if (!$session) {
-                    $session = SmAcademicYear::where('school_id', Auth::user()->school_id)->first();
+                    $session = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->first();
                 }
 
                 session()->put('sessionId', $session->id);

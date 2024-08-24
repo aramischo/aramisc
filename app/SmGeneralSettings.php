@@ -3,18 +3,18 @@
 namespace App;
 
 use App\SmClass;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmSubject;
 use App\YearCheck;
-use App\SmExamType;
+use App\AramiscExamType;
 use App\SmLanguage;
 use App\SmDateFormat;
 use App\SmMarksGrade;
 use App\SmResultStore;
 use App\SmAssignSubject;
 use App\SmTemporaryMeritlist;
-use App\SmExamAttendanceChild;
+use App\AramiscExamAttendanceChild;
 use Illuminate\Support\Facades\DB;
 use Nwidart\Modules\Facades\Module;
 use Brian2694\Toastr\Facades\Toastr;
@@ -43,7 +43,7 @@ class SmGeneralSettings extends Model
         'phone_number_privacy' => 'integer',
         'week_start_id' => 'integer',
         'time_zone_id' => 'integer',
-        'aramiscAttendance_layout' => 'integer',
+        'attendance_layout' => 'integer',
         'session_id' => 'integer',
         'language_id' => 'integer',
         'date_format_id' => 'integer',
@@ -51,37 +51,37 @@ class SmGeneralSettings extends Model
         'sub_topic_enable' => 'integer',
         'school_id' => 'integer',
         'multiple_roll' => 'integer',
-        'Lesson' => 'boolean',
-        'Chat' => 'boolean',
-        'FeesCollection' => 'boolean',
-        'income_head_id' => 'boolean',
-        'AramiscBiometrics' => 'boolean',
-        'ResultReports' => 'boolean',
-        'TemplateSettings' => 'boolean',
-        'MenuManage' => 'boolean',
-        'RolePermission' => 'boolean',
-        'RazorPay' => 'boolean',
-        'Saas' => 'boolean',
-        'StudentAbsentNotification' => 'boolean',
-        'ParentRegistration' => 'boolean',
-        'Zoom' => 'boolean',
-        'BBB' => 'boolean',
-        'VideoWatch' => 'boolean',
-        'Jitsi' => 'boolean',
-        'OnlineExam' => 'boolean',
-        'SaasRolePermission' => 'boolean',
-        'BulkPrint' => 'boolean',
-        'HimalayaSms' => 'boolean',
-        'XenditPayment' => 'boolean',
-        'Wallet' => 'boolean',
-        'Lms' => 'boolean',
-        'University' => 'boolean',
-        'Gmeet' => 'boolean',
-        'KhaltiPayment' => 'boolean',
-        'Raudhahpay' => 'boolean',
-        'AppSlider' => 'boolean',
-        'BehaviourRecords' => 'boolean',
-        'InAppLiveClass' => 'boolean',
+        'Lesson' => 'integer',
+        'Chat' => 'integer',
+        'FeesCollection' => 'integer',
+        'income_head_id' => 'integer',
+        'InfixBiometrics' => 'integer',
+        'ResultReports' => 'integer',
+        'TemplateSettings' => 'integer',
+        'MenuManage' => 'integer',
+        'RolePermission' => 'integer',
+        'RazorPay' => 'integer',
+        'Saas' => 'integer',
+        'StudentAbsentNotification' => 'integer',
+        'ParentRegistration' => 'integer',
+        'Zoom' => 'integer',
+        'BBB' => 'integer',
+        'VideoWatch' => 'integer',
+        'Jitsi' => 'integer',
+        'OnlineExam' => 'integer',
+        'SaasRolePermission' => 'integer',
+        'BulkPrint' => 'integer',
+        'HimalayaSms' => 'integer',
+        'XenditPayment' => 'integer',
+        'Wallet' => 'integer',
+        'Lms' => 'integer',
+        'University' => 'integer',
+        'Gmeet' => 'integer',
+        'KhaltiPayment' => 'integer',
+        'Raudhahpay' => 'integer',
+        'AppSlider' => 'integer',
+        'BehaviourRecords' => 'integer',
+        'InAppLiveClass' => 'integer',
         'fees_status' => 'integer',
         'lms_checkout' => 'integer',
         'academic_id' => 'integer',
@@ -93,16 +93,33 @@ class SmGeneralSettings extends Model
         'preloader_type' => 'integer',
         'due_fees_login' => 'integer',
         'two_factor' => 'integer',
-        'DownloadCenter' => 'integer'
+        'DownloadCenter' => 'integer',
+        'ExamPlan' => 'integer',
+        'AiContent' => 'integer',
+        'created_at' => 'string',
+        'software_version' => 'string',
+        'email_driver' => 'string',
+        'fcm_key' => 'string',
+        'WhatsappSupport' => 'integer',
+        'auto_approve' => 'integer',
+        'blog_search' => 'integer',
+        'recent_blog' => 'integer',
+        'preloader_image' => 'string',
+        'active_theme' => 'string',
+        'queue_connection' => 'string',
+        'AWSS3' => 'integer',
+        'is_comment' => 'integer',
+        'ToyyibPay' => 'integer',
+        'result_type' => 'string',
     ];
 
     public function sessions()
     {
-        return $this->belongsTo('App\SmSession', 'session_id', 'id');
+        return $this->belongsTo('App\AramiscSession', 'session_id', 'id');
     }
     public function academic_Year()
     {
-        return $this->belongsTo('App\SmAcademicYear', 'academic_id', 'id');
+        return $this->belongsTo('App\AramiscAcademicYear', 'academic_id', 'id');
     }
 
     public function unacademic_Year()
@@ -183,8 +200,8 @@ class SmGeneralSettings extends Model
         try {
             $iid = time();
             $class          = SmClass::find($InputClassId);
-            $section        = SmSection::find($InputSectionId);
-            $exam           = SmExamType::find($InputExamId);
+            $section        = AramiscSection::find($InputSectionId);
+            $exam           = AramiscExamType::find($InputExamId);
             $is_data = DB::table('sm_mark_stores')->where([['class_id', $InputClassId], ['section_id', $InputSectionId], ['exam_term_id', $InputExamId]])->first();
             if (empty($is_data)) {
                 return $data = 0;
@@ -192,7 +209,7 @@ class SmGeneralSettings extends Model
                 return redirect()->back();
                 // return redirect()->back()->with('message-danger', 'Your result is not found!');
             }
-            $exams = SmExamType::where('active_status', 1)->where('academic_id', getAcademicId())->get();
+            $exams = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->get();
             $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->get();
             $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->get();
             $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('academic_id', getAcademicId())->get();
@@ -201,15 +218,15 @@ class SmGeneralSettings extends Model
 
             $eligible_subjects       = SmAssignSubject::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->get();
 
-            $examStudents=SmExamAttendanceChild::where('academic_id', getAcademicId())->where('school_id',auth()->user()->school_id)->get();
+            $examStudents=AramiscExamAttendanceChild::where('academic_id', getAcademicId())->where('school_id',auth()->user()->school_id)->get();
             $examStudentsids=[];
 
             foreach($examStudents as $e_student){
                 $examStudentsids[]=$e_student->student_id;
             }
-            // check exam aramiscAttendance and whereIn
+            // check exam attendance and whereIn
 
-            $eligible_students       = SmStudent::whereIn('id',$examStudentsids)->where('class_id', $InputClassId)->where('section_id', $InputSectionId)->get();
+            $eligible_students       = AramiscStudent::whereIn('id',$examStudentsids)->where('class_id', $InputClassId)->where('section_id', $InputSectionId)->get();
 
 
             //all subject list in a specific class/section
@@ -378,7 +395,7 @@ class SmGeneralSettings extends Model
                    
 
                     if ($modulestatus == FALSE) {
-                        $is_verify = AramiscModuleManager::where('name', $name)->first();
+                        $is_verify = InfixModuleManager::where('name', $name)->first();
                        
                         if (!empty($is_verify->purchase_code)) {
                             return TRUE;
@@ -409,5 +426,10 @@ class SmGeneralSettings extends Model
     public function currencyDetail()
     {
         return $this->belongsTo('App\SmCurrency', 'currency', 'code');
+    }
+
+    public function aboutPage()
+    {
+        return $this->belongsTo(SmAboutPage::class, 'school_id', 'school_id');
     }
 }

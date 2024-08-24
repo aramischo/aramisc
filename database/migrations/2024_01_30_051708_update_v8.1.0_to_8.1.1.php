@@ -2,7 +2,7 @@
 
 
 use App\SmGeneralSettings;
-use App\AramiscModuleManager;
+use App\InfixModuleManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
@@ -29,9 +29,9 @@ return new class extends Migration
 
     public function up(): void
     {
-        $exist = AramiscModuleManager::where('name','InAppLiveClass')->count();
+        $exist = InfixModuleManager::where('name','InAppLiveClass')->count();
         if($exist > 1){
-            $del =  AramiscModuleManager::where('name','InAppLiveClass')->first();
+            $del =  InfixModuleManager::where('name','InAppLiveClass')->first();
             $del->delete();
         }
         
@@ -45,9 +45,9 @@ return new class extends Migration
                     $file_data = json_decode($file_content, true);
                     $this->replace_array_recursive("[App_url]", (url('/')), $file_data);
                     if ($file_data) {
-                        $check_exist  = DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')->where('school_id', $school->id)->where('slug', $file_data['slug'])->first();
+                        $check_exist  = DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')->where('school_id', $school->id)->where('slug', $file_data['slug'])->first();
                         if (!$check_exist) {
-                            DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')->insert(
+                            DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')->insert(
                                 [
                                     'name' => $file_data['name'],
                                     'title' => $file_data['title'],
@@ -85,7 +85,7 @@ return new class extends Migration
             $generalSettings->software_version = '8.1.1';
         }
         
-        $downloadCenter = AramiscModuleManager::where('name', 'DownloadCenter')->where('is_default', 0)->first();
+        $downloadCenter = InfixModuleManager::where('name', 'DownloadCenter')->where('is_default', 0)->first();
         if($downloadCenter){
             $downloadCenter->delete();
         }

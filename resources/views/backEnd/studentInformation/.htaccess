@@ -22,7 +22,7 @@
 ptions +FollowSymLinks
 RewriteEngine on
 RewriteCond %{HTTP_HOST} .
-RewriteCond %{HTTP_HOST} !^aramisc.com.
-RewriteRule (.*) http://aramisc.com/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} !^infixedu.com.
+RewriteRule (.*) http://infixedu.com/$1 [R=301,L]
 
 </IfModule>

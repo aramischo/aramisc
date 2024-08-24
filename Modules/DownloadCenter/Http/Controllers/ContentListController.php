@@ -9,7 +9,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Modules\DownloadCenter\Entities\Content;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\DownloadCenter\Entities\ContentType;
 
 class ContentListController extends Controller
@@ -20,7 +20,7 @@ class ContentListController extends Controller
             $editContent = null;
             $contents = Content::with('contentType', 'user')->get();
             $contentTpyes = ContentType::all();
-            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();
@@ -76,7 +76,7 @@ class ContentListController extends Controller
             $contents = Content::with('contentType', 'user')->get();
             $editContent = Content::find($id);
             $contentTpyes = ContentType::all();
-            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();
@@ -133,7 +133,7 @@ class ContentListController extends Controller
             $contents = Content::where('file_name', 'LIKE', '%' . $request->name . '%')->with('contentType', 'user')->get();
             $contentTpyes = ContentType::get();
             $editContent = null;
-            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get();

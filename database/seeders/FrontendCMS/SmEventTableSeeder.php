@@ -19,7 +19,7 @@ class SmEventTableSeeder extends Seeder
                 'event_location' => 'Main Campus',
                 
                 'event_des' => 'Robotics Competition on Campus: Unleashing Innovation and Ingenuity
-                Prepare for an electrifying event as aramisc proudly announces its upcoming Robotics Competition set to ignite the campus with technological brilliance and inventive spirit.
+                Prepare for an electrifying event as InfixEdu proudly announces its upcoming Robotics Competition set to ignite the campus with technological brilliance and inventive spirit.
                 Event Overview:
                 In the spirit of fostering creativity and technological prowess, our Robotics Competition provides a platform for students to showcase their engineering skills and problem-solving acumen. Participants will design and program robots to navigate challenges, promoting teamwork, critical thinking, and hands-on application of robotics concepts.
                 Competition Categories:

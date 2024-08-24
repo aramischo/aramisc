@@ -39,16 +39,16 @@ class StaffsTableSeeder  extends Seeder
                     'position' => $i++,
                 ]);
 
-                $aramiscAttendance_type = ['P', 'L', 'A', 'F'];
+                $attendance_type = ['P', 'L', 'A', 'F'];
                 foreach(lastOneMonthDates() as $date){
-                    shuffle($aramiscAttendance_type);
-                    $aramiscAttendanceStaff = new SmStaffAttendence();
-                    $aramiscAttendanceStaff->staff_id = $s->id;
-                    $aramiscAttendanceStaff->school_id = $school_id;
-                    $aramiscAttendanceStaff->attendence_type = $aramiscAttendance_type[0];
-                    $aramiscAttendanceStaff->notes = $aramiscAttendanceStaff->aramiscAttendance_type == "P" ? "Good" : "Bad";
-                    $aramiscAttendanceStaff->attendence_date = $date;
-                    $aramiscAttendanceStaff->save();
+                    shuffle($attendance_type);
+                    $attendanceStaff = new SmStaffAttendence();
+                    $attendanceStaff->staff_id = $s->id;
+                    $attendanceStaff->school_id = $school_id;
+                    $attendanceStaff->attendence_type = $attendance_type[0];
+                    $attendanceStaff->notes = $attendanceStaff->attendance_type == "P" ? "Good" : "Bad";
+                    $attendanceStaff->attendence_date = $date;
+                    $attendanceStaff->save();
                 }
             });
         });

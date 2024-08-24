@@ -52,16 +52,16 @@
     <div class="container section_padding px-3 px-sm-0">
 
         <div class="mark_sheet_print_btn mb-4 d-flex justify-content-end">
-            <a href="#" id="printMarksheet"><i class="fas fa-print"></i> @lang('reports.print')</a>
+            <a href="#" id="printMarksheet"><i class="fas fa-print"></i> @lang('edulia.print')</a>
         </div>
 
-        <div class="marksheet_container">
+        <div class="marksheet_container" id="print_sheet">
             <div class="institute_info text-center mb-2">
                 <h3 class="institute_name text-uppercase mb-0">
-                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Aramisc School Management ERP' }}
+                    {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Infix School Management ERP' }}
                 </h3>
                 <p class="institute_address">
-                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Aramisc School Address' }}</p>
+                    {{ isset(generalSetting()->address) ? generalSetting()->address : 'Infix School Address' }}</p>
                 <p class="institute_address" style="font-size: 16px;">
                     @lang('common.email'): <span
                         class="text-lowercase">{{ isset(generalSetting()->email) ? generalSetting()->email : 'admin@demo.com' }}</span>,
@@ -72,7 +72,7 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-4 order-3 order-md-1 text-center text-md-start">
-                    <img src="{{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                    <img src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
                         class="student_photo" alt="">
                 </div>
                 <div
@@ -92,9 +92,9 @@
                             id="grade_table">
                             <thead>
                                 <tr>
-                                    <th>@lang('reports.staring')
+                                    <th>@lang('edulia.starting')
                                     </th>
-                                    <th>@lang('reports.ending')
+                                    <th>@lang('edulia.ending')
                                     </th>
                                     @if (@$generalsettingsResultType != 'mark')
                                         <th>@lang('exam.gpa')
@@ -134,19 +134,19 @@
             <div class="row my-3 student_info_section">
                 <div class="col-md-7 col-lg-8">
                     <ul>
-                        <li><span class="student_info_type">@lang('reports.students_name')</span><span class="info_separetor">:</span><b
+                        <li><span class="student_info_type">@lang('edulia.students_name')</span><span class="info_separetor">:</span><b
                                 class="text-uppercase">{{ $student_detail->studentDetail->full_name }}</b></li>
-                        <li><span class="student_info_type">@lang('reports.fathers_name')</span><span class="info_separetor">:</span><b
+                        <li><span class="student_info_type">@lang('edulia.fathers_name')</span><span class="info_separetor">:</span><b
                                 class="text-uppercase">{{ $student->parents->fathers_name }}</b></li>
-                        <li><span class="student_info_type">@lang('reports.mothers_name')</span><span class="info_separetor">:</span><b
+                        <li><span class="student_info_type">@lang('edulia.mothers_name')</span><span class="info_separetor">:</span><b
                                 class="text-uppercase">{{ $student->parents->mothers_name }}</b>
                         </li>
-                        <li><span class="student_info_type">@lang('reports.students_id')</span><span
+                        <li><span class="student_info_type">@lang('edulia.students_id')</span><span
                                 class="info_separetor">:</span><b>{{ @$student_detail->student->admission_no }}</b></li>
-                        <li><span class="student_info_type">@lang('reports.date_of_birth')</span><span
+                        <li><span class="student_info_type">@lang('edulia.date_of_birth')</span><span
                                 class="info_separetor">:</span><b>{{ $student_detail->studentDetail->date_of_birth != '' ? dateConvert($student_detail->studentDetail->date_of_birth) : '' }}</b>
                         </li>
-                        <li><span class="student_info_type">@lang('reports.roll')</span><span
+                        <li><span class="student_info_type">@lang('edulia.roll')</span><span
                                 class="info_separetor">:</span><b>{{ $student_detail->studentDetail->roll_no }}</b>
                         </li>
 
@@ -154,21 +154,21 @@
                 </div>
                 <div class="col-md-5 col-lg-4">
                     <ul>
-                        <li><span class="student_info_type">@lang('reports.class')</span><span
+                        <li><span class="student_info_type">@lang('edulia.class')</span><span
                                 class="info_separetor">:</span><b>{{ $student_detail->class->class_name }}</b>
                         </li>
-                        <li><span class="student_info_type">@lang('reports.section')</span><span
+                        <li><span class="student_info_type">@lang('edulia.section')</span><span
                                 class="info_separetor">:</span><b>{{ $student_detail->section->section_name }}</b>
                         </li>
-                        <li><span class="student_info_type">@lang('reports.group')</span><span class="info_separetor">:</span><b
+                        <li><span class="student_info_type">@lang('edulia.group')</span><span class="info_separetor">:</span><b
                                 class="text-uppercase">{{ $student->student_group_id ? $student->group->group : 'N/A' }}</b>
                         </li>
-                        <li><span class="student_info_type">@lang('reports.examination')</span><span
+                        <li><span class="student_info_type">@lang('edulia.examination')</span><span
                                 class="info_separetor">:</span><b>{{ $exam_details->title }}</b></li>
-                        <li><span class="student_info_type">@lang('reports.year')</span><span
+                        <li><span class="student_info_type">@lang('edulia.year')</span><span
                                 class="info_separetor">:</span><b>{{ @$student_detail->academic->year }}</b>
                         </li>
-                        <li><span class="student_info_type">@lang('reports.publish_date')</span><span
+                        <li><span class="student_info_type">@lang('edulia.publish_date')</span><span
                                 class="info_separetor">:</span><b>{{ dateConvert($exam_content->publish_date) }}</b></li>
                     </ul>
                 </div>
@@ -178,15 +178,15 @@
                 <table class="w-100 table-bordered marksheet_table">
                     <thead>
                         <tr>
-                            <th style="width:200px">@lang('reports.subject')</th>
-                            <th>@lang('reports.full_marks')</th>
-                            <th>@lang('reports.highest_marks')</th>
-                            <th>@lang('reports.obtained_marks')</th>
+                            <th style="width:200px">@lang('edulia.subject')</th>
+                            <th>@lang('edulia.full_marks')</th>
+                            <th>@lang('edulia.highest_marks')</th>
+                            <th>@lang('edulia.obtained_marks')</th>
                             @if (@$generalsettingsResultType != 'mark')
-                                <th>@lang('reports.grade_point')</th>
-                                <th>@lang('reports.letter_grade')</th>
+                                <th>@lang('edulia.grade_point')</th>
+                                <th>@lang('edulia.letter_grade')</th>
                             @endif
-                            <th>@lang('reports.remarks')</th>
+                            <th>@lang('edulia.remarks')</th>
                             @if (@$generalsettingsResultType == 'mark')
                                 <th>@lang('homework.evaluation')</th>
                                 <th>@lang('exam.pass_fail')</th>
@@ -195,6 +195,9 @@
                     </thead>
                     <tbody>
                         @php
+                            $total_total_obtained_mark = 0;
+                            $total_total_full_mark = 0;
+
                             $optional_countable_gpa = 0;
                             $main_subject_total_gpa = 0;
                             $Optional_subject_count = 0;
@@ -230,7 +233,9 @@
                                     @if (@$generalsettingsResultType == 'mark')
                                         {{ subject100PercentMark() }}
                                     @else
-                                        {{ $total_full_mark += @subjectFullMark($exam_details->id, $data->subject->id, $class_id, $section_id) }}
+
+                                        {{ $total_full_mark = @subjectFullMark($exam_details->id, $data->subject->id, $class_id, $section_id) }}
+                                         @php $total_total_full_mark += $total_full_mark @endphp
                                     @endif
                                 </td>
                                 <td>
@@ -244,7 +249,8 @@
                                     @if (@$generalsettingsResultType == 'mark')
                                         {{ @singleSubjectMark($data->student_record_id, $data->subject_id, $data->exam_type_id)[0] }}
                                     @else
-                                        {{ $total_obtained_mark += @$data->total_marks }}
+                                        {{ $total_obtained_mark = @$data->total_marks }}
+                                        @php $total_total_obtained_mark += @$total_obtained_mark @endphp
                                     @endif
                                     @php
                                         if (@$generalsettingsResultType == 'mark') {
@@ -313,10 +319,10 @@
                             }
                         @endphp
                         <tr class="total">
-                            <td>@lang('reports.total')</td>
-                            <td>{{ $total_full_mark }}</td>
+                            <td>@lang('edulia.total')</td>
+                            <td>{{ $total_total_full_mark }}</td>
                             <td></td>
-                            <td>{{ $total_obtained_mark }}</td>
+                            <td>{{ $total_total_obtained_mark }}</td>
                             <td></td>
                             <td>{{ @$grade_details->grade_name }}</td>
                             <td></td>
@@ -331,22 +337,22 @@
                         <table class="table-bordered w-100 final_result">
                             <tbody>
                                 <tr>
-                                    <td width="15%">@lang('reports.gpa')</td>
+                                    <td width="15%">@lang('edulia.gpa')</td>
                                     <td width="5%">{{ $gpa }}</td>
-                                    <td width="15%">@lang('reports.grade')</td>
+                                    <td width="15%">@lang('edulia.grade')</td>
                                     <td width="5%">{{ @$grade_details->grade_name }}</td>
-                                    <td width="15%">@lang('reports.status')</td>
+                                    <td width="15%">@lang('edulia.status')</td>
                                     <td width="15%">{{ @$grade_details->description }}</td>
-                                    <td width="15%">@lang('reports.aramiscAttendance')</td>
+                                    <td width="15%">@lang('edulia.attendance')</td>
                                     @if (isset($exam_content))
                                         <td width="15%">
-                                            {{ @$student_aramiscAttendance }}
-                                            @lang('reports.of')
+                                            {{ @$student_attendance }}
+                                            @lang('edulia.of')
                                             {{ @$total_class_days }}
                                         </td>
                                     @else
                                         <td width="15%">
-                                            @lang('reports.no_data_found')
+                                            @lang('edulia.no_data_found')
                                         </td>
                                     @endif
                                 </tr>
@@ -356,9 +362,9 @@
 
                     <div class="remarks mt-3">
                         @if (@$grade_details->grade_name == 'F')
-                            @lang('reports.you_have_failed')
+                            @lang('edulia.you_have_failed')
                         @else
-                            @lang('reports.you_have_passed')
+                            @lang('edulia.you_have_passed')
                         @endif
                     </div>
                 </div>
@@ -368,11 +374,11 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="row align-items-end">
                             <div class="col-sm-4">
-                                <div class="signature_area">@lang('reports.guardian')</div>
+                                <div class="signature_area">@lang('edulia.guardian')</div>
                             </div>
 
                             <div class="col-sm-4">
-                                <div class="signature_area">@lang('reports.class_teacher')</div>
+                                <div class="signature_area">@lang('edulia.class_teacher')</div>
                             </div>
 
                             <div class="col-sm-4 text-center">
@@ -388,8 +394,10 @@
             @endif
         </div>
     </div>
+    <footer>
+        {{footerContent()}}
+    </footer>
 @endsection
-{{footerContent()}}
 @pushonce(config('pagebuilder.site_script_var'))
     <script>
         $("#printMarksheet").on("click", function(e) {
@@ -398,3 +406,4 @@
         })
     </script>
 @endpushonce
+

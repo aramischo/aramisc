@@ -7,7 +7,7 @@ if(isset($_GET['send_notification'])){
 function send_notification()
 {
 	
-	//echo 'Aramisc';
+	//echo 'Infix Edu';
 define( 'API_ACCESS_KEY', 'AAAA5ZKAL1I:APA91bFSF0aIpn2uayU2SJ7Ov8Krc3xlQVqwEBYt0FOyDxswMgDVOq7hKoOkRVm5gGd_YxWzwe_kl-POUQE13twf65yxpd3dRffEjNqaXTdl7x-lCCkIY7YYOD4pVjaHWNazHJSgB6xp');
  //   $registrationIds = ;
 #prep the bundle

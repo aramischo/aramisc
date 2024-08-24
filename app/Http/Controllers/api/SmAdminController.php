@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\User;
-use App\SmVisitor;
-use App\SmComplaint;
+use App\AramiscVisitor;
+use App\AramiscComplaint;
 use App\ApiBaseMethod;
 use App\SmGeneralSettings;
 use Illuminate\Http\Request;
@@ -70,7 +70,7 @@ class SmAdminController extends SmBaseController
     // visitor method
     public function visitor()
     {
-        $visitors = SmVisitor::all();
+        $visitors = AramiscVisitor::all();
         return $this->sendResponse($visitors->toArray(), 'Visitors retrieved successfully.');
     }
 
@@ -109,7 +109,7 @@ class SmAdminController extends SmBaseController
         }
 
 
-        $visitor = new SmVisitor();
+        $visitor = new AramiscVisitor();
 
         $visitor->name = $request->name;
         $visitor->phone = $request->phone;
@@ -131,7 +131,7 @@ class SmAdminController extends SmBaseController
 
     public function visitorEdit($id)
     {
-        $visitor = SmVisitor::find($id);
+        $visitor = AramiscVisitor::find($id);
 
 
         if (is_null($visitor)) {
@@ -167,7 +167,7 @@ class SmAdminController extends SmBaseController
 
         $fileName = "";
         if ($request->file('file') != "") {
-            $visitor = SmVisitor::find($request->id);
+            $visitor = AramiscVisitor::find($request->id);
             if ($visitor->file != "") {
                 $path = url('/') . '/public/uploads/visitor/' . $visitor->file;
                 if (file_exists($path)) {
@@ -181,7 +181,7 @@ class SmAdminController extends SmBaseController
         }
 
 
-        $visitor = SmVisitor::find($request->id);
+        $visitor = AramiscVisitor::find($request->id);
 
         $visitor->name = $request->name;
         $visitor->phone = $request->phone;
@@ -209,7 +209,7 @@ class SmAdminController extends SmBaseController
 
     public function visitorDelete($id)
     {
-        $visitor = SmVisitor::find($id);
+        $visitor = AramiscVisitor::find($id);
         if ($visitor->file != "") {
             if (file_exists($visitor->file)) {
                 unlink($visitor->file);
@@ -231,7 +231,7 @@ class SmAdminController extends SmBaseController
     // complaint method
     public function complaint()
     {
-        $complaints = SmComplaint::all();
+        $complaints = AramiscComplaint::all();
         return $this->sendResponse($complaints->toArray(), 'Complaint retrieved successfully.');
     }
 
@@ -266,7 +266,7 @@ class SmAdminController extends SmBaseController
         }
 
 
-        $complaint = new SmComplaint();
+        $complaint = new AramiscComplaint();
         $complaint->complaint_by = $request->complaint_by;
         $complaint->complaint_type = $request->complaint_type;
         $complaint->complaint_source = $request->complaint_source;

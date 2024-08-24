@@ -167,7 +167,7 @@
                                         <td>{{@$assign_subject->class !=""? @$assign_subject->class->class_name:""}}({{@$assign_subject->section !=""?@$assign_subject->section->section_name:""}})</td>
                                             @foreach($exam_periods as $exam_period)
                                                 @php
-                                                    $assigned_routine = App\SmExamSchedule::assignedRoutine($class_id, $assign_subject->section_id, $exam_id, $assign_subject->subject_id, $exam_period->id);
+                                                    $assigned_routine = App\AramiscExamSchedule::assignedRoutine($class_id, $assign_subject->section_id, $exam_id, $assign_subject->subject_id, $exam_period->id);
                                                 @endphp
                                             <td>
                                                 @if(@$assigned_routine == "")

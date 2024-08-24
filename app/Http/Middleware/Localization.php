@@ -23,16 +23,17 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-        //if (Storage::exists('.app_installed') and Storage::get('.app_installed')) {
+       
+        if (Storage::exists('.app_installed') and Storage::get('.app_installed')) {
             App::setLocale(getUserLanguage());
             Cache::forget('translations');
-            //if (Storage::exists('.app_installed') && Storage::get('.app_installed') && DB::connection()->getDatabaseName() != '') {
+            if (Storage::exists('.app_installed') && Storage::get('.app_installed') && DB::connection()->getDatabaseName() != '') {
                 if (Schema::hasTable('sm_languages')) {
                     Cache::remember('translations', Carbon::now()->addHours(6), function () {
                         return $this->getTranslations();
                     });
                 }
-            //}
+            }
             try {
                 $school_id = 1 ;
                 if (auth()->check()) {
@@ -44,7 +45,7 @@ class Localization
             } catch (\Throwable $th) {
                 throw $th;
             }
-        //}
+        }
         return $next($request);
     }
 

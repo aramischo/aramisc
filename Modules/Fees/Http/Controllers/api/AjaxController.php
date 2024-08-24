@@ -2,12 +2,12 @@
 
 namespace Modules\Fees\Http\Controllers\api;
 
-use App\SmSection;
+use App\AramiscSection;
 use App\SmAddIncome;
 use App\SmBankAccount;
 use App\SmClassSection;
 use App\SmAssignSubject;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use Illuminate\Routing\Controller;
@@ -34,7 +34,7 @@ class AjaxController extends Controller
                                 'fine'=>$value->fine,
                             ];
                         });
-        $paymentMethods = SmPaymentMethhod::whereIn('method', ['Cash','Cheque','Bank'])->get();
+        $paymentMethods = AramiscPaymentMethhod::whereIn('method', ['Cash','Cheque','Bank'])->get();
         $banks = SmBankAccount::where('school_id', auth()->user()->school_id)->get();
         return response()->json(compact('feesinvoice', 'feesTranscations','paymentMethods','banks'));
     }
@@ -98,7 +98,7 @@ class AjaxController extends Controller
             }
             $promote_sections = [];
             foreach ($sectionIds as $sectionId) {
-                $promote_sections[] = SmSection::where('id', $sectionId->section_id)
+                $promote_sections[] = AramiscSection::where('id', $sectionId->section_id)
                                     ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                                     ->first(['id','section_name']);
             }

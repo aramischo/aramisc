@@ -42,6 +42,8 @@ $page->group(function () {
 
 $pBuilder->group(function () {
     Route::get('header/build', 'header')->name('pagebuilder.header');
+    Route::get('frontend-reset/{slug}', 'frontendReset')->name('pagebuilder.frontend.reset');
+
     Route::get('footer/build', 'footer')->name('pagebuilder.footer');
     Route::get('pages/{id}/build', 'build')->name('pagebuilder.build');
     Route::post('pages/{id}/store', 'storeComponentData');

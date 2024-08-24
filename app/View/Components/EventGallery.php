@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\SmEvent;
+use App\AramiscEvent;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -28,7 +28,7 @@ class EventGallery extends Component
 
     public function render(): View|Closure|string
     {
-        $events = SmEvent::query();
+        $events = AramiscEvent::query();
         $events = $events->where('school_id', app('school')->id);
         if($this->sorting =='asc'){
             $events->orderBy('id','asc');

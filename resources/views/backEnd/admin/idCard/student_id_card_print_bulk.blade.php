@@ -354,7 +354,7 @@
                                     
                                                     <div class="card_text_head hStudentName" style="line-height:1.02; display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom:10px"> 
                                                         <div class="card_text_left">
-                                                            {{-- <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 0px; font-size:11px; font-weight:600 ; text-transform: uppercase; color: #2656a6;">aramisc</h3> --}}
+                                                            {{-- <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 0px; font-size:11px; font-weight:600 ; text-transform: uppercase; color: #2656a6;">InfixEdu</h3> --}}
                                                             @if($id_card->phone_number == 1)
                                                                 <div id="hPhoneNumber">
                                                                     <h4 style="line-height:1.02; margin-top: 0; margin-bottom: 3px; font-size:10px; font-weight:500">{{$staff_student->guardians_mobile ? $staff_student->guardians_mobile :  $staff_student->fathers_mobile}}</h4>
@@ -369,7 +369,7 @@
                                                             margin: 15px 0 2px 0;
                                                             justify-content: space-between;">
                                                             @php
-                                                                $studentInfos= App\SmStudentIdCard::studentName($staff_student->id);
+                                                                $studentInfos= App\AramiscStudentIdCard::studentName($staff_student->id);
                                                             @endphp
                                                             @foreach ($studentInfos as $studentInfo)
                                                                 <div class="single__child" style="text-align: center; flex: 45px 0 0;">
@@ -436,7 +436,7 @@
                                                         </div>
                                                     </div>
                                                     @php
-                                                        $studentInfos= App\SmStudentIdCard::studentName($staff_student->id);
+                                                        $studentInfos= App\AramiscStudentIdCard::studentName($staff_student->id);
                                                     @endphp
                                                     <div class="child__thumbs" style="display:flex; align-items: center; margin:  0px 0 0px 0; display: flex;
                                                         align-items: flex-start;

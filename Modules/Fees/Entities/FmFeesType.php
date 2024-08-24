@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class FmFeesType extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'id' => 'integer',
+        'fees_group_id' => 'integer',
+        'name' => 'string',
+        'description' => 'string',
+    ];
+    
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new AcademicSchoolScope);

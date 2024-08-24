@@ -252,8 +252,8 @@
                                         <img  src="{{asset('/')}}{{generalSetting()->logo }}" alt="{{$school_name}}">
                                     </div>
                                     <div class="company_info">
-                                        <h3>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                        <h5>{{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}</h5>
+                                        <h3>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                        <h5>{{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}}</h5>
                                     </div>
                                 </div>
                             </td>

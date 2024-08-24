@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use Validator;
-use App\SmRoute;
+use App\AramiscRoute;
 use App\ApiBaseMethod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,7 +35,7 @@ class SaasRouteController extends Controller
 
         }
         try{
-            $routes = SmRoute::where('school_id', '=', $request->school_id)->get();
+            $routes = AramiscRoute::where('school_id', '=', $request->school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($routes, null);
@@ -72,7 +72,7 @@ class SaasRouteController extends Controller
 
         
         try{
-            $route = new SmRoute();
+            $route = new AramiscRoute();
             $route->title = $request->title;
             $route->far = $request->far;
             $route->school_id = $request->school_id;
@@ -95,8 +95,8 @@ class SaasRouteController extends Controller
     {
         
         try{
-            $route = SmRoute::find($id);
-            $routes = SmRoute::where('school_id', '=', $request->school_id)->get();
+            $route = AramiscRoute::find($id);
+            $routes = AramiscRoute::where('school_id', '=', $request->school_id)->get();
     
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -136,7 +136,7 @@ class SaasRouteController extends Controller
         }
         
         try{
-            $route = SmRoute::find($request->id);
+            $route = AramiscRoute::find($request->id);
             $route->title = $request->title;
             $route->far = $request->far;
             $route->updated_by=$request->updated_by;
@@ -160,7 +160,7 @@ class SaasRouteController extends Controller
         try{
             $tables = \App\tableList::getTableList('route_id',$id);
             try {
-                $route = SmRoute::destroy($id);
+                $route = AramiscRoute::destroy($id);
                 if ($route) {
     
                     if (ApiBaseMethod::checkUrl($request->fullUrl())) {

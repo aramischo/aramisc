@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Academics;
 
 use App\SmClass;
 use App\SmStaff;
-use App\SmSection;
+use App\AramiscSection;
 use App\SmClassSection;
 use App\SmClassTeacher;
 use Illuminate\Http\Request;
@@ -100,7 +100,7 @@ class SmAssignClassTeacherController extends Controller
             })->get();
             $assign_class_teachers = SmAssignClassTeacher::with('class', 'section', 'classTeachers')->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $assign_class_teacher = SmAssignClassTeacher::find($id);
-            $sections = SmSection::get();
+            $sections = AramiscSection::get();
 
             $teacherId = array();
             foreach ($assign_class_teacher->classTeachers as $classTeacher) {

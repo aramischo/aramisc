@@ -12,7 +12,7 @@ class CustomResultSetting extends Model
 {
 
     public function examTypeName(){
-        return $this->belongsTo('App\SmExamType','exam_type_id','id');
+        return $this->belongsTo('App\AramiscExamType','exam_type_id','id');
 
     }
     public static function getGpa($marks){

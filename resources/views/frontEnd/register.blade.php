@@ -32,7 +32,7 @@ $ttl_rtl = $setting->ttl_rtl;
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/themify-icons.css" />
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/aramisc.css" />
+    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/infix.css" />
 
     <style>
 

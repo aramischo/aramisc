@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\SmSchool;
 use App\SmStaff;
-use App\SmStudent;
+use App\AramiscStudent;
 use Illuminate\Console\Command;
 
 class BirthDaySms extends Command
@@ -43,7 +43,7 @@ class BirthDaySms extends Command
         date_default_timezone_set(timeZone());
         $currentDate = date('-m-d');
 
-        $allStudents = SmStudent::where('date_of_birth', 'like', '%'. $currentDate)->get();
+        $allStudents = AramiscStudent::where('date_of_birth', 'like', '%'. $currentDate)->get();
         foreach($allStudents as $student){
             $compact['user_email'] = $student->email;
             @send_sms($student->mobile, 'student_birthday', $compact, $student->school_id);

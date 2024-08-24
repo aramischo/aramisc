@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\Fees\Entities\FmFeesInvoiceSettings;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\InfixModuleInfo;
 
 class CreateFmFeesInvoiceSettingsTable extends Migration
 {
@@ -31,7 +31,7 @@ class CreateFmFeesInvoiceSettingsTable extends Migration
             $store = new FmFeesInvoiceSettings();
             $store->invoice_positions = '[{"id":"prefix","text":"prefix"},{"id":"admission_no","text":"Admission No"},{"id":"class","text":"Class"},{"id":"section","text":"Section"}]';
             $store->uniq_id_start = "0011";
-            $store->prefix = 'aramisc';
+            $store->prefix = 'infixEdu';
             $store->class_limit = 3;
             $store->section_limit = 1;
             $store->admission_limit = 3;
@@ -40,7 +40,7 @@ class CreateFmFeesInvoiceSettingsTable extends Migration
             $store->save();
         }
 
-        $feesAramiscModuleInfos = [
+        $feesInfixModuleInfos = [
             [1130, 250, 0, '1', 0,'Fees','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
             [1131, 250, 1130, '2', 0,'Fees Group','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
             [1132, 250, 1131, '3', 0,'Add','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -82,12 +82,12 @@ class CreateFmFeesInvoiceSettingsTable extends Migration
         ];
 
         try {
-            foreach ($feesAramiscModuleInfos as $data) {
-                $checkExist = AramiscModuleInfo::find($data[0]);
+            foreach ($feesInfixModuleInfos as $data) {
+                $checkExist = InfixModuleInfo::find($data[0]);
                 if ($checkExist) {
                      continue;
                 } 
-                $feesInvoiceData = new AramiscModuleInfo;
+                $feesInvoiceData = new InfixModuleInfo;
                 $feesInvoiceData->id = $data[0];
                 $feesInvoiceData->module_id = $data[1];
                 $feesInvoiceData->parent_id = $data[2];

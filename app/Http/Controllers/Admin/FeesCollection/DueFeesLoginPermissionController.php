@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Admin\FeesCollection;
 
 use App\User;
 use App\SmClass;
-use App\SmStudent;
+use App\AramiscStudent;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Models\DueFeesLoginPrevent;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class DueFeesLoginPermissionController extends Controller
 {
     public function index(){
         try{
-            $roles = AramiscRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
+            $roles = InfixRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
             $classes = SmClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
             return view('backEnd.feesCollection.due_fees_login_permission', compact('roles', 'classes'));
         }
@@ -28,7 +28,7 @@ class DueFeesLoginPermissionController extends Controller
 
     public function search(Request $request){
         try{
-            $roles = AramiscRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
+            $roles = InfixRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
             $classes = SmClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
             $records = StudentRecord::query();
             $records->where('is_promote', 0)->where('school_id',auth()->user()->school_id);
@@ -66,7 +66,7 @@ class DueFeesLoginPermissionController extends Controller
                 $query->where('un_semester_label_id', $request->un_semester_label_id);
             });
             $student_records = $records->where('is_promote', 0)->whereHas('student')->get(['student_id'])->unique('student_id')->toArray();
-            $all_students =  SmStudent::with('studentRecords', 'parents','studentRecords.class','studentRecords.section','parents.parent_user')->whereIn('id',$student_records)
+            $all_students =  AramiscStudent::with('studentRecords', 'parents','studentRecords.class','studentRecords.section','parents.parent_user')->whereIn('id',$student_records)
                                     ->where('active_status', 1)
                                     ->with(array('parents' => function ($query) {
                                         $query->select('id', 'fathers_name','user_id');

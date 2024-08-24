@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\SmNews;
+use App\AramiscNews;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -25,7 +25,7 @@ class News extends Component
     
     public function render(): View|Closure|string
     {
-        $news = SmNews::query();
+        $news = AramiscNews::query();
         $news->where('school_id', app('school')->id)->where('status', 1);
 
         if($this->sorting =='asc'){

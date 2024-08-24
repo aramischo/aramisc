@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin\Leave;
 use App\User;
 use App\SmClass;
 use App\SmStaff;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmLeaveType;
 use App\SmLeaveDefine;
+use App\GlobalVariable;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\University\Entities\UnSemesterLabel;
 use App\Http\Requests\Admin\Leave\SmLeaveDefineRequest;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
@@ -33,7 +34,7 @@ class SmLeaveDefineController extends Controller
     {
         try {
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 3)->where('id', '!=', GlobalVariable::isAlumni())->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $classes = SmClass::get(['id', 'class_name']);
@@ -68,7 +69,6 @@ class SmLeaveDefineController extends Controller
                     } else {
                         $leave_define->academic_id = getAcademicId();
                     }
-                    $leave_define->academic_id = getAcademicId();
                     if (is_numeric($request->student)) {
                         $leave_define->user_id = $request->student;
                     } elseif (is_numeric($request->staff)) {
@@ -137,7 +137,7 @@ class SmLeaveDefineController extends Controller
         try {
             $data = [];
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = AramiscRole::where('active_status', 1)->where(function ($q) {
+            $roles = InfixRole::where('active_status', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $leave_defines = SmLeaveDefine::get();
@@ -147,7 +147,7 @@ class SmLeaveDefineController extends Controller
             $student = null;
             $staff = null;
             if ($leave_define->role_id == 2) {
-                $smStudent = SmStudent::where('user_id', $user->id)->first();
+                $smStudent = AramiscStudent::where('user_id', $user->id)->first();
                 $student = StudentRecord::where('student_id', $smStudent->id)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', auth()->user()->school_id)

@@ -181,8 +181,8 @@
                                         <p class="mb-0">@lang('student.total_pending_home_work')</p>
                                     </div>
                                     <h1 class="gradient-color2">
-                                        @if (isset($aramiscHomeworkLists))
-                                            {{ count(@$aramiscHomeworkLists) }}
+                                        @if (isset($homeworkLists))
+                                            {{ count(@$homeworkLists) }}
                                         @endif
                                     </h1>
                                 </div>
@@ -190,18 +190,18 @@
                         </a>
                     </div>
                 @endif
-                @if (userPermission('dashboard-aramiscAttendance-in-current-month'))
+                @if (userPermission('dashboard-attendance-in-current-month'))
                     <div class="col-lg-3 col-md-6">
-                        <a href="{{ route('student_my_aramiscAttendance') }}" class="d-block">
+                        <a href="{{ route('student_my_attendance') }}" class="d-block">
                             <div class="white-box single-summery blue">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h3>@lang('student.aramiscAttendance_in_current_month')</h3>
-                                        <p class="mb-0">@lang('student.total_aramiscAttendance_in_current_month')</p>
+                                        <h3>@lang('student.attendance_in_current_month')</h3>
+                                        <p class="mb-0">@lang('student.total_attendance_in_current_month')</p>
                                     </div>
                                     <h1 class="gradient-color2">
-                                        @if (isset($aramiscAttendances))
-                                            {{ count(@$aramiscAttendances) }}
+                                        @if (isset($attendances))
+                                            {{ count(@$attendances) }}
                                         @endif
                                     </h1>
                                 </div>
@@ -221,9 +221,9 @@
                             $fine = $studentInvoice->Tfine;
                             $paid_amount = $studentInvoice->Tpaidamount;
                             $sub_total = $studentInvoice->Tsubtotal;
-                            $feesDue = $amount + $fine - ($paid_amount + $weaver);
+                            $feesDue += $amount + $fine - ($paid_amount + $weaver);
                         }
-                        foreach ($record->aramiscDirectFeesInstallments as $feesInstallment) {
+                        foreach ($record->directFeesInstallments as $feesInstallment) {
                             $balance_fees += discount_fees($feesInstallment->amount, $feesInstallment->discount_amount) - $feesInstallment->paid_amount;
                         }
                         foreach ($record->incidents as $incident) {
@@ -240,10 +240,25 @@
                                     <p class="mb-0">@lang('student.total_due_fees')</p>
                                 </div>
                                 <h1 class="gradient-color2">
-                                    @if (generalSetting()->fees_status == 0)
-                                        {{ $currency }}{{ $balance_fees }}
-                                    @elseif (isset($feesDue))
-                                        {{ $currency }}{{ $feesDue }}
+                                    @if(!moduleStatusCheck('University'))
+                                        @if (generalSetting()->fees_status == 0)
+                                            @if (directFees())
+                                                {{ $currency }}{{ $balance_fees }}
+                                            @else
+                                                {{ $currency }}{{ $old_fees }}
+                                            @endif
+                                        @elseif (isset($feesDue))
+                                            {{ $currency }}{{ $feesDue }}
+                                        @endif
+                                    @else
+                                        @if (generalSetting()->fees_status == 1)
+                                            {{ $currency }}{{ $feesDue }}
+
+                                        @else 
+                                            @if (isset($due_amount))
+                                                {{ $currency }}{{ $due_amount }}
+                                            @endif
+                                        @endif
                                     @endif
                                 </h1>
                             </div>
@@ -279,9 +294,9 @@
                         'routineDashboard' => $routineDashboard,
                     ])
                 @endif
-                @if (userPermission('student_my_aramiscAttendance'))
-                    @include('backEnd.studentPanel.inc._aramiscAttendance_statistics')
-                    @include('backEnd.studentPanel.inc._dashboard_subject_aramiscAttendance_tab')
+                @if (userPermission('student_my_attendance'))
+                    @include('backEnd.studentPanel.inc._attendance_statistics')
+                    @include('backEnd.studentPanel.inc._dashboard_subject_attendance_tab')
                 @endif
                 <div class="col-md-12 mt-40">
                     <div class="white-box">
@@ -334,7 +349,7 @@
                                             @if ($record->Exam)
                                                 @foreach ($record->Exam as $key => $exam)
                                                     @php
-                                                        $exam_routines = App\SmExamSchedule::getAllExams($exam->class_id, $exam->section_id, $exam->exam_type_id);
+                                                        $exam_routines = App\AramiscExamSchedule::getAllExams($exam->class_id, $exam->section_id, $exam->exam_type_id);
                                                     @endphp
                                                     <div role="tabpanel"
                                                         class="tab-pane fade  @if ($key == 0) active show @endif"

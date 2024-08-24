@@ -10,7 +10,7 @@ use App\SmBankAccount;
 use App\SmLeaveDefine;
 use App\SmBankStatement;
 use App\SmChartOfAccount;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use App\SmGeneralSettings;
 use App\SmStaffAttendence;
 use App\SmHrPayrollGenerate;
@@ -24,7 +24,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class SmPayrollController extends Controller
 {
@@ -39,7 +39,7 @@ class SmPayrollController extends Controller
     {
 
         try {
-            $data['roles'] = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
+            $data['roles'] = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 10)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })
                 ->orderBy('name', 'asc')
@@ -79,7 +79,7 @@ class SmPayrollController extends Controller
 
             $staffs = SmStaff::where('active_status', '=', '1')->whereRole($role_id)->where('school_id', Auth::user()->school_id)->get();
 
-            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             return view('backEnd.humanResource.payroll.index', compact('staffs', 'roles', 'payroll_month', 'payroll_year', 'role_id'));
@@ -97,7 +97,7 @@ class SmPayrollController extends Controller
             // return $staffDetails;
             $month = date('m', strtotime($payroll_month));
 
-            $aramiscAttendances = SmStaffAttendence::where('staff_id', $id)->where('attendence_date', 'like', $payroll_year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
+            $attendances = SmStaffAttendence::where('staff_id', $id)->where('attendence_date', 'like', $payroll_year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
 
             $staff_leaves = SmLeaveDefine::where('user_id', $staffDetails->user_id)->where('role_id', $staffDetails->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $staff_leave_deduct_days = SmLeaveDeductionInfo::where('staff_id', $id)->where('pay_year', $payroll_year)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get()->sum("extra_leave");
@@ -124,7 +124,7 @@ class SmPayrollController extends Controller
             $a = 0;
             $f = 0;
             $h = 0;
-            foreach ($aramiscAttendances as $value) {
+            foreach ($attendances as $value) {
                 if ($value->attendence_type == 'P') {
                     $p++;
                 } elseif ($value->attendence_type == 'L') {
@@ -282,7 +282,7 @@ class SmPayrollController extends Controller
 
             $payrollDetails = SmHrPayrollGenerate::find($id);
 
-            $paymentMethods = SmPaymentMethhod::whereIn('method', ['Cash', 'Cheque', 'Bank'])
+            $paymentMethods = AramiscPaymentMethhod::whereIn('method', ['Cash', 'Cheque', 'Bank'])
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
@@ -392,7 +392,7 @@ class SmPayrollController extends Controller
             }
 
             $data['staffs'] = SmStaff::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
-            $data['roles'] = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $data['roles'] = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $data['payroll_month'] = $payroll_month;
@@ -445,7 +445,7 @@ class SmPayrollController extends Controller
     public function payrollReport(Request $request)
     {
         try {
-            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })
                 ->orderBy('name', 'asc')
@@ -492,7 +492,7 @@ class SmPayrollController extends Controller
 												WHERE pg.active_status =1 AND pg.school_id = '$school_id'
 												$query"))->get();
 
-            $roles = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             return view('backEnd.reports.payroll', compact('staffsPayroll', 'roles', 'payroll_month', 'payroll_year', 'role_id'));

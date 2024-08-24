@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\SmCustomLink;
+use App\AramiscCustomLink;
 use App\SmFrontendPersmission;
 use App\SmGeneralSettings;
 use App\SmHeaderMenuManager;
@@ -51,7 +51,7 @@ class SubdomainMiddleware
             $data = [
                 'social_permission' => SmFrontendPersmission::where('name', 'Social Icons')->where('parent_id', 1)->where('is_published', 1)->where('school_id', app('school')->id)->first(),
                 'menus' => $menus,
-                'custom_link' => SmCustomLink::where('school_id', app('school')->id)->first(),
+                'custom_link' => AramiscCustomLink::where('school_id', app('school')->id)->first(),
                 'social_icons' => SmSocialMediaIcon::where('school_id', app('school')->id)->where('status', 1)->get(),
                 'school' => $school,
             ];

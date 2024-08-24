@@ -14,7 +14,7 @@ class StudentSubjectWiseAttendancSearchRequest extends FormRequest
     {
         if (moduleStatusCheck('University')) {
             return [
-                'aramiscAttendance_date' => 'required|date',
+                'attendance_date' => 'required|date',
                 'un_session_id' => 'required',
                 'un_faculty_id' => 'sometimes|nullable',
                 'un_department_id' => 'required',
@@ -29,7 +29,7 @@ class StudentSubjectWiseAttendancSearchRequest extends FormRequest
                 'class_id' => 'required | numeric ',
                 'section_id' => 'required | numeric ',
                 'subject_id' => 'required | numeric ',
-                'aramiscAttendance_date' => 'required|date',
+                'attendance_date' => 'required|date',
             ];
         }
     }

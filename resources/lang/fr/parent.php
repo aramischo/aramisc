@@ -14,11 +14,11 @@ return [
 
 "total_pending_home_work" => "Nombre total de travaux en attente",
 
-"total_aramiscAttendance_in_current_month" => "Nombre total de participations dans le mois en cours",
+"total_attendance_in_current_month" => "Nombre total de participations dans le mois en cours",
 
 "pending_home_work" => "Travail à domicile en attente",
 
-"aramiscAttendance_in_current_month" => "Participation au mois en cours",
+"attendance_in_current_month" => "Participation au mois en cours",
 
 "my_children" => "Mes enfants",
 

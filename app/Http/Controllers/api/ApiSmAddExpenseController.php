@@ -8,7 +8,7 @@ use App\SmAddExpense;
 use App\ApiBaseMethod;
 use App\SmBankAccount;
 use App\SmChartOfAccount;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use App\SmGeneralSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +28,7 @@ class ApiSmAddExpenseController extends Controller
             $add_expenses = SmAddExpense::where('active_status', 1)->get();
             $expense_heads = SmChartOfAccount::where('type', "E")->where('active_status', 1)->get();
             $bank_accounts = SmBankAccount::where('active_status', '=', 1)->get();
-            $payment_methods = SmPaymentMethhod::where('active_status', '=', 1)->get();
+            $payment_methods = AramiscPaymentMethhod::where('active_status', '=', 1)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -152,7 +152,7 @@ class ApiSmAddExpenseController extends Controller
             $add_expenses = SmAddExpense::where('active_status', '=', 1)->get();
             $expense_heads = SmChartOfAccount::where('active_status', '=', 1)->get();
             $bank_accounts = SmBankAccount::where('active_status', '=', 1)->get();
-            $payment_methods = SmPaymentMethhod::where('active_status', '=', 1)->get();
+            $payment_methods = AramiscPaymentMethhod::where('active_status', '=', 1)->get();
     
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];

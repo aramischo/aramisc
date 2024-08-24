@@ -26,7 +26,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 use Modules\Saas\Entities\SaasSchoolModulePermissionAssign;
 
 class sm_schoolsSeeder extends Seeder
@@ -91,7 +91,7 @@ class sm_schoolsSeeder extends Seeder
         //     $staff->gender_id       = 1;
         //     $staff->school_id       = $i;
         //     $staff->email           = $email;
-        //     $staff->staff_photo     = 'public/uploads/staff/1_aramisc.jpg';
+        //     $staff->staff_photo     = 'public/uploads/staff/1_infix_edu.jpg';
         //     $staff->casual_leave    = '12';
         //     $staff->medical_leave   = '15';
         //     $staff->metarnity_leave = '15';
@@ -159,7 +159,7 @@ class sm_schoolsSeeder extends Seeder
             $staff->gender_id       = 1;
             $staff->school_id       = $i;
             $staff->email           = $email;
-            $staff->staff_photo     = 'public/uploads/staff/1_aramisc.jpg';
+            $staff->staff_photo     = 'public/uploads/staff/1_infix_edu.jpg';
             $staff->casual_leave    = '12';
             $staff->medical_leave   = '15';
             $staff->metarnity_leave = '15';
@@ -337,7 +337,7 @@ class sm_schoolsSeeder extends Seeder
             $s = new SmStyle();
             $s->style_name = 'Default';
             $s->path_main_style = 'style.css';
-            $s->path_aramisc_style = 'aramisc.css';
+            $s->path_infix_style = 'infix.css';
             $s->primary_color = 'var(--base_color)';
             $s->primary_color2 = '#7c32ff';
             $s->title_color = '#222222';
@@ -360,7 +360,7 @@ class sm_schoolsSeeder extends Seeder
             $s = new  SmStyle();
             $s->style_name = 'Lawn Green';
             $s->path_main_style = 'lawngreen_version/style.css';
-            $s->path_aramisc_style = 'lawngreen_version/aramisc.css';
+            $s->path_infix_style = 'lawngreen_version/infix.css';
             $s->primary_color = 'var(--base_color)';
             $s->primary_color2 = '#03e396';
             $s->title_color = '#222222';
@@ -440,7 +440,7 @@ class sm_schoolsSeeder extends Seeder
 
 
             for ($j = 1; $j <= 541; $j++) {
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $j;
                 $permission->role_id = 5;
                 $permission->school_id = $i;
@@ -450,7 +450,7 @@ class sm_schoolsSeeder extends Seeder
             $admins = [800,801,802,803,804,805,806,807,808,809,810,811,812,813,814,815,900,901,902,903,904];
 
             foreach ($admins as $key => $value) {
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;   
                 $permission->role_id = 5;                
                 $permission->school_id = $i;                      
@@ -459,7 +459,7 @@ class sm_schoolsSeeder extends Seeder
 
             $ids = [399,400,401,402,403,404,428,429,430,431,456,457,458,459,460,461,462,463,478,482,483,484,549];
             foreach ($ids as $id) {
-                $permission = AramiscPermissionAssign::where('school_id',$i)->where('role_id',5)->where('module_id',$id)->first();
+                $permission = InfixPermissionAssign::where('school_id',$i)->where('role_id',5)->where('module_id',$id)->first();
                 if($permission){
                     $permission->delete();
                 }          
@@ -470,7 +470,7 @@ class sm_schoolsSeeder extends Seeder
 
             foreach ($teachers as $key => $value) {
 
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;
                 $permission->role_id = 4;
                 $permission->school_id = $i;
@@ -482,7 +482,7 @@ class sm_schoolsSeeder extends Seeder
 
             foreach ($receiptionists as $key => $value) {
 
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;
                 $permission->role_id = 7;
                 $permission->school_id = $i;
@@ -494,7 +494,7 @@ class sm_schoolsSeeder extends Seeder
 
             foreach ($librarians as $key => $value) {
 
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;
                 $permission->role_id = 8;
                 $permission->school_id = $i;
@@ -506,7 +506,7 @@ class sm_schoolsSeeder extends Seeder
 
             foreach ($drivers as $key => $value) {
 
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;
                 $permission->role_id = 9;
                 $permission->school_id = $i;
@@ -518,7 +518,7 @@ class sm_schoolsSeeder extends Seeder
 
             foreach ($accountants as $key => $value) {
 
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;
                 $permission->role_id = 6;
                 $permission->school_id = $i;
@@ -527,7 +527,7 @@ class sm_schoolsSeeder extends Seeder
 
             // student
             for ($j = 1; $j <= 55; $j++) {
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $j;
                 $permission->role_id = 2;
                 $permission->school_id = $i;
@@ -537,7 +537,7 @@ class sm_schoolsSeeder extends Seeder
                         
             $students = [800,810,815,900,901,902,903,904];
             foreach ($students as $key => $value) {
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;                      
                 $permission->role_id = 2;
                 $permission->school_id = $i;
@@ -547,7 +547,7 @@ class sm_schoolsSeeder extends Seeder
 
             // parent
             for ($j = 56; $j <= 99; $j++) {
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $j;
                 $permission->role_id = 3;
                 $permission->school_id = $i;
@@ -556,7 +556,7 @@ class sm_schoolsSeeder extends Seeder
             // chat module
             $parents = [910,911,912,913,914];
             foreach ($parents as $key => $value) {
-                $permission = new AramiscPermissionAssign();
+                $permission = new InfixPermissionAssign();
                 $permission->module_id = $value;                   
                 $permission->role_id = 3;
                 $permission->school_id = $i;
@@ -709,8 +709,8 @@ class sm_schoolsSeeder extends Seeder
                 $newUser            = new User();
                 $newUser->role_id   = $role_id;
                 $newUser->full_name = $Full_name;
-                $newUser->email     = $First_Name . $j . '@aramisc.com';
-                $newUser->username  = $First_Name . $j . '@aramisc.com';
+                $newUser->email     = $First_Name . $j . '@infixedu.com';
+                $newUser->username  = $First_Name . $j . '@infixedu.com';
                 $newUser->password  = Hash::make(123456);
                 $newUser->created_at = date('Y-m-d h:i:s');
                 $newUser->save();
@@ -736,7 +736,7 @@ class sm_schoolsSeeder extends Seeder
                         'date_of_joining'  => $faker->date($format = 'Y-m-d', $max = 'now'),
 
                         'gender_id'        => $gender_id,
-                        'email'            => $First_Name . $j . '@aramisc.com',
+                        'email'            => $First_Name . $j . '@infixedu.com',
                         'mobile'           => '123456789',
                         'emergency_mobile' => '1234567890',
                         'marital_status'   => 'Married',

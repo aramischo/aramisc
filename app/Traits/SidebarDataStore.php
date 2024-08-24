@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 use App\GlobalVariable;
-use App\AramiscModuleManager;
+use App\InfixModuleManager;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Modules\Saas\Entities\SaasSettings;
@@ -42,7 +42,7 @@ trait SidebarDataStore
             
                 
             if (count($oldSidebar) > 0) {
-                $oldPermissionIds = $oldSidebar->pluck('aramisc_module_id')->toArray();
+                $oldPermissionIds = $oldSidebar->pluck('infix_module_id')->toArray();
                 $permissionIds = Permission::whereIn('old_id', $oldPermissionIds)->get();
 
                 foreach ($permissionInfos as $key => $sidebar) {
@@ -278,7 +278,7 @@ trait SidebarDataStore
     function allActivePaidModules()
     {
         $activeModules= [];
-        $modules = AramiscModuleManager::whereNotNull('purchase_code')->where('is_default', false)->where('name', '!=', 'OnlineExam')->pluck('name')->toArray();
+        $modules = InfixModuleManager::whereNotNull('purchase_code')->where('is_default', false)->where('name', '!=', 'OnlineExam')->pluck('name')->toArray();
         foreach($modules as $module) {
             if(moduleStatusCheck($module)) {
                 $activeModules []= $module;

@@ -472,10 +472,10 @@
                                         @if (@$row->gateway_name == 'Paystack')
                                             <strong class="main-title"> N.B: Please Set This url <a class="disabled link-wrod-wrap"
                                                     href=" {{ route('payment.success','Paystack') }}" disable>
-                                                    @if (aramiscDirectFees() ||  generalSetting()->fees_status )
+                                                    @if (directFees() ||  generalSetting()->fees_status )
                                                     {{ route('payment.success','Paystack') }} 
                                                     @else
-                                                        {{ route('aramiscHandleGatewayCallback') }} 
+                                                        {{ route('handleGatewayCallback') }} 
                                                     @endif
                                                 </a> As Paystack Callback Url </strong>
                                         @endif

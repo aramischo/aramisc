@@ -19,7 +19,7 @@ class SmBankStatement extends Model
     }
 
     public function paymentMethod(){
-        return $this->belongsTo('App\SmPaymentMethhod','payment_method','id');
+        return $this->belongsTo('App\AramiscPaymentMethhod','payment_method','id');
     }
     
 }

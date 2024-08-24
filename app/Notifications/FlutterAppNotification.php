@@ -4,7 +4,7 @@ namespace App\Notifications;
 
 
 use App\SmHomework;
-use App\SmNotification;
+use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
 use SpondonIt\FCM\FcmMessage;
 use Illuminate\Support\Facades\Log;
@@ -20,7 +20,7 @@ class FlutterAppNotification extends Notification
     private $title;
 
   
-   public function __construct(SmNotification $sm_notification,$title)
+   public function __construct(AramiscNotification $sm_notification,$title)
     {
         $this->sm_notification = $sm_notification;
         $this->title = $title;
@@ -44,7 +44,7 @@ class FlutterAppNotification extends Notification
             'id' => 1,
             'status' => 'done',
             'message' => $notification,
-            "image" => "https://freeschoolsoftware.in/spn4/aramisc/v7.0.1/public/uploads/settings/logo.png"
+            "image" => "https://freeschoolsoftware.in/spn4/infixedu/v7.0.1/public/uploads/settings/logo.png"
         ];
       
         $message->content($notification)

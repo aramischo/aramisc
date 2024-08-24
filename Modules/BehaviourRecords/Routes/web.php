@@ -48,7 +48,7 @@ Route::group(['middleware' => ['subdomain']], function () {
 
         // -----------------Setting----------------- //
         Route::get('setting', [BehaviourRecordsController::class, 'setting'])->name('behaviour_records.setting')->middleware('userRolePermission:behaviour_records.setting');
-        Route::put('setting_update', [BehaviourRecordsController::class, 'settingUpdate'])->name('behaviour_records.setting_update')->middleware('userRolePermission:behaviour_records.setting_update');
+        Route::put('setting_update', [BehaviourRecordsController::class, 'settingUpdate'])->name('behaviour_records.setting_update');
 
         // -----------------comment secton----------------- //
         Route::get('incident_comment/{id}', [BehaviourCommentController::class, 'incidentComment'])->name('behaviour_records.incident_comment');

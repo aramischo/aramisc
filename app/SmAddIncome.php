@@ -36,7 +36,7 @@ class SmAddIncome extends Model
 
     public function paymentMethod()
     {
-        return $this->belongsTo('App\SmPaymentMethhod', 'payment_method_id', 'id');
+        return $this->belongsTo('App\AramiscPaymentMethhod', 'payment_method_id', 'id');
     }
 
     public function scopeAddIncome($query, $date_from, $date_to, $payment_method)

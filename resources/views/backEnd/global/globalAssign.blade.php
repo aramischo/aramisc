@@ -134,7 +134,7 @@
                 type:'GET',
                 data: formData,
                 dataType:"json",
-                url: "{{route('aramiscLoadAssignedSubject')}}",
+                url: "{{route('loadAssignedSubject')}}",
                 success:function(data){
                     $('#classSectionWiseSubjects_'+ data.class_id).html(data.html);
                     $('#classSectionWiseStudyMat_'+ data.class_id).html(data.html2);

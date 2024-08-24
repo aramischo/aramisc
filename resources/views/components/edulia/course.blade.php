@@ -36,7 +36,7 @@
                         <img src="{{ asset($course->image) }}" alt="{{ $course->courseCategory->category_name }}">
                     </div>
                     <span
-                        class="course_item_img_status {{ $color }}">{{ $course->courseCategory->category_name ?? 'aramisc' }}
+                        class="course_item_img_status {{ $color }}">{{ $course->courseCategory->category_name ?? 'InfixEdu' }}
                     </span>
                 </div>
                 <div class="course_item_inner">

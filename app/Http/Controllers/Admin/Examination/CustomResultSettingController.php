@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Admin\Examination;
 
 use Exception;
 
-use App\SmExam;
+use App\AramiscExam;
 use App\SmClass;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\YearCheck;
-use App\SmExamType;
+use App\AramiscExamType;
 use App\ApiBaseMethod;
 use App\SmAssignSubject;
 use App\CustomResultSetting;
 use Illuminate\Http\Request;
-use App\SmCustomTemporaryResult;
+use App\AramiscCustomTemporaryResult;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\ExamStepSkip;
@@ -27,7 +27,7 @@ class CustomResultSettingController extends Controller
     public function index()
     {
         try {
-            $exams = SmExamType::get();
+            $exams = AramiscExamType::get();
             $custom_settings = CustomResultSetting::query();
             $custom_settings->where('school_id',Auth::user()->school_id);
             if(moduleStatusCheck('University')){
@@ -51,7 +51,7 @@ class CustomResultSettingController extends Controller
             }
             $meritListSettings = $meritListSettings->first();
 
-            $skipSteps = ['exam_schedule', 'exam_aramiscAttendance'];
+            $skipSteps = ['exam_schedule', 'exam_attendance'];
             $exitSkipSteps = ExamStepSkip::where('school_id', auth()->user()->school_id)->pluck('name')->toArray();
             
             return view('backEnd.systemSettings.custom_result_setting_add', compact('custom_settings', 'exams','edit_data','meritListSettings', 'skipSteps', 'exitSkipSteps'));
@@ -78,7 +78,7 @@ class CustomResultSettingController extends Controller
                 }
                 $result=$custom_setting->save();
                 if($result){
-                    $exam_percentage=SmExamType::find($key);
+                    $exam_percentage=AramiscExamType::find($key);
                     $exam_percentage->percentage=$exam_percent;
                     $exam_percentage->update();
                 }
@@ -169,7 +169,7 @@ class CustomResultSettingController extends Controller
 
         try {
             $result_setting = CustomResultSetting::where('id', $id)->first();
-            $exams = SmExamType::get();
+            $exams = AramiscExamType::get();
 
             return view('backEnd.systemSettings.custom_result_setting_add', compact('exams', 'result_setting'));
         } catch (\Exception $e) {
@@ -197,7 +197,7 @@ class CustomResultSettingController extends Controller
                 $result=$custom_setting->save();
 
                 if($result){
-                    $exam_percentage=SmExamType::find($key);
+                    $exam_percentage=AramiscExamType::find($key);
                     $exam_percentage->percentage=$exam_persent;
                     $exam_percentage->save();
                 }
@@ -227,7 +227,7 @@ class CustomResultSettingController extends Controller
     public function meritListReportIndex(Request $request)
     {
         try {
-            $exams = SmExamType::get();
+            $exams = AramiscExamType::get();
             $classes = SmClass::get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -317,13 +317,13 @@ class CustomResultSettingController extends Controller
             $InputSectionId = $request->section;
 
             $class          = SmClass::find($InputClassId);
-            $section        = SmSection::find($InputSectionId);
+            $section        = AramiscSection::find($InputSectionId);
 
             $class_name = $class->class_name;
 
             $result_archive = [];
 
-            $assigned_exam = SmExam::where('class_id', $InputClassId)
+            $assigned_exam = AramiscExam::where('class_id', $InputClassId)
                 ->where('section_id', $InputSectionId)
                 ->select('exam_type_id')
                 ->DISTINCT()
@@ -331,7 +331,7 @@ class CustomResultSettingController extends Controller
 
             $classes = SmClass::get();
 
-            $eligible_students = SmStudent::where('class_id', $InputClassId)
+            $eligible_students = AramiscStudent::where('class_id', $InputClassId)
                 ->where('section_id', $InputSectionId)
                 ->get();
 
@@ -344,9 +344,9 @@ class CustomResultSettingController extends Controller
 
             $student_result = [];
             foreach ($eligible_students as  $student) {
-                $store = SmCustomTemporaryResult::where('student_id',  $student->id)->first();
+                $store = AramiscCustomTemporaryResult::where('student_id',  $student->id)->first();
                 if ($store == null) {
-                    $store = new SmCustomTemporaryResult();
+                    $store = new AramiscCustomTemporaryResult();
                 }
 
                 $store->student_id = $student->id;
@@ -379,7 +379,7 @@ class CustomResultSettingController extends Controller
                 }
             }
 
-            $customresult = SmCustomTemporaryResult::orderBy('final_result', 'DESC')->where('school_id', Auth::user()->school_id)->get();
+            $customresult = AramiscCustomTemporaryResult::orderBy('final_result', 'DESC')->where('school_id', Auth::user()->school_id)->get();
             $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->get();
             $custom_result_setup = CustomResultSetting::where('academic_year', generalSetting()->session_id)->first();
 
@@ -416,16 +416,16 @@ class CustomResultSettingController extends Controller
                 $InputSectionId = $section;
 
                 $class          = SmClass::find($InputClassId);
-                $section        = SmSection::find($InputSectionId);
+                $section        = AramiscSection::find($InputSectionId);
                 $class_name =$class ->class_name;
 
 
 
                 $result_archive = [];
 
-                $assigned_exam  = SmExam::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->select('exam_type_id')->DISTINCT()->get();
+                $assigned_exam  = AramiscExam::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->select('exam_type_id')->DISTINCT()->get();
                 $classes        = SmClass::get();
-                $eligible_students       = SmStudent::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->get();
+                $eligible_students       = AramiscStudent::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->get();
                 $eligible_subjects       = SmAssignSubject::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->get();
                 $student_yearly_result   = [];
                 $result_archive = [];
@@ -433,9 +433,9 @@ class CustomResultSettingController extends Controller
 
                 $student_result = [];
                 foreach ($eligible_students as  $student) {
-                    $store = SmCustomTemporaryResult::where('student_id',  $student->id)->first();
+                    $store = AramiscCustomTemporaryResult::where('student_id',  $student->id)->first();
                     if ($store == null) {
-                        $store = new SmCustomTemporaryResult();
+                        $store = new AramiscCustomTemporaryResult();
                     }
 
                     $store->student_id = $student->id;
@@ -466,7 +466,7 @@ class CustomResultSettingController extends Controller
                     $store->save();
                 }
 
-                $customresult = SmCustomTemporaryResult::orderBy('final_result', 'DESC')->where('school_id', Auth::user()->school_id)->get();
+                $customresult = AramiscCustomTemporaryResult::orderBy('final_result', 'DESC')->where('school_id', Auth::user()->school_id)->get();
                 $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->get();
 
                 $system_setting = generalSetting()->session_id;
@@ -486,7 +486,7 @@ class CustomResultSettingController extends Controller
     public function progressCardReportIndex(Request $request)
     {
         try {
-            $exams = SmExam::get();
+            $exams = AramiscExam::get();
             $classes = SmClass::get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -525,11 +525,11 @@ class CustomResultSettingController extends Controller
                 ->withInput();
         }
         try {
-            $exams = SmExam::get();
+            $exams = AramiscExam::get();
             $classes = SmClass::get();
             $class = SmClass::findOrfail($request->class);
             $section = SmClass::findOrfail($request->section);
-            $aramiscStudentDetails = SmStudent::where('sm_students.id', '=', $request->student)
+            $studentDetails = AramiscStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')
@@ -538,14 +538,14 @@ class CustomResultSettingController extends Controller
             $system_setting = generalSetting()->session_id;
             $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
             $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
-            $assigned_exam = SmExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
+            $assigned_exam = AramiscExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
 
             if ($assigned_exam->count() != 3) {
                 Toastr::error('Result not found for this class, At least you have to complete 3 terms results', 'Failed');
                 return redirect()->back();
             }
 
-            return view('backEnd.reports.custom_progress_card_report', compact('exams', 'classes', 'aramiscStudentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student'));
+            return view('backEnd.reports.custom_progress_card_report', compact('exams', 'classes', 'studentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -573,11 +573,11 @@ class CustomResultSettingController extends Controller
                 ->withInput();
         }
         try {
-            $exams = SmExam::get();
+            $exams = AramiscExam::get();
             $classes = SmClass::get();
             $class = SmClass::findOrfail($request->class);
-            $section = SmSection::findOrfail($request->section);
-            $aramiscStudentDetails = SmStudent::where('sm_students.id', '=', $request->student)
+            $section = AramiscSection::findOrfail($request->section);
+            $studentDetails = AramiscStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')
@@ -586,14 +586,14 @@ class CustomResultSettingController extends Controller
             $system_setting = generalSetting()->session_id;
             $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
             $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
-            $assigned_exam = SmExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
+            $assigned_exam = AramiscExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
 
             if ($assigned_exam->count() != 3) {
                 Toastr::error('Result not found for this class', 'Failed');
                 return redirect()->back();
             }
 
-            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'aramiscStudentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
+            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'studentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
 
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -619,11 +619,11 @@ class CustomResultSettingController extends Controller
                 ->withInput();
         }
         try {
-            $exams = SmExam::get();
+            $exams = AramiscExam::get();
             $classes = SmClass::get();
             $class = SmClass::findOrfail($request->class);
-            $section = SmSection::findOrfail($request->section);
-            $aramiscStudentDetails = SmStudent::where('sm_students.id', '=', $request->student)
+            $section = AramiscSection::findOrfail($request->section);
+            $studentDetails = AramiscStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
                 ->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')
@@ -632,14 +632,14 @@ class CustomResultSettingController extends Controller
             $system_setting =generalSetting()->session_id;
             $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
             $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
-            $assigned_exam = SmExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
+            $assigned_exam = AramiscExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
 
             if ($assigned_exam->count() != 3) {
                 Toastr::error('Result not found for this class', 'Failed');
                 return redirect()->back();
             }
 
-            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'aramiscStudentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
+            return view('backEnd.reports.custom_progress_card_print', compact('exams', 'classes', 'studentDetails', 'assign_subjects', 'assigned_exam', 'custom_result_setup', 'input_section', 'input_class', 'input_student', 'class', 'section'));
 
 
         } catch (\Exception $e) {

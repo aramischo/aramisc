@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers\Theme\Edulia;
 
-use App\SmExam;
-use App\SmNews;
+use App\AramiscExam;
+use App\AramiscNews;
 use App\SmClass;
-use App\SmEvent;
+use App\AramiscEvent;
 use App\SmStaff;
-use App\SmCourse;
-use App\SmSection;
-use App\SmStudent;
-use App\SmVisitor;
+use App\AramiscCourse;
+use App\AramiscSection;
+use App\AramiscStudent;
+use App\AramiscVisitor;
 use App\YearCheck;
-use App\SmExamType;
-use App\SmNewsPage;
+use App\AramiscExamType;
+use App\AramiscNewsPage;
 use App\SmMarksGrade;
-use App\SmExamSetting;
+use App\AramiscExamSetting;
 use App\SmNoticeBoard;
 use App\SmResultStore;
 use App\Models\SmDonor;
-use App\SmNewsCategory;
+use App\AramiscNewsCategory;
 use App\SmAssignSubject;
 use App\SmMarksRegister;
-use App\SmCourseCategory;
+use App\AramiscCourseCategory;
 use App\Models\SpeechSlider;
 use Illuminate\Http\Request;
-use App\Models\SmCustomField;
-use App\Models\SmNewsComment;
+use App\Models\AramiscCustomField;
+use App\Models\AramiscNewsComment;
 use App\Models\StudentRecord;
 use App\Models\SmPhotoGallery;
 use App\SmClassOptionalSubject;
@@ -34,7 +34,7 @@ use App\SmOptionalSubjectAssign;
 use App\Models\FrontendExamResult;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
-use App\Http\Requests\Admin\AdminSection\SmVisitorRequest;
+use App\Http\Requests\Admin\AdminSection\AramiscVisitorRequest;
 use App\Http\Requests\Admin\FrontSettings\ExamResultSearch;
 use Modules\RolePermission\Entities\Permission;
 
@@ -43,7 +43,7 @@ class FrontendController extends Controller
     public function singleCourseDetails($course_id)
     {
         try {
-            $data['course'] = SmCourse::where('school_id', app('school')->id)->find($course_id);
+            $data['course'] = AramiscCourse::where('school_id', app('school')->id)->find($course_id);
             return view('frontEnd.theme.' . activeTheme() . '.course.single_course_details_page', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -54,7 +54,7 @@ class FrontendController extends Controller
     public function singleNewsDetails($news_id)
     {
         try {
-            $data['news'] = SmNews::with(['newsComments.onlyChildrenFrontend'])->where('school_id', app('school')->id)->findOrFail($news_id);
+            $data['news'] = AramiscNews::with(['newsComments.onlyChildrenFrontend'])->where('school_id', app('school')->id)->findOrFail($news_id);
             return view('frontEnd.theme.' . activeTheme() . '.news.single_news_details_page', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -65,8 +65,8 @@ class FrontendController extends Controller
     public function storeNewsComment(Request $request)
     {
         try {
-            $newsDeyails = SmNews::find($request->news_id);
-            $store = new SmNewsComment();
+            $newsDeyails = AramiscNews::find($request->news_id);
+            $store = new AramiscNewsComment();
             $store->message = $request->message;
             $store->news_id = $request->news_id;
             $store->user_id = $request->user_id;
@@ -120,18 +120,18 @@ class FrontendController extends Controller
     public function indiviualResult(ExamResultSearch $request)
     {
         try {
-            $exam_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exam_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $page = FrontendExamResult::where('school_id', app('school')->id)->first();
             $school_id = app('school')->id;
-            $student = SmStudent::where('admission_no', $request->admission_number)->where('school_id', $school_id)->with('parents', 'group')->first();
+            $student = AramiscStudent::where('admission_no', $request->admission_number)->where('school_id', $school_id)->with('parents', 'group')->first();
             if ($student) {
-                $exam_content = SmExamSetting::where('exam_type', $request->exam)
+                $exam_content = AramiscExamSetting::where('exam_type', $request->exam)
                     ->where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', app('school')->id)
                     ->first();
 
-                $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $student->id)
+                $student_detail = $studentDetails = StudentRecord::where('student_id', $student->id)
                     ->where('academic_id', getAcademicId())
                     ->where('is_promote', 0)
                     ->where('school_id', $school_id)
@@ -154,7 +154,7 @@ class FrontendController extends Controller
                     ->where('gpa', $failgpa)
                     ->first();
 
-                $exams = SmExamType::where('active_status', 1)
+                $exams = AramiscExamType::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->get();
@@ -164,7 +164,7 @@ class FrontendController extends Controller
                     ->where('school_id', $school_id)
                     ->get();
 
-                $examSubjects = SmExam::where([['exam_type_id',  $exam_type_id], ['section_id', $section_id], ['class_id', $class_id]])
+                $examSubjects = AramiscExam::where([['exam_type_id',  $exam_type_id], ['section_id', $section_id], ['class_id', $class_id]])
                     ->where('school_id', $school_id)
                     ->where('academic_id', getAcademicId())
                     ->get();
@@ -173,7 +173,7 @@ class FrontendController extends Controller
                     $examSubjectIds[] = $examSubject->subject_id;
                 }
 
-                $subjects = $aramiscStudentDetails->class->subjects->where('section_id', $section_id)
+                $subjects = $studentDetails->class->subjects->where('section_id', $section_id)
                     ->whereIn('subject_id', $examSubjectIds)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id);
@@ -229,7 +229,7 @@ class FrontendController extends Controller
                     ->where('school_id', $school_id)
                     ->get();
 
-                $exams = SmExamType::where('active_status', 1)
+                $exams = AramiscExamType::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->get();
@@ -245,14 +245,14 @@ class FrontendController extends Controller
                     ->get();
 
                 $class = SmClass::find($class_id);
-                $section = SmSection::find($section_id);
-                $exam_detail = SmExam::find($request->exam);
+                $section = AramiscSection::find($section_id);
+                $exam_detail = AramiscExam::find($request->exam);
 
                 return view('frontEnd.theme.' . activeTheme() . '.indivisualResult.indivisual_result', compact(
                     'student',
                     'optional_subject',
                     'classes',
-                    'aramiscStudentDetails',
+                    'studentDetails',
                     'exams',
                     'classes',
                     'marks_register',
@@ -289,8 +289,8 @@ class FrontendController extends Controller
     public function allBlogList()
     {
         try {
-            $data['news'] = SmNews::where('school_id', app('school')->id)->paginate(8);
-            $data['newsPage'] = SmNewsPage::where('school_id', app('school')->id)->first();
+            $data['news'] = AramiscNews::where('school_id', app('school')->id)->paginate(8);
+            $data['newsPage'] = AramiscNewsPage::where('school_id', app('school')->id)->first();
             return view('frontEnd.theme.' . activeTheme() . '.news.all_news_list', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -301,10 +301,10 @@ class FrontendController extends Controller
     public function loadMoreBlogs(Request $request)
     {
         try {
-            $data['count'] = SmNews::count();
+            $data['count'] = AramiscNews::count();
             $data['skip'] = $request->skip;
             $data['limit'] = $data['count'] - $data['skip'];
-            $data['news'] = SmNews::skip($data['skip'])->where('school_id', app('school')->id)->take(4)->get();
+            $data['news'] = AramiscNews::skip($data['skip'])->where('school_id', app('school')->id)->take(4)->get();
             return view('frontEnd.theme.' . activeTheme() . '.news.load_more_news', $data);
         } catch (\Exception $e) {
             return response('error');
@@ -314,7 +314,7 @@ class FrontendController extends Controller
     public function singleEventDetails($id)
     {
         try {
-            $data['event'] = SmEvent::with('user')->find($id);
+            $data['event'] = AramiscEvent::with('user')->find($id);
             return view('frontEnd.theme.' . activeTheme() . '.single_event', $data);
         } catch (\Exception $e) {
             return response('error');
@@ -324,7 +324,7 @@ class FrontendController extends Controller
     public function blogList()
     {
         try {
-            $data['blogs'] = SmNews::with('category')->where('school_id', app('school')->id);
+            $data['blogs'] = AramiscNews::with('category')->where('school_id', app('school')->id);
             return view('frontEnd.theme.' . activeTheme() . '.blog_list', $data);
         } catch (\Exception $e) {
             return response('error');
@@ -334,10 +334,10 @@ class FrontendController extends Controller
     public function loadMoreBlogList(Request $request)
     {
         try {
-            $data['count'] = SmNews::count();
+            $data['count'] = AramiscNews::count();
             $data['skip'] = $request->skip;
             $data['limit'] = $data['count'] - $data['skip'];
-            $data['blogs'] = SmNews::skip($data['skip'])->where('school_id', app('school')->id)->take(5)->get();
+            $data['blogs'] = AramiscNews::skip($data['skip'])->where('school_id', app('school')->id)->take(5)->get();
             $html = view('frontEnd.theme.' . activeTheme() . '.read_more_blog_list', $data)->render();
             return response()->json(['success' => true, 'html' => $html, 'total_data' => $data['count']]);
         } catch (\Exception $e) {
@@ -359,7 +359,7 @@ class FrontendController extends Controller
     public function courseList()
     {
         try {
-            $data['courseCategories'] = SmCourseCategory::where('school_id', app('school')->id)->with('courses')->get();
+            $data['courseCategories'] = AramiscCourseCategory::where('school_id', app('school')->id)->with('courses')->get();
             return view('frontEnd.theme.' . activeTheme() . '.courseList.course_list', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -369,7 +369,7 @@ class FrontendController extends Controller
     public function singleCourseDetail($id)
     {
         try {
-            $data['singleCourseDetail'] = SmCourse::where('id', $id)->where('school_id', app('school')->id)->with('courseCategory')->first();
+            $data['singleCourseDetail'] = AramiscCourse::where('id', $id)->where('school_id', app('school')->id)->with('courseCategory')->first();
             return view('frontEnd.theme.' . activeTheme() . '.courseList.single_course_details', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -379,7 +379,7 @@ class FrontendController extends Controller
     public function frontendSingleStudentDetails($id)
     {
         try {
-            $data['singleStudent'] = SmStudent::where('id', $id)->where('school_id', app('school')->id)->with('parents', 'gender', 'religion', 'bloodGroup', 'studentRecord.class', 'studentRecord.section')->first();
+            $data['singleStudent'] = AramiscStudent::where('id', $id)->where('school_id', app('school')->id)->with('parents', 'gender', 'religion', 'bloodGroup', 'studentRecord.class', 'studentRecord.section')->first();
             return view('frontEnd.theme.' . activeTheme() . '.frontend_single_student_details', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -389,11 +389,11 @@ class FrontendController extends Controller
     public function archiveList()
     {
         try {
-            $data['archives'] = SmNews::with('category')->where('school_id', app('school')->id);
+            $data['archives'] = AramiscNews::with('category')->where('school_id', app('school')->id);
             $data['archiveYears'] = $data['archives']->get()->groupBy(function ($q) {
                 return $q->created_at->format('Y');
             });
-            $data['archiveCategories'] = SmNewsCategory::where('school_id', app('school')->id)->get();
+            $data['archiveCategories'] = AramiscNewsCategory::where('school_id', app('school')->id)->get();
             return view('frontEnd.theme.' . activeTheme() . '.archive.archive_list', $data);
         } catch (\Exception $e) {
             return response('error');
@@ -404,10 +404,10 @@ class FrontendController extends Controller
     {
         try {
             $years = $request->year;
-            $data['count'] = SmNews::count();
+            $data['count'] = AramiscNews::count();
             $data['skip'] = $request->skip;
             $data['limit'] = $data['count'] - $data['skip'];
-            $data['archives'] = SmNews::when($request->year, function ($q) use ($years) {
+            $data['archives'] = AramiscNews::when($request->year, function ($q) use ($years) {
                 $q->where(function ($query) use ($years) {
                     foreach ($years as $year) {
                         $query->whereYear('created_at', '=', $year, 'or');
@@ -424,7 +424,7 @@ class FrontendController extends Controller
     {
         try {
             $years = $request->year;
-            $data['archives'] = SmNews::with('category')
+            $data['archives'] = AramiscNews::with('category')
                     ->where('school_id', app('school')->id)
                     ->when($request->data_count > 0 , function($q) use($years){
                         $q->where(function ($q) use ($years) {
@@ -449,12 +449,12 @@ class FrontendController extends Controller
             return redirect()->back();
         }
     }
-    public function bookAVisitStore(SmVisitorRequest $request)
+    public function bookAVisitStore(AramiscVisitorRequest $request)
     {
         try {
             $destination = 'public/uploads/visitor/';
             $fileName = fileUpload($request->upload_event_image, $destination);
-            $visitor = new SmVisitor();
+            $visitor = new AramiscVisitor();
             $visitor->name = $request->name;
             $visitor->phone = $request->phone;
             $visitor->visitor_id = $request->visitor_id;

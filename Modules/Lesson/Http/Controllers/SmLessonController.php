@@ -4,7 +4,7 @@ namespace Modules\Lesson\Http\Controllers;
 use DataTables;
 use App\SmClass;
 use App\SmStaff;
-use App\SmSection;
+use App\AramiscSection;
 use App\SmSubject;
 use App\SmAssignSubject;
 use Illuminate\Http\Request;
@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Modules\Lesson\Entities\SmLesson;
 use Illuminate\Support\Facades\Config;
@@ -151,15 +152,32 @@ class SmLessonController extends Controller
     public function updateLesson(Request $request)
     {
         try {
-            $length = count($request->lesson);
-            for ($i = 0; $i < $length; $i++) {
-                $lessonDetail = SmLesson::find($request->lesson_detail_id[$i]);
-                $lesson_title = $request->lesson[$i];
-                $lessonDetail->lesson_title = $lesson_title;
-                $lessonDetail->school_id = Auth::user()->school_id;
-                $lessonDetail->academic_id = getAcademicId();
-                $lessonDetail->user_id = Auth::user()->id;
-                $lessonDetail->save();
+            $existingLessons = SmLesson::whereIn('id', $request->lesson_detail_id)->get();
+            foreach ($existingLessons as $key => $lesson) {
+                $lesson->lesson_title = $request->lesson[$key];
+                $lesson->school_id    = Auth::user()->school_id;
+                $lesson->academic_id  = getAcademicId();
+                $lesson->user_id      = Auth::user()->id;
+                $lesson->save();
+            }
+    
+            $newLessonCount = count($request->lesson) - count($existingLessons);
+    
+            if ($newLessonCount > 0) {
+                $lastLessonId = SmLesson::orderBy('id', 'desc')->first()->id ?? 0;
+    
+                for ($i = count($existingLessons); $i < count($request->lesson); $i++) {
+                    $newLesson = new SmLesson;
+                    $newLesson->id              = ++$lastLessonId;
+                    $newLesson->lesson_title    = $request->lesson[$i];
+                    $newLesson->class_id        = $existingLessons->first()->class_id;
+                    $newLesson->subject_id      = $existingLessons->first()->subject_id;
+                    $newLesson->section_id      = $existingLessons->first()->section_id;
+                    $newLesson->school_id       = Auth::user()->school_id;
+                    $newLesson->academic_id     = getAcademicId();
+                    $newLesson->user_id         = Auth::user()->id;
+                    $newLesson->save();
+                }
             }
             Toastr::success('Operation successful', 'Success');
             return redirect()->route('lesson');
@@ -273,7 +291,7 @@ class SmLessonController extends Controller
         $data['subjects'] = SmSubject::where('active_status', 1)
         ->where('academic_id', getAcademicId())
         ->where('school_id', Auth::user()->school_id)->get();
-        $data['sections'] = SmSection::where('active_status', 1)
+        $data['sections'] = AramiscSection::where('active_status', 1)
         ->where('academic_id', getAcademicId())
         ->where('school_id', Auth::user()->school_id)->get();
 

@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/js/select2/select2.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css"/>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/aramisc.css"/>
+    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/infix.css"/>
    
 </head>
 
@@ -50,7 +50,7 @@
 
             <div class="single-report-admit">
                 <div class="card-header">
-                    <h2 class="text-center text-uppercase" style="color: whitesmoke">Welcome to aramisc </h2>
+                    <h2 class="text-center text-uppercase" style="color: whitesmoke">Welcome to Infixedu </h2>
                 
                 </div>
             </div>

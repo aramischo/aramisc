@@ -31,9 +31,9 @@ class SmQuestionBank extends Model
     public function section()
     {
         if (moduleStatusCheck('University')) {
-            return $this->belongsTo('App\SmSection', 'un_section_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class);
+            return $this->belongsTo('App\AramiscSection', 'un_section_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class);
         } else {
-            return $this->belongsTo('App\SmSection', 'section_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class);
+            return $this->belongsTo('App\AramiscSection', 'section_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class);
         }
     }
     public function unSemesterLabel()

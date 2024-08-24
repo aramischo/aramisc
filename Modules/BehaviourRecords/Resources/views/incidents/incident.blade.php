@@ -233,7 +233,7 @@
                                                 <label class="primary_input_label" for="">@lang('behaviourRecords.point')<span
                                                         class="text-danger"> *</span></label>
                                                 <input class="primary_input_field read-only-input form-control"
-                                                    type="text" name="point" id="point">
+                                                    type="number" min="0" name="point" id="point element_point">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

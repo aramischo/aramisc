@@ -6,7 +6,7 @@ use App\SmAddIncome;
 use App\SmBankAccount;
 use App\SmBankStatement;
 use App\SmChartOfAccount;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -27,7 +27,7 @@ class SmAddIncomeController extends Controller
             $add_incomes = SmAddIncome::with('paymentMethod','ACHead')->get();
             $income_heads = SmChartOfAccount::where('type', "I")->get();
             $bank_accounts = SmBankAccount::get();
-            $payment_methods = SmPaymentMethhod::get();
+            $payment_methods = AramiscPaymentMethhod::get();
             return view('backEnd.accounts.add_income', compact('add_incomes', 'income_heads', 'bank_accounts', 'payment_methods'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -95,7 +95,7 @@ class SmAddIncomeController extends Controller
             $add_incomes = SmAddIncome::get();
             $income_heads = SmChartOfAccount::get();
             $bank_accounts = SmBankAccount::get();
-            $payment_methods = SmPaymentMethhod::get();
+            $payment_methods = AramiscPaymentMethhod::get();
             return view('backEnd.accounts.add_income', compact('add_income', 'add_incomes', 'income_heads', 'bank_accounts', 'payment_methods'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

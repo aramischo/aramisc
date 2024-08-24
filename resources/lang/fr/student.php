@@ -4,9 +4,9 @@ return [
 
 "my_profile" => "Mon profil",
 
-"subject_wise_aramiscAttendance" => "Objet Sages Participation",
+"subject_wise_attendance" => "Objet Sages Participation",
 
-"subject_wise_aramiscAttendance_report" => "Rapport sur la fréquentation des Sages",
+"subject_wise_attendance_report" => "Rapport sur la fréquentation des Sages",
 
 "save_student_category" => "Enregistrer la catégorie d'étudiant",
 
@@ -30,7 +30,7 @@ return [
 
 "history" => "Historique",
 
-"subject_aramiscAttendance_report" => "Rapport sur la participation des sujets",
+"subject_attendance_report" => "Rapport sur la participation des sujets",
 
 "ltl" => "LTL",
 
@@ -228,9 +228,9 @@ return [
 
 "all_student_export" => "Toutes les exportations d'étudiants",
 
-"aramiscAttendance_already_submitted_as_holiday" => "Participation déjà soumise en tant que jour férié. Vous pouvez éditer un enregistrement",
+"attendance_already_submitted_as_holiday" => "Participation déjà soumise en tant que jour férié. Vous pouvez éditer un enregistrement",
 
-"aramiscAttendance_already_submitted" => "Présence déjà soumise Vous pouvez éditer un enregistrement",
+"attendance_already_submitted" => "Présence déjà soumise Vous pouvez éditer un enregistrement",
 
 "unmark_holiday" => "Annuler la marque",
 
@@ -240,7 +240,7 @@ return [
 
 "student_group_list" => "Liste des groupes d'étudiants",
 
-"student_aramiscAttendance_report" => "Rapport sur la participation des étudiants",
+"student_attendance_report" => "Rapport sur la participation des étudiants",
 
 "january" => "Janvier",
 
@@ -350,7 +350,7 @@ return [
 
 "parent_/_guardian_details" => "Détails du parent / du tuteur",
 
-"aramiscAttendance_result" => "Résultat de la participation",
+"attendance_result" => "Résultat de la participation",
 
 "student_profile" => "Profil de l'élève",
 
@@ -642,7 +642,7 @@ return [
 
 "student_admission" => "Admission d'étudiants",
 
-"student_aramiscAttendance" => "Participation des étudiants",
+"student_attendance" => "Participation des étudiants",
 
 "student_promote" => "Promotion de l'étudiant",
 
@@ -688,9 +688,9 @@ return [
 
 "visible_to_this_person" => "Visible pour cette personne",
 
-"aramiscAttendance" => "Participation",
+"attendance" => "Participation",
 
-"save_aramiscAttendance" => "Enregistrer la participation",
+"save_attendance" => "Enregistrer la participation",
 
 "merit_list" => "Liste de mérite",
 
@@ -760,9 +760,9 @@ return [
 
 "upload_document" => "Télécharger le document",
 
-"import_aramiscAttendance" => "Importation de la participation",
+"import_attendance" => "Importation de la participation",
 
-"aramiscAttendance_date" => "Date de participation",
+"attendance_date" => "Date de participation",
 
 "late" => "Late",
 
@@ -804,11 +804,11 @@ return [
 
 "total_pending_home_work" => "Nombre total de travaux en attente",
 
-"total_aramiscAttendance_in_current_month" => "Nombre total de participations dans le mois en cours",
+"total_attendance_in_current_month" => "Nombre total de participations dans le mois en cours",
 
 "pending_home_work" => "Travail à domicile en attente",
 
-"aramiscAttendance_in_current_month" => "Participation au mois en cours",
+"attendance_in_current_month" => "Participation au mois en cours",
 
 "student_report" => "Rapport étudiant",
 

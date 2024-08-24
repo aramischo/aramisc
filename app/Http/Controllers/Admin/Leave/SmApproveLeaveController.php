@@ -12,7 +12,7 @@ use App\ApiBaseMethod;
 use App\SmLeaveDefine;
 use App\SmClassTeacher;
 use App\SmLeaveRequest;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\SmGeneralSettings;
 use Illuminate\Http\Request;
 use App\SmAssignClassTeacher;
@@ -23,10 +23,10 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use App\Notifications\LeaveApprovedNotification;
 use App\Http\Requests\Admin\Leave\SmApproveLeaveRequest;
-use App\SmStudent;
+use App\AramiscStudent;
 
 class SmApproveLeaveController extends Controller
 {
@@ -55,7 +55,7 @@ class SmApproveLeaveController extends Controller
                 $apply_leaves = SmLeaveRequest::with('leaveDefine', 'staffs', 'student')->where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', $staff->id]])->where('academic_id', getAcademicId())->get();
             }
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -66,14 +66,14 @@ class SmApproveLeaveController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscPendingLeave(Request $request)
+    public function pendingLeave(Request $request)
     {
         try {
             $user = Auth::user();
             $staff = SmStaff::where('user_id', Auth::user()->id)->first();
 
             $leave_types = SmLeaveType::where('active_status', 1)->get();
-            $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
+            $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
@@ -129,7 +129,7 @@ class SmApproveLeaveController extends Controller
                 $editData = SmLeaveRequest::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
             $staffsByRole = SmStaff::where('role_id', '=', $editData->role_id)->where('school_id', Auth::user()->school_id)->get();
-            $roles = AramiscRole::whereOr(['school_id', Auth::user()->school_id], ['school_id', 1])->get();
+            $roles = InfixRole::whereOr(['school_id', Auth::user()->school_id], ['school_id', 1])->get();
             $apply_leaves = SmLeaveRequest::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             $leave_types = SmLeaveType::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.humanResource.approveLeaveRequest', compact('editData', 'staffsByRole', 'apply_leaves', 'leave_types', 'roles'));
