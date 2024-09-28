@@ -33,7 +33,7 @@ class CreateAramiscTestimonialsTable extends Migration
                 'designation' => 'CEO',
                 'institution_name' => 'Google',
                 'image' => 'public/uploads/staff/demo/staff.jpg',
-                'description' => 'Highly recommend INFIX EDU for their outstanding school management system. Efficient, customizable, and excellent support. Reliable partner for any educational institution.',
+                'description' => 'Highly recommend Aramisc EDU for their outstanding school management system. Efficient, customizable, and excellent support. Reliable partner for any educational institution.',
                 'star_rating' => 5,
                 'created_at' => date('Y-m-d h:i:s')
             ],
@@ -42,7 +42,7 @@ class CreateAramiscTestimonialsTable extends Migration
                 'designation' => 'Chairman',
                 'institution_name' => 'Linkdin',
                 'image' => 'public/uploads/staff/demo/staff.jpg',
-                'description' => 'I strongly endorse INFIX EDU for their exceptional school management system—efficient, customizable, with excellent support. A reliable partner for any educational institution.',
+                'description' => 'I strongly endorse Aramisc EDU for their exceptional school management system—efficient, customizable, with excellent support. A reliable partner for any educational institution.',
                 'star_rating' => 4,
                 'created_at' => date('Y-m-d h:i:s')
             ],

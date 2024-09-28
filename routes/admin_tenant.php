@@ -567,16 +567,16 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         // Route::get('income-head-delete/{id}', ['as' => 'income_head_delete', 'uses' => 'AramiscIncomeHeadController@delete']);
 
         // Search account
-        Route::get('search-account', ['as' => 'search_account', 'uses' => 'Admin\Accounts\SmAccountsController@searchAccount'])->middleware('userRolePermission:147');
-        Route::post('search-account', ['as' => 'search_accounts', 'uses' => 'Admin\Accounts\SmAccountsController@searchAccountReportByDate']);
-        Route::get('fund-transfer', ['as' => 'fund-transfer', 'uses' => 'Admin\Accounts\SmAccountsController@fundTransfer'])->middleware('userRolePermission:fund-transfer');
-        Route::post('fund-transfer-store', ['as' => 'fund-transfer-store', 'uses' => 'Admin\Accounts\SmAccountsController@fundTransferStore']);
-        Route::get('transaction', ['as' => 'transaction', 'uses' => 'Admin\Accounts\SmAccountsController@transaction'])->middleware('userRolePermission:transaction');
-        Route::post('transaction-search', ['as' => 'transaction-search', 'uses' => 'Admin\Accounts\SmAccountsController@transactionSearch']);
+        Route::get('search-account', ['as' => 'search_account', 'uses' => 'Admin\Accounts\AramiscAccountsController@searchAccount'])->middleware('userRolePermission:147');
+        Route::post('search-account', ['as' => 'search_accounts', 'uses' => 'Admin\Accounts\AramiscAccountsController@searchAccountReportByDate']);
+        Route::get('fund-transfer', ['as' => 'fund-transfer', 'uses' => 'Admin\Accounts\AramiscAccountsController@fundTransfer'])->middleware('userRolePermission:fund-transfer');
+        Route::post('fund-transfer-store', ['as' => 'fund-transfer-store', 'uses' => 'Admin\Accounts\AramiscAccountsController@fundTransferStore']);
+        Route::get('transaction', ['as' => 'transaction', 'uses' => 'Admin\Accounts\AramiscAccountsController@transaction'])->middleware('userRolePermission:transaction');
+        Route::post('transaction-search', ['as' => 'transaction-search', 'uses' => 'Admin\Accounts\AramiscAccountsController@transactionSearch']);
 
         // Accounts Payroll Report
-        Route::get('accounts-payroll-report', ['as' => 'accounts-payroll-report', 'uses' => 'Admin\Accounts\SmAccountsController@accountsPayrollReport'])->middleware('userRolePermission:accounts-payroll-report');
-        Route::post('accounts-payroll-report-search', ['as' => 'accounts-payroll-report-search', 'uses' => 'Admin\Accounts\SmAccountsController@accountsPayrollReportSearch']);
+        Route::get('accounts-payroll-report', ['as' => 'accounts-payroll-report', 'uses' => 'Admin\Accounts\AramiscAccountsController@accountsPayrollReport'])->middleware('userRolePermission:accounts-payroll-report');
+        Route::post('accounts-payroll-report-search', ['as' => 'accounts-payroll-report-search', 'uses' => 'Admin\Accounts\AramiscAccountsController@accountsPayrollReportSearch']);
 
 
         // add income routes
@@ -594,9 +594,9 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Profit of account
-        Route::get('profit', ['as' => 'profit', 'uses' => 'Admin\Accounts\SmAccountsController@profit'])->middleware('userRolePermission:profit');
-        Route::post('search-profit-by-date', ['as' => 'search_profit_by_dates', 'uses' => 'Admin\Accounts\SmAccountsController@searchProfitByDate']);
-        Route::get('search-profit-by-date', ['as' => 'search_profit_by_date', 'uses' => 'Admin\Accounts\SmAccountsController@profit']);
+        Route::get('profit', ['as' => 'profit', 'uses' => 'Admin\Accounts\AramiscAccountsController@profit'])->middleware('userRolePermission:profit');
+        Route::post('search-profit-by-date', ['as' => 'search_profit_by_dates', 'uses' => 'Admin\Accounts\AramiscAccountsController@searchProfitByDate']);
+        Route::get('search-profit-by-date', ['as' => 'search_profit_by_date', 'uses' => 'Admin\Accounts\AramiscAccountsController@profit']);
 
         // Student Type Routes
         Route::get('student-category', ['as' => 'student_category', 'uses' => 'Admin\StudentInfo\AramiscStudentCategoryController@index'])->middleware('userRolePermission:student_category');

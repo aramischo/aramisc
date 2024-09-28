@@ -25,12 +25,12 @@ class VerifyController extends Controller
     public function index()
     {
         try{
-			$o = Envato::verifyPurchase(HP::set()->purchasecode);
+			/*$o = Envato::verifyPurchase(HP::set()->purchasecode);
             if(isset($o['item']) && $o['item']['id'] == "23876323" && $o['buyer'] == HP::set()->envatouser){
                 return redirect('/');
             }else{
                 return view('verifycode');
-            }
+            }*/
 		}catch (\Exception $e) {
 		      Toastr::error('Operation Failed', 'Failed');
 		       return redirect()->back();
