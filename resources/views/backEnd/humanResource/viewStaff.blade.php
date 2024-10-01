@@ -642,7 +642,7 @@
                                                         </td>
                                                         <td><?php $payment_mode = '';
                                                         if (!empty($value->payment_mode)) {
-                                                            $payment_mode = App\SmHrPayrollGenerate::getPaymentMode($value->payment_mode);
+                                                            $payment_mode = App\AramiscHrPayrollGenerate::getPaymentMode($value->payment_mode);
                                                         } else {
                                                             $payment_mode = '';
                                                         }

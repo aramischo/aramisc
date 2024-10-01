@@ -1,11 +1,11 @@
 <?php
 
-use App\SmModuleLink;
+use App\AramiscModuleLink;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmModuleLinksTable extends Migration
+class CreateAramiscModuleLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -625,7 +625,7 @@ class CreateSmModuleLinksTable extends Migration
 
 
         foreach($module_infos as $data){
-            $new = new SmModuleLink();
+            $new = new AramiscModuleLink();
             $new->id = $data[0];
             $new->module_id = $data[1];
             $new->name = $data[2];

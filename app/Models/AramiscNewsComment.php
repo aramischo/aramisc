@@ -10,9 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscNewsComment extends Model
 {
     use HasFactory;
-	// Specify the table name explicitly
+    // Spécifiez le nom de la table explicitement
     protected $table = 'sm_news_comments';
-     
     public function onlyChildrenFrontend()
     {
         return $this->hasMany(AramiscNewsComment::class, 'parent_id', 'id')

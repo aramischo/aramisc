@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmExam;
+use App\AramiscExam;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +15,7 @@ class sm_examsSeeder extends Seeder
      */
     public function run()
     {
-        //        SmExam::query()->truncate();
+        //        AramiscExam::query()->truncate();
 
         DB::table('sm_exams')->insert([
             [

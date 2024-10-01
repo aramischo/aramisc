@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmLibraryMember;
+use App\AramiscLibraryMember;
 
-class CreateSmLibraryMembersTable extends Migration
+class CreateAramiscLibraryMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -43,7 +43,7 @@ class CreateSmLibraryMembersTable extends Migration
         // $student_staff_id =['2','14','6','4'];
 
         //  for($i=0; $i<4; $i++){
-        //     $store = new SmLibraryMember();
+        //     $store = new AramiscLibraryMember();
         //     $store->member_ud_id = $member_ud_id[$i];
         //     $store->member_type =$member_type[$i];
         //     $store->student_staff_id =$student_staff_id[$i];

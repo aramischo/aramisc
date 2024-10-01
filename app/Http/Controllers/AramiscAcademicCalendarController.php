@@ -5,23 +5,23 @@ namespace App\Http\Controllers;
 use App\GlobalVariable;
 use App\Role;
 use App\AramiscBook;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscEvent;
-use App\SmStaff;
+use App\AramiscStaff;
 use App\AramiscHoliday;
 use App\AramiscSection;
-use App\SmSubject;
+use App\AramiscSubject;
 use Carbon\Carbon;
 use App\AramiscExamType;
-use App\SmHomework;
+use App\AramiscHomework;
 use App\Models\User;
 use App\AramiscBookIssue;
-use App\SmClassRoom;
-use App\SmOnlineExam;
-use App\SmNoticeBoard;
+use App\AramiscClassRoom;
+use App\AramiscOnlineExam;
+use App\AramiscNoticeBoard;
 use App\AramiscExamSchedule;
-use App\SmLeaveRequest;
-use App\SmAdmissionQuery;
+use App\AramiscLeaveRequest;
+use App\AramiscAdmissionQuery;
 use Illuminate\Http\Request;
 use App\AramiscTeacherUploadContent;
 use App\Models\SmCalendarSetting;
@@ -142,12 +142,12 @@ class AramiscAcademicCalendarController extends Controller
 
         if($admissionQuerySettings->status == 1){
             if($userRoleId != 2 && $userRoleId != 3){
-                $admissionQuries = SmAdmissionQuery::get(['name', 'phone', 'email', 'address', 'next_follow_up_date']);
+                $admissionQuries = AramiscAdmissionQuery::get(['name', 'phone', 'email', 'address', 'next_follow_up_date']);
             }
         }
 
         if($homeworkSettings->status == 1){
-            $homeworks = SmHomework::with('class', 'section', 'subjects')
+            $homeworks = AramiscHomework::with('class', 'section', 'subjects')
             ->when($userRoleId == 2, function($s) use ($studentRecords){
                 $class_ids = $studentRecords->pluck('class_id')->toArray();
                 $section_ids = $studentRecords->pluck('section_id')->toArray();
@@ -219,14 +219,14 @@ class AramiscAcademicCalendarController extends Controller
         }
 
         if($noticeBoardSettings->status == 1){
-            $noticeBoards = SmNoticeBoard::when($roleInfo->name != 'Super admin', function($a) use($roleInfo){
+            $noticeBoards = AramiscNoticeBoard::when($roleInfo->name != 'Super admin', function($a) use($roleInfo){
                 $a->whereJsonContains('inform_to', (string)$roleInfo->id);
             })
             ->get(['notice_title', 'notice_message', 'publish_on', 'inform_to']);
         }
 
         if($onlineExamSettings->status == 1){
-            $onlineExams = SmOnlineExam::with('class', 'section', 'subject')
+            $onlineExams = AramiscOnlineExam::with('class', 'section', 'subject')
             ->when($userRoleId == 2, function($s) use ($studentRecords){
                 $class_ids = $studentRecords->pluck('class_id')->toArray();
                 $section_ids = $studentRecords->pluck('section_id')->toArray();
@@ -264,7 +264,7 @@ class AramiscAcademicCalendarController extends Controller
         }
 
         if($leaveSettings->status == 1){
-            $leaveDatas = SmLeaveRequest::with('user')
+            $leaveDatas = AramiscLeaveRequest::with('user')
             ->when($roleInfo->name != 'Super admin' && $roleInfo->name != 'Parents', function($a){
                 $a->where('staff_id', auth()->user()->id);
             })

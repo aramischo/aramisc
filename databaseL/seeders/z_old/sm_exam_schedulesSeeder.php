@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\SmAssignSubject;
-use App\SmClass;
-use App\SmClassSection;
+use App\AramiscAssignSubject;
+use App\AramiscClass;
+use App\AramiscClassSection;
 use App\AramiscExamSchedule;
 use App\AramiscSection;
 use Illuminate\Database\Seeder;
@@ -21,11 +21,11 @@ class sm_exam_schedulesSeeder extends Seeder
 
 //        AramiscExamSchedule::query()->truncate();
 
-        $classes = SmClass::where('active_status',1)->get();
+        $classes = AramiscClass::where('active_status',1)->get();
         foreach ($classes as $class) {
-            $sections = SmClassSection::where('class_id', $class->class_id)->get();
+            $sections = AramiscClassSection::where('class_id', $class->class_id)->get();
             foreach ($sections as $section) {
-                $subjects = SmAssignSubject::where('class_id', $class->class_id)->where('section_id', $section->section_id)->get();
+                $subjects = AramiscAssignSubject::where('class_id', $class->class_id)->where('section_id', $section->section_id)->get();
                 foreach ($subjects as $subject) {
                     $s = new AramiscExamSchedule();
                     $s->class_id = $class->class_id;

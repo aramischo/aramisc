@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\SmFeesCarryForward;
-use App\SmStudent;
+use App\AramiscFeesCarryForward;
+use App\AramiscStudent;
 use Illuminate\Database\Seeder;
 
 class sm_fees_carry_forwardsSeeder extends Seeder
@@ -16,10 +16,10 @@ class sm_fees_carry_forwardsSeeder extends Seeder
     public function run()
     {
 
-        SmFeesCarryForward::query()->truncate();
-        $students = SmStudent::where('class_id', 1)->get();
+        AramiscFeesCarryForward::query()->truncate();
+        $students = AramiscStudent::where('class_id', 1)->get();
         foreach ($students as $student){
-            $store = new SmFeesCarryForward();
+            $store = new AramiscFeesCarryForward();
             $store->student_id = $student->id;
             $store->balance = rand(1000,5000);
             $store->save();

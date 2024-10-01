@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin\FeesCollection;
 
 use App\User;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\AramiscFeesAssign;
 use App\ApiBaseMethod;
 use App\AramiscFeesPayment;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\Models\FeesInvoice;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -36,7 +36,7 @@ class AramiscFeesCollectController extends Controller
     public function index(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.feesCollection.collect_fees', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -84,9 +84,9 @@ class AramiscFeesCollectController extends Controller
                 Toastr::error('No result found', 'Failed');
                 return redirect('collect-fees');
             }
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
 
-            $class_info = SmClass::find($request->class);
+            $class_info = AramiscClass::find($request->class);
             $search_info['class_name'] = @$class_info->class_name;
             if ($request->section != "") {
                 $section_info = AramiscSection::find($request->section);
@@ -204,7 +204,7 @@ class AramiscFeesCollectController extends Controller
                 }
             }
 
-            $currency_symbol = SmGeneralSettings::select('currency_symbol')->where('school_id', Auth::user()->school_id)->first();
+            $currency_symbol = AramiscGeneralSettings::select('currency_symbol')->where('school_id', Auth::user()->school_id)->first();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];

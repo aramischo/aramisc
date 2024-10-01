@@ -1,8 +1,8 @@
 <?php
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\InfixModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -29,7 +29,7 @@ return new class extends Migration
             $s3->save();
         }
 
-        $extraContactPage = SmHeaderMenuManager::where([
+        $extraContactPage = AramiscHeaderMenuManager::where([
             ['type', 'sPages'],
             ['title', 'Contact'],
             ['link', '/contact-us'],
@@ -39,7 +39,7 @@ return new class extends Migration
             $extraContactPage->delete();
         }
 
-        $generalSettings = SmGeneralSettings::first();
+        $generalSettings = AramiscGeneralSettings::first();
         if ($generalSettings) {
             $generalSettings->software_version = '8.1.2';
             $generalSettings->update();

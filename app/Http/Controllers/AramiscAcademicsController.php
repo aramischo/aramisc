@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\YearCheck;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;
 use App\ApiBaseMethod;
 use App\AramiscFeesPayment;
-use App\SmClassRoutine;
-use App\SmAssignSubject;
+use App\AramiscClassRoutine;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
-use App\SmAssignClassTeacher;
+use App\AramiscAssignClassTeacher;
 use App\AramiscFeesAssignDiscount;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -37,7 +37,7 @@ class AramiscAcademicsController extends Controller
     {
 
         try {
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.academics.class_routine', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -48,7 +48,7 @@ class AramiscAcademicsController extends Controller
     {
 
         try {
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.academics.class_routine_create', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -59,7 +59,7 @@ class AramiscAcademicsController extends Controller
     {
 
         try {
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
             }
@@ -73,7 +73,7 @@ class AramiscAcademicsController extends Controller
     {
 
         try {
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
             }
@@ -101,14 +101,14 @@ class AramiscAcademicsController extends Controller
                 ->withInput();
         }
         try {
-            $assign_subjects = SmAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->get();
-            $subjects = SmSubject::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
-            $teachers = SmStaff::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where(function($q) {
+            $assign_subjects = AramiscAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
+            $teachers = AramiscStaff::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where(function($q) {
                         $q->where('role_id', 4)->orWhere('previous_role_id', 4);
                     })->get();
             $class_id = $request->class;
             $section_id = $request->section;
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['classes'] = $classes->toArray();
@@ -130,8 +130,8 @@ class AramiscAcademicsController extends Controller
     {
 
         try {
-            $subjects = SmSubject::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
-            $teachers = SmStaff::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where(function($q)  {
+            $subjects = AramiscSubject::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
+            $teachers = AramiscStaff::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where(function($q)  {
                         $q->where('role_id', 4)->orWhere('previous_role_id', 4);
                 })->get();
 
@@ -158,7 +158,7 @@ class AramiscAcademicsController extends Controller
                 if (isset($request->subjects)) {
                     foreach ($request->subjects as $subject) {
                         if ($subject != "") {
-                            $assign_subject = new SmAssignSubject();
+                            $assign_subject = new AramiscAssignSubject();
                             $assign_subject->class_id = $request->class_id;
                             $assign_subject->section_id = $request->section_id;
                             $assign_subject->subject_id = $subject;
@@ -172,14 +172,14 @@ class AramiscAcademicsController extends Controller
                     }
                 }
             } elseif ($request->update == 1) {
-                $assign_subjects = SmAssignSubject::where('class_id', $request->class_id)->where('section_id', $request->section_id)->delete();
+                $assign_subjects = AramiscAssignSubject::where('class_id', $request->class_id)->where('section_id', $request->section_id)->delete();
 
                 $i = 0;
                 if (isset($request->subjects)) {
                     foreach ($request->subjects as $subject) {
 
                         if ($subject != "") {
-                            $assign_subject = new SmAssignSubject();
+                            $assign_subject = new AramiscAssignSubject();
                             $assign_subject->class_id = $request->class_id;
                             $assign_subject->section_id = $request->section_id;
                             $assign_subject->subject_id = $subject;
@@ -223,12 +223,12 @@ class AramiscAcademicsController extends Controller
                 ->withInput();
         }
         try {
-            $assign_subjects = SmAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->get();
-            $subjects = SmSubject::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $teachers = SmStaff::where('active_status', 1)->where(function($q)  {               
+            $assign_subjects = AramiscAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $teachers = AramiscStaff::where('active_status', 1)->where(function($q)  {               
                         $q->where('role_id', 4)->orWhere('previous_role_id', 4);
                 })->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             if ($assign_subjects->count() == 0) {
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                     return ApiBaseMethod::sendError('No Result Found');
@@ -259,23 +259,23 @@ class AramiscAcademicsController extends Controller
     public function ajaxSelectSubject(Request $request)
     {
         try {
-            $staff_info = SmStaff::where('user_id', Auth::user()->id)->first();
+            $staff_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
             // return $staff_info;
             if (teacherAccess()) {
-                $subject_all = SmAssignSubject::where('class_id', '=', $request->class)
+                $subject_all = AramiscAssignSubject::where('class_id', '=', $request->class)
                     ->where('section_id', $request->section)
                     ->where('teacher_id', $staff_info->id)
                     ->distinct('subject_id')
                     ->get();
             } else {
-                $subject_all = SmAssignSubject::where('class_id', '=', $request->class)
+                $subject_all = AramiscAssignSubject::where('class_id', '=', $request->class)
                     ->where('section_id', $request->section)
                     ->distinct('subject_id')
                     ->get();
             }
             $students = [];
             foreach ($subject_all as $allSubject) {
-                $students[] = SmSubject::where('id', $allSubject->subject_id)->first(['id','subject_name','subject_type']);
+                $students[] = AramiscSubject::where('id', $allSubject->subject_id)->first(['id','subject_name','subject_type']);
             }
             return response()->json([$students]);
         } catch (\Exception $e) {
@@ -296,8 +296,8 @@ class AramiscAcademicsController extends Controller
             $class_id = $request->class;
             $section_id = $request->section;
             $subject_id = $request->subject;
-            $classes = SmClass::where('active_status', 1)->get();
-            $class_routine = SmClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->where('subject_id', $request->subject)->first();
+            $classes = AramiscClass::where('active_status', 1)->get();
+            $class_routine = AramiscClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->where('subject_id', $request->subject)->first();
             if ($class_routine == "") {
                 $class_routine = "hello";
             }
@@ -312,9 +312,9 @@ class AramiscAcademicsController extends Controller
     {
 
         try {
-            $check_assigned = $class_routine = SmClassRoutine::where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('subject_id', $request->subject_id)->delete();
+            $check_assigned = $class_routine = AramiscClassRoutine::where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('subject_id', $request->subject_id)->delete();
             // if($check_assigned != ""){
-            $class_routine = new SmClassRoutine();
+            $class_routine = new AramiscClassRoutine();
             $class_routine->class_id = $request->class_id;
             $class_routine->section_id = $request->section_id;
             $class_routine->subject_id = $request->subject_id;
@@ -368,8 +368,8 @@ class AramiscAcademicsController extends Controller
             'section' => 'required'
         ]);
         try {
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $class_routines = SmClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $class_routines = AramiscClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->get();
             $class_id = $request->class;
             return view('backEnd.academics.class_routine', compact('class_routines', 'classes', 'class_id'));
         } catch (\Exception $e) {
@@ -381,7 +381,7 @@ class AramiscAcademicsController extends Controller
     public function classReport(Request $request)
     {
         try {
-            $classes = SmClass::where('academic_id', getAcademicId())->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('academic_id', getAcademicId())->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
             }
@@ -493,7 +493,7 @@ class AramiscAcademicsController extends Controller
             }
     
             try {
-                $search_class = SmClass::where('academic_id', getAcademicId())->where('id', $request->class)->where('school_id', Auth::user()->school_id)->first();
+                $search_class = AramiscClass::where('academic_id', getAcademicId())->where('id', $request->class)->where('school_id', Auth::user()->school_id)->first();
     
                 if ($request->section != "") {
                     $sectionInfo = AramiscSection::where('academic_id', getAcademicId())->where('id', $request->section)->where('school_id', Auth::user()->school_id)->first();
@@ -508,7 +508,7 @@ class AramiscAcademicsController extends Controller
                 $student_ids= $students->pluck('id')->toArray();
     
     
-                $assign_subjects = SmAssignSubject::query()->with('teacher');
+                $assign_subjects = AramiscAssignSubject::query()->with('teacher');
     
                 if ($request->section != "") {
                     $assign_subjects->where('section_id', $request->section);
@@ -518,7 +518,7 @@ class AramiscAcademicsController extends Controller
     
     
     
-                $assign_class_teacher = SmAssignClassTeacher::query();
+                $assign_class_teacher = AramiscAssignClassTeacher::query();
                 $assign_class_teacher->where('academic_id', getAcademicId())->where('active_status', 1);
                 if ($request->section != "") {
                     $assign_class_teacher->where('section_id', $request->section);
@@ -562,7 +562,7 @@ class AramiscAcademicsController extends Controller
                         $applied_discount+=AramiscFeesAssign::where('student_id',$student->id)->where('fees_master_id',$master)->sum('applied_discount');
                     }
                 }
-                $classes = SmClass::where('academic_id', getAcademicId())->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+                $classes = AramiscClass::where('academic_id', getAcademicId())->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
                 $section_id = $request->section;
                 $class_id = $request->class;
     

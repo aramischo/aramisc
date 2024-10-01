@@ -11,9 +11,9 @@ use App\Scopes\AcademicSchoolScope;
 use App\Scopes\ActiveStatusSchoolScope;
 use App\Scopes\SchoolScope;
 use App\AramiscAcademicYear;
-use App\SmGeneralSettings;
-use App\SmLeaveRequest;
-use App\SmLeaveDefine;
+use App\AramiscGeneralSettings;
+use App\AramiscLeaveRequest;
+use App\AramiscLeaveDefine;
 use App\AramiscNotification;
 use App\AramiscStudent;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class LeaveController extends Controller
             ->where('id', $request->student_id)->firstOrFail();
 
         if ($user) {
-            $my_leaves = SmLeaveDefine::withoutGlobalScope(ActiveStatusSchoolScope::class)
+            $my_leaves = AramiscLeaveDefine::withoutGlobalScope(ActiveStatusSchoolScope::class)
                 ->with(['leaveType' => function ($q) {
                     $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
                 }])
@@ -75,7 +75,7 @@ class LeaveController extends Controller
             ->firstOrFail();
 
         if ($user) {
-            $pending = SmLeaveRequest::with(['leaveDefine' => function ($q) {
+            $pending = AramiscLeaveRequest::with(['leaveDefine' => function ($q) {
                 $q->withoutGlobalScope(ActiveStatusSchoolScope::class)->with(['leaveType' => function ($q) {
                     $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
                 }])->where('school_id', auth()->user()->school_id);
@@ -86,7 +86,7 @@ class LeaveController extends Controller
                 ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                 ->where('school_id', auth()->user()->school_id)->get();
 
-            $approved = SmLeaveRequest::with(['leaveDefine' => function ($q) {
+            $approved = AramiscLeaveRequest::with(['leaveDefine' => function ($q) {
                 $q->withoutGlobalScope(ActiveStatusSchoolScope::class)->with(['leaveType' => function ($q) {
                     $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
                 }])->where('school_id', auth()->user()->school_id);
@@ -97,7 +97,7 @@ class LeaveController extends Controller
                 ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                 ->where('school_id', auth()->user()->school_id)->get();
 
-            $rejected = SmLeaveRequest::with(['leaveDefine' => function ($q) {
+            $rejected = AramiscLeaveRequest::with(['leaveDefine' => function ($q) {
                 $q->withoutGlobalScope(ActiveStatusSchoolScope::class)->with(['leaveType' => function ($q) {
                     $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
                 }])->where('school_id', auth()->user()->school_id);
@@ -140,7 +140,7 @@ class LeaveController extends Controller
             'attach_file'   => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png,txt"
         ]);
 
-        $maxFileSize = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first('file_size')->file_size;
         $file = $request->file('attach_file');
         $fileSize = filesize($file);
         $fileSizeKb = ($fileSize / 1000000);
@@ -175,10 +175,10 @@ class LeaveController extends Controller
             $login_id = $request->login_id;
             $role_id = $request->role_id;
         }
-        $leaveDefine = SmLeaveDefine::withoutGlobalScopes([ActiveStatusSchoolScope::class, AcademicSchoolScope::class])
+        $leaveDefine = AramiscLeaveDefine::withoutGlobalScopes([ActiveStatusSchoolScope::class, AcademicSchoolScope::class])
             ->with('leaveType:id')->find($request->leave_type, ['id', 'type_id']);
 
-        $apply_leave = new SmLeaveRequest();
+        $apply_leave = new AramiscLeaveRequest();
         $apply_leave->staff_id = $login_id;
         $apply_leave->role_id = $role_id;
         $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
@@ -234,7 +234,7 @@ class LeaveController extends Controller
 
     public function studentLeaveEdit(Request $request)
     {
-        $data['apply_leave'] = SmLeaveRequest::select('id', 'apply_date', 'leave_from', 'leave_to', 'reason', 'file', 'leave_define_id')
+        $data['apply_leave'] = AramiscLeaveRequest::select('id', 'apply_date', 'leave_from', 'leave_to', 'reason', 'file', 'leave_define_id')
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->leave_request_id)
             ->firstOrFail();
@@ -266,7 +266,7 @@ class LeaveController extends Controller
             'attach_file' => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png,txt"
         ]);
 
-        $maxFileSize = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first('file_size')->file_size;
         $file = $request->file('attach_file');
         $fileSize = filesize($file);
         $fileSizeKb = ($fileSize / 1000000);
@@ -280,7 +280,7 @@ class LeaveController extends Controller
         }
         $fileName = "";
         if ($request->file('attach_file') != "") {
-            $apply_leave = SmLeaveRequest::where('school_id', auth()->user()->school_id)->where('id', $request->id)->first();
+            $apply_leave = AramiscLeaveRequest::where('school_id', auth()->user()->school_id)->where('id', $request->id)->first();
             if (file_exists($apply_leave->file)) {
                 unlink($apply_leave->file);
             }
@@ -308,7 +308,7 @@ class LeaveController extends Controller
             $role_id = $request->role_id;
         }
 
-        $apply_leave = SmLeaveRequest::where('school_id', auth()->user()->school_id)->where('id', $request->id)->first();
+        $apply_leave = AramiscLeaveRequest::where('school_id', auth()->user()->school_id)->where('id', $request->id)->first();
         $apply_leave->staff_id = $login_id;
         $apply_leave->role_id = $role_id;
         $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
@@ -341,7 +341,7 @@ class LeaveController extends Controller
     public function leaveType(Request $request)
     {
         $roleId = $request->role_id ?? auth()->user()->role_id;
-        $allLeaveType = SmLeaveDefine::withoutGlobalScopes([ActiveStatusSchoolScope::class])
+        $allLeaveType = AramiscLeaveDefine::withoutGlobalScopes([ActiveStatusSchoolScope::class])
             ->with(['leaveType' => function ($q) {
                 $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
             }])
@@ -353,7 +353,7 @@ class LeaveController extends Controller
             ->where('school_id', auth()->user()->school_id)->get();
         /* if ($user) {
         } else {
-            $allLeaveType = SmLeaveDefine::withoutGlobalScopes([ActiveStatusSchoolScope::class])
+            $allLeaveType = AramiscLeaveDefine::withoutGlobalScopes([ActiveStatusSchoolScope::class])
                 ->with(['leaveType' => function ($q) {
                     $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
                 }])

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\teacher;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use App\YearCheck;
 use App\ApiBaseMethod;
-use App\SmLeaveRequest;
-use App\SmGeneralSettings;
+use App\AramiscLeaveRequest;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -45,10 +45,10 @@ class LeaveController extends Controller
     public function staffLeaveList(Request $request, $id)
     {
         try {
-            $teacher = SmStaff::where('user_id', '=', $id)->first();
+            $teacher = AramiscStaff::where('user_id', '=', $id)->first();
             $teacher_id = $teacher->id;
 
-            $leave_list = SmLeaveRequest::where('staff_id', '=', $teacher_id)
+            $leave_list = AramiscLeaveRequest::where('staff_id', '=', $teacher_id)
                 ->join('sm_leave_defines', 'sm_leave_defines.id', '=', 'sm_leave_requests.leave_define_id')
                 ->join('sm_leave_types', 'sm_leave_types.id', '=', 'sm_leave_defines.type_id')
                ->where('sm_leave_defines.school_id',Auth::user()->school_id) ->get();
@@ -86,7 +86,7 @@ class LeaveController extends Controller
         try {
             $fileName = "";
             if ($request->file('attach_file') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -100,7 +100,7 @@ class LeaveController extends Controller
                 $fileName = 'public/uploads/leave_request/' . $fileName;
             }
 
-            $apply_leave = new SmLeaveRequest();
+            $apply_leave = new AramiscLeaveRequest();
             $apply_leave->staff_id = $request->input('teacher_id');
             $apply_leave->role_id = 4;
             $apply_leave->apply_date = date('Y-m-d');

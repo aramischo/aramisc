@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\ApiBaseMethod;
 use App\Imports\StudentAttendanceImport;
-use App\SmAssignSubject;
-use App\SmClass;
-use App\SmClassSection;
+use App\AramiscAssignSubject;
+use App\AramiscClass;
+use App\AramiscClassSection;
 use App\AramiscSection;
-use App\SmStaff;
+use App\AramiscStaff;
 use App\AramiscStudent;
 use App\AramiscStudentAttendance;
 use App\StudentAttendanceBulk;
@@ -31,8 +31,8 @@ class AramiscStudentAttendanceController extends Controller
     {
         try {
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -40,7 +40,7 @@ class AramiscStudentAttendanceController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -71,8 +71,8 @@ class AramiscStudentAttendanceController extends Controller
         try {
             $date = $request->attendance_date;
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -80,7 +80,7 @@ class AramiscStudentAttendanceController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -111,14 +111,14 @@ class AramiscStudentAttendanceController extends Controller
             }
             $class_id = $request->class;
             $section_id = $request->section;
-            $class_info = SmClass::find($request->class);
+            $class_info = AramiscClass::find($request->class);
             $section_info = AramiscSection::find($request->section);
 
             $search_info['class_name'] = $class_info->class_name;
             $search_info['section_name'] = $section_info->section_name;
             $search_info['date'] = $request->attendance_date;
 
-            $sections = SmClassSection::with('sectionName')->where('class_id', $class_id)->where('academic_id', getAcademicId())->where('active_status', 1)
+            $sections = AramiscClassSection::with('sectionName')->where('class_id', $class_id)->where('academic_id', getAcademicId())->where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -254,7 +254,7 @@ class AramiscStudentAttendanceController extends Controller
     public function studentAttendanceImport()
     {
         try {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.studentInformation.student_attendance_import', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

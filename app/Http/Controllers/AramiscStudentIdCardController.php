@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Role;
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\YearCheck;
 use App\AramiscStudentIdCard;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -69,7 +69,7 @@ class AramiscStudentIdCardController extends Controller
         try {
             $fileNameLogo = "";
             if ($request->file('logo') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('logo');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -85,7 +85,7 @@ class AramiscStudentIdCardController extends Controller
 
             $fileNameSignature = "";
             if ($request->file('signature') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('signature');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -101,7 +101,7 @@ class AramiscStudentIdCardController extends Controller
 
             $fileNameBackground = "";
             if ($request->file('background_img') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('background_img');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -117,7 +117,7 @@ class AramiscStudentIdCardController extends Controller
 
             $fileNameProfileImage = "";
             if ($request->file('profile_image') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('profile_image');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -226,7 +226,7 @@ class AramiscStudentIdCardController extends Controller
         try {
             $fileNamelogo = "";
             if ($request->file('logo') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('logo');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -249,7 +249,7 @@ class AramiscStudentIdCardController extends Controller
 
             $fileNameSignature = "";
             if ($request->file('signature') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('signature');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -272,7 +272,7 @@ class AramiscStudentIdCardController extends Controller
 
             $fileNameBackground = "";
             if ($request->file('background_img') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('background_img');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -295,7 +295,7 @@ class AramiscStudentIdCardController extends Controller
 
             $fileNameProfileImage = "";
             if ($request->file('profile_image') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('profile_image');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -473,10 +473,10 @@ class AramiscStudentIdCardController extends Controller
            $s_students = $s_students->status()->get();
        }elseif($request->role==3){
            $studentGuardian = AramiscStudent::where('school_id', Auth::user()->school_id)->get('parent_id');
-           $s_students = SmParent::whereIn('id',$studentGuardian)->get();
+           $s_students = AramiscParent::whereIn('id',$studentGuardian)->get();
        }
        else{
-           $s_students=SmStaff::whereRole($request->role)->status()->get();
+           $s_students=AramiscStaff::whereRole($request->role)->status()->get();
        }
        $id_card = AramiscStudentIdCard::status()->find($request->id_card);
 
@@ -510,7 +510,7 @@ class AramiscStudentIdCardController extends Controller
                   ->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
 
 
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $id_cards = AramiscStudentIdCard::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.admin.idCard.generate_id_card_old', compact('id_cards', 'class_id', 'classes', 'students', 'card_id'));
         } catch (\Exception $e) {

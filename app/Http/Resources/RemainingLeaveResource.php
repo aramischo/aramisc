@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\SmLeaveRequest;
+use App\AramiscLeaveRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,7 +15,7 @@ class RemainingLeaveResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $approved_leaves = SmLeaveRequest::approvedLeave($this->id);
+        $approved_leaves = AramiscLeaveRequest::approvedLeave($this->id);
         $remaining_days = $this->days - $approved_leaves;
         return [
             'id'                => (int)$this->id,

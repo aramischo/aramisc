@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Scopes\SchoolScope;
-use App\SmInventoryPayment;
+use App\AramiscInventoryPayment;
 use App\Scopes\ActiveStatusSchoolScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,15 +11,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscItemReceive extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_item_receives";
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new SchoolScope);
     }
-    
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_item_receives';
     public function suppliers(){
-    	return $this->belongsTo('App\SmSupplier', 'supplier_id', 'id');
+    	return $this->belongsTo('App\AramiscSupplier', 'supplier_id', 'id');
     }
 
     public function paymentMethodName(){
@@ -27,11 +26,11 @@ class AramiscItemReceive extends Model
     }
 
     public function bankName(){
-        return $this->belongsTo('App\SmBankAccount','account_id','id');
+        return $this->belongsTo('App\AramiscBankAccount','account_id','id');
     }
 
     public function itemPayments(){
-        return $this->hasMany(SmInventoryPayment::class,'item_receive_sell_id','id');
+        return $this->hasMany(AramiscInventoryPayment::class,'item_receive_sell_id','id');
     }
 
 }

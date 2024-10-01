@@ -133,7 +133,7 @@
                             <td>{{$value->mobile}}</td>
                             <td>
                                 @php
-                                    $getPayrollDetails = App\SmHrPayrollGenerate::getPayrollDetails($value->id, $payroll_month, $payroll_year);
+                                    $getPayrollDetails = App\AramiscHrPayrollGenerate::getPayrollDetails($value->id, $payroll_month, $payroll_year);
                                 @endphp
                                 @if(!empty($getPayrollDetails))
                                     @if($getPayrollDetails->payroll_status == 'G')

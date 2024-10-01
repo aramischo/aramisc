@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\api;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
-use App\SmBaseSetup;
+use App\AramiscBaseSetup;
 use App\AramiscFeesGroup;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;

@@ -2,17 +2,17 @@
 namespace App\Http\Controllers;
 use App\Role;
 use App\User;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\YearCheck;
 use App\ApiBaseMethod;
-use App\SmContentType;
-use App\SmClassSection;
+use App\AramiscContentType;
+use App\AramiscClassSection;
 use App\AramiscNotification;
-use App\SmAssignSubject;
-use App\SmGeneralSettings;
+use App\AramiscAssignSubject;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\AramiscTeacherUploadContent;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +34,7 @@ class AramiscTeacherController extends Controller
     public function uploadContentList(Request $request)
     {
         try {
-            $contentTypes = SmContentType::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $contentTypes = AramiscContentType::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             if (teacherAccess()) {
                 $uploadContents = AramiscTeacherUploadContent::where(function ($q) {
                     $q->where('created_by', Auth::user()->id)->orWhere('available_for_admin', 1);
@@ -50,10 +50,10 @@ class AramiscTeacherController extends Controller
             }
 
             if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info=AramiscStaff::where('user_id', Auth::user()->id)->first();
                 $classes= $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
 
             return view('backEnd.teacher.uploadContentList', compact('contentTypes', 'classes', 'uploadContents'));
@@ -74,7 +74,7 @@ class AramiscTeacherController extends Controller
             return redirect()->back();
         }
         $sections = AramiscSection::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
-        $contentTypes = SmContentType::where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+        $contentTypes = AramiscContentType::where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
 
             if (teacherAccess()) {
                 $uploadContents = AramiscTeacherUploadContent::with('classes', 'Sections')->where(function ($q) {
@@ -87,8 +87,8 @@ class AramiscTeacherController extends Controller
             }
 
              if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id',Auth::user()->id)->first();
-                $classes= SmAssignSubject::where('teacher_id',$teacher_info->id)->join('sm_classes','sm_classes.id','sm_assign_subjects.class_id')
+                $teacher_info=AramiscStaff::where('user_id',Auth::user()->id)->first();
+                $classes= AramiscAssignSubject::where('teacher_id',$teacher_info->id)->join('sm_classes','sm_classes.id','sm_assign_subjects.class_id')
                 ->where('sm_assign_subjects.academic_id', getAcademicId())
                 ->where('sm_assign_subjects.active_status', 1)
                 ->where('sm_assign_subjects.school_id',Auth::user()->school_id)
@@ -96,7 +96,7 @@ class AramiscTeacherController extends Controller
                  ->distinct('sm_classes.id')
                 ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id',Auth::user()->school_id)
                 ->get();
@@ -125,7 +125,7 @@ class AramiscTeacherController extends Controller
     {  
        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
 
         if (isset($request->available_for)) {
             foreach ($request->available_for as $value) {
@@ -169,7 +169,7 @@ class AramiscTeacherController extends Controller
 		    $videomimes = ['video/mp4']; 
             $audiomimes = ['audio/mp3']; 
 
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('content_file');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -199,7 +199,7 @@ class AramiscTeacherController extends Controller
             $d = '2012';
 
             if($request->section == "all"){
-                $sections = SmClassSection::where('class_id', $request->class)               
+                $sections = AramiscClassSection::where('class_id', $request->class)               
                 ->where('school_id', Auth::user()->school_id)->get();
                 foreach($sections as $section){
                         $uploadContents = new AramiscTeacherUploadContent();
@@ -266,7 +266,7 @@ class AramiscTeacherController extends Controller
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
                     foreach ($roles as $role) {
-                        $staffs = SmStaff::where('role_id', $role->id)->where('school_id',Auth::user()->school_id)->get();
+                        $staffs = AramiscStaff::where('role_id', $role->id)->where('school_id',Auth::user()->school_id)->get();
                         foreach ($staffs as $staff) {
                             $notification = new AramiscNotification;
                             $notification->user_id = $staff->user_id;
@@ -418,7 +418,7 @@ class AramiscTeacherController extends Controller
       
        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
 
         if (isset($request->available_for)) {
             foreach ($request->available_for as $value) {
@@ -462,7 +462,7 @@ class AramiscTeacherController extends Controller
 		    $videomimes = ['video/mp4']; 
             $audiomimes = ['audio/mp3']; 
 
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('content_file');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -553,7 +553,7 @@ class AramiscTeacherController extends Controller
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
                     foreach ($roles as $role) {
-                        $staffs = SmStaff::where('role_id', $role->id)->where('school_id',Auth::user()->school_id)->get();
+                        $staffs = AramiscStaff::where('role_id', $role->id)->where('school_id',Auth::user()->school_id)->get();
                         foreach ($staffs as $staff) {
                             $notification = new AramiscNotification;
                             $notification->user_id = $staff->user_id;

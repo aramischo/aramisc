@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Theme\Edulia;
 
 use App\AramiscExam;
 use App\AramiscNews;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscEvent;
-use App\SmStaff;
+use App\AramiscStaff;
 use App\AramiscCourse;
 use App\AramiscSection;
 use App\AramiscStudent;
@@ -14,14 +14,14 @@ use App\AramiscVisitor;
 use App\YearCheck;
 use App\AramiscExamType;
 use App\AramiscNewsPage;
-use App\SmMarksGrade;
+use App\AramiscMarksGrade;
 use App\AramiscExamSetting;
-use App\SmNoticeBoard;
-use App\SmResultStore;
+use App\AramiscNoticeBoard;
+use App\AramiscResultStore;
 use App\Models\SmDonor;
 use App\AramiscNewsCategory;
-use App\SmAssignSubject;
-use App\SmMarksRegister;
+use App\AramiscAssignSubject;
+use App\AramiscMarksRegister;
 use App\AramiscCourseCategory;
 use App\Models\SpeechSlider;
 use Illuminate\Http\Request;
@@ -29,8 +29,8 @@ use App\Models\AramiscCustomField;
 use App\Models\AramiscNewsComment;
 use App\Models\StudentRecord;
 use App\Models\SmPhotoGallery;
-use App\SmClassOptionalSubject;
-use App\SmOptionalSubjectAssign;
+use App\AramiscClassOptionalSubject;
+use App\AramiscOptionalSubjectAssign;
 use App\Models\FrontendExamResult;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -109,8 +109,8 @@ class FrontendController extends Controller
     public function singleNoticeDetails($notice_id)
     {
         try {
-            $data['notice_detail'] = SmNoticeBoard::where('is_published', 1)->where('school_id', app('school')->id)->findOrFail($notice_id);
-            $data['notices'] = SmNoticeBoard::where('is_published', 1)->where('school_id', app('school')->id)->get();
+            $data['notice_detail'] = AramiscNoticeBoard::where('is_published', 1)->where('school_id', app('school')->id)->findOrFail($notice_id);
+            $data['notices'] = AramiscNoticeBoard::where('is_published', 1)->where('school_id', app('school')->id)->get();
             return view('frontEnd.theme.' . activeTheme() . '.notice.single_notice', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -143,12 +143,12 @@ class FrontendController extends Controller
                 $student_id = $student->id;
                 $exam_id = $request->exam;
 
-                $failgpa = SmMarksGrade::where('active_status', 1)
+                $failgpa = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->min('gpa');
 
-                $failgpaname = SmMarksGrade::where('active_status', 1)
+                $failgpaname = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->where('gpa', $failgpa)
@@ -159,7 +159,7 @@ class FrontendController extends Controller
                     ->where('school_id', $school_id)
                     ->get();
 
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->get();
@@ -182,7 +182,7 @@ class FrontendController extends Controller
                 $exam_details = $exams->where('active_status', 1)->find($exam_type_id);
 
                 $optional_subject = '';
-                $get_optional_subject = SmOptionalSubjectAssign::where('record_id', '=', $student_detail->id)
+                $get_optional_subject = AramiscOptionalSubjectAssign::where('record_id', '=', $student_detail->id)
                     ->where('session_id', '=', $student_detail->session_id)
                     ->first();
 
@@ -190,21 +190,21 @@ class FrontendController extends Controller
                     $optional_subject = $get_optional_subject->subject_id;
                 }
 
-                $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $class_id)
+                $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $class_id)
                     ->first();
 
-                $mark_sheet = SmResultStore::where([['class_id', $class_id], ['exam_type_id', $request->exam], ['section_id', $section_id], ['student_id', $student_id]])
+                $mark_sheet = AramiscResultStore::where([['class_id', $class_id], ['exam_type_id', $request->exam], ['section_id', $section_id], ['student_id', $student_id]])
                     ->whereIn('subject_id', $subjects->pluck('subject_id')->toArray())
                     ->where('school_id', $school_id)
                     ->get();
 
-                $grades = SmMarksGrade::where('active_status', 1)
+                $grades = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->orderBy('gpa', 'desc')
                     ->get();
 
-                $maxGrade = SmMarksGrade::where('academic_id', getAcademicId())
+                $maxGrade = AramiscMarksGrade::where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->max('gpa');
 
@@ -213,16 +213,16 @@ class FrontendController extends Controller
                     return redirect()->back();
                 }
 
-                $is_result_available = SmResultStore::where([['class_id', $class_id], ['exam_type_id', $request->exam], ['section_id', $section_id], ['student_id', $student_id]])
+                $is_result_available = AramiscResultStore::where([['class_id', $class_id], ['exam_type_id', $request->exam], ['section_id', $section_id], ['student_id', $student_id]])
                     ->where('created_at', 'LIKE', '%' . YearCheck::getYear() . '%')
                     ->where('school_id', $school_id)
                     ->get();
 
-                $marks_register = SmMarksRegister::where('exam_id', $request->exam)
+                $marks_register = AramiscMarksRegister::where('exam_id', $request->exam)
                     ->where('student_id', $student_id)
                     ->first();
 
-                $subjects = SmAssignSubject::where('class_id', $class_id)
+                $subjects = AramiscAssignSubject::where('class_id', $class_id)
                     ->where('section_id', $section_id)
                     ->whereIn('subject_id', $examSubjectIds)
                     ->where('academic_id', getAcademicId())
@@ -234,17 +234,17 @@ class FrontendController extends Controller
                     ->where('school_id', $school_id)
                     ->get();
 
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->get();
 
-                $grades = SmMarksGrade::where('active_status', 1)
+                $grades = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->get();
 
-                $class = SmClass::find($class_id);
+                $class = AramiscClass::find($class_id);
                 $section = AramiscSection::find($section_id);
                 $exam_detail = AramiscExam::find($request->exam);
 
@@ -490,7 +490,7 @@ class FrontendController extends Controller
     public function staffDetails($id)
     {
         try {
-            $data['staffDetails'] = SmStaff::where('id', $id)->where('school_id', app('school')->id)->first();
+            $data['staffDetails'] = AramiscStaff::where('id', $id)->where('school_id', app('school')->id)->first();
             return view('frontEnd.theme.' . activeTheme() . '.staff.staff_details', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

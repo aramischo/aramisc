@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmExamAttendance;
+use App\AramiscExamAttendance;
 use Illuminate\Database\Seeder;
 
 class sm_exam_attendancesSeeder extends Seeder
@@ -14,9 +14,9 @@ class sm_exam_attendancesSeeder extends Seeder
      */
     public function run()
     {
-//        SmExamAttendance::query()->truncate();
+//        AramiscExamAttendance::query()->truncate();
         for($i=1; $i<=3; $i++){
-            $store= new SmExamAttendance();
+            $store= new AramiscExamAttendance();
             $store->exam_id=$i;
             $store->subject_id=$i;
             $store->class_id=$i;

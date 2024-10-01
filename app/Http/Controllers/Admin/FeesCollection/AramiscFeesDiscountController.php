@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Admin\FeesCollection;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\tableList;
-use App\SmBaseSetup;
+use App\AramiscBaseSetup;
 use App\AramiscFeesAssign;
 use App\ApiBaseMethod;
 use App\AramiscFeesPayment;
@@ -189,7 +189,7 @@ class AramiscFeesDiscountController extends Controller
 
         try{
             $fees_discount_id = $id;
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $groups = AramiscStudentGroup::get();
             $categories = AramiscStudentCategory::get();
             if(moduleStatusCheck('University')){
@@ -208,8 +208,8 @@ class AramiscFeesDiscountController extends Controller
     public function feesDiscountAssignSearch(Request $request)
     {
         try {
-            $genders = SmBaseSetup::where('base_group_id', '=', '1')->get();
-            $classes = SmClass::get();
+            $genders = AramiscBaseSetup::where('base_group_id', '=', '1')->get();
+            $classes = AramiscClass::get();
             $groups = AramiscStudentGroup::get();
             $categories = AramiscStudentCategory::where('school_id', Auth::user()->school_id)->get();
             $fees_discount_id = $request->fees_discount_id;

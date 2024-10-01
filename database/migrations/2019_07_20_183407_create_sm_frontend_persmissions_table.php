@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmFrontendPersmission;
+use App\AramiscFrontendPersmission;
 
-class CreateSmFrontendPersmissionsTable extends Migration
+class CreateAramiscFrontendPersmissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -24,96 +24,96 @@ class CreateSmFrontendPersmissionsTable extends Migration
             $table->timestamps();
         });
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Home Page';
         $s->parent_id       = 0;
         $s->is_published    = 1;
         $s->save(); //ID=1
 
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'About Page';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();//ID=2
 
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Image Banner';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Latest News';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
 
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Notice Board';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
 
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Event List';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Academics';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Testimonial';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Custom Links';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Social Icons';
         $s->parent_id       = 1;
         $s->is_published    = 1;
         $s->save();
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'About Image';
         $s->parent_id       = 2;
         $s->is_published    = 1;
         $s->save();
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Statistic Number Section';
         $s->parent_id       = 2;
         $s->is_published    = 1;
         $s->save();
 
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Our History';
         $s->parent_id       = 2;
         $s->is_published    = 1;
         $s->save();
 
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Our Mission and Vision';
         $s->parent_id       = 2;
         $s->is_published    = 1;
         $s->save();
 
         
-        $s                  = new SmFrontendPersmission();
+        $s                  = new AramiscFrontendPersmission();
         $s->name            = 'Testimonial';
         $s->parent_id       = 2;
         $s->is_published    = 1;

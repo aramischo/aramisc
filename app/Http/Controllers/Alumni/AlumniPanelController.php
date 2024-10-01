@@ -7,24 +7,24 @@ use App\Http\Controllers\Controller;
 use App\Models\SmCalendarSetting;
 use App\Models\StudentRecord;
 use App\Models\User;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\AramiscBookIssue;
 use App\AramiscComplaint;
 use App\AramiscEvent;
 use App\AramiscExamSchedule;
 use App\AramiscHoliday;
-use App\SmHomework;
-use App\SmLeaveDefine;
-use App\SmMarksGrade;
-use App\SmNoticeBoard;
-use App\SmOnlineExam;
+use App\AramiscHomework;
+use App\AramiscLeaveDefine;
+use App\AramiscMarksGrade;
+use App\AramiscNoticeBoard;
+use App\AramiscOnlineExam;
 use App\AramiscStudent;
 use App\AramiscStudentAttendance;
 use App\AramiscStudentDocument;
 use App\AramiscStudentTimeline;
-use App\SmSubjectAttendance;
-use App\SmVehicle;
-use App\SmWeekend;
+use App\AramiscSubjectAttendance;
+use App\AramiscVehicle;
+use App\AramiscWeekend;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -57,7 +57,7 @@ class AlumniPanelController extends Controller
                                 ->where('school_id', $user->school_id)
                                 ->get();
 
-            $data['totalNotices']   = SmNoticeBoard::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id)
+            $data['totalNotices']   = AramiscNoticeBoard::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id)
                                 ->where(function ($query) {
                                     $query->whereJsonContains('inform_to', '10')
                                         ->orWhere('inform_to', '10');
@@ -82,7 +82,7 @@ class AlumniPanelController extends Controller
 
             $data['student_detail'] = AramiscStudent::where('user_id', $user->id)->first();
 
-            $data['sm_weekends']    = SmWeekend::orderBy('order', 'ASC')
+            $data['sm_weekends']    = AramiscWeekend::orderBy('order', 'ASC')
                                 ->where('active_status', 1)
                                 ->where('is_weekend', 1)
                                 ->where('school_id', $user->school_id)

@@ -10,9 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscBookCategory extends Model
 {
     use HasFactory;
-
-// Spécifiez le nom de la table explicitement
-    protected $table = "sm_book_categories";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_book_categories';
     protected $casts = [
         'id'            => 'integer',
         'category_name' => 'string'

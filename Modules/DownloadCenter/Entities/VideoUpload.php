@@ -13,7 +13,7 @@ class VideoUpload extends Model
 
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
     }
     public function section()
     {

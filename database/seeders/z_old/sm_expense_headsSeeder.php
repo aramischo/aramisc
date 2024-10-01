@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmExpenseHead;
+use App\AramiscExpenseHead;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -15,6 +15,6 @@ class sm_expense_headsSeeder extends Seeder
      */
     public function run()
     {
-        SmExpenseHead::factory()->times(10)->create();        
+        AramiscExpenseHead::factory()->times(10)->create();        
     }
 }

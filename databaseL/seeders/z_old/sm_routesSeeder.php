@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\AramiscRoute;
-use App\SmStaff;
+use App\AramiscStaff;
 use Illuminate\Database\Seeder;
 
 class sm_routesSeeder extends Seeder
@@ -16,7 +16,7 @@ class sm_routesSeeder extends Seeder
     public function run()
     {
 
-        $drivers = SmStaff::whereRole(9)->where('active_status', 1)->get();
+        $drivers = AramiscStaff::whereRole(9)->where('active_status', 1)->get();
         foreach ($drivers as $driver) {
             $store = new AramiscRoute();
             $store->title = 'Transport Route ' . $driver->id;

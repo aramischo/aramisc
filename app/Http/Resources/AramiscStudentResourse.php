@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\StudentRecord;
-use App\SmClass;
+use App\AramiscClass;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

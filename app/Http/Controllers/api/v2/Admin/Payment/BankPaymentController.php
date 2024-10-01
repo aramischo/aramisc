@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\api\v2\Admin\Payment;
 
 use App\User;
-use App\SmSchool;
+use App\AramiscSchool;
 use App\AramiscStudent;
 use Carbon\Carbon;
-use App\SmAddIncome;
-use App\SmBankAccount;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
 use App\AramiscAcademicYear;
-use App\SmBankStatement;
+use App\AramiscBankStatement;
 use App\AramiscPaymentMethhod;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
@@ -160,7 +160,7 @@ class BankPaymentController extends Controller
             $payment_method = AramiscPaymentMethhod::withoutGlobalScope(ActiveStatusSchoolScope::class)->where('school_id', auth()->user()->school_id)->where('method', $transcation->payment_method)->first();
             $income_head = generalSetting();
 
-            $add_income = new SmAddIncome();
+            $add_income = new AramiscAddIncome();
             $add_income->name = 'Fees Collect';
             $add_income->date = date('Y-m-d');
             $add_income->amount = $allTranscation->paid_amount;
@@ -177,13 +177,13 @@ class BankPaymentController extends Controller
             $add_income->save();
 
             if ($transcation->payment_method == "Bank") {
-                $bank = SmBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)->where('id', $transcation->bank_id)
+                $bank = AramiscBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)->where('id', $transcation->bank_id)
                     ->where('school_id', auth()->user()->school_id)
                     ->first();
 
                 $after_balance = $bank->current_balance + $total_paid_amount;
 
-                $bank_statement = new SmBankStatement();
+                $bank_statement = new AramiscBankStatement();
                 $bank_statement->amount = $allTranscation->paid_amount;
                 $bank_statement->after_balance = $after_balance;
                 $bank_statement->type = 1;
@@ -195,7 +195,7 @@ class BankPaymentController extends Controller
                 $bank_statement->payment_method = $payment_method->id;
                 $bank_statement->save();
 
-                $current_balance = SmBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)->where('id', $transcation->bank_id)->where('school_id', auth()->user()->school_id)->first();
+                $current_balance = AramiscBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)->where('id', $transcation->bank_id)->where('school_id', auth()->user()->school_id)->first();
                 $current_balance->current_balance = $after_balance;
                 $current_balance->update();
             }
@@ -237,7 +237,7 @@ class BankPaymentController extends Controller
 
 
 
-            $school = SmSchool::find($user->school_id);
+            $school = AramiscSchool::find($user->school_id);
             $compact['full_name'] = $user->full_name;
             $compact['method'] = $transcation->payment_method;
             $compact['create_date'] = date('Y-m-d');

@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\InfixModuleManager;
 use App\AramiscAcademicYear;
-use App\SmBackgroundSetting;
-use App\SmDateFormat;
-use App\SmGeneralSettings;
-use App\SmLanguage;
-use App\SmSchool;
-use App\SmStaff;
-use App\SmsTemplate;
+use App\AramiscBackgroundSetting;
+use App\AramiscDateFormat;
+use App\AramiscGeneralSettings;
+use App\AramiscLanguage;
+use App\AramiscSchool;
+use App\AramiscStaff;
+use App\AramiscTemplate;
 use App\AramiscStudent;
-use App\SmStyle;
-use App\SmUserLog;
+use App\AramiscStyle;
+use App\AramiscUserLog;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Auth\Events\Lockout;
@@ -173,7 +173,7 @@ class LoginController extends Controller
         $school = app('school');
         $request->merge(['school_id' => $school->id]);
         $logged_in = false;
-        $gs = SmGeneralSettings::where('school_id', $school->id)->first();
+        $gs = AramiscGeneralSettings::where('school_id', $school->id)->first();
         session()->forget('generalSetting');
         session()->put('generalSetting', $gs);
         if ($school->id != 1 && $school->active_status != 1) {
@@ -230,7 +230,7 @@ class LoginController extends Controller
             $date_format_id = generalSetting()->date_format_id;
             $system_date_format = 'jS M, Y';
             if ($date_format_id) {
-                $system_date_format = SmDateFormat::where('id', $date_format_id)->first(['format'])->format;
+                $system_date_format = AramiscDateFormat::where('id', $date_format_id)->first(['format'])->format;
             }
 
             session()->put('system_date_format', $system_date_format);
@@ -249,14 +249,14 @@ class LoginController extends Controller
             $ttl_rtl = generalSetting()->ttl_rtl;
             session()->put('text_direction', $ttl_rtl);
 
-            $active_style = SmStyle::where('school_id', Auth::user()->school_id)->where('is_active', 1)->first();
+            $active_style = AramiscStyle::where('school_id', Auth::user()->school_id)->where('is_active', 1)->first();
             session()->put('active_style', $active_style);
 
-            $all_styles = SmStyle::where('school_id', Auth::user()->school_id)->get();
+            $all_styles = AramiscStyle::where('school_id', Auth::user()->school_id)->get();
             session()->put('all_styles', $all_styles);
 
             //Session put activeLanguage
-            $systemLanguage = SmLanguage::where('school_id', Auth::user()->school_id)->get();
+            $systemLanguage = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
             session()->put('systemLanguage', $systemLanguage);
             //session put academic years
 
@@ -276,7 +276,7 @@ class LoginController extends Controller
                 // $session_id = $profile ? $profile->academic_id : generalSetting()->session_id;
                 $session_id = generalSetting()->session_id;
             } else {
-                $profile = SmStaff::where('user_id', Auth::id())->first();
+                $profile = AramiscStaff::where('user_id', Auth::id())->first();
                 if ($profile) {
                     session()->put('profile', $profile->staff_photo);
                 }
@@ -314,12 +314,12 @@ class LoginController extends Controller
             $dashboard_background = DB::table('sm_background_settings')->where([['is_default', 1], ['title', 'Dashboard Background']])->first();
             session()->put('dashboard_background', $dashboard_background);
 
-            $email_template = SmsTemplate::where('school_id', Auth::user()->school_id)->first();
+            $email_template = AramiscTemplate::where('school_id', Auth::user()->school_id)->first();
             session()->put('email_template', $email_template);
 
             session(['role_id' => Auth::user()->role_id]);
             $agent = new Agent();
-            $user_log = new SmUserLog();
+            $user_log = new AramiscUserLog();
             $user_log->user_id = Auth::user()->id;
             $user_log->role_id = Auth::user()->role_id;
             $user_log->school_id = Auth::user()->school_id;
@@ -516,7 +516,7 @@ class LoginController extends Controller
         $school = app('school');
         $data = [];
 
-        $login_background = SmBackgroundSetting::where('school_id', $school->id)->where([['is_default', 1], ['title', 'Login Background']])->first();
+        $login_background = AramiscBackgroundSetting::where('school_id', $school->id)->where([['is_default', 1], ['title', 'Login Background']])->first();
 
         if (empty($login_background)) {
             $data['css'] = "background: url(" . url('public/backEnd/login2/img/login-bg.png') . ")  no-repeat center; background-size: cover; ";
@@ -536,7 +536,7 @@ class LoginController extends Controller
 
             $data['users'] = User::whereIn('role_id', $roles)->select('role_id', 'email')->where('school_id', $school->id)->orderByRaw('FIELD(role_id, 1, 5, 4, 3, 6, 7, 8, 2)')->get()->groupBy('role_id');
             if (moduleStatusCheck('Saas')) {
-                $data['schools'] = SmSchool::orderBy('school_name', 'asc')->take(5)->get()->except($school->id);
+                $data['schools'] = AramiscSchool::orderBy('school_name', 'asc')->take(5)->get()->except($school->id);
             }
         }
 
@@ -554,7 +554,7 @@ class LoginController extends Controller
             $school_id = app('school')->id;
         }
 
-        $login_background = SmBackgroundSetting::where('school_id', $school_id)->where([['is_default', 1], ['title', 'Login Background']])->first();
+        $login_background = AramiscBackgroundSetting::where('school_id', $school_id)->where([['is_default', 1], ['title', 'Login Background']])->first();
 
         if (empty($login_background)) {
             $css = "background: url(" . url('public/backEnd/img/login-bg.jpg') . ")  no-repeat center; background-size: cover; ";

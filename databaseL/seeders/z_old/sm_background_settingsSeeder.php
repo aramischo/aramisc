@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmBackgroundSetting;
+use App\AramiscBackgroundSetting;
 use Illuminate\Database\Seeder;
 
 class sm_background_settingsSeeder extends Seeder

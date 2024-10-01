@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\SmParent;
-use App\SmStaff;
+use App\AramiscParent;
+use App\AramiscStaff;
 use App\AramiscStudent;
 use App\Scopes\ActiveStatusSchoolScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscBook extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
+    // Spécifiez le nom de la table explicitement
     protected $table = 'sm_books';
     protected static function boot(){
         parent::boot();
@@ -45,7 +45,7 @@ class AramiscBook extends Model
     {
 
         try {
-            return SmStaff::select('full_name', 'email', 'mobile')->where('user_id', '=', $memberID)->first();
+            return AramiscStaff::select('full_name', 'email', 'mobile')->where('user_id', '=', $memberID)->first();
         } catch (\Exception $e) {
             $data = [];
             return $data;
@@ -56,7 +56,7 @@ class AramiscBook extends Model
     {
 
         try {
-            return $getMemberDetails = SmParent::select('full_name', 'email', 'mobile')->where('user_id', '=', $memberID)->first();
+            return $getMemberDetails = AramiscParent::select('full_name', 'email', 'mobile')->where('user_id', '=', $memberID)->first();
         } catch (\Exception $e) {
             $data = [];
             return $data;

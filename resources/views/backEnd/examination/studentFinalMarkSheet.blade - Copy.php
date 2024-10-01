@@ -409,13 +409,13 @@
                                                                 $totalSubjectFail = 0;
                                                                 $TotalSum = 0;
                                                                 foreach($assinged_exam_types as $assinged_exam_type){
-                                                                $mark_parts = App\SmAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
-                                                                $result = App\SmResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $student_id);
+                                                                $mark_parts = App\AramiscAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
+                                                                $result = App\AramiscResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $student_id);
                                                                 
                                                                 if (!empty($result)) {
-                                                                    $final_results = App\SmResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $student_id);
+                                                                    $final_results = App\AramiscResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id, $assinged_exam_type, $student_id);
 
-                                                                    $term_base = App\SmResultStore::termBaseMark($class_id, $section_id, $data->subject_id, $assinged_exam_type, $student_id);
+                                                                    $term_base = App\AramiscResultStore::termBaseMark($class_id, $section_id, $data->subject_id, $assinged_exam_type, $student_id);
                                                                 }
                                                                 $total_subject += $assinged_exam_type;
                                                                 $subject_full_mark = subjectFullMark($assinged_exam_type, $data->subject_id);

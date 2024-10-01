@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Scopes\StatusAcademicSchoolScope;
 use App\AramiscAcademicYear;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -23,14 +23,14 @@ class GraduateListController extends Controller
     {
         $graduates = Graduate::where('school_id',auth()->user()->school_id)->with('student','section','smClass','unFaculty','unDepartment')->get();
         $sessions = AramiscAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-        $classes  = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())
+        $classes  = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id)->get();
         return view('backEnd.graduate.graduate_list',compact('graduates','sessions','classes'));
     }
     public function search(Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
             $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $academic_year = $request->academic_year;
             $class_id = $request->class_id;

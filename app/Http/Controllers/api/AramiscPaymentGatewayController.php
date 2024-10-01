@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api;
 
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\AramiscFeesPayment;
 use App\AramiscAcademicYear;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -39,9 +39,9 @@ class AramiscPaymentGatewayController extends Controller
                 $fees_payment->active_status = 1 ; 
                 $fees_payment->save();
 
-                $gs = SmGeneralSettings::first('income_head_id');
+                $gs = AramiscGeneralSettings::first('income_head_id');
 
-                $add_income = new SmAddIncome();
+                $add_income = new AramiscAddIncome();
                 $add_income->name = 'Fees Collect';
                 $add_income->date = date('Y-m-d', strtotime(date('Y-m-d')));
                 $add_income->amount = $fees_payment->amount;

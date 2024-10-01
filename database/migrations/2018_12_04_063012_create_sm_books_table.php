@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmBook;
+use App\AramiscBook;
 
-class CreateSmBooksTable extends Migration
+class CreateAramiscBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -61,7 +61,7 @@ class CreateSmBooksTable extends Migration
         //     ];
         //     $i=1;
         //     foreach ($books as $book) { 
-        //     $store = new SmBook();
+        //     $store = new AramiscBook();
         //     $store->book_category_id = $i;
         //     $store->book_title = $book;
         //     $store->book_number = 'B-'.$i;

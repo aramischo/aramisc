@@ -168,14 +168,14 @@
                                                     for="">@lang('system_settings.copy_with_academic_year')</label>
                                                 <select multiple name="copy_with_academic_year[]"
                                                     class="multypol_check_select active position-relative">
-                                                    <option value="App\SmClass"
-                                                        @if (isset($academic_year)) @if (in_array('App\SmClass', @$copy_with_academic_year)) selected @endif
+                                                    <option value="App\AramiscClass"
+                                                        @if (isset($academic_year)) @if (in_array('App\AramiscClass', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('common.class') </option>
                                                     <option value="App\AramiscSection"
                                                         @if (isset($academic_year)) @if (in_array('App\AramiscSection', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('common.section')</option>
-                                                    <option value="App\SmSubject"
-                                                        @if (isset($academic_year)) @if (in_array('App\SmSubject', @$copy_with_academic_year)) selected @endif
+                                                    <option value="App\AramiscSubject"
+                                                        @if (isset($academic_year)) @if (in_array('App\AramiscSubject', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('common.subject')</option>
                                                     <option value="App\AramiscExamType"
                                                         @if (isset($academic_year)) @if (in_array('App\AramiscExamType', @$copy_with_academic_year)) selected @endif
@@ -186,8 +186,8 @@
                                                     <option value="App\AramiscFeesGroup"
                                                         @if (isset($academic_year)) @if (in_array('App\AramiscFeesGroup', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('fees.fees_group')</option>
-                                                    <option value="App\SmLeaveType"
-                                                        @if (isset($academic_year)) @if (in_array('App\SmLeaveType', @$copy_with_academic_year)) selected @endif
+                                                    <option value="App\AramiscLeaveType"
+                                                        @if (isset($academic_year)) @if (in_array('App\AramiscLeaveType', @$copy_with_academic_year)) selected @endif
                                                         @endif >@lang('leave.leave_type')</option>
                                                 </select>
                                             </div>

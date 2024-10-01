@@ -1497,7 +1497,7 @@
                                                                                 $gpa_point=number_format($final_gpa_point, 2, '.', '');
                                                                                 if($gpa_point >= $maxgpa){
                                                                                 $average_grade_max =
-                                                                                App\SmMarksGrade::where('school_id',Auth::user()->school_id)
+                                                                                App\AramiscMarksGrade::where('school_id',Auth::user()->school_id)
                                                                                 ->where('academic_id', getAcademicId() )
                                                                                 ->where('from', '<=', $maxgpa )
                                                                                     ->where('up', '>=', $maxgpa )
@@ -1506,7 +1506,7 @@
                                                                                     echo @$average_grade_max->grade_name;
                                                                                     } else {
                                                                                     $average_grade =
-                                                                                    App\SmMarksGrade::where('school_id',Auth::user()->school_id)
+                                                                                    App\AramiscMarksGrade::where('school_id',Auth::user()->school_id)
                                                                                     ->where('academic_id', getAcademicId() )
                                                                                     ->where('from', '<=', $final_gpa_point )
                                                                                         ->where('up', '>=', $final_gpa_point )

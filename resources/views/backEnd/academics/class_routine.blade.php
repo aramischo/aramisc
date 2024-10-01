@@ -107,7 +107,7 @@
                         @foreach($class_routines as $class_routine)
 
                         @php
-                            $teacher_id = App\SmClassRoutine::teacherId(@$class_routine->class_id, @$class_routine->section_id, @$class_routine->subject_id);
+                            $teacher_id = App\AramiscClassRoutine::teacherId(@$class_routine->class_id, @$class_routine->section_id, @$class_routine->subject_id);
 
                             if($teacher_id != ""){
                                 @$teacher = @$teacher_id->teacher->full_name;

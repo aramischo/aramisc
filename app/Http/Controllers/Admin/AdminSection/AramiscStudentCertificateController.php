@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\AdminSection;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\Models\StudentRecord;
 use App\AramiscStudentCertificate;
@@ -157,7 +157,7 @@ class AramiscStudentCertificateController extends Controller
     {
 
         try {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
             $certificates = AramiscStudentCertificate::where('school_id',auth()->user()->school_id)->get();
             return view('backEnd.admin.generate_certificate', compact('classes', 'certificates'));
         } catch (\Exception $e) {
@@ -225,7 +225,7 @@ class AramiscStudentCertificateController extends Controller
 
             }else{
                 $class_id = $request->class;
-                $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+                $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
                 
                 $students = StudentRecord::when($request->academic_year, function ($query) use ($request) {
                         $query->where('academic_id', $request->academic_year);

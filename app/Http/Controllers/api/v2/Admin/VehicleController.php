@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\AramiscAcademicYear;
 use Illuminate\Http\Request;
 
-use App\SmVehicle;
+use App\AramiscVehicle;
 use Illuminate\Support\Facades\Auth;
-use App\SmStaff;
+use App\AramiscStaff;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -19,7 +19,7 @@ class VehicleController extends Controller
 {
     public function vehicleList()
     {
-        $data = SmVehicle::where('school_id', auth()->user()->school_id)->select('id', 'vehicle_model', 'vehicle_no', 'made_year', 'note')->get();
+        $data = AramiscVehicle::where('school_id', auth()->user()->school_id)->select('id', 'vehicle_model', 'vehicle_no', 'made_year', 'note')->get();
         if (!$data) {
             $response = [
                 'success' => false,
@@ -39,7 +39,7 @@ class VehicleController extends Controller
 
     public function driverList()
     {
-        $data = SmStaff::whereRole(9)->where('school_id', auth()->user()->school_id)->select('id', 'full_name')->get();
+        $data = AramiscStaff::whereRole(9)->where('school_id', auth()->user()->school_id)->select('id', 'full_name')->get();
 
         if (!$data) {
             $response = [
@@ -69,7 +69,7 @@ class VehicleController extends Controller
             'driver_id' => "required"
         ]);
 
-        $assign_vehicle = new SmVehicle();
+        $assign_vehicle = new AramiscVehicle();
         $assign_vehicle->vehicle_no = $request->vehicle_number;
         $assign_vehicle->vehicle_model = $request->vehicle_model;
         $assign_vehicle->made_year = $request->year_made;
@@ -79,7 +79,7 @@ class VehicleController extends Controller
         $assign_vehicle->academic_id = AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
         $assign_vehicle->save();
 
-        $data = SmVehicle::select('id', 'vehicle_no', 'vehicle_model', 'made_year', 'note')->find($assign_vehicle->id);
+        $data = AramiscVehicle::select('id', 'vehicle_no', 'vehicle_model', 'made_year', 'note')->find($assign_vehicle->id);
 
         if (!$data) {
             $response = [

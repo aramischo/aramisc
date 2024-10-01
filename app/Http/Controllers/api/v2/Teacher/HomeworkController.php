@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\api\v2\Teacher;
 
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscSection;
 
 use App\AramiscStudent;
-use App\SmSubject;
-use App\SmHomework;
+use App\AramiscSubject;
+use App\AramiscHomework;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscNotification;
-use App\SmAssignSubject;
-use App\SmHomeworkStudent;
+use App\AramiscAssignSubject;
+use App\AramiscHomeworkStudent;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -38,7 +38,7 @@ class HomeworkController extends Controller
     use NotificationSend;
     public function homeworkList()
     {
-        $all_homeworks = SmHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)->with('classes', 'sections', 'subjects', 'users')
+        $all_homeworks = AramiscHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)->with('classes', 'sections', 'subjects', 'users')
             ->where('school_id', auth()->user()->school_id)
             ->latest()
             ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
@@ -75,7 +75,7 @@ class HomeworkController extends Controller
             'section_id' => ['nullable', Rule::exists('sm_homeworks', 'section_id')->where('school_id', auth()->user()->school_id)],
         ]);
 
-        $all_homeworks = SmHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $all_homeworks = AramiscHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
             ->where('class_id', $request->class_id)
@@ -182,7 +182,7 @@ class HomeworkController extends Controller
     public function addHomeworkDropdownListForClasses()
     {
     if (teacherAccess()) {
-    $teacher_info = SmStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
+    $teacher_info = AramiscStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
         ->where('school_id', auth()->user()->school_id)
         ->where('user_id', auth()->user()->id)
         ->first();
@@ -193,7 +193,7 @@ class HomeworkController extends Controller
                 ->get();
         }
         } else {
-            $data = SmClass::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+            $data = AramiscClass::withoutGlobalScopes([StatusAcademicSchoolScope::class])
                 ->select('id', 'class_name')
                 ->where('school_id', auth()->user()->school_id)->get();
         }
@@ -219,9 +219,9 @@ class HomeworkController extends Controller
         $this->validate($request, [
             'class_id' => 'required'
         ]);
-        $subjects = SmAssignSubject::query();
+        $subjects = AramiscAssignSubject::query();
         $subjectIds = $subjects->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', auth()->user()->school_id)->get()->pluck(['subject_id'])->toArray();
-        $data = SmSubject::withoutGlobalScopes([GlobalAcademicScope::class, StatusAcademicSchoolScope::class])->where('school_id', auth()->user()->school_id)->whereIn('id', $subjectIds)->get(['id', 'subject_name']);
+        $data = AramiscSubject::withoutGlobalScopes([GlobalAcademicScope::class, StatusAcademicSchoolScope::class])->where('school_id', auth()->user()->school_id)->whereIn('id', $subjectIds)->get(['id', 'subject_name']);
 
         if (!$data) {
             $response = [
@@ -246,14 +246,14 @@ class HomeworkController extends Controller
             'subject_id' => 'required'
         ]);
         if (teacherAccess()) {
-            $sectionIds = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->class_id)
+            $sectionIds = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->class_id)
                 ->where('subject_id', '=', $request->subject_id)
                 ->where('teacher_id', Auth::user()->staff->id)
                 ->where('school_id', Auth::user()->school_id)
                 ->select('section_id')->groupBy('section_id')
                 ->get();
         } else {
-            $sectionIds = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->class_id)
+            $sectionIds = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->class_id)
                 ->where('subject_id', '=', $request->subject_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->select('section_id')->groupBy('section_id')
@@ -306,7 +306,7 @@ class HomeworkController extends Controller
 
         $destination = 'public/uploads/homeworkcontent/';
         $upload_file = fileUpload($request->homework_file, $destination);
-        $homeworks = new SmHomework();
+        $homeworks = new AramiscHomework();
         $homeworks->class_id = $request->class_id;
         $homeworks->section_id = $request->section_id;
         $homeworks->subject_id = $request->subject_id;
@@ -358,19 +358,19 @@ class HomeworkController extends Controller
     public function storeHomeWorkEvaluation(Request $request)
     {
         if (checkAdmin()) {
-            SmHomeworkStudent::where('student_id', $request->student_id)
+            AramiscHomeworkStudent::where('student_id', $request->student_id)
                 ->where('homework_id', $request->homework_id)
                 ->delete();
         } else {
-            SmHomeworkStudent::where('student_id', $request->student_id)
+            AramiscHomeworkStudent::where('student_id', $request->student_id)
                 ->where('homework_id', $request->homework_id)
                 ->where('school_id', auth()->user()->school_id)
                 ->delete();
         }
 
-        $homework = SmHomework::find($request->homework_id);
+        $homework = AramiscHomework::find($request->homework_id);
 
-        $homeworkstudent = new SmHomeworkStudent();
+        $homeworkstudent = new AramiscHomeworkStudent();
         $homeworkstudent->homework_id = $request->homework_id;
         $homeworkstudent->student_id = $request->student_id;
         $homeworkstudent->marks = $request->marks;

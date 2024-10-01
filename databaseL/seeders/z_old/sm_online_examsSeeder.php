@@ -2,12 +2,12 @@
 
 namespace Database\Seeders\OnlineExam;
 
-use App\SmOnlineExam;
-use App\SmAssignSubject;
+use App\AramiscOnlineExam;
+use App\AramiscAssignSubject;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
-class SmOnlineExamTableSeeder extends Seeder
+class AramiscOnlineExamTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,9 +19,9 @@ class SmOnlineExamTableSeeder extends Seeder
         $faker = Faker::create();
         $i = 1;
 
-        $question_details = SmAssignSubject::where('school_id', $school_id)->where('academic_id', $academic_id)->get();
+        $question_details = AramiscAssignSubject::where('school_id', $school_id)->where('academic_id', $academic_id)->get();
         foreach ($question_details as $question_detail) {
-            $store = new SmOnlineExam();
+            $store = new AramiscOnlineExam();
             $store->subject_id = $question_detail->subject_id;
             $store->class_id = $question_detail->class_id;
             $store->section_id = $question_detail->section_id;

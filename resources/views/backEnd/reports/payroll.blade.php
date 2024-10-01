@@ -195,7 +195,7 @@
                                                         <td>{{ $value->basic_salary }}</td>
                                                         <td>
                                                             @php
-                                                                $totalEarnings = App\SmHrPayrollEarnDeduc::getTotalEarnings($value->id);
+                                                                $totalEarnings = App\AramiscHrPayrollEarnDeduc::getTotalEarnings($value->id);
                                                             @endphp
                                                             @if ($totalEarnings > 0)
                                                                 {{ $totalEarnings }}
@@ -206,7 +206,7 @@
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $totalDeductions = App\SmHrPayrollEarnDeduc::getTotalDeductions($value->id);
+                                                                $totalDeductions = App\AramiscHrPayrollEarnDeduc::getTotalDeductions($value->id);
                                                             @endphp
                                                             @if ($totalDeductions > 0)
                                                                 {{ $totalDeductions }}
@@ -217,7 +217,7 @@
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $leaveDeductions = App\SmLeaveDeductionInfo::select('salary_deduct')
+                                                                $leaveDeductions = App\AramiscLeaveDeductionInfo::select('salary_deduct')
                                                                     ->where('payroll_id', $value->id)
                                                                     ->first();
                                                             @endphp

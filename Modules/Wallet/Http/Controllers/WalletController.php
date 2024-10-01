@@ -4,13 +4,13 @@ namespace Modules\Wallet\Http\Controllers;
 
 use App\User;
 use DataTables;
-use App\SmBankAccount;
-use App\SmNotification;
-use App\SmPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscBankAccount;
+use App\AramiscNotification;
+use App\AramiscPaymentMethhod;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
-use App\SmPaymentGatewaySetting;
-use App\SmStudent;
+use App\AramiscPaymentGatewaySetting;
+use App\AramiscStudent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Traits\NotificationSend;
@@ -39,7 +39,7 @@ class WalletController extends Controller
             if ($request->payment_method == "Cheque" || $request->payment_method == "Bank") {
                 $uploadFile = "";
                 if ($request->file('file') != "") {
-                    $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                    $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                     $file = $request->file('file');
                     $fileSize = filesize($file);
                     $fileSizeKb = ($fileSize / 1000000);
@@ -74,7 +74,7 @@ class WalletController extends Controller
                 $data['wallet_type'] = 'diposit';
                 $data['description'] = "Wallet Amount Request";
                 $data['stripeToken'] = $request->stripeToken;
-                $data['student_id'] = SmStudent::where('user_id', $data['user_id'])->value('id');
+                $data['student_id'] = AramiscStudent::where('user_id', $data['user_id'])->value('id');
                 if($data['payment_method'] == 'CcAveune'){
                     $addPayment = new WalletTransaction();
                     $addPayment->amount= $data['amount'];
@@ -86,7 +86,7 @@ class WalletController extends Controller
                     $addPayment->save();
 
                     $ccAvenewPaymentController = new CcAveuneController();
-                    $ccAvenewPaymentController->aramiscStudentFeesPay($data['amount'] , $addPayment->id, $data['type']);
+                    $ccAvenewPaymentController->studentFeesPay($data['amount'] , $addPayment->id, $data['type']);
                 }
                 else if($data['payment_method'] == 'ToyyibPay') { 
                     DB::beginTransaction();
@@ -111,7 +111,7 @@ class WalletController extends Controller
                             'invoice_id' => $addPayment->id,
                             'payment_method' => $request->payment_method,
                         ];
-                        $data_store = $toyyibPayController->aramiscStudentFeesPay($data);
+                        $data_store = $toyyibPayController->studentFeesPay($data);
                         DB::commit();
                 
                         return response()->json(['payment_link' => $data_store]);
@@ -423,7 +423,7 @@ class WalletController extends Controller
         try {
             $uploadFile = "";
             if ($request->file('refund_file') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('refund_file');
                 $fileSize = filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -563,11 +563,11 @@ class WalletController extends Controller
     public function myWallet()
     {
         try {
-            $paymentMethods = SmPaymentMethhod::whereNotIn('method', ["Cash", "Wallet"])
+            $paymentMethods = AramiscPaymentMethhod::whereNotIn('method', ["Cash", "Wallet"])
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             
-            $bankAccounts = SmBankAccount::where('active_status', 1)
+            $bankAccounts = AramiscBankAccount::where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
@@ -575,12 +575,12 @@ class WalletController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $stripe_info = SmPaymentGatewaySetting::where('gateway_name', 'Stripe')
+            $stripe_info = AramiscPaymentGatewaySetting::where('gateway_name', 'Stripe')
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
             $razorpay_info = null;
             if (moduleStatusCheck('RazorPay')) {
-                $razorpay_info = SmPaymentGatewaySetting::where('gateway_name', 'RazorPay')
+                $razorpay_info = AramiscPaymentGatewaySetting::where('gateway_name', 'RazorPay')
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
             }
@@ -613,7 +613,7 @@ class WalletController extends Controller
 
     private function sendNotification($user_id, $role_id, $message)
     {
-        $notification = new SmNotification;
+        $notification = new AramiscNotification;
         $notification->user_id = $user_id;
         $notification->role_id = $role_id;
         $notification->date = date('Y-m-d');

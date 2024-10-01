@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscPaymentMethhod extends Model
 {
     use HasFactory;
-// Spécifiez le nom de la table explicitement
-    protected $table = "sm_payment_methhods";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_payment_methhods';
     protected $casts = [
         'id' => 'integer',
         'method' => 'string',
@@ -25,7 +25,7 @@ class AramiscPaymentMethhod extends Model
     
     public function incomeAmounts()
     {
-        return $this->hasMany('App\SmAddIncome', 'payment_method_id');
+        return $this->hasMany('App\AramiscAddIncome', 'payment_method_id');
     }
 
     public function getIncomeAmountAttribute()
@@ -35,7 +35,7 @@ class AramiscPaymentMethhod extends Model
 
     public function expenseAmounts()
     {
-        return $this->hasMany('App\SmAddExpense', 'payment_method_id');
+        return $this->hasMany('App\AramiscAddExpense', 'payment_method_id');
     }
 
     public function getExpenseAmountAttribute()

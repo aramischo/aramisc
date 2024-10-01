@@ -103,7 +103,7 @@ class ResetApplicationCommand extends Command
             $module->save();
 
             config(['app.app_sync' => false]);
-            $controller = new \App\Http\Controllers\Admin\SystemSettings\SmAddOnsController();
+            $controller = new \App\Http\Controllers\Admin\SystemSettings\AramiscAddOnsController();
             $controller->moduleAddOnsEnable($data);
             config(['app.app_sync' => true]);
         }

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\SmBaseGroup;
+use App\AramiscBaseGroup;
 
 class sm_base_groupsSeeder extends Seeder
 {

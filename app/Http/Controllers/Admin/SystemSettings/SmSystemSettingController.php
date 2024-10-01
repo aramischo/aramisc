@@ -5,37 +5,37 @@ namespace App\Http\Controllers\Admin\SystemSettings;
 use App\User;
 use App\AramiscExam;
 use ZipArchive;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\Language;
-use App\SmBackup;
-use App\SmSchool;
+use App\AramiscBackup;
+use App\AramiscSchool;
 use App\AramiscCountry;
 use App\AramiscSection;
-use App\SmSubject;
-use App\SmWeekend;
-use App\SmCurrency;
+use App\AramiscSubject;
+use App\AramiscWeekend;
+use App\AramiscCurrency;
 use App\AramiscExamType;
-use App\SmLanguage;
-use App\SmTimeZone;
+use App\AramiscLanguage;
+use App\AramiscTimeZone;
 use App\Models\Theme;
-use App\SmDateFormat;
-use App\SmSmsGateway;
+use App\AramiscDateFormat;
+use App\AramiscSmsGateway;
 use App\ApiBaseMethod;
-use App\SmBankAccount;
+use App\AramiscBankAccount;
 use App\AramiscAcademicYear;
-use App\SmEmailSetting;
-use App\SmAssignSubject;
-use App\SmSystemVersion;
-use App\SmChartOfAccount;
+use App\AramiscEmailSetting;
+use App\AramiscAssignSubject;
+use App\AramiscSystemVersion;
+use App\AramiscChartOfAccount;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
-use App\SmHomePageSetting;
+use App\AramiscGeneralSettings;
+use App\AramiscHomePageSetting;
 use App\Traits\UploadTheme;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\VersionHistory;
-use App\SmFrontendPersmission;
+use App\AramiscFrontendPersmission;
 use Illuminate\Support\Carbon;
 use App\AramiscPaymentGatewaySetting;
 use Illuminate\Support\Facades\DB;
@@ -60,8 +60,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Modules\University\Entities\UnAcademicYear;
 use App\Http\Requests\PaymentGatewayFormRequest;
-use App\Http\Requests\Admin\GeneralSettings\SmEmailSettingsRequest;
-use App\Http\Requests\Admin\GeneralSettings\SmGeneralSettingsRequest;
+use App\Http\Requests\Admin\GeneralSettings\AramiscEmailSettingsRequest;
+use App\Http\Requests\Admin\GeneralSettings\AramiscGeneralSettingsRequest;
 
 class SmSystemSettingController extends Controller
 {
@@ -76,7 +76,7 @@ class SmSystemSettingController extends Controller
 
     public function sendTestMail()
     {
-        $e = SmEmailSetting::where('active_status',1)->where('school_id', Auth::user()->school_id)->first();
+        $e = AramiscEmailSetting::where('active_status',1)->where('school_id', Auth::user()->school_id)->first();
         if (empty($e)) {
             Toastr::error('Email Setting is Not Complete', 'Failed');
             return redirect()->back();
@@ -111,8 +111,8 @@ class SmSystemSettingController extends Controller
         try {
             return $exams = AramiscExam::where('academic_id', getAcademicId())->get();
             $exams_types = AramiscExamType::where('academic_id', getAcademicId())->get();
-            $classes = SmClass::where('academic_id', getAcademicId())->where('active_status', 1)->get();
-            $subjects = SmSubject::where('academic_id', getAcademicId())->where('active_status', 1)->get();
+            $classes = AramiscClass::where('academic_id', getAcademicId())->where('active_status', 1)->get();
+            $subjects = AramiscSubject::where('academic_id', getAcademicId())->where('active_status', 1)->get();
             $sections = AramiscSection::where('academic_id', getAcademicId())->where('active_status', 1)->get();
             return view('frontEnd.home.light_news', compact('exams', 'classes', 'subjects', 'exams_types', 'sections'));
         } catch (\Exception $e) {
@@ -225,7 +225,7 @@ class SmSystemSettingController extends Controller
                 //            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
             }
 
-            $staff = new SmStaff();
+            $staff = new AramiscStaff();
 
             $staff->user_id = Auth::user()->id;
             $staff->role_id = 1;
@@ -287,8 +287,8 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $sms_services = SmSmsGateway::all();
-            $active_sms_service = SmSmsGateway::select('id')->where('active_status', 1)->first();
+            $sms_services = AramiscSmsGateway::all();
+            $active_sms_service = AramiscSmsGateway::select('id')->where('active_status', 1)->first();
             return view('backEnd.systemSettings.displaySetting', compact('sms_services', 'active_sms_service'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -299,19 +299,19 @@ class SmSystemSettingController extends Controller
     public function smsSettings()
     {
         try {
-            $sms_services['Twilio'] = SmSmsGateway::where('gateway_name','Twilio')->where('school_id',Auth::user()->school_id)->firstOrCreate();
-            $sms_services['Msg91'] = SmSmsGateway::where('gateway_name','Msg91')->where('school_id',Auth::user()->school_id)->firstOrCreate();
-            $sms_services['TextLocal'] = SmSmsGateway::where('gateway_name','TextLocal')->where('school_id',Auth::user()->school_id)->firstOrCreate();
-            $sms_services['AfricaTalking'] = SmSmsGateway::where('gateway_name','AfricaTalking')->where('school_id',Auth::user()->school_id)->firstOrCreate();
-            $sms_services['Mobile SMS'] = SmSmsGateway::where('gateway_name','Mobile SMS')->where('school_id',Auth::user()->school_id)->firstOrCreate();
+            $sms_services['Twilio'] = AramiscSmsGateway::where('gateway_name','Twilio')->where('school_id',Auth::user()->school_id)->firstOrCreate();
+            $sms_services['Msg91'] = AramiscSmsGateway::where('gateway_name','Msg91')->where('school_id',Auth::user()->school_id)->firstOrCreate();
+            $sms_services['TextLocal'] = AramiscSmsGateway::where('gateway_name','TextLocal')->where('school_id',Auth::user()->school_id)->firstOrCreate();
+            $sms_services['AfricaTalking'] = AramiscSmsGateway::where('gateway_name','AfricaTalking')->where('school_id',Auth::user()->school_id)->firstOrCreate();
+            $sms_services['Mobile SMS'] = AramiscSmsGateway::where('gateway_name','Mobile SMS')->where('school_id',Auth::user()->school_id)->firstOrCreate();
             if(moduleStatusCheck('HimalayaSms')){
-                $sms_services['HimalayaSms'] = SmSmsGateway::where('gateway_name','HimalayaSms')->where('school_id',Auth::user()->school_id)->first();
-                $all_sms_services= SmSmsGateway::where('school_id',Auth::user()->school_id)->get();
+                $sms_services['HimalayaSms'] = AramiscSmsGateway::where('gateway_name','HimalayaSms')->where('school_id',Auth::user()->school_id)->first();
+                $all_sms_services= AramiscSmsGateway::where('school_id',Auth::user()->school_id)->get();
             }
             elseif( ! moduleStatusCheck('HimalayaSms')){
-                $all_sms_services= SmSmsGateway::where('gateway_name', '!=','HimalayaSms')->where('school_id',Auth::user()->school_id)->get();
+                $all_sms_services= AramiscSmsGateway::where('gateway_name', '!=','HimalayaSms')->where('school_id',Auth::user()->school_id)->get();
             }
-            $active_sms_service = SmSmsGateway::where('school_id',Auth::user()->school_id)->where('active_status', 1)->first();
+            $active_sms_service = AramiscSmsGateway::where('school_id',Auth::user()->school_id)->where('active_status', 1)->first();
 
 
             return view('backEnd.systemSettings.smsSettings', compact('sms_services', 'active_sms_service','all_sms_services'));
@@ -324,7 +324,7 @@ class SmSystemSettingController extends Controller
     public function languageSettings()
     {
         try {
-            $sms_languages = SmLanguage::where('school_id', Auth::user()->school_id)->get();
+            $sms_languages = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
             $all_languages = Language::orderBy('code', 'ASC')->get()->except($sms_languages->pluck('lang_id')->toArray());
             return view('backEnd.systemSettings.languageSettings', compact('sms_languages', 'all_languages'));
         } catch (\Exception $e) {
@@ -337,8 +337,8 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $selected_languages = SmLanguage::find($id);
-            $sms_languages = SmLanguage::where('school_id', Auth::user()->school_id)->get();
+            $selected_languages = AramiscLanguage::find($id);
+            $sms_languages = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
             $all_languages = DB::table('languages')->where('school_id', Auth::user()->school_id)->orderBy('code', 'ASC')->get();
             return view('backEnd.systemSettings.languageSettings', compact('sms_languages', 'all_languages', 'selected_languages'));
         } catch (\Exception $e) {
@@ -356,7 +356,7 @@ class SmSystemSettingController extends Controller
             $language_details = Language::find($language_id);
 
             if (!empty($language_id)) {
-                $sms_languages = SmLanguage::find($id);
+                $sms_languages = AramiscLanguage::find($id);
                 $sms_languages->language_name = $language_details->name != null ? $language_details->name : '';
                 $sms_languages->language_universal = $language_details->code;
                 $sms_languages->native = $language_details->native;
@@ -409,13 +409,13 @@ class SmSystemSettingController extends Controller
 
         try {
             //     $uni = $request->id;
-            //     SmLanguage::where('active_status', 1)->where('school_id', Auth::user()->school_id)->update(['active_status' => 0]);
+            //     AramiscLanguage::where('active_status', 1)->where('school_id', Auth::user()->school_id)->update(['active_status' => 0]);
 
-            //     $updateLang = SmLanguage::where('language_universal', $uni)->where('school_id', Auth::user()->school_id)->first();
+            //     $updateLang = AramiscLanguage::where('language_universal', $uni)->where('school_id', Auth::user()->school_id)->first();
 
             //     $updateLang->active_status = 1;
             //     $updateLang->update();
-            //     $langs = SmLanguage::where('school_id', Auth::user()->school_id)->get();
+            //     $langs = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
             //     session()->put('systemLanguage',$langs);
             //    if($uni != 'en'){
             //     session()->put('lang', strtolower($uni));
@@ -444,13 +444,13 @@ class SmSystemSettingController extends Controller
             //    return response()->json([$uni]);
 
             $uni = $request->id;
-            SmLanguage::where('active_status', 1)->where('school_id', Auth::user()->school_id)->update(['active_status' => 0]);
+            AramiscLanguage::where('active_status', 1)->where('school_id', Auth::user()->school_id)->update(['active_status' => 0]);
 
-            $updateLang = SmLanguage::where('language_universal', $uni)->where('school_id', Auth::user()->school_id)->first();
+            $updateLang = AramiscLanguage::where('language_universal', $uni)->where('school_id', Auth::user()->school_id)->first();
 
             $updateLang->active_status = 1;
             $updateLang->update();
-            $langs = SmLanguage::where('school_id', Auth::user()->school_id)->get();
+            $langs = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
             session()->put('systemLanguage', $langs);
 
             $values['APP_LOCALE'] = $updateLang->language_universal;
@@ -484,11 +484,11 @@ class SmSystemSettingController extends Controller
 
         try {
             $class_id = $request->class;
-            $allSubjects = SmAssignSubject::where([['section_id', '=', $request->id], ['class_id', $class_id]])->get();
+            $allSubjects = AramiscAssignSubject::where([['section_id', '=', $request->id], ['class_id', $class_id]])->get();
 
             $subjectsName = [];
             foreach ($allSubjects as $allSubject) {
-                $subjectsName[] = SmSubject::find($allSubject->subject_id);
+                $subjectsName[] = AramiscSubject::find($allSubject->subject_id);
             }
 
             return response()->json([$subjectsName]);
@@ -510,7 +510,7 @@ class SmSystemSettingController extends Controller
             $language_details = DB::table('languages')->where('id', $lang_id)->first();
 
             if (!empty($language_details)) {
-                $sms_languages = new SmLanguage();
+                $sms_languages = new AramiscLanguage();
                 $sms_languages->language_name = $language_details->name;
                 $sms_languages->language_universal = $language_details->code;
                 $sms_languages->native = $language_details->native;
@@ -541,7 +541,7 @@ class SmSystemSettingController extends Controller
     public function backupSettings()
     {
         try {
-            $sms_dbs = SmBackup::where('academic_id', getAcademicId())->orderBy('id', 'DESC')->whereNull('lang_type')->get();
+            $sms_dbs = AramiscBackup::where('academic_id', getAcademicId())->orderBy('id', 'DESC')->whereNull('lang_type')->get();
             return view('backEnd.systemSettings.backupSettings', compact('sms_dbs'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -573,7 +573,7 @@ class SmSystemSettingController extends Controller
 
             $result = false;
             if (isset($content_file)) {
-                $store = new SmBackup();
+                $store = new AramiscBackup();
                 $store->file_name = $file_name;
                 $store->source_link = $content_file;
                 $store->active_status = 1;
@@ -636,11 +636,11 @@ class SmSystemSettingController extends Controller
 
         try {
             $source_link = "";
-            // $data        = SmBackup::find($id);
+            // $data        = AramiscBackup::find($id);
             if (checkAdmin()) {
-                $data = SmBackup::find($id);
+                $data = AramiscBackup::find($id);
             } else {
-                $data = SmBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $data = AramiscBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
             if (!empty($data)) {
                 $source_link = $data->source_link;
@@ -648,7 +648,7 @@ class SmSystemSettingController extends Controller
                     unlink('public/'.$source_link);
                 }
             }
-            $result = SmBackup::where('id', $id)->delete();
+            $result = AramiscBackup::where('id', $id)->delete();
             if ($result) {
                 Toastr::success('Operation successful', 'Success');
                 return redirect()->back();
@@ -675,11 +675,11 @@ class SmSystemSettingController extends Controller
 
         try {
             $source_link = "";
-            // $data        = SmBackup::where('id', $id)->first();
+            // $data        = AramiscBackup::where('id', $id)->first();
             if (checkAdmin()) {
-                $data = SmBackup::find($id);
+                $data = AramiscBackup::find($id);
             } else {
-                $data = SmBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $data = AramiscBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
             if (!empty($data)) {
                 $source_link = $data->source_link;
@@ -711,11 +711,11 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            // $sm_db = SmBackup::where('id', $id)->first();
+            // $sm_db = AramiscBackup::where('id', $id)->first();
             if (checkAdmin()) {
-                $sm_db = SmBackup::find($id);
+                $sm_db = AramiscBackup::find($id);
             } else {
-                $sm_db = SmBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $sm_db = AramiscBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
             if (!empty($sm_db)) {
                 $source_link = $sm_db->source_link;
@@ -793,7 +793,7 @@ class SmSystemSettingController extends Controller
                 }
             }
             $zip->close();
-            $store = new SmBackup();
+            $store = new AramiscBackup();
             $store->file_name = $zip_file;
             $store->source_link = $temp;
             $store->active_status = 1;
@@ -819,9 +819,9 @@ class SmSystemSettingController extends Controller
         ob_end_clean();
         try {
             if (checkAdmin()) {
-                $sm_db = SmBackup::find($id);
+                $sm_db = AramiscBackup::find($id);
             } else {
-                $sm_db = SmBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $sm_db = AramiscBackup::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
             $source = $sm_db->source_link;
             if (file_exists($source)) {
@@ -854,7 +854,7 @@ class SmSystemSettingController extends Controller
             $full_path = $folder . $file;
             $db_export->dump($full_path);
 
-            $get_backup = new SmBackup();
+            $get_backup = new AramiscBackup();
             $get_backup->file_name = $file;
             $get_backup->source_link = $full_path;
             $get_backup->active_status = 1;
@@ -880,15 +880,15 @@ class SmSystemSettingController extends Controller
             $clickatell_api_id = $_POST['clickatell_api_id'];
 
             if ($gateway_id) {
-                $gatewayDetails = SmSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
+                $gatewayDetails = AramiscSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
                 if (!empty($gatewayDetails)) {
-                    $gatewayDetails = SmSmsGateway::find($gatewayDetails->id);
+                    $gatewayDetails = AramiscSmsGateway::find($gatewayDetails->id);
                     $gatewayDetails->clickatell_username = $clickatell_username;
                     $gatewayDetails->clickatell_password = $clickatell_password;
                     $gatewayDetails->clickatell_api_id = $clickatell_api_id;
                     $results = $gatewayDetails->update();
                 } else {
-                    $gatewayDetail = new SmSmsGateway();
+                    $gatewayDetail = new AramiscSmsGateway();
                     $gatewayDetail->gateway_name = $request->gateway_name;
                     $gatewayDetail->clickatell_username = $clickatell_username;
                     $gatewayDetail->clickatell_password = $clickatell_password;
@@ -916,10 +916,10 @@ class SmSystemSettingController extends Controller
             $twilio_registered_no = $_POST['twilio_registered_no'];
 
             if ($gateway_id) {
-                $gatewayDetails = SmSmsGateway::where('gateway_name', $_POST['gateway_name'])->where('school_id',Auth::user()->school_id)->first();
+                $gatewayDetails = AramiscSmsGateway::where('gateway_name', $_POST['gateway_name'])->where('school_id',Auth::user()->school_id)->first();
                 if (!empty($gatewayDetails)) {
 
-                    $gatewayDetailss = SmSmsGateway::find($gatewayDetails->id);
+                    $gatewayDetailss = AramiscSmsGateway::find($gatewayDetails->id);
                     $gatewayDetailss->twilio_account_sid = $twilio_account_sid;
                     $gatewayDetailss->twilio_authentication_token = $twilio_authentication_token;
                     $gatewayDetailss->twilio_registered_no = $twilio_registered_no;
@@ -927,7 +927,7 @@ class SmSystemSettingController extends Controller
                     $results = $gatewayDetailss->update();
                 } else {
 
-                    $gatewayDetail = new SmSmsGateway();
+                    $gatewayDetail = new AramiscSmsGateway();
                     $gatewayDetail->gateway_name = $_POST['gateway_name'];
                     $gatewayDetail->twilio_account_sid = $twilio_account_sid;
                     $gatewayDetail->twilio_authentication_token = $twilio_authentication_token;
@@ -970,17 +970,17 @@ class SmSystemSettingController extends Controller
             $textlocal_type = $_POST['textlocal_type'];
 
             if ($gateway_id) {
-                $gatewayDetails = SmSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
+                $gatewayDetails = AramiscSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
                 if (!empty($gatewayDetails)) {
 
-                    $gatewayDetails = SmSmsGateway::find($gatewayDetails->id);
+                    $gatewayDetails = AramiscSmsGateway::find($gatewayDetails->id);
                     $gatewayDetails->textlocal_username = $textlocal_username;
                     $gatewayDetails->textlocal_hash = $textlocal_hash;
                     $gatewayDetails->textlocal_sender = $textlocal_sender;
                     $gatewayDetails->type = $textlocal_type;
                     $results = $gatewayDetails->update();
                 } else {
-                    $gatewayDetail = new SmSmsGateway();
+                    $gatewayDetail = new AramiscSmsGateway();
                     $gatewayDetail->gateway_name = $request->gateway_name;
                     $gatewayDetail->textlocal_username = $textlocal_username;
                     $gatewayDetail->textlocal_hash = $textlocal_hash;
@@ -1019,16 +1019,16 @@ class SmSystemSettingController extends Controller
             $africatalking_api_key = $_POST['africatalking_api_key'];
 
             if ($gateway_id) {
-                $gatewayDetails = SmSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
+                $gatewayDetails = AramiscSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
                 if (!empty($gatewayDetails)) {
 
-                    $gatewayDetails = SmSmsGateway::find($gatewayDetails->id);
+                    $gatewayDetails = AramiscSmsGateway::find($gatewayDetails->id);
                     $gatewayDetails->africatalking_username = $africatalking_username;
                     $gatewayDetails->africatalking_api_key = $africatalking_api_key;
                     $results = $gatewayDetails->update();
                 } else {
 
-                    $gatewayDetail = new SmSmsGateway();
+                    $gatewayDetail = new AramiscSmsGateway();
                     $gatewayDetail->gateway_name = $request->gateway_name;
                     $gatewayDetail->africatalking_username = $africatalking_username;
                     $gatewayDetail->africatalking_api_key = $africatalking_api_key;
@@ -1110,17 +1110,17 @@ class SmSystemSettingController extends Controller
             }
 
             if ($gateway_id) {
-                $gatewayDetails = SmSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
+                $gatewayDetails = AramiscSmsGateway::where('gateway_name', $request->gateway_name)->where('school_id',Auth::user()->school_id)->first();
                 if (!empty($gatewayDetails)) {
 
-                    $gatewayDetails = SmSmsGateway::find($gatewayDetails->id);
+                    $gatewayDetails = AramiscSmsGateway::find($gatewayDetails->id);
                     $gatewayDetails->msg91_authentication_key_sid = $msg91_authentication_key_sid;
                     $gatewayDetails->msg91_sender_id = $msg91_sender_id;
                     $gatewayDetails->msg91_route = $msg91_route;
                     $gatewayDetails->msg91_country_code = $msg91_country_code;
                     $results = $gatewayDetails->update();
                 } else {
-                    $gatewayDetail = new SmSmsGateway();
+                    $gatewayDetail = new AramiscSmsGateway();
                     $gatewayDetail->gateway_name = $request->gateway_name;
                     $gatewayDetail->msg91_authentication_key_sid = $msg91_authentication_key_sid;
                     $gatewayDetail->msg91_sender_id = $msg91_sender_id;
@@ -1152,11 +1152,11 @@ class SmSystemSettingController extends Controller
             $sms_service = $_GET['sms_service'];
 
             if ($sms_service) {
-                $gatewayDetails = SmSmsGateway::where('school_id',Auth::user()->school_id)->where('active_status', '=', 1)
+                $gatewayDetails = AramiscSmsGateway::where('school_id',Auth::user()->school_id)->where('active_status', '=', 1)
                     ->update(['active_status' => 0]);
             }
 
-            $gatewayDetails = SmSmsGateway::find($sms_service);
+            $gatewayDetails = AramiscSmsGateway::find($sms_service);
             $gatewayDetails->active_status = 1;
             $results = $gatewayDetails->update();
             if($results){
@@ -1175,7 +1175,7 @@ class SmSystemSettingController extends Controller
 
             $editData = generalSetting();
 
-            $session = SmGeneralSettings::join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_general_settings.session_id')->find(1);
+            $session = AramiscGeneralSettings::join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_general_settings.session_id')->find(1);
       
             return view('backEnd.systemSettings.generalSettingsView', compact('editData', 'session'));
         } catch (\Exception $e) {
@@ -1188,17 +1188,17 @@ class SmSystemSettingController extends Controller
     {
       
         try {
-            $editData = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $editData = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $session_ids = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->get();
-            $dateFormats = SmDateFormat::where('active_status', 1)->get();
-            $languages = SmLanguage::where('school_id',auth()->user()->school_id)->get();
+            $dateFormats = AramiscDateFormat::where('active_status', 1)->get();
+            $languages = AramiscLanguage::where('school_id',auth()->user()->school_id)->get();
             $countries = AramiscCountry::select('currency')->distinct('currency')->get();
-            $currencies = SmCurrency::where('school_id',auth()->user()->school_id)->get();
+            $currencies = AramiscCurrency::where('school_id',auth()->user()->school_id)->get();
             $academic_years = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
-            $time_zones = SmTimeZone::all();
-            $weekends = SmWeekend::where('school_id', Auth::user()->school_id)->get();
+            $time_zones = AramiscTimeZone::all();
+            $weekends = AramiscWeekend::where('school_id', Auth::user()->school_id)->get();
 
-            $sell_heads = SmChartOfAccount::where('active_status', '=', 1)
+            $sell_heads = AramiscChartOfAccount::where('active_status', '=', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->where('type', 'I')
                 ->get();
@@ -1211,7 +1211,7 @@ class SmSystemSettingController extends Controller
         }
     }
 
-    public function updateGeneralSettingsData(SmGeneralSettingsRequest $request)
+    public function updateGeneralSettingsData(AramiscGeneralSettingsRequest $request)
     {
         if (config('app.app_sync')) {
             Toastr::error('Restricted in demo mode');
@@ -1224,7 +1224,7 @@ class SmSystemSettingController extends Controller
                 ]);
             }
             $id = Auth::user()->school_id;
-            $generalSettData = SmGeneralSettings::where('school_id', $id)->first();
+            $generalSettData = AramiscGeneralSettings::where('school_id', $id)->first();
             $generalSettData->school_name = $request->school_name;
             $generalSettData->site_title = $request->site_title;
             $generalSettData->school_code = $request->school_code;
@@ -1280,20 +1280,20 @@ class SmSystemSettingController extends Controller
 
 
             // weekend
-            $w = SmWeekend::where('id', $request->week_start_id)->first();
+            $w = AramiscWeekend::where('id', $request->week_start_id)->first();
             if ($w) {
-                $greater_weekends = SmWeekend::where('school_id', Auth::user()->school_id)->where('order', '>=', $w->order)->orderBy('order', 'ASC')->get();
-                $less_weekends = SmWeekend::where('school_id', Auth::user()->school_id)->where('order', '<', $w->order)->orderBy('order', 'ASC')->get();
+                $greater_weekends = AramiscWeekend::where('school_id', Auth::user()->school_id)->where('order', '>=', $w->order)->orderBy('order', 'ASC')->get();
+                $less_weekends = AramiscWeekend::where('school_id', Auth::user()->school_id)->where('order', '<', $w->order)->orderBy('order', 'ASC')->get();
 
                 $i = 1;
                 foreach ($greater_weekends as $greater_weekend) {
-                    $g_weekend = SmWeekend::where('id', $greater_weekend->id)->first();
+                    $g_weekend = AramiscWeekend::where('id', $greater_weekend->id)->first();
                     $g_weekend->order = $i++;
                     $g_weekend->save();
                 }
-                $max_order = SmWeekend::where('school_id', Auth::user()->school_id)->max('order');
+                $max_order = AramiscWeekend::where('school_id', Auth::user()->school_id)->max('order');
                 foreach ($less_weekends as $less_weekend) {
-                    $l_weekend = SmWeekend::where('id', $less_weekend->id)->first();
+                    $l_weekend = AramiscWeekend::where('id', $less_weekend->id)->first();
                     $l_weekend->order = ++$max_order;
                     $l_weekend->save();
                 }
@@ -1302,7 +1302,7 @@ class SmSystemSettingController extends Controller
 
             // weekend end 
 
-            $school = SmSchool::find(Auth::user()->school_id);
+            $school = AramiscSchool::find(Auth::user()->school_id);
             $school->school_name = $request->school_name;
             $school->school_code = $request->school_code;
             $school->address = $request->address;
@@ -1328,10 +1328,10 @@ class SmSystemSettingController extends Controller
                 }
             }
 
-            $get_all_school_settings = SmGeneralSettings::get();
+            $get_all_school_settings = AramiscGeneralSettings::get();
 
             foreach ($get_all_school_settings as $key => $school_setting) {
-                $school_setup = SmGeneralSettings::find($school_setting->id);
+                $school_setup = AramiscGeneralSettings::find($school_setting->id);
                 $school_setup->language_id = $request->language_id;
                 $school_setup->date_format_id = $request->date_format_id;
                 $school_setup->currency = $request->currency;
@@ -1405,7 +1405,7 @@ class SmSystemSettingController extends Controller
                         $rowImage->save(asset_path("images/icons/splash-{$size[0]}x{$size[1]}.png"));
                     }
                 }
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('main_school_logo');
                 $fileSize = filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -1418,13 +1418,13 @@ class SmSystemSettingController extends Controller
                 $main_school_logo = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                 $file->move('public/uploads/settings/', $main_school_logo);
                 $main_school_logo = 'public/uploads/settings/' . $main_school_logo;
-                $generalSettData = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+                $generalSettData = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
                 $generalSettData->logo = $main_school_logo;
                 $results = $generalSettData->update();
 
                 if ($results) {
                     session()->forget('school_config');
-                    $school_config = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+                    $school_config = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
                     session()->put('school_config', $school_config);
 
                     session()->forget('generalSetting');
@@ -1451,7 +1451,7 @@ class SmSystemSettingController extends Controller
                         Image::make($request->file('main_school_favicon'))->resize($size, $size)->save(asset_path("images/icons/icon-{$size}x{$size}.png"));
                     }
                 }
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('main_school_favicon');
                 $fileSize = filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -1464,13 +1464,13 @@ class SmSystemSettingController extends Controller
                 $main_school_favicon = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                 $file->move('public/uploads/settings/', $main_school_favicon);
                 $main_school_favicon = 'public/uploads/settings/' . $main_school_favicon;
-                $generalSettData = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+                $generalSettData = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
                 $generalSettData->favicon = $main_school_favicon;
                 $results = $generalSettData->update();
 
                 if ($results) {
                     session()->forget('school_config');
-                    $school_config = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+                    $school_config = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
                     session()->put('school_config', $school_config);
                     session()->forget('generalSetting');
                     session()->put('generalSetting', $generalSettData);
@@ -1507,9 +1507,9 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $editData = SmEmailSetting::where('email_engine_type','smtp')->where('school_id',Auth::user()->school_id)->first();
-            $editDataPhp = SmEmailSetting::where('email_engine_type','php')->where('school_id',Auth::user()->school_id)->first();
-            $active_mail_driver = SmGeneralSettings::where('school_id',Auth::user()->school_id)->select('email_driver')->first()->email_driver;
+            $editData = AramiscEmailSetting::where('email_engine_type','smtp')->where('school_id',Auth::user()->school_id)->first();
+            $editDataPhp = AramiscEmailSetting::where('email_engine_type','php')->where('school_id',Auth::user()->school_id)->first();
+            $active_mail_driver = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->select('email_driver')->first()->email_driver;
             Session::put($active_mail_driver, "active");
             return view('backEnd.systemSettings.emailSettingsView', compact('editData','editDataPhp','active_mail_driver'));
         } catch (\Exception $e) {
@@ -1518,16 +1518,16 @@ class SmSystemSettingController extends Controller
         }
     }
 
-    public function updateEmailSettingsData(SmEmailSettingsRequest $request)
+    public function updateEmailSettingsData(AramiscEmailSettingsRequest $request)
     {
         try {
             if ($request->engine_type == "smtp") {
-                $e = SmEmailSetting::where('email_engine_type', 'smtp')
+                $e = AramiscEmailSetting::where('email_engine_type', 'smtp')
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
                    
                 if (empty($e)) {
-                    $e = new SmEmailSetting();
+                    $e = new AramiscEmailSetting();
                     $e->email_engine_type = 'smtp';
                     $e->mail_driver = $request->mail_driver;
                     $e->school_id = Auth::user()->school_id;
@@ -1544,13 +1544,13 @@ class SmSystemSettingController extends Controller
                 $results = $e->save();
               
                 if ($request->active_status == 1) {
-                    $gs = SmGeneralSettings::where('school_id',Auth::user()->school_id)->first();
+                    $gs = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->first();
                     $gs->email_driver = "smtp";
                     $gs->save();
                     session()->forget('generalSetting');
                     session()->put('generalSetting', $gs);
                 
-                    $phpp = SmEmailSetting::where('email_engine_type', 'php')
+                    $phpp = AramiscEmailSetting::where('email_engine_type', 'php')
                         ->where('school_id', Auth::user()->school_id)
                         ->first();
                     if ($phpp) {
@@ -1563,10 +1563,10 @@ class SmSystemSettingController extends Controller
 
             if ($request->engine_type == "php") {
 
-                $php = SmEmailSetting::where('email_engine_type', 'php')->where('school_id', Auth::user()->school_id)->first();
+                $php = AramiscEmailSetting::where('email_engine_type', 'php')->where('school_id', Auth::user()->school_id)->first();
 
                 if (empty($php)) {
-                    $php = new SmEmailSetting();
+                    $php = new AramiscEmailSetting();
                     $php->mail_driver = 'php';
                     $php->email_engine_type = 'php';
                     $php->school_id = Auth::user()->school_id;
@@ -1577,12 +1577,12 @@ class SmSystemSettingController extends Controller
                 $results = $php->save();
 
                 if ($request->active_status == 1) {
-                    $gs = SmGeneralSettings::where('school_id',Auth::user()->school_id)->first();
+                    $gs = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->first();
                     $gs->email_driver = "php";
                     $gs->save();
                     session()->forget('generalSetting');
                     session()->put('generalSetting', $gs);
-                    $smtp = SmEmailSetting::where('email_engine_type', 'smtp')->where('school_id', Auth::user()->school_id)->first();
+                    $smtp = AramiscEmailSetting::where('email_engine_type', 'smtp')->where('school_id', Auth::user()->school_id)->first();
                     if ($smtp) {
                         $smtp->active_status = 0;
                         $smtp->save();
@@ -1596,7 +1596,7 @@ class SmSystemSettingController extends Controller
             //========================
 
             try {
-                $settings = SmEmailSetting::where('school_id',Auth::user()->school_id)->where('active_status', 1)->first();
+                $settings = AramiscEmailSetting::where('school_id',Auth::user()->school_id)->where('active_status', 1)->first();
                 $reciver_email = $settings->from_email;
                 $receiver_name = Auth::user()->full_name;
                 $subject = 'Email Setup Testing';
@@ -1731,7 +1731,7 @@ class SmSystemSettingController extends Controller
 
             $payment_methods = $payment_methods->get();
 
-            $bank_accounts = SmBankAccount::where('school_id', Auth::user()->school_id)->get();
+            $bank_accounts = AramiscBankAccount::where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.systemSettings.paymentMethodSettings', compact('PaymentMethods', 'paymeny_gateway', 'paymeny_gateway_settings', 'payment_methods', 'bank_accounts'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1921,7 +1921,7 @@ class SmSystemSettingController extends Controller
     public function bankStatus(Request $request)
     {
         try {
-            $active_bank = SmBankAccount::where('id', $request->account_id)
+            $active_bank = AramiscBankAccount::where('id', $request->account_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->update(array('active_status' => $request->account_status));
             return response()->json('success');
@@ -1956,7 +1956,7 @@ class SmSystemSettingController extends Controller
     public function languageDelete(Request $request)
     {
 
-        $delete_directory = SmLanguage::find($request->id);
+        $delete_directory = AramiscLanguage::find($request->id);
 
 
         try {
@@ -2021,11 +2021,11 @@ class SmSystemSettingController extends Controller
 
     private function setDefaultLanguge($id){
 
-        SmLanguage::where('active_status', '=', 1)->where('school_id', Auth::user()->school_id)->update(['active_status' => 0]);
+        AramiscLanguage::where('active_status', '=', 1)->where('school_id', Auth::user()->school_id)->update(['active_status' => 0]);
         if(is_integer($id)){
-            $language = SmLanguage::where('school_id', Auth::user()->school_id)->findOrFail($id);
+            $language = AramiscLanguage::where('school_id', Auth::user()->school_id)->findOrFail($id);
         } else{
-            $language = SmLanguage::where('school_id', Auth::user()->school_id)->where('language_universal', $id)->firstOrFail();
+            $language = AramiscLanguage::where('school_id', Auth::user()->school_id)->where('language_universal', $id)->firstOrFail();
         }
 
         $language->active_status = 1;
@@ -2504,7 +2504,7 @@ class SmSystemSettingController extends Controller
     public function UpdateSystem()
     {
         try {
-            $data = SmGeneralSettings::first();
+            $data = AramiscGeneralSettings::first();
             return view('backEnd.systemSettings.updateSettings', compact('data'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2518,7 +2518,7 @@ class SmSystemSettingController extends Controller
 
         try {
 
-            $setting = SmGeneralSettings::first('software_version')->software_version;
+            $setting = AramiscGeneralSettings::first('software_version')->software_version;
             return view('backEnd.systemSettings.aboutSystem', compact('setting'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2558,7 +2558,7 @@ class SmSystemSettingController extends Controller
                 Toastr::error('Operation Failed, You have to select zip file', 'Failed');
                 return redirect()->back();
             }
-            $data = SmGeneralSettings::find(1);
+            $data = AramiscGeneralSettings::find(1);
             $data->system_version = $request->version_name;
             $data->save();
             Toastr::success('Operation successful', 'Success');
@@ -2578,7 +2578,7 @@ class SmSystemSettingController extends Controller
     public function ajaxSelectCurrency(Request $request)
     {
         try {
-            $select_currency_symbol = SmCurrency::select('symbol')->where('code', '=', $request->id)->where('school_id',auth()->user()->school_id)->first();
+            $select_currency_symbol = AramiscCurrency::select('symbol')->where('code', '=', $request->id)->where('school_id',auth()->user()->school_id)->first();
 
             $currency_symbol['symbol'] = $select_currency_symbol->symbol;
 
@@ -2699,7 +2699,7 @@ class SmSystemSettingController extends Controller
         try {
             $school_id = Auth::user()->school_id;
             if ($request->id) {
-                $selected = SmGeneralSettings::where('school_id', $school_id)->first();
+                $selected = AramiscGeneralSettings::where('school_id', $school_id)->first();
                 if(moduleStatusCheck('University')){
                     $data = UnAcademicYear::find($request->id);
                     $year = date('Y', strtotime($data->start_date));
@@ -2731,8 +2731,8 @@ class SmSystemSettingController extends Controller
     public function homePageBackend()
     {
         try {
-            $links = SmHomePageSetting::where('school_id', app('school')->id)->first();
-            $permisions = SmFrontendPersmission::where('school_id', app('school')->id)->where('parent_id', 1)->get();
+            $links = AramiscHomePageSetting::where('school_id', app('school')->id)->first();
+            $permisions = AramiscFrontendPersmission::where('school_id', app('school')->id)->where('parent_id', 1)->get();
             return view('backEnd.systemSettings.homePageBackend', compact('links', 'permisions'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2751,7 +2751,7 @@ class SmSystemSettingController extends Controller
         ]);
 
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('image');
             $fileSize = filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -2761,9 +2761,9 @@ class SmSystemSettingController extends Controller
             }
 
             $permisionsArray = $request->permisions;
-            SmFrontendPersmission::where('school_id', app('school')->id)->where('parent_id', 1)->update(['is_published' => 0]);
+            AramiscFrontendPersmission::where('school_id', app('school')->id)->where('parent_id', 1)->update(['is_published' => 0]);
             foreach ($permisionsArray as $value) {
-                SmFrontendPersmission::where('id', $value)->update(['is_published' => 1]);
+                AramiscFrontendPersmission::where('id', $value)->update(['is_published' => 1]);
             }
 
             $image = "";
@@ -2780,7 +2780,7 @@ class SmSystemSettingController extends Controller
             }
 
             //Update Home Page
-            $update = SmHomePageSetting::where('school_id', app('school')->id)->first();
+            $update = AramiscHomePageSetting::where('school_id', app('school')->id)->first();
             $update->title = $request->title;
             $update->long_title = $request->long_title;
             $update->short_description = $request->short_description;
@@ -2816,7 +2816,7 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $version = SmSystemVersion::find(1);
+            $version = AramiscSystemVersion::find(1);
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data['SystemVersion'] = $version;
                 return ApiBaseMethod::sendResponse($data, null);
@@ -2875,7 +2875,7 @@ class SmSystemSettingController extends Controller
                 return redirect()->back();
             }
 
-            $settings = SmGeneralSettings::first();
+            $settings = AramiscGeneralSettings::first();
             $settings->fcm_key = $request->fcm_key;
             $settings->save();
 
@@ -2897,7 +2897,7 @@ class SmSystemSettingController extends Controller
                     $table->integer('api_url')->default(0)->nullable();
                 });
             }
-            $settings = SmGeneralSettings::find(1);
+            $settings = AramiscGeneralSettings::find(1);
 
             return view('backEnd.systemSettings.apiPermission', compact('settings'));
         } catch (\Exception $e) {
@@ -2915,7 +2915,7 @@ class SmSystemSettingController extends Controller
             } else {
                 $status = 0;
             }
-            $user = SmGeneralSettings::find(1);
+            $user = AramiscGeneralSettings::find(1);
             $user->api_url = $status;
             $user->save();
 
@@ -2950,7 +2950,7 @@ class SmSystemSettingController extends Controller
 
         try {
             if ($this->create_a_dynamic_column('sm_general_settings', 'ttl_rtl', 'integer', 11)) {
-                $s = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+                $s = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
                 $s->ttl_rtl = $request->status;
                 $s->save();
                 return response()->json($s);
@@ -2971,7 +2971,7 @@ class SmSystemSettingController extends Controller
 
         try {
 
-            // $settings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            // $settings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             return view('backEnd.systemSettings.buttonDisableEnable');
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2984,7 +2984,7 @@ class SmSystemSettingController extends Controller
 
 
         try {
-            $gettings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $gettings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $gettings->website_btn = $request->status;
             $result = $gettings->save();
             //Session put generalSetting
@@ -3005,7 +3005,7 @@ class SmSystemSettingController extends Controller
 
 
         try {
-            $gettings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $gettings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $gettings->dashboard_btn = $request->status;
             $result = $gettings->save();
             //Session put generalSetting
@@ -3024,7 +3024,7 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $gettings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $gettings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $gettings->report_btn = $request->status;
             $result = $gettings->save();
             //Session put generalSetting
@@ -3043,7 +3043,7 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $gettings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $gettings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $gettings->style_btn = $request->status;
             $result = $gettings->save();
             //Session put generalSetting
@@ -3062,7 +3062,7 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $gettings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $gettings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $gettings->ltl_rtl_btn = $request->status;
             $result = $gettings->save();
             //Session put generalSetting
@@ -3081,7 +3081,7 @@ class SmSystemSettingController extends Controller
     {
 
         try {
-            $gettings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $gettings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $gettings->lang_btn = $request->status;
             $result = $gettings->save();
             //Session put generalSetting
@@ -3111,7 +3111,7 @@ class SmSystemSettingController extends Controller
         }
         try {
 
-            $settings = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $settings = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $settings->website_url = $request->website_url;
             $result = $settings->save();
 
@@ -3155,8 +3155,8 @@ class SmSystemSettingController extends Controller
     public function schoolSettingsView(Request $request)
     {
 
-        $editData = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
-        $school = SmSchool::where('id', '=', Auth::user()->school_id)->first();
+        $editData = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+        $school = AramiscSchool::where('id', '=', Auth::user()->school_id)->first();
 
         $academic_year = AramiscAcademicYear::findOrfail(@$editData->session_id);
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -3254,7 +3254,7 @@ class SmSystemSettingController extends Controller
                     }
                 }
 
-                $setting = SmGeneralSettings::first();
+                $setting = AramiscGeneralSettings::first();
 
                 $current_version = Storage::exists('.version') && Storage::get('.version') ? rtrim(Storage::get('.version'), '\n') : $setting->system_version;
 

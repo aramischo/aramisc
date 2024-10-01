@@ -73,7 +73,7 @@
                                     <td>
                                         @if(in_array($student->id, $present_students))
                                             @php
-                                                $obtained_marks = App\SmOnlineExam::obtainedMarks($online_exam_question->id, $student->id);
+                                                $obtained_marks = App\AramiscOnlineExam::obtainedMarks($online_exam_question->id, $student->id);
                                                 if($obtained_marks->status == 1){
                                                     echo "Waiting for marks";
                                                 }else{

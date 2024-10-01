@@ -1,6 +1,6 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use App\Models\Theme;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -37,7 +37,7 @@ class CreateThemesTable extends Migration
 
       
 
-        $schools = SmSchool::all();
+        $schools = AramiscSchool::all();
         $default_themes = ['Default'];
         foreach ($schools as $school) {
             foreach($default_themes as $key=>$item) {

@@ -1,6 +1,6 @@
 <?php 
 namespace App;
-use App\SmRolePermission;
+use App\AramiscRolePermission;
 
 use Illuminate\Support\Facades\Auth;
 use Modules\RolePermission\Entities\InfixPermissionAssign;

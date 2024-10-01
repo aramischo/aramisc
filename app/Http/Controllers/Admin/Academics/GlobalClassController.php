@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Academics;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\tableList;
 use App\YearCheck;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Scopes\GlobalAcademicScope;
@@ -28,7 +28,7 @@ class GlobalClassController extends Controller
     {
         try {
             $sections = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->where('school_id',auth()->user()->school_id)->whereNULL('parent_id')->get();
-            $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
+            $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
             return view('backEnd.global.global_class', compact('classes', 'sections'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -40,7 +40,7 @@ class GlobalClassController extends Controller
     {
         DB::beginTransaction();
             try {
-                $class = new SmClass();
+                $class = new AramiscClass();
                 $class->class_name = $request->name;
                 $class->parent_id = null;
                 $class->pass_mark = $request->pass_mark;
@@ -52,7 +52,7 @@ class GlobalClassController extends Controller
                 $class->toArray();
 
                 foreach ($request->section as $section) {
-                    $smClassSection = new SmClassSection();
+                    $smClassSection = new AramiscClassSection();
                     $smClassSection->class_id = $class->id;
                     $smClassSection->section_id = $section;
                     $smClassSection->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
@@ -76,14 +76,14 @@ class GlobalClassController extends Controller
     {
         try {
             $classById = SmCLass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('id', $id)->firstOrFail();
-            $sectionByNames = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->select('section_id')->where('class_id', '=', $classById->id)->get();
+            $sectionByNames = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->select('section_id')->where('class_id', '=', $classById->id)->get();
             $sectionId = array();
             foreach ($sectionByNames as $sectionByName) {
                 $sectionId[] = $sectionByName->section_id;
             }
             
             $sections = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', '=', 1)->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->withCount('records')->get();
+            $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->withCount('records')->get();
             return view('backEnd.global.global_class', compact('classById', 'classes', 'sections', 'sectionId'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -105,7 +105,7 @@ class GlobalClassController extends Controller
             $class->toArray();
             try {
                 foreach ($request->section as $section) {
-                    $smClassSection = new SmClassSection();
+                    $smClassSection = new AramiscClassSection();
                     $smClassSection->class_id = $class->id;
                     $smClassSection->section_id = $section;
                     $smClassSection->created_at = YearCheck::getYear() . '-' . date('m-d h:i:s');
@@ -135,12 +135,12 @@ class GlobalClassController extends Controller
                 
                 DB::beginTransaction();
 
-                // $class_sections = SmClassSection::where('class_id', $id)->get();
-                  $class_sections = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class, StatusAcademicSchoolScope::class)->where('class_id', $id)->get();
+                // $class_sections = AramiscClassSection::where('class_id', $id)->get();
+                  $class_sections = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class, StatusAcademicSchoolScope::class)->where('class_id', $id)->get();
                     foreach ($class_sections as $key => $class_section) {
-                        SmClassSection::destroy($class_section->id);
+                        AramiscClassSection::destroy($class_section->id);
                     }
-                   $section = SmClass::destroy($id);
+                   $section = AramiscClass::destroy($id);
                 DB::commit();
                 
                 

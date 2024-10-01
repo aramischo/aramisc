@@ -158,7 +158,7 @@ class CreateAdmitCardSettingsTable extends Migration
                 $examPlan->school_id = 1;     
                 $examPlan->save();
             }
-            $schools = \App\SmSchool::all();
+            $schools = \App\AramiscSchool::all();
             foreach($schools as $school){
                 $schoolModule = SchoolModule::where('school_id', $school->id)->first();
                 if ($school->id != 1 && $schoolModule) {

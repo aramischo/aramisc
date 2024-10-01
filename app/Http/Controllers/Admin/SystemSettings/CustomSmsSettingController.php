@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\SystemSettings;
 
-use App\SmSmsGateway;
+use App\AramiscSmsGateway;
 use Illuminate\Http\Request;
 use App\Models\CustomSmsSetting;
 use App\Http\Controllers\Controller;
@@ -37,7 +37,7 @@ class CustomSmsSettingController extends Controller
         }
 
         try {
-            $gateway = new SmSmsGateway();
+            $gateway = new AramiscSmsGateway();
             $gateway->gateway_name = $request->gateway_name;
             $gateway->gateway_type = "custom";
             $gateway->school_id = Auth::user()->school_id;
@@ -84,18 +84,18 @@ class CustomSmsSettingController extends Controller
 
         Session::put('Custom_sms', 'active');
         $editData = CustomSmsSetting::where('gateway_id', $id)->first();
-        $sms_services['Twilio'] = SmSmsGateway::where('gateway_name', 'Twilio')->where('school_id', Auth::user()->school_id)->firstOrCreate();
-        $sms_services['Msg91'] = SmSmsGateway::where('gateway_name', 'Msg91')->where('school_id', Auth::user()->school_id)->firstOrCreate();
-        $sms_services['TextLocal'] = SmSmsGateway::where('gateway_name', 'TextLocal')->where('school_id', Auth::user()->school_id)->firstOrCreate();
-        $sms_services['AfricaTalking'] = SmSmsGateway::where('gateway_name', 'AfricaTalking')->where('school_id', Auth::user()->school_id)->firstOrCreate();
-        $sms_services['Mobile SMS'] = SmSmsGateway::where('gateway_name', 'Mobile SMS')->where('school_id', Auth::user()->school_id)->firstOrCreate();
+        $sms_services['Twilio'] = AramiscSmsGateway::where('gateway_name', 'Twilio')->where('school_id', Auth::user()->school_id)->firstOrCreate();
+        $sms_services['Msg91'] = AramiscSmsGateway::where('gateway_name', 'Msg91')->where('school_id', Auth::user()->school_id)->firstOrCreate();
+        $sms_services['TextLocal'] = AramiscSmsGateway::where('gateway_name', 'TextLocal')->where('school_id', Auth::user()->school_id)->firstOrCreate();
+        $sms_services['AfricaTalking'] = AramiscSmsGateway::where('gateway_name', 'AfricaTalking')->where('school_id', Auth::user()->school_id)->firstOrCreate();
+        $sms_services['Mobile SMS'] = AramiscSmsGateway::where('gateway_name', 'Mobile SMS')->where('school_id', Auth::user()->school_id)->firstOrCreate();
         if (moduleStatusCheck('HimalayaSms')) {
-            $sms_services['HimalayaSms'] = SmSmsGateway::where('gateway_name', 'HimalayaSms')->where('school_id', Auth::user()->school_id)->first();
-            $all_sms_services = SmSmsGateway::where('school_id', Auth::user()->school_id)->get();
+            $sms_services['HimalayaSms'] = AramiscSmsGateway::where('gateway_name', 'HimalayaSms')->where('school_id', Auth::user()->school_id)->first();
+            $all_sms_services = AramiscSmsGateway::where('school_id', Auth::user()->school_id)->get();
         } elseif (!moduleStatusCheck('HimalayaSms')) {
-            $all_sms_services = SmSmsGateway::where('gateway_name', '!=', 'HimalayaSms')->where('school_id', Auth::user()->school_id)->get();
+            $all_sms_services = AramiscSmsGateway::where('gateway_name', '!=', 'HimalayaSms')->where('school_id', Auth::user()->school_id)->get();
         }
-        $active_sms_service = SmSmsGateway::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first();
+        $active_sms_service = AramiscSmsGateway::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first();
 
 
         return view('backEnd.systemSettings.smsSettings', compact('sms_services', 'active_sms_service', 'all_sms_services', 'editData'));
@@ -118,7 +118,7 @@ class CustomSmsSettingController extends Controller
             $customSmsSetting = CustomSmsSetting::find($request->id);
 
             if ($customSmsSetting) {
-                $gateway = SmSmsGateway::find($customSmsSetting->gateway_id);
+                $gateway = AramiscSmsGateway::find($customSmsSetting->gateway_id);
                 if ($gateway) {
                     $gateway->gateway_name = $request->gateway_name;
                     $result = $gateway->save();
@@ -182,9 +182,9 @@ class CustomSmsSettingController extends Controller
         if($id){
             $sms_setting = CustomSmsSetting::where('gateway_id', $id)->first();
             if($sms_setting){
-                $gateway = SmSmsGateway::find($sms_setting->gateway_id);
+                $gateway = AramiscSmsGateway::find($sms_setting->gateway_id);
                 if($gateway->active_status == 1 ){
-                    $first = SmSmsGateway::first();
+                    $first = AramiscSmsGateway::first();
                     $first->active_status = 1;
                     $first->save();
                 }

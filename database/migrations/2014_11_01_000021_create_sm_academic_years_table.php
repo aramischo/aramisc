@@ -1,12 +1,12 @@
 <?php
 
-use App\SmAcademicYear;
-use App\SmGeneralSettings;
+use App\AramiscAcademicYear;
+use App\AramiscGeneralSettings;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmAcademicYearsTable extends Migration
+class CreateAramiscAcademicYearsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -34,7 +34,7 @@ class CreateSmAcademicYearsTable extends Migration
         $year = date('Y');
         $starting_date = $year . '-01-01';
         $ending_date = $year . '-12-30';
-        $s = new SmAcademicYear();
+        $s = new AramiscAcademicYear();
         $s->year = $year;
         $s->title = 'Jan-Dec';
         $s->starting_date = $starting_date;

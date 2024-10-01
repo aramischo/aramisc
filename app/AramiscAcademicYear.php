@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\Scopes\ActiveStatusSchoolScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscAcademicYear extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
+    // Spécifiez le nom de la table explicitement
     protected $table = 'sm_academic_years';
     protected static function boot()
     {
@@ -26,7 +26,7 @@ class AramiscAcademicYear extends Model
     public static function API_ACADEMIC_YEAR($school_id)
     {
         try {
-            $settings = SmGeneralSettings::where('school_id', $school_id)->first();
+            $settings = AramiscGeneralSettings::where('school_id', $school_id)->first();
             if(moduleStatusCheck('University')){
                 return $settings->un_academic_id;
              }
@@ -39,7 +39,7 @@ class AramiscAcademicYear extends Model
     public static function SINGLE_SCHOOL_API_ACADEMIC_YEAR()
     {
         try {
-            $settings = SmGeneralSettings::where('school_id', 1)->first();
+            $settings = AramiscGeneralSettings::where('school_id', 1)->first();
             if(moduleStatusCheck('University')){
                return $settings->un_academic_id;
             }

@@ -3,10 +3,10 @@
 namespace Modules\Fees\Http\Controllers;
 
 use App\AramiscSection;
-use App\SmAddIncome;
-use App\SmBankAccount;
-use App\SmClassSection;
-use App\SmAssignSubject;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
 use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -27,7 +27,7 @@ class AjaxController extends Controller
                         ->where('school_id', auth()->user()->school_id)
                         ->get();
         $paymentMethods = AramiscPaymentMethhod::whereIn('method', ['Cash','Cheque','Bank'])->get();
-        $banks = SmBankAccount::where('school_id', auth()->user()->school_id)->get();
+        $banks = AramiscBankAccount::where('school_id', auth()->user()->school_id)->get();
         return view('fees::feesInvoice.viewPayment', compact('feesinvoice', 'feesTranscations','paymentMethods','banks'));
     }
 
@@ -72,7 +72,7 @@ class AjaxController extends Controller
     {
         try{
             if (teacherAccess()) {
-                $sectionIds = SmAssignSubject::where('class_id', '=', $request->class_id)
+                $sectionIds = AramiscAssignSubject::where('class_id', '=', $request->class_id)
                             ->where('teacher_id', auth()->user()->staff->id)
                             ->where('school_id', auth()->user()->school_id)
                             ->where('academic_id', getAcademicId())
@@ -80,7 +80,7 @@ class AjaxController extends Controller
                             ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                             ->get();
             } else {
-                $sectionIds = SmClassSection::where('class_id', '=', $request->class_id)
+                $sectionIds = AramiscClassSection::where('class_id', '=', $request->class_id)
                                 ->where('school_id', auth()->user()->school_id)
                                 ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                                 ->get();
@@ -135,10 +135,10 @@ class AjaxController extends Controller
 
             $payment_method = AramiscPaymentMethhod::where('method', $request->change_method)->first();
             
-            $incomes = SmAddIncome::where('fees_collection_id', $request->feesInvoiceId)->get();
+            $incomes = AramiscAddIncome::where('fees_collection_id', $request->feesInvoiceId)->get();
 
             foreach($incomes as $income){
-                $updateIncome = SmAddIncome::find($income->id);
+                $updateIncome = AramiscAddIncome::find($income->id);
                 $updateIncome->payment_method = $payment_method->id;
                 $updateIncome->update();
             }

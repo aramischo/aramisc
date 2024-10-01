@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmOnlineExamMark;
+use App\AramiscOnlineExamMark;
 use Illuminate\Database\Seeder;
 class sm_online_exam_marksSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class sm_online_exam_marksSeeder extends Seeder
     public function run()
     {
 //        for($i=1; $i<=2; $i++){
-//            $store= new SmOnlineExamMark();
+//            $store= new AramiscOnlineExamMark();
 //            $store->exam_id=$i;
 //            $store->subject_id=$i;
 //            $store->student_id=$i;

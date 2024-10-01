@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\api\v2\Admin;
 
-use App\SmNoticeBoard;
+use App\AramiscNoticeBoard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Scopes\StatusAcademicSchoolScope;
@@ -11,7 +11,7 @@ class StaffNoticeController extends Controller
 {
     public function noticeList()
     {
-        $allNotices = SmNoticeBoard::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $allNotices = AramiscNoticeBoard::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->select('id', 'notice_title', 'notice_date', 'notice_message')->get();
         if (!$allNotices) {

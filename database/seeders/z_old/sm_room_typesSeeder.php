@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmRoomType;
+use App\AramiscRoomType;
 use Illuminate\Database\Seeder;
 
 class sm_room_typesSeeder extends Seeder
@@ -25,7 +25,7 @@ class sm_room_typesSeeder extends Seeder
         ];
 
         foreach ($data as $row) {
-            $store = new SmRoomType();
+            $store = new AramiscRoomType();
             $store->type =$row[0];
             $store->description =$row[1];
             $store->created_at = date('Y-m-d h:i:s');

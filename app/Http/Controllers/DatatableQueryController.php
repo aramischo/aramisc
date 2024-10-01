@@ -6,31 +6,31 @@ use DateTime;
 use App\AramiscBook;
 use App\AramiscItem;
 use DataTables;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmUserLog;
-use App\SmHomework;
-use App\SmAddIncome;
+use App\AramiscUserLog;
+use App\AramiscHomework;
+use App\AramiscAddIncome;
 use App\AramiscBookIssue;
 use App\AramiscComplaint;
-use App\SmAddExpense;
-use App\SmEmailSmsLog;
+use App\AramiscAddExpense;
+use App\AramiscEmailSmsLog;
 use App\AramiscFeesPayment;
 use App\AramiscItemReceive;
-use App\SmLeaveDefine;
+use App\AramiscLeaveDefine;
 use App\AramiscAcademicYear;
-use App\SmClassTeacher;
-use App\SmLeaveRequest;
+use App\AramiscClassTeacher;
+use App\AramiscLeaveRequest;
 use App\AramiscNotification;
-use App\SmAssignSubject;
-use App\SmBankPaymentSlip;
+use App\AramiscAssignSubject;
+use App\AramiscBankPaymentSlip;
 use App\Models\FeesInvoice;
 use App\AramiscStudentAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmAssignClassTeacher;
+use App\AramiscAssignClassTeacher;
 use Illuminate\Support\Carbon;
 use App\AramiscTeacherUploadContent;
 use Brian2694\Toastr\Facades\Toastr;
@@ -46,7 +46,7 @@ class DatatableQueryController extends Controller
     public function studentDetailsDatatable(Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
             $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $academic_year = $request->academic_year;
             $class_id = $request->class_id;
@@ -172,8 +172,8 @@ class DatatableQueryController extends Controller
 
                 if(auth()->user()->role_id == 4 && !userPermission('student.show-all-student'))
                 {
-                    $classTeacher = SmClassTeacher::where('teacher_id', auth()->user()->staff->id)->pluck('assign_class_teacher_id');
-                    $assignClassTeacher = SmAssignClassTeacher::whereIn('id', $classTeacher)->get();
+                    $classTeacher = AramiscClassTeacher::where('teacher_id', auth()->user()->staff->id)->pluck('assign_class_teacher_id');
+                    $assignClassTeacher = AramiscAssignClassTeacher::whereIn('id', $classTeacher)->get();
                     
                     $all_students = $all_students->whereHas('studentRecords', function($q) use($assignClassTeacher) {
                         $q->whereIn('class_id', $assignClassTeacher->pluck('class_id'))
@@ -356,10 +356,10 @@ class DatatableQueryController extends Controller
         try {
             // $date = $request->attendance_date;
             if (getClassActeacherAccesscess()) {
-                $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             } else {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -393,7 +393,7 @@ class DatatableQueryController extends Controller
             }
             $class_id = $class;
             $section_id = $section;
-            $class_info = SmClass::find($class);
+            $class_info = AramiscClass::find($class);
             $section_info = AramiscSection::find($section);
 
             $search_info['class_name'] = $class_info->class_name;
@@ -475,7 +475,7 @@ class DatatableQueryController extends Controller
     {  
         try {
             if (Auth::user()->role_id == 1) {
-                $staffs = SmStaff::query();
+                $staffs = AramiscStaff::query();
                 
                 $staffs->withOutGlobalScope(ActiveStatusSchoolScope::class)->where('school_id', Auth::user()->school_id)
                     ->where('is_saas', 0)
@@ -507,7 +507,7 @@ class DatatableQueryController extends Controller
                     }
                    
             } else {
-                $staffs = SmStaff::where('is_saas', 0)->where('school_id', Auth::user()->school_id)
+                $staffs = AramiscStaff::where('is_saas', 0)->where('school_id', Auth::user()->school_id)
                     ->where('role_id', '!=', 1)
                     ->where('role_id', '!=', 5)
                     ->with(array('roles' => function ($query) {
@@ -564,7 +564,7 @@ class DatatableQueryController extends Controller
 
     public function incomeList(Request $request)
     {
-        $add_incomes = SmAddIncome::with('incomeHeads', 'paymentMethod')->where('active_status', '=', 1)->where('school_id', Auth::user()->school_id);
+        $add_incomes = AramiscAddIncome::with('incomeHeads', 'paymentMethod')->where('active_status', '=', 1)->where('school_id', Auth::user()->school_id);
         return Datatables::of($add_incomes)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
@@ -598,7 +598,7 @@ class DatatableQueryController extends Controller
 
     public function emailSmsLogAjax()
     {
-        $emailSmsLogs = SmEmailSmsLog::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id);
+        $emailSmsLogs = AramiscEmailSmsLog::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id);
         // dd($emailSmsLogs->get());
         return Datatables::of($emailSmsLogs)
             ->addIndexColumn()
@@ -621,7 +621,7 @@ class DatatableQueryController extends Controller
     public function userLogAjax(Request $request)
     {
 
-        $user_logs = SmUserLog::select('sm_user_logs.*')->where('academic_id', getAcademicId())
+        $user_logs = AramiscUserLog::select('sm_user_logs.*')->where('academic_id', getAcademicId())
             ->where('sm_user_logs.school_id', Auth::user()->school_id)
             ->orderBy('id', 'desc')
             ->with(array('role' => function ($query) {
@@ -649,7 +649,7 @@ class DatatableQueryController extends Controller
     public function bankPaymentSlipAjax(Request $request)
     {
         try {
-            $bank_slips = SmBankPaymentSlip::query();
+            $bank_slips = AramiscBankPaymentSlip::query();
             if (moduleStatusCheck('University')) {
                 $bank_slips->where('un_academic_id', getAcademicId());
                 if ($request->un_semester_label_id != "") {
@@ -846,7 +846,7 @@ class DatatableQueryController extends Controller
     {
 
         try{
-            $leave_defines = SmLeaveDefine::with('role', 'user','leaveType')->where('academic_id', getAcademicId())->select('sm_leave_defines.*');
+            $leave_defines = AramiscLeaveDefine::with('role', 'user','leaveType')->where('academic_id', getAcademicId())->select('sm_leave_defines.*');
 
         return $data = Datatables::of($leave_defines)
             ->addColumn('leave_type', function ($row) {
@@ -1481,7 +1481,7 @@ class DatatableQueryController extends Controller
     public function ajaxIncomeList(Request $request){
 
         if($request->ajax()){
-            $all_incomes = SmAddIncome::with('paymentMethod','ACHead')->where('academic_id',getAcademicId())->orderBy('date', 'DESC');
+            $all_incomes = AramiscAddIncome::with('paymentMethod','ACHead')->where('academic_id',getAcademicId())->orderBy('date', 'DESC');
             return Datatables::of($all_incomes)
             ->addIndexColumn()
             ->addColumn('date', function ($row) {
@@ -1515,7 +1515,7 @@ class DatatableQueryController extends Controller
 
     public function ajaxExpenseList(Request $request){
             if( $request->ajax()){
-                $all_incomes = SmAddExpense::with('expenseHead','ACHead','paymentMethod','account')->orderBy('date', 'DESC');
+                $all_incomes = AramiscAddExpense::with('expenseHead','ACHead','paymentMethod','account')->orderBy('date', 'DESC');
                 return Datatables::of($all_incomes)
                 ->addIndexColumn()
                 ->addColumn('date', function ($row) {
@@ -1553,18 +1553,18 @@ class DatatableQueryController extends Controller
         public function ajaxPendingLeave(Request $request){
             if($request->ajax()){
                 if (checkAdmin()) {
-                    $apply_leaves = SmLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'A']])
+                    $apply_leaves = AramiscLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'A']])
                                     ->where('school_id', Auth::user()->school_id)
                                     ->where('academic_id',getAcademicId());
                 }elseif(Auth::user()->role_id == 4){
                     $staff = Auth::user()->staff;
-                    $class_teacher = SmClassTeacher::where('teacher_id', $staff->id)
+                    $class_teacher = AramiscClassTeacher::where('teacher_id', $staff->id)
                                         ->where('school_id', Auth::user()->school_id)
                                         ->where('academic_id',getAcademicId())
                                         ->first();
                                       
                     if($class_teacher){
-                        $leaves = SmLeaveRequest::where([
+                        $leaves = AramiscLeaveRequest::where([
                             ['active_status', 1], 
                             ['approve_status', '!=', 'A'],
                             ['role_id', '=', 2]
@@ -1572,9 +1572,9 @@ class DatatableQueryController extends Controller
                             ->where('school_id', Auth::user()->school_id)
                             ->where('academic_id',getAcademicId())
                             ->first();
-                            $smAssignClassTeacher = SmAssignClassTeacher::find($class_teacher->assign_class_teacher_id);  
+                            $smAssignClassTeacher = AramiscAssignClassTeacher::find($class_teacher->assign_class_teacher_id);  
                             if($leaves){
-                                $apply_leaves = SmLeaveRequest::with('leaveType','user:id,full_name')->with(array('student' => function($query)use($smAssignClassTeacher) {
+                                $apply_leaves = AramiscLeaveRequest::with('leaveType','user:id,full_name')->with(array('student' => function($query)use($smAssignClassTeacher) {
                                     $query->where('class_id', $smAssignClassTeacher->class_id)->where('section_id',  $smAssignClassTeacher->section_id);
                                 }))->where([
                                     ['active_status', 1], 
@@ -1585,7 +1585,7 @@ class DatatableQueryController extends Controller
                                
                             }
                     }else{
-                        $apply_leaves = SmLeaveRequest::with('leaveDefine')->where([
+                        $apply_leaves = AramiscLeaveRequest::with('leaveDefine')->where([
                             ['active_status', 1], 
                             ['approve_status', '!=', 'A'],
                             ['staff_id', '=', auth()->user()->staff->id],
@@ -1595,11 +1595,11 @@ class DatatableQueryController extends Controller
                             ->where('academic_id',getAcademicId());
                     }
                 }elseif(auth()->user()->role_id==1){
-                    $apply_leaves = SmLeaveRequest::with('leaveDefine','leaveType','user:id,full_name','leaveType')->where([['active_status', 1], ['approve_status', '!=', 'A']])
+                    $apply_leaves = AramiscLeaveRequest::with('leaveDefine','leaveType','user:id,full_name','leaveType')->where([['active_status', 1], ['approve_status', '!=', 'A']])
                     ->where('school_id', Auth::user()->school_id)
                     ->where('academic_id',getAcademicId());
                 }else{
-                    $apply_leaves = SmLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'A']])
+                    $apply_leaves = AramiscLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'A']])
                                     ->where('school_id', Auth::user()->school_id)
                                     ->where([
                                         ['active_status', 1], 
@@ -1658,9 +1658,9 @@ class DatatableQueryController extends Controller
         public function ajaxApproveLeave(Request $request){
             if($request->ajax()){
                 if (Auth::user()->role_id == 1) {
-                    $apply_leaves = SmLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'P']])->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId());
+                    $apply_leaves = AramiscLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'P']])->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId());
                 } elseif(auth()->user()->staff) {
-                    $apply_leaves = SmLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', auth()->user()->id]])->where('academic_id', getAcademicId());
+                    $apply_leaves = AramiscLeaveRequest::with('leaveType','leaveDefine','user:id,full_name')->where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', auth()->user()->id]])->where('academic_id', getAcademicId());
                 }
 
                 return Datatables::of($apply_leaves)
@@ -1711,7 +1711,7 @@ class DatatableQueryController extends Controller
         public function homeworkListAjax(Request $request){
 
             if( $request->ajax()){
-                    $all_homeworks = SmHomework::query();
+                    $all_homeworks = AramiscHomework::query();
                     $all_homeworks->with('classes','sections','subjects','users');
                     $all_homeworks->when($request->class, function ($query) use ($request) {
                         $query->where('class_id', $request->class);

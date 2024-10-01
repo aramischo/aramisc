@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmSession;
-class CreateSmSessionsTable extends Migration
+use App\AramiscSession;
+class CreateAramiscSessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -28,7 +28,7 @@ class CreateSmSessionsTable extends Migration
             $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');         
         });
 
-        $s = new SmSession();
+        $s = new AramiscSession();
         $s->session = '2020-2021';
         $s->school_id = 1;
         $s->created_by = 1;

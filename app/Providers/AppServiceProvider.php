@@ -1,10 +1,10 @@
 <?php 
 namespace App\Providers;
 
-use App\SmParent;
+use App\AramiscParent;
 use App\Models\Plugin;
 use App\AramiscNotification;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\Models\CustomMixin;
 use Spatie\Valuestore\Valuestore;
 use App\Models\MaintenanceSetting;
@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
     
             view()->composer('backEnd.partials.parents_sidebar', function ($view) {
                 $data =[
-                    'childrens' => SmParent::myChildrens(),
+                    'childrens' => AramiscParent::myChildrens(),
                 ];
                 $view->with($data);
        
@@ -112,7 +112,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('school_info', function () {
-            return SmGeneralSettings::where('school_id', app('school')->id)->first();
+            return AramiscGeneralSettings::where('school_id', app('school')->id)->first();
         });
 
         $this->app->singleton('school_menu_permissions', function () {

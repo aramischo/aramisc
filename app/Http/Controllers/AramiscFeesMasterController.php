@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\SmClass;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscParent;
 use App\AramiscStudent;
 use App\tableList;
 use App\YearCheck;
 use Carbon\Carbon;
 use App\AramiscFeesType;
-use App\SmBaseSetup;
+use App\AramiscBaseSetup;
 use App\AramiscFeesGroup;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;
@@ -300,7 +300,7 @@ class AramiscFeesMasterController extends Controller
     {
         try {
             $fees_group_id = $id;
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
             $groups = AramiscStudentGroup::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
             $categories = AramiscStudentCategory::where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
 
@@ -556,7 +556,7 @@ class AramiscFeesMasterController extends Controller
                         Log::info($e->getMessage());
                     }
     
-                    $parent = SmParent::find($students_info->parent_id);
+                    $parent = AramiscParent::find($students_info->parent_id);
                     $notification2 = new AramiscNotification;
                     $notification2->user_id = $parent->user_id;
                     $notification2->role_id = 3;
@@ -657,7 +657,7 @@ class AramiscFeesMasterController extends Controller
                 $notification->academic_id = getAcademicId();
                 $notification->save();
 
-                $parent = SmParent::find($students_info->parent_id);
+                $parent = AramiscParent::find($students_info->parent_id);
                 $notification2 = new AramiscNotification;
                 $notification2->user_id = $parent->user_id;
                 $notification2->role_id = 3;

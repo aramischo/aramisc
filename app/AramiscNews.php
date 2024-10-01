@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscNews extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_news";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_news';
     public function category()
     {
         return $this->belongsTo('App\AramiscNewsCategory');

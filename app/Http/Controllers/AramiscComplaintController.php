@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\YearCheck;
-use App\SmBaseSetup;
+use App\AramiscBaseSetup;
 use App\AramiscComplaint;
-use App\SmSetupAdmin;
+use App\AramiscSetupAdmin;
 use App\ApiBaseMethod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +28,8 @@ class AramiscComplaintController extends Controller
 
         try {
             $complaints = AramiscComplaint::where('active_status', 1)->where('school_id',Auth::user()->school_id)->with('complaintType','complaintSource')->orderby('id','DESC')->get();
-            $complaint_types = SmSetupAdmin::where('type', 2)->where('school_id',Auth::user()->school_id)->get();
-            $complaint_sources = SmSetupAdmin::where('type', 3)->where('school_id',Auth::user()->school_id)->get();
+            $complaint_types = AramiscSetupAdmin::where('type', 2)->where('school_id',Auth::user()->school_id)->get();
+            $complaint_sources = AramiscSetupAdmin::where('type', 3)->where('school_id',Auth::user()->school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -83,7 +83,7 @@ class AramiscComplaintController extends Controller
                 ->withInput();
         }
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('file');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -167,8 +167,8 @@ class AramiscComplaintController extends Controller
             $complaints = AramiscComplaint::where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
             $complaint = AramiscComplaint::find($id);
 
-            $complaint_types = SmSetupAdmin::where('type', 2)->where('school_id',Auth::user()->school_id)->get();
-            $complaint_sources = SmSetupAdmin::where('type', 3)->where('school_id',Auth::user()->school_id)->get();
+            $complaint_types = AramiscSetupAdmin::where('type', 2)->where('school_id',Auth::user()->school_id)->get();
+            $complaint_sources = AramiscSetupAdmin::where('type', 3)->where('school_id',Auth::user()->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['complaints'] = $complaints->toArray();
@@ -214,7 +214,7 @@ class AramiscComplaintController extends Controller
         }
 
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('file');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);

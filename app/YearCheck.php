@@ -26,7 +26,7 @@ class YearCheck extends Model
     public static function getAcademicId()
     {
         try {
-            $year = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $year = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             return $year->session_id;
         } catch (\Exception $e) {
             return "1";
@@ -35,7 +35,7 @@ class YearCheck extends Model
     public static function AcStartDate()
     {
         try { 
-            $start_date = SmGeneralSettings::where('school_id',Auth::user()->school_id)->first(); 
+            $start_date = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->first(); 
             return $start_date->academic_Year->starting_date;
         } catch (\Exception $e) {
             return date('Y');
@@ -44,7 +44,7 @@ class YearCheck extends Model
     public static function AcEndDate()
     {
         try { 
-            $end_date = SmGeneralSettings::where('school_id',Auth::user()->school_id)->first(); 
+            $end_date = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->first(); 
             return $end_date->academic_Year->ending_date;
         } catch (\Exception $e) {
             return date('Y');

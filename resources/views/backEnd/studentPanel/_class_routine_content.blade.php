@@ -82,9 +82,9 @@
                                                 @foreach ($sm_weekends as $sm_weekend)
                                                     @php
                                                         if (moduleStatusCheck('University')) {
-                                                            $studentClassRoutine = App\SmWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
+                                                            $studentClassRoutine = App\AramiscWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
                                                         } else {
-                                                            $studentClassRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                            $studentClassRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                         }
                                                     @endphp
                                                     @if ($studentClassRoutine->count() > $height)
@@ -103,9 +103,9 @@
                                                 @php
                                                     $i = 0;
                                                     if (moduleStatusCheck('University')) {
-                                                        $studentClassRoutine = App\SmWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
+                                                        $studentClassRoutine = App\AramiscWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
                                                     } else {
-                                                        $studentClassRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                        $studentClassRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                     }
                                                 @endphp
                                                 @foreach ($studentClassRoutine as $routine)
@@ -224,7 +224,7 @@
                                                     @endphp
                                                     @foreach ($sm_weekends as $sm_weekend)
                                                         @php
-                                                            $studentClassRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                            $studentClassRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                         @endphp
                                                         @if ($studentClassRoutine->count() > $height)
                                                             @php
@@ -243,7 +243,7 @@
                                                 @foreach ($sm_weekends as $sm_weekend)
                                                     @php
                                                         $i = 0;
-                                                        $studentClassRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                        $studentClassRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                     @endphp
                                                     @foreach ($studentClassRoutine as $routine)
                                                         @php

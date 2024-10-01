@@ -17,7 +17,7 @@ class LessonPlanner extends Model
     }
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id')->withDefault();
+        return $this->belongsTo('App\AramiscClass', 'class_id')->withDefault();
     }
 
     public function sectionName()
@@ -26,7 +26,7 @@ class LessonPlanner extends Model
     }
     public function subject()
     {
-        return $this->belongsTo('App\SmSubject', 'subject_id')->withDefault();
+        return $this->belongsTo('App\AramiscSubject', 'subject_id')->withDefault();
     }
     public function lessonName()
     {
@@ -43,7 +43,7 @@ class LessonPlanner extends Model
     }
     public function teacherName()
     {
-        return $this->belongsTo('App\SmStaff', 'teacher_id')->withDefault();
+        return $this->belongsTo('App\AramiscStaff', 'teacher_id')->withDefault();
     }
     public function scopeLessonPlanner($query, $teacher, $class, $section, $subject)
     {

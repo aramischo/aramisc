@@ -1,9 +1,9 @@
 <?php
 
-use App\SmPage;
-use App\SmsTemplate;
+use App\AramiscPage;
+use App\AramiscTemplate;
 use App\InfixModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -81,7 +81,7 @@ return new class extends Migration
         $s2->installed_domain = url('/');
         $s2->activated_date = date('Y-m-d');
         $s2->save();
-        $controller = new \App\Http\Controllers\Admin\SystemSettings\SmAddOnsController();
+        $controller = new \App\Http\Controllers\Admin\SystemSettings\AramiscAddOnsController();
         $controller->FreemoduleAddOnsEnable("BehaviourRecords");
 
 
@@ -100,16 +100,16 @@ return new class extends Migration
         $s->save();
 
 
-        $routine_page = SmPage::where('slug','/class-exam-routine')->first();
+        $routine_page = AramiscPage::where('slug','/class-exam-routine')->first();
         if(!$routine_page){
-            $routine_page = new SmPage();
+            $routine_page = new AramiscPage();
             $routine_page->title = 'Routine';
             $routine_page->slug = '/class-exam-routine';
             $routine_page->active_status = 1;
             $routine_page->is_dynamic = 0;
             $routine_page->save();
 
-            $routine_menu = new SmHeaderMenuManager();
+            $routine_menu = new AramiscHeaderMenuManager();
             $routine_menu->type = 'sPages';
             $routine_menu->element_id =  $routine_page->id;
             $routine_menu->title = 'Routine';
@@ -117,16 +117,16 @@ return new class extends Migration
             $routine_menu->save();
         }
 
-        $result_page = SmPage::where('slug','/exam-result')->first();
+        $result_page = AramiscPage::where('slug','/exam-result')->first();
         if(!$result_page){
-            $result_page = new SmPage();
+            $result_page = new AramiscPage();
             $result_page->title = 'Result';
             $result_page->slug = '/exam-result';
             $result_page->active_status = 1;
             $result_page->is_dynamic = 0;
             $result_page->save();
 
-            $result_menu = new SmHeaderMenuManager();
+            $result_menu = new AramiscHeaderMenuManager();
             $result_menu->type = 'sPages';
             $result_menu->element_id =  $result_page->id;
             $result_menu->title = 'Result';
@@ -1251,7 +1251,7 @@ return new class extends Migration
         ];
 
         foreach ($emailTemplates as $allTemplete) {
-            $storeTemplete = new SmsTemplate();
+            $storeTemplete = new AramiscTemplate();
             $storeTemplete->type = $allTemplete[0];
             $storeTemplete->purpose = $allTemplete[1];
             $storeTemplete->subject = $allTemplete[2];

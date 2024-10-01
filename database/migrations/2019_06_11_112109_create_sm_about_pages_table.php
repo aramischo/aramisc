@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmAboutPagesTable extends Migration
+class CreateAramiscAboutPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -42,7 +42,7 @@ class CreateSmAboutPagesTable extends Migration
                 'button_text' => 'Learn More About Us',
                 'button_url' => 'about',
                 'main_title'=>'Under Graduate Education',
-                'main_description'=>'INFIX has all in one place. You’ll find everything what you are looking into education management system software. We care! User will never bothered in our real eye catchy user friendly UI & UX  Interface design. You know! Smart Idea always comes to well planners. And Our INFIX is Smart for its Well Documentation. Explore in new support world! It’s now faster & quicker. You’ll find us on Support Ticket, Email, Skype, WhatsApp.',
+                'main_description'=>'INFIX has all in one place. You’ll find everything what you are looking into education management system software. We care! User will never bothered in our real eye catchy user friendly UI & UX  Interface design. You know! Smart Idea always comes to well planners. And Our Aramisc is Smart for its Well Documentation. Explore in new support world! It’s now faster & quicker. You’ll find us on Support Ticket, Email, Skype, WhatsApp.',
                 'main_image'=>'public/uploads/about_page/about-img.jpg',
             ],
         ]);

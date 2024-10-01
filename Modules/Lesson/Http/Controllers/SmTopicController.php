@@ -2,12 +2,12 @@
 
 namespace Modules\Lesson\Http\Controllers;
 use DataTables;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\YearCheck;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -250,7 +250,7 @@ class SmTopicController extends Controller
 
         if($request->ajax()){
             if (Auth::user()->role_id == 4) {
-                $subjects = SmAssignSubject::select('subject_id')->where('teacher_id', Auth()->user()->staff->id)->get();
+                $subjects = AramiscAssignSubject::select('subject_id')->where('teacher_id', Auth()->user()->staff->id)->get();
                 $topics = SmLessonTopic::with('lesson', 'class', 'section', 'subject')->whereIn('subject_id', $subjects)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
     
             } else {
@@ -294,9 +294,9 @@ class SmTopicController extends Controller
     
     public function loadTopic()
     {
-        $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
+        $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
         if (Auth::user()->role_id == 4) {
-            $subjects = SmAssignSubject::select('subject_id')->where('teacher_id', $teacher_info->id)->get();
+            $subjects = AramiscAssignSubject::select('subject_id')->where('teacher_id', $teacher_info->id)->get();
             $data['topics'] = SmLessonTopic::with('lesson', 'class', 'section', 'subject')->whereIn('subject_id', $subjects)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
         } else {
@@ -304,9 +304,9 @@ class SmTopicController extends Controller
         }
 
         if (!teacherAccess()) {
-            $data['classes'] = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $data['classes'] = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
         } else {
-            $data['classes'] = SmAssignSubject::where('teacher_id', $teacher_info->id)
+            $data['classes'] = AramiscAssignSubject::where('teacher_id', $teacher_info->id)
                 ->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                 ->where('sm_assign_subjects.active_status', 1)
                 ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -315,7 +315,7 @@ class SmTopicController extends Controller
                 ->groupBy('sm_classes.id')
                 ->get();
         }
-        $data['subjects'] = SmSubject::get();
+        $data['subjects'] = AramiscSubject::get();
         $data['sections'] = AramiscSection::get();
         return $data;
     }

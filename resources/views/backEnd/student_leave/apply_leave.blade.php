@@ -59,7 +59,7 @@
                                 @foreach($my_leaves as $my_leave)
                                 @php
     
-                                $approved_leaves = App\SmLeaveRequest::approvedLeave($my_leave->id);
+                                $approved_leaves = App\AramiscLeaveRequest::approvedLeave($my_leave->id);
                                     $remaining_days = $my_leave->days - $approved_leaves;
                                     $extra_days= $remaining_days < 0? $approved_leaves - $my_leave->days:0;
                                 @endphp

@@ -2,7 +2,7 @@
 namespace App\PaymentGateway;
 
 use App\User;
-use App\SmParent;
+use App\AramiscParent;
 use App\AramiscStudent;
 use Xendit\Xendit;
 use App\AramiscFeesPayment;
@@ -37,7 +37,7 @@ class XenditPayment {
                     }
                     $student = AramiscStudent::where('user_id', $data['user_id'])->first();
                     if(!($student->email)){
-                        $parent = SmParent::find($student->parent_id);
+                        $parent = AramiscParent::find($student->parent_id);
                         $email =  $parent->guardians_email;
                     }else{
                         $email =   $student->email;
@@ -78,7 +78,7 @@ class XenditPayment {
                     $email = "";
                     $student = AramiscStudent::find($data['student_id']);
                     if(!($student->email)){
-                        $parent = SmParent::find($student->parent_id);
+                        $parent = AramiscParent::find($student->parent_id);
                         $email =  $parent->guardians_email;
                     }else{
                         $email =   $student->email;
@@ -106,7 +106,7 @@ class XenditPayment {
                 }elseif($data['type'] == "Lms"){
                     $student = AramiscStudent::where('user_id', $data['user_id'])->first();
                     if(!($student->email)){
-                        $parent = SmParent::find($student->parent_id);
+                        $parent = AramiscParent::find($student->parent_id);
                         $email =  $parent->guardians_email;
                     }else{
                         $email =   $student->email;

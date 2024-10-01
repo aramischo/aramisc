@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,10 +9,8 @@ class AramiscCourseCategory extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
-
-    // Specify the table name explicitly
-    protected $table = "sm_course_categories";
-
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_course_categories';
     public function courses()
     {
         return $this->hasMany('App\AramiscCourse', 'category_id');

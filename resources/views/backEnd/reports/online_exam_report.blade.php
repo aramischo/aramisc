@@ -180,7 +180,7 @@
                                                 if (moduleStatusCheck('OnlineExam')== TRUE) {
                                                     $obtained_marks = Modules\OnlineExam\Entities\InfixOnlineExam::obtainedMarks($online_exam_question->id, $student->id);
                                                 } else {
-                                                    $obtained_marks = App\SmOnlineExam::obtainedMarks($online_exam_question->id, $student->id);
+                                                    $obtained_marks = App\AramiscOnlineExam::obtainedMarks($online_exam_question->id, $student->id);
                                                 }
                                                 if($obtained_marks){
                                                     if($obtained_marks->status == 1){

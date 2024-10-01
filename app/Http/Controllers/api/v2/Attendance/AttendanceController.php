@@ -4,10 +4,10 @@ namespace App\Http\Controllers\api\v2\Attendance;
 
 use App\AramiscStudent;
 use Carbon\Carbon;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\Scopes\SchoolScope;
 use App\AramiscStudentAttendance;
-use App\SmSubjectAttendance;
+use App\AramiscSubjectAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Http\Controllers\Controller;
@@ -105,7 +105,7 @@ class AttendanceController extends Controller
         $student = AramiscStudent::findOrFail($request->student_id);
         $student_detail = $student->load('studentRecords', 'attendances');
 
-        $attendances = SmSubjectAttendance::withoutGlobalScopes([AcademicSchoolScope::class])
+        $attendances = AramiscSubjectAttendance::withoutGlobalScopes([AcademicSchoolScope::class])
             ->where('student_id', $student_detail->id)
             ->whereYear('attendance_date', $year)
             ->whereMonth('attendance_date', $month)
@@ -152,7 +152,7 @@ class AttendanceController extends Controller
 
         $record = StudentRecord::where('school_id', auth()->user()->school_id)->where('id', $request->record_id)->firstOrFail();
 
-        $assignSubjects = SmAssignSubject::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $assignSubjects = AramiscAssignSubject::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->with(['subject' => function ($q1) {
                 $q1->select('id', 'subject_name', 'subject_code', 'subject_type');
             }])

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin\Examination;
 
 
 use App\AramiscExam;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscExamType;
-use App\SmMarkStore;
-use App\SmMarksGrade;
+use App\AramiscMarkStore;
+use App\AramiscMarksGrade;
 use App\AramiscExamSetting;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -141,7 +141,7 @@ class AramiscExamFormatSettingsController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -172,17 +172,17 @@ class AramiscExamFormatSettingsController extends Controller
                 ->orderBy('id', 'asc')
                 ->get();
 
-            $fail_grade = SmMarksGrade::where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $max_gpa = SmMarksGrade::where('active_status', 1)
+            $max_gpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->max('gpa');
 
-            $totalSubject = SmMarkStore::where('un_semester_label_id', $un_semester_label_id)
+            $totalSubject = AramiscMarkStore::where('un_semester_label_id', $un_semester_label_id)
                             ->where('un_section_id', $un_section_id)
                             ->get()
                             ->unique();
@@ -191,7 +191,7 @@ class AramiscExamFormatSettingsController extends Controller
             $failStudents = [];
 
             foreach ($students as $student) {
-                $studentMarks = SmMarkStore::where('exam_term_id', $exam)
+                $studentMarks = AramiscMarkStore::where('exam_term_id', $exam)
                     ->where('student_record_id', $student->id)
                     ->get()
                     ->groupBy('un_subject_id');
@@ -216,7 +216,7 @@ class AramiscExamFormatSettingsController extends Controller
                     ->delete();
 
                 foreach ($students as $student) {
-                    $allMarks = SmMarkStore::where('exam_term_id', $exam)
+                    $allMarks = AramiscMarkStore::where('exam_term_id', $exam)
                         ->where('student_record_id', $student->id)
                         ->get()
                         ->groupBy('un_subject_id');
@@ -310,17 +310,17 @@ class AramiscExamFormatSettingsController extends Controller
                 ->orderBy('id', 'asc')
                 ->get();
 
-            $fail_grade = SmMarksGrade::where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $max_gpa = SmMarksGrade::where('active_status', 1)
+            $max_gpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->max('gpa');
 
-            $totalSubject = SmMarkStore::where('class_id', $class)
+            $totalSubject = AramiscMarkStore::where('class_id', $class)
                             ->where('section_id', $section)
                             ->get()
                             ->unique();
@@ -329,7 +329,7 @@ class AramiscExamFormatSettingsController extends Controller
             $failStudents = [];
 
             foreach ($students as $student) {
-                $studentMarks = SmMarkStore::where('exam_term_id', $exam)
+                $studentMarks = AramiscMarkStore::where('exam_term_id', $exam)
                     ->where('student_record_id', $student->id)
                     ->get()
                     ->groupBy('subject_id');
@@ -353,7 +353,7 @@ class AramiscExamFormatSettingsController extends Controller
                     ->delete();
 
                 foreach ($students as $student) {
-                    $allMarks = SmMarkStore::where('exam_term_id', $exam)
+                    $allMarks = AramiscMarkStore::where('exam_term_id', $exam)
                         ->where('student_record_id', $student->id)
                         ->get()
                         ->groupBy('subject_id');
@@ -433,7 +433,7 @@ class AramiscExamFormatSettingsController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -472,17 +472,17 @@ class AramiscExamFormatSettingsController extends Controller
                 ->distinct('id')
                 ->get();
 
-            $fail_grade = SmMarksGrade::where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $max_gpa = SmMarksGrade::where('active_status', 1)
+            $max_gpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->max('gpa');
 
-            $totalSubject = SmMarkStore::where('un_semester_label_id', $un_semester_label_id)
+            $totalSubject = AramiscMarkStore::where('un_semester_label_id', $un_semester_label_id)
                 ->where('un_section_id', $un_section_id)
                 ->distinct('exam_term_id')
                 ->get()
@@ -492,7 +492,7 @@ class AramiscExamFormatSettingsController extends Controller
             $failStudents = [];
 
             foreach ($students as $student) {
-                $studentMarks = SmMarkStore::where('student_record_id', $student->id)
+                $studentMarks = AramiscMarkStore::where('student_record_id', $student->id)
                     ->where('un_academic_id', getAcademicId())
                     ->select('un_subject_id', 'exam_term_id')->get()
                     ->groupBy('un_subject_id');
@@ -521,7 +521,7 @@ class AramiscExamFormatSettingsController extends Controller
                     ->delete();
 
                 foreach ($students as $student) {
-                    $allMarks = SmMarkStore::where('student_record_id', $student->id)
+                    $allMarks = AramiscMarkStore::where('student_record_id', $student->id)
                         ->where('un_academic_id', getAcademicId())
                         ->select('un_subject_id')->get()
                         ->groupBy('un_subject_id');
@@ -621,12 +621,12 @@ class AramiscExamFormatSettingsController extends Controller
                 ->unique()
                 ->count();
 
-            $fail_grade = SmMarksGrade::where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $max_gpa = SmMarksGrade::where('active_status', 1)
+            $max_gpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->max('gpa');
@@ -635,7 +635,7 @@ class AramiscExamFormatSettingsController extends Controller
             $failStudents = [];
 
             foreach ($students as $student) {
-                $studentMarks = SmMarkStore::where('student_record_id', $student->id)
+                $studentMarks = AramiscMarkStore::where('student_record_id', $student->id)
                     ->where('academic_id', getAcademicId())
                     ->get()
                     ->groupBy('subject_id');
@@ -670,7 +670,7 @@ class AramiscExamFormatSettingsController extends Controller
                     ->delete();
 
                 foreach ($students as $student) {
-                    $allMarks = SmMarkStore::where('student_record_id', $student->id)
+                    $allMarks = AramiscMarkStore::where('student_record_id', $student->id)
                         ->where('academic_id', getAcademicId())
                         ->get()
                         ->groupBy('subject_id');

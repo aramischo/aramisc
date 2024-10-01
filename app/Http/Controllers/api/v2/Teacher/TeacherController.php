@@ -7,7 +7,7 @@ use App\Http\Resources\v2\TeachersListResource;
 use App\Models\StudentRecord;
 use App\Models\TeacherEvaluationSetting;
 use App\Scopes\StatusAcademicSchoolScope;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,7 @@ class TeacherController extends Controller
     public function studentTeacher(Request $request)
     {
         $record = StudentRecord::where('school_id', auth()->user()->school_id)->where('id', $request->record_id)->firstOrFail();
-        $result = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $result = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->with('teacher', 'subject')
             ->where('school_id', auth()->user()->school_id)
             ->where('class_id', $record->class_id)

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Academics;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\YearCheck;
 use App\ApiBaseMethod;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use App\Scopes\GlobalAcademicScope;
 use App\Http\Controllers\Controller;
@@ -125,7 +125,7 @@ class GlobalSectionController extends Controller
     {
         try {
         
-            $tables = SmClassSection::where('section_id', $id)->first();
+            $tables = AramiscClassSection::where('section_id', $id)->first();
                 if ($tables == null) {
                           AramiscSection::destroy($request->id);
                           Toastr::success('Operation successful', 'Success');

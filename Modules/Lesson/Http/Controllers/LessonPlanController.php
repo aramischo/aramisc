@@ -3,20 +3,20 @@
 namespace Modules\Lesson\Http\Controllers;
 
 use DataTables;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
-use App\SmSubject;
-use App\SmWeekend;
+use App\AramiscSubject;
+use App\AramiscWeekend;
 use Carbon\Carbon;
-use App\SmClassRoom;
-use App\SmClassTime;
-use App\SmClassSection;
-use App\SmAssignSubject;
+use App\AramiscClassRoom;
+use App\AramiscClassTime;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
 use Carbon\CarbonPeriod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
-use App\SmClassRoutineUpdate;
+use App\AramiscClassRoutineUpdate;
 use App\Traits\NotificationSend;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
@@ -52,7 +52,7 @@ class LessonPlanController extends Controller
     {
         try {
             $data = $this->loadDefault();
-            $data['class_times'] = SmClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
+            $data['class_times'] = AramiscClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
             $data['teacher_id'] = $id;
 
             return view('lesson::lessonPlan.lesson_planner', $data);
@@ -92,7 +92,7 @@ class LessonPlanController extends Controller
     {
 
         try {
-            $routine = SmClassRoutineUpdate::where('id', $routine_id)
+            $routine = AramiscClassRoutineUpdate::where('id', $routine_id)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
@@ -118,7 +118,7 @@ class LessonPlanController extends Controller
                 })->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $teacher_detail = SmStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
+            $teacher_detail = AramiscStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
 
             return view('lesson::lessonPlan.add_new_lesson_planner_form', compact('teacher_id', 'lesson_date', 'day', 'class_id', 'section_id', 'subject_id', 'teacher_detail', 'lessons', 'routine_id', 'routine'));
         } catch (\Exception $e) {
@@ -211,7 +211,7 @@ class LessonPlanController extends Controller
             $teacher_id = $lessonPlanDetail->teacher_id;
             $day = $lessonPlanDetail->day;
 
-            $teacher_detail = SmStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
+            $teacher_detail = AramiscStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
 
             return view('lesson::lessonPlan.view_lesson_plan', compact('lessonPlanDetail', 'teacher_detail'));
             $room_id = 401;
@@ -219,23 +219,23 @@ class LessonPlanController extends Controller
                 ->where('section_id', $section_id)
                 ->where('subject_id', $subject_id)
                 ->get();
-            $assinged_subjects = SmClassRoutineUpdate::select('subject_id')->where('class_id', $class_id)->where('section_id', $section_id)->where('day', $day)->where('subject_id', '!=', $subject_id)->where('school_id', Auth::user()->school_id)->get();
+            $assinged_subjects = AramiscClassRoutineUpdate::select('subject_id')->where('class_id', $class_id)->where('section_id', $section_id)->where('day', $day)->where('subject_id', '!=', $subject_id)->where('school_id', Auth::user()->school_id)->get();
 
             $assinged_subject = [];
             foreach ($assinged_subjects as $value) {
                 $assinged_subject[] = $value->subject_id;
             }
 
-            $assinged_rooms = SmClassRoutineUpdate::select('room_id')->where('room_id', '!=', $room_id)->where('class_period_id', $class_time_id)->where('day', $day)->where('school_id', Auth::user()->school_id)->get();
+            $assinged_rooms = AramiscClassRoutineUpdate::select('room_id')->where('room_id', '!=', $room_id)->where('class_period_id', $class_time_id)->where('day', $day)->where('school_id', Auth::user()->school_id)->get();
 
             $assinged_room = [];
             foreach ($assinged_rooms as $value) {
                 $assinged_room[] = $value->room_id;
             }
-            $rooms = SmClassRoom::get();
-            $teacher_detail = SmStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
+            $rooms = AramiscClassRoom::get();
+            $teacher_detail = AramiscStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
 
-            $subjects = SmAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
+            $subjects = AramiscAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
             return view('lesson::lessonPlan.view_lesson_plan', compact('lessonPlanDetail', 'lesson_date', 'rooms', 'lessons', 'subjects', 'day', 'class_time_id', 'class_id', 'section_id', 'assinged_subject', 'assinged_room', 'subject_id', 'room_id', 'assigned_id', 'teacher_detail'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -275,24 +275,24 @@ class LessonPlanController extends Controller
                 ->where('section_id', $section_id)
                 ->where('subject_id', $subject_id)
                 ->get();
-            $assinged_subjects = SmClassRoutineUpdate::select('subject_id')->where('class_id', $class_id)->where('section_id', $section_id)->where('day', $day)->where('subject_id', '!=', $subject_id)->where('school_id', Auth::user()->school_id)->get();
+            $assinged_subjects = AramiscClassRoutineUpdate::select('subject_id')->where('class_id', $class_id)->where('section_id', $section_id)->where('day', $day)->where('subject_id', '!=', $subject_id)->where('school_id', Auth::user()->school_id)->get();
 
             $assinged_subject = [];
             foreach ($assinged_subjects as $value) {
                 $assinged_subject[] = $value->subject_id;
             }
 
-            $teacher_detail = SmStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
+            $teacher_detail = AramiscStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
 
             return view('lesson::lessonPlan.edit_lesson_planner_form', compact('lessonPlanDetail', 'topic', 'lesson_date', 'lessons', 'day', 'class_id', 'section_id', 'subject_id', 'teacher_detail'));
             $assinged_room = [];
             foreach ($assinged_rooms as $value) {
                 $assinged_room[] = $value->room_id;
             }
-            $rooms = SmClassRoom::get();
-            $teacher_detail = SmStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
+            $rooms = AramiscClassRoom::get();
+            $teacher_detail = AramiscStaff::select('id', 'full_name')->where('id', $teacher_id)->first();
 
-            $subjects = SmAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
+            $subjects = AramiscAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
             return view('lesson::lessonPlan.edit_lesson_planner_form', compact('lessonPlanDetail', 'topic', 'lesson_date', 'rooms', 'lessons', 'subjects', 'day', 'class_time_id', 'class_id', 'section_id', 'assinged_subject', 'assinged_room', 'subject_id', 'room_id', 'assigned_id', 'teacher_detail'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -368,14 +368,14 @@ class LessonPlanController extends Controller
         }
 
         $user = Auth::user();
-        $class_times = SmClassTime::where('type', 'class')->orderBy('period', 'ASC')->get();
+        $class_times = AramiscClassTime::where('type', 'class')->orderBy('period', 'ASC')->get();
         if ($user->role_id == 4) {
-            $teacher_id = SmStaff::where('user_id', $user->id)->first('id')->id;
+            $teacher_id = AramiscStaff::where('user_id', $user->id)->first('id')->id;
         } else {
             $teacher_id = $teacher_id;
         }
-        $sm_weekends = SmWeekend::orderBy('order', 'ASC')->get();
-        $teachers = SmStaff::where('role_id', 4)->get();
+        $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->get();
+        $teachers = AramiscStaff::where('role_id', 4)->get();
         return view('lesson::lessonPlan.lesson_planner', compact('period', 'dates', 'week_number', 'this_week', 'class_times', 'teacher_id', 'sm_weekends', 'teachers'));
     }
     public function discreaseChangeWeek(Request $request, $teacher_id, $pre_date)
@@ -395,16 +395,16 @@ class LessonPlanController extends Controller
         }
 
         $user = Auth::user();
-        $class_times = SmClassTime::where('type', 'class')->orderBy('period', 'ASC')->get();
+        $class_times = AramiscClassTime::where('type', 'class')->orderBy('period', 'ASC')->get();
         $teacher_id = $teacher_id;
-        $sm_weekends = SmWeekend::orderBy('order', 'ASC')->get();
-        $teachers = SmStaff::where('role_id', 4)->get();
+        $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->get();
+        $teachers = AramiscStaff::where('role_id', 4)->get();
         return view('lesson::lessonPlan.lesson_planner', compact('period', 'dates', 'week_number', 'this_week', 'class_times', 'teacher_id', 'sm_weekends', 'teachers'));
     }
     public function topicOverview()
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $topics_detail = SmLessonTopicDetail::with('lesson_title', 'lessonPlan', 'lessonPlan.lessonDetail')->get();
             return view('lesson::lessonPlan.manage_lesson', compact('topics_detail', 'classes'));
         } catch (\Exception $e) {
@@ -461,7 +461,7 @@ class LessonPlanController extends Controller
             }
 
             $lessons = SmLesson::distinct('lesson_title')->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $lesson_ids = SmLessonTopic::when($class_id, function ($q) use ($class_id) {
                 $q->where('class_id', $class_id);
             })
@@ -490,8 +490,8 @@ class LessonPlanController extends Controller
     {
 
         try {
-            $classes = SmClass::get();
-            $teachers = SmStaff::where('role_id', 4)->get();
+            $classes = AramiscClass::get();
+            $teachers = AramiscStaff::where('role_id', 4)->get();
             $lessonPlanDetail = LessonPlanner::get();
             $lessons = SmLesson::get();
             $topics = SmLessonTopic::get();
@@ -585,12 +585,12 @@ class LessonPlanController extends Controller
             $section_id = $request->section_id;
             $subject_id = $request->subject_id;
 
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
 
 
             $sections = [];
             if ($class_id) {
-                $sectionIds = SmClassSection::where('class_id', '=', $class_id)->get();
+                $sectionIds = AramiscClassSection::where('class_id', '=', $class_id)->get();
                 foreach ($sectionIds as $sectionId) {
                     $sections[] = AramiscSection::find($sectionId->section_id);
                 }
@@ -600,9 +600,9 @@ class LessonPlanController extends Controller
                     ->where('un_semester_label_id', $request->un_semester_label_id)
                     ->get();
             } else {
-                $subjects = SmAssignSubject::with('subject')->where('class_id', $class_id)->where('section_id', $section_id)->get();
+                $subjects = AramiscAssignSubject::with('subject')->where('class_id', $class_id)->where('section_id', $section_id)->get();
             }
-            $teachers = SmStaff::where('role_id', 4)->get();
+            $teachers = AramiscStaff::where('role_id', 4)->get();
             $selected['class_id'] = $class_id;
             $selected['section_id'] = $section_id;
             $selected['subject_id'] = $subject_id;
@@ -682,10 +682,10 @@ class LessonPlanController extends Controller
                     $dates[] = $date->format('Y-m-d');
                 }
                 $user = Auth::user();
-                $class_times = SmClassTime::where('type', 'class')->orderBy('id', 'ASC')->get();
+                $class_times = AramiscClassTime::where('type', 'class')->orderBy('id', 'ASC')->get();
                 $teacher_id = Auth::user()->id;
-                $sm_weekends = SmWeekend::orderBy('order', 'ASC')->get();
-                $teachers = SmStaff::where('role_id', 4)->get();
+                $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->get();
+                $teachers = AramiscStaff::where('role_id', 4)->get();
 
                 return view('lesson::teacher.teacher_lesson_plan_overview', compact('dates', 'this_week', 'class_times', 'teacher_id', 'sm_weekends', 'teachers'));
             } catch (\Exception $e) {
@@ -700,7 +700,7 @@ class LessonPlanController extends Controller
 
         try {
 
-            $teachers = SmStaff::where('role_id', 4)->get();
+            $teachers = AramiscStaff::where('role_id', 4)->get();
             $lessonPlanDetail = LessonPlanner::get();
             $lessons = SmLesson::distinct('lesson_title')->get();
             $topics = SmLessonTopic::get();
@@ -714,16 +714,16 @@ class LessonPlanController extends Controller
     public function searchlessonPlanReport(Request $request)
     {
         try {
-            $staff_info = SmStaff::where('user_id', Auth::user()->id)->first();
+            $staff_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
 
             if (Auth::user()->role_id == '1') {
-                $subject_all = SmAssignSubject::where('teacher_id', '=', $request->teacher)->distinct('subject_id')->get();
+                $subject_all = AramiscAssignSubject::where('teacher_id', '=', $request->teacher)->distinct('subject_id')->get();
             } else {
-                $subject_all = SmAssignSubject::where('teacher_id', $staff_info->id)->distinct('subject_id')->get();
+                $subject_all = AramiscAssignSubject::where('teacher_id', $staff_info->id)->distinct('subject_id')->get();
             }
             $students = [];
             foreach ($subject_all as $allSubject) {
-                $students[] = SmSubject::find($allSubject->subject_id);
+                $students[] = AramiscSubject::find($allSubject->subject_id);
             }
 
             $request->validate([
@@ -764,12 +764,12 @@ class LessonPlanController extends Controller
 
             $subject_id = $request->subject;
 
-            $subjectIds = SmAssignSubject::where('teacher_id', $teacher_id)->get();
+            $subjectIds = AramiscAssignSubject::where('teacher_id', $teacher_id)->get();
             $subjects = [];
             foreach ($subjectIds as $subjectId) {
-                $subjects[] = SmSubject::find($subjectId->subject_id);
+                $subjects[] = AramiscSubject::find($subjectId->subject_id);
             }
-            $teachers = SmStaff::where('role_id', 4)->get();
+            $teachers = AramiscStaff::where('role_id', 4)->get();
 
             return view('lesson::lessonPlan.report_lesson_plan', compact('total', 'completed_total', 'alllessonPlanner', 'lessonPlanner', 'teachers', 'percentage', 'subjects', 'subject_id', 'teacher_id'));
         } catch (\Exception $e) {
@@ -780,16 +780,16 @@ class LessonPlanController extends Controller
     {
 
         try {
-            $staff_info = SmStaff::where('user_id', Auth::user()->id)->first();
+            $staff_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
 
             if (Auth::user()->role_id == '1') {
-                $subject_all = SmAssignSubject::where('teacher_id', '=', $request->teacher)->distinct('subject_id')->get();
+                $subject_all = AramiscAssignSubject::where('teacher_id', '=', $request->teacher)->distinct('subject_id')->get();
             } else {
-                $subject_all = SmAssignSubject::where('teacher_id', $staff_info->id)->distinct('subject_id')->get();
+                $subject_all = AramiscAssignSubject::where('teacher_id', $staff_info->id)->distinct('subject_id')->get();
             }
             $students = [];
             foreach ($subject_all as $allSubject) {
-                $students[] = SmSubject::find($allSubject->subject_id);
+                $students[] = AramiscSubject::find($allSubject->subject_id);
             }
             return response()->json([$students]);
         } catch (\Exception $e) {
@@ -801,7 +801,7 @@ class LessonPlanController extends Controller
     public function loadDefault()
     {
         $data['this_week'] = $weekNumber = date("W");
-        $week_end = SmWeekend::where('id', generalSetting()->week_start_id)->value('name');
+        $week_end = AramiscWeekend::where('id', generalSetting()->week_start_id)->value('name');
         $start_day = WEEK_DAYS_BY_NAME[$week_end ?? 'Saturday'];
         $end_day = $start_day == 0 ? 6 : $start_day - 1;
         $data['period'] = CarbonPeriod::create(Carbon::now()->startOfWeek($start_day)->format('Y-m-d'), Carbon::now()->endOfWeek($end_day)->format('Y-m-d'));
@@ -809,8 +809,8 @@ class LessonPlanController extends Controller
         foreach ($data['period'] as $date) {
             $data['dates'][] = $date->format('Y-m-d');
         }
-        $data['sm_weekends'] = SmWeekend::with('teacherClassRoutineAdmin')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
-        $data['teachers'] = SmStaff::where('active_status', 1)->where(function ($q) {
+        $data['sm_weekends'] = AramiscWeekend::with('teacherClassRoutineAdmin')->where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+        $data['teachers'] = AramiscStaff::where('active_status', 1)->where(function ($q) {
             $q->where('role_id', 4)->orWhere('previous_role_id', 4);
         })->where('school_id', Auth::user()->school_id)->get();
 
@@ -876,7 +876,7 @@ class LessonPlanController extends Controller
     public function postSetting(Request $request)
     {
         try {
-            $general_settings = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $general_settings = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
             $general_settings->sub_topic_enable = $request->sub_topic_enable;
             $general_settings->save();
             session()->forget('generalSetting');

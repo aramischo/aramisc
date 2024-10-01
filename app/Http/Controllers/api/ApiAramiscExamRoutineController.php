@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\AramiscExamType;
-use App\SmClassRoom;
+use App\AramiscClassRoom;
 use App\AramiscExamSetup;
 use App\ApiBaseMethod;
 use App\AramiscAcademicYear;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -35,8 +35,8 @@ class ApiAramiscExamRoutineController extends Controller
             $exam_types = AramiscExamType::where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)->get();
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', $school_id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', $school_id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -44,7 +44,7 @@ class ApiAramiscExamRoutineController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -66,7 +66,7 @@ class ApiAramiscExamRoutineController extends Controller
         try {
             $school_id = auth()->user()->school_id;
             $subject_ids = AramiscExamSetup::query();
-            $assign_subjects = SmAssignSubject::query();
+            $assign_subjects = AramiscAssignSubject::query();
 
             if ($request->class != null) {
                 $assign_subjects->where('class_id', $request->class);
@@ -90,10 +90,10 @@ class ApiAramiscExamRoutineController extends Controller
             }
 
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', $school_id)->first();
+                $teacher_info = AramiscStaff::where('user_id', $school_id)->first();
                 $classes = $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
 
             $class_id = $request->class;
@@ -115,17 +115,17 @@ class ApiAramiscExamRoutineController extends Controller
                 ->where('school_id', $school_id)
                 ->get();
 
-            $subjects = SmSubject::whereIn('id', $subject_ids)
+            $subjects = AramiscSubject::whereIn('id', $subject_ids)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', $school_id)
                 ->get(['id', 'subject_name']);
 
-            $teachers = SmStaff::where('role_id', 4)
+            $teachers = AramiscStaff::where('role_id', 4)
                 ->where('active_status', 1)
                 ->where('school_id', $school_id)
                 ->get(['id', 'user_id', 'full_name']);
 
-            $rooms = SmClassRoom::where('active_status', 1)
+            $rooms = AramiscClassRoom::where('active_status', 1)
                 ->where('school_id', $school_id)
                 ->get(['id', 'room_no']);
 
@@ -133,7 +133,7 @@ class ApiAramiscExamRoutineController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', $school_id)->first()->title;
 
-            $search_current_class = SmClass::find($request->class);
+            $search_current_class = AramiscClass::find($request->class);
             $search_current_section = AramiscSection::find($request->section);
 
             return response()->json(compact('classes', 'subjects', 'exam_schedule', 'class_id', 'section_id', 'exam_type_id', 'exam_types', 'teachers', 'rooms', 'examName', 'search_current_class', 'search_current_section'));

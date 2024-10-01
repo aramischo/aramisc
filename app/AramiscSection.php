@@ -11,15 +11,14 @@ class AramiscSection extends Model
 {
     //
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_sections";
     protected static function boot()
     {
         parent::boot();
        // static::addGlobalScope(new GlobalAcademicScope);
        static::addGlobalScope(new StatusAcademicSchoolScope);
     }
-
+     // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_sections';
     public function students()
     {
         return $this->hasMany('App\AramiscStudent', 'section_id', 'id');

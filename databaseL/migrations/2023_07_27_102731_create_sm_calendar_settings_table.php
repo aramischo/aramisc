@@ -1,6 +1,6 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use App\Models\SmCalendarSetting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -36,7 +36,7 @@ return new class extends Migration
             '#800009' => 'library',
         ];
 
-        $schools = SmSchool::get();
+        $schools = AramiscSchool::get();
         foreach($schools as $school){
             foreach($menuNames as $key => $menuName){
                 $storeData = new SmCalendarSetting();

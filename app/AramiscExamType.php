@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscExamType extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_exam_types";
     protected $fillable = ['percentage'];
 
     protected $casts = [
@@ -24,7 +22,8 @@ class AramiscExamType extends Model
         static::addGlobalScope(new StatusAcademicSchoolScope);
         static::addGlobalScope(new GlobalAcademicScope);
     }
-   
+   // Spécifiez le nom de la table explicitement
+   protected $table = 'sm_exam_types';
     public static function examType($assinged_exam_type)
     {
         try {

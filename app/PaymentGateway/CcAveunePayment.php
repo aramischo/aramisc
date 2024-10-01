@@ -3,7 +3,7 @@ namespace App\PaymentGateway;
 
 use App\User;
 use App\AramiscStudent;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\AramiscFeesAssign;
 use App\AramiscFeesPayment;
 use App\Models\StudentRecord;
@@ -167,7 +167,7 @@ class CcAveunePayment{
                             $installment->save();
                             $income_head= generalSetting();
                
-                            $add_income = new SmAddIncome();
+                            $add_income = new AramiscAddIncome();
                             $add_income->name = 'Fees Collect';
                             $add_income->date = date('Y-m-d');
                             $add_income->amount = $fees_payment->amount;
@@ -243,7 +243,7 @@ class CcAveunePayment{
                             }
                         
                             $income_head = generalSetting();
-                            $add_income = new SmAddIncome();
+                            $add_income = new AramiscAddIncome();
                             $add_income->name = 'Fees Collect';
                             $add_income->date = date('Y-m-d', strtotime(date('Y-m-d')));
                             $add_income->amount = $fees_payment->amount;

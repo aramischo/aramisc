@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmDormitoryList;
+use App\AramiscDormitoryList;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +17,7 @@ class sm_dormitory_listsSeeder extends Seeder
     {
 
 
-        //    SmDormitoryList::query()->truncate();
+        //    AramiscDormitoryList::query()->truncate();
 
         $dormitory = [
             'Sir Isaac Newton Hostel',

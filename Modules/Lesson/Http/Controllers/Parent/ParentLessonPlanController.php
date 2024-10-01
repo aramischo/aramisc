@@ -3,10 +3,10 @@
 namespace Modules\Lesson\Http\Controllers\Parent;
 
 use App\Models\StudentRecord;
-use App\SmClass;
-use App\SmClassTime;
+use App\AramiscClass;
+use App\AramiscClassTime;
 use App\AramiscStudent;
-use App\SmWeekend;
+use App\AramiscWeekend;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -28,7 +28,7 @@ class ParentLessonPlanController extends Controller
 
             $this_week = $weekNumber = date("W");
 
-            $week_end = SmWeekend::where('id', generalSetting()->week_start_id)->value('name');
+            $week_end = AramiscWeekend::where('id', generalSetting()->week_start_id)->value('name');
             $start_day = WEEK_DAYS_BY_NAME[$week_end ?? 'Saturday'];
             $end_day = $start_day == 0 ? 6 : $start_day - 1;
             $period = CarbonPeriod::create(Carbon::now()->startOfWeek($start_day)->format('Y-m-d'), Carbon::now()->endOfWeek($end_day)->format('Y-m-d'));
@@ -42,9 +42,9 @@ class ParentLessonPlanController extends Controller
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;
 
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
 
-            $class_times = SmClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $class_times = AramiscClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             $records = studentRecords(null, $student_detail->id)->get();
             return view('lesson::parent.parent_lesson_plan', compact('student_detail', 'dates', 'this_week', 'class_times', 'class_id', 'section_id', 'sm_weekends', 'records'));
@@ -64,7 +64,7 @@ class ParentLessonPlanController extends Controller
             $alllessonPlanner = LessonPlanner::where('active_status', 1)
                 ->get();
 
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -103,9 +103,9 @@ class ParentLessonPlanController extends Controller
         $class_id = $student_detail->class_id;
         $section_id = $student_detail->section_id;
 
-        $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+        $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
 
-        $class_times = SmClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $class_times = AramiscClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
         $records = studentRecords(null, $student_detail->id)->get();
 
         return view('lesson::parent.parent_lesson_plan', compact('dates', 'this_week', 'class_times', 'class_id', 'section_id', 'sm_weekends', 'student_detail', 'records'));
@@ -133,9 +133,9 @@ class ParentLessonPlanController extends Controller
         $class_id = $student_detail->class_id;
         $section_id = $student_detail->section_id;
 
-        $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+        $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
 
-        $class_times = SmClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $class_times = AramiscClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
         $records = studentRecords(null, $student_detail->id)->get();
 

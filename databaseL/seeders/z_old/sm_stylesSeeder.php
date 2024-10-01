@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-    use App\SmStyle;
+    use App\AramiscStyle;
     use Illuminate\Database\Seeder;
 
     class sm_stylesSeeder extends Seeder
@@ -15,7 +15,7 @@ namespace Database\Seeders;
         public function run()
         {
 //
-//            $s = new SmStyle();
+//            $s = new AramiscStyle();
 //            $s->style_name = 'Sky Blue';
 //            $s->path_main_style = '1_blue_version/style.css';
 //            $s->path_infix_style = '1_blue_version/infix.css';

@@ -3,38 +3,38 @@
 namespace App\Http\Controllers\Admin\Examination;
 
 use App\AramiscExam;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\YearCheck;
 use App\AramiscExamType;
-use App\SmSeatPlan;
-use App\SmClassRoom;
-use App\SmClassTime;
+use App\AramiscSeatPlan;
+use App\AramiscClassRoom;
+use App\AramiscClassTime;
 use App\AramiscExamSetup;
-use App\SmMarkStore;
-use App\SmMarksGrade;
+use App\AramiscMarkStore;
+use App\AramiscMarksGrade;
 use App\AramiscExamSetting;
-use App\SmResultStore;
+use App\AramiscResultStore;
 use App\AramiscAcademicYear;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
-use App\SmMarksRegister;
-use App\SmSeatPlanChild;
+use App\AramiscAssignSubject;
+use App\AramiscMarksRegister;
+use App\AramiscSeatPlanChild;
 use App\AramiscExamAttendance;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\AramiscStudentPromotion;
 use App\CustomResultSetting;
 use App\AramiscStudentAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmTemporaryMeritlist;
+use App\AramiscTemporaryMeritlist;
 use App\AramiscExamAttendanceChild;
 use App\AramiscExamScheduleSubject;
-use App\SmClassOptionalSubject;
-use App\SmOptionalSubjectAssign;
+use App\AramiscClassOptionalSubject;
+use App\AramiscOptionalSubjectAssign;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -65,7 +65,7 @@ class AramiscExaminationController extends Controller
     public function examSchedule()
     {
         try {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.exam_schedule', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -78,7 +78,7 @@ class AramiscExaminationController extends Controller
         try {
             $academic_years = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $exam_types = AramiscExamType::where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.resultsArchiveView', compact('classes', 'exam_types', 'academic_years'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -124,7 +124,7 @@ class AramiscExaminationController extends Controller
                 ->first();
             //  return $promotes;
 
-            $generalSetting = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $generalSetting = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
 
             if ($promotes->count() > 0) {
                 $student_id = $studentDetails->student_id;
@@ -174,17 +174,17 @@ class AramiscExaminationController extends Controller
                 ->pluck('id');
 
 
-            $classes = SmClass::withOutGlobalScopes()->where('active_status', 1)
+            $classes = AramiscClass::withOutGlobalScopes()->where('active_status', 1)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', $school_id)
                 ->get();
 
-            $fail_grade = SmMarksGrade::withOutGlobalScopes()->where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::withOutGlobalScopes()->where('active_status', 1)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', $school_id)
                 ->min('gpa');
 
-            $fail_grade_name = SmMarksGrade::withOutGlobalScopes()->where('active_status', 1)
+            $fail_grade_name = AramiscMarksGrade::withOutGlobalScopes()->where('active_status', 1)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', $school_id)
                 ->where('gpa', $fail_grade)
@@ -192,19 +192,19 @@ class AramiscExaminationController extends Controller
 
             $studentDetails = $studentRecord;
 
-            $marks_grade = SmMarksGrade::withOutGlobalScopes()->where('school_id', $school_id)
+            $marks_grade = AramiscMarksGrade::withOutGlobalScopes()->where('school_id', $school_id)
                 ->where('academic_id', $academic_id)
                 ->orderBy('gpa', 'desc')
                 ->get();
 
-            $maxGrade = SmMarksGrade::withOutGlobalScopes()->where('academic_id', $academic_id)
+            $maxGrade = AramiscMarksGrade::withOutGlobalScopes()->where('academic_id', $academic_id)
                 ->where('school_id', $school_id)
                 ->max('gpa');
 
-            $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $class_id)
+            $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $class_id)
                 ->first();
 
-            $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $studentDetails->student_id)
+            $student_optional_subject = AramiscOptionalSubjectAssign::where('student_id', $studentDetails->student_id)
                 ->where('session_id', '=', $studentDetails->session_id)
                 ->first();
 
@@ -224,7 +224,7 @@ class AramiscExaminationController extends Controller
                 $examSubjectIds[] = $examSubject->subject_id;
             }
 
-            $subjects = SmAssignSubject::withOutGlobalScopes()->where([
+            $subjects = AramiscAssignSubject::withOutGlobalScopes()->where([
                 ['class_id', $class_id],
                 ['section_id', $section_id]])
                 ->where('school_id', $school_id)
@@ -240,7 +240,7 @@ class AramiscExaminationController extends Controller
 
             foreach ($assinged_exam_types as $assinged_exam_type) {
                 foreach ($subjects as $subject) {
-                    $is_mark_available = SmResultStore::where([
+                    $is_mark_available = AramiscResultStore::where([
                             ['class_id', $class_id],
                             ['section_id', $section_id],
                             ['student_id', $studentDetails->student_id]
@@ -253,7 +253,7 @@ class AramiscExaminationController extends Controller
                 }
             }
 
-            $is_result_available = SmResultStore::where([
+            $is_result_available = AramiscResultStore::where([
                 ['class_id', $class_id],
                 ['section_id', $section_id],
                 ['student_id', $studentDetails->student_id]])
@@ -336,22 +336,22 @@ class AramiscExaminationController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', $studentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $marks_grade = SmMarksGrade::where('school_id', Auth::user()->school_id)
+            $marks_grade = AramiscMarksGrade::where('school_id', Auth::user()->school_id)
                 ->where('academic_id', $studentDetails->academic_id)
                 ->orderBy('gpa', 'desc')
                 ->get();
 
-            $fail_grade = SmMarksGrade::where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', $studentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $fail_grade_name = SmMarksGrade::where('active_status', 1)
+            $fail_grade_name = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', $studentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->where('gpa', $fail_grade)
@@ -380,7 +380,7 @@ class AramiscExaminationController extends Controller
                 $examSubjectIds[] = $examSubject->subject_id;
             }
 
-            $subjects = SmAssignSubject::where([
+            $subjects = AramiscAssignSubject::where([
                 ['class_id', $request->class_id],
                 ['section_id', $request->section_id]])
                 ->where('academic_id', $studentDetails->academic_id)
@@ -395,7 +395,7 @@ class AramiscExaminationController extends Controller
             $assinged_exam_types = array_unique($assinged_exam_types);
             foreach ($assinged_exam_types as $assinged_exam_type) {
                 foreach ($subjects as $subject) {
-                    $is_mark_available = SmResultStore::where([
+                    $is_mark_available = AramiscResultStore::where([
                         ['class_id', $request->class_id],
                         ['section_id', $request->section_id],
                         ['student_id', $studentDetails->id],
@@ -411,15 +411,15 @@ class AramiscExaminationController extends Controller
                 }
             }
 
-            $is_result_available = SmResultStore::where([
+            $is_result_available = AramiscResultStore::where([
                 ['class_id', $request->class_id], ['section_id', $request->section_id], ['student_id', $studentDetails->id]])
                 ->where('academic_id', $studentDetails->academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $request->class_id)->first();
+            $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $request->class_id)->first();
 
-            $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $request->student_id)
+            $student_optional_subject = AramiscOptionalSubjectAssign::where('student_id', $request->student_id)
                 ->where('academic_id', '=', $studentDetails->academic_id)
                 ->first();
 
@@ -464,9 +464,9 @@ class AramiscExaminationController extends Controller
     public function examScheduleCreate()
     {
         try {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $sections = AramiscSection::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exams = AramiscExam::where('school_id', Auth::user()->school_id)->get();
             $exam_types = AramiscExamType::where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.exam_schedule_create', compact('classes', 'exams', 'exam_types'));
@@ -485,23 +485,23 @@ class AramiscExaminationController extends Controller
         ]);
 
         try {
-            $assign_subjects = SmAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->get();
+            $assign_subjects = AramiscAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->get();
 
             if ($assign_subjects->count() == 0) {
                 Toastr::error('No Subject Assigned. Please assign subjects in this class', 'Failed');
                 return redirect('exam-schedule-create');
             }
 
-            $assign_subjects = SmAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->get();
+            $assign_subjects = AramiscAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->get();
 
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $class_id = $request->class;
             $section_id = $request->section;
             $exam_id = $request->exam;
 
             $exam_types = AramiscExamType::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $exam_periods = SmClassTime::where('type', 'exam')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $exam_periods = AramiscClassTime::where('type', 'exam')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             return view('backEnd.examination.exam_schedule_create', compact('classes', 'exams', 'assign_subjects', 'class_id', 'section_id', 'exam_id', 'exam_types', 'exam_periods'));
         } catch (\Exception $e) {
@@ -573,7 +573,7 @@ class AramiscExaminationController extends Controller
     public function viewExamSchedule($class_id, $section_id, $exam_id)
     {
         try {
-            $class = SmClass::find($class_id);
+            $class = AramiscClass::find($class_id);
             $section = AramiscSection::find($section_id);
             $assign_subjects = AramiscExamScheduleSubject::where('exam_schedule_id', $exam_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.view_exam_schedule_modal', compact('class', 'section', 'assign_subjects'));
@@ -604,8 +604,8 @@ class AramiscExaminationController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -613,7 +613,7 @@ class AramiscExaminationController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -641,8 +641,8 @@ class AramiscExaminationController extends Controller
                 ->get();
 
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -650,12 +650,12 @@ class AramiscExaminationController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
             }
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.masks_register_create', compact('exams', 'classes', 'subjects', 'exam_types'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -672,8 +672,8 @@ class AramiscExaminationController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -681,7 +681,7 @@ class AramiscExaminationController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -841,7 +841,7 @@ class AramiscExaminationController extends Controller
         ]);
         try {
             if ($request->section == '') {
-                $classSections = SmAssignSubject::where('class_id', $request->class)
+                $classSections = AramiscAssignSubject::where('class_id', $request->class)
                     ->where('subject_id', $request->subject)
                     ->where('school_id', auth()->user()->school_id)
                     ->where('academic_id', getAcademicId())
@@ -862,16 +862,16 @@ class AramiscExaminationController extends Controller
 
             }
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exam_types = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exam_id = $request->exam;
             $class_id = $request->class;
             $section_id = $request->section;
             $subject_id = $request->subject;
-            $subjectNames = SmSubject::where('id', $subject_id)->first();
+            $subjectNames = AramiscSubject::where('id', $subject_id)->first();
 
             $exam_type = AramiscExamType::find($request->exam);
-            $class = SmClass::find($request->class);
+            $class = AramiscClass::find($request->class);
             $section = AramiscSection::find($request->section);
 
             $search_info['exam_name'] = $exam_type->title;
@@ -965,7 +965,7 @@ class AramiscExaminationController extends Controller
                         // $is_absent = ($request->abs[$sid]==null) ? 0 : 1;
                         $exam_setup_id = $request->exam_Sids[$sid][$exam_setup_count];
 
-                        $previous_record = SmMarkStore::where([
+                        $previous_record = AramiscMarkStore::where([
                             ['class_id', $class_id],
                             ['section_id', $section_id],
                             ['subject_id', $subject_id],
@@ -977,7 +977,7 @@ class AramiscExaminationController extends Controller
 
                         if ($previous_record == "" || $previous_record == null) {
 
-                            $marks_register = new SmMarkStore();
+                            $marks_register = new AramiscMarkStore();
                             $marks_register->exam_term_id = $exam_id;
                             $marks_register->class_id = $class_id;
                             $marks_register->section_id = $section_id;
@@ -1004,7 +1004,7 @@ class AramiscExaminationController extends Controller
                             $marks_register->toArray();
                         } else { //If already exists, it will updated
                             $pid = $previous_record->id;
-                            $marks_register = SmMarkStore::find($pid);
+                            $marks_register = AramiscMarkStore::find($pid);
                             $marks_register->total_marks = $mark_by_exam_part;
 
                             if (isset($request->absent_students)) {
@@ -1027,7 +1027,7 @@ class AramiscExaminationController extends Controller
                     $student_obtained_mark = $total_marks_persubject;
                     $mark_by_persentage = subjectPercentageMark($student_obtained_mark, $subject_full_mark);
 
-                    $mark_grade = SmMarksGrade::where([
+                    $mark_grade = AramiscMarksGrade::where([
                         ['percent_from', '<=', $mark_by_persentage],
                         ['percent_upto', '>=', $mark_by_persentage]])
                         ->where('academic_id', getAcademicId())
@@ -1036,7 +1036,7 @@ class AramiscExaminationController extends Controller
 
                     $abc[] = $total_marks_persubject;
 
-                    $previous_result_record = SmResultStore::where([
+                    $previous_result_record = AramiscResultStore::where([
                         ['class_id', $class_id],
                         ['section_id', $section_id],
                         ['subject_id', $subject_id],
@@ -1045,7 +1045,7 @@ class AramiscExaminationController extends Controller
                     ])->first();
 
                     if ($previous_result_record == "" || $previous_result_record == null) { //If not result exists, it will create
-                        $result_record = new SmResultStore();
+                        $result_record = new AramiscResultStore();
                         $result_record->class_id = $class_id;
                         $result_record->section_id = $section_id;
                         $result_record->subject_id = $subject_id;
@@ -1073,7 +1073,7 @@ class AramiscExaminationController extends Controller
                         $result_record->toArray();
                     } else { //If already result exists, it will updated
                         $id = $previous_result_record->id;
-                        $result_record = SmResultStore::find($id);
+                        $result_record = AramiscResultStore::find($id);
                         $result_record->total_marks = $total_marks_persubject;
                         $result_record->total_gpa_point = @$mark_grade->gpa;
                         $result_record->total_gpa_grade = @$mark_grade->grade_name;
@@ -1115,18 +1115,18 @@ class AramiscExaminationController extends Controller
         ]);
         try {
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exam_types = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exam_types = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             $exam_id = $request->exam;
             $class_id = $request->class;
             $section_id = $request->section != null ? $request->section : null;
             $subject_id = $request->subject;
-            $subjectNames = SmSubject::where('id', $subject_id)->first();
+            $subjectNames = AramiscSubject::where('id', $subject_id)->first();
 
             $exam_attendance = AramiscExamAttendance::query();
             if ($request->class != null) {
@@ -1190,8 +1190,8 @@ class AramiscExaminationController extends Controller
     {
         try {
             $exam_types = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.seat_plan', compact('exam_types', 'classes', 'subjects'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1203,9 +1203,9 @@ class AramiscExaminationController extends Controller
     {
         try {
             $exam_types = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $class_rooms = SmClassRoom::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $class_rooms = AramiscClassRoom::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.seat_plan_create', compact('exam_types', 'classes', 'subjects', 'class_rooms'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1231,7 +1231,7 @@ class AramiscExaminationController extends Controller
                 // return redirect('seat-plan-create')->with('message-danger', 'No result found');
             }
 
-            $seat_plan_assign = SmSeatPlan::where('exam_id', $request->exam)->where('subject_id', $request->subject)->where('class_id', $request->class)->where('section_id', $request->section)->where('date', date('Y-m-d', strtotime($request->date)))->first();
+            $seat_plan_assign = AramiscSeatPlan::where('exam_id', $request->exam)->where('subject_id', $request->subject)->where('class_id', $request->class)->where('section_id', $request->section)->where('date', date('Y-m-d', strtotime($request->date)))->first();
 
             $seat_plan_assign_childs = [];
             if ($seat_plan_assign != "") {
@@ -1239,12 +1239,12 @@ class AramiscExaminationController extends Controller
             }
 
             $exam_types = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $class_rooms = SmClassRoom::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $class_rooms = AramiscClassRoom::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $fill_uped = [];
             foreach ($class_rooms as $class_room) {
-                $assigned_student = SmSeatPlanChild::where('room_id', $class_room->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $assigned_student = AramiscSeatPlanChild::where('room_id', $class_room->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 if ($assigned_student->count() > 0) {
                     $assigned_student = $assigned_student->sum('assign_students');
                     if ($assigned_student >= $class_room->capacity) {
@@ -1268,10 +1268,10 @@ class AramiscExaminationController extends Controller
     public function getExamRoomByAjax(Request $request)
     {
         try {
-            $class_rooms = SmClassRoom::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $class_rooms = AramiscClassRoom::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $rest_class_rooms = [];
             foreach ($class_rooms as $class_room) {
-                $assigned_student = SmSeatPlanChild::where('room_id', $class_room->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $assigned_student = AramiscSeatPlanChild::where('room_id', $class_room->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 if ($assigned_student->count() > 0) {
                     $assigned_student = $assigned_student->sum('assign_students');
                     if ($assigned_student < $class_room->capacity) {
@@ -1290,16 +1290,16 @@ class AramiscExaminationController extends Controller
     public function getRoomCapacity(Request $request)
     {
         try {
-            // $class_room = SmClassRoom::find($request->id);
+            // $class_room = AramiscClassRoom::find($request->id);
             if (checkAdmin()) {
-                $class_room = SmClassRoom::find($request->id);
+                $class_room = AramiscClassRoom::find($request->id);
             } else {
-                $class_room = SmClassRoom::where('id', $request->id)->where('school_id', Auth::user()->school_id)->first();
+                $class_room = AramiscClassRoom::where('id', $request->id)->where('school_id', Auth::user()->school_id)->first();
             }
-            $assigned = SmSeatPlanChild::where('room_id', $request->id)->where('date', date('Y-m-d', strtotime($request->date)))->first();
+            $assigned = AramiscSeatPlanChild::where('room_id', $request->id)->where('date', date('Y-m-d', strtotime($request->date)))->first();
             $assigned_student = 0;
             if ($assigned != '') {
-                $assigned_student = SmSeatPlanChild::where('room_id', $request->id)->where('date', date('Y-m-d', strtotime($request->date)))->where('start_time', '<=', date('H:i:s', strtotime($request->start_time)))->where('end_time', '>=', date('H:i:s', strtotime($request->end_time)))->sum('assign_students');
+                $assigned_student = AramiscSeatPlanChild::where('room_id', $request->id)->where('date', date('Y-m-d', strtotime($request->date)))->where('start_time', '<=', date('H:i:s', strtotime($request->start_time)))->where('end_time', '>=', date('H:i:s', strtotime($request->end_time)))->sum('assign_students');
             }
             return response()->json([$class_room, $assigned_student]);
         } catch (\Exception $e) {
@@ -1310,14 +1310,14 @@ class AramiscExaminationController extends Controller
     public function seatPlanStore(Request $request)
     {
 
-        $seat_plan_assign = SmSeatPlan::where('exam_id', $request->exam_id)->where('subject_id', $request->subject_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->first();
+        $seat_plan_assign = AramiscSeatPlan::where('exam_id', $request->exam_id)->where('subject_id', $request->subject_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->first();
 
         DB::beginTransaction();
         try {
             if ($seat_plan_assign == "") {
-                $seat_plan = new SmSeatPlan();
+                $seat_plan = new AramiscSeatPlan();
             } else {
-                $seat_plan = SmSeatPlan::where('exam_id', $request->exam_id)->where('subject_id', $request->subject_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('date', date('Y-m-d', strtotime($request->exam_date)))->first();
+                $seat_plan = AramiscSeatPlan::where('exam_id', $request->exam_id)->where('subject_id', $request->subject_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('date', date('Y-m-d', strtotime($request->exam_date)))->first();
             }
             $seat_plan->exam_id = $request->exam_id;
             $seat_plan->subject_id = $request->subject_id;
@@ -1330,12 +1330,12 @@ class AramiscExaminationController extends Controller
             $seat_plan->toArray();
 
             if ($seat_plan_assign != "") {
-                SmSeatPlanChild::where('seat_plan_id', $seat_plan->id)->delete();
+                AramiscSeatPlanChild::where('seat_plan_id', $seat_plan->id)->delete();
             }
 
             $i = 0;
             foreach ($request->room as $room) {
-                $seat_plan_child = new SmSeatPlanChild();
+                $seat_plan_child = new AramiscSeatPlanChild();
                 $seat_plan_child->seat_plan_id = $seat_plan->id;
                 $seat_plan_child->room_id = $room;
                 $seat_plan_child->assign_students = $request->assign_student[$i];
@@ -1362,7 +1362,7 @@ class AramiscExaminationController extends Controller
     public function seatPlanReportSearch(Request $request)
     {
         try {
-            $seat_plans = SmSeatPlan::query();
+            $seat_plans = AramiscSeatPlan::query();
             $seat_plans->where('active_status', 1);
             if ($request->exam != "") {
                 $seat_plans->where('exam_id', $request->exam);
@@ -1388,8 +1388,8 @@ class AramiscExaminationController extends Controller
             }
 
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             return view('backEnd.examination.seat_plan', compact('exams', 'classes', 'subjects', 'seat_plans'));
         } catch (\Exception $e) {
@@ -1408,8 +1408,8 @@ class AramiscExaminationController extends Controller
                 ->get();
 
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -1417,12 +1417,12 @@ class AramiscExaminationController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
             }
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.exam_attendance', compact('exams', 'classes', 'subjects'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1521,8 +1521,8 @@ class AramiscExaminationController extends Controller
 
                 $exams = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 if (teacherAccess()) {
-                    $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                    $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                    $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                    $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                         ->where('sm_assign_subjects.academic_id', getAcademicId())
                         ->where('sm_assign_subjects.active_status', 1)
                         ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -1530,12 +1530,12 @@ class AramiscExaminationController extends Controller
                         ->distinct('sm_classes.id')
                         ->get();
                 } else {
-                    $classes = SmClass::where('active_status', 1)
+                    $classes = AramiscClass::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
                 }
-                $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 return view('backEnd.examination.exam_attendance', compact('exams', 'classes', 'subjects', 'exam_attendance_childs'));
             }
 
@@ -1554,8 +1554,8 @@ class AramiscExaminationController extends Controller
                 ->get();
 
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -1563,12 +1563,12 @@ class AramiscExaminationController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
             }
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.exam_attendance_create', compact('exams', 'classes', 'subjects'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1646,9 +1646,9 @@ class AramiscExaminationController extends Controller
                 ->get();
 
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
 
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)
                     ->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
@@ -1657,13 +1657,13 @@ class AramiscExaminationController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
             }
 
-            $subjects = SmSubject::where('active_status', 1)
+            $subjects = AramiscSubject::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -1679,7 +1679,7 @@ class AramiscExaminationController extends Controller
             }
 
             // return search result
-            $class_info = SmClass::find($request->class);
+            $class_info = AramiscClass::find($request->class);
             if (($request->section != null)) {
                 $section_info = AramiscSection::find($request->section);
                 $section_info = $section_info->section_name;
@@ -1687,7 +1687,7 @@ class AramiscExaminationController extends Controller
                 $section_info = 'All Sections';
 
             }
-            $subject_info = SmSubject::find($request->subject);
+            $subject_info = AramiscSubject::find($request->subject);
 
             $search_info['class_name'] = $class_info->class_name;
             $search_info['section_name'] = $section_info;
@@ -1747,7 +1747,7 @@ class AramiscExaminationController extends Controller
                         $exam_attendance_child->save();
                     }
                 } else {
-                    $classSections = SmAssignSubject::where('class_id', $request->class_id)
+                    $classSections = AramiscAssignSubject::where('class_id', $request->class_id)
                         ->where('subject_id', $request->subject_id)
                         ->where('school_id', auth()->user()->school_id)
                         ->where('academic_id', getAcademicId())
@@ -1811,10 +1811,10 @@ class AramiscExaminationController extends Controller
             ->get();
 
         if (teacherAccess()) {
-            $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
+            $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
             $classes = $teacher_info->classes;
         } else {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
         }
         return view('backEnd.examination.send_marks_by_sms', compact('exams', 'classes'));
     }
@@ -1832,7 +1832,7 @@ class AramiscExaminationController extends Controller
                 ->where('un_academic_id', getAcademicId())
                 ->with('student')
                 ->get();
-            $marks = SmMarkStore::where('exam_term_id', $request->exam_type)
+            $marks = AramiscMarkStore::where('exam_term_id', $request->exam_type)
                 ->whereIn('student_record_id', $students->pluck('id')->toArray())
                 ->get();
 
@@ -1892,7 +1892,7 @@ class AramiscExaminationController extends Controller
                 ->with('student')
                 ->get();
 
-            $marks = SmMarkStore::where('exam_term_id', $request->exam)
+            $marks = AramiscMarkStore::where('exam_term_id', $request->exam)
                 ->whereIn('student_record_id', $students->pluck('id')->toArray())
                 ->get();
 
@@ -1946,8 +1946,8 @@ class AramiscExaminationController extends Controller
                 ->get();
 
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', getAcademicId())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', Auth::user()->school_id)
@@ -1955,7 +1955,7 @@ class AramiscExaminationController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -1971,7 +1971,7 @@ class AramiscExaminationController extends Controller
     {
         try {
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.reports.report_tabulation_sheet', compact('exams', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1983,7 +1983,7 @@ class AramiscExaminationController extends Controller
     {
         try {
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.reports.report_tabulation_sheet', compact('exams', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1996,7 +1996,7 @@ class AramiscExaminationController extends Controller
     public function make_merit_list($InputClassId, $InputSectionId, $InputExamId, Request $request)
     {
         $iid = time();
-        $class = SmClass::find($InputClassId);
+        $class = AramiscClass::find($InputClassId);
         $section = AramiscSection::find($InputSectionId);
         $exam = AramiscExamType::find($InputExamId);
         $is_data = DB::table('sm_mark_stores')->where([['class_id', $InputClassId], ['section_id', $InputSectionId], ['exam_term_id', $InputExamId]])->first();
@@ -2006,12 +2006,12 @@ class AramiscExaminationController extends Controller
             // return redirect()->back()->with('message-danger', 'Your result is not found!');
         }
         $exams = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-        $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-        $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-        $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
         $class_name = $class->class_name;
         $exam_name = $exam->title;
-        $eligible_subjects = SmAssignSubject::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $eligible_subjects = AramiscAssignSubject::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
         $eligible_students = AramiscStudent::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
         //all subject list in a specific class/section
@@ -2023,7 +2023,7 @@ class AramiscExaminationController extends Controller
                 $subject_ids[] = $subject->subject_id;
                 $subject_strings = (empty($subject_strings)) ? $subject->subject->subject_name : $subject_strings . ',' . $subject->subject->subject_name;
 
-                $getMark = SmResultStore::where([
+                $getMark = AramiscResultStore::where([
                     ['exam_type_id', $InputExamId],
                     ['class_id', $InputClassId],
                     ['section_id', $InputSectionId],
@@ -2048,13 +2048,13 @@ class AramiscExaminationController extends Controller
 
             //end subject list for specific section/class
 
-            $results = SmResultStore::where([
+            $results = AramiscResultStore::where([
                 ['exam_type_id', $InputExamId],
                 ['class_id', $InputClassId],
                 ['section_id', $InputSectionId],
                 ['student_id', $SingleStudent->id],
             ])->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $is_absent = SmResultStore::where([
+            $is_absent = AramiscResultStore::where([
                 ['exam_type_id', $InputExamId],
                 ['class_id', $InputClassId],
                 ['section_id', $InputSectionId],
@@ -2062,14 +2062,14 @@ class AramiscExaminationController extends Controller
                 ['student_id', $SingleStudent->id],
             ])->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $total_gpa_point = SmResultStore::where([
+            $total_gpa_point = AramiscResultStore::where([
                 ['exam_type_id', $InputExamId],
                 ['class_id', $InputClassId],
                 ['section_id', $InputSectionId],
                 ['student_id', $SingleStudent->id],
             ])->sum('total_gpa_point');
 
-            $total_marks = SmResultStore::where([
+            $total_marks = AramiscResultStore::where([
                 ['exam_type_id', $InputExamId],
                 ['class_id', $InputClassId],
                 ['section_id', $InputSectionId],
@@ -2084,11 +2084,11 @@ class AramiscExaminationController extends Controller
             $full_name = $SingleStudent->full_name; //get name
             $admission_no = $SingleStudent->admission_no; //get admission no
             $student_id = $SingleStudent->id; //get admission no
-            $is_existing_data = SmTemporaryMeritlist::where([['admission_no', $admission_no], ['class_id', $InputClassId], ['section_id', $InputSectionId], ['exam_id', $InputExamId]])->first();
+            $is_existing_data = AramiscTemporaryMeritlist::where([['admission_no', $admission_no], ['class_id', $InputClassId], ['section_id', $InputSectionId], ['exam_id', $InputExamId]])->first();
             if (empty($is_existing_data)) {
-                $insert_results = new SmTemporaryMeritlist();
+                $insert_results = new AramiscTemporaryMeritlist();
             } else {
-                $insert_results = SmTemporaryMeritlist::find($is_existing_data->id);
+                $insert_results = AramiscTemporaryMeritlist::find($is_existing_data->id);
             }
             $insert_results->student_name = $full_name;
             $insert_results->admission_no = $admission_no;
@@ -2099,7 +2099,7 @@ class AramiscExaminationController extends Controller
             $insert_results->gpa_point = $exart_gp_point;
             $insert_results->iid = $iid;
             $insert_results->student_id = $student_id;
-            $markGrades = SmMarksGrade::where([['from', '<=', $exart_gp_point], ['up', '>=', $exart_gp_point]])->where('school_id', Auth::user()->school_id)->first();
+            $markGrades = AramiscMarksGrade::where([['from', '<=', $exart_gp_point], ['up', '>=', $exart_gp_point]])->where('school_id', Auth::user()->school_id)->first();
 
             if ($is_absent == "") {
                 $insert_results->result = $markGrades->grade_name;
@@ -2123,17 +2123,17 @@ class AramiscExaminationController extends Controller
             $full_name = "";
         } //end loop eligible_students
 
-        $first_data = SmTemporaryMeritlist::where('iid', $iid)->first();
+        $first_data = AramiscTemporaryMeritlist::where('iid', $iid)->first();
         $subjectlist = explode(',', $first_data->subjects_string);
-        $allresult_data = SmTemporaryMeritlist::where('iid', $iid)->orderBy('gpa_point', 'desc')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $allresult_data = AramiscTemporaryMeritlist::where('iid', $iid)->orderBy('gpa_point', 'desc')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
         $merit_serial = 1;
         foreach ($allresult_data as $row) {
-            $D = SmTemporaryMeritlist::where('iid', $iid)->where('id', $row->id)->first();
+            $D = AramiscTemporaryMeritlist::where('iid', $iid)->where('id', $row->id)->first();
             $D->merit_order = $merit_serial++;
             $D->save();
         }
 
-        $allresult_data = SmTemporaryMeritlist::orderBy('merit_order', 'asc')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $allresult_data = AramiscTemporaryMeritlist::orderBy('merit_order', 'asc')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
 
         $data['iid'] = $iid;
@@ -2168,11 +2168,11 @@ class AramiscExaminationController extends Controller
                     $InputExamId = $request->exam;
                     $InputSectionId = $request->section;
 
-                    $class = SmClass::with('academic')->find($InputClassId);
+                    $class = AramiscClass::with('academic')->find($InputClassId);
                     $section = AramiscSection::find($InputSectionId);
                     $exam = AramiscExamType::find($InputExamId);
 
-                    $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $request->class)->first();
+                    $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $request->class)->first();
 
                     $is_data = DB::table('sm_mark_stores')
                         ->where([
@@ -2200,17 +2200,17 @@ class AramiscExaminationController extends Controller
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
 
-                    $classes = SmClass::where('active_status', 1)
+                    $classes = AramiscClass::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
 
-                    $subjects = SmSubject::where('active_status', 1)
+                    $subjects = AramiscSubject::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
 
-                    $assign_subjects = SmAssignSubject::where('class_id', $class->id)
+                    $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)
                         ->where('section_id', $section->id)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
@@ -2221,7 +2221,7 @@ class AramiscExaminationController extends Controller
 
                     $exam_name = $exam->title;
 
-                    $eligible_subjects = SmAssignSubject::where('class_id', $InputClassId)
+                    $eligible_subjects = AramiscAssignSubject::where('class_id', $InputClassId)
                         ->where('section_id', $InputSectionId)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
@@ -2231,18 +2231,18 @@ class AramiscExaminationController extends Controller
                     $eligible_students = AramiscStudent::whereIn('id', $student_ids)->where('school_id', Auth::user()->school_id)
                         ->where('active_status', 1)->get();
                     $subject_total_mark = 0;
-                    $failgpa = SmMarksGrade::where('active_status', 1)
+                    $failgpa = AramiscMarksGrade::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->min('gpa');
 
-                    $failgpaname = SmMarksGrade::where('active_status', 1)
+                    $failgpaname = AramiscMarksGrade::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->where('gpa', $failgpa)
                         ->first();
 
-                    $maxGpa = SmMarksGrade::where('active_status', 1)
+                    $maxGpa = AramiscMarksGrade::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->max('gpa');
@@ -2256,7 +2256,7 @@ class AramiscExaminationController extends Controller
                             $subject_ids[] = $subject->subject_id;
                             $subject_strings = (empty($subject_strings)) ? $subject->subject->subject_name : $subject_strings . ',' . $subject->subject->subject_name;
                             $subject_id_strings = (empty($subject_id_strings)) ? $subject->subject_id : $subject_id_strings . ',' . $subject->subject_id;
-                            $getMark = SmResultStore::where([
+                            $getMark = AramiscResultStore::where([
                                 ['exam_type_id', $InputExamId],
                                 ['class_id', $InputClassId],
                                 ['section_id', $InputSectionId],
@@ -2292,14 +2292,14 @@ class AramiscExaminationController extends Controller
 
                         //end subject list for specific section/class
 
-                        $results = SmResultStore::where([
+                        $results = AramiscResultStore::where([
                             ['exam_type_id', $InputExamId],
                             ['class_id', $InputClassId],
                             ['section_id', $InputSectionId],
                             ['student_id', $SingleStudent->id],
                         ])->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-                        $is_absent = SmResultStore::where([
+                        $is_absent = AramiscResultStore::where([
                             ['exam_type_id', $InputExamId],
                             ['class_id', $InputClassId],
                             ['section_id', $InputSectionId],
@@ -2307,14 +2307,14 @@ class AramiscExaminationController extends Controller
                             ['student_id', $SingleStudent->id],
                         ])->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-                        $total_gpa_point = SmResultStore::where([
+                        $total_gpa_point = AramiscResultStore::where([
                             ['exam_type_id', $InputExamId],
                             ['class_id', $InputClassId],
                             ['section_id', $InputSectionId],
                             ['student_id', $SingleStudent->id],
                         ])->sum('total_gpa_point');
 
-                        $total_marks = SmResultStore::where([
+                        $total_marks = AramiscResultStore::where([
                             ['exam_type_id', $InputExamId],
                             ['class_id', $InputClassId],
                             ['section_id', $InputSectionId],
@@ -2351,7 +2351,7 @@ class AramiscExaminationController extends Controller
                         $roll_no = $SingleStudent->roll_no; //get admission no
                         $student_id = $SingleStudent->id; //get admission no
 
-                        $is_existing_data = SmTemporaryMeritlist::where([
+                        $is_existing_data = AramiscTemporaryMeritlist::where([
                             ['admission_no', $admission_no],
                             ['class_id', $InputClassId],
                             ['section_id', $InputSectionId],
@@ -2360,11 +2360,11 @@ class AramiscExaminationController extends Controller
 
                         // return $is_existing_data;
                         if (empty($is_existing_data)) {
-                            $insert_results = new SmTemporaryMeritlist();
+                            $insert_results = new AramiscTemporaryMeritlist();
                         } else {
-                            $insert_results = SmTemporaryMeritlist::find($is_existing_data->id);
+                            $insert_results = AramiscTemporaryMeritlist::find($is_existing_data->id);
                         }
-                        // $insert_results                     = new SmTemporaryMeritlist();
+                        // $insert_results                     = new AramiscTemporaryMeritlist();
                         $insert_results->merit_order = $student_gpa_point;
                         $insert_results->student_name = $full_name;
                         $insert_results->admission_no = $admission_no;
@@ -2398,14 +2398,14 @@ class AramiscExaminationController extends Controller
                         $full_name = "";
                     } //end loop eligible_students
 
-                    $first_data = SmTemporaryMeritlist::where('iid', $iid)->first();
+                    $first_data = AramiscTemporaryMeritlist::where('iid', $iid)->first();
 
                     $subjectlist = explode(',', @$first_data->subjects_string);
 
                     $meritListSettings = CustomResultSetting::first('merit_list_setting')->merit_list_setting;
 
                     if ($meritListSettings == "total_grade") {
-                        $allresult_data = SmTemporaryMeritlist::where('exam_id', '=', $InputExamId)
+                        $allresult_data = AramiscTemporaryMeritlist::where('exam_id', '=', $InputExamId)
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
                             ->where('class_id', $class->id)
@@ -2414,7 +2414,7 @@ class AramiscExaminationController extends Controller
                             ->get();
 
                     } elseif($meritListSettings == "total_mark") {
-                        $allresult_data = SmTemporaryMeritlist::where('exam_id', '=', $InputExamId)
+                        $allresult_data = AramiscTemporaryMeritlist::where('exam_id', '=', $InputExamId)
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
                             ->where('class_id', $class->id)
@@ -2423,7 +2423,7 @@ class AramiscExaminationController extends Controller
                             ->get();
 
                     }else{
-                        $allresult_data = SmTemporaryMeritlist::where('exam_id', '=', $InputExamId)
+                        $allresult_data = AramiscTemporaryMeritlist::where('exam_id', '=', $InputExamId)
                             ->where('academic_id', getAcademicId())
                             ->where('school_id', Auth::user()->school_id)
                             ->where('class_id', $class->id)
@@ -2458,7 +2458,7 @@ class AramiscExaminationController extends Controller
             // $iid = time();
             // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-            // $emptyResult = SmTemporaryMeritlist::truncate();
+            // $emptyResult = AramiscTemporaryMeritlist::truncate();
 
             $InputClassId = $class_id;
             $InputExamId = $exam_id;
@@ -2469,7 +2469,7 @@ class AramiscExaminationController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
 
-            $class = SmClass::with('academic')->find($InputClassId);
+            $class = AramiscClass::with('academic')->find($InputClassId);
             $section = AramiscSection::find($InputSectionId);
             $exam = AramiscExamType::find($InputExamId);
 
@@ -2480,12 +2480,12 @@ class AramiscExaminationController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $subjects = SmSubject::where('active_status', 1)
+            $subjects = AramiscSubject::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -2500,7 +2500,7 @@ class AramiscExaminationController extends Controller
                 $examSubjectIds[] = $examSubject->subject_id;
             }
 
-            $assign_subjects = SmAssignSubject::where('class_id', $class->id)
+            $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)
                 ->where('section_id', $section->id)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
@@ -2516,9 +2516,9 @@ class AramiscExaminationController extends Controller
             $class_name = $class->class_name;
             $exam_name = $exam->title;
 
-            $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $class_id)->first();
+            $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $class_id)->first();
 
-            $allresult_dat = SmTemporaryMeritlist::orderBy('merit_order', 'asc')
+            $allresult_dat = AramiscTemporaryMeritlist::orderBy('merit_order', 'asc')
                 ->where(['exam_id' => $exam_id,
                     'class_id' => $class_id,
                     'section_id' => $section_id])
@@ -2528,7 +2528,7 @@ class AramiscExaminationController extends Controller
             $meritListSettings = CustomResultSetting::first('merit_list_setting')->merit_list_setting;
 
             if ($meritListSettings == "total_grade") {
-                $allresult_data = SmTemporaryMeritlist::where(
+                $allresult_data = AramiscTemporaryMeritlist::where(
                     ['exam_id' => $exam_id,
                         'class_id' => $class_id,
                         'section_id' => $section_id])
@@ -2537,7 +2537,7 @@ class AramiscExaminationController extends Controller
                     ->orderBy('merit_order', 'desc')
                     ->get();
             } elseif($meritListSettings == "total_mark") {
-                $allresult_data = SmTemporaryMeritlist::where(
+                $allresult_data = AramiscTemporaryMeritlist::where(
                     ['exam_id' => $exam_id,
                         'class_id' => $class_id,
                         'section_id' => $section_id])
@@ -2546,7 +2546,7 @@ class AramiscExaminationController extends Controller
                     ->orderBy('total_marks', 'desc')
                     ->get();
             }else{
-                $allresult_data = SmTemporaryMeritlist::where(
+                $allresult_data = AramiscTemporaryMeritlist::where(
                     ['exam_id' => $exam_id,
                         'class_id' => $class_id,
                         'section_id' => $section_id])
@@ -2556,28 +2556,28 @@ class AramiscExaminationController extends Controller
                     ->get();
             }
 
-            $grades = SmMarksGrade::where('active_status', 1)
+            $grades = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $failgpa = SmMarksGrade::where('active_status', 1)
+            $failgpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $failgpaname = SmMarksGrade::where('active_status', 1)
+            $failgpaname = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->where('gpa', $failgpa)
                 ->first();
 
-            $maxGpa = SmMarksGrade::where('active_status', 1)
+            $maxGpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->max('gpa');
 
-            // $allresult_data = SmTemporaryMeritlist::orderBy('merit_order', 'asc')->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+            // $allresult_data = AramiscTemporaryMeritlist::orderBy('merit_order', 'asc')->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
             $subjectlist = explode(',', $allresult_dat->subjects_string);
 
             return view('backEnd.reports.merit_list_report_print', compact('exams', 'classes', 'subjects', 'class', 'section', 'exam', 'subjectlist', 'allresult_data', 'class_name', 'assign_subjects', 'exam_name', 'optional_subject_setup', 'subject_total_mark', 'failgpa', 'maxGpa', 'failgpaname', 'InputClassId', 'InputExamId', 'InputSectionId', 'exam_content'));
@@ -2614,7 +2614,7 @@ class AramiscExaminationController extends Controller
     {
         try {
             $exams = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.reports.mark_sheet_report', compact('exams', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2634,16 +2634,16 @@ class AramiscExaminationController extends Controller
             'section' => 'required',
         ]);
         try {
-            $class = SmClass::find($request->class);
+            $class = AramiscClass::find($request->class);
             $section = AramiscSection::find($request->section);
             $exam = AramiscExam::find($request->exam);
 
-            $subjects = SmAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $all_students = AramiscStudent::where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $marks_registers = SmMarksRegister::where('exam_id', $request->exam)->where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $marks_registers = AramiscMarksRegister::where('exam_id', $request->exam)->where('class_id', $request->class)->where('section_id', $request->section)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $marks_register = SmMarksRegister::where('exam_id', $request->exam)->where('class_id', $request->class)->where('section_id', $request->section)->first();
+            $marks_register = AramiscMarksRegister::where('exam_id', $request->exam)->where('class_id', $request->class)->where('section_id', $request->section)->first();
             if ($marks_registers->count() == 0) {
                 Toastr::error('Result not found', 'Failed');
                 return redirect()->back();
@@ -2651,8 +2651,8 @@ class AramiscExaminationController extends Controller
             }
             // $marks_register_childs = $marks_register->marksRegisterChilds;
             $exams = AramiscExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $grades = SmMarksGrade::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $grades = AramiscMarksGrade::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             $exam_id = $request->exam;
             $class_id = $request->class;
@@ -2668,7 +2668,7 @@ class AramiscExaminationController extends Controller
     {
         try {
             $exams = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.reports.mark_sheet_report_student', compact('exams', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2722,9 +2722,9 @@ class AramiscExaminationController extends Controller
                 }
                 // Attendance Part Start
                 //Falil Grade Dynamic Start
-                $failgpa = SmMarksGrade::min('gpa');
+                $failgpa = AramiscMarksGrade::min('gpa');
 
-                $failgpaname = SmMarksGrade::where('gpa', $failgpa)->first();
+                $failgpaname = AramiscMarksGrade::where('gpa', $failgpa)->first();
                 //Falil Grade Dynamic End
 
                 $exams = AramiscExamType::get();
@@ -2758,17 +2758,17 @@ class AramiscExaminationController extends Controller
 
                 $optional_subject = '';
 
-                $get_optional_subject = SmOptionalSubjectAssign::where('student_id', '=', $student_id)
+                $get_optional_subject = AramiscOptionalSubjectAssign::where('student_id', '=', $student_id)
                     ->first();
 
                 if ($get_optional_subject != '') {
                     $optional_subject = $get_optional_subject->subject_id;
                 }
 
-                $optional_subject_setup = SmClassOptionalSubject::first();
+                $optional_subject_setup = AramiscClassOptionalSubject::first();
 
-                $SmResultStore = SmResultStore::query();
-                $mark_sheet = universityFilter($SmResultStore, $request)
+                $AramiscResultStore = AramiscResultStore::query();
+                $mark_sheet = universityFilter($AramiscResultStore, $request)
                     ->where([
                         ['exam_type_id', $exam_type],
                         ['student_id', $student_id]
@@ -2777,16 +2777,16 @@ class AramiscExaminationController extends Controller
                     ->with('unSubjectDetails')
                     ->get();
 
-                $grades = SmMarksGrade::orderBy('gpa', 'desc')->get();
+                $grades = AramiscMarksGrade::orderBy('gpa', 'desc')->get();
 
-                $maxGrade = SmMarksGrade::max('gpa');
+                $maxGrade = AramiscMarksGrade::max('gpa');
 
                 if (count($mark_sheet) == 0) {
                     Toastr::error('Ops! Your result is not found! Please check mark register', 'Failed');
                     return redirect('mark-sheet-report-student');
                 }
 
-                $SmResultStor = SmResultStore::query();
+                $SmResultStor = AramiscResultStore::query();
                 $is_result_available = universityFilter($SmResultStor, $request)
                     ->where([
                         ['exam_type_id', $exam_type],
@@ -2880,12 +2880,12 @@ class AramiscExaminationController extends Controller
                 }
                 // Attendance Part End
 
-                $failgpa = SmMarksGrade::where('active_status', 1)
+                $failgpa = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->min('gpa');
 
-                $failgpaname = SmMarksGrade::where('active_status', 1)
+                $failgpaname = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->where('gpa', $failgpa)
@@ -2896,7 +2896,7 @@ class AramiscExaminationController extends Controller
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -2932,7 +2932,7 @@ class AramiscExaminationController extends Controller
 
                 $optional_subject = '';
 
-                $get_optional_subject = SmOptionalSubjectAssign::where('record_id', '=', $student_detail->id)
+                $get_optional_subject = AramiscOptionalSubjectAssign::where('record_id', '=', $student_detail->id)
                     ->where('session_id', '=', $student_detail->session_id)
                     ->first();
 
@@ -2940,22 +2940,22 @@ class AramiscExaminationController extends Controller
                     $optional_subject = $get_optional_subject->subject_id;
                 }
 
-                $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $request->class)
+                $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $request->class)
                     ->first();
 
-                $mark_sheet = SmResultStore::where([['class_id', $request->class], ['exam_type_id', $request->exam], ['section_id', $request->section], ['student_id', $request->student]])
+                $mark_sheet = AramiscResultStore::where([['class_id', $request->class], ['exam_type_id', $request->exam], ['section_id', $request->section], ['student_id', $request->student]])
                     ->whereIn('subject_id', $subjects->pluck('subject_id')->toArray())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 
 
-                $grades = SmMarksGrade::where('active_status', 1)
+                $grades = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->orderBy('gpa', 'desc')
                     ->get();
 
-                $maxGrade = SmMarksGrade::where('academic_id', getAcademicId())
+                $maxGrade = AramiscMarksGrade::where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->max('gpa');
 
@@ -2964,16 +2964,16 @@ class AramiscExaminationController extends Controller
                     return redirect('mark-sheet-report-student');
                 }
 
-                $is_result_available = SmResultStore::where([['class_id', $request->class], ['exam_type_id', $request->exam], ['section_id', $request->section], ['student_id', $request->student]])
+                $is_result_available = AramiscResultStore::where([['class_id', $request->class], ['exam_type_id', $request->exam], ['section_id', $request->section], ['student_id', $request->student]])
                     ->where('created_at', 'LIKE', '%' . YearCheck::getYear() . '%')
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 
-                $marks_register = SmMarksRegister::where('exam_id', $request->exam)
+                $marks_register = AramiscMarksRegister::where('exam_id', $request->exam)
                     ->where('student_id', $request->student)
                     ->first();
 
-                $subjects = SmAssignSubject::where('class_id', $request->class)
+                $subjects = AramiscAssignSubject::where('class_id', $request->class)
                     ->where('section_id', $request->section)
                     ->whereIn('subject_id', $examSubjectIds)
                     ->where('academic_id', getAcademicId())
@@ -2985,17 +2985,17 @@ class AramiscExaminationController extends Controller
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 
-                $grades = SmMarksGrade::where('active_status', 1)
+                $grades = AramiscMarksGrade::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 
-                $class = SmClass::find($request->class);
+                $class = AramiscClass::find($request->class);
                 $section = AramiscSection::find($request->section);
                 $exam_detail = AramiscExam::find($request->exam);
                 $exam_id = $request->exam;
@@ -3052,7 +3052,7 @@ class AramiscExaminationController extends Controller
             $subjects = $examSubjects;
 
 
-            $mark_sheet = SmResultStore::where([['class_id', $class_id], ['exam_type_id', $exam_id], ['section_id', $section_id], ['student_id', $student_id]])
+            $mark_sheet = AramiscResultStore::where([['class_id', $class_id], ['exam_type_id', $exam_id], ['section_id', $section_id], ['student_id', $student_id]])
                 ->whereIn('subject_id', $subjects->pluck('subject_id')->toArray())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -3062,17 +3062,17 @@ class AramiscExaminationController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $grades = SmMarksGrade::where('active_status', 1)
+            $grades = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->orderBy('gpa', 'desc')
                 ->get();
 
-            $maxGrade = SmMarksGrade::where('academic_id', getAcademicId())
+            $maxGrade = AramiscMarksGrade::where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->max('gpa');
 
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -3082,7 +3082,7 @@ class AramiscExaminationController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $subjects = SmAssignSubject::where([['class_id', $class_id], ['section_id', $section_id]])
+            $subjects = AramiscAssignSubject::where([['class_id', $class_id], ['section_id', $section_id]])
                 ->whereIn('subject_id', $examSubjectIds)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
@@ -3092,12 +3092,12 @@ class AramiscExaminationController extends Controller
                 ->where('id', $section_id)
                 ->first();
 
-            $failgpa = SmMarksGrade::where('active_status', 1)
+            $failgpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $failgpaname = SmMarksGrade::where('active_status', 1)
+            $failgpaname = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->where('gpa', $failgpa)
@@ -3132,13 +3132,13 @@ class AramiscExaminationController extends Controller
 
             $section_id = $section_id;
             $class_id = $class_id;
-            $class_name = SmClass::find($class_id);
+            $class_name = AramiscClass::find($class_id);
             $exam_type_id = $exam_id;
             $student_id = $student_id;
             $exam_details = AramiscExamType::where('active_status', 1)->find($exam_type_id);
             $optional_subject = '';
 
-            $get_optional_subject = SmOptionalSubjectAssign::where('record_id', '=', $student_detail->id)
+            $get_optional_subject = AramiscOptionalSubjectAssign::where('record_id', '=', $student_detail->id)
                 ->where('session_id', '=', $student_detail->session_id)
                 ->first();
 
@@ -3146,8 +3146,8 @@ class AramiscExaminationController extends Controller
                 $optional_subject = $get_optional_subject->subject_id;
             }
 
-            $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $class_id)->first();
-            $is_result_available = SmResultStore::where([['class_id', $class_id], ['exam_type_id', $exam_id], ['section_id', $section_id], ['student_id', $student_id]])
+            $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $class_id)->first();
+            $is_result_available = AramiscResultStore::where([['class_id', $class_id], ['exam_type_id', $exam_id], ['section_id', $section_id], ['student_id', $student_id]])
                 ->where('academic_id', getAcademicId())
                 ->get();
 
@@ -3254,7 +3254,7 @@ class AramiscExaminationController extends Controller
         try {
             $fileName = "";
             if ($request->file('file') != "") {
-                $maxFileSize = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first()->file_size;
+                $maxFileSize = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first()->file_size;
                 $file = $request->file('file');
                 $fileSize = filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -3339,7 +3339,7 @@ class AramiscExaminationController extends Controller
 
         try {
             if ($request->file('file') != "") {
-                $maxFileSize = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first()->file_size;
+                $maxFileSize = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first()->file_size;
                 $file = $request->file('file');
                 $fileSize = filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -3422,11 +3422,11 @@ class AramiscExaminationController extends Controller
     {
         try {
             $exams = AramiscExamType::get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $pass_mark = 0;
             $examInfo = AramiscExamType::find($request->exam_type);
 
-            $classInfo = SmClass::find($request->class);
+            $classInfo = AramiscClass::find($request->class);
             $sectionInfo = AramiscSection::find($request->section);
             $data = [];
             if (moduleStatusCheck('University')) {
@@ -3439,7 +3439,7 @@ class AramiscExaminationController extends Controller
                 $exam = universityFilter($exam, $request);
                 $exam = $exam->first();
             } else {
-                $subjectInfo = SmSubject::find($request->subject);
+                $subjectInfo = AramiscSubject::find($request->subject);
                 $exam = AramiscExam::where('class_id', $request->class)
                     ->where('section_id', $request->section)
                     ->where('exam_type_id', $request->exam_type)
@@ -3456,7 +3456,7 @@ class AramiscExaminationController extends Controller
             $exam_rule = CustomResultSetting::where('school_id', auth()->user()->school_id)->first();
 
             if ($exam_rule) {
-                $mark_sheet = SmResultStore::query();
+                $mark_sheet = AramiscResultStore::query();
                 $mark_sheet->where('exam_type_id', $request->exam_type);
                 if (moduleStatusCheck('University')) {
                     $mark_sheet = universityFilter($mark_sheet, $request)->where('un_subject_id', $request->un_subject_id);
@@ -3468,7 +3468,7 @@ class AramiscExaminationController extends Controller
                 $mark_sheet = $mark_sheet->orderBy('total_marks', 'DESC')->with('studentRecords')->get();
                 return view('backEnd.examination.report.marksheetReport', compact('exams', 'classes', 'mark_sheet', 'examInfo', 'subjectInfo', 'classInfo', 'sectionInfo', 'pass_mark', 'exam_rule', 'data'));
             } else {
-                $mark_sheet = SmResultStore::query();
+                $mark_sheet = AramiscResultStore::query();
                 $mark_sheet->where('exam_type_id', $request->exam_type);
                 
                 if(moduleStatusCheck('University')){
@@ -3493,8 +3493,8 @@ class AramiscExaminationController extends Controller
     {
         try {
             $examInfo = AramiscExamType::find($request->exam);
-            $subjectInfo = SmSubject::find($request->subject);
-            $classInfo = SmClass::find($request->class);
+            $subjectInfo = AramiscSubject::find($request->subject);
+            $classInfo = AramiscClass::find($request->class);
             $sectionInfo = AramiscSection::find($request->section);
 
             $data = [];
@@ -3508,7 +3508,7 @@ class AramiscExaminationController extends Controller
                 $exam = universityFilter($exam, $request);
                 $exam = $exam->first();
             } else {
-                $subjectInfo = SmSubject::find($request->subject);
+                $subjectInfo = AramiscSubject::find($request->subject);
                 $exam = AramiscExam::where('class_id',$request->class)
                 ->where('section_id',$request->section)
                 ->where('exam_type_id',$request->exam)
@@ -3516,7 +3516,7 @@ class AramiscExaminationController extends Controller
                 ->first();
             }
             $pass_mark = $examInfo->average_mark;
-            $mark_sheet = SmResultStore::query();
+            $mark_sheet = AramiscResultStore::query();
             $mark_sheet->where('exam_type_id', $request->exam);
             if (moduleStatusCheck('University')) {
                 $mark_sheet = universityFilter($mark_sheet, $request)

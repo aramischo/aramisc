@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\AramiscAcademicYear;
@@ -37,7 +37,7 @@ class FrontendStudentList extends Component
         ->where('school_id', app('school')->id)->pluck('student_id');
         $students = AramiscStudent::whereIn('id',$student_ids)->with('parents', 'bloodGroup', 'studentRecord.class', 'studentRecord.section')->get();
         $req_data = [] ;
-        $req_data['class'] = SmClass::find(request('class'));
+        $req_data['class'] = AramiscClass::find(request('class'));
         $req_data['section'] = AramiscSection::find(request('section'));
         
         return view('components.' . activeTheme() . '.frontend-student-list', compact('students', 'academicYears','req_data'));

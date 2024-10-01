@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Admin\FeesCollection;
 
 use App\User;
-use App\SmClass;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscParent;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmAddIncome;
-use App\SmsTemplate;
+use App\AramiscAddIncome;
+use App\AramiscTemplate;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;
-use App\SmBankAccount;
+use App\AramiscBankAccount;
 use App\AramiscFeesPayment;
 use App\AramiscNotification;
-use App\SmBankStatement;
+use App\AramiscBankStatement;
 use App\AramiscPaymentMethhod;
-use App\SmBankPaymentSlip;
+use App\AramiscBankPaymentSlip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -46,7 +46,7 @@ class AramiscFeesBankPaymentController extends Controller
     public function bankPaymentSlip()
     {
         try {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
             return view('backEnd.feesCollection.bank_payment_slip', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -62,7 +62,7 @@ class AramiscFeesBankPaymentController extends Controller
             $data['class_id'] = $request->class;
             $data['approve_status'] = $request->approve_status;
             $data['section_id'] = $request->section;
-            $data['classes'] = SmClass::get();
+            $data['classes'] = AramiscClass::get();
             $data['sections'] = AramiscSection::get();
             
             if (moduleStatusCheck('University')) {
@@ -80,9 +80,9 @@ class AramiscFeesBankPaymentController extends Controller
     public function rejectFeesPayment(SmRejectBankPaymentRequest $request){
 
         try{
-            $bank_payment = SmBankPaymentSlip::find($request->id);        
+            $bank_payment = AramiscBankPaymentSlip::find($request->id);        
             $student = AramiscStudent::find($bank_payment->student_id);
-            $parent = SmParent::find($student->parent_id);
+            $parent = AramiscParent::find($student->parent_id);
 
             if($bank_payment){
                 $bank_payment->reason = $request->payment_reject_reason;
@@ -157,9 +157,9 @@ class AramiscFeesBankPaymentController extends Controller
     public function approveFeesPayment(Request $request){
         try {
           if (checkAdmin()) {
-                $bank_payment = SmBankPaymentSlip::find($request->id);
+                $bank_payment = AramiscBankPaymentSlip::find($request->id);
             }else{
-                $bank_payment = SmBankPaymentSlip::where('id',$request->id)->where('school_id',Auth::user()->school_id)->first();
+                $bank_payment = AramiscBankPaymentSlip::where('id',$request->id)->where('school_id',Auth::user()->school_id)->first();
             }
 
             if(moduleStatusCheck('University')){
@@ -286,7 +286,7 @@ class AramiscFeesBankPaymentController extends Controller
             $payment_method=AramiscPaymentMethhod::where('method',$payment_mode_name)->first();
             $income_head=generalSetting();
 
-            $add_income = new SmAddIncome();
+            $add_income = new AramiscAddIncome();
             $add_income->name = 'Fees Collect';
             $add_income->date = date('Y-m-d', strtotime($bank_payment->date));
             $add_income->amount = $bank_payment->amount;
@@ -304,12 +304,12 @@ class AramiscFeesBankPaymentController extends Controller
 
 
             if($payment_method->id==3){
-                $bank=SmBankAccount::where('id',$bank_payment->bank_id)
+                $bank=AramiscBankAccount::where('id',$bank_payment->bank_id)
                 ->where('school_id',Auth::user()->school_id)
                 ->first();
                 $after_balance= $bank->current_balance + $bank_payment->amount;
 
-                $bank_statement= new SmBankStatement();
+                $bank_statement= new AramiscBankStatement();
                 $bank_statement->amount= $bank_payment->amount;
                 $bank_statement->after_balance= $after_balance;
                 $bank_statement->type= 1;
@@ -321,7 +321,7 @@ class AramiscFeesBankPaymentController extends Controller
                 $bank_statement->fees_payment_id= $fees_payment->id;
                 $bank_statement->save();
 
-                $current_balance= SmBankAccount::find($bank_payment->bank_id);
+                $current_balance= AramiscBankAccount::find($bank_payment->bank_id);
                 $current_balance->current_balance=$after_balance;
                 $current_balance->update();
         }
@@ -338,7 +338,7 @@ class AramiscFeesBankPaymentController extends Controller
             }
             
 
-            $bank_slips = SmBankPaymentSlip::query();
+            $bank_slips = AramiscBankPaymentSlip::query();
             if(moduleStatusCheck('University')){
                 if ($request->un_semester_label_id != "") {
                     $bank_slips->where('un_semester_label_id', $request->un_semester_label_id);
@@ -363,7 +363,7 @@ class AramiscFeesBankPaymentController extends Controller
             $date = $request->payment_date;
             $class_id = $request->class;
             $section_id = $request->section;
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
             $sections = AramiscSection::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
 
             $student = AramiscStudent::find($bank_payment->student_id);
@@ -386,7 +386,7 @@ class AramiscFeesBankPaymentController extends Controller
             }
 
             try{
-                $parent = SmParent::find($student->parent_id);
+                $parent = AramiscParent::find($student->parent_id);
                 Cache::forget('have_due_fees_'.@$parent->user_id); 
                 $notification = new AramiscNotification();
                 $notification->role_id = 3;

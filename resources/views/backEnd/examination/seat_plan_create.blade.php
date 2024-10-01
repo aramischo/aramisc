@@ -89,7 +89,7 @@
                                 <select class="primary_select form-control{{ $errors->has('subject') ? ' is-invalid' : '' }}" id="select_subject" name="subject">
                                     <option data-display="Select Subject *" value="">@lang('common.select_subjects') *</option>
                                     @if(isset($subject_id))
-                                        <option value="" selected>@php $subject = App\SmSubject::select('subject_name')->where('id', $subject_id)->first(); echo $subject->subject_name; @endphp</option>
+                                        <option value="" selected>@php $subject = App\AramiscSubject::select('subject_name')->where('id', $subject_id)->first(); echo $subject->subject_name; @endphp</option>
                                     @endif
                                 </select>
                                 @if ($errors->has('subject'))
@@ -331,7 +331,7 @@
                                         </div>
                                     </td>
                                     @php
-                                        $used_room = App\SmSeatPlanChild::usedRoomCapacity($seat_plan_assign_child->room_id);
+                                        $used_room = App\AramiscSeatPlanChild::usedRoomCapacity($seat_plan_assign_child->room_id);
                                         $class_room = $seat_plan_assign_child->class_room;
                                         $alreday_assigned = $class_room->capacity - $used_room;
                                     @endphp

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\v2\Library;
 use App\AramiscBook;
 use App\AramiscStudent;
 use App\AramiscBookIssue;
-use App\SmLibraryMember;
+use App\AramiscLibraryMember;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Scopes\AcademicSchoolScope;
@@ -59,7 +59,7 @@ class LibraryController extends Controller
             ->where('id', $request->student_id)
             ->firstOrFail();
 
-        $library_member = SmLibraryMember::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $library_member = AramiscLibraryMember::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->where('member_type', 2)
             ->where('student_staff_id', $student_detail->user_id)
             ->where('school_id', auth()->user()->school_id)->first();

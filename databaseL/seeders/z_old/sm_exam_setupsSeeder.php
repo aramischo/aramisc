@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\AramiscExamSetup;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class sm_exam_setupsSeeder extends Seeder
     public function run()
     {
 
-        $data = SmAssignSubject::all();
+        $data = AramiscAssignSubject::all();
         foreach ($data as $row) {
             $class_id = $row->class_id;
             $section_id = $row->section_id;

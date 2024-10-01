@@ -3,10 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\StudentPromotion;
-use App\SmAssignSubject;
-use App\SmClass;
+use App\AramiscAssignSubject;
+use App\AramiscClass;
 use App\AramiscSection;
-use App\SmSubject;
+use App\AramiscSubject;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Modules\Chat\Entities\BlockUser;
@@ -34,7 +34,7 @@ class ListenStudentPromotion
     {
         $student_info = json_decode($event->student_promotion->student_info);
 
-        $subjects = SmAssignSubject::where('section_id',$event->student_promotion->previous_section_id)->get();
+        $subjects = AramiscAssignSubject::where('section_id',$event->student_promotion->previous_section_id)->get();
 
         foreach (array_unique($subjects->pluck('teacher_id')->toArray()) as $id){
             $exist = BlockUser::where(function ($query) use ($student_info, $id){

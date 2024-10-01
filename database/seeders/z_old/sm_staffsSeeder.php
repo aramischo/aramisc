@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\User;
-use App\SmStaff;
+use App\AramiscStaff;
 use App\GlobalVariable;
 use Faker\Factory as Faker;
 // use DB;
@@ -68,7 +68,7 @@ class sm_staffsSeeder extends Seeder
                     [
                         'user_id'          => $staff_id_number,
                         'role_id'          => $role_id,
-                        'staff_no'         => SmStaff::count() + 1,
+                        'staff_no'         => AramiscStaff::count() + 1,
                         'designation_id'   => 1,
                         'department_id'    => 1,
                         'first_name'       => $First_Name,

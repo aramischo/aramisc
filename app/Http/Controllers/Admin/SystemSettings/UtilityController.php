@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\SystemSettings;
 
-use App\SmSmsGateway;
+use App\AramiscSmsGateway;
 use GuzzleHttp\Client;
-use App\SmLanguagePhrase;
+use App\AramiscLanguagePhrase;
 use App\InfixModuleManager;
 use Illuminate\Http\Request;
 use App\Models\MaintenanceSetting;
@@ -102,7 +102,7 @@ class UtilityController extends Controller
     public function testup(){
         try{
 
-            $gateway = SmSmsGateway::where('gateway_name','Himalayasms')->first();
+            $gateway = AramiscSmsGateway::where('gateway_name','Himalayasms')->first();
             $client = new Client();
 		    $request = $client->get( "https://sms.techhimalaya.com/base/smsapi/index.php", [
 			'query' => [

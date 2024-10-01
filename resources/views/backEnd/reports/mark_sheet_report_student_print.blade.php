@@ -984,9 +984,9 @@
                                 echo $failgpaname->grade_name;
                             }else{
                                 if($final_result >= $maxGrade){
-                                    $grade_details= App\SmResultStore::remarks($maxGrade);
+                                    $grade_details= App\AramiscResultStore::remarks($maxGrade);
                                 } else {
-                                    $grade_details= App\SmResultStore::remarks($final_result);
+                                    $grade_details= App\AramiscResultStore::remarks($final_result);
                                 }
                             }
                         @endphp
@@ -999,9 +999,9 @@
                                 echo $failgpaname->description;
                             }else{
                                 if($final_result >= $maxGrade){
-                                    $grade_details= App\SmResultStore::remarks($maxGrade);
+                                    $grade_details= App\AramiscResultStore::remarks($maxGrade);
                                 } else {
-                                    $grade_details= App\SmResultStore::remarks($final_result);
+                                    $grade_details= App\AramiscResultStore::remarks($final_result);
                                 }
                             }
                         @endphp

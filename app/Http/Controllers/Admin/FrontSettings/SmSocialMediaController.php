@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\FrontSettings;
 
 use App\ApiBaseMethod;
-use App\SmSocialMediaIcon;
+use App\AramiscSocialMediaIcon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -20,7 +20,7 @@ class SmSocialMediaController extends Controller
 
     public function index()
     {
-        $visitors = SmSocialMediaIcon::where('school_id', app('school')->id)->get();
+        $visitors = AramiscSocialMediaIcon::where('school_id', app('school')->id)->get();
         return view('backEnd.frontSettings.socialMedia', compact('visitors'));
     }
 
@@ -28,7 +28,7 @@ class SmSocialMediaController extends Controller
     {
         try {
            
-            $visitor = new SmSocialMediaIcon();
+            $visitor = new AramiscSocialMediaIcon();
             $visitor->url = $request->url;
             $visitor->icon = $request->icon;
             $visitor->status = $request->status;
@@ -48,8 +48,8 @@ class SmSocialMediaController extends Controller
     {
         try {
 
-            $visitors = SmSocialMediaIcon::where('school_id', app('school')->id)->get();
-            $visitor = SmSocialMediaIcon::where('school_id', app('school')->id)->findOrFail($id);
+            $visitors = AramiscSocialMediaIcon::where('school_id', app('school')->id)->get();
+            $visitor = AramiscSocialMediaIcon::where('school_id', app('school')->id)->findOrFail($id);
             return view('backEnd.frontSettings.socialMedia', compact('visitors', 'visitor'));
 
         } catch (\Exception $e) {
@@ -64,7 +64,7 @@ class SmSocialMediaController extends Controller
     {
         try {
            
-            $visitor = SmSocialMediaIcon::where('school_id', app('school')->id)->findOrFail($request->id);
+            $visitor = AramiscSocialMediaIcon::where('school_id', app('school')->id)->findOrFail($request->id);
             $visitor->url = $request->url;
             $visitor->icon = $request->icon;
             $visitor->status = $request->status;          
@@ -84,7 +84,7 @@ class SmSocialMediaController extends Controller
     {
         try {
 
-            SmSocialMediaIcon::destroy($id);         
+            AramiscSocialMediaIcon::destroy($id);         
             
             Toastr::success('Operation successful', 'Success');
             return redirect('social-media');

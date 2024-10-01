@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Models\SmStaffRegistrationField;
+use App\Models\AramiscStaffRegistrationField;
 use App\Models\AramiscStudentRegistrationField;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -95,9 +95,9 @@ class InstituteRegisteredListener
 
             ];
         foreach ($request_fields as $key=>$value) {
-            $exit = SmStaffRegistrationField::where('school_id', $school->id)->where('field_name', $value)->first();
+            $exit = AramiscStaffRegistrationField::where('school_id', $school->id)->where('field_name', $value)->first();
             if (!$exit) {
-                $field=new SmStaffRegistrationField;
+                $field=new AramiscStaffRegistrationField;
                 $field->position=$key+1;
                 $field->field_name=$value;
                 $field->label_name=$value;

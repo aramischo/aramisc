@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin\SystemSettings;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\tableList;
 use App\YearCheck;
 use App\ApiBaseMethod;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
-use App\SmGeneralSettings;
+use App\AramiscClassSection;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Scopes\AcademicSchoolScope;
@@ -67,7 +67,7 @@ class AramiscAcademicYearController extends Controller
             $academic_years = AramiscAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             session()->put('academic_years',$academic_years);   
         }
-        $sm_Gs = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+        $sm_Gs = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
         $sm_Gs->session_id = $academic_year->id;
         $sm_Gs->academic_id = $academic_year->id;
         $sm_Gs->session_year = $academic_year->year;
@@ -75,10 +75,10 @@ class AramiscAcademicYearController extends Controller
         session()->forget('sessionId'); 
         session()->put('sessionId', $sm_Gs->session_id); 
         session()->forget('generalSetting');
-        $generalSetting = SmGeneralSettings::where('school_id',Auth::user()->school_id)->first();
+        $generalSetting = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->first();
         session()->put('generalSetting', $generalSetting);
 
-        $data = \App\SmMarksGrade::where('academic_id', $yr->id)->where('school_id', Auth::user()->school_id)->get();
+        $data = \App\AramiscMarksGrade::where('academic_id', $yr->id)->where('school_id', Auth::user()->school_id)->get();
       
         if (!empty($data)) {
             foreach ($data as $k0ey => $value) {
@@ -113,11 +113,11 @@ class AramiscAcademicYearController extends Controller
                         }
                     }
                 }
-                $classes = SmClass::where('academic_id', $academic_year->id)->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
+                $classes = AramiscClass::where('academic_id', $academic_year->id)->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
                 $sections = AramiscSection::where('academic_id', $academic_year->id)->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
                 foreach ($classes as $class) {
                     foreach ($sections as $section) {
-                        $class_section = new SmClassSection();
+                        $class_section = new AramiscClassSection();
                         $class_section->class_id = $class->id;
                         $class_section->section_id = $section->id;
                         $class_section->created_at = $created_year;
@@ -256,7 +256,7 @@ class AramiscAcademicYearController extends Controller
                         }
                     }
 
-                    SmClassSection::where('academic_id', $request->id)->where('school_id', Auth::user()->school_id)->delete();
+                    AramiscClassSection::where('academic_id', $request->id)->where('school_id', Auth::user()->school_id)->delete();
                   
                     $delete_query->delete();
 

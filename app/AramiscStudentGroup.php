@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscStudentGroup extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = 'sm_student_groups';
+    // Spécifiez le nom de la table explicitement
+   protected $table = 'sm_student_groups';
     protected static function boot()
     {
         parent::boot();

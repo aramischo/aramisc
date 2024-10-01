@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscFeesDiscount extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_fees_discounts";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_fees_discounts';
     protected $guarded = ['id'];
     protected static function boot()
     {

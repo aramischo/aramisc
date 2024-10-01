@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmItemCategory;
-class CreateSmItemCategoriesTable extends Migration
+use App\AramiscItemCategory;
+class CreateAramiscItemCategoriesTable extends Migration
 {
     /**
      * Run the migrations.

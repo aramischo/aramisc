@@ -9,8 +9,8 @@ use App\Scopes\StatusAcademicSchoolScope;
 class AramiscFeesType extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_fees_types";
+     // Spécifiez le nom de la table explicitement
+     protected $table = 'sm_fees_types';
     protected $fillable = ['name', 'fees_group_id', 'un_semester_label_id', 'school_id','un_subject_id','un_academic_id'];
     protected static function boot()
     {

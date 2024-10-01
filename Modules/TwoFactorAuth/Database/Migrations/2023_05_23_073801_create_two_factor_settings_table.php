@@ -1,7 +1,7 @@
 <?php
 
-use App\SmSchool;
-use App\SmsTemplate;
+use App\AramiscSchool;
+use App\AramiscTemplate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -37,7 +37,7 @@ class CreateTwoFactorSettingsTable extends Migration
             }
         });
 
-        $schools = SmSchool::all();
+        $schools = AramiscSchool::all();
         foreach($schools as $school){
             $setting = new TwoFactorSetting();
             $setting->school_id = $school->id;
@@ -136,9 +136,9 @@ class CreateTwoFactorSettingsTable extends Migration
         ];
 
         foreach($allTempletes as $allTemplete){
-            $exist = SmsTemplate::where('purpose', $allTemplete[1])->where('type',$allTemplete[0] )->first();
+            $exist = AramiscTemplate::where('purpose', $allTemplete[1])->where('type',$allTemplete[0] )->first();
             if(!$exist){
-                $storeTemplete = new SmsTemplate();
+                $storeTemplete = new AramiscTemplate();
                 $storeTemplete->type = $allTemplete[0];
                 $storeTemplete->purpose = $allTemplete[1];
                 $storeTemplete->subject = $allTemplete[2];

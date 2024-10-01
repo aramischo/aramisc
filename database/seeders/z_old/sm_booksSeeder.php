@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\SmBook;
+use App\AramiscBook;
 
 class sm_booksSeeder extends Seeder
 {
@@ -29,7 +29,7 @@ class sm_booksSeeder extends Seeder
         ];
         $i=1;
         foreach ($books as $book) { 
-        $store = new SmBook();
+        $store = new AramiscBook();
         $store->book_category_id = $i;
         $store->book_title = $book;
         $store->book_number = 'B-'.$i;

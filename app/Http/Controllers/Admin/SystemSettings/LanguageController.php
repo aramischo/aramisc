@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\GeneralSettings\SmLanguageRequest;
+use App\Http\Requests\Admin\GeneralSettings\AramiscLanguageRequest;
 
 class LanguageController extends Controller
 {
@@ -29,7 +29,7 @@ class LanguageController extends Controller
         //
     }
 
-    public function store(SmLanguageRequest $request)
+    public function store(AramiscLanguageRequest $request)
     {
         if (config('app.app_sync') == true) {
             Toastr::error('Disabled for demo mode', 'Failed');
@@ -76,7 +76,7 @@ class LanguageController extends Controller
         //
     }
 
-    public function update(SmLanguageRequest $request)
+    public function update(AramiscLanguageRequest $request)
     {
         if (config('app.app_sync')) {
             Toastr::error('Restricted in demo mode');

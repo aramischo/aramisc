@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\SmHourlyRate;
+use App\AramiscHourlyRate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SmHourRateFactory extends Factory
 {
 
-    protected $model = SmHourlyRate::class;
+    protected $model = AramiscHourlyRate::class;
 
     /**
      * Define the model's default state.

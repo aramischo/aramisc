@@ -2,7 +2,7 @@
 
 namespace Modules\DownloadCenter\Http\Controllers;
 
-use App\SmClass;
+use App\AramiscClass;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -23,7 +23,7 @@ class ContentListController extends Controller
             $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('downloadcenter::contentList.contentList', compact('contentTpyes', 'contents', 'editContent', 'roles', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -79,7 +79,7 @@ class ContentListController extends Controller
             $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('downloadcenter::contentList.contentList', compact('contentTpyes', 'contents', 'editContent', 'roles', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -136,7 +136,7 @@ class ContentListController extends Controller
             $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('downloadcenter::contentList.contentList', compact('contentTpyes', 'contents', 'editContent', 'roles', 'classes', 'name'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

@@ -1,11 +1,11 @@
 <?php
-$setting = App\SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+$setting = App\AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
 if(isset($setting->copyright_text)){ generalSetting()->copyright_text = $setting->copyright_text; }else{ generalSetting()->copyright_text = 'Copyright © 2020 All rights reserved | This application is made with by Codethemes'; }
 if(isset($setting->logo)) { generalSetting()->logo = $setting->logo; } else{ generalSetting()->logo = 'public/uploads/settings/logo.png'; }
 
 if(isset($setting->favicon)) { generalSetting()->favicon = $setting->favicon; } else{ generalSetting()->favicon = 'public/backEnd/img/favicon.png'; }
  
-$login_background = App\SmBackgroundSetting::where([['is_default',1],['title','Login Background']])->first(); 
+$login_background = App\AramiscBackgroundSetting::where([['is_default',1],['title','Login Background']])->first(); 
  
 if(empty($login_background)){
     $css = "background: url(".url('public/backEnd/img/login-bg.jpg').")  no-repeat center; background-size: cover; ";
@@ -17,7 +17,7 @@ if(empty($login_background)){
         $css = "background:".$login_background->color;
     }
 }
-activeStyle() = App\SmStyle::where('is_active', 1)->first();
+activeStyle() = App\AramiscStyle::where('is_active', 1)->first();
 ?>
 <!DOCTYPE html>
 <html lang="en">

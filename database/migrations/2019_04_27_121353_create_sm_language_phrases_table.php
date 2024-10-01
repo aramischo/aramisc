@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmLanguagePhrase;
+use App\AramiscLanguagePhrase;
 
-class CreateSmLanguagePhrasesTable extends Migration
+class CreateAramiscLanguagePhrasesTable extends Migration
 {
     /**
      * Run the migrations.

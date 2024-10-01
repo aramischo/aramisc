@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\api\v2\Student\Payment;
 
 use App\User;
-use App\SmBankAccount;
+use App\AramiscBankAccount;
 use App\AramiscAcademicYear;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use PhpParser\Node\Expr\Cast\Double;
@@ -58,7 +58,7 @@ class WalletController extends Controller
         if ($request->payment_method == 2 || $request->payment_method == 3) {
             $uploadFile = "";
             if ($request->file('file') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('file');
                 $fileSize = filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -153,7 +153,7 @@ class WalletController extends Controller
 
     public function bankAccounts()
     {
-        $data = SmBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)
+        $data = AramiscBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->select('id', 'bank_name')
             ->get();

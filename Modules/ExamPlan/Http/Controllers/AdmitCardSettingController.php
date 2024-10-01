@@ -3,11 +3,11 @@
 namespace Modules\ExamPlan\Http\Controllers;
 
 use App\AramiscExam;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\AramiscExamType;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\Traits\ImageStore;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -173,7 +173,7 @@ class AdmitCardSettingController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
-            $classes = SmClass::where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id)->get();
+            $classes = AramiscClass::where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id)->get();
             return view('examplan::admitCard', compact('exams', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Error');
@@ -335,7 +335,7 @@ class AdmitCardSettingController extends Controller
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
-                    $classes = SmClass::where('academic_id', getAcademicId())
+                    $classes = AramiscClass::where('academic_id', getAcademicId())
                         ->where('school_id', auth()->user()->school_id)
                         ->get();
                     return view('examplan::admitCard', compact('exams', 'classes', 'records', 'exam_id', 'class_id', 'old_admit_ids'));
@@ -448,7 +448,7 @@ class AdmitCardSettingController extends Controller
                         }
                     }
                     $admitcards = AdmitCard::whereIn('student_record_id', $student_records)->where('exam_type_id', $request->exam_type_id)->with('studentRecord')->get();
-                    $assign_subjects = SmAssignSubject::where('class_id', $studentRecord->class_id)->where('section_id', $studentRecord->section_id)
+                    $assign_subjects = AramiscAssignSubject::where('class_id', $studentRecord->class_id)->where('section_id', $studentRecord->section_id)
                         ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                     $exam_routines = AramiscExamSchedule::where('class_id', $studentRecord->class_id)
                         ->where('section_id', $studentRecord->section_id)

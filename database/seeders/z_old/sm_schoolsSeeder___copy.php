@@ -3,24 +3,24 @@
 namespace Database\Seeders;
 
 use App\User;
-use App\SmClass;
-use App\SmStaff;
-use App\SmStyle;
-use App\SmParent;
-use App\SmSchool;
-use App\SmSection;
-use App\SmVehicle;
-use App\SmVisitor;
-use App\SmLanguage;
-use App\SmClassRoom;
-use App\SmExpenseHead;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscStyle;
+use App\AramiscParent;
+use App\AramiscSchool;
+use App\AramiscSection;
+use App\AramiscVehicle;
+use App\AramiscVisitor;
+use App\AramiscLanguage;
+use App\AramiscClassRoom;
+use App\AramiscExpenseHead;
 use App\GlobalVariable;
-use App\SmAcademicYear;
-use App\SmClassSection;
-use App\SmAssignVehicle;
-use App\SmDormitoryList;
-use App\SmPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscAcademicYear;
+use App\AramiscClassSection;
+use App\AramiscAssignVehicle;
+use App\AramiscDormitoryList;
+use App\AramiscPaymentMethhod;
+use App\AramiscGeneralSettings;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +46,7 @@ class sm_schoolsSeeder extends Seeder
         //     $email= $faker->email;
         //     $school= $faker->company. ' School';
 
-        //     $store= new SmSchool();
+        //     $store= new AramiscSchool();
         //     $store->school_name= $school;
         //     $store->email= $email;
         //     $store->created_at = date('Y-m-d h:i:s');
@@ -54,7 +54,7 @@ class sm_schoolsSeeder extends Seeder
         //     $store->is_email_verified = 1;
         //     $store->save();
             
-        //     $general_setting = new SmGeneralSettings();
+        //     $general_setting = new AramiscGeneralSettings();
         //     $general_setting->school_name = $school;
         //     $general_setting->email = $email;
         //     $general_setting->address = '';
@@ -77,7 +77,7 @@ class sm_schoolsSeeder extends Seeder
         //     $user->toArray();
 
         //     //user details
-        //     $staff                  = new SmStaff();
+        //     $staff                  = new AramiscStaff();
         //     $staff->user_id         = $user->id;
         //     $staff->role_id         = 1;
         //     $staff->staff_no        = 1;
@@ -107,7 +107,7 @@ class sm_schoolsSeeder extends Seeder
             $email= $faker->email;
             $school= $faker->company. ' School';
 
-            $store= new SmSchool();
+            $store= new AramiscSchool();
             $store->school_name= $school;
             $store->email= $email;
             $store->created_at = date('Y-m-d h:i:s');
@@ -115,7 +115,7 @@ class sm_schoolsSeeder extends Seeder
             $store->is_email_verified = 1;
             $store->save();
 
-            $academic_year = new SmAcademicYear();
+            $academic_year = new AramiscAcademicYear();
             $academic_year->year = date('Y');
             $academic_year->title = ' academic year ' . date('Y');
             $academic_year->school_id = $i;
@@ -123,7 +123,7 @@ class sm_schoolsSeeder extends Seeder
             $academic_year->ending_date = date('Y') . '-12-31';
             $academic_year->save();
             
-            $general_setting = new SmGeneralSettings();
+            $general_setting = new AramiscGeneralSettings();
             $general_setting->school_name = $school;
             $general_setting->email = $email;
             $general_setting->address = $faker->address;
@@ -145,7 +145,7 @@ class sm_schoolsSeeder extends Seeder
             $user->toArray();
 
             //user details
-            $staff                  = new SmStaff();
+            $staff                  = new AramiscStaff();
             $staff->user_id         = $user->id;
             $staff->role_id         = 1;
             $staff->staff_no        = 1;
@@ -181,7 +181,7 @@ class sm_schoolsSeeder extends Seeder
             }
 
             foreach ($payment_methods as $payment_method) {
-                $method = new SmPaymentMethhod();
+                $method = new AramiscPaymentMethhod();
                 $method->method = $payment_method;
                 $method->type = 'System';
                 $method->school_id = $i;
@@ -312,9 +312,9 @@ class sm_schoolsSeeder extends Seeder
             ]);
 
 
-            $sm_langs = SmLanguage::where('school_id',$i)->get();
+            $sm_langs = AramiscLanguage::where('school_id',$i)->get();
                         foreach($sm_langs as $lang){
-                            $newLang = new SmLanguage();
+                            $newLang = new AramiscLanguage();
                             $newLang->language_name= $lang->language_name;
                             $newLang->native= $lang->native;
                             $newLang->language_universal= $lang->language_universal;
@@ -334,7 +334,7 @@ class sm_schoolsSeeder extends Seeder
                 ]
             ]);
 
-            $s = new SmStyle();
+            $s = new AramiscStyle();
             $s->style_name = 'Default';
             $s->path_main_style = 'style.css';
             $s->path_infix_style = 'infix.css';
@@ -357,7 +357,7 @@ class sm_schoolsSeeder extends Seeder
             $s->is_active = 1;
             $s->save();
 
-            $s = new  SmStyle();
+            $s = new  AramiscStyle();
             $s->style_name = 'Lawn Green';
             $s->path_main_style = 'lawngreen_version/style.css';
             $s->path_infix_style = 'lawngreen_version/infix.css';
@@ -567,7 +567,7 @@ class sm_schoolsSeeder extends Seeder
             $sectionData=['A','B','C','D','E'];
             foreach ($sectionData as $row) {
                 for ($j = 2; $j <= 2; $j++) {
-                    $s= new SmSection();
+                    $s= new AramiscSection();
                     $s->section_name=$row.' '.$j;
                     $s->created_at = date('Y-m-d h:i:s');
                     $s->school_id=$i;
@@ -578,7 +578,7 @@ class sm_schoolsSeeder extends Seeder
             $classData = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine','Ten'];
             foreach ($classData as $row) {
                 for ($j = 2; $j <= 2; $j++) {
-                    $s = new SmClass();
+                    $s = new AramiscClass();
                     $s->class_name = $row . ' ' . $j;
                     $s->created_at = date('Y-m-d h:i:s');
                     $s->school_id = $i;
@@ -587,11 +587,11 @@ class sm_schoolsSeeder extends Seeder
             } 
 
             for ($j = 2; $j <= 2; $j++) {
-                $classes= SmClass::where('school_id', $i)->get();
+                $classes= AramiscClass::where('school_id', $i)->get();
                 foreach ($classes as  $class) {
-                     $sections=SmSection::where('school_id', $i)->get();
+                     $sections=AramiscSection::where('school_id', $i)->get();
                     foreach ($sections as $section) {
-                        $s = new SmClassSection();
+                        $s = new AramiscClassSection();
                         $s->class_id = $class->id;
                         $s->section_id = $section->id;
                         $s->school_id = $i;
@@ -663,7 +663,7 @@ class sm_schoolsSeeder extends Seeder
             ]);
 
             for ($j = 2; $j <= 4; $j++) {
-                $store = new SmVisitor();
+                $store = new AramiscVisitor();
                 $store->name = $faker->name;
                 $store->phone = $faker->tollFreePhoneNumber;
                 $store->visitor_id = $j;
@@ -723,7 +723,7 @@ class sm_schoolsSeeder extends Seeder
                     [
                         'user_id'          => $staff_id_number,
                         'role_id'          => $role_id,
-                        'staff_no'         => count(\App\SmStaff::all()) + 1,
+                        'staff_no'         => count(\App\AramiscStaff::all()) + 1,
                         'designation_id'   => 1,
                         'department_id'    => 1,
                         'first_name'       => $First_Name,
@@ -761,7 +761,7 @@ class sm_schoolsSeeder extends Seeder
             }
 
             for ($j = 2; $j <= 10; $j++) {
-                $store = new SmExpenseHead();
+                $store = new AramiscExpenseHead();
                 $store->name = $faker->word;
                 $store->description = $faker->realText($maxNbChars = 100, $indexSize = 1);
                 $store->school_id = $i;
@@ -769,7 +769,7 @@ class sm_schoolsSeeder extends Seeder
             }
 
             for ($j = 2; $j <= 10; $j++) {
-                $store = new SmAddExpense();
+                $store = new AramiscAddExpense();
                 $store->name = 'Utility Bills';
                 $store->expense_head_id = 4;
                 $store->payment_method_id = 1;

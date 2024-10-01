@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Transport;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscRoute;
 use App\AramiscStudent;
-use App\SmVehicle;
+use App\AramiscVehicle;
 use App\YearCheck;
 use App\ApiBaseMethod;
 use Illuminate\Http\Request;
@@ -30,9 +30,9 @@ class SmTransportController extends Controller
     public function studentTransportReport(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $routes = AramiscRoute::get();
-            $vehicles = SmVehicle::status()->get();
+            $vehicles = AramiscVehicle::status()->get();
 
             return view('backEnd.transport.student_transport_report', compact('classes', 'routes', 'vehicles'));
         } catch (\Exception $e) {
@@ -69,7 +69,7 @@ class SmTransportController extends Controller
             $student_ids = [];
             $data = [];
             $student_records = StudentRecord::query();
-            $classes = SmClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             if (moduleStatusCheck('University')) {
                 $student_ids = universityFilter($student_records, $request)
                     ->distinct('student_id')->get('student_id');
@@ -101,7 +101,7 @@ class SmTransportController extends Controller
                 ->get();
 
             $routes = AramiscRoute::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $vehicles = SmVehicle::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $vehicles = AramiscVehicle::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
 
             $data['classes'] = $classes;
             $data['routes'] = $routes;

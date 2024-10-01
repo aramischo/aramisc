@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmHumanDepartment;
+use App\AramiscHumanDepartment;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +15,6 @@ class sm_human_departmentsSeeder extends Seeder
      */
     public function run()
     {
-      SmHumanDepartment::factory()->times(10)->create();
+      AramiscHumanDepartment::factory()->times(10)->create();
     }
 }

@@ -6,9 +6,9 @@ namespace Modules\Chat\Http\Controllers\Api;
 
 use App\Events\ClassTeacherGetAllStudent;
 use App\Events\CreateClassGroupChat;
-use App\SmAssignClassTeacher;
-use App\SmAssignSubject;
-use App\SmClassTeacher;
+use App\AramiscAssignClassTeacher;
+use App\AramiscAssignSubject;
+use App\AramiscClassTeacher;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -82,15 +82,15 @@ class SettingsController extends Controller
     public function generate($type)
     {
         try {
-            $subjects = SmAssignSubject::all();
+            $subjects = AramiscAssignSubject::all();
             foreach ($subjects as $assignSubject) {
                 event(new CreateClassGroupChat($assignSubject));
             }
 //            clasteacher to all student
 
-            $subject_teachers = SmClassTeacher::all();
+            $subject_teachers = AramiscClassTeacher::all();
             foreach ($subject_teachers as $st) {
-                $assign_class_teacher_collection = SmAssignClassTeacher::find($st->assign_class_teacher_id);
+                $assign_class_teacher_collection = AramiscAssignClassTeacher::find($st->assign_class_teacher_id);
                 event(new ClassTeacherGetAllStudent($assign_class_teacher_collection, $st));
             }
 

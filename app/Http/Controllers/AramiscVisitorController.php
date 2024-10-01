@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\AramiscVisitor;
 use App\YearCheck;
 use App\ApiBaseMethod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +59,7 @@ class AramiscVisitorController extends Controller
         }
 
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('file');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -165,7 +165,7 @@ class AramiscVisitorController extends Controller
                 ->withInput();
         }
         try{
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('file');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);

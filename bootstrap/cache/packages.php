@@ -10,17 +10,6 @@
       'NoCaptcha' => 'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha',
     ),
   ),
-  'barryvdh/laravel-debugbar' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Barryvdh\\Debugbar\\ServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Debugbar' => 'Barryvdh\\Debugbar\\Facades\\Debugbar',
-    ),
-  ),
   'barryvdh/laravel-dompdf' => 
   array (
     'providers' => 
@@ -99,25 +88,11 @@
       'Bigbluebutton' => 'JoisarJignesh\\Bigbluebutton\\Facades\\Bigbluebutton',
     ),
   ),
-  'laravel/dusk' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Dusk\\DuskServiceProvider',
-    ),
-  ),
   'laravel/passport' => 
   array (
     'providers' => 
     array (
       0 => 'Laravel\\Passport\\PassportServiceProvider',
-    ),
-  ),
-  'laravel/sail' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Sail\\SailServiceProvider',
     ),
   ),
   'laravel/sanctum' => 
@@ -132,13 +107,6 @@
     'providers' => 
     array (
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    ),
-  ),
-  'laravel/ui' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Ui\\UiServiceProvider',
     ),
   ),
   'laravelcollective/html' => 
@@ -171,13 +139,6 @@
       0 => 'Carbon\\Laravel\\ServiceProvider',
     ),
   ),
-  'nunomaduro/collision' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    ),
-  ),
   'nunomaduro/termwind' => 
   array (
     'providers' => 
@@ -208,17 +169,6 @@
     'providers' => 
     array (
       0 => 'LaravelPWA\\Providers\\LaravelPWAServiceProvider',
-    ),
-  ),
-  'spatie/laravel-ignition' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Flare' => 'Spatie\\LaravelIgnition\\Facades\\Flare',
     ),
   ),
   'spondonit/laravel-fcm-notification' => 

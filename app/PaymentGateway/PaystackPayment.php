@@ -3,10 +3,10 @@
 namespace App\PaymentGateway;
 
 use App\User;
-use App\SmParent;
-use App\SmSchool;
+use App\AramiscParent;
+use App\AramiscSchool;
 use App\AramiscStudent;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\AramiscFeesPayment;
 use App\AramiscPaymentMethhod;
 use App\AramiscPaymentGatewaySetting;
@@ -46,7 +46,7 @@ class PaystackPayment{
             if(gv($data, 'student_id')){
                 $student = AramiscStudent::find($data['student_id']);
                 if(!($student->email)){
-                    $parent = SmParent::find($student->parent_id);
+                    $parent = AramiscParent::find($student->parent_id);
                     $email =  $parent->guardians_email;
                 }else{
                     $email =   $student->email;
@@ -235,7 +235,7 @@ class PaystackPayment{
                 $payment->payment_date = date('Y-m-d');
                 $payment->save();
 
-                $school = SmSchool::find($payment->school_id);
+                $school = AramiscSchool::find($payment->school_id);
               
                 DB::commit();
                 Toastr::success('Operation successful', 'Success');
@@ -375,7 +375,7 @@ class PaystackPayment{
 
                        $income_head= generalSetting();
            
-                       $add_income = new SmAddIncome();
+                       $add_income = new AramiscAddIncome();
                        $add_income->name = 'Fees Collect';
                        $add_income->date = date('Y-m-d');
                        $add_income->amount = $fees_payment->amount;

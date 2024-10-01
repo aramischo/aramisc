@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\StudentInfo;
 
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\ApiBaseMethod;
@@ -31,10 +31,10 @@ class AramiscStudentAttendanceReportController extends Controller
     {
         try {
             if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id',Auth::user()->id)->first();
+                $teacher_info=AramiscStaff::where('user_id',Auth::user()->id)->first();
                $classes= $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
 
 
@@ -59,16 +59,16 @@ class AramiscStudentAttendanceReportController extends Controller
             $class = null;
             $section = null;
             if (!moduleStatusCheck('University')) {
-                $class = SmClass::findOrFail($request->class);
+                $class = AramiscClass::findOrFail($request->class);
                 $section = AramiscSection::findOrFail($request->section);
             }
 
             $days = cal_days_in_month(CAL_GREGORIAN, $request->month, $request->year);
             if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info=AramiscStaff::where('user_id', Auth::user()->id)->first();
                 $classes= $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
             $students = StudentRecord::where('class_id', $request->class)
             ->where('section_id', $request->section)
@@ -141,13 +141,13 @@ class AramiscStudentAttendanceReportController extends Controller
             //         'month' => $month,
             //         'class_id' => $class_id,
             //         'section_id' => $section_id,
-            //         'class' => SmClass::find($class_id),
+            //         'class' => AramiscClass::find($class_id),
             //         'section' => AramiscSection::find($section_id),
             //     ]
             // )->setPaper('A4', 'landscape');
             // return $pdf->stream('student_attendance.pdf');
 
-            $class = SmClass::find($class_id);
+            $class = AramiscClass::find($class_id);
             $section = AramiscSection::find($section_id);
             return view('backEnd.studentInformation.student_attendance_print', compact('class', 'section', 'attendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id'));
         } catch (\Exception $e) {
@@ -202,7 +202,7 @@ class AramiscStudentAttendanceReportController extends Controller
             //         'month' => $month,
             //         'class_id' => $class_id,
             //         'section_id' => $section_id,
-            //         'class' => SmClass::find($class_id),
+            //         'class' => AramiscClass::find($class_id),
             //         'section' => AramiscSection::find($section_id),
             //     ]
             // )->setPaper('A4', 'landscape');

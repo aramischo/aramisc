@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Style;
 
-use App\SmStyle;
+use App\AramiscStyle;
 use Carbon\Carbon;
 use App\Models\Color;
 use App\Models\Theme;

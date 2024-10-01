@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmHrPayrollEarnDeduc;
+use App\AramiscHrPayrollEarnDeduc;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -18,7 +18,7 @@ class sm_hr_payroll_earn_deducsSeeder extends Seeder
 //        $faker = Faker::create();
 //
 //        for($i=1; $i<=3; $i++) {
-//            $store = new SmHrPayrollEarnDeduc();
+//            $store = new AramiscHrPayrollEarnDeduc();
 //            $store->payroll_generate_id = $i;
 //            $store->type_name =  $faker->numberBetween(1, 5);
 //            $store->amount = rand(3000,5000);

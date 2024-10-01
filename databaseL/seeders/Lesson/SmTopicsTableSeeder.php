@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Lesson;
 
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Modules\Lesson\Entities\SmLesson;
@@ -20,7 +20,7 @@ class SmTopicsTableSeeder extends Seeder
     {
         // $topic = ['theory', 'poem', 'practical', 'others'];
         // $lesson_id = SmLesson::where('class_id', 1)->where('section_id', 1)->where('school_id', $school_id)->where('academic_id', $academic_id)->first()->id;
-        // $assignSubject = SmAssignSubject::where('school_id', $school_id)
+        // $assignSubject = AramiscAssignSubject::where('school_id', $school_id)
         // ->where('academic_id', $academic_id)
         // ->first();
         // $is_duplicate = SmLessonTopic::where('class_id', $assignSubject->class_id)->where('lesson_id', $lesson_id)->where('section_id', $assignSubject->sction_id)->where('subject_id', $assignSubject->subject_id)->first();

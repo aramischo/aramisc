@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\api\v2\Teacher\ClassRoutine;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use Illuminate\Http\Request;
-use App\SmClassRoutineUpdate;
+use App\AramiscClassRoutineUpdate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\ActiveStatusSchoolScope;
@@ -19,7 +19,7 @@ class ClassRoutineController extends Controller
             'section_id' => 'required',
         ]);
         $data = [];
-        $sm_routine_updates = SmClassRoutineUpdate::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $sm_routine_updates = AramiscClassRoutineUpdate::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('class_id', $request->class_id)
             ->where('section_id', $request->section_id)
@@ -56,7 +56,7 @@ class ClassRoutineController extends Controller
 
     public function teacherClassRoutine(Request $request)
     {
-        $staff_detail = SmStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
+        $staff_detail = AramiscStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
             ->select('id', 'full_name', 'role_id')
             ->where('user_id', $request->user_id)
             ->where('school_id', auth()->user()->school_id)
@@ -69,7 +69,7 @@ class ClassRoutineController extends Controller
 
         $school_id = auth()->user()->school_id;
 
-        $data['class_routines'] = SmClassRoutineUpdate::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $data['class_routines'] = AramiscClassRoutineUpdate::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->with(['weekend', 'classRoom', 'subject' => function ($q) use ($school_id) {
                 $q->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', $school_id);
             }, 'teacherDetail', 'class' => function ($q) use ($school_id) {

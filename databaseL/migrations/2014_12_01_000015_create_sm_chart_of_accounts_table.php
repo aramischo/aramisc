@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmChartOfAccount;
+use App\AramiscChartOfAccount;
 
-class CreateSmChartOfAccountsTable extends Migration
+class CreateAramiscChartOfAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -32,7 +32,7 @@ class CreateSmChartOfAccountsTable extends Migration
             $table->foreign('academic_id')->references('id')->on('sm_academic_years')->onDelete('cascade');
         });
 
-        $store = new SmChartOfAccount();
+        $store = new AramiscChartOfAccount();
         $store->id = 1;
         $store->head = 'Fees Collection';
         $store->type = 'I';

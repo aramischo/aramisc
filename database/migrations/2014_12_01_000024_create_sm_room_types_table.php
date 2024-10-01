@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmRoomType;
-class CreateSmRoomTypesTable extends Migration
+use App\AramiscRoomType;
+class CreateAramiscRoomTypesTable extends Migration
 {
     /**
      * Run the migrations.

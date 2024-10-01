@@ -9,8 +9,8 @@ use App\Scopes\StatusAcademicSchoolScope;
 class AramiscFeesAssignDiscount extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_fees_assign_discounts";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_fees_assign_discounts';
     protected $guarded = ['id'];
     protected static function boot()
     {

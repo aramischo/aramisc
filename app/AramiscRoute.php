@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscRoute extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_routes";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_routes';
     protected $casts = [
         'id'    => 'integer',
         'title' => 'string',

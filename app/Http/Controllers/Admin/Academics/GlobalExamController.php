@@ -5,21 +5,21 @@ namespace App\Http\Controllers\Admin\Academics;
 
 use App\User;
 use App\AramiscExam;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\YearCheck;
 use App\AramiscExamType;
-use App\SmClassRoom;
+use App\AramiscClassRoom;
 use App\AramiscExamSetup;
-use App\SmMarkStore;
+use App\AramiscMarkStore;
 use App\ApiBaseMethod;
-use App\SmResultStore;
-use App\SmClassSection;
-use App\SmClassTeacher;
+use App\AramiscResultStore;
+use App\AramiscClassSection;
+use App\AramiscClassTeacher;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Scopes\AcademicSchoolScope;
@@ -50,16 +50,16 @@ class GlobalExamController extends Controller
         try {
                 $exams = AramiscExam::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->whereNULL('parent_id')->where('school_id', Auth::user()->school_id)->get();
                 $sections = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->where('school_id',auth()->user()->school_id)->whereNULL('parent_id')->get();
-                $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
+                $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
                
                 $exams_types = AramiscExamType::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
             
-                $subjects =  SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
+                $subjects =  AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
                 $sections = AramiscSection::get();
-                $teachers = SmStaff::where('role_id', 4)->where('active_status', 1)
+                $teachers = AramiscStaff::where('role_id', 4)->where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get(['id', 'user_id', 'full_name']);
-                $rooms = SmClassRoom::where('active_status', 1)
+                $rooms = AramiscClassRoom::where('active_status', 1)
                 ->where('school_id',Auth::user()->school_id)
                 ->get();
             return view('backEnd.global.global_exam', compact('exams', 'classes', 'subjects', 'exams_types', 'sections','teachers','rooms'));
@@ -78,19 +78,19 @@ class GlobalExamController extends Controller
             $exams_types = AramiscExamType::get();
 
              if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info=AramiscStaff::where('user_id', Auth::user()->id)->first();
                 $classes= $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
-            $subjects = SmSubject::get();
+            $subjects = AramiscSubject::get();
             $sections = AramiscSection::get();
             $selected_exam_type_id = $id;
                 
-            $teachers = SmStaff::where('role_id', 4)->where('active_status', 1)
+            $teachers = AramiscStaff::where('role_id', 4)->where('active_status', 1)
             ->where('school_id', Auth::user()->school_id)
             ->get(['id', 'user_id', 'full_name']);
-            $rooms = SmClassRoom::where('active_status', 1)
+            $rooms = AramiscClassRoom::where('active_status', 1)
             ->where('school_id',Auth::user()->school_id)
             ->get();
             return view('backEnd.examination.exam', compact('exams', 'classes', 'subjects', 'exams_types', 'sections', 'selected_exam_type_id','teachers','rooms'));
@@ -108,20 +108,20 @@ class GlobalExamController extends Controller
             AramiscExam::query()->truncate();
             $exams_types = AramiscExamType::get();
             AramiscExamType::query()->truncate();
-            $exam_mark_stores = SmMarkStore::get();
-            SmMarkStore::query()->truncate();
-            $exam_results_stores = SmResultStore::where('academic_id', getAcademicId())
+            $exam_mark_stores = AramiscMarkStore::get();
+            AramiscMarkStore::query()->truncate();
+            $exam_results_stores = AramiscResultStore::where('academic_id', getAcademicId())
                                 ->where('school_id', Auth::user()->school_id)
                                 ->get();
-            SmResultStore::query()->truncate();
+            AramiscResultStore::query()->truncate();
             AramiscExamSetup::query()->truncate();
             if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info=AramiscStaff::where('user_id', Auth::user()->id)->first();
                 $classes= $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
-            $subjects = SmSubject::get();
+            $subjects = AramiscSubject::get();
 
             $sections = AramiscSection::get();
             return view('backEnd.examination.exam', compact('exams', 'classes', 'subjects', 'exams_types', 'sections'));
@@ -210,10 +210,10 @@ class GlobalExamController extends Controller
                 return redirect()->back();
             }
             else {
-                $sections = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', $request->class_ids)->whereNULL('parent_id')->get();
+                $sections = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', $request->class_ids)->whereNULL('parent_id')->get();
                     foreach ($request->exams_types as $exam_type_id) {
                         foreach ($sections as $section) {
-                            $subject_for_sections = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', $request->class_ids)
+                            $subject_for_sections = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', $request->class_ids)
                                                     ->where('section_id', $section->section_id)
                                                     ->get();
     
@@ -289,9 +289,9 @@ class GlobalExamController extends Controller
             $exam = AramiscExam::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($id);
             $exams = AramiscExam::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->whereNULL('parent_id')->where('school_id', Auth::user()->school_id)->get();
             $sections = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->where('school_id',auth()->user()->school_id)->whereNULL('parent_id')->get();
-            $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
+            $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
             $exams_types = AramiscExamType::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
-            $subjects =  SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
+            $subjects =  AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
             return view('backEnd.global.global_examEdit', compact('exam', 'exams', 'classes', 'subjects', 'sections', 'exams_types'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -344,15 +344,15 @@ class GlobalExamController extends Controller
             $exam = AramiscExam::find($id);
             $exams = AramiscExam::get();
                 if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id',Auth::user()->id)->first();
+                $teacher_info=AramiscStaff::where('user_id',Auth::user()->id)->first();
                 $classes= $teacher_info->classes;
             } else {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id',Auth::user()->school_id)
                 ->get();
             } 
-            $subjects = SmSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $sections = AramiscSection::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.examination.exam_setup', compact('exam', 'exams', 'classes', 'subjects', 'sections'));
         } catch (\Exception $e) {
@@ -438,7 +438,7 @@ class GlobalExamController extends Controller
     public function getClassSubjects(Request $request)
     {
         try {
-            $subjects = SmAssignSubject::where('class_id', $request->id)
+            $subjects = AramiscAssignSubject::where('class_id', $request->id)
             ->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id)
             ->get();
@@ -447,7 +447,7 @@ class GlobalExamController extends Controller
 
             $assinged_subjects = [];
             foreach ($subjects as $key => $subject) {
-                $assinged_subjects[] = SmSubject::find($key);
+                $assinged_subjects[] = AramiscSubject::find($key);
             }
             return response()->json($assinged_subjects);
         } catch (\Exception $e) {
@@ -480,8 +480,8 @@ class GlobalExamController extends Controller
              
         $input = $request->only(['code']);
         $exams_types = AramiscExamType::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
-        $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
-        $teachers = SmStaff::where('role_id', 4)->where('active_status', 1)
+        $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
+        $teachers = AramiscStaff::where('role_id', 4)->where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get(['id', 'user_id', 'full_name']);
     
@@ -490,7 +490,7 @@ class GlobalExamController extends Controller
         }elseif($input['code'] == "multi"){
             $view = "backEnd.examination.exam_setup.multi_exam_setup";
         }
-        $rooms = SmClassRoom::where('active_status', 1)
+        $rooms = AramiscClassRoom::where('active_status', 1)
                 ->where('school_id',Auth::user()->school_id)
                 ->get();
         $html = view($view,compact('exams_types','classes','teachers','rooms'))->render();
@@ -506,7 +506,7 @@ class GlobalExamController extends Controller
     { 
         try{
             $exams = AramiscExamType::get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.examination.report.marksheetReport', compact('exams','classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

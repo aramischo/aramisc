@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmIncomeHead;
+use App\AramiscIncomeHead;
 
 class sm_income_headsSeeder extends Seeder
 {
@@ -15,6 +15,6 @@ class sm_income_headsSeeder extends Seeder
      */
     public function run()
     {
-      SmIncomeHead::factory()->times(5)->create();        
+      AramiscIncomeHead::factory()->times(5)->create();        
     }
 }

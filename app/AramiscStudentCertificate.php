@@ -15,7 +15,7 @@ class AramiscStudentCertificate extends Model
 {   
     use HasFactory;
     // Spécifiez le nom de la table explicitement
-    protected $table = 'sm_student_certificates';
+   protected $table = 'sm_student_certificates';
     protected static function boot()
     {
         parent::boot();
@@ -80,7 +80,7 @@ class AramiscStudentCertificate extends Model
                     $body = str_replace('[name]', @$student->full_name, $body);
                 }
             }elseif($role==3){
-                $parent = SmParent::where('user_id', $user_id)->first();
+                $parent = AramiscParent::where('user_id', $user_id)->first();
                 $body = str_replace('[parent_name]', @$parent->guardians_name, $body);
                 $body = str_replace('[parent_mobile]', @$parent->guardians_mobile, $body);
                 $body = str_replace('[parent_email]', @$parent->guardians_email, $body);
@@ -101,7 +101,7 @@ class AramiscStudentCertificate extends Model
                     $body = str_replace('[course_complete_date]', $complete_date, $body);
                 }
             }else{
-                $staff = SmStaff::where('user_id', $user_id)->first();
+                $staff = AramiscStaff::where('user_id', $user_id)->first();
                 $body = str_replace('[staff_name]', @$staff->full_name, $body);
                 $body = str_replace('[date_of_birth]', @$staff->date_of_birth, $body);
                 $body = str_replace('[present_address]', @$staff->current_address, $body);

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Role;
 use App\User;
-use App\SmLeaveDefine;
+use App\AramiscLeaveDefine;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Modules\RolePermission\Entities\InfixRole;
@@ -24,7 +24,7 @@ class sm_leave_definesSeeder extends Seeder
         foreach ($roles as $key => $value) {
             $users=User::where('role_id',$value->id)->get();
             foreach($users as $user){
-                $store= new SmLeaveDefine();
+                $store= new AramiscLeaveDefine();
                 $store->role_id= $value->id;
                 $store->user_id= $user->id;
                 $store->type_id=$faker->numberBetween(1,5);
@@ -34,7 +34,7 @@ class sm_leave_definesSeeder extends Seeder
             }
         }
         /* for($i=1; $i<=5; $i++){
-            $store= new SmLeaveDefine();
+            $store= new AramiscLeaveDefine();
             $store->role_id=4;
             $store->type_id=$faker->numberBetween(1,5);
             $store->days=$faker->numberBetween(1,10);

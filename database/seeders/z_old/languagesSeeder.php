@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmLanguage;
+use App\AramiscLanguage;
 use Illuminate\Database\Seeder;
 class languagesSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class languagesSeeder extends Seeder
     public function run()
     {
 
-        // $store = new SmLanguage();
+        // $store = new AramiscLanguage();
         // $store->language_name ='English';
         // $store->native ='English';
         // $store->language_universal ='en';

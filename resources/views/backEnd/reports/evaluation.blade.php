@@ -206,7 +206,7 @@
                                                         <td>{{ $value->submission_date != '' ? dateConvert($value->submission_date) : '' }}
                                                         </td>
                                                         @php
-                                                            $homeworkPercentage = App\SmHomework::getHomeworkPercentage($value->class_id, $value->section_id, $value->id);
+                                                            $homeworkPercentage = App\AramiscHomework::getHomeworkPercentage($value->class_id, $value->section_id, $value->id);
                                                         @endphp
                                                         <td>
                                                             <?php

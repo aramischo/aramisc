@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\SmLeaveRequest;
-use App\SmStaff;
+use App\AramiscLeaveRequest;
+use App\AramiscStaff;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -17,10 +17,10 @@ class sm_leave_requestsSeeder extends Seeder
     public function run()
     {
        $faker = Faker::create();
-       $staffs = SmStaff::where('role_id', 4)->get();
+       $staffs = AramiscStaff::where('role_id', 4)->get();
        foreach ($staffs as $staff) {
 
-           $store = new SmLeaveRequest();
+           $store = new AramiscLeaveRequest();
            $store->type_id = 1;
            $store->leave_define_id = 1;
            $store->staff_id = $staff->id;

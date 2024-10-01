@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscExamSetup extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_exam_setups";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_exam_setups';
     protected $guarded = ['id'];
     public function class(){
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
     }
     public function section()
     {
@@ -21,7 +21,7 @@ class AramiscExamSetup extends Model
 
     public function subjectDetails()
     {
-        return $this->belongsTo('App\SmSubject', 'subject_id', 'id');
+        return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id');
     }
 
     public function unSubject()

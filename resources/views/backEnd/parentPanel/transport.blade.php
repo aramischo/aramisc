@@ -84,7 +84,7 @@
                                                     </td> -->
                                                     <td class="d-flex flex-wrap gap-10">
                                                         <span>
-                                                            @php $vehicle = App\SmVehicle::find($vehicle);
+                                                            @php $vehicle = App\AramiscVehicle::find($vehicle);
                                                             @endphp
                                                             {{$vehicle->vehicle_no}}
                                                         </span>
@@ -177,7 +177,7 @@
                                                                             
                                                                         
                                                                         @php
-                                                                            $driver_info=App\SmStaff::where('id','=',$vehicle->driver_id)->first();
+                                                                            $driver_info=App\AramiscStaff::where('id','=',$vehicle->driver_id)->first();
                                                                         @endphp
                                                                         <div class="single-meta">
                                                                             <div class="row">

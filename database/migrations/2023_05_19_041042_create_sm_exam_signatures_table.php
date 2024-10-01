@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSmExamSignaturesTable extends Migration
+class CreateAramiscExamSignaturesTable extends Migration
 {
 
     public function up()
@@ -54,9 +54,9 @@ class CreateSmExamSignaturesTable extends Migration
             storePermissionData($item);
         }
 
-        $exam_settings = \App\SmExamSetting::withOutGlobalScopes()->whereNull('exam_type')->get();
+        $exam_settings = \App\AramiscExamSetting::withOutGlobalScopes()->whereNull('exam_type')->get();
         foreach($exam_settings as $exam_setting){
-            $exam_signature = new \App\Models\SmExamSignature ();
+            $exam_signature = new \App\Models\AramiscExamSignature ();
             $exam_signature->title = $exam_setting->title;
             $exam_signature->signature = $exam_setting->file;
             $exam_signature->school_id = $exam_setting->school_id;

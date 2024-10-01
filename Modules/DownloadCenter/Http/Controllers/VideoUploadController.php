@@ -2,7 +2,7 @@
 
 namespace Modules\DownloadCenter\Http\Controllers;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class VideoUploadController extends Controller
             } else {
                 $videos = VideoUpload::with('class', 'section', 'user')->get();
             }
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('downloadcenter::videoUpload.videoList', compact('classes', 'videos'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -133,7 +133,7 @@ class VideoUploadController extends Controller
                 ->when($request->title, function ($q) use ($request) {
                     $q->where('title', 'LIKE', '%' . $request->title . '%');
                 })->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             if ($videos->isEmpty()) {
                 Toastr::error('No data found', 'Failed');
                 return redirect()->back();
@@ -159,7 +159,7 @@ class VideoUploadController extends Controller
     {
         try {
             $data['video'] = VideoUpload::with('class', 'section', 'user')->find($id);
-            $data['classes'] = SmClass::get();
+            $data['classes'] = AramiscClass::get();
             $data['sections'] = AramiscSection::get();
             return view('downloadcenter::videoUpload.video_edit_modal', $data);
         } catch (\Exception $e) {
@@ -176,7 +176,7 @@ class VideoUploadController extends Controller
                 ->where('section_id', $student_detail->studentRecord->section_id)
                 ->with('class', 'section', 'user')
                 ->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('downloadcenter::videoUpload.parentVideoList', compact('classes', 'videos', 'student_detail', 'records'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

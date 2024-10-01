@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmCustomLink;
+use App\AramiscCustomLink;
 use Illuminate\Database\Seeder;
 
 class sm_custom_linksSeeder extends Seeder

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin\Library;
 
 use App\AramiscBook;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\tableList;
 use Carbon\Carbon;
 use App\AramiscBookIssue;
 use App\ApiBaseMethod;
 use App\LibrarySubject;
 use App\AramiscBookCategory;
-use App\SmLibraryMember;
+use App\AramiscLibraryMember;
 use App\Rules\UniqueSubject;
 use Illuminate\Http\Request;
 use App\Rules\UniqueSubjectCode;
@@ -208,7 +208,7 @@ class AramiscBookController extends Controller
     {
 
         try {
-            $activeMembers = SmLibraryMember::with('roles', 'studentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)->get();
+            $activeMembers = AramiscLibraryMember::with('roles', 'studentDetails', 'staffDetails', 'parentsDetails', 'memberTypes')->where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)->get();
 
             return view('backEnd.library.memberLists', compact('activeMembers'));
         } catch (\Exception $e) {
@@ -221,18 +221,18 @@ class AramiscBookController extends Controller
     {
 
         try {
-            $memberDetails = SmLibraryMember::where('student_staff_id', '=', $student_staff_id)->first();
+            $memberDetails = AramiscLibraryMember::where('student_staff_id', '=', $student_staff_id)->first();
 
             if ($member_type == 2) {
                 $getMemberDetails = AramiscStudent::where('user_id', '=', $student_staff_id)
                     ->select('first_name', 'last_name', 'full_name', 'email', 'mobile', 'student_photo')
                     ->first();
             } elseif ($member_type == 3) {
-                $getMemberDetails = SmParent::where('user_id', '=', $student_staff_id)
+                $getMemberDetails = AramiscParent::where('user_id', '=', $student_staff_id)
                     ->select('guardians_name', 'guardians_email', 'guardians_mobile', 'guardians_photo')
                     ->first();
             } else {
-                $getMemberDetails = SmStaff::where('user_id', '=', $student_staff_id)
+                $getMemberDetails = AramiscStaff::where('user_id', '=', $student_staff_id)
                     ->select('full_name', 'email', 'mobile', 'staff_photo')
                     ->first();
             }

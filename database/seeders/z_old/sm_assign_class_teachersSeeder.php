@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\SmClass;
-use App\SmSection;
-use App\SmAssignClassTeacher;
+use App\AramiscClass;
+use App\AramiscSection;
+use App\AramiscAssignClassTeacher;
 use Illuminate\Database\Seeder;
 
 class sm_assign_class_teachersSeeder extends Seeder
@@ -16,11 +16,11 @@ class sm_assign_class_teachersSeeder extends Seeder
      */
     public function run()
     {
-        $classes = SmClass::where('school_id', 1)->get(['id','school_id']);
-        $sections = SmSection::where('school_id', 1)->get(['id','school_id']);
+        $classes = AramiscClass::where('school_id', 1)->get(['id','school_id']);
+        $sections = AramiscSection::where('school_id', 1)->get(['id','school_id']);
         foreach ($classes as $class) {
             foreach ($sections as $section) {
-                $store = new SmAssignClassTeacher();
+                $store = new AramiscAssignClassTeacher();
                 $store->class_id = $class->id;
                 $store->section_id = $section->id;
                 $store->created_at = date('Y-m-d h:i:s');

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\api\v2\Fees;
 
-use App\SmClass;
-use App\SmSchool;
+use App\AramiscClass;
+use App\AramiscSchool;
 use App\AramiscStudent;
 use App\Models\User;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\AramiscFeesAssign;
-use App\SmBankAccount;
+use App\AramiscBankAccount;
 use App\AramiscFeesPayment;
 use App\AramiscAcademicYear;
 use App\AramiscPaymentMethhod;
-use App\SmBankPaymentSlip;
-use App\SmGeneralSettings;
+use App\AramiscBankPaymentSlip;
+use App\AramiscGeneralSettings;
 use App\Models\FeesInvoice;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class StudentFeesController extends Controller
 {
     public function studentFeesList(Request $request)
     {
-        $feesPaymentType = SmGeneralSettings::where('school_id', auth()->user()->school_id)
+        $feesPaymentType = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)
             ->select('fees_status as new_fees')
             ->first();
 
@@ -113,7 +113,7 @@ class StudentFeesController extends Controller
 
         $data['paymentMethods'] = $paymentMethods->get();
 
-        $data['bankAccounts'] = SmBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)
+        $data['bankAccounts'] = AramiscBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('active_status', 1)
             ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
@@ -300,7 +300,7 @@ class StudentFeesController extends Controller
                 $addPayment->academic_id = AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
                 $addPayment->save();
 
-                $school = SmSchool::find($user->school_id);
+                $school = AramiscSchool::find($user->school_id);
                 $compact['full_name'] = $user->full_name;
                 $compact['method'] = $request->payment_method;
                 $compact['create_date'] = date('Y-m-d');
@@ -320,7 +320,7 @@ class StudentFeesController extends Controller
                 ->first();
             $income_head = generalSetting();
 
-            $add_income = new SmAddIncome();
+            $add_income = new AramiscAddIncome();
             $add_income->name = 'Fees Collect';
             $add_income->date = date('Y-m-d');
             $add_income->amount = $request->total_paid_amount;
@@ -470,7 +470,7 @@ class StudentFeesController extends Controller
 
     public function feesInvoiceView(Request $request)
     {
-        // $data['generalSetting'] = SmGeneralSettings::select('logo', 'school_name', 'phone', 'email', 'address')->where('school_id', auth()->user()->school_id)->first();
+        // $data['generalSetting'] = AramiscGeneralSettings::select('logo', 'school_name', 'phone', 'email', 'address')->where('school_id', auth()->user()->school_id)->first();
 
         $invoiceInfo = FmFeesInvoice::withoutGlobalScope(AcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
@@ -486,7 +486,7 @@ class StudentFeesController extends Controller
 
         $data['invoiceDetails'] = FmFeesInvoiceChieldViewResource::collection($invoiceDetails);
 
-        $data['banks'] = SmBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)
+        $data['banks'] = AramiscBankAccount::withoutGlobalScope(ActiveStatusSchoolScope::class)
             ->where('active_status', 1)
             ->where('school_id', auth()->user()->school_id)
             ->select('id', 'bank_name', 'account_name', 'account_number', 'account_type')
@@ -583,7 +583,7 @@ class StudentFeesController extends Controller
         $data['record_id'] = $record_id;
         $discounts = AramiscFeesAssignDiscount::where('student_id', $std_info->student_id)->where('record_id', $record_id)->where('school_id', auth()->user()->school_id)->get();
 
-        $data['banks'] = SmBankAccount::select('id', 'bank_name', 'account_name')->where('active_status', '=', 1)
+        $data['banks'] = AramiscBankAccount::select('id', 'bank_name', 'account_name')->where('active_status', '=', 1)
             ->where('school_id', auth()->user()->school_id)
             ->get();
 
@@ -747,7 +747,7 @@ class StudentFeesController extends Controller
 
         $fileName = "";
         if ($request->file('slip') != "") {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('slip');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -772,7 +772,7 @@ class StudentFeesController extends Controller
         $payment_mode_name = ucwords($request->payment_mode);
         $payment_method = AramiscPaymentMethhod::where('method', $payment_mode_name)->first();
 
-        $payment = new SmBankPaymentSlip();
+        $payment = new AramiscBankPaymentSlip();
         $payment->date = $newformat;
         $payment->amount = $request->amount;
         $payment->note = $request->note;

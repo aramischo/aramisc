@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\SmNotificationSetting;
+use App\Models\AramiscNotificationSetting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmNotificationSettingsTable extends Migration
+class CreateAramiscNotificationSettingsTable extends Migration
 {
     public function up()
     {
@@ -2170,7 +2170,7 @@ class CreateSmNotificationSettingsTable extends Migration
         ];
 
         foreach($all_events as $event){
-        $newEvent = new SmNotificationSetting();
+        $newEvent = new AramiscNotificationSetting();
             $newEvent->event = $event['event'];
             $newEvent->destination = $event['destination'];
             $newEvent->recipient = $event['recipient'];

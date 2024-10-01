@@ -9,23 +9,22 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscItemSell extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_item_sells";
     protected static function boot (){
         parent::boot();
         static::addGlobalScope(new ActiveStatusSchoolScope);
     }
-    
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_item_sells';
     public function roles(){
     	return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
     }
 
     public function staffDetails(){
-    	return $this->belongsTo('App\SmStaff', 'student_staff_id', 'id');
+    	return $this->belongsTo('App\AramiscStaff', 'student_staff_id', 'id');
     }
 
     public function parentsDetails(){
-    	return $this->belongsTo('App\SmParent', 'student_staff_id', 'id');
+    	return $this->belongsTo('App\AramiscParent', 'student_staff_id', 'id');
     }
 
     public function studentDetails(){
@@ -37,6 +36,6 @@ class AramiscItemSell extends Model
     }
 
     public function bankName(){
-        return $this->belongsTo('App\SmBankAccount','account_id','id');
+        return $this->belongsTo('App\AramiscBankAccount','account_id','id');
     }
 }

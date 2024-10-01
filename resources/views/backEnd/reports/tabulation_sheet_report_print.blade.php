@@ -961,7 +961,7 @@
                     @php
                         $subject_ID     = $subject->subject_id;
                         $subject_Name   = $subject->subject->subject_name;
-                        $mark_parts      = App\SmAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
+                        $mark_parts      = App\AramiscAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
                     @endphp
                     <th colspan="{{count($mark_parts)+1}}" class="subject-list"> {{$subject_Name}}</th>
                 @endforeach
@@ -985,7 +985,7 @@
                     @php
                         $subject_ID     = $subject->subject_id;
                         $subject_Name   = $subject->subject->subject_name;
-                        $mark_parts     = App\SmAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
+                        $mark_parts     = App\AramiscAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
                     @endphp
                     @foreach($mark_parts as $sigle_part)
                         <th>{{$sigle_part->exam_title}} ({{$sigle_part->exam_mark}})</th>
@@ -1010,7 +1010,7 @@
                     $marks_by_students = 0;
                     $main_subject_total_gpa = 0;
                     $Optional_subject_count = 0;
-                    $optional_subject=App\SmOptionalSubjectAssign::where('student_id','=',$student->id)->where('session_id','=',$student->session_id)->first();
+                    $optional_subject=App\AramiscOptionalSubjectAssign::where('student_id','=',$student->id)->where('session_id','=',$student->session_id)->first();
                     $opt_sub_gpa=0;
                     $optional_subject_gpa=0;
                 @endphp
@@ -1019,7 +1019,7 @@
                         @php
                             $subject_ID     = $subject->subject_id;
                             $subject_Name   = $subject->subject->subject_name;
-                            $mark_parts     = App\SmAssignSubject::getMarksOfPart($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
+                            $mark_parts     = App\AramiscAssignSubject::getMarksOfPart($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
                             $subject_count= 0;
                             $optional_subject_marks=DB::table('sm_optional_subject_assigns')
                             ->join('sm_mark_stores','sm_mark_stores.subject_id','=','sm_optional_subject_assigns.subject_id')
@@ -1031,7 +1031,7 @@
                         @endforeach
                         <td class="total">
                             @php
-                                $tola_mark_by_subject = App\SmAssignSubject::getSumMark($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
+                                $tola_mark_by_subject = App\AramiscAssignSubject::getSumMark($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
                                 $marks_by_students  = $marks_by_students + $tola_mark_by_subject;
                             @endphp
                             {{$tola_mark_by_subject}}
@@ -1311,7 +1311,7 @@
                     @php
                         $subject_ID     = $subject->subject_id;
                         $subject_Name   = $subject->subject->subject_name;
-                        $mark_parts      = App\SmAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
+                        $mark_parts      = App\AramiscAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
                     @endphp
                     <th colspan="{{count($mark_parts)+1}}" class="subject-list"> {{$subject_Name}}</th>
                 @endforeach
@@ -1335,7 +1335,7 @@
                     @php
                         $subject_ID     = $subject->subject_id;
                         $subject_Name   = $subject->subject->subject_name;
-                        $mark_parts     = App\SmAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
+                        $mark_parts     = App\AramiscAssignSubject::getNumberOfPart($subject_ID, $class_id, $section_id, $exam_term_id);
                     @endphp
                     @foreach($mark_parts as $sigle_part)
                         <th>{{$sigle_part->exam_title}}</th>
@@ -1356,7 +1356,7 @@
                     $marks_by_students = 0;
                     $main_subject_total_gpa = 0;
                     $Optional_subject_count = 0;
-                    $optional_subject=App\SmOptionalSubjectAssign::where('student_id','=',$student->id)->where('session_id','=',$student->session_id)->first();
+                    $optional_subject=App\AramiscOptionalSubjectAssign::where('student_id','=',$student->id)->where('session_id','=',$student->session_id)->first();
 
                     $studentRecord = App\Models\StudentRecord::where('class_id', $class_id)
                                     ->where('section_id', $section_id)
@@ -1373,7 +1373,7 @@
                         @php
                             $subject_ID     = $subject->subject_id;
                             $subject_Name   = $subject->subject->subject_name;
-                            $mark_parts     = App\SmAssignSubject::getMarksOfPart($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
+                            $mark_parts     = App\AramiscAssignSubject::getMarksOfPart($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
                             $subject_count= 0;
                             $optional_subject_marks=DB::table('sm_optional_subject_assigns')
                             ->join('sm_mark_stores','sm_mark_stores.subject_id','=','sm_optional_subject_assigns.subject_id')
@@ -1386,7 +1386,7 @@
                         @endforeach
                         <td class="total">
                             @php
-                                $tola_mark_by_subject = App\SmAssignSubject::getSumMark($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
+                                $tola_mark_by_subject = App\AramiscAssignSubject::getSumMark($student->id, $subject_ID, $class_id, $section_id, $exam_term_id);
                                 $marks_by_students  = $marks_by_students + $tola_mark_by_subject;
                             @endphp
                             {{$tola_mark_by_subject }}

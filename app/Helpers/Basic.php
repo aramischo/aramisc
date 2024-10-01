@@ -1,14 +1,14 @@
 <?php
 
 use App\GlobalVariable;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
-use App\SmCurrency;
+use App\AramiscSubject;
+use App\AramiscCurrency;
 use App\Models\Theme;
-use App\SmClassSection;
-use App\SmAssignSubject;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
 use App\Models\StudentRecord;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -132,7 +132,7 @@ if (!function_exists('currency_format')) {
 if (!function_exists('classes')) {
     function classes(int $academic_year = null)
     {
-        return SmClass::withOutGlobalScopes()
+        return AramiscClass::withOutGlobalScopes()
             ->when($academic_year, function ($q) use ($academic_year) {
                 $q->where('academic_id', $academic_year);
             }, function ($q) {
@@ -145,7 +145,7 @@ if (!function_exists('sections')) {
     function sections($class_id = null, $academic_year = null)
     {
         if (!$class_id) return null;
-        return SmClassSection::withOutGlobalScopes()->where('class_id', $class_id)
+        return AramiscClassSection::withOutGlobalScopes()->where('class_id', $class_id)
             ->where('school_id', auth()->user()->school_id)
             ->when($academic_year, function ($q) use ($academic_year) {
                 $q->where('academic_id', $academic_year);
@@ -158,7 +158,7 @@ if (!function_exists('sections')) {
 if (!function_exists('subjects')) {
     function subjects(int $class_id, int $section_id, int $academic_year = null)
     {
-        $subjects = SmAssignSubject::withOutGlobalScopes()
+        $subjects = AramiscAssignSubject::withOutGlobalScopes()
             ->where('class_id', $class_id)
             ->where('section_id', $section_id)
             ->where('school_id', auth()->user()->school_id)
@@ -191,7 +191,7 @@ if (!function_exists('students')) {
 if (!function_exists('classSubjects')) {
     function classSubjects($class_id = null)
     {
-        $subjects = SmAssignSubject::query();
+        $subjects = AramiscAssignSubject::query();
         if (teacherAccess()) {
             $subjects->where('teacher_id', auth()->user()->staff->id);
         }
@@ -202,7 +202,7 @@ if (!function_exists('classSubjects')) {
         }
         $subjectIds = $subjects->distinct('subject_id')->get()->pluck(['subject_id'])->toArray();
 
-        return SmSubject::whereIn('id', $subjectIds)->get(['id', 'subject_name']);
+        return AramiscSubject::whereIn('id', $subjectIds)->get(['id', 'subject_name']);
     }
 }
 if (!function_exists('subjectSections')) {
@@ -211,7 +211,7 @@ if (!function_exists('subjectSections')) {
 
         if (!$class_id || !$subject_id) return null;
 
-        $sectionIds = SmAssignSubject::where('class_id', $class_id)
+        $sectionIds = AramiscAssignSubject::where('class_id', $class_id)
             ->where('subject_id', '=', $subject_id)
             ->where('school_id', auth()->user()->school_id)
             ->when(teacherAccess(), function ($q) {

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmTeacherUploadContent;
+use App\AramiscTeacherUploadContent;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +21,7 @@ class sm_teacher_upload_contentsSeeder extends Seeder
 
         $contents = ['as','st','ot'];
         foreach ($contents as $content) {
-            $store = new SmTeacherUploadContent();    
+            $store = new AramiscTeacherUploadContent();    
 
             $store->content_title = $faker->text(100);
             $store->content_type = $content;

@@ -27,7 +27,7 @@
         $phone =$generalSetting->phone; 
     } 
     $exam=App\AramiscExamType::find(@$exam_id);
-    $class=App\SmClass::find(@$class_id);
+    $class=App\AramiscClass::find(@$class_id);
     
     if($section_id==0){
         $section='All Sections';

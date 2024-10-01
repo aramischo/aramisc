@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\SmStaff;
-use App\SmClassSection;
-use App\SmAssignSubject;
+use App\AramiscStaff;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 // use DB;
@@ -18,9 +18,9 @@ class sm_assign_subjectsSeeder extends Seeder
      */
     public function run()
     {
-        //        SmAssignSubject::query()->truncate();
-        $teacher = SmStaff::where('role_id', 4)->first();
-        $data = SmClassSection::where('class_id', 1)->get();
+        //        AramiscAssignSubject::query()->truncate();
+        $teacher = AramiscStaff::where('role_id', 4)->first();
+        $data = AramiscClassSection::where('class_id', 1)->get();
         $subject_id = [1, 2, 3];
         foreach ($data as $datum) {
             $class_id = $datum->class_id;

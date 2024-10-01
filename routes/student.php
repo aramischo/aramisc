@@ -27,16 +27,16 @@ Route::group(['middleware' => ['XSS', 'subdomain']], function () {
         // Route::post('fees-payment-stripe-store', 'Student\AramiscFeesController@feesPaymentStripeStore');
         
         // Online Exam
-        Route::get('student-online-exam', ['as' => 'student_online_exam', 'uses' => 'Student\SmOnlineExamController@studentOnlineExam'])->middleware('userRolePermission:student_online_exam');
-        Route::get('take-online-exam/{id}', ['as' => 'take_online_exam', 'uses' => 'Student\SmOnlineExamController@takeOnlineExam']);
-        Route::post('student-online-exam-submit', ['as' => 'student_online_exam_submit', 'uses' => 'Student\SmOnlineExamController@studentOnlineExamSubmit']);
-        Route::post('student_done_online_exam', ['as' => 'student_done_online_exam', 'uses' => 'Student\SmOnlineExamController@student_online_exam']);
-        Route::GET('ajax-student-online-exam-submit', ['as' => 'ajax_student_online_exam_submit', 'uses' => 'Student\SmOnlineExamController@AjaxStudentOnlineExamSubmit']);
+        Route::get('student-online-exam', ['as' => 'student_online_exam', 'uses' => 'Student\AramiscOnlineExamController@studentOnlineExam'])->middleware('userRolePermission:student_online_exam');
+        Route::get('take-online-exam/{id}', ['as' => 'take_online_exam', 'uses' => 'Student\AramiscOnlineExamController@takeOnlineExam']);
+        Route::post('student-online-exam-submit', ['as' => 'student_online_exam_submit', 'uses' => 'Student\AramiscOnlineExamController@studentOnlineExamSubmit']);
+        Route::post('student_done_online_exam', ['as' => 'student_done_online_exam', 'uses' => 'Student\AramiscOnlineExamController@student_online_exam']);
+        Route::GET('ajax-student-online-exam-submit', ['as' => 'ajax_student_online_exam_submit', 'uses' => 'Student\AramiscOnlineExamController@AjaxStudentOnlineExamSubmit']);
 
-        Route::get('student_view_result', ['as' => 'student_view_result', 'uses' => 'Student\SmOnlineExamController@studentViewResult'])->middleware('userRolePermission:student_view_result');
-        Route::get('student-answer-script/{exam_id}/{s_id}', ['as' => 'student_answer_script', 'uses' => 'Student\SmOnlineExamController@studentAnswerScript']);
+        Route::get('student_view_result', ['as' => 'student_view_result', 'uses' => 'Student\AramiscOnlineExamController@studentViewResult'])->middleware('userRolePermission:student_view_result');
+        Route::get('student-answer-script/{exam_id}/{s_id}', ['as' => 'student_answer_script', 'uses' => 'Student\AramiscOnlineExamController@studentAnswerScript']);
 
-        Route::get('student-view-online-exam-question/{id}', 'Student\SmOnlineExamController@viewOnlineExam')->name('student-online-exam-question-view');
+        Route::get('student-view-online-exam-question/{id}', 'Student\AramiscOnlineExamController@viewOnlineExam')->name('student-online-exam-question-view');
        
         // Class Timetable
         Route::get('student-class-routine', ['as' => 'student_class_routine', 'uses' => 'Student\AramiscStudentPanelController@classRoutine'])->middleware('userRolePermission:student_class_routine');
@@ -80,7 +80,7 @@ Route::group(['middleware' => ['XSS', 'subdomain']], function () {
         Route::get('student-subject', ['as' => 'student_subject', 'uses' => 'Student\AramiscStudentPanelController@studentSubject'])->middleware('userRolePermission:student_subject');
 
         // Online Exam
-        Route::get('student-answer-script/{exam_id}/{s_id}', ['as' => 'student_answer_script', 'uses' => 'Student\SmOnlineExamController@studentAnswerScript']);
+        Route::get('student-answer-script/{exam_id}/{s_id}', ['as' => 'student_answer_script', 'uses' => 'Student\AramiscOnlineExamController@studentAnswerScript']);
 
         // Transport Route
         Route::get('student-transport', ['as' => 'student_transport', 'uses' => 'Student\AramiscStudentPanelController@studentTransport'])->middleware('userRolePermission:student_transport');

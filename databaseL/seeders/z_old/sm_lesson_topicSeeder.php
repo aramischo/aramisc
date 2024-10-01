@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;

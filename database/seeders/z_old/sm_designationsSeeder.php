@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmDesignation;
+use App\AramiscDesignation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +15,6 @@ class sm_designationsSeeder extends Seeder
      */
     public function run()
     {
-       SmDesignation::factory()->times(10)->create();
+       AramiscDesignation::factory()->times(10)->create();
     }
 }

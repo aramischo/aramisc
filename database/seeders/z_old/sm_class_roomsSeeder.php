@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmClassRoom;
+use App\AramiscClassRoom;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,8 +15,8 @@ class sm_class_roomsSeeder extends Seeder
      */
     public function run()
     {
-        // SmClassRoom::truncate();
-        SmClassRoom::factory()->times(5)->create();
+        // AramiscClassRoom::truncate();
+        AramiscClassRoom::factory()->times(5)->create();
 
     }
 }

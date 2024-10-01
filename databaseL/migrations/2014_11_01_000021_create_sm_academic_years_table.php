@@ -1,7 +1,7 @@
 <?php
 
 use App\AramiscAcademicYear;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

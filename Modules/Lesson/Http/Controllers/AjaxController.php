@@ -2,9 +2,9 @@
 
 namespace Modules\Lesson\Http\Controllers;
 
-use App\SmStaff;
-use App\SmSubject;
-use App\SmAssignSubject;
+use App\AramiscStaff;
+use App\AramiscSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -79,7 +79,7 @@ class AjaxController extends Controller
         $class_id = $request->class;
         $selectedSections = $request->message_to_section;
 
-        $subjectId=SmSubject::query();
+        $subjectId=AramiscSubject::query();
         $subjectId=$subjectId->where('class_id', $class_id);
          foreach ($selectedSections as $key => $value) {            
             $subjectId=$subjectId->where('section_id', $value);  
@@ -93,19 +93,19 @@ class AjaxController extends Controller
     public function getSubjectLesson(Request $request){
         try {
            
-            $staff_info = SmStaff::where('user_id', Auth::user()->id)->first();
+            $staff_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
             // return $staff_info;
             if (teacherAccess()) {
-                $subject_all = SmAssignSubject::where('class_id', '=', $request->class_id)->where('teacher_id', $staff_info->id)->distinct('subject_id')->get();
+                $subject_all = AramiscAssignSubject::where('class_id', '=', $request->class_id)->where('teacher_id', $staff_info->id)->distinct('subject_id')->get();
 
             } else {
-                $subject_all = SmAssignSubject::where('class_id', '=', $request->class_id)->distinct('subject_id')->get();
+                $subject_all = AramiscAssignSubject::where('class_id', '=', $request->class_id)->distinct('subject_id')->get();
 
             }
     
             $students = [];
             foreach ($subject_all as $allSubject) {
-                $students[] = SmSubject::find($allSubject->subject_id);
+                $students[] = AramiscSubject::find($allSubject->subject_id);
             }
             return response()->json([$students]);
         } catch (\Exception $e) {

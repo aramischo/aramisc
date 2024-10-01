@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmBookCategoriesTable extends Migration
+class CreateAramiscBookCategoriesTable extends Migration
 {
     /**
      * Run the migrations.

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use Validator;
-use App\SmStaff;
-use App\SmVehicle;
+use App\AramiscStaff;
+use App\AramiscVehicle;
 use App\ApiBaseMethod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,8 +31,8 @@ class SaasVehicleController extends Controller
                 }
     
             }
-            $drivers = SmStaff::where([['active_status', 1], ['role_id', 9],['school_id',$request->school_id]])->get();
-            $assign_vehicles = SmVehicle::where('school_id',$request->school_id)->get();
+            $drivers = AramiscStaff::where([['active_status', 1], ['role_id', 9],['school_id',$request->school_id]])->get();
+            $assign_vehicles = AramiscVehicle::where('school_id',$request->school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -66,7 +66,7 @@ class SaasVehicleController extends Controller
 
         }
         try {
-            $assign_vehicle = new SmVehicle();
+            $assign_vehicle = new AramiscVehicle();
             $assign_vehicle->vehicle_no = $request->vehicle_number;
             $assign_vehicle->vehicle_model = $request->vehicle_model;
             if ($request->year_made) {
@@ -96,10 +96,10 @@ class SaasVehicleController extends Controller
     public function show(Request $request, $id)
     {
         try {
-            //$drivers = SmStaff::where('active_status', 1)->get();
-            $assign_vehicle = SmVehicle::find($id);
-            $drivers = SmStaff::where([['active_status', 1], ['role_id', 9],['school_id',$request->school_id]])->get();
-            $assign_vehicles = SmVehicle::where('school_id',$request->school_id)->get();
+            //$drivers = AramiscStaff::where('active_status', 1)->get();
+            $assign_vehicle = AramiscVehicle::find($id);
+            $drivers = AramiscStaff::where([['active_status', 1], ['role_id', 9],['school_id',$request->school_id]])->get();
+            $assign_vehicles = AramiscVehicle::where('school_id',$request->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
                 $data['route'] = $drivers->toArray();
@@ -136,7 +136,7 @@ class SaasVehicleController extends Controller
         }
 
         try {
-            $assign_vehicle = SmVehicle::find($request->id);
+            $assign_vehicle = AramiscVehicle::find($request->id);
             $assign_vehicle->vehicle_no = $request->vehicle_number;
             $assign_vehicle->vehicle_model = $request->vehicle_model;
             $assign_vehicle->made_year = $request->year_made;
@@ -165,7 +165,7 @@ class SaasVehicleController extends Controller
 
         $tables = \App\tableList::getTableList('vehicle_id',$id);
         try {
-            $vehicle = SmVehicle::destroy($id);
+            $vehicle = AramiscVehicle::destroy($id);
             if ($vehicle) {
 
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {

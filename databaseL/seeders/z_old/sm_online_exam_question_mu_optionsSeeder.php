@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmOnlineExamQuestionMuOption;
+use App\AramiscOnlineExamQuestionMuOption;
 
 class sm_online_exam_question_mu_optionsSeeder extends Seeder
 {
@@ -17,7 +17,7 @@ class sm_online_exam_question_mu_optionsSeeder extends Seeder
     {
         $faker = Faker::create();
         for($i=1; $i<=5; $i++){
-            $store= new SmOnlineExamQuestionMuOption();
+            $store= new AramiscOnlineExamQuestionMuOption();
             $store->online_exam_question_id=$i;
             $store->title=$faker->realText($maxNbChars = 30, $indexSize = 1);
             $store->status=0;

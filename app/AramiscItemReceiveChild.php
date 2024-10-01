@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscItemReceiveChild extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_item_receive_childs";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_item_receive_childs';
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new SchoolScope);

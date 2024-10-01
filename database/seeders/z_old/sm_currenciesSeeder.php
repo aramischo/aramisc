@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmCurrency;
+use App\AramiscCurrency;
 use Illuminate\Database\Seeder;
 
 class sm_currenciesSeeder extends Seeder
@@ -137,9 +137,9 @@ class sm_currenciesSeeder extends Seeder
             [120, 'Rwandan', 'FRW', 'FRw'] 
         ]; 
 
-        SmCurrency::query()->truncate();
+        AramiscCurrency::query()->truncate();
         foreach ($currencies as $currency) {
-            $store = new SmCurrency();
+            $store = new AramiscCurrency();
             $store->id = $currency[0];
             $store->name = $currency[1];
             $store->code = $currency[2];

@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscExam extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_exams";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_exams';
     protected $guarded = ['id'];
     protected static function boot()
     {
@@ -25,17 +25,17 @@ class AramiscExam extends Model
 
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
     }
 
     public function globalClass()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id')->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class);
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id')->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class);
     }
 
     public function getClassName()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
     }
 
     public function GetSectionName()
@@ -44,7 +44,7 @@ class AramiscExam extends Model
     }
     public function GetSubjectName()
     {
-        return $this->belongsTo('App\SmSubject', 'subject_id', 'id');
+        return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id');
     }
     public function GetExamTitle()
     {
@@ -60,12 +60,12 @@ class AramiscExam extends Model
         if (moduleStatusCheck('University')) {
             return $this->belongsTo('Modules\University\Entities\UnSubject', 'un_subject_id', 'id');
         }
-        return $this->belongsTo('App\SmSubject', 'subject_id', 'id');
+        return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id');
     }
 
     public function globalSubject()
     {
-        return $this->belongsTo('App\SmSubject', 'subject_id', 'id')->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class);;
+        return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id')->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class);;
     }
 
     
@@ -90,7 +90,7 @@ class AramiscExam extends Model
 
     public function markRegistered()
     {
-        return $this->hasOne(SmMarkStore::class, 'exam_term_id', 'exam_type_id')
+        return $this->hasOne(AramiscMarkStore::class, 'exam_term_id', 'exam_type_id')
         ->where('class_id', $this->class_id)->where('section_id', $this->section_id);
     }
     public function marks()
@@ -124,7 +124,7 @@ class AramiscExam extends Model
     public static function getMarkREgistered($ex_id, $class_id, $section_id, $subject_id)
     {
         try {
-            $data = SmMarkStore::where([
+            $data = AramiscMarkStore::where([
                 ['exam_term_id', $ex_id],
                 ['class_id', $class_id],
                 ['section_id', $section_id],
@@ -140,7 +140,7 @@ class AramiscExam extends Model
 
     public function markStore()
     {
-        return $this->hasOne(SmMarkStore::class, 'exam_term_id', 'exam_type_id')
+        return $this->hasOne(AramiscMarkStore::class, 'exam_term_id', 'exam_type_id')
             ->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('subject_id', $this->subject_id)
             ->where('school_id', Auth::user()->school_id);
     }

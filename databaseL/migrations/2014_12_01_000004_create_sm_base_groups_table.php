@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmBaseGroupsTable extends Migration
+class CreateAramiscBaseGroupsTable extends Migration
 {
     /**
      * Run the migrations.

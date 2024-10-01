@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 // use List;
 // use Validator;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\ApiBaseMethod;
 use App\AramiscAcademicYear;
@@ -253,7 +253,7 @@ class ApiAramiscDormitoryListController extends Controller
             }
             $students = $students->whereIn('id', $student_ids)->get();
 
-            $classes = SmClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', $school_id)->get();
+            $classes = AramiscClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', $school_id)->get();
             $dormitories = AramiscDormitoryList::where('active_status', 1)->where('school_id', $school_id)->get();
 
             $class_id = $request->class;

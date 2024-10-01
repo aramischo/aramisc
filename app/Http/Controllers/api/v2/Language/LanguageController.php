@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v2\Language;
 
 use App\Language;
-use App\SmLanguage;
+use App\AramiscLanguage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +11,7 @@ class LanguageController extends Controller
 {
     public function allList(Request $request)
     {
-        $languages = SmLanguage::orderBy('id', 'ASC')
+        $languages = AramiscLanguage::orderBy('id', 'ASC')
             ->get()->map(function ($language) use ($request) {
                 $active = $request->user() ? ($request->user()->language == $language->language_universal) : boolval($language->active_status);
                 $rtl = false;
@@ -56,7 +56,7 @@ class LanguageController extends Controller
             'lang_id' => 'required'
         ]);
 
-        $languageId = SmLanguage::where('school_id', auth()->user()->school_id)->find($request->lang_id);
+        $languageId = AramiscLanguage::where('school_id', auth()->user()->school_id)->find($request->lang_id);
         $user = auth()->user();
         if ($languageId) {
             $user->language = $languageId->language_universal;
@@ -64,7 +64,7 @@ class LanguageController extends Controller
         }
 
 
-        $languages = SmLanguage::where('school_id', auth()->user()->school_id)
+        $languages = AramiscLanguage::where('school_id', auth()->user()->school_id)
             ->get()->map(function ($language) use ($user) {
                 $active = $user->language == $language->language_universal;
                 $rtl = false;

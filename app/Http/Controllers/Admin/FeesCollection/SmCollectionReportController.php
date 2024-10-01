@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\FeesCollection;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\ApiBaseMethod;
 use App\AramiscFeesPayment;
@@ -22,7 +22,7 @@ class SmCollectionReportController extends Controller
     public function transactionReport(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse(null, null);
@@ -60,7 +60,7 @@ class SmCollectionReportController extends Controller
                             ->where('paid_amount', '>', 0)
                             ->get();
             }elseif(directFees()){
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 $allStudent = StudentRecord::when($request->class, function ($q) use ($request) {
                     $q->where('class_id', $request->class);
                 })
@@ -79,7 +79,7 @@ class SmCollectionReportController extends Controller
                             ->where('school_id',auth()->user()->school_id)
                             ->get();
             }else{
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 if($request->date_range ){
                     if($request->class){
                         $students=StudentRecord::where('class_id',$request->class)

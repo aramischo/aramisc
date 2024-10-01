@@ -10,15 +10,15 @@ use App\Scopes\StatusAcademicSchoolScope;
 class AramiscFeesMaster extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_fees_masters";
+
     protected $fillable= ['fees_group_id', 'fees_type_id', 'date', 'amount', 'un_semester_label_id', 'academic_id', 'school_id','un_subject_id','un_academic_id'];
 	protected static function boot()
     {
         parent::boot();
         static::addGlobalScope(new StatusAcademicSchoolScope);
     }
-    
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_fees_masters';
     
     public function feesTypes()
     {

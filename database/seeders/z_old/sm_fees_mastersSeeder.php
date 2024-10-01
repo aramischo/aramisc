@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\SmFeesType;
-use App\SmFeesMaster;
+use App\AramiscFeesType;
+use App\AramiscFeesMaster;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +19,9 @@ class sm_fees_mastersSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        $data = SmFeesType::all();
+        $data = AramiscFeesType::all();
         foreach ($data as $row) {
-            $store= new SmFeesMaster();
+            $store= new AramiscFeesMaster();
             $store->fees_group_id=$row->fees_group_id;
             $store->fees_type_id=$row->id;
             $store->date=date('Y-m-d');

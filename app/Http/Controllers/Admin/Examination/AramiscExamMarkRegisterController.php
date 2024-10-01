@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin\Examination;
 
 use App\AramiscExam;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\YearCheck;
 use App\AramiscExamType;
 use App\AramiscExamSetup;
-use App\SmMarkStore;
-use App\SmMarksGrade;
-use App\SmResultStore;
+use App\AramiscMarkStore;
+use App\AramiscMarksGrade;
+use App\AramiscResultStore;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\AramiscExamAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -47,10 +47,10 @@ class AramiscExamMarkRegisterController extends Controller
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();                if (teacherAccess()) {
-                    $teacher_info = SmStaff::where('user_id',Auth::user()->id)->first();
+                    $teacher_info = AramiscStaff::where('user_id',Auth::user()->id)->first();
                    $classes= $teacher_info->classes;
                 } else {
-                   $classes = SmClass::get();
+                   $classes = AramiscClass::get();
                 }
                 
                 $exam_types = AramiscExamType::get();
@@ -73,12 +73,12 @@ class AramiscExamMarkRegisterController extends Controller
 
                 $exam_types = AramiscExamType::get();
                  if (teacherAccess()) {
-                    $teacher_info=SmStaff::where('user_id',Auth::user()->id)->first();
+                    $teacher_info=AramiscStaff::where('user_id',Auth::user()->id)->first();
                     $classes= $teacher_info->classes;
                 } else {
-                   $classes = SmClass::get();
+                   $classes = AramiscClass::get();
                 }
-                $subjects = SmSubject::get();
+                $subjects = AramiscSubject::get();
                 return view('backEnd.examination.masks_register_create', compact('exams', 'classes', 'subjects', 'exam_types'));
             }catch (\Exception $e) {
                 Toastr::error('Operation Failed', 'Failed');
@@ -181,7 +181,7 @@ class AramiscExamMarkRegisterController extends Controller
 
                 if ($request->section=='') {
                     $exam = $exam->first();
-                    $classSections=SmAssignSubject::where('class_id', $request->class)
+                    $classSections=AramiscAssignSubject::where('class_id', $request->class)
                                                 ->where('subject_id', $request->subject)
                                                 ->where('school_id', auth()->user()->school_id)
                                                 ->where('academic_id', getAcademicId())
@@ -206,16 +206,16 @@ class AramiscExamMarkRegisterController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 $exam_types = AramiscExamType::get();
                 $exam_id = $request->exam;
                 $class_id = $request->class;
                 $section_id = $request->section;
                 $subject_id = $request->subject;
-                $subjectNames = SmSubject::where('id', $subject_id)->first();
+                $subjectNames = AramiscSubject::where('id', $subject_id)->first();
     
                 $exam_type = AramiscExamType::find($exam->examType->id);
-                $class = SmClass::find($request->class);
+                $class = AramiscClass::find($request->class);
                 $section = AramiscSection::find($request->section);
     
                 $search_info['exam_name'] = $exam->examType->title;
@@ -317,8 +317,8 @@ class AramiscExamMarkRegisterController extends Controller
                             $total_marks_persubject = $total_marks_persubject + $mark_by_exam_part;
                             $exam_setup_id = gv($record, 'exam_Sids', [])[$exam_setup_count];
 
-                            $SmMarkStore = SmMarkStore::query();
-                            $previous_record = universityFilter($SmMarkStore, $request)
+                            $AramiscMarkStore = AramiscMarkStore::query();
+                            $previous_record = universityFilter($AramiscMarkStore, $request)
                                 ->where([
                                     ['un_subject_id', $subject_id],
                                     ['exam_term_id', $exam_type_id],
@@ -331,7 +331,7 @@ class AramiscExamMarkRegisterController extends Controller
                                
         
                             if ($previous_record == "" || $previous_record == null) {
-                                $marks_register = new SmMarkStore();
+                                $marks_register = new AramiscMarkStore();
                                 $marks_register->exam_term_id = $exam_type_id;
                                 $marks_register->un_subject_id = $subject_id;
                                 $marks_register->student_id = $sid;
@@ -359,7 +359,7 @@ class AramiscExamMarkRegisterController extends Controller
                                
                             } else {
                                     $pid = $previous_record->id;
-                                    $marks_register = SmMarkStore::find($pid);
+                                    $marks_register = AramiscMarkStore::find($pid);
                                     $marks_register->total_marks = $mark_by_exam_part;
         
                                 if (isset($absent_students)) {
@@ -380,7 +380,7 @@ class AramiscExamMarkRegisterController extends Controller
                         $student_obtained_mark = $total_marks_persubject;
                         $mark_by_persentage = subjectPercentageMark($student_obtained_mark, $subject_full_mark);
                             
-                        $mark_grade = SmMarksGrade::where([
+                        $mark_grade = AramiscMarksGrade::where([
                                             ['percent_from', '<=', $mark_by_persentage], 
                                             ['percent_upto', '>=', $mark_by_persentage]])
                                             ->where('academic_id', getAcademicId())
@@ -388,8 +388,8 @@ class AramiscExamMarkRegisterController extends Controller
                                             ->first();
                         $abc[] = $total_marks_persubject;
         
-                            $SmResultStore = SmResultStore::query();
-                            $previous_result_record = universityFilter($SmResultStore, $request)
+                            $AramiscResultStore = AramiscResultStore::query();
+                            $previous_result_record = universityFilter($AramiscResultStore, $request)
                                                         ->where([
                                                             ['un_subject_id', $subject_id],
                                                             ['exam_type_id', $exam_type_id],
@@ -399,7 +399,7 @@ class AramiscExamMarkRegisterController extends Controller
         
                        
                             if ($previous_result_record == "" || $previous_result_record == null) {
-                                $result_record = new SmResultStore();
+                                $result_record = new AramiscResultStore();
                                 $result_record->un_subject_id = $subject_id;
                                 $result_record->exam_type_id = $exam_type_id;
                                 $result_record->student_id = $sid;
@@ -427,7 +427,7 @@ class AramiscExamMarkRegisterController extends Controller
                             
                         } else {
                                 $id = $previous_result_record->id;
-                                $result_record = SmResultStore::find($id);
+                                $result_record = AramiscResultStore::find($id);
                                 $result_record->total_marks            =   $total_marks_persubject;
                                 $result_record->total_gpa_point        =   @$mark_grade->gpa;
                                 $result_record->total_gpa_grade        =   @$mark_grade->grade_name;
@@ -484,7 +484,7 @@ class AramiscExamMarkRegisterController extends Controller
                                 // $is_absent = ($request->abs[$sid]==null) ? 0 : 1;
                             $exam_setup_id = gv($record, 'exam_Sids', [])[$exam_setup_count];
                                 
-                            $previous_record = SmMarkStore::where([
+                            $previous_record = AramiscMarkStore::where([
                                     ['class_id', $class_id],
                                     ['section_id', $section_id],
                                     ['subject_id', $subject_id],
@@ -497,7 +497,7 @@ class AramiscExamMarkRegisterController extends Controller
         
                             if ($previous_record == "" || $previous_record == null) {
         
-                                $marks_register = new SmMarkStore();
+                                $marks_register = new AramiscMarkStore();
                                 $marks_register->exam_term_id           =       $exam_id;
                                 $marks_register->class_id               =       $class_id;
                                 $marks_register->section_id             =       $section_id;
@@ -527,7 +527,7 @@ class AramiscExamMarkRegisterController extends Controller
                             } else {
                                     //If already exists, it will updated
                                     $pid = $previous_record->id;
-                                    $marks_register = SmMarkStore::find($pid);
+                                    $marks_register = AramiscMarkStore::find($pid);
                                     $marks_register->total_marks            =       $mark_by_exam_part;
         
                                 if (isset($absent_students)) {
@@ -551,7 +551,7 @@ class AramiscExamMarkRegisterController extends Controller
                         $student_obtained_mark = $total_marks_persubject;
                         $mark_by_persentage = subjectPercentageMark($student_obtained_mark, $subject_full_mark);
         
-                            $mark_grade = SmMarksGrade::where([
+                            $mark_grade = AramiscMarksGrade::where([
                                             ['percent_from', '<=', $mark_by_persentage], 
                                             ['percent_upto', '>=', $mark_by_persentage]])
                                             ->where('academic_id', getAcademicId())
@@ -561,7 +561,7 @@ class AramiscExamMarkRegisterController extends Controller
         
                             $abc[] = $total_marks_persubject;
         
-                            $previous_result_record = SmResultStore::where([
+                            $previous_result_record = AramiscResultStore::where([
                                 ['class_id', $class_id],
                                 ['section_id', $section_id],
                                 ['subject_id', $subject_id],
@@ -572,7 +572,7 @@ class AramiscExamMarkRegisterController extends Controller
         
                         if ($previous_result_record == "" || $previous_result_record == null) {
                             //If not result exists, it will create
-                                $result_record = new SmResultStore();
+                                $result_record = new AramiscResultStore();
                                 $result_record->class_id               =   $class_id;
                                 $result_record->section_id             =   $section_id;
                                 $result_record->subject_id             =   $subject_id;
@@ -600,7 +600,7 @@ class AramiscExamMarkRegisterController extends Controller
                             $result_record->toArray();
                         } else {                               //If already result exists, it will updated
                                 $id = $previous_result_record->id;
-                                $result_record = SmResultStore::find($id);
+                                $result_record = AramiscResultStore::find($id);
                                 $result_record->total_marks            =   $total_marks_persubject;
                                 $result_record->total_gpa_point        =   @$mark_grade->gpa;
                                 $result_record->total_gpa_grade        =   @$mark_grade->grade_name;
@@ -718,7 +718,7 @@ class AramiscExamMarkRegisterController extends Controller
 
             if ($request->section=='') {
                 $exam = $exam->first();
-                $classSections=SmAssignSubject::where('class_id', $request->class)
+                $classSections=AramiscAssignSubject::where('class_id', $request->class)
                                             ->where('subject_id', $request->subject)
                                             ->where('school_id', auth()->user()->school_id)
                                             ->where('academic_id', getAcademicId())
@@ -743,18 +743,18 @@ class AramiscExamMarkRegisterController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 $exam_types = AramiscExamType::get();
                 $exam_id = $request->exam;
                 $class_id = $request->class;
                 $section_id = $request->section;
                 $subject_id = $request->subject;
-                $subjectNames = SmSubject::where('id', $subject_id)->first();
+                $subjectNames = AramiscSubject::where('id', $subject_id)->first();
                 $exam_type_id = $exam->exam_type_id;
 
     
                 $exam_type = AramiscExamType::find($exam->examType->id);
-                $class = SmClass::find($request->class);
+                $class = AramiscClass::find($request->class);
                 $section = AramiscSection::find($request->section);
     
                 $search_info['exam_name'] = $exam->examType->title;

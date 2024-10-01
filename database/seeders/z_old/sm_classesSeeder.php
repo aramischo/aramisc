@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmClass;
+use App\AramiscClass;
 use Illuminate\Database\Seeder;
 
 class sm_classesSeeder extends Seeder
@@ -14,6 +14,6 @@ class sm_classesSeeder extends Seeder
      */
     public function run()
     {    
-        SmClass::factory()->times(10)->create(); 
+        AramiscClass::factory()->times(10)->create(); 
     }
 }

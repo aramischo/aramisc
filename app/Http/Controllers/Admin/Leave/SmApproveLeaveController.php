@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Admin\Leave;
 
 use App\Role;
 use App\User;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\YearCheck;
-use App\SmLeaveType;
+use App\AramiscLeaveType;
 use App\ApiBaseMethod;
-use App\SmLeaveDefine;
-use App\SmClassTeacher;
-use App\SmLeaveRequest;
+use App\AramiscLeaveDefine;
+use App\AramiscClassTeacher;
+use App\AramiscLeaveRequest;
 use App\AramiscNotification;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
-use App\SmAssignClassTeacher;
+use App\AramiscAssignClassTeacher;
 use App\Traits\NotificationSend;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -48,13 +48,13 @@ class SmApproveLeaveController extends Controller
 
         try {
             $user = Auth::user();
-            $staff = SmStaff::where('user_id', Auth::user()->id)->first();
+            $staff = AramiscStaff::where('user_id', Auth::user()->id)->first();
             if (Auth::user()->role_id == 1) {
-                $apply_leaves = SmLeaveRequest::with('leaveDefine', 'staffs', 'student')->where([['active_status', 1], ['approve_status', '!=', 'P']])->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
+                $apply_leaves = AramiscLeaveRequest::with('leaveDefine', 'staffs', 'student')->where([['active_status', 1], ['approve_status', '!=', 'P']])->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
             } else {
-                $apply_leaves = SmLeaveRequest::with('leaveDefine', 'staffs', 'student')->where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', $staff->id]])->where('academic_id', getAcademicId())->get();
+                $apply_leaves = AramiscLeaveRequest::with('leaveDefine', 'staffs', 'student')->where([['active_status', 1], ['approve_status', '!=', 'P'], ['staff_id', '=', $staff->id]])->where('academic_id', getAcademicId())->get();
             }
-            $leave_types = SmLeaveType::where('active_status', 1)->get();
+            $leave_types = AramiscLeaveType::where('active_status', 1)->get();
             $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
@@ -70,9 +70,9 @@ class SmApproveLeaveController extends Controller
     {
         try {
             $user = Auth::user();
-            $staff = SmStaff::where('user_id', Auth::user()->id)->first();
+            $staff = AramiscStaff::where('user_id', Auth::user()->id)->first();
 
-            $leave_types = SmLeaveType::where('active_status', 1)->get();
+            $leave_types = AramiscLeaveType::where('active_status', 1)->get();
             $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
@@ -99,7 +99,7 @@ class SmApproveLeaveController extends Controller
                 $login_id = $request->login_id;
                 $role_id = $request->role_id;
             }
-            $leave_request_data = new SmLeaveRequest();
+            $leave_request_data = new AramiscLeaveRequest();
             $leave_request_data->staff_id = $login_id;
             $leave_request_data->role_id =  $role_id;
             $leave_request_data->apply_date = date('Y-m-d', strtotime($request->apply_date));
@@ -124,14 +124,14 @@ class SmApproveLeaveController extends Controller
     {
         try {
             if (checkAdmin()) {
-                $editData = SmLeaveRequest::find($id);
+                $editData = AramiscLeaveRequest::find($id);
             } else {
-                $editData = SmLeaveRequest::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $editData = AramiscLeaveRequest::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
-            $staffsByRole = SmStaff::where('role_id', '=', $editData->role_id)->where('school_id', Auth::user()->school_id)->get();
+            $staffsByRole = AramiscStaff::where('role_id', '=', $editData->role_id)->where('school_id', Auth::user()->school_id)->get();
             $roles = InfixRole::whereOr(['school_id', Auth::user()->school_id], ['school_id', 1])->get();
-            $apply_leaves = SmLeaveRequest::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $leave_types = SmLeaveType::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $apply_leaves = AramiscLeaveRequest::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $leave_types = AramiscLeaveType::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.humanResource.approveLeaveRequest', compact('editData', 'staffsByRole', 'apply_leaves', 'leave_types', 'roles'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -150,13 +150,13 @@ class SmApproveLeaveController extends Controller
     {
         try {
             if ($request->id != 3) {
-                $allStaffs = SmStaff::whereRole($request->id)->where('school_id', Auth::user()->school_id)->get(['id', 'full_name', 'user_id']);
+                $allStaffs = AramiscStaff::whereRole($request->id)->where('school_id', Auth::user()->school_id)->get(['id', 'full_name', 'user_id']);
                 $staffs = [];
                 foreach ($allStaffs as $staffsvalue) {
-                    $staffs[] = SmStaff::where('id', $staffsvalue->id)->first(['id', 'full_name', 'user_id']);
+                    $staffs[] = AramiscStaff::where('id', $staffsvalue->id)->first(['id', 'full_name', 'user_id']);
                 }
             } else {
-                $staffs = SmParent::where('active_status', 1)->get(['id', 'fathers_name', 'guardians_name', 'user_id']);
+                $staffs = AramiscParent::where('active_status', 1)->get(['id', 'fathers_name', 'guardians_name', 'user_id']);
             }
             return response()->json([$staffs]);
         } catch (\Exception $e) {
@@ -170,9 +170,9 @@ class SmApproveLeaveController extends Controller
 
         try {
             if (checkAdmin()) {
-                $leave_request_data = SmLeaveRequest::find($request->id);
+                $leave_request_data = AramiscLeaveRequest::find($request->id);
             } else {
-                $leave_request_data = SmLeaveRequest::where('id', $request->id)->where('school_id', Auth::user()->school_id)->first();
+                $leave_request_data = AramiscLeaveRequest::where('id', $request->id)->where('school_id', Auth::user()->school_id)->first();
             }
 
             $staff = User::find($leave_request_data->staff_id);
@@ -221,11 +221,11 @@ class SmApproveLeaveController extends Controller
 
 
             if (checkAdmin()) {
-                $leaveDetails = SmLeaveRequest::find($id);
+                $leaveDetails = AramiscLeaveRequest::find($id);
             } else {
-                $leaveDetails = SmLeaveRequest::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $leaveDetails = AramiscLeaveRequest::where('id', $id)->where('school_id', Auth::user()->school_id)->first();
             }
-            $staff_leaves = SmLeaveDefine::where('user_id', $leaveDetails->staff_id)->where('role_id', $leaveDetails->role_id)->get();
+            $staff_leaves = AramiscLeaveDefine::where('user_id', $leaveDetails->staff_id)->where('role_id', $leaveDetails->role_id)->get();
 
 
             return view('backEnd.humanResource.viewLeaveDetails', compact('leaveDetails', 'staff_leaves'));

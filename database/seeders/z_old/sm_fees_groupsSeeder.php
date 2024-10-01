@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmFeesGroup;
+use App\AramiscFeesGroup;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 // use DB;
@@ -17,7 +17,7 @@ class sm_fees_groupsSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        SmFeesGroup::where('id','>', 2)->delete();
+        AramiscFeesGroup::where('id','>', 2)->delete();
         DB::table('sm_fees_groups')->insert([          
             [
                 'name' => 'Library Fee',

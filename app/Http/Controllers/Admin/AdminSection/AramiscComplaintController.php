@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\AdminSection;
 
 
 use App\AramiscComplaint;
-use App\SmSetupAdmin;
+use App\AramiscSetupAdmin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -23,8 +23,8 @@ class AramiscComplaintController extends Controller
     {
         try {
             $complaints = AramiscComplaint::with('complaintType','complaintSource')->get();
-            $complaint_types = SmSetupAdmin::where('type', 2)->get();
-            $complaint_sources = SmSetupAdmin::where('type', 3)->get();
+            $complaint_types = AramiscSetupAdmin::where('type', 2)->get();
+            $complaint_sources = AramiscSetupAdmin::where('type', 3)->get();
             return view('backEnd.admin.complaint', compact('complaints', 'complaint_types', 'complaint_sources'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -88,8 +88,8 @@ class AramiscComplaintController extends Controller
         try {
             $complaints = AramiscComplaint::get();
             $complaint = AramiscComplaint::find($id);
-            $complaint_types = SmSetupAdmin::where('type', 2)->get();
-            $complaint_sources = SmSetupAdmin::where('type', 3)->get();
+            $complaint_types = AramiscSetupAdmin::where('type', 2)->get();
+            $complaint_sources = AramiscSetupAdmin::where('type', 3)->get();
             return view('backEnd.admin.complaint', compact('complaint', 'complaints', 'complaint_types', 'complaint_sources'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

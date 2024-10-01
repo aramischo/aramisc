@@ -5,7 +5,7 @@ namespace Modules\DownloadCenter\Http\Controllers;
 use App\Role;
 use App\User;
 use App\AramiscStudent;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -130,7 +130,7 @@ class ContentShareListController extends Controller
             $contents = Content::whereIn('id', $viewContent->content_ids)->get();
             $roles = ($viewContent->gr_role_ids) ? Role::whereIn('id', $viewContent->gr_role_ids)->get() : null;
             $individuals = ($viewContent->ind_user_ids) ? User::whereIn('id', $viewContent->ind_user_ids)->get() : null;
-            $classSections = ($viewContent->class_id) ? SmClassSection::where('class_id', $viewContent->class_id)
+            $classSections = ($viewContent->class_id) ? AramiscClassSection::where('class_id', $viewContent->class_id)
                 ->when($viewContent->section_ids, function ($q) use ($viewContent) {
                     $q->whereIn('section_id', $viewContent->section_ids);
                 })

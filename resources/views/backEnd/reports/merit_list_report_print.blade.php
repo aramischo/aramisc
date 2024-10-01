@@ -436,13 +436,13 @@
                         $main_subject_total_gpa= 0;
                     @endphp
                     @foreach($markslist as $mark)   
-                        @if(App\SmOptionalSubjectAssign::is_optional_subject($row->student_id,$get_subject_id[$count]))
+                        @if(App\AramiscOptionalSubjectAssign::is_optional_subject($row->student_id,$get_subject_id[$count]))
                             @php
                                 $additioncheck[] = $mark;
                             @endphp
                         @endif
                         @php
-                            if(App\SmOptionalSubjectAssign::is_optional_subject($row->student_id,$get_subject_id[$count])){
+                            if(App\AramiscOptionalSubjectAssign::is_optional_subject($row->student_id,$get_subject_id[$count])){
                                 $special_mark[$row->student_id]=$mark;
                             }
                             $count++;

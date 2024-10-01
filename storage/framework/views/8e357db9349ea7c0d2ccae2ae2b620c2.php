@@ -1,4 +1,4 @@
-<?php if (! $__env->hasRenderedOnce('0045daf0-c3ef-49ef-afea-8953c19a8dfb')): $__env->markAsRenderedOnce('0045daf0-c3ef-49ef-afea-8953c19a8dfb');
+<?php if (! $__env->hasRenderedOnce('c18a4ef8-3abf-4ee7-8d83-5afb6148a5c8')): $__env->markAsRenderedOnce('c18a4ef8-3abf-4ee7-8d83-5afb6148a5c8');
 $__env->startPush(config('pagebuilder.site_style_var')); ?>
     <link rel="stylesheet" href="<?php echo e(asset('public/theme/edulia/packages/magnific/magnific-popup.min.css')); ?>">
 <?php $__env->stopPush(); endif; ?>
@@ -33,7 +33,7 @@ $__env->startPush(config('pagebuilder.site_style_var')); ?>
 <?php endif; ?>
     </div>
 </div>
-<?php if (! $__env->hasRenderedOnce('5acf69ee-088d-4d0e-b8d5-791897ab54cf')): $__env->markAsRenderedOnce('5acf69ee-088d-4d0e-b8d5-791897ab54cf');
+<?php if (! $__env->hasRenderedOnce('c73b40bf-eca4-4d5e-81e0-0b56dc94fc09')): $__env->markAsRenderedOnce('c73b40bf-eca4-4d5e-81e0-0b56dc94fc09');
 $__env->startPush(config('pagebuilder.site_script_var')); ?>
     <script>
         $(document).ready(function() {

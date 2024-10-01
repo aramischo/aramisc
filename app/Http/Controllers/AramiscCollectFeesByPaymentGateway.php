@@ -12,7 +12,7 @@ use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
 use Illuminate\Http\Request;
@@ -236,7 +236,7 @@ class AramiscCollectFeesByPaymentGateway extends Controller
     {
         try {
             $system_currency = '';
-            $currency_details = SmGeneralSettings::select('currency')->where('id', 1)->first();
+            $currency_details = AramiscGeneralSettings::select('currency')->where('id', 1)->first();
             if (isset($currency_details)) {
                 $system_currency = $currency_details->currency;
             }

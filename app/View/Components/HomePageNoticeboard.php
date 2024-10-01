@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\SmNoticeBoard;
+use App\AramiscNoticeBoard;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -20,7 +20,7 @@ class HomePageNoticeboard extends Component
 
     public function render(): View|Closure|string
     {
-        $noticeBoards = SmNoticeBoard::query();
+        $noticeBoards = AramiscNoticeBoard::query();
         $noticeBoards = $noticeBoards->where('is_published',1)->where('school_id', app('school')->id);
         if($this->sorting =='asc'){
             $noticeBoards->orderBy('id','asc');

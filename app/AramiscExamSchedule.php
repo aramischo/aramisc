@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscExamSchedule extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_exam_schedules";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_exam_schedules';
     protected $fillable = [];
     protected static function boot()
     {
@@ -37,7 +37,7 @@ class AramiscExamSchedule extends Model
 
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
     }
     public function section()
     {
@@ -54,7 +54,7 @@ class AramiscExamSchedule extends Model
     }
     public function classRoom()
     {
-        return $this->belongsTo('App\SmClassRoom', 'room_id', 'id');
+        return $this->belongsTo('App\AramiscClassRoom', 'room_id', 'id');
     }
 
     public function subject()
@@ -62,12 +62,12 @@ class AramiscExamSchedule extends Model
         if(moduleStatusCheck('University')){
             return $this->belongsTo('Modules\University\Entities\UnSubject', 'un_subject_id', 'id');
         }else{
-            return $this->belongsTo('App\SmSubject', 'subject_id', 'id');
+            return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id');
         }
     }
     public function teacher()
     {
-        return $this->belongsTo('App\SmStaff', 'teacher_id', 'id');
+        return $this->belongsTo('App\AramiscStaff', 'teacher_id', 'id');
     }
 
     public static function assignedRoutine($class_id, $section_id, $exam_id, $subject_id, $exam_period_id)

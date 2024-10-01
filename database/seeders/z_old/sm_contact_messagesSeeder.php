@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmContactMessage;
+use App\AramiscContactMessage;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +17,7 @@ class sm_contact_messagesSeeder extends Seeder
     { 
         // $faker = Faker::create();
         // for ($i=1; $i<10; $i++){
-        //     $s = new SmContactMessage();
+        //     $s = new AramiscContactMessage();
         //     $s->name = $faker->name;
         //     $s->email = $faker->email ;
         //     $s->subject = $faker->title;

@@ -146,7 +146,7 @@
                                                     @endphp
                                                     @foreach($vehicles as $vehicle)
 
-                                                    @php @$vehicle = App\SmVehicle::find(@$vehicle);
+                                                    @php @$vehicle = App\AramiscVehicle::find(@$vehicle);
                                                     @endphp
                                                     {{@$vehicle->vehicle_no}}
                                                     @endforeach

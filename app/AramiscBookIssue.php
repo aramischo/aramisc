@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscBookIssue extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
+    // Spécifiez le nom de la table explicitement
     protected $table = 'sm_book_issues';
     protected static function boot(){
         parent::boot();
@@ -22,7 +22,7 @@ class AramiscBookIssue extends Model
 
     public function member()
     {
-        return $this->belongsTo(SmLibraryMember::class, 'member_id', 'student_staff_id');
+        return $this->belongsTo(AramiscLibraryMember::class, 'member_id', 'student_staff_id');
     }
 
     public function user()

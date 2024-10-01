@@ -3,9 +3,9 @@
 namespace Database\Seeders\HumanResources;
 
 use App\User;
-use App\SmRoute;
-use App\SmStaff;
-use App\SmStaffAttendence;
+use App\AramiscRoute;
+use App\AramiscStaff;
+use App\AramiscStaffAttendence;
 use App\Models\SmExpertTeacher;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +18,7 @@ class StaffsTableSeeder  extends Seeder
         User::factory()->times($count)->create([
             'school_id' => $school_id,
         ])->each( function ($userStaff) use ($school_id) {
-            SmStaff::factory()->times(1)->create([
+            AramiscStaff::factory()->times(1)->create([
                 'user_id' => $userStaff->id,
                 'email' => $userStaff->email,
                 'first_name' => $userStaff->first_name,
@@ -42,7 +42,7 @@ class StaffsTableSeeder  extends Seeder
                 $attendance_type = ['P', 'L', 'A', 'F'];
                 foreach(lastOneMonthDates() as $date){
                     shuffle($attendance_type);
-                    $attendanceStaff = new SmStaffAttendence();
+                    $attendanceStaff = new AramiscStaffAttendence();
                     $attendanceStaff->staff_id = $s->id;
                     $attendanceStaff->school_id = $school_id;
                     $attendanceStaff->attendence_type = $attendance_type[0];
@@ -56,7 +56,7 @@ class StaffsTableSeeder  extends Seeder
         // User::factory()->times($count)->create([
         //     'school_id' => $school_id,
         // ])->each( function ($userStaff) use ($school_id) {
-        //     SmStaff::factory()->times(1)->create([
+        //     AramiscStaff::factory()->times(1)->create([
         //         'user_id' => $userStaff->id,
         //         'email' => $userStaff->email,
         //         'first_name' => $userStaff->first_name,

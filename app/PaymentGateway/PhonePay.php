@@ -2,7 +2,7 @@
 namespace App\PaymentGateway;
 
 use App\User;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\AramiscFeesPayment;
 use App\AramiscPaymentMethhod;
 use App\Models\StudentRecord;
@@ -274,7 +274,7 @@ class PhonePay {
                            $installment->save();
     
                            $income_head= generalSetting();
-                           $add_income = new SmAddIncome();
+                           $add_income = new AramiscAddIncome();
                            $add_income->name = 'Fees Collect';
                            $add_income->date = date('Y-m-d');
                            $add_income->amount = $fees_payment->amount;
@@ -351,7 +351,7 @@ class PhonePay {
                     $fees_payment->save();
                     $income_head = generalSetting();
                
-                    $add_income = new SmAddIncome();
+                    $add_income = new AramiscAddIncome();
                     $add_income->name = 'Fees Collect';
                     $add_income->date = date('Y-m-d');
                     $add_income->amount = $fees_payment->amount;

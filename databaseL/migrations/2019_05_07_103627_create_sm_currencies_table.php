@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmCurrency;
+use App\AramiscCurrency;
 
 class CreateSmCurrenciesTable extends Migration
 {
@@ -159,7 +159,7 @@ class CreateSmCurrenciesTable extends Migration
         ];
         
         foreach ($currencies as $currency) {
-            $store = new SmCurrency();
+            $store = new AramiscCurrency();
             $store->id = $currency[0];
             $store->name = $currency[1];
             $store->code = $currency[2];

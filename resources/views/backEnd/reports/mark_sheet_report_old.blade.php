@@ -380,7 +380,7 @@
                                                     
                                                     <td width='10%'>
                                                         
-                                                        @php $subject_mark=App\SmAssignSubject::getSubjectMark($data->subject_id, $class_id, $section_id, $exam_type_id);
+                                                        @php $subject_mark=App\AramiscAssignSubject::getSubjectMark($data->subject_id, $class_id, $section_id, $exam_type_id);
 
                                                          echo $subject_mark;
                                                          @endphp
@@ -388,14 +388,14 @@
                                                     </td>
                                                     <td width='10%'>
                                                         
-                                                        @php $highest_mark=App\SmAssignSubject::getHighestMark($data->subject_id, $class_id, $section_id, $exam_type_id);
+                                                        @php $highest_mark=App\AramiscAssignSubject::getHighestMark($data->subject_id, $class_id, $section_id, $exam_type_id);
 
                                                         echo $highest_mark;
                                                          @endphp
 
                                                     </td>
                                                     <td width='10%'>
-                                                         @php $tola_mark_by_subject=App\SmAssignSubject::getSumMark($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id);
+                                                         @php $tola_mark_by_subject=App\AramiscAssignSubject::getSumMark($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id);
 
                                                          echo $tola_mark_by_subject;
                                                          @endphp
@@ -403,7 +403,7 @@
                                                     <td width='10%'>
 
                                                         @php
-                                                            $mark_grade = App\SmMarksGrade::where([['percent_from', '<=', $tola_mark_by_subject], ['percent_upto', '>=', $tola_mark_by_subject]])->first();
+                                                            $mark_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $tola_mark_by_subject], ['percent_upto', '>=', $tola_mark_by_subject]])->first();
 
                                                         @endphp
                                                         {{$mark_grade->grade_name }}
@@ -411,7 +411,7 @@
                                                     <td width='10%'>
 
                                                         @php
-                                                            $mark_grade = App\SmMarksGrade::where([['percent_from', '<=', $tola_mark_by_subject], ['percent_upto', '>=', $tola_mark_by_subject]])->first();
+                                                            $mark_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $tola_mark_by_subject], ['percent_upto', '>=', $tola_mark_by_subject]])->first();
                                                             $tota_grade_point = $tota_grade_point + $mark_grade->gpa ;
                                                             if($mark_grade->gpa<1){
                                                                 $this_student_failed =1;
@@ -444,7 +444,7 @@
                                                     
                                                     @if ($optional_subject_setup!='')
                                                         @if($subject_count==2)
-                                                        <td rowspan="{{count($subjects)}}" style="vertical-align: middle">{{  App\SmAssignSubject::get_student_result($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id,$optional_subject_id,$optional_subject_setup) }}</td>
+                                                        <td rowspan="{{count($subjects)}}" style="vertical-align: middle">{{  App\AramiscAssignSubject::get_student_result($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id,$optional_subject_id,$optional_subject_setup) }}</td>
                                                       
                                                         
                                                          @endif
@@ -452,12 +452,12 @@
                                                     
 
                                                     @if($subject_count==2)
-                                                    <td  rowspan="{{count($subjects)}}" style="vertical-align: middle">{{  App\SmAssignSubject::get_student_result_without_optional($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id,$optional_subject_id,$optional_subject_setup) }}</td>
+                                                    <td  rowspan="{{count($subjects)}}" style="vertical-align: middle">{{  App\AramiscAssignSubject::get_student_result_without_optional($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id,$optional_subject_id,$optional_subject_setup) }}</td>
                                                        
                                                         <td rowspan="{{count($subjects)}}" style="vertical-align: middle">
                                                             @php
-                                                                $gpa_result=App\SmAssignSubject::get_student_result_without_optional($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id,$optional_subject_id,$optional_subject_setup);
-                                                                $result_grade=App\SmMarksGrade::where([['from', '<=', $gpa_result], ['up', '>=', $gpa_result]])->first();
+                                                                $gpa_result=App\AramiscAssignSubject::get_student_result_without_optional($student_detail->id, $data->subject_id, $class_id, $section_id, $exam_type_id,$optional_subject_id,$optional_subject_setup);
+                                                                $result_grade=App\AramiscMarksGrade::where([['from', '<=', $gpa_result], ['up', '>=', $gpa_result]])->first();
                                                                 echo $result_grade->grade_name;
                                                             @endphp
                                                         
@@ -474,7 +474,7 @@
                                             <div class="col-lg-12">
                                                 <p class="result-date">
                                                     @php
-                                                     $data = App\SmMarkStore::select('created_at')->where([
+                                                     $data = App\AramiscMarkStore::select('created_at')->where([
                                                         ['student_id',$student_detail->id],
                                                         ['class_id',$class_id],
                                                         ['section_id',$section_id],

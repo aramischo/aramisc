@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\SmSchool;
-use App\SmStaff;
+use App\AramiscSchool;
+use App\AramiscStaff;
 use App\AramiscStudent;
 use Illuminate\Console\Command;
 
@@ -49,7 +49,7 @@ class BirthDaySms extends Command
             @send_sms($student->mobile, 'student_birthday', $compact, $student->school_id);
         }
 
-        $allStaffs = SmStaff::where('date_of_birth', 'like', '%'. $currentDate)->get();
+        $allStaffs = AramiscStaff::where('date_of_birth', 'like', '%'. $currentDate)->get();
         foreach($allStaffs as $staff){
             $compact['user_email'] = $staff->email;
             @send_sms($staff->mobile, 'staff_birthday', $compact, $staff->school_id);

@@ -1,6 +1,6 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
@@ -100,7 +100,7 @@ class CreateAramiscStudentRegistrationFieldsTable extends Migration
               'custom_field'
           ];
           
-            $all_schools = SmSchool::get();
+            $all_schools = AramiscSchool::get();
             foreach ($all_schools as $school) {
                 foreach ($request_fields as $key=>$value) {
                     $exit = AramiscStudentRegistrationField::where('school_id', $school->id)->where('field_name', $value)->first();
@@ -254,8 +254,8 @@ class CreateAramiscStudentRegistrationFieldsTable extends Migration
                 ];
 
                 foreach ($currencies as $currency) {
-                    if(!\App\SmCurrency::where('name', $currency[1])->where('school_id', $school->id)->first()){
-                        $store = new \App\SmCurrency();
+                    if(!\App\AramiscCurrency::where('name', $currency[1])->where('school_id', $school->id)->first()){
+                        $store = new \App\AramiscCurrency();
                         $store->name = $currency[1];
                         $store->code = $currency[2];
                         $store->symbol = $currency[3];
@@ -265,8 +265,8 @@ class CreateAramiscStudentRegistrationFieldsTable extends Migration
 
                 }
 
-                if(!\App\SmBackgroundSetting::where('title', 'Dashboard Background')->where('school_id', $school->id)->first()){
-                    $b = new \App\SmBackgroundSetting();
+                if(!\App\AramiscBackgroundSetting::where('title', 'Dashboard Background')->where('school_id', $school->id)->first()){
+                    $b = new \App\AramiscBackgroundSetting();
                     $b->school_id = $school->id;
                     $b->title = 'Dashboard Background';
                     $b->type = 'image';
@@ -275,8 +275,8 @@ class CreateAramiscStudentRegistrationFieldsTable extends Migration
                     $b->is_default = 1;
                     $b->save();
                 }
-                if(!\App\SmBackgroundSetting::where('title', 'Login Background')->where('school_id', $school->id)->first()){
-                    $b = new \App\SmBackgroundSetting();
+                if(!\App\AramiscBackgroundSetting::where('title', 'Login Background')->where('school_id', $school->id)->first()){
+                    $b = new \App\AramiscBackgroundSetting();
                     $b->school_id = $school->id;
                     $b->title = 'Login Background';
                     $b->type = 'image';
@@ -291,7 +291,7 @@ class CreateAramiscStudentRegistrationFieldsTable extends Migration
 
             $required_fields = ['session', 'class', 'section', 'first_name', 'last_name', 'gender', 'date_of_birth', 'relation', 'guardians_email'];
 
-            $all_schools = SmSchool::get();
+            $all_schools = AramiscSchool::get();
             foreach ($all_schools as $school) {
                 AramiscStudentRegistrationField::where('school_id', $school->id)->whereIn('field_name', $required_fields)->update(['is_required' => 1, 'is_system_required' => 1]);
             }

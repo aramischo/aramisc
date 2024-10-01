@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\SmAssignSubject;
-use App\SmHomework;
+use App\AramiscAssignSubject;
+use App\AramiscHomework;
 use App\AramiscStudent;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -17,16 +17,16 @@ class sm_homeworksSeeder extends Seeder
      */
     public function run()
     {
-//        SmHomework::query()->truncate();
+//        AramiscHomework::query()->truncate();
         $students = AramiscStudent::where('class_id', 1)->get();
         $faker = Faker::create();
 
         foreach ($students as $student) {
             $class_id = $student->class_id;
             $section_id = $student->section_id;
-            $subjects = SmAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
+            $subjects = AramiscAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
             foreach ($subjects as $subject) {
-                $s = new SmHomework();
+                $s = new AramiscHomework();
                 $s->class_id = $class_id;
                 $s->section_id = $section_id;
                 $s->subject_id = $subject->subject_id;

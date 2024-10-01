@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmQuestionBank;
+use App\AramiscQuestionBank;
 
 class sm_question_banksSeeder extends Seeder
 {
@@ -18,10 +18,10 @@ class sm_question_banksSeeder extends Seeder
     {
         $faker = Faker::create();
         $i = 1;
-        $question_details = SmAssignSubject::all();
+        $question_details = AramiscAssignSubject::all();
         foreach ($question_details as $question_detail) {
 
-            $store = new SmQuestionBank();
+            $store = new AramiscQuestionBank();
             $store->q_group_id = 1;
             $store->class_id = $question_detail->class_id;
             $store->section_id = $question_detail->section_id;

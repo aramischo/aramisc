@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\SmStudent;
+use App\AramiscStudent;
 
 use Illuminate\Database\Seeder;
-use App\SmOptionalSubjectAssign;
+use App\AramiscOptionalSubjectAssign;
 use Illuminate\Support\Facades\DB;
 // use DB;
 
@@ -18,12 +18,12 @@ class sm_optional_subject_assign extends Seeder
      */
     public function run()
     {
-        $students = SmStudent::where('class_id', 9)->get();
+        $students = AramiscStudent::where('class_id', 9)->get();
         if ($students){
             $subjects= DB::table('sm_assign_subjects')->select('subject_id')->where('class_id',9)->get()->toArray();
             if($subjects) {
                 foreach ($students as $row) {
-                    $s = new SmOptionalSubjectAssign();
+                    $s = new AramiscOptionalSubjectAssign();
                     $s->student_id = $row->id;
                     $s->session_id = $row->session_id;
                     $s->subject_id = 1;

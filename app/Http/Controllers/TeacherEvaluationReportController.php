@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\SmClass;
-use App\SmStaff;
-use App\SmAssignSubject;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use App\Models\TeacherEvaluation;
 use Brian2694\Toastr\Facades\Toastr;
@@ -15,13 +15,13 @@ class TeacherEvaluationReportController extends Controller
 {
     public function getAssignSubjectTeacher(Request $request)
     {
-        $staffs = SmAssignSubject::where('class_id', $request->class_id)->where('subject_id', $request->subject_id)->whereIn('section_id', $request->section_ids)->with('teacher')->select('teacher_id')->distinct('teacher_id')->get();
+        $staffs = AramiscAssignSubject::where('class_id', $request->class_id)->where('subject_id', $request->subject_id)->whereIn('section_id', $request->section_ids)->with('teacher')->select('teacher_id')->distinct('teacher_id')->get();
         return response()->json($staffs);
     }
     public function teacherApprovedEvaluationReport()
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $teacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
             return view('backEnd.teacherEvaluation.report.teacher_approved_evaluation_report', compact('classes', 'teacherEvaluations'));
         } catch (\Exception $e) {
@@ -31,14 +31,14 @@ class TeacherEvaluationReportController extends Controller
     }
     public function teacherPendingEvaluationReport()
     {
-        $classes = SmClass::get();
+        $classes = AramiscClass::get();
         $teacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
         return view('backEnd.teacherEvaluation.report.teacher_pending_evaluation_report', compact('classes', 'teacherEvaluations'));
     }
     public function teacherWiseEvaluationReport()
     {
-        $classes = SmClass::get();
-        $teachers = SmStaff::where('role_id', 4)->get();
+        $classes = AramiscClass::get();
+        $teachers = AramiscStaff::where('role_id', 4)->get();
         $teacherEvaluations = TeacherEvaluation::with('studentRecord.studentDetail.parents', 'staff')->get();
         return view('backEnd.teacherEvaluation.report.teacher_wise_evaluation_report', compact('classes', 'teacherEvaluations', 'teachers'));
     }
@@ -53,8 +53,8 @@ class TeacherEvaluationReportController extends Controller
         }
 
         try {
-            $classes = SmClass::get();
-            $staffs = SmAssignSubject::where('class_id', $request->class_id)
+            $classes = AramiscClass::get();
+            $staffs = AramiscAssignSubject::where('class_id', $request->class_id)
                 ->when($request->subject_id, function ($query) use ($request) {
                     $query->where('subject_id', $request->subject_id);
                 })
@@ -106,8 +106,8 @@ class TeacherEvaluationReportController extends Controller
         }
 
         try {
-            $classes = SmClass::get();
-            $staffs = SmAssignSubject::where('class_id', $request->class_id)
+            $classes = AramiscClass::get();
+            $staffs = AramiscAssignSubject::where('class_id', $request->class_id)
                 ->when($request->subject_id, function ($query) use ($request) {
                     $query->where('subject_id', $request->subject_id);
                 })
@@ -151,8 +151,8 @@ class TeacherEvaluationReportController extends Controller
     public function teacherWiseEvaluationReportSearch(Request $request)
     {
         try {
-            $classes = SmClass::get();
-            $teachers = SmStaff::where('role_id', 4)->get();
+            $classes = AramiscClass::get();
+            $teachers = AramiscStaff::where('role_id', 4)->get();
             $teacherEvaluations = TeacherEvaluation::query();
             if ($request->teacher_id) {
                 $teacherEvaluations->where('teacher_id', $request->teacher_id);
@@ -193,7 +193,7 @@ class TeacherEvaluationReportController extends Controller
     public function teacherPanelEvaluationReport()
     {
         try {
-            $staffId = SmStaff::where('user_id', auth()->user()->id)->select('id')->first();
+            $staffId = AramiscStaff::where('user_id', auth()->user()->id)->select('id')->first();
             $teacherEvaluations = TeacherEvaluation::where('teacher_id', $staffId->id)->with('studentRecord')->get();
             return view('backEnd.teacherEvaluation.report.teacher_panel_evaluation_report', compact('teacherEvaluations'));
         } catch (\Exception $e) {

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin\RolePermission;
 use App\Role;
 use App\tableList;
 use App\ApiBaseMethod;
-use App\SmModulePermission;
+use App\AramiscModulePermission;
 use Illuminate\Http\Request;
-use App\SmModulePermissionAssign;
+use App\AramiscModulePermissionAssign;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -240,16 +240,16 @@ class RoleController extends Controller
         try {
             $role = InfixRole::find($id);
             if ($id == 2) {
-                $modules = SmModulePermission::where('dashboard_id', 2)->where('id', '!=', 22)->where('school_id',Auth::user()->school_id)->get();
+                $modules = AramiscModulePermission::where('dashboard_id', 2)->where('id', '!=', 22)->where('school_id',Auth::user()->school_id)->get();
             } elseif ($id == 3) {
-                $modules = SmModulePermission::where('dashboard_id', 3)->where('id', '!=', 36)->where('school_id',Auth::user()->school_id)->get();
+                $modules = AramiscModulePermission::where('dashboard_id', 3)->where('id', '!=', 36)->where('school_id',Auth::user()->school_id)->get();
             } elseif ($id == 1) {
-                $modules = SmModulePermission::where('id', '!=', 18)->where('id', '!=', 1)->where('dashboard_id', 1)->where('school_id',Auth::user()->school_id)->get();
+                $modules = AramiscModulePermission::where('id', '!=', 18)->where('id', '!=', 1)->where('dashboard_id', 1)->where('school_id',Auth::user()->school_id)->get();
             } else {
-                $modules = SmModulePermission::where('dashboard_id', 1)->where('id', '!=', 1)->where('school_id',Auth::user()->school_id)->get();
+                $modules = AramiscModulePermission::where('dashboard_id', 1)->where('id', '!=', 1)->where('school_id',Auth::user()->school_id)->get();
             }
             $modules = $modules->groupBy('dashboard_id');
-            $already_assigned = SmModulePermissionAssign::select('module_id')->where('role_id', $id)->where('school_id',Auth::user()->school_id)->get();
+            $already_assigned = AramiscModulePermissionAssign::select('module_id')->where('role_id', $id)->where('school_id',Auth::user()->school_id)->get();
             $already_assigned_ids = [];
             foreach ($already_assigned as $value) {
                 $already_assigned_ids[] = $value->module_id;
@@ -264,11 +264,11 @@ class RoleController extends Controller
     public function assignModulePermissionStore(Request $request)
     {
         try {
-            SmModulePermissionAssign::where('role_id', $request->role_id)->delete();
+            AramiscModulePermissionAssign::where('role_id', $request->role_id)->delete();
 
             if (isset($request->permissions)) {
                 foreach ($request->permissions as $permission) {
-                    $role_permission = new SmModulePermissionAssign();
+                    $role_permission = new AramiscModulePermissionAssign();
                     $role_permission->role_id = $request->role_id;
                     $role_permission->module_id = $permission;
                     $role_permission->save();

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\SmItemStore;
+use App\AramiscItemStore;
 class sm_item_storesSeeder extends Seeder
 {
     /**
@@ -14,7 +14,7 @@ class sm_item_storesSeeder extends Seeder
     public function run()
     {
         for($i=1; $i<=5; $i++){
-            $s = new SmItemStore();
+            $s = new AramiscItemStore();
             $s->store_name = 'Store '.$i;
             $s->store_no = 100*$i;
             $s->description = 'Store '.$i;

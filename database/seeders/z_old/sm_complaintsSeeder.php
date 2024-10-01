@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmComplaint;
+use App\AramiscComplaint;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -15,11 +15,11 @@ class sm_complaintsSeeder extends Seeder
      */
     public function run()
     {
-        // SmComplaint::query()->truncate();
+        // AramiscComplaint::query()->truncate();
         $faker = Faker::create();
         for ($i = 1; $i <= 3; $i++) {
             $j=11;
-            $store = new SmComplaint();
+            $store = new AramiscComplaint();
             $store->complaint_by = $faker->name;
             $store->complaint_type = $j++;
             $store->complaint_source = $i;

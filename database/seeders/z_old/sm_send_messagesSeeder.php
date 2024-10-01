@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmSendMessage;
+use App\AramiscSendMessage;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -17,7 +17,7 @@ class sm_send_messagesSeeder extends Seeder
     {
         $faker = Faker::create();
         for ($i = 1; $i <= 5; $i++) {
-            $store = new SmSendMessage();
+            $store = new AramiscSendMessage();
             $store->message_title = $faker->realText($maxNbChars = 30, $indexSize = 2);
             $store->message_des = $faker->realText($maxNbChars = 100, $indexSize = 2);
             $store->notice_date = $faker->dateTime()->format('Y-m-d');

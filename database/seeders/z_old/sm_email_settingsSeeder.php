@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmEmailSetting;
+use App\AramiscEmailSetting;
 use Illuminate\Database\Seeder;
 
 class sm_email_settingsSeeder extends Seeder

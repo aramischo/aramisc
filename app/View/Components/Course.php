@@ -1,4 +1,5 @@
 <?php
+
 namespace App\View\Components;
 
 use App\AramiscCourse;
@@ -11,7 +12,6 @@ class Course extends Component
     public $count;
     public $column;
     public $sorting;
-
     /**
      * Create a new component instance.
      */
@@ -27,19 +27,18 @@ class Course extends Component
      */
     public function render(): View|Closure|string
     {
-        $courses = AramiscCourse::query();
-        $courses->where('school_id', app('school')->id)->with('courseCategory');
-
-        if ($this->sorting == 'asc') {
-            $courses->orderBy('id', 'asc');
-        } elseif ($this->sorting == 'desc') {
-            $courses->orderBy('id', 'desc');
-        } else {
+         $courses = AramiscCourse::query();
+         $courses->where('school_id', app('school')->id)->with('courseCategory');
+         if($this->sorting =='asc'){
+            $courses->orderBy('id','asc');
+         }
+         elseif($this->sorting =='desc'){
+            $courses->orderBy('id','desc');
+         }
+         else{
             $courses->inRandomOrder();
-        }
-
+         }
         $courses = $courses->take($this->count)->get();
-
-        return view('components.' . activeTheme() . '.course', compact('courses'));
+        return view('components.'.activeTheme().'.course', compact('courses'));
     }
 }

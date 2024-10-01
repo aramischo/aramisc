@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\SmSchool;
+use App\AramiscSchool;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -16,6 +16,6 @@ class SchoolModule extends Model
 
     public function school()
     {
-        return $this->belongsTo(SmSchool::class, 'school_id');
+        return $this->belongsTo(AramiscSchool::class, 'school_id');
     }
 }

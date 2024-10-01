@@ -4,7 +4,7 @@ namespace App\PaymentGateway;
 use App\User;
 use Stripe\Charge;
 use Stripe\Stripe;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\AramiscFeesPayment;
 use App\AramiscPaymentMethhod;
 use App\AramiscPaymentGatewaySetting;
@@ -121,7 +121,7 @@ class StripePayment{
 
                    $income_head= generalSetting();
        
-                   $add_income = new SmAddIncome();
+                   $add_income = new AramiscAddIncome();
                    $add_income->name = 'Fees Collect';
                    $add_income->date = date('Y-m-d');
                    $add_income->amount = $fees_payment->amount;
@@ -221,7 +221,7 @@ class StripePayment{
 
                 $income_head= generalSetting();
        
-                $add_income = new SmAddIncome();
+                $add_income = new AramiscAddIncome();
                 $add_income->name = 'Fees Collect';
                 $add_income->date = date('Y-m-d');
                 $add_income->amount = $fees_payment->amount;

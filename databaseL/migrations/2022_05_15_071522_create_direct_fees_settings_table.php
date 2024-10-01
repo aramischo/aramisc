@@ -1,6 +1,6 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use App\InfixModuleManager;
 use App\Models\DirectFeesSetting;
 use Illuminate\Support\Facades\Schema;
@@ -27,7 +27,7 @@ class CreateDirectFeesSettingsTable extends Migration
         });
         try {
             $module_name = "University";
-            $schools = SmSchool::all();
+            $schools = AramiscSchool::all();
             foreach ($schools as $school) {
                 $new = new DirectFeesSetting();
                 $new->school_id = $school->id;

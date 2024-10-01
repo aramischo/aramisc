@@ -5,7 +5,7 @@ namespace Modules\ExamPlan\Http\Controllers;
 use App\AramiscExam;
 use App\AramiscStudent;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -92,7 +92,7 @@ class StudentExamPlanController extends Controller
             $setting = AdmitCardSetting::where('school_id',Auth::user()->school_id)
                                          ->where('academic_id',getAcademicId())   
                                         ->first();
-            $assign_subjects = SmAssignSubject::where('class_id', $studentRecord->class_id)->where('section_id', $studentRecord->section_id)
+            $assign_subjects = AramiscAssignSubject::where('class_id', $studentRecord->class_id)->where('section_id', $studentRecord->section_id)
                                         ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exam_routines = AramiscExamSchedule::where('class_id', $studentRecord->class_id)
                                         ->where('section_id', $studentRecord->section_id)

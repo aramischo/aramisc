@@ -3,8 +3,8 @@ namespace App\PaymentGateway;
 
 use App\User;
 use Exception;
-use App\SmSchool;
-use App\SmAddIncome;
+use App\AramiscSchool;
+use App\AramiscAddIncome;
 use Omnipay\Omnipay;
 use PayPal\Api\Item;
 use PayPal\Api\Payer;
@@ -333,7 +333,7 @@ class PaypalPayment{
    
                            $income_head= generalSetting();
                
-                           $add_income = new SmAddIncome();
+                           $add_income = new AramiscAddIncome();
                            $add_income->name = 'Fees Collect';
                            $add_income->date = date('Y-m-d');
                            $add_income->amount = $fees_payment->amount;
@@ -362,7 +362,7 @@ class PaypalPayment{
                     $fees_payment->save();
                     $income_head= generalSetting();
                
-                    $add_income = new SmAddIncome();
+                    $add_income = new AramiscAddIncome();
                     $add_income->name = 'Fees Collect';
                     $add_income->date = date('Y-m-d');
                     $add_income->amount = $fees_payment->amount;
@@ -388,7 +388,7 @@ class PaypalPayment{
                     $payment->payment_date = date('Y-m-d');
                     $payment->save();
                     Toastr::success('Payment Successfully Complete', 'Success');
-                    $school = SmSchool::find($payment->school_id);
+                    $school = AramiscSchool::find($payment->school_id);
                     return redirect('//' . $school->domain . '.' . config('app.short_url') . '/home');
                 }
                 

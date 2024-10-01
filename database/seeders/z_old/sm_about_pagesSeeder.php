@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmAboutPage;
+use App\AramiscAboutPage;
 use Illuminate\Database\Seeder;
 
 class sm_about_pagesSeeder extends Seeder

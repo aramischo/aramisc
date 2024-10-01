@@ -8,13 +8,13 @@ use App\AramiscStudent;
 use App\YearCheck;
 use App\AramiscExamSetup;
 use App\AramiscFeesMaster;
-use App\SmOnlineExam;
+use App\AramiscOnlineExam;
 use App\ApiBaseMethod;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
-use App\SmGeneralSettings;
+use App\AramiscAssignSubject;
+use App\AramiscGeneralSettings;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -261,7 +261,7 @@ class ApiAramiscExamController extends Controller
 
         try {
 
-            $sections = SmClassSection::where('class_id', $request->class_ids)->get();
+            $sections = AramiscClassSection::where('class_id', $request->class_ids)->get();
 
             $exist_check = AramiscExam::where('class_id', '=', $request->class_ids)->count();
 
@@ -271,7 +271,7 @@ class ApiAramiscExamController extends Controller
 
                     foreach ($sections as $section) {
 
-                        $subject_for_sections = SmAssignSubject::where('class_id', $request->class_ids)->where('section_id', $section->section_id)->get();
+                        $subject_for_sections = AramiscAssignSubject::where('class_id', $request->class_ids)->where('section_id', $section->section_id)->get();
 
                         $eligible_subjects = [];
 
@@ -354,7 +354,7 @@ class ApiAramiscExamController extends Controller
 
         try {
 
-            $sections = SmClassSection::where('class_id', $request->class_ids)->where('school_id', $school_id)->get();
+            $sections = AramiscClassSection::where('class_id', $request->class_ids)->where('school_id', $school_id)->get();
 
             $exist_check = AramiscExam::where('class_id', '=', $request->class_ids)->where('school_id', $school_id)->count();
 
@@ -364,7 +364,7 @@ class ApiAramiscExamController extends Controller
 
                     foreach ($sections as $section) {
 
-                        $subject_for_sections = SmAssignSubject::where('class_id', $request->class_ids)->where('section_id', $section->section_id)->where('school_id', $school_id)->get();
+                        $subject_for_sections = AramiscAssignSubject::where('class_id', $request->class_ids)->where('section_id', $section->section_id)->where('school_id', $school_id)->get();
 
                         $eligible_subjects = [];
 
@@ -584,13 +584,13 @@ class ApiAramiscExamController extends Controller
 
                 $student_id = AramiscStudent::where('user_id', $user_id)->value('id');
                 $record = StudentRecord::where('student_id', $student_id)->where('id', $record_id)->first();
-                $time_zone_setup = SmGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
+                $time_zone_setup = AramiscGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
                     ->where('school_id', $record->school_id)->first();
                 date_default_timezone_set($time_zone_setup->time_zone);
                 $now = date('g:i:s');
                 $today = date('Y-m-d');
 
-                $online_exams = SmOnlineExam::where('active_status', 1)
+                $online_exams = AramiscOnlineExam::where('active_status', 1)
                     ->where('academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($record->school_id))
                     ->where('status', 1)->where('class_id', $record->class_id)
                     ->where('section_id', $record->section_id)
@@ -600,7 +600,7 @@ class ApiAramiscExamController extends Controller
                 foreach ($online_exams as $online_exam) {
                     $startTime = strtotime($online_exam->date . ' ' . $online_exam->start_time);
                     $endTime = strtotime($online_exam->date . ' ' . $online_exam->end_time);
-                    $s = SmOnlineExam::find($online_exam->id);
+                    $s = AramiscOnlineExam::find($online_exam->id);
 
                     $now = strtotime("now");
                     if ($startTime <= $now && $now <= $endTime) {
@@ -621,7 +621,7 @@ class ApiAramiscExamController extends Controller
                     Log::info($s);
                 }
 
-                $online_exams = SmOnlineExam::where('sm_online_exams.active_status', 1)
+                $online_exams = AramiscOnlineExam::where('sm_online_exams.active_status', 1)
                     ->where('sm_online_exams.academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($record->school_id))
                     ->join('sm_subjects', 'sm_subjects.id', '=', 'sm_online_exams.subject_id')
 
@@ -650,13 +650,13 @@ class ApiAramiscExamController extends Controller
             $student_id = AramiscStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->value('id');
             $record = StudentRecord::find($record_id);
          
-            $time_zone_setup = SmGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
+            $time_zone_setup = AramiscGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
                 ->where('school_id', $school_id)->first();
             date_default_timezone_set($time_zone_setup->time_zone);
             $now = date('g:i:s');
             $today = date('Y-m-d');
 
-            $online_exams = SmOnlineExam::where('status', 1)->withOutGlobalScope(StatusAcademicSchoolScope::class)->where('sm_online_exams.active_status', 1)
+            $online_exams = AramiscOnlineExam::where('status', 1)->withOutGlobalScope(StatusAcademicSchoolScope::class)->where('sm_online_exams.active_status', 1)
                 ->where('sm_online_exams.academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($record->school_id))
                 ->join('sm_subjects', 'sm_subjects.id', '=', 'sm_online_exams.subject_id')
                 ->where('class_id', $record->class_id)

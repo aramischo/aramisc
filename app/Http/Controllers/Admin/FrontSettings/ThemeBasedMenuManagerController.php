@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmPage;
-use App\SmHeaderMenuManager;
+use App\AramiscPage;
+use App\AramiscHeaderMenuManager;
 use App\Http\Controllers\Controller;
 use Larabuild\Pagebuilder\Models\Page;
 
@@ -27,7 +27,7 @@ class ThemeBasedMenuManagerController extends Controller
         if($request->type == "sPages"){
             foreach ($request->element_id as $data) {
                 $spage = Page::findOrFail($data);
-                SmHeaderMenuManager::create([
+                AramiscHeaderMenuManager::create([
                     'title' => $spage->title,
                     'type' => $request->type,
                     'element_id' => $data,
@@ -38,7 +38,7 @@ class ThemeBasedMenuManagerController extends Controller
                 ]);
             }
         } elseif ($request->type == "customLink") {
-            SmHeaderMenuManager::create([
+            AramiscHeaderMenuManager::create([
                 'title' => $request->title,
                 'link' => $request->link,
                 'type' => $request->type,
@@ -52,7 +52,7 @@ class ThemeBasedMenuManagerController extends Controller
     public function update($request)
     {
         if($request->type == "sPages"){
-            $headerMenu = SmHeaderMenuManager::where('id', $request->id)->first();
+            $headerMenu = AramiscHeaderMenuManager::where('id', $request->id)->first();
             $builderPage = Page::find($headerMenu->element_id, ['slug']);
             $headerMenu->update([
                 'title' => $request->title,
@@ -62,7 +62,7 @@ class ThemeBasedMenuManagerController extends Controller
                 'school_id' => app('school')->id,
             ]);
         } elseif ($request->type == "customLink") {
-            SmHeaderMenuManager::where('id', $request->id)->update([
+            AramiscHeaderMenuManager::where('id', $request->id)->update([
                 'title' => $request->title,
                 'link' => $request->link,
                 'type' => $request->type,
@@ -81,9 +81,9 @@ class ThemeBasedMenuManagerController extends Controller
     }
 
     private function indexData(){
-        $data['pages'] = SmPage::where('is_dynamic', 1)->where('school_id', app('school')->id)->get();
+        $data['pages'] = AramiscPage::where('is_dynamic', 1)->where('school_id', app('school')->id)->get();
         $data['static_pages'] = Page::whereNotIn('name', ['header_menu', 'footer_menu'])->where('school_id', app('school')->id)->get();
-        $data['menus'] = SmHeaderMenuManager::with('childs')
+        $data['menus'] = AramiscHeaderMenuManager::with('childs')
                     ->where('school_id', app('school')->id)
                     ->where('theme', activeTheme())
                     ->where('parent_id', null)

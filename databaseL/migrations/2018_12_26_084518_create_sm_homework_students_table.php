@@ -1,14 +1,14 @@
 <?php
 
-use App\SmHomework;
-use App\SmHomeworkStudent;
+use App\AramiscHomework;
+use App\AramiscHomeworkStudent;
 use App\AramiscStudent;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmHomeworkStudentsTable extends Migration
+class CreateAramiscHomeworkStudentsTable extends Migration
 {
     /**
      * Run the migrations.

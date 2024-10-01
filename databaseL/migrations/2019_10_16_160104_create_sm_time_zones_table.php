@@ -3,9 +3,9 @@
     use Illuminate\Support\Facades\Schema;
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Database\Migrations\Migration;
-    use App\SmTimeZone;
+    use App\AramiscTimeZone;
 
-    class CreateSmTimeZonesTable extends Migration
+    class CreateAramiscTimeZonesTable extends Migration
     {
         /**
          * Run the migrations.
@@ -447,7 +447,7 @@
                 ['ZW', 'Africa/Harare']
             ];
             foreach ($data as $row) {
-                $s = new SmTimeZone();
+                $s = new AramiscTimeZone();
                 $s->code = $row[0];
                 $s->time_zone = $row[1];
                 $s->save();

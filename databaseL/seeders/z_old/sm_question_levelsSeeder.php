@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmQuestionLevel;
+use App\AramiscQuestionLevel;
 
 class sm_question_levelsSeeder extends Seeder
 {
@@ -17,7 +17,7 @@ class sm_question_levelsSeeder extends Seeder
     {
         $faker = Faker::create();
         for($i=1; $i<=5; $i++){
-            $store= new SmQuestionLevel();
+            $store= new AramiscQuestionLevel();
             $store->level=$faker->word;
             $store->created_at = date('Y-m-d h:i:s');
             $store->save();

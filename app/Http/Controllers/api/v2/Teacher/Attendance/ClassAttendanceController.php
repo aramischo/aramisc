@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\api\v2\Teacher\Attendance;
 
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscNotification;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\Scopes\SchoolScope;
 use App\AramiscStudentAttendance;
 use Illuminate\Http\Request;
@@ -36,10 +36,10 @@ class ClassAttendanceController extends Controller
     public function classes()
     {
         if (teacherAccess()) {
-            $teacherId = SmStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
+            $teacherId = AramiscStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
                 ->where('school_id', auth()->user()->school_id)
                 ->where('user_id', auth()->id())->pluck('id');
-            $data = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+            $data = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
                 ->with(['class' => function ($q) {
                     $q->withoutGlobalScopes([StatusAcademicSchoolScope::class, GlobalAcademicScope::class])->where('school_id', auth()->user()->school_id);
                 }])
@@ -72,7 +72,7 @@ class ClassAttendanceController extends Controller
     public function sections(Request $request)
     {
         if (teacherAccess()) {
-            $sectionIds = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class)
+            $sectionIds = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)
                 ->where('class_id', $request->class_id)
                 ->where('school_id', auth()->user()->school_id)
                 ->get();
@@ -104,11 +104,11 @@ class ClassAttendanceController extends Controller
     public function subjects(Request $request)
     {
         if (teacherAccess()) {
-            $staff_info = SmStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
+            $staff_info = AramiscStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
                 ->where('user_id', auth()->user()->id)
                 ->where('school_id', auth()->user()->school_id)->first();
             if (teacherAccess()) {
-                $subject_all = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+                $subject_all = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
                     ->where('class_id', $request->class)
                     ->where('section_id', $request->section)
                     ->where('teacher_id', $staff_info->id)
@@ -118,7 +118,7 @@ class ClassAttendanceController extends Controller
             }
 
             foreach ($subject_all as $allSubject) {
-                $data[] = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+                $data[] = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
                     ->where('id', $allSubject->subject_id)
                     ->where('school_id', auth()->user()->school_id)
                     ->first(['id', 'subject_name']);
@@ -191,7 +191,7 @@ class ClassAttendanceController extends Controller
         $selected['class_id'] = $request->class;
         $selected['section_id'] = $request->section;
 
-        $class_name = SmClass::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $class_name = AramiscClass::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->class)->first();
         $section_name = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)
@@ -352,7 +352,7 @@ class ClassAttendanceController extends Controller
 
 
 
-                    $parent = SmParent::find($student->parent_id);
+                    $parent = AramiscParent::find($student->parent_id);
                     if ($parent) {
                         $messege = app('translator')->get('student.Your_child_is_marked_holiday_in_the_attendance_on_date', ['date' => dateConvert($attendance->attendance_date), 'student_name' => $student->full_name . "'s"]);
                         $notification = new AramiscNotification();
@@ -456,7 +456,7 @@ class ClassAttendanceController extends Controller
                         Notification::send($student->user, new FlutterAppNotification($notification, $title));
                     }
 
-                    $parent = SmParent::find($student->parent_id);
+                    $parent = AramiscParent::find($student->parent_id);
                     if ($parent) {
                         $messege = app('translator')->get('student.Your_child_is_marked_holiday_in_the_attendance_on_date', ['date' => dateConvert($attendance->attendance_date), 'student_name' => $student->full_name . "'s"]);
                         $notification = new AramiscNotification();

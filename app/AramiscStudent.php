@@ -26,8 +26,8 @@ use Modules\OnlineExam\Entities\InfixStudentTakeWrittenExam;
 class AramiscStudent extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_students";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_students';
     protected $fillable = [];
 
     protected $casts = [
@@ -60,22 +60,22 @@ class AramiscStudent extends Model
     }
     public function parents()
     {
-        return $this->belongsTo('App\SmParent', 'parent_id', 'id')->withDefault()->with('parent_user')->withOutGlobalScope(SchoolScope::class);;
+        return $this->belongsTo('App\AramiscParent', 'parent_id', 'id')->withDefault()->with('parent_user')->withOutGlobalScope(SchoolScope::class);;
     }
 
    
 
     public function getOptionalSubjectSetupAttribute()
     {
-        return SmClassOptionalSubject::where('class_id', $this->class_id)->first();
+        return AramiscClassOptionalSubject::where('class_id', $this->class_id)->first();
     }
     public function optionalSubject()
     {
-        return $this->belongsTo('App\SmOptionalSubjectAssign', 'student_id', 'id');
+        return $this->belongsTo('App\AramiscOptionalSubjectAssign', 'student_id', 'id');
     }
     public function drivers()
     {
-        return $this->belongsTo('App\SmStaff', 'driver_id', 'id');
+        return $this->belongsTo('App\AramiscStaff', 'driver_id', 'id');
     }
 
     public function roles()
@@ -90,22 +90,22 @@ class AramiscStudent extends Model
 
     public function gender()
     {
-        return $this->belongsTo('App\SmBaseSetup', 'gender_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscBaseSetup', 'gender_id', 'id')->withDefault();
     }
 
     public function school()
     {
-        return $this->belongsTo('App\SmSchool', 'school_id', 'id');
+        return $this->belongsTo('App\AramiscSchool', 'school_id', 'id');
     }
 
     public function religion()
     {
-        return $this->belongsTo('App\SmBaseSetup', 'religion_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscBaseSetup', 'religion_id', 'id')->withDefault();
     }
 
     public function bloodGroup()
     {
-        return $this->belongsTo('App\SmBaseSetup', 'bloodgroup_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscBaseSetup', 'bloodgroup_id', 'id')->withDefault();
     }
 
     public function category()
@@ -131,7 +131,7 @@ class AramiscStudent extends Model
     //student class name
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class);
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class);
     }
 
     public function section()
@@ -146,7 +146,7 @@ class AramiscStudent extends Model
 
     public function vehicle()
     {
-        return $this->belongsTo('App\SmVehicle', 'vechile_id', $this->vehicle_id);
+        return $this->belongsTo('App\AramiscVehicle', 'vechile_id', $this->vehicle_id);
     }
 
     public function dormitory()
@@ -156,7 +156,7 @@ class AramiscStudent extends Model
 
     public function sections()
     {
-        return $this->hasManyThrough('App\AramiscSection', 'App\SmClassSection', 'class_id', 'id', 'class_id', 'section_id');
+        return $this->hasManyThrough('App\AramiscSection', 'App\AramiscClassSection', 'class_id', 'id', 'class_id', 'section_id');
     }
 
     public function rooms()
@@ -181,7 +181,7 @@ class AramiscStudent extends Model
 
     public function meritList()
     {
-        return $this->belongsTo('App\SmTemporaryMeritlist', 'id', 'student_id');
+        return $this->belongsTo('App\AramiscTemporaryMeritlist', 'id', 'student_id');
     }
 
     public function feesAssign()
@@ -206,7 +206,7 @@ class AramiscStudent extends Model
 
     public function studentLeave()
     {
-        return $this->hasMany('App\SmLeaveRequest', 'staff_id', $this->user_id)->where('role_id', 2);
+        return $this->hasMany('App\AramiscLeaveRequest', 'staff_id', $this->user_id)->where('role_id', 2);
     }
 
     public function getClass()
@@ -236,13 +236,13 @@ class AramiscStudent extends Model
 
     public function markStores()
     {
-        return $this->hasMany(SmMarkStore::class, 'student_id')->where('class_id', $this->class_id)
+        return $this->hasMany(AramiscMarkStore::class, 'student_id')->where('class_id', $this->class_id)
             ->where('section_id', $this->section_id);
     }
 
     public function assignSubjects()
     {
-        return $this->hasMany(SmAssignSubject::class, 'class_id', 'class_id')->where('section_id', $this->section_id)->where('active_status', 1);
+        return $this->hasMany(AramiscAssignSubject::class, 'class_id', 'class_id')->where('section_id', $this->section_id)->where('active_status', 1);
     }
 
     public function studentOnlineExams()
@@ -252,7 +252,7 @@ class AramiscStudent extends Model
             return $this->hasMany(InfixOnlineExam::class, 'class_id', 'class_id')->where('section_id', $this->section_id)
                 ->where('active_status', 1)->where('status', 1)->where('school_id', Auth::user()->school_id);
         } else {
-            return $this->hasMany(SmOnlineExam::class, 'class_id', 'class_id')->where('section_id', $this->section_id)
+            return $this->hasMany(AramiscOnlineExam::class, 'class_id', 'class_id')->where('section_id', $this->section_id)
                 ->where('active_status', 1)->where('status', 1)->where('school_id', Auth::user()->school_id);
         }
 
@@ -271,7 +271,7 @@ class AramiscStudent extends Model
 
     public function assignSubject()
     {
-        return $this->hasMany(SmAssignSubject::class, 'class_id', 'class_id')->where('section_id', $this->section_id)->distinct('teacher_id');
+        return $this->hasMany(AramiscAssignSubject::class, 'class_id', 'class_id')->where('section_id', $this->section_id)->distinct('teacher_id');
     }
 
     public function bookIssue()
@@ -286,7 +286,7 @@ class AramiscStudent extends Model
 
     public function homework()
     {
-        return $this->hasMany(SmHomework::class, 'class_id', 'class_id')->where('section_id', $this->section_id)
+        return $this->hasMany(AramiscHomework::class, 'class_id', 'class_id')->where('section_id', $this->section_id)
             ->where('evaluation_date', '=', null)->where('submission_date', '>', date('Y-m-d'));
     }
 
@@ -317,12 +317,12 @@ class AramiscStudent extends Model
     }
     public function homeworkContents()
     {
-        return $this->hasMany(SmUploadHomeworkContent::class, 'student_id');
+        return $this->hasMany(AramiscUploadHomeworkContent::class, 'student_id');
     }
 
     public function bankSlips()
     {
-        return $this->hasMany(SmBankPaymentSlip::class, 'student_id');
+        return $this->hasMany(AramiscBankPaymentSlip::class, 'student_id');
     }
 
     public static function totalFees($feesAssigns)
@@ -439,10 +439,10 @@ class AramiscStudent extends Model
     {
 
         try {
-            $marks_register = SmMarksRegister::where('exam_id', $exam_id)->where('student_id', $s_id)->first();
+            $marks_register = AramiscMarksRegister::where('exam_id', $exam_id)->where('student_id', $s_id)->first();
             $marks_register_clilds = [];
             if ($marks_register != "") {
-                $marks_register_clilds = SmMarksRegisterChild::where('marks_register_id', $marks_register->id)->where('active_status', 1)->get();
+                $marks_register_clilds = AramiscMarksRegisterChild::where('marks_register_id', $marks_register->id)->where('active_status', 1)->get();
             }
             return $marks_register_clilds;
         } catch (\Exception $e) {
@@ -557,7 +557,7 @@ class AramiscStudent extends Model
     public static function classPromote($class)
     {
         try {
-            $class = SmClass::where('id', $class)->first();
+            $class = AramiscClass::where('id', $class)->first();
             return $class->class_name;
         } catch (\Exception $e) {
             $data = [];
@@ -578,7 +578,7 @@ class AramiscStudent extends Model
 
     public static function getExamResult($exam_id, $record)
     {
-        $eligible_subjects = SmAssignSubject::where('class_id', $record->class_id)
+        $eligible_subjects = AramiscAssignSubject::where('class_id', $record->class_id)
                             ->where('section_id', $record->section_id)
                             
                             ->where('academic_id', getAcademicId())
@@ -588,7 +588,7 @@ class AramiscStudent extends Model
                             ->get();
 
         foreach ($eligible_subjects as $subject) {
-            $getMark = SmResultStore::where([
+            $getMark = AramiscResultStore::where([
                 ['exam_type_id', $exam_id],   
                 ['student_id', $record->student_id],
                 ['student_record_id', $record->id],
@@ -599,7 +599,7 @@ class AramiscStudent extends Model
                 continue;
             }
 
-            $result = SmResultStore::where([
+            $result = AramiscResultStore::where([
                 ['exam_type_id', $exam_id],
                 ['student_id', $record->student_id],
                 ['student_record_id', $record->id],
@@ -619,8 +619,8 @@ class AramiscStudent extends Model
                             ->get();
        
         foreach ($eligible_subjects as $subject) {
-            $SmResultStore = SmResultStore::query();
-            $getMark = universityFilter($SmResultStore, $request)
+            $AramiscResultStore = AramiscResultStore::query();
+            $getMark = universityFilter($AramiscResultStore, $request)
                                 ->where([
                                     ['exam_type_id', $exam_id],   
                                     ['student_id', $record->student_id],
@@ -632,8 +632,8 @@ class AramiscStudent extends Model
                 return false;
             }
 
-            $SmResultStore = SmResultStore::query();
-            $result = universityFilter($SmResultStore, $request)
+            $AramiscResultStore = AramiscResultStore::query();
+            $result = universityFilter($AramiscResultStore, $request)
                     ->where([
                         ['exam_type_id', $exam_id],
                         ['student_id', $record->student_id],
@@ -651,7 +651,7 @@ class AramiscStudent extends Model
 
     public function homeworks()
     {
-        return $this->hasMany(SmHomeworkStudent::class, 'student_id');
+        return $this->hasMany(AramiscHomeworkStudent::class, 'student_id');
     }
 
     public function onlineExams()
@@ -661,7 +661,7 @@ class AramiscStudent extends Model
 
     public function subjectAssign()
     {
-        return $this->hasOne(SmOptionalSubjectAssign::class, 'student_id')->where('academic_id', getAcademicId());
+        return $this->hasOne(AramiscOptionalSubjectAssign::class, 'student_id')->where('academic_id', getAcademicId());
     }
 
     public function scopeStatus($query)
@@ -709,9 +709,9 @@ class AramiscStudent extends Model
     public function DateSubjectWiseAttendances()
     {
         if (moduleStatusCheck('University')) {
-            return $this->hasOne(SmSubjectAttendance::class, 'student_id')->where('un_semester_label_id', request()->un_semester_label_id)->where('un_subject_id', request()->un_subject_id)->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
+            return $this->hasOne(AramiscSubjectAttendance::class, 'student_id')->where('un_semester_label_id', request()->un_semester_label_id)->where('un_subject_id', request()->un_subject_id)->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
         } else {
-            return $this->hasOne(SmSubjectAttendance::class, 'student_id')->where('class_id', request()->class)->where('section_id', request()->section)->where('subject_id', request()->subject)->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
+            return $this->hasOne(AramiscSubjectAttendance::class, 'student_id')->where('class_id', request()->class)->where('section_id', request()->section)->where('subject_id', request()->subject)->where('attendance_date', date('Y-m-d', strtotime(request()->attendance_date)));
         }
     }
     public function lead()

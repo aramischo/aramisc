@@ -275,7 +275,7 @@ $days = $days_between + 1;
                                 @foreach($staff_leaves as $staff_leave)
                                     @php
 
-                                        $approved_leaves = App\SmLeaveRequest::approvedLeaveModal($staff_leave->id, $leaveDetails->role_id, $leaveDetails->staff_id);
+                                        $approved_leaves = App\AramiscLeaveRequest::approvedLeaveModal($staff_leave->id, $leaveDetails->role_id, $leaveDetails->staff_id);
                                             $remaining_days = $staff_leave->days - $approved_leaves;
                                     @endphp
                                     <tr>

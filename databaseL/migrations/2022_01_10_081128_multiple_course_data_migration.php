@@ -19,7 +19,7 @@ class MultipleCourseDataMigration extends Migration
         // Promoted data
         $promotes = \App\AramiscStudentPromotion::all();
         foreach ($promotes as $promote) {
-            $class = \App\SmClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where(['id' => $promote->class_id, 'school_id' => $promote->school_id])->first();
+            $class = \App\AramiscClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where(['id' => $promote->class_id, 'school_id' => $promote->school_id])->first();
             $studentRecords = \App\Models\StudentRecord::firstOrCreate([
                 'student_id' => $promote->student_id,
                 'school_id' => $promote->school_id,

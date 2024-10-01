@@ -3,11 +3,11 @@
 namespace Modules\Fees\Http\Controllers;
 
 use App\User;
-use App\SmClass;
-use App\SmSchool;
+use App\AramiscClass;
+use App\AramiscSchool;
 use App\AramiscStudent;
-use App\SmAddIncome;
-use App\SmBankAccount;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
 use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -74,7 +74,7 @@ class StudentFeesController extends Controller
     public function studentAddFeesPayment($id)
     {
         try{
-            $classes = SmClass::where('school_id',Auth::user()->school_id)
+            $classes = AramiscClass::where('school_id',Auth::user()->school_id)
             ->where('academic_id',getAcademicId())
             ->get();
 
@@ -97,7 +97,7 @@ class StudentFeesController extends Controller
             $paymentMethods = $paymentMethods->get();
           
             
-            $bankAccounts = SmBankAccount::where('school_id',Auth::user()->school_id)
+            $bankAccounts = AramiscBankAccount::where('school_id',Auth::user()->school_id)
                             ->where('active_status',1)
                             ->where('academic_id', getAcademicId())
                             ->get();
@@ -236,7 +236,7 @@ class StudentFeesController extends Controller
                     $addPayment->academic_id = getAcademicId();
                     $addPayment->save();
         
-                    $school = SmSchool::find($user->school_id);
+                    $school = AramiscSchool::find($user->school_id);
                     $compact['full_name'] = $user->full_name;
                     $compact['method'] = $request->payment_method;
                     $compact['create_date'] = date('Y-m-d');
@@ -253,7 +253,7 @@ class StudentFeesController extends Controller
                 $payment_method = AramiscPaymentMethhod::where('method', $request->payment_method)->first();
                 $income_head = generalSetting();
 
-                $add_income = new SmAddIncome();
+                $add_income = new AramiscAddIncome();
                 $add_income->name = 'Fees Collect';
                 $add_income->date = date('Y-m-d');
                 $add_income->amount = $request->total_paid_amount;

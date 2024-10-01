@@ -848,7 +848,7 @@
                 @if(count($remainSubjects) > 0)
                     @foreach($remainSubjects as $reaminSubject)
                         @php
-                            $subject = App\SmSubject::find($reaminSubject);
+                            $subject = App\AramiscSubject::find($reaminSubject);
                         @endphp
                         <tr>
                             <td colspan="1">{{$subject->subject_name}}</td>
@@ -912,7 +912,7 @@
                                 if(in_array($failgpaname->grade_name,$temp_grade)){
                                     echo $failgpaname->grade_name;
                                 }else{
-                                    $grade_details= App\SmResultStore::remarks($total_gpa);
+                                    $grade_details= App\AramiscResultStore::remarks($total_gpa);
                                 }
                             @endphp
                             {{@$grade_details->grade_name}}
@@ -923,7 +923,7 @@
                                 if(in_array($failgpaname->grade_name,$temp_grade)){
                                     echo $failgpaname->description;
                                 }else{
-                                    $grade= App\SmResultStore::remarks($total_gpa);
+                                    $grade= App\AramiscResultStore::remarks($total_gpa);
                                 }
                             @endphp
                             {{@$grade->description}}

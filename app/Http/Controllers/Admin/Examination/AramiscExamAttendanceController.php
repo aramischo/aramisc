@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin\Examination;
 
 use App\AramiscExam;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\YearCheck;
 use App\AramiscExamType;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\AramiscExamAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -46,12 +46,12 @@ class AramiscExamAttendanceController extends Controller
             $exams = AramiscExamType::get();
 
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id',  Auth::user()->id)->first();
+                $teacher_info = AramiscStaff::where('user_id',  Auth::user()->id)->first();
                 $classes = $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
-            $subjects = SmSubject::get();
+            $subjects = AramiscSubject::get();
             return view('backEnd.examination.exam_attendance_create', compact('exams', 'classes', 'subjects'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -199,23 +199,23 @@ class AramiscExamAttendanceController extends Controller
                 $exam_attendance_childs = $exam_attendance != "" ? $exam_attendance->examAttendanceChild : [];
 
                 if (teacherAccess()) {
-                    $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
+                    $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
                     $classes = $teacher_info->classes;
                 } else {
-                    $classes = SmClass::get();
+                    $classes = AramiscClass::get();
                 }
 
                 $exams    = AramiscExamType::get();
-                $subjects = SmSubject::get();
+                $subjects = AramiscSubject::get();
                 $exam_id  = $request->exam;
                 $subject_id = $request->subject;
                 $class_id = $request->class;
                 $section_id = $request->section != null ? $request->section : null;
 
-                $subject_info = SmSubject::find($request->subject);
-                $search_info['class_name'] = SmClass::find($request->class)->class_name;
+                $subject_info = AramiscSubject::find($request->subject);
+                $search_info['class_name'] = AramiscClass::find($request->class)->class_name;
                 $search_info['section_name'] =  $section_id == null ? 'All Sections' : AramiscSection::find($request->section)->section_name;
-                $search_info['subject_name'] =  SmSubject::find($request->subject)->subject_name;
+                $search_info['subject_name'] =  AramiscSubject::find($request->subject)->subject_name;
 
                 return view('backEnd.examination.exam_attendance_create', compact('exams', 'classes', 'subjects', 'students', 'exam_id', 'subject_id', 'class_id', 'section_id', 'exam_attendance_childs', 'search_info'));
             }
@@ -322,7 +322,7 @@ class AramiscExamAttendanceController extends Controller
                     $records = $this->studentRecordInfo($request->class_id, $request->section_id)->pluck('studentDetail.user_id');
                     $this->sent_notifications('Exam_Attendance', $records, $data, ['Student', 'Parent']);
                 } else {
-                    $classSections = SmAssignSubject::where('class_id', $request->class_id)
+                    $classSections = AramiscAssignSubject::where('class_id', $request->class_id)
                         ->where('subject_id', $request->subject_id)
                         ->distinct(['section_id', 'subject_id'])
                         ->get();

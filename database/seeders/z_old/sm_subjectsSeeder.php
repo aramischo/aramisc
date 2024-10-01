@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmSubject;
+use App\AramiscSubject;
 use Illuminate\Database\Seeder;
 
 class sm_subjectsSeeder extends Seeder
@@ -14,6 +14,6 @@ class sm_subjectsSeeder extends Seeder
      */
     public function run()
     {
-        SmSubject::factory()->times(10)->create();
+        AramiscSubject::factory()->times(10)->create();
     }
 }

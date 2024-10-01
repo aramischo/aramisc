@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscExamAttendance extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_exam_attendances";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_exam_attendances';
     public function examAttendanceChild()
     {
         return $this->hasMany('App\AramiscExamAttendanceChild', 'exam_attendance_id', 'id');
     }
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
     }
     public function section()
     {
@@ -24,7 +24,7 @@ class AramiscExamAttendance extends Model
     }
     public function subject()
     {
-        return $this->belongsTo('App\SmSubject', 'subject_id', 'id');
+        return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id');
     }
 
     // public function scopesClassSection($query){

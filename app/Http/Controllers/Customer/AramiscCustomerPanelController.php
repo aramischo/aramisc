@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\SmStaff;
-use App\SmProductPurchase;
+use App\AramiscStaff;
+use App\AramiscProductPurchase;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +19,7 @@ class AramiscCustomerPanelController extends Controller
     public function customerDashboard()
     {
         $id = Auth::user()->id;
-        $staffDetails = SmStaff::where('user_id', $id)->get();
+        $staffDetails = AramiscStaff::where('user_id', $id)->get();
         try {
             return view('backEnd.customerPanel.customer_dashboard', compact('staffDetails'));
         } catch (\Exception $e) {
@@ -31,8 +31,8 @@ class AramiscCustomerPanelController extends Controller
     {
         try {
             $id = Auth::user()->id;
-            $customerDetails = SmStaff::where('user_id', $id)->get();
-            $ProductPurchase = SmProductPurchase::where('user_id', $id)->get();
+            $customerDetails = AramiscStaff::where('user_id', $id)->get();
+            $ProductPurchase = AramiscProductPurchase::where('user_id', $id)->get();
             return view('backEnd.customerPanel.customer_purchase', compact('customerDetails', 'ProductPurchase'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

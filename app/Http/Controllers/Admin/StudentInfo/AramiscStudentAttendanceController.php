@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\StudentInfo;
 
 use App\User;
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscNotification;
 use App\AramiscStudentAttendance;
 use Illuminate\Http\Request;
@@ -40,10 +40,10 @@ class AramiscStudentAttendanceController extends Controller
     {
         try {
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', auth()->user()->id)->first();
+                $teacher_info = AramiscStaff::where('user_id', auth()->user()->id)->first();
                 $classes = $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
             return view('backEnd.studentInformation.student_attendance', compact('classes'));
         } catch (\Exception $e) {
@@ -60,10 +60,10 @@ class AramiscStudentAttendanceController extends Controller
         try {
             $date = $request->attendance_date;
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', auth()->user()->id)->first();
+                $teacher_info = AramiscStaff::where('user_id', auth()->user()->id)->first();
                 $classes = $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
 
             $students = StudentRecord::with('studentDetail', 'studentDetail.DateWiseAttendances')
@@ -103,11 +103,11 @@ class AramiscStudentAttendanceController extends Controller
                 $search_info = $interface->searchInfo($request);
                 $search_info += $interface->oldValueSelected($request);
             } else {
-                $search_info['class_name'] = SmClass::find($request->class_id)->class_name;
+                $search_info['class_name'] = AramiscClass::find($request->class_id)->class_name;
                 $search_info['section_name'] =  AramiscSection::find($request->section_id)->section_name;
             }
             $search_info['date'] = $request->attendance_date;
-            $sections = SmClassSection::with('sectionName')->where('class_id', $request->class_id)->get();
+            $sections = AramiscClassSection::with('sectionName')->where('class_id', $request->class_id)->get();
 
             return view('backEnd.studentInformation.student_attendance', compact('classes', 'sections', 'class_id', 'section_id', 'date', 'students', 'attendance_type', 'search_info', 'selected'))->with($search_info);
         } catch (\Exception $e) {
@@ -265,7 +265,7 @@ class AramiscStudentAttendanceController extends Controller
                 //         }
 
                 //         // for parent user 
-                //         $parent = SmParent::find($student_detail->parent_id);
+                //         $parent = AramiscParent::find($student_detail->parent_id);
                 //         if ($parent) {
                 //             if ($attendance->attendance_type == "P") {
                 //                 $messege = app('translator')->get('student.Your_child_is_marked_present_in_the_attendance_on', ['date' => $date, 'student_name' => $student_detail->full_name]);
@@ -389,7 +389,7 @@ class AramiscStudentAttendanceController extends Controller
                     }
 
 
-                    $parent = SmParent::find($student->parent_id);
+                    $parent = AramiscParent::find($student->parent_id);
                     if ($parent) {
                         $messege = app('translator')->get('student.Your_child_is_marked_holiday_in_the_attendance_on_date', ['date' => dateConvert($attendance->attendance_date), 'student_name' => $student->full_name . "'s"]);
                         $notification = new AramiscNotification();
@@ -427,7 +427,7 @@ class AramiscStudentAttendanceController extends Controller
     {
 
         try {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.studentInformation.student_attendance_import', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

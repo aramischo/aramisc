@@ -1,12 +1,12 @@
 <?php
 
-use App\SmRolePermission;
+use App\AramiscRolePermission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration; 
 
-class CreateSmRolePermissionsTable extends Migration
+class CreateAramiscRolePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -1168,7 +1168,7 @@ class CreateSmRolePermissionsTable extends Migration
             
 
        foreach($datas as $data){
-        $new = new SmRolePermission();
+        $new = new AramiscRolePermission();
         $new->id = $data[0];
         $new->active_status = $data[1];
         $new->module_link_id = $data[4];

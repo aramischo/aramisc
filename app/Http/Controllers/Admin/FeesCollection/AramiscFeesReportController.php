@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\FeesCollection;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;
@@ -21,7 +21,7 @@ class AramiscFeesReportController extends Controller
     public function balanceFeesReport(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             
             return view('backEnd.feesCollection.balance_fees_report', compact('classes'));
         } catch (\Exception $e) {
@@ -67,7 +67,7 @@ class AramiscFeesReportController extends Controller
 
                 $class_id = $request->class;
                 $section_id = $request->section;
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 $clas = $classes->find($request->class);
                 if($records){
                     return view('backEnd.feesCollection.balance_fees_report', compact('records','class_id','section_id','clas','classes'));
@@ -122,7 +122,7 @@ class AramiscFeesReportController extends Controller
 
                 $class_id = $request->class;
                 $section_id = $request->section;
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 $clas = $classes->find($request->class);
                 return view('backEnd.feesCollection.balance_fees_report', compact('classes', 'balance_students', 'class_id', 'clas', 'data', 'section_id'));
 

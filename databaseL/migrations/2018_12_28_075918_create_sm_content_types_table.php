@@ -1,11 +1,11 @@
 <?php
 
-use App\SmContentType;
+use App\AramiscContentType;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmContentTypesTable extends Migration
+class CreateAramiscContentTypesTable extends Migration
 {
     /**
      * Run the migrations.

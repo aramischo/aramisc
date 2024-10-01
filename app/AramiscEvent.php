@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscEvent extends Model
 {
     use HasFactory;
-    // Specify the table name explicitly
+    // Spécifiez le nom de la table explicitement
     protected $table = 'sm_events';
     protected static function boot(){
         parent::boot();

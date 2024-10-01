@@ -11,6 +11,6 @@ class SmExpertTeacher extends Model
     protected $guarded = ['id'];
     public function staff()
     {
-        return $this->belongsTo('App\SmStaff', 'staff_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscStaff', 'staff_id', 'id')->withDefault();
     }
 }

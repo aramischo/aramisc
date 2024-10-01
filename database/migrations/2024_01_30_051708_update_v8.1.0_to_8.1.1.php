@@ -1,7 +1,7 @@
 <?php
 
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\InfixModuleManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\RolePermission\Entities\Permission;
-use App\Http\Controllers\Admin\Inventory\SmItemSellController;
-use App\Http\Controllers\Admin\Inventory\SmItemReceiveController;
+use App\Http\Controllers\Admin\Inventory\AramiscItemSellController;
+use App\Http\Controllers\Admin\Inventory\AramiscItemReceiveController;
 
 
 return new class extends Migration
@@ -35,7 +35,7 @@ return new class extends Migration
             $del->delete();
         }
         
-        $schools = App\SmSchool::get();
+        $schools = App\AramiscSchool::get();
         foreach ($schools as $school) {
             $filesInFolder = Illuminate\Support\Facades\File::files(resource_path('/views/themes/edulia/demo/'));
             foreach ($filesInFolder as $path) {
@@ -80,7 +80,7 @@ return new class extends Migration
         }
 
         
-        $generalSettings = SmGeneralSettings::first();
+        $generalSettings = AramiscGeneralSettings::first();
         if($generalSettings){
             $generalSettings->software_version = '8.1.1';
         }
@@ -90,11 +90,11 @@ return new class extends Migration
             $downloadCenter->delete();
         }
 
-        SmItemReceiveController::updateSmItemReceiveDatabase();
-        SmItemReceiveController::updateSmItemReceiveChildrenDatabase();
+        AramiscItemReceiveController::updateAramiscItemReceiveDatabase();
+        AramiscItemReceiveController::updateAramiscItemReceiveChildrenDatabase();
 
-        SmItemSellController::updateSmItemSellDatabase();
-        SmItemSellController::updateSmItemSellChildrenDatabase();
+        AramiscItemSellController::updateAramiscItemSellDatabase();
+        AramiscItemSellController::updateAramiscItemSellChildrenDatabase();
         
         $tawk_to_chat = Permission::where('route', 'tawkSetting')->where('lang_name', 'system_settings.tawk_to_chat')->first();
         if($tawk_to_chat){

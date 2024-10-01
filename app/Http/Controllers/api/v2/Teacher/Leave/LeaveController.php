@@ -4,10 +4,10 @@ namespace App\Http\Controllers\api\v2\Teacher\Leave;
 
 use App\User;
 use Exception;
-use App\SmStaff;
-use App\SmLeaveDefine;
+use App\AramiscStaff;
+use App\AramiscLeaveDefine;
 use App\AramiscAcademicYear;
-use App\SmLeaveRequest;
+use App\AramiscLeaveRequest;
 use App\AramiscNotification;
 use Illuminate\Http\Request;
 use App\Traits\NotificationSend;
@@ -29,7 +29,7 @@ class LeaveController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            $pending = SmLeaveRequest::with(['leaveType' => function ($q) {
+            $pending = AramiscLeaveRequest::with(['leaveType' => function ($q) {
                 $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
             }])
                 ->where('approve_status', 'P')
@@ -40,7 +40,7 @@ class LeaveController extends Controller
                 ->where('school_id', auth()->user()->school_id)
                 ->get();
 
-            $approved = SmLeaveRequest::with(['leaveType' => function ($q) {
+            $approved = AramiscLeaveRequest::with(['leaveType' => function ($q) {
                 $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
             }])
                 ->where('approve_status', 'A')
@@ -51,7 +51,7 @@ class LeaveController extends Controller
                 ->where('school_id', auth()->user()->school_id)
                 ->get();
 
-            $rejected = SmLeaveRequest::with(['leaveType' => function ($q) {
+            $rejected = AramiscLeaveRequest::with(['leaveType' => function ($q) {
                 $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
             }])
                 ->where('approve_status', 'C')
@@ -87,7 +87,7 @@ class LeaveController extends Controller
     {
         $user = auth()->user();
         if ($user) {
-            $my_leaves = SmLeaveDefine::withoutGlobalScope(ActiveStatusSchoolScope::class)->with(['leaveType' => function ($q) {
+            $my_leaves = AramiscLeaveDefine::withoutGlobalScope(ActiveStatusSchoolScope::class)->with(['leaveType' => function ($q) {
                 $q->withoutGlobalScope(AcademicSchoolScope::class)->where('school_id', auth()->user()->school_id);
             }])
                 ->where('user_id', $user->id)
@@ -116,14 +116,14 @@ class LeaveController extends Controller
             'type_id' => 'required'
         ]);
 
-        $leaveDefine = SmLeaveDefine::withoutGlobalScope(ActiveStatusSchoolScope::class)
+        $leaveDefine = AramiscLeaveDefine::withoutGlobalScope(ActiveStatusSchoolScope::class)
             ->where('id', $request->type_id)
             ->where('school_id', auth()->user()->school_id)
             ->where('user_id', auth()->id())
             ->where('role_id', auth()->user()->role_id)
             ->where('active_status', 1)->first();
         $path = 'public/uploads/leave_request/';
-        $apply_leave = new SmLeaveRequest();
+        $apply_leave = new AramiscLeaveRequest();
         $apply_leave->staff_id = auth()->user()->id;
         $apply_leave->role_id = auth()->user()->role_id;
         $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
@@ -147,7 +147,7 @@ class LeaveController extends Controller
             $data['teacher_name'] = $apply_leave->user->full_name;
             $this->sent_notifications('Leave_Apply', (array)$apply_leave->user->id, $data, ['Teacher']);
 
-            $staffInfo = SmStaff::where('user_id', auth()->user()->id)->first();
+            $staffInfo = AramiscStaff::where('user_id', auth()->user()->id)->first();
             $compact['slug'] = 'staff';
             $compact['user_email'] = auth()->user()->email;
             $compact['staff_name'] = auth()->user()->full_name;

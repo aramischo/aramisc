@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmSystemVersion;
-class CreateSmSystemVersionsTable extends Migration
+use App\AramiscSystemVersion;
+class CreateAramiscSystemVersionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,7 +21,7 @@ class CreateSmSystemVersionsTable extends Migration
             $table->timestamps();
         });
 
-        $s = new SmSystemVersion();
+        $s = new AramiscSystemVersion();
         $s->version_name = '3.2';
         $s->title = 'Upgrade System Integration';
         $s->features = 'features 1, features 2';

@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Admin\Inventory;
 
 use App\AramiscItem;
 use App\AramiscItemSell;
-use App\SmSupplier;
+use App\AramiscSupplier;
 use App\AramiscItemStore;
-use App\SmAddExpense;
-use App\SmBankAccount;
+use App\AramiscAddExpense;
+use App\AramiscBankAccount;
 use App\AramiscItemReceive;
-use App\SmBankStatement;
-use App\SmChartOfAccount;
+use App\AramiscBankStatement;
+use App\AramiscChartOfAccount;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
-use App\SmInventoryPayment;
+use App\AramiscGeneralSettings;
+use App\AramiscInventoryPayment;
 use App\AramiscItemReceiveChild;
 use Illuminate\Http\Request;
 use App\Traits\NotificationSend;
@@ -36,9 +36,9 @@ class AramiscItemReceiveController extends Controller
     public function itemReceive()
     {
         try {
-            $account_id = SmBankAccount::get();
-            $expense_head = SmChartOfAccount::where('type', 'E')->get();
-            $suppliers = SmSupplier::get();
+            $account_id = AramiscBankAccount::get();
+            $expense_head = AramiscChartOfAccount::where('type', 'E')->get();
+            $suppliers = AramiscSupplier::get();
             $itemStores = AramiscItemStore::where('school_id', Auth::user()->school_id)->get();
             $items = AramiscItem::with('category')->get();
             $paymentMethhods = AramiscPaymentMethhod::get();
@@ -105,7 +105,7 @@ class AramiscItemReceiveController extends Controller
             $results = $itemReceives->save();
             $itemReceives->toArray();
 
-            $add_expense = new SmAddExpense();
+            $add_expense = new AramiscAddExpense();
             $add_expense->name = 'Item Receive';
             $add_expense->date = date('Y-m-d', strtotime($request->receive_date));
             $add_expense->amount = $total_paid;
@@ -124,12 +124,12 @@ class AramiscItemReceiveController extends Controller
             $add_expense->save();
 
             if(paymentMethodName($request->payment_method)){
-                $bank=SmBankAccount::where('id',$request->bank_id)
+                $bank=AramiscBankAccount::where('id',$request->bank_id)
                 ->where('school_id',Auth::user()->school_id)
                 ->first();
                 $after_balance= $bank->current_balance - $total_paid;
 
-                $bank_statement= new SmBankStatement();
+                $bank_statement= new AramiscBankStatement();
                 $bank_statement->amount= $total_paid;
                 $bank_statement->after_balance= $after_balance;
                 $bank_statement->type= 0;
@@ -142,7 +142,7 @@ class AramiscItemReceiveController extends Controller
                 $bank_statement->save();
 
 
-                $current_balance= SmBankAccount::find($request->bank_id);
+                $current_balance= AramiscBankAccount::find($request->bank_id);
                 $current_balance->current_balance=$after_balance;
                 $current_balance->update();
             }
@@ -206,16 +206,16 @@ class AramiscItemReceiveController extends Controller
     public function editItemReceive(Request $request, $id)
     {
         try {
-            $expense_head = SmChartOfAccount::where('type', 'E')->get();
+            $expense_head = AramiscChartOfAccount::where('type', 'E')->get();
 
-            $account_id   = SmBankAccount::get();
+            $account_id   = AramiscBankAccount::get();
 
             $editData     = AramiscItemReceive::find($id);
 
             $editDataChildren = AramiscItemReceiveChild::with('items')->where('item_receive_id', $id)            
                                  ->get();
 
-            $suppliers    = SmSupplier::get();
+            $suppliers    = AramiscSupplier::get();
 
             $itemStores   = AramiscItemStore::get();
 
@@ -255,10 +255,10 @@ class AramiscItemReceiveController extends Controller
                 $current_balance_subtraction = AramiscItemReceive::find($id);
                 $item_value=$current_balance_subtraction->total_paid;
 
-                $bank_value= SmBankAccount::find($request->bank_id);
+                $bank_value= AramiscBankAccount::find($request->bank_id);
                 $current_bank_value=$bank_value->current_balance;
 
-                $current_balance= SmBankAccount::find($request->bank_id);
+                $current_balance= AramiscBankAccount::find($request->bank_id);
                 $current_balance->current_balance=$current_bank_value+$item_value;
                 $current_balance->update();
             }
@@ -277,9 +277,9 @@ class AramiscItemReceiveController extends Controller
             $itemReceives->payment_method = $request->payment_method;
             $results = $itemReceives->update();
 
-            SmAddExpense::where('item_receive_id', $itemReceives->id)->delete();
+            AramiscAddExpense::where('item_receive_id', $itemReceives->id)->delete();
 
-            $add_expense = new SmAddExpense();
+            $add_expense = new AramiscAddExpense();
             $add_expense->name = 'Item Receive';
             $add_expense->date = date('Y-m-d', strtotime($request->receive_date));
             $add_expense->amount = $total_paid;
@@ -297,17 +297,17 @@ class AramiscItemReceiveController extends Controller
             $add_expense->save();
 
             if(paymentMethodName($request->payment_method)){
-                SmBankStatement::where('item_receive_id', $itemReceives->id)
+                AramiscBankStatement::where('item_receive_id', $itemReceives->id)
                                     ->where('school_id',Auth::user()->school_id)
                                     ->delete();
                 
                 
-                $bank=SmBankAccount::where('id',$request->bank_id)
+                $bank=AramiscBankAccount::where('id',$request->bank_id)
                     ->where('school_id',Auth::user()->school_id)
                     ->first();
                 $after_balance= $bank->current_balance - $total_paid;
 
-                $bank_statement= new SmBankStatement();
+                $bank_statement= new AramiscBankStatement();
                 $bank_statement->amount= $total_paid;
                 $bank_statement->after_balance= $after_balance;
                 $bank_statement->type= 0;
@@ -320,7 +320,7 @@ class AramiscItemReceiveController extends Controller
                 $bank_statement->save();
 
 
-                $current_balance= SmBankAccount::find($request->bank_id);
+                $current_balance= AramiscBankAccount::find($request->bank_id);
                 $current_balance->current_balance=$after_balance;
                 $current_balance->update();
             }
@@ -376,7 +376,7 @@ class AramiscItemReceiveController extends Controller
     public function viewItemReceive($id)
     {
         try {
-            $general_setting = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+            $general_setting = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
             $viewData = AramiscItemReceive::find($id);
             $editDataChildren = AramiscItemReceiveChild::where('item_receive_id', $id)->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.inventory.viewItemReceive', compact('viewData', 'editDataChildren', 'general_setting'));
@@ -396,10 +396,10 @@ class AramiscItemReceiveController extends Controller
             $paymentMethhods = AramiscPaymentMethhod::where('school_id', Auth::user()->school_id)
                 ->where('active_status', 1)
                 ->get();
-            $account_id = SmBankAccount::where('school_id', Auth::user()->school_id)
+            $account_id = AramiscBankAccount::where('school_id', Auth::user()->school_id)
                         ->get();
 
-            $expense_head = SmChartOfAccount::where('active_status', '=', 1)
+            $expense_head = AramiscChartOfAccount::where('active_status', '=', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->where('type', 'E')
                 ->get();
@@ -415,7 +415,7 @@ class AramiscItemReceiveController extends Controller
     {
       //  DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         try {
-            $payments = new SmInventoryPayment();
+            $payments = new AramiscInventoryPayment();
             $payments->item_receive_sell_id = $request->item_receive_id;
             $payments->payment_date = date('Y-m-d', strtotime($request->payment_date));
             $payments->reference_no = $request->reference_no;
@@ -447,7 +447,7 @@ class AramiscItemReceiveController extends Controller
                 }
                 $result = $itemPaymentDue->update();
 
-                $add_expense = new SmAddExpense();
+                $add_expense = new AramiscAddExpense();
                 $add_expense->name = 'Item Receive';
                 $add_expense->date = date('Y-m-d', strtotime($request->payment_date));
                 $add_expense->amount = $request->amount;
@@ -466,12 +466,12 @@ class AramiscItemReceiveController extends Controller
                 $add_expense->save();
 
                 if(paymentMethodName($request->payment_method)){
-                    $bank=SmBankAccount::where('id',$request->bank_id)
+                    $bank=AramiscBankAccount::where('id',$request->bank_id)
                     ->where('school_id',Auth::user()->school_id)
                     ->first();
                     $after_balance= $bank->current_balance - $request->amount;
     
-                    $bank_statement= new SmBankStatement();
+                    $bank_statement= new AramiscBankStatement();
                     $bank_statement->amount= $request->amount;
                     $bank_statement->after_balance= $after_balance;
                     $bank_statement->type= 0;
@@ -484,7 +484,7 @@ class AramiscItemReceiveController extends Controller
                     $bank_statement->payment_method= $request->payment_method;
                     $bank_statement->save();
 
-                    $current_balance= SmBankAccount::find($request->bank_id);
+                    $current_balance= AramiscBankAccount::find($request->bank_id);
                     $current_balance->current_balance=$after_balance;
                     $current_balance->update();
                 }
@@ -521,7 +521,7 @@ class AramiscItemReceiveController extends Controller
     {
 
         try {
-            $payments = SmInventoryPayment::where('item_receive_sell_id', $id)->where('payment_type', 'R')->where('school_id', Auth::user()->school_id)->get();
+            $payments = AramiscInventoryPayment::where('item_receive_sell_id', $id)->where('payment_type', 'R')->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.inventory.viewReceivePayments', compact('payments', 'id'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -533,7 +533,7 @@ class AramiscItemReceiveController extends Controller
     {
         try {
             $receive_payment_id = $_POST['receive_payment_id'];
-            $paymentHistory = SmInventoryPayment::find($receive_payment_id);
+            $paymentHistory = AramiscInventoryPayment::find($receive_payment_id);
             $item_receive_sell_id = $paymentHistory->item_receive_sell_id;
             $amount = $paymentHistory->amount;
 
@@ -542,22 +542,22 @@ class AramiscItemReceiveController extends Controller
             $itemReceivesData->total_paid = $itemReceivesData->total_paid - $amount;
 
             if(paymentMethodName($itemReceivesData->payment_method)){
-                $bank=SmBankAccount::where('id',$itemReceivesData->account_id)
+                $bank=AramiscBankAccount::where('id',$itemReceivesData->account_id)
                 ->where('school_id',Auth::user()->school_id)
                 ->first();
                 $after_balance= $bank->current_balance + $amount;
 
-                $current_balance= SmBankAccount::find($itemReceivesData->account_id);
+                $current_balance= AramiscBankAccount::find($itemReceivesData->account_id);
                 $current_balance->current_balance=$after_balance;
                 $current_balance->update();
 
-                $delete_balance = SmBankStatement::where('item_receive_id',$itemReceivesData->id)
+                $delete_balance = AramiscBankStatement::where('item_receive_id',$itemReceivesData->id)
                                 ->where('item_receive_bank_statement_id',$paymentHistory->id)
                                 ->where('amount',$amount)
                                 ->delete();
             }
 
-            $delete_expense=SmAddExpense::where('inventory_id',$paymentHistory->id)->delete();
+            $delete_expense=AramiscAddExpense::where('inventory_id',$paymentHistory->id)->delete();
 
             // check if total due is greater than 0
             if (($itemReceivesData->total_due + $amount) > 0) {
@@ -568,7 +568,7 @@ class AramiscItemReceiveController extends Controller
                 $itemReceivesData->paid_status = 'P';
             }
             $itemReceivesData->update();
-            $result = SmInventoryPayment::destroy($receive_payment_id);
+            $result = AramiscInventoryPayment::destroy($receive_payment_id);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -611,7 +611,7 @@ class AramiscItemReceiveController extends Controller
                 $iReceChi = AramiscItemReceiveChild::where('id', $value->id)->where('school_id', Auth::user()->school_id)->delete();
             }
             $result = AramiscItemReceive::where('id', $id)->where('school_id', Auth::user()->school_id)->delete();
-            $delete_expense=SmAddExpense::where('item_receive_id',$id)->where('school_id', Auth::user()->school_id)->delete();
+            $delete_expense=AramiscAddExpense::where('item_receive_id',$id)->where('school_id', Auth::user()->school_id)->delete();
             
             if ($result) {
                 Toastr::success('Operation successful', 'Success');
@@ -669,25 +669,25 @@ class AramiscItemReceiveController extends Controller
             $results = $itemReceives->update();
 
             $itemReceives->expnese_head_id;
-            $refund = SmAddExpense::where('item_receive_id',$itemReceives->id)
+            $refund = AramiscAddExpense::where('item_receive_id',$itemReceives->id)
                         ->where('school_id', Auth::user()->school_id)
                         ->delete();
 
             if(paymentMethodName($itemReceives->payment_method)){
-                $reset_balance = SmBankStatement::where('item_receive_id',$itemReceives->id)
+                $reset_balance = AramiscBankStatement::where('item_receive_id',$itemReceives->id)
                                 ->where('school_id',Auth::user()->school_id)
                                 ->sum('amount');
 
-                    $bank=SmBankAccount::where('id',$itemReceives->account_id)
+                    $bank=AramiscBankAccount::where('id',$itemReceives->account_id)
                     ->where('school_id',Auth::user()->school_id)
                     ->first();
                     $after_balance= $bank->current_balance + $reset_balance;
 
-                    $current_balance= SmBankAccount::find($itemReceives->account_id);
+                    $current_balance= AramiscBankAccount::find($itemReceives->account_id);
                     $current_balance->current_balance=$after_balance;
                     $current_balance->update();
 
-                    $delete_balance = SmBankStatement::where('item_receive_id',$itemReceives->id)
+                    $delete_balance = AramiscBankStatement::where('item_receive_id',$itemReceives->id)
                                         ->where('school_id',Auth::user()->school_id)
                                         ->delete();
             }

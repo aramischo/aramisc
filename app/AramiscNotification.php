@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class AramiscNotification extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_notifications";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_notifications';
     public static function notifications()
     {
         $user = Auth()->user();

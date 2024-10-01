@@ -14,7 +14,7 @@ class SmLessonTopic extends Model
 		static::addGlobalScope(new StatusAcademicSchoolScope);
 	}
 	public function class(){
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
 	}
 	public function section()
     {
@@ -22,7 +22,7 @@ class SmLessonTopic extends Model
 	}
 
 	public function subject(){
-		return $this->belongsTo('App\SmSubject', 'subject_id', 'id');
+		return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id');
 	}
 	public function topics(){
 		return $this->hasMany('Modules\Lesson\Entities\SmLessonTopicDetail', 'topic_id', 'id');

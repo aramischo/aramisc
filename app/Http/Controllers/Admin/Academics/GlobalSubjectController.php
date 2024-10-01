@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Admin\Academics;
 use App\User;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\tableList;
 use Illuminate\Http\Request;
 use App\Scopes\GlobalAcademicScope;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Scopes\StatusAcademicSchoolScope;
-use App\Http\Requests\Admin\Academics\SmSubjectRequest;
+use App\Http\Requests\Admin\Academics\AramiscSubjectRequest;
 
 class GlobalSubjectController extends Controller
 {
     public function index(Request $request)
     { 
         try {
-           $subjects = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
+           $subjects = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
             return view('backEnd.global.global_subject', compact('subjects'));
         } catch (\Exception $e) {
             
@@ -24,10 +24,10 @@ class GlobalSubjectController extends Controller
             return redirect()->back();
         }
     }
-    public function store(SmSubjectRequest $request)
+    public function store(AramiscSubjectRequest $request)
     {
         try {
-            $subject = new SmSubject(); 
+            $subject = new AramiscSubject(); 
             $subject->subject_name = $request->subject_name;
             $subject->subject_type = $request->subject_type;
             $subject->subject_code = $request->subject_code;
@@ -48,18 +48,18 @@ class GlobalSubjectController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $subject = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($id);
-            $subjects = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
+            $subject = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($id);
+            $subjects = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->orderBy('id', 'DESC')->whereNULL('parent_id')->get();
             return view('backEnd.global.global_subject', compact('subject', 'subjects'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function update(SmSubjectRequest $request)
+    public function update(AramiscSubjectRequest $request)
     {
         try {
-            $subject = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($request->id);
+            $subject = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($request->id);
             $subject->subject_name = $request->subject_name;
             $subject->subject_type = $request->subject_type;
             $subject->subject_code = $request->subject_code;
@@ -81,8 +81,8 @@ class GlobalSubjectController extends Controller
             $tables = tableList::getTableList('subject_id', $id);
             try {
                 if ($tables == null) {
-                    // $delete_query = $section = SmSubject::destroy($id);
-                         SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->destroy($id);
+                    // $delete_query = $section = AramiscSubject::destroy($id);
+                         AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->destroy($id);
                          Toastr::success('Operation successful', 'Success');
                          return redirect('subject');
                 } else {

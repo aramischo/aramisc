@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use Validator;
 use App\AramiscEvent;
 use App\ApiBaseMethod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -68,7 +68,7 @@ class ApiAramiscEventController extends Controller
                 ->withInput();
         }
         try{
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('upload_file_name');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -189,7 +189,7 @@ class ApiAramiscEventController extends Controller
                 ->withInput();
         }
         try{
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('upload_file_name');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);

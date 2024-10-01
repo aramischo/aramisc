@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\SmNoticeBoard;
+use App\AramiscNoticeBoard;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -25,7 +25,7 @@ class Notice extends Component
      */
     public function render(): View|Closure|string
     {
-        $notices = SmNoticeBoard::where('is_published',1)->where('school_id', app('school')->id)->take($this->count)->get(['id','notice_title', 'notice_date', 'is_published']);
+        $notices = AramiscNoticeBoard::where('is_published',1)->where('school_id', app('school')->id)->take($this->count)->get(['id','notice_title', 'notice_date', 'is_published']);
         return view('components.' . activeTheme() . '.notice', compact('notices'));
     }
 }

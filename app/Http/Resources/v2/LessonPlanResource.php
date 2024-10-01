@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\v2;
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\AramiscStudent;
-use App\SmWeekend;
+use App\AramiscWeekend;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;

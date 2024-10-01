@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin\Hr;
 
 use App\User;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscStudent;
-use App\SmUserLog;
-use App\SmLanguage;
-use App\SmsTemplate;
-use App\SmDateFormat;
+use App\AramiscUserLog;
+use App\AramiscLanguage;
+use App\AramiscTemplate;
+use App\AramiscDateFormat;
 use App\AramiscAcademicYear;
 use App\InfixModuleManager;
 use Jenssegers\Agent\Agent;
@@ -66,9 +66,9 @@ class StaffAsParentController extends Controller
             return null;
         }
         if ($staff_id) {
-            return  $staff = SmStaff::find($staff_id);
+            return  $staff = AramiscStaff::find($staff_id);
         }
-       $staff = SmStaff::when($mobile && !$email, function ($q) use ($mobile){
+       $staff = AramiscStaff::when($mobile && !$email, function ($q) use ($mobile){
             $q->where('mobile', $mobile);
         })
         ->when($email && !$mobile, function ($q) use ($email){
@@ -80,7 +80,7 @@ class StaffAsParentController extends Controller
         ->first(['id', 'parent_id', 'user_id']);
         if (!$staff) {
             if ($email && $mobile) {
-                $staff = SmStaff::where('email', $email)->first(['id', 'parent_id', 'user_id']);
+                $staff = AramiscStaff::where('email', $email)->first(['id', 'parent_id', 'user_id']);
             }
         }
         return $staff;
@@ -90,7 +90,7 @@ class StaffAsParentController extends Controller
         if(!$email && !$mobile) {
             return null;
         }
-        $parent = SmParent::when($mobile && !$email, function ($q) use ($mobile){
+        $parent = AramiscParent::when($mobile && !$email, function ($q) use ($mobile){
             $q->where('guardians_mobile', $mobile);
         })
         ->when($email && !$mobile, function ($q) use ($email){
@@ -109,7 +109,7 @@ class StaffAsParentController extends Controller
         $relation = $request->relation;
         
         if(!$staff && $request->staff_parent) {
-            $staff = SmStaff::find($request->staff_parent);
+            $staff = AramiscStaff::find($request->staff_parent);
         }
         if($staff && !$guardians_relation) {
             if($staff->gender_id ==1) {
@@ -124,9 +124,9 @@ class StaffAsParentController extends Controller
             }            
         }        
         
-        $exit = SmParent::where('user_id', $staff->user_id)->first();
+        $exit = AramiscParent::where('user_id', $staff->user_id)->first();
         if(!$exit) {
-            $parent = new SmParent();
+            $parent = new AramiscParent();
             $parent->user_id = $staff->user_id;
             if($relation = 'F') {
                 $parent->fathers_name =  $request->fathers_name ?? $staff->full_name;
@@ -177,7 +177,7 @@ class StaffAsParentController extends Controller
             $date_format_id = generalSetting()->date_format_id;
             $system_date_format = 'jS M, Y';
             if($date_format_id){
-                $system_date_format = SmDateFormat::where('id', $date_format_id)->first(['format'])->format;
+                $system_date_format = AramiscDateFormat::where('id', $date_format_id)->first(['format'])->format;
             }
 
             session()->put('system_date_format', $system_date_format);
@@ -198,7 +198,7 @@ class StaffAsParentController extends Controller
 
 
             //Session put activeLanguage
-            $systemLanguage = SmLanguage::where('school_id', Auth::user()->school_id)->get();
+            $systemLanguage = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
             session()->put('systemLanguage', $systemLanguage);
             //session put academic years
             
@@ -212,7 +212,7 @@ class StaffAsParentController extends Controller
 
 
           
-            $profile = SmStaff::where('user_id', Auth::id())->first();
+            $profile = AramiscStaff::where('user_id', Auth::id())->first();
             if ($profile) {
                 session()->put('profile', $profile->staff_photo);
             }
@@ -253,12 +253,12 @@ class StaffAsParentController extends Controller
             $dashboard_background = DB::table('sm_background_settings')->where([['is_default', 1], ['title', 'Dashboard Background']])->first();
             session()->put('dashboard_background', $dashboard_background);
 
-            $email_template = SmsTemplate::where('school_id',Auth::user()->school_id)->first();
+            $email_template = AramiscTemplate::where('school_id',Auth::user()->school_id)->first();
             session()->put('email_template', $email_template);
 
             session(['role_id' => Auth::user()->role_id]);
             $agent = new Agent();
-            $user_log = new SmUserLog();
+            $user_log = new AramiscUserLog();
             $user_log->user_id = Auth::user()->id;
             $user_log->role_id = Auth::user()->role_id;
             $user_log->school_id = Auth::user()->school_id;

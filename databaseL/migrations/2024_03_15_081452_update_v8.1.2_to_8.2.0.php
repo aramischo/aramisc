@@ -1,8 +1,8 @@
 <?php
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\InfixModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -30,7 +30,7 @@ return new class extends Migration
             $s->save();
         }
 
-        $generalSettings = SmGeneralSettings::first();
+        $generalSettings = AramiscGeneralSettings::first();
         if ($generalSettings) {
             $generalSettings->software_version = '8.2.0';
             $generalSettings->update();

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscPaymentGatewaySetting extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_payment_gateway_settings";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_payment_gateway_settings';
     public static function getStripeDetails()
     {
 

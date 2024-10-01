@@ -1,6 +1,6 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -26,7 +26,7 @@ class CreateFmFeesInvoiceSettingsTable extends Migration
         });
 
 
-        $schools = SmSchool::get();
+        $schools = AramiscSchool::get();
         foreach ($schools as $school) {
             $store = new FmFeesInvoiceSettings();
             $store->invoice_positions = '[{"id":"prefix","text":"prefix"},{"id":"admission_no","text":"Admission No"},{"id":"class","text":"Class"},{"id":"section","text":"Section"}]';

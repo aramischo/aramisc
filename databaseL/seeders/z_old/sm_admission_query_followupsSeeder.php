@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmAdmissionQueryFollowup;
+use App\AramiscAdmissionQueryFollowup;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -15,10 +15,10 @@ class sm_admission_query_followupsSeeder extends Seeder
      */
     public function run()
     {
-        // SmAdmissionQueryFollowup::query()->truncate();
+        // AramiscAdmissionQueryFollowup::query()->truncate();
         $faker = Faker::create();
         for ($i = 1; $i <= 3; $i++) {
-            $s = new SmAdmissionQueryFollowup();
+            $s = new AramiscAdmissionQueryFollowup();
             $s->admission_query_id = $i;
             $s->response = $faker->sentence($nbWords = 3, $variableNbWords = true);
             $s->note = $faker->sentence($nbWords = 4, $variableNbWords = true);

@@ -1,11 +1,11 @@
 <?php
 
-use App\SmPage;
+use App\AramiscPage;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSmPagesTable extends Migration
+class CreateAramiscPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -30,7 +30,7 @@ class CreateSmPagesTable extends Migration
             $table->timestamps();
         });
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 1;
         $store->title = 'Home';
         $store->slug = '/';
@@ -38,7 +38,7 @@ class CreateSmPagesTable extends Migration
         $store->is_dynamic = 0;
         $store->save();
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 2;
         $store->title = 'About';
         $store->slug = '/about';
@@ -46,7 +46,7 @@ class CreateSmPagesTable extends Migration
         $store->is_dynamic = 0;
         $store->save();
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 3;
         $store->title = 'Course';
         $store->slug = '/course';
@@ -54,7 +54,7 @@ class CreateSmPagesTable extends Migration
         $store->is_dynamic = 0;
         $store->save();
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 4;
         $store->title = 'News';
         $store->slug = '/news-page';
@@ -62,7 +62,7 @@ class CreateSmPagesTable extends Migration
         $store->is_dynamic = 0;
         $store->save();
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 5;
         $store->title = 'Contact';
         $store->slug = '/contact';
@@ -70,7 +70,7 @@ class CreateSmPagesTable extends Migration
         $store->is_dynamic = 0;
         $store->save();
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 6;
         $store->title = 'Login';
         $store->slug = '/login';
@@ -78,7 +78,7 @@ class CreateSmPagesTable extends Migration
         $store->is_dynamic = 0;
         $store->save();
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 7;
         $store->title = 'Result';
         $store->slug = '/exam-result';
@@ -86,7 +86,7 @@ class CreateSmPagesTable extends Migration
         $store->is_dynamic = 0;
         $store->save();
 
-        $store = new SmPage();
+        $store = new AramiscPage();
         $store->id = 8;
         $store->title = 'Routine';
         $store->slug = '/class-exam-routine';

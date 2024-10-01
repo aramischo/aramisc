@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AramiscRoomType extends Model
 {
-    use HasFactory;
-     // Spécifiez le nom de la table explicitement
-    protected $table = "sm_room_types";
+    use HasFactory;   
     protected $casts = [
         'id' => 'integer',
         'type' => 'string',
@@ -22,4 +20,6 @@ class AramiscRoomType extends Model
         parent::boot();
         static::addGlobalScope(new ActiveStatusSchoolScope);
     }
+    // Spécifiez le nom de la table explicitement
+   protected $table = 'sm_room_types';
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v2\Student\Class;
 
 use App\User;
-use App\SmStaff;
+use App\AramiscStaff;
 use App\ApiBaseMethod;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -22,7 +22,7 @@ class BBBController extends Controller
     {
         if (Auth::user()->role_id == 4) {
             $data['default_settings'] = BbbSetting::first();
-            $st_id = SmStaff::where('user_id', Auth::user()->id)->first();
+            $st_id = AramiscStaff::where('user_id', Auth::user()->id)->first();
             $meetings = BbbVirtualClass::orderBy('id', 'DESC')->whereHas('teachers', function ($query) {
                 return $query->where('user_id', Auth::user()->id);
             })->get();

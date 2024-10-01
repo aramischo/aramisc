@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\v2\Admin;
 use App\User;
 use Exception;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use App\AramiscAcademicYear;
 use App\AramiscNotification;
 use Illuminate\Http\Request;
@@ -227,7 +227,7 @@ class ContentController extends Controller
                         $q->where('school_id', auth()->user()->school_id)->orWhere('type', 'System');
                     })->get();
                     foreach ($roles as $role) {
-                        $staffs = SmStaff::where('role_id', $role->id)->where('school_id', auth()->user()->school_id)->get();
+                        $staffs = AramiscStaff::where('role_id', $role->id)->where('school_id', auth()->user()->school_id)->get();
                         foreach ($staffs as $staff) {
 
                             $notification = new AramiscNotification;

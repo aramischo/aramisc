@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscExamSignature extends Model
 {
     use HasFactory;
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_exam_signatures';
     protected $fillable = ['title', 'signature', 'active_status', 'school_id', 'academic_id'];
 
     protected static function boot()

@@ -1,13 +1,13 @@
 <?php
 
-use App\SmCourse;
+use App\AramiscCourse;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmCoursesTable extends Migration
+class CreateAramiscCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -36,7 +36,7 @@ class CreateSmCoursesTable extends Migration
         $faker = Faker::create();
 
         for ($i = 1; $i <= 5; $i++) {
-            $new = new SmCourse();
+            $new = new AramiscCourse();
             $new->title = $faker->text(50);
             $new->image = 'public/uploads/theme/edulia/course/academic1.jpg';
             $new->overview = $faker->text(2000);

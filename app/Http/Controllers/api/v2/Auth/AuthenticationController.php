@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\api\v2\Auth;
 
 use App\User;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscStudent;
-use App\SmVehicle;
-use App\SmHomework;
+use App\AramiscVehicle;
+use App\AramiscHomework;
 use App\AramiscFeesAssign;
-use App\SmMarksGrade;
+use App\AramiscMarksGrade;
 use App\ApiBaseMethod;
 use App\AramiscAcademicYear;
 use App\AramiscExamSchedule;
 use App\AramiscNotification;
-use App\SmAssignSubject;
-use App\SmGeneralSettings;
+use App\AramiscAssignSubject;
+use App\AramiscGeneralSettings;
 use App\AramiscStudentDocument;
 use App\AramiscStudentTimeline;
 use App\Scopes\SchoolScope;
@@ -279,7 +279,7 @@ class AuthenticationController extends Controller
             $q7->select('id', 'title', 'file');
         }])
             ->select('student_photo', 'first_name', 'last_name', 'admission_no', 'date_of_birth', 'age', 'mobile', 'email', 'current_address', 'permanent_address', 'bloodgroup_id', 'religion_id', 'parent_id', 'route_list_id', 'vechile_id', 'dormitory_id', 'height', 'weight', 'national_id_no', 'local_id_no', 'bank_name', 'bank_account_no')->findOrFail($id);
-        $data['driver'] = SmVehicle::select('sm_staffs.full_name', 'sm_staffs.mobile')->where('sm_vehicles.id', '=', $data['student_detail']->vechile_id)
+        $data['driver'] = AramiscVehicle::select('sm_staffs.full_name', 'sm_staffs.mobile')->where('sm_vehicles.id', '=', $data['student_detail']->vechile_id)
             ->join('sm_staffs', 'sm_staffs.id', '=', 'sm_vehicles.driver_id')
             ->first();
 
@@ -295,7 +295,7 @@ class AuthenticationController extends Controller
 
     public function generalSettings()
     {
-        $data['system_settings'] = SmGeneralSettings::where('school_id', auth()->user()->school_id ?? app('school')->id)->first();
+        $data['system_settings'] = AramiscGeneralSettings::where('school_id', auth()->user()->school_id ?? app('school')->id)->first();
         if (!$data) {
             $response = [
                 'success' => false,
@@ -401,7 +401,7 @@ class AuthenticationController extends Controller
 
         $student_file_destination = 'public/uploads/student/';
 
-        $parent = SmParent::withoutGlobalScope(SchoolScope::class)
+        $parent = AramiscParent::withoutGlobalScope(SchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $student->parent_id)->first();
 
@@ -464,7 +464,7 @@ class AuthenticationController extends Controller
             ->where('school_id', auth()->user()->school_id)
             ->where('user_id', auth()->user()->id)->first();
 
-        $data['profileParents'] = SmParent::withoutGlobalScope(SchoolScope::class)
+        $data['profileParents'] = AramiscParent::withoutGlobalScope(SchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->select('id', 'fathers_name', 'fathers_mobile', 'fathers_occupation', 'fathers_photo', 'mothers_name', 'mothers_mobile', 'mothers_occupation', 'mothers_photo', 'guardians_name', 'guardians_mobile', 'guardians_email', 'guardians_occupation', 'guardians_relation', 'guardians_photo')
             ->where('id', $students->parent_id)->firstOrFail();
@@ -685,7 +685,7 @@ class AuthenticationController extends Controller
             ->where('id', $request->record_id)
             ->firstOrFail();
 
-        $assign_subject = SmAssignSubject::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $assign_subject = AramiscAssignSubject::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->where('class_id', $record->class_id)
             ->where('section_id', $record->section_id)
             ->where('academic_id', $record->academic_id)
@@ -719,7 +719,7 @@ class AuthenticationController extends Controller
         if ($request->file('photo') != "" && $request->title != "") {
             $document_photo = "";
             if ($request->file('photo') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('photo');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -804,7 +804,7 @@ class AuthenticationController extends Controller
 
     public function aboutApi(request $request)
     {
-        $about = SmGeneralSettings::with('aboutPage')
+        $about = AramiscGeneralSettings::with('aboutPage')
             ->where('school_id', auth()->user()->school_id)
             ->first();
         $data = [

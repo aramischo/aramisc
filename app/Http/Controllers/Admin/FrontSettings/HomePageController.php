@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmGeneralSettings;
-use App\SmHomePageSetting;
+use App\AramiscGeneralSettings;
+use App\AramiscHomePageSetting;
 use Illuminate\Http\Request;
-use App\SmFrontendPersmission;
+use App\AramiscFrontendPersmission;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +26,8 @@ class HomePageController extends Controller
     public function index()
     {
         try {
-            $links = SmHomePageSetting::where('school_id', app('school')->id)->first();
-            $permisions = SmFrontendPersmission::where('parent_id', 1)->get();
+            $links = AramiscHomePageSetting::where('school_id', app('school')->id)->first();
+            $permisions = AramiscFrontendPersmission::where('parent_id', 1)->get();
             return view('backEnd.frontSettings.homePageBackend', compact('links', 'permisions'));
         } catch (\Exception $e) {
            
@@ -41,16 +41,16 @@ class HomePageController extends Controller
 
         try {
             $permisionsArray = $request->permisions ?? [];
-            SmFrontendPersmission::where('parent_id', 1)->update(['is_published' => 0]);
+            AramiscFrontendPersmission::where('parent_id', 1)->update(['is_published' => 0]);
             foreach ($permisionsArray as $value) {
-                SmFrontendPersmission::where('id', $value)->update(['is_published' => 1]);
+                AramiscFrontendPersmission::where('id', $value)->update(['is_published' => 1]);
             }
 
             $path = 'public/uploads/homepageCreate/';
             
 
             //Update Home Page
-            $update = SmHomePageSetting::where('school_id', app('school')->id)->first();
+            $update = AramiscHomePageSetting::where('school_id', app('school')->id)->first();
             $update->title = $request->title;
             $update->long_title = $request->long_title;
             $update->short_description = $request->short_description;

@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\api\v2\Lesson;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use App\AramiscStudent;
-use App\SmWeekend;
+use App\AramiscWeekend;
 use Carbon\Carbon;
-use App\SmClassRoom;
-use App\SmClassTime;
+use App\AramiscClassRoom;
+use App\AramiscClassTime;
 use App\AramiscAcademicYear;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Carbon\CarbonPeriod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmClassRoutineUpdate;
+use App\AramiscClassRoutineUpdate;
 use App\Scopes\GlobalAcademicScope;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +35,9 @@ class LessonController extends Controller
 
         $student_detail = AramiscStudent::withOutGlobalScope(SchoolScope::class)->where('id', $student_id)->first(['id', 'school_id']);
 
-        $gs = SmGeneralSettings::where('school_id', $student_detail->school_id)->first('week_start_id');
+        $gs = AramiscGeneralSettings::where('school_id', $student_detail->school_id)->first('week_start_id');
 
-        $week_end = SmWeekend::withOutGlobalScope(SchoolScope::class)->where('school_id', $student_detail->school_id)->where('id', $gs->week_start_id)->value('name');
+        $week_end = AramiscWeekend::withOutGlobalScope(SchoolScope::class)->where('school_id', $student_detail->school_id)->where('id', $gs->week_start_id)->value('name');
 
         $start_day = WEEK_DAYS_BY_NAME[$week_end ?? 'Saturday'];
 
@@ -71,7 +71,7 @@ class LessonController extends Controller
         }
         $student_record = StudentRecord::where('school_id', $student_detail->school_id)->findOrFail($record_id);
 
-        $data['weeks'] = SmWeekend::withOutGlobalScope(SchoolScope::class)
+        $data['weeks'] = AramiscWeekend::withOutGlobalScope(SchoolScope::class)
             ->with(['classRoutine' => function ($q) use ($student_record) {
                 $q->withoutGlobalScope(StatusAcademicSchoolScope::class)
                     ->where('class_id', $student_record->class_id)

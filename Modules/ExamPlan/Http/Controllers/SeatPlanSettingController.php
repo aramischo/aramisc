@@ -2,10 +2,10 @@
 
 namespace Modules\ExamPlan\Http\Controllers;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\AramiscExamType;
-use App\SmSeatPlan;
+use App\AramiscSeatPlan;
 use App\AramiscExamSchedule;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -73,7 +73,7 @@ class SeatPlanSettingController extends Controller
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
-            $classes = SmClass::where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id)->get();
+            $classes = AramiscClass::where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id)->get();
             return view('examplan::seatPlan', compact('exams', 'classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Error');
@@ -233,7 +233,7 @@ class SeatPlanSettingController extends Controller
                         ->where('academic_id', getAcademicId())
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
-                    $classes = SmClass::where('academic_id', getAcademicId())
+                    $classes = AramiscClass::where('academic_id', getAcademicId())
                         ->where('school_id', auth()->user()->school_id)
                         ->get();
                     return view('examplan::seatPlan', compact('exams', 'classes', 'records', 'exam_id', 'class_id', 'seat_plan_ids'));

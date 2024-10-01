@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dormitory;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use App\YearCheck;
 use App\ApiBaseMethod;
@@ -28,7 +28,7 @@ class AramiscDormitoryController extends Controller
     public function studentDormitoryReport(Request $request)
     {
         try{
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $dormitories = AramiscDormitoryList::get();
             $students = AramiscStudent::with('class','section','parents','dormitory','room')
                           ->whereNotNull('dormitory_id')->get();
@@ -67,7 +67,7 @@ class AramiscDormitoryController extends Controller
             }
             $students = $students->whereIn('id', $student_ids)->with('class','section','parents','dormitory','room')->where('school_id',Auth::user()->school_id)->get();
 
-            $data['classes'] = SmClass::get();
+            $data['classes'] = AramiscClass::get();
             $data['dormitories'] = AramiscDormitoryList::get();
             $data['students'] = $students;
             $data['class_id'] = $request->class;

@@ -3,17 +3,17 @@
 namespace Modules\BulkPrint\Http\Controllers;
 
 use App\Role;
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscStudent;
-use App\SmBankAccount;
+use App\AramiscBankAccount;
 use App\AramiscStudentIdCard;
-use App\SmGeneralSettings;
-use App\SmHrPayrollGenerate;
+use App\AramiscGeneralSettings;
+use App\AramiscHrPayrollGenerate;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmHrPayrollEarnDeduc;
+use App\AramiscHrPayrollEarnDeduc;
 use App\AramiscStudentCertificate;
 use Modules\Lms\Entities\Course;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -74,10 +74,10 @@ class BulkPrintController extends Controller
             $s_students = $s_students->status()->get();
         }elseif($request->role==3){
             $studentGuardian = AramiscStudent::where('school_id', Auth::user()->school_id)->get('parent_id');
-            $s_students = SmParent::whereIn('id',$studentGuardian)->get();
+            $s_students = AramiscParent::whereIn('id',$studentGuardian)->get();
         }
         else{
-            $s_students=SmStaff::where('role_id',$request->role)->status()->get();
+            $s_students=AramiscStaff::where('role_id',$request->role)->status()->get();
         }
         $id_card = AramiscStudentIdCard::status()->find($request->id_card);
 
@@ -180,7 +180,7 @@ class BulkPrintController extends Controller
     
            }else{
         //   return  $request->role_id;
-               $s_students=SmStaff::whereIn('role_id',$request->role_id)->status()->get();
+               $s_students=AramiscStaff::whereIn('role_id',$request->role_id)->status()->get();
     
            }
            $id_card = AramiscStudentIdCard::status()->find($request->id_card);
@@ -279,7 +279,7 @@ class BulkPrintController extends Controller
 
     public function feeVoucherPrint(){
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('bulkprint::feesCollection.fees_bulk_print',compact('classes'));
         } catch (\Exception $e) {
          
@@ -362,14 +362,14 @@ class BulkPrintController extends Controller
             $role_id=$request->role_id;
             $month=$request->payroll_month;
             $year=$request->payroll_year;
-             $staff_ids=SmStaff::query();
+             $staff_ids=AramiscStaff::query();
              if($request->role_id){           
                 $staff_ids->whereRole($request->role_id);
              }
            
           $staff_ids= $staff_ids->where('school_id',Auth::user()->school_id)->get('id');
 
-            $payrollDetails=SmHrPayrollGenerate::query()->with('staffDetails','staffDetails.departments','staffDetails.designations');
+            $payrollDetails=AramiscHrPayrollGenerate::query()->with('staffDetails','staffDetails.departments','staffDetails.designations');
             if($request->payroll_month){
                 $payrollDetails->where('payroll_month',$month);
             }
@@ -386,12 +386,12 @@ class BulkPrintController extends Controller
 		     return redirect()->back();
           }
 
-			$schoolDetails = SmGeneralSettings::where('school_id',Auth::user()->school_id)->first();
+			$schoolDetails = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->first();
 		
 
-			$payrollEarnDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('earn_dedc_type', '=', 'E')->where('school_id',Auth::user()->school_id)->get();
+			$payrollEarnDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('earn_dedc_type', '=', 'E')->where('school_id',Auth::user()->school_id)->get();
 
-			$payrollDedcDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('earn_dedc_type', '=', 'D')->where('school_id',Auth::user()->school_id)->get();
+			$payrollDedcDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('earn_dedc_type', '=', 'D')->where('school_id',Auth::user()->school_id)->get();
 
 			return view('bulkprint::humanResource.payroll.payroll_bulk_print_invoice', compact('payrollDetails', 'payrollEarnDetails', 'payrollDedcDetails', 'schoolDetails'));
 		}catch (\Exception $e) {
@@ -403,7 +403,7 @@ class BulkPrintController extends Controller
     public function certificateBulkPrint(){
         try {
             $roles = InfixRole::where('id', '!=', 1)->Where('type', 'System')->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $certificates = AramiscStudentCertificate::get();
             return view('bulkprint::admin.generate_certificate_bulk', compact('roles','classes', 'certificates'));
         } catch (\Exception $e) {
@@ -444,7 +444,7 @@ class BulkPrintController extends Controller
             $data['certificate'] = AramiscStudentCertificate::find($request->certificate);
 
             $data['roles'] = InfixRole::where('id', '!=', 1)->Where('type', 'System')->get();
-            $data['classes'] = SmClass::get();
+            $data['classes'] = AramiscClass::get();
             $data['certificates'] = AramiscStudentCertificate::get();
             $data['type'] = 'school';
             $data['gridGap'] = $request->grid_gap;
@@ -490,7 +490,7 @@ class BulkPrintController extends Controller
     public function feesInvoiceBulkPrint()
     {
         try {
-            $classes = SmClass::where('school_id', auth()->user()->school_id)
+            $classes = AramiscClass::where('school_id', auth()->user()->school_id)
                             ->where('academic_id', getAcademicId())
                             ->get();
             return view('bulkprint::feesInvoice.feesInvoiceBulk', compact('classes'));
@@ -558,7 +558,7 @@ class BulkPrintController extends Controller
                     ->where('academic_id', getAcademicId())
                     ->get();
 
-            $banks = SmBankAccount::where('active_status', '=', 1)
+            $banks = AramiscBankAccount::where('active_status', '=', 1)
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
 

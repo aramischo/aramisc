@@ -3,15 +3,15 @@
 namespace Modules\Fees\Http\Controllers;
 
 use DataTables;
-use App\SmClass;
-use App\SmSchool;
+use App\AramiscClass;
+use App\AramiscSchool;
 use App\AramiscStudent;
 use App\Models\User;
-use App\SmAddIncome;
-use App\SmBankAccount;
-use App\SmBankStatement;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
+use App\AramiscBankStatement;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\AramiscFeesCarryForward;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -303,7 +303,7 @@ class FeesController extends Controller
     public function feesInvoice()
     {
         try {
-            $classes = SmClass::where('school_id', Auth::user()->school_id)
+            $classes = AramiscClass::where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->get();
 
@@ -320,7 +320,7 @@ class FeesController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $bankAccounts = SmBankAccount::where('school_id', Auth::user()->school_id)
+            $bankAccounts = AramiscBankAccount::where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->get();
 
@@ -695,7 +695,7 @@ class FeesController extends Controller
     {
         try {
             // View Start
-            $classes = SmClass::where('school_id', Auth::user()->school_id)
+            $classes = AramiscClass::where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->get();
 
@@ -712,7 +712,7 @@ class FeesController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $bankAccounts = SmBankAccount::where('school_id', Auth::user()->school_id)
+            $bankAccounts = AramiscBankAccount::where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->get();
             // View End
@@ -832,14 +832,14 @@ class FeesController extends Controller
 
     public function feesInvoiceView($id, $state)
     {
-        $generalSetting = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+        $generalSetting = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
         $invoiceInfo = FmFeesInvoice::find($id);
 
         $invoiceDetails = FmFeesInvoiceChield::where('fees_invoice_id', $invoiceInfo->id)
             ->where('school_id', Auth::user()->school_id)
             ->where('academic_id', getAcademicId())
             ->get();
-        $banks = SmBankAccount::where('active_status', '=', 1)
+        $banks = AramiscBankAccount::where('active_status', '=', 1)
             ->where('school_id', Auth::user()->school_id)
             ->get();
 
@@ -869,7 +869,7 @@ class FeesController extends Controller
     public function addFeesPayment($id)
     {
         try {
-            $classes = SmClass::where('school_id', Auth::user()->school_id)
+            $classes = AramiscClass::where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->get();
 
@@ -891,7 +891,7 @@ class FeesController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $bankAccounts = SmBankAccount::where('school_id', Auth::user()->school_id)
+            $bankAccounts = AramiscBankAccount::where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->get();
 
@@ -954,7 +954,7 @@ class FeesController extends Controller
                 $addPayment->academic_id = getAcademicId();
                 $addPayment->save();
 
-                $school = SmSchool::find($user->school_id);
+                $school = AramiscSchool::find($user->school_id);
 
                 $compact['user_email'] = $user->email;
                 $compact['full_name'] = $user->full_name;
@@ -1021,7 +1021,7 @@ class FeesController extends Controller
                 $payment_method = AramiscPaymentMethhod::where('method', $request->payment_method)->first();
                 $income_head = generalSetting();
 
-                $add_income = new SmAddIncome();
+                $add_income = new AramiscAddIncome();
                 $add_income->name = 'Fees Collect';
                 $add_income->date = date('Y-m-d');
                 $add_income->amount = $request->paid_amount[$key];
@@ -1040,12 +1040,12 @@ class FeesController extends Controller
                 // Bank
                 if ($request->payment_method == "Bank") {
                     $payment_method = AramiscPaymentMethhod::where('method', $request->payment_method)->first();
-                    $bank = SmBankAccount::where('id', $request->bank)
+                    $bank = AramiscBankAccount::where('id', $request->bank)
                         ->where('school_id', Auth::user()->school_id)
                         ->first();
                     $after_balance = $bank->current_balance + $request->paid_amount[$key];
 
-                    $bank_statement = new SmBankStatement();
+                    $bank_statement = new AramiscBankStatement();
                     $bank_statement->amount = $request->paid_amount[$key];
                     $bank_statement->after_balance = $after_balance;
                     $bank_statement->type = 1;
@@ -1057,7 +1057,7 @@ class FeesController extends Controller
                     $bank_statement->payment_method = $payment_method->id;
                     $bank_statement->save();
 
-                    $current_balance = SmBankAccount::find($request->bank);
+                    $current_balance = AramiscBankAccount::find($request->bank);
                     $current_balance->current_balance = $after_balance;
                     $current_balance->update();
                 }
@@ -1089,7 +1089,7 @@ class FeesController extends Controller
 
     public function bankPayment()
     {
-        $classes = SmClass::get();
+        $classes = AramiscClass::get();
 
         $feesPayments = FmFeesTransaction::with('feeStudentInfo', 'transcationDetails', 'transcationDetails.transcationFeesType')
             ->where('paid_status', 'pending')
@@ -1110,11 +1110,11 @@ class FeesController extends Controller
                 $date_to = date('Y-m-d', strtotime(trim($rangeArr[1])));
             }
 
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
 
             $class_id = $request->class;
             $section_id = $request->section;
-            $class = SmClass::with('classSections')->where('id', $request->class)->first();
+            $class = AramiscClass::with('classSections')->where('id', $request->class)->first();
 
             $student_ids = StudentRecord::when($request->class, function ($query) use ($request) {
                 $query->where('class_id', $request->class);
@@ -1272,7 +1272,7 @@ class FeesController extends Controller
                 $addPayment->save();
             }
 
-            SmAddIncome::where('fees_collection_id', $id)->delete();
+            AramiscAddIncome::where('fees_collection_id', $id)->delete();
             $transcation->delete();
 
             //Notification
@@ -1292,7 +1292,7 @@ class FeesController extends Controller
 
     public function singlePaymentView($id, $type)
     {
-        $generalSetting = SmGeneralSettings::where('school_id', Auth::user()->school_id)->first();
+        $generalSetting = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first();
 
         $transcationInfo = FmFeesTransaction::find($id);
 

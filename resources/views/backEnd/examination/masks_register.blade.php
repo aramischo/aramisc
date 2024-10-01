@@ -179,12 +179,12 @@
                                     @php $entry_form_count=0; @endphp
                                     @foreach($marks_entry_form as $part)
                                     @php
-                                        $search_mark = App\SmMarkStore::un_get_mark_by_part($student->student_id, $request, $exam_type, $subject_id, $part->id, $student->id);
+                                        $search_mark = App\AramiscMarkStore::un_get_mark_by_part($student->student_id, $request, $exam_type, $subject_id, $part->id, $student->id);
                                     @endphp
                                         <td>{{$search_mark}}</td>
                                     @endforeach
                                     <?php 
-                                        $teacher_remarks = App\SmMarkStore::un_teacher_remarks($student->student_id, $exam_type, $request, $subject_id, $student->id); 
+                                        $teacher_remarks = App\AramiscMarkStore::un_teacher_remarks($student->student_id, $exam_type, $request, $subject_id, $student->id); 
                                     ?>
                                     <td>{{$teacher_remarks}}</td>
                                 </tr>
@@ -304,7 +304,7 @@
                                     @endphp
                                     @foreach($results as $result)
                                     @php
-                                        $subjectDetails = App\SmMarksRegister::subjectDetails($marks_register->exam_id, $marks_register->class_id, $marks_register->section_id, $result->subject_id);
+                                        $subjectDetails = App\AramiscMarksRegister::subjectDetails($marks_register->exam_id, $marks_register->class_id, $marks_register->section_id, $result->subject_id);
                                         $grand_total_marks += $subjectDetails->full_mark;
 
                                         if($result->abs == 0){

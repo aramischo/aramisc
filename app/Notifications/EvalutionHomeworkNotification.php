@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\SmHomework;
+use App\AramiscHomework;
 use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
 use SpondonIt\FCM\FcmMessage;

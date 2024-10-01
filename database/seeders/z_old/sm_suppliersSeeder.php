@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmSupplier;
+use App\AramiscSupplier;
 use Illuminate\Database\Seeder;
 
 class sm_suppliersSeeder extends Seeder
@@ -17,7 +17,7 @@ class sm_suppliersSeeder extends Seeder
         $data=['AB','ABD','Amla','Sam','Gyle'];
         foreach ($data as $row) {
             for ($i = 1; $i <= 1; $i++) {
-                $s= new SmSupplier();
+                $s= new AramiscSupplier();
                 $s->company_name=$row.' '.$i;
                 $s->company_address='Dhaka-bnagladesh';
                 $s->contact_person_name=$row;

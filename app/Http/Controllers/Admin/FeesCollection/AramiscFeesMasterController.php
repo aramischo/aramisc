@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\FeesCollection;
 
 use DataTables;
 use App\User;
-use App\SmClass;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscParent;
 use App\AramiscStudent;
 use App\tableList;
 use App\AramiscFeesGroup;
@@ -58,7 +58,7 @@ class AramiscFeesMasterController extends Controller
                 return view('university::fees.fees_master', compact('fees_groups', 'fees_types', 'fees_masters', 'already_assigned'));
             }
             if(directFees()){
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 return view('backEnd.feesCollection.directFees.fees_master', compact('fees_groups', 'fees_types', 'fees_masters', 'already_assigned','classes'));
             }
             return view('backEnd.feesCollection.fees_master', compact('fees_groups', 'fees_types', 'fees_masters', 'already_assigned'));
@@ -221,7 +221,7 @@ class AramiscFeesMasterController extends Controller
                 return view('university::fees.fees_master', compact('fees_groups', 'fees_types', 'fees_master', 'fees_masters', 'already_assigned'));
             }
             if(directFees()){
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
 
                 return view('backEnd.feesCollection.directFees.fees_master', compact('fees_master','fees_groups', 'fees_types', 'fees_masters', 'already_assigned','classes'));
             }
@@ -403,7 +403,7 @@ class AramiscFeesMasterController extends Controller
     {
         try {
             $fees_group_id = $id;
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $groups = AramiscStudentGroup::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
             $categories = AramiscStudentCategory::where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->get();
 
@@ -435,7 +435,7 @@ class AramiscFeesMasterController extends Controller
             $requestData['group'] = $request->group;
             $requestData['fees_group_id'] = $request->fees_group_id;
             $section_id = 0;
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $groups = AramiscStudentGroup::get();
             $categories = AramiscStudentCategory::get();
             $fees_group_id = $request->fees_group_id;
@@ -586,7 +586,7 @@ class AramiscFeesMasterController extends Controller
                 $notification->academic_id = getAcademicId();
                 $notification->save();
 
-                $parent = SmParent::find($students_info->parent_id);
+                $parent = AramiscParent::find($students_info->parent_id);
                 $notification2 = new AramiscNotification;
                 $notification2->user_id = $parent->user_id;
                 $notification2->role_id = 3;

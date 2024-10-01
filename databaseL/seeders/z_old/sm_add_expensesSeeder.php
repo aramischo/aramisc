@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use App\SmAddExpense;
+use App\AramiscAddExpense;
 
 class sm_add_expensesSeeder extends Seeder
 {
@@ -15,6 +15,6 @@ class sm_add_expensesSeeder extends Seeder
      */
     public function run()
     {
-        SmAddExpense::factory()->times(5)->create();
+        AramiscAddExpense::factory()->times(5)->create();
     }
 }

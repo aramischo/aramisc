@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmHourlyRate;
+use App\AramiscHourlyRate;
 
 class sm_hourly_ratesSeeder extends Seeder
 {
@@ -17,7 +17,7 @@ class sm_hourly_ratesSeeder extends Seeder
     {
         $faker = Faker::create();
         for($i=1; $i<=5; $i++){
-            $store= new SmHourlyRate();
+            $store= new AramiscHourlyRate();
             $store->grade="A+";
             $store->rate=20;
             $store->save();

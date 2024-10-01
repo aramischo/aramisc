@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Academics;
 use App\AramiscSection;
 use App\YearCheck;
 use App\ApiBaseMethod;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -135,7 +135,7 @@ class AramiscSectionController extends Controller
     public function delete(Request $request, $id)
     {
         try {
-            $tables = SmClassSection::where('section_id', $id)->first();
+            $tables = AramiscClassSection::where('section_id', $id)->first();
             if ($tables == null) {
                 AramiscSection::destroy($request->id);
                 Toastr::success('Operation successful', 'Success');

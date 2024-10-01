@@ -8,8 +8,8 @@ use App\AramiscFeesAssign;
 use App\ApiBaseMethod;
 use App\AramiscFeesPayment;
 use App\AramiscPaymentMethhod;
-use App\SmBankPaymentSlip;
-use App\SmGeneralSettings;
+use App\AramiscBankPaymentSlip;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\AramiscFeesAssignDiscount;
@@ -67,7 +67,7 @@ class AramiscFeesController extends Controller
         ]);
 
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('slip');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -88,7 +88,7 @@ class AramiscFeesController extends Controller
 
             $newformat = date('Y-m-d', $date);
 
-            $payment = new SmBankPaymentSlip();
+            $payment = new AramiscBankPaymentSlip();
             $payment->date = $newformat;
             $payment->amount = $request->amount;
             $payment->note = $request->note;
@@ -115,7 +115,7 @@ class AramiscFeesController extends Controller
     public function feesGenerateModalChildView($id)
     {
 
-        $fees_payment = SmBankPaymentSlip::find($id);
+        $fees_payment = AramiscBankPaymentSlip::find($id);
         return view('backEnd.feesCollection.view_bank_payment', compact('fees_payment'));
     }
 
@@ -137,7 +137,7 @@ class AramiscFeesController extends Controller
                 }
             }
 
-            $fees_payment = SmBankPaymentSlip::find($id);
+            $fees_payment = AramiscBankPaymentSlip::find($id);
 
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -169,8 +169,8 @@ class AramiscFeesController extends Controller
             $fileName = "";
             if ($request->file('slip') != "") {
 
-                $visitor = SmBankPaymentSlip::find($request->id);
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $visitor = AramiscBankPaymentSlip::find($request->id);
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('slip');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -194,7 +194,7 @@ class AramiscFeesController extends Controller
 
             $date = strtotime($request->date);
             $newformat = date('Y-m-d', $date);
-            $payment = SmBankPaymentSlip::find($request->id);
+            $payment = AramiscBankPaymentSlip::find($request->id);
             $payment->date = $newformat;
             $payment->amount = $request->amount;
             $payment->note = $request->note;
@@ -217,7 +217,7 @@ class AramiscFeesController extends Controller
     {
 
         try {
-            $visitor = SmBankPaymentSlip::find($request->id);
+            $visitor = AramiscBankPaymentSlip::find($request->id);
             if ($visitor->file != "") {
                 $path = url('/') . $visitor->slip;
                 if (file_exists($path)) {

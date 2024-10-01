@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\SmHomework;
+use App\AramiscHomework;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 
 class sm_student_homeworksSeeder extends Seeder
 {
@@ -20,9 +20,9 @@ class sm_student_homeworksSeeder extends Seeder
 
         $i = 1;
 
-        $subject_list = SmAssignSubject::all();
+        $subject_list = AramiscAssignSubject::all();
         foreach ($subject_list as $subject) {
-            $store = new SmHomework();
+            $store = new AramiscHomework();
             $store->class_id = $subject->class_id;
             $store->section_id = $subject->section_id;
             $store->subject_id = $subject->subject_id;

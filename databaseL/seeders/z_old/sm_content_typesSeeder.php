@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmContentType;
+use App\AramiscContentType;
 use Illuminate\Database\Seeder;
 
 class sm_content_typesSeeder extends Seeder
@@ -15,17 +15,17 @@ class sm_content_typesSeeder extends Seeder
     public function run()
     {
 
-        SmContentType::query()->truncate();
-        $s = new SmContentType();
+        AramiscContentType::query()->truncate();
+        $s = new AramiscContentType();
         $s->type_name = 'Home';
         $s->save();
-        $s = new SmContentType();
+        $s = new AramiscContentType();
         $s->type_name = 'About';
         $s->save();
-        $s = new SmContentType();
+        $s = new AramiscContentType();
         $s->type_name = 'Contact';
         $s->save();
-        $s = new SmContentType();
+        $s = new AramiscContentType();
         $s->type_name = 'Services';
         $s->save();
     }

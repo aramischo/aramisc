@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\SmStaff;
-use App\SmStaffAttendanceImport;
+use App\AramiscStaff;
+use App\AramiscStaffAttendanceImport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -13,9 +13,9 @@ class StaffAttendanceBulk implements ToModel, WithStartRow, WithHeadingRow
 {
     public function model(array $row)
     {
-        // $student = SmStaff::select('staff_no')->where('staff_no', $row['staff_no'])->where('school_id', Auth::user()->school_id)->first();
+        // $student = AramiscStaff::select('staff_no')->where('staff_no', $row['staff_no'])->where('school_id', Auth::user()->school_id)->first();
 
-        return new SmStaffAttendanceImport([
+        return new AramiscStaffAttendanceImport([
             // "attendence_date" =>$row['attendence_date'],
             "attendence_date" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['attendence_date'])->format('Y-m-d'),
             "in_time" => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['in_time'])->format('h:i A'),

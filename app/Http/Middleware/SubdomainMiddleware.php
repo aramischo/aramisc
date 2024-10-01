@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use App\AramiscCustomLink;
-use App\SmFrontendPersmission;
-use App\SmGeneralSettings;
-use App\SmHeaderMenuManager;
-use App\SmSocialMediaIcon;
+use App\AramiscFrontendPersmission;
+use App\AramiscGeneralSettings;
+use App\AramiscHeaderMenuManager;
+use App\AramiscSocialMediaIcon;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -43,16 +43,16 @@ class SubdomainMiddleware
         view()->composer('frontEnd.home.front_master', function ($view) use ($school) {
 
             if(activeTheme() && activeTheme() == 'edulia'){
-                $menus = SmHeaderMenuManager::when(activeTheme(), function($q){ $q->where('theme', activeTheme());})->when(activeTheme() == NULL, function($q){ $q->where('theme', 'default');})->whereNull('parent_id')->where('school_id', app('school')->id)->orderBy('position')->get();
+                $menus = AramiscHeaderMenuManager::when(activeTheme(), function($q){ $q->where('theme', activeTheme());})->when(activeTheme() == NULL, function($q){ $q->where('theme', 'default');})->whereNull('parent_id')->where('school_id', app('school')->id)->orderBy('position')->get();
             }else{
-                $menus = SmHeaderMenuManager::where('theme', 'default')->whereNull('parent_id')->where('school_id', app('school')->id)->orderBy('position')->get();
+                $menus = AramiscHeaderMenuManager::where('theme', 'default')->whereNull('parent_id')->where('school_id', app('school')->id)->orderBy('position')->get();
             }
 
             $data = [
-                'social_permission' => SmFrontendPersmission::where('name', 'Social Icons')->where('parent_id', 1)->where('is_published', 1)->where('school_id', app('school')->id)->first(),
+                'social_permission' => AramiscFrontendPersmission::where('name', 'Social Icons')->where('parent_id', 1)->where('is_published', 1)->where('school_id', app('school')->id)->first(),
                 'menus' => $menus,
                 'custom_link' => AramiscCustomLink::where('school_id', app('school')->id)->first(),
-                'social_icons' => SmSocialMediaIcon::where('school_id', app('school')->id)->where('status', 1)->get(),
+                'social_icons' => AramiscSocialMediaIcon::where('school_id', app('school')->id)->where('status', 1)->get(),
                 'school' => $school,
             ];
 

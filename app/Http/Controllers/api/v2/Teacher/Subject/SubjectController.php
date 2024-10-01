@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\api\v2\Teacher\Subject;
 
-use App\SmSubject;
+use App\AramiscSubject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Scopes\StatusAcademicSchoolScope;
@@ -12,7 +12,7 @@ class SubjectController extends Controller
 {
     public function index()
     {
-        $subjects = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', auth()->user()->school_id)->latest('id')->get();
+        $subjects = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', auth()->user()->school_id)->latest('id')->get();
         $data = SubjectListResource::collection($subjects);
         if (!$data) {
             $response = [

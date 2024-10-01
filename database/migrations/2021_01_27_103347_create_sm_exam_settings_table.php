@@ -1,11 +1,11 @@
 <?php
 
-use App\SmExamSetting;
+use App\AramiscExamSetting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSmExamSettingsTable extends Migration
+class CreateAramiscExamSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -32,7 +32,7 @@ class CreateSmExamSettingsTable extends Migration
             $table->foreign('academic_id')->references('id')->on('sm_academic_years')->onDelete('cascade');
         });
 
-        $store = new SmExamSetting();
+        $store = new AramiscExamSetting();
         $store->exam_type = 1;
         $store->title = 'Exam Controller';
         $store->publish_date = date('Y-m-d h:i:s');

@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmVehicle;
+use App\AramiscVehicle;
 //use DB;
-class CreateSmVehiclesTable extends Migration
+class CreateAramiscVehiclesTable extends Migration
 {
     /**
      * Run the migrations.

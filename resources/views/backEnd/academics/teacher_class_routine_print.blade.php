@@ -67,9 +67,9 @@
                 @foreach($sm_weekends as $sm_weekend)
                 @php
                 if(moduleStatusCheck('University')){
-                    $teacherClassRoutineById=App\SmWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $teacherClassRoutineById=App\AramiscWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }else{
-                    $teacherClassRoutineById=App\SmWeekend::teacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $teacherClassRoutineById=App\AramiscWeekend::teacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }
                       
                 @endphp
@@ -96,9 +96,9 @@
         
             $i = 0;
             if(moduleStatusCheck('University')){
-                    $teacherClassRoutineById=App\SmWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $teacherClassRoutineById=App\AramiscWeekend::unTeacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }else{
-                    $teacherClassRoutineById=App\SmWeekend::teacherClassRoutineById($sm_weekend->id,$teacher_id);
+                    $teacherClassRoutineById=App\AramiscWeekend::teacherClassRoutineById($sm_weekend->id,$teacher_id);
                 }
         @endphp
 

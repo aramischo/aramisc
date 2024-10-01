@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Admin\Hr;
 
 use App\Role;
-use App\SmStaff;
+use App\AramiscStaff;
 use Carbon\Carbon;
-use App\SmAddExpense;
-use App\SmBankAccount;
-use App\SmLeaveDefine;
-use App\SmBankStatement;
-use App\SmChartOfAccount;
+use App\AramiscAddExpense;
+use App\AramiscBankAccount;
+use App\AramiscLeaveDefine;
+use App\AramiscBankStatement;
+use App\AramiscChartOfAccount;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
-use App\SmStaffAttendence;
-use App\SmHrPayrollGenerate;
+use App\AramiscGeneralSettings;
+use App\AramiscStaffAttendence;
+use App\AramiscHrPayrollGenerate;
 use Illuminate\Http\Request;
-use App\SmHrPayrollEarnDeduc;
-use App\SmLeaveDeductionInfo;
+use App\AramiscHrPayrollEarnDeduc;
+use App\AramiscLeaveDeductionInfo;
 use App\Models\PayrollPayment;
 use App\Traits\NotificationSend;
 use Illuminate\Support\Facades\DB;
@@ -48,7 +48,7 @@ class SmPayrollController extends Controller
             $data['payroll_month'] = $request->payroll_month;
             $data['payroll_year'] = $request->payroll_year;
             if ($request->role_id) {
-                $data['staffs'] = SmStaff::where('active_status', '=', '1')
+                $data['staffs'] = AramiscStaff::where('active_status', '=', '1')
                     ->whereRole($request->role_id)
                     ->where('school_id', Auth::user()->school_id)->get();
             }
@@ -77,7 +77,7 @@ class SmPayrollController extends Controller
             $payroll_month = $request->payroll_month;
             $payroll_year = $request->payroll_year;
 
-            $staffs = SmStaff::where('active_status', '=', '1')->whereRole($role_id)->where('school_id', Auth::user()->school_id)->get();
+            $staffs = AramiscStaff::where('active_status', '=', '1')->whereRole($role_id)->where('school_id', Auth::user()->school_id)->get();
 
             $roles = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
@@ -93,18 +93,18 @@ class SmPayrollController extends Controller
     {
 
         try {
-            $staffDetails = SmStaff::find($id);
+            $staffDetails = AramiscStaff::find($id);
             // return $staffDetails;
             $month = date('m', strtotime($payroll_month));
 
-            $attendances = SmStaffAttendence::where('staff_id', $id)->where('attendence_date', 'like', $payroll_year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
+            $attendances = AramiscStaffAttendence::where('staff_id', $id)->where('attendence_date', 'like', $payroll_year . '-' . $month . '%')->where('school_id', Auth::user()->school_id)->get();
 
-            $staff_leaves = SmLeaveDefine::where('user_id', $staffDetails->user_id)->where('role_id', $staffDetails->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $staff_leave_deduct_days = SmLeaveDeductionInfo::where('staff_id', $id)->where('pay_year', $payroll_year)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get()->sum("extra_leave");
+            $staff_leaves = AramiscLeaveDefine::where('user_id', $staffDetails->user_id)->where('role_id', $staffDetails->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $staff_leave_deduct_days = AramiscLeaveDeductionInfo::where('staff_id', $id)->where('pay_year', $payroll_year)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get()->sum("extra_leave");
 
             // return $payroll_year;
             foreach ($staff_leaves as $staff_leave) {
-                //  $approved_leaves = SmLeaveRequest::approvedLeave($staff_leave->id);
+                //  $approved_leaves = AramiscLeaveRequest::approvedLeave($staff_leave->id);
                 $remaining_days = $staff_leave->days - $staff_leave->remainingDays;
                 $extra_Leave_days = $remaining_days < 0 ? $staff_leave->remainingDays - $staff_leave->days : 0;
             }
@@ -117,7 +117,7 @@ class SmPayrollController extends Controller
 
             // return $extra_days;
 
-            // $approved_leave = SmLeaveRequest::where('staff_id', $id)->where('active_status',1)->where('approve_status','A')->where('school_id', Auth::user()->school_id)->get();
+            // $approved_leave = AramiscLeaveRequest::where('staff_id', $id)->where('active_status',1)->where('approve_status','A')->where('school_id', Auth::user()->school_id)->get();
             // return $extra_days;
             $p = 0;
             $l = 0;
@@ -168,7 +168,7 @@ class SmPayrollController extends Controller
         ]);
 
         try {
-            $payrollGenerate = new SmHrPayrollGenerate();
+            $payrollGenerate = new AramiscHrPayrollGenerate();
             $payrollGenerate->staff_id = $request->staff_id;
             $payrollGenerate->payroll_month = $request->payroll_month;
             $payrollGenerate->payroll_year = $request->payroll_year;
@@ -193,7 +193,7 @@ class SmPayrollController extends Controller
             $this->sent_notifications('Staff_Payroll', (array)$payrollGenerate->staffDetails->user_id, $data, ['Teacher']);
 
             if ($request->leave_deduction > 0) {
-                $leave_deduct = new SmLeaveDeductionInfo;
+                $leave_deduct = new AramiscLeaveDeductionInfo;
                 $leave_deduct->staff_id = $request->staff_id;
                 $leave_deduct->payroll_id = $payrollGenerate->id;
                 $leave_deduct->extra_leave = $request->extra_leave_taken;
@@ -217,7 +217,7 @@ class SmPayrollController extends Controller
                         // for teacher commission Lms module-abu nayem                      
                         if ($request->earningsType[0] == 'lms_balance' && moduleStatusCheck('Lms') == true) {
                             $payable_amount =  $request->earningsValue[0];
-                            $staff = SmStaff::findOrFail($request->staff_id);
+                            $staff = AramiscStaff::findOrFail($request->staff_id);
                             $lms_balance = $staff->lms_balance;
                             if ($payable_amount > 0) {
                                 $balance = $lms_balance - $payable_amount;
@@ -226,7 +226,7 @@ class SmPayrollController extends Controller
                             }
                         }
                         //end    
-                        $payroll_earn_deducs = new SmHrPayrollEarnDeduc;
+                        $payroll_earn_deducs = new AramiscHrPayrollEarnDeduc;
                         $payroll_earn_deducs->payroll_generate_id = $payrollGenerate->id;
                         $payroll_earn_deducs->type_name = $request->earningsType[$i];
                         $payroll_earn_deducs->amount = $request->earningsValue[$i];
@@ -247,7 +247,7 @@ class SmPayrollController extends Controller
                     if (!empty($request->deductionstype[$i]) && !empty($request->deductionsValue[$i])) {
 
 
-                        $payroll_earn_deducs = new SmHrPayrollEarnDeduc;
+                        $payroll_earn_deducs = new AramiscHrPayrollEarnDeduc;
                         $payroll_earn_deducs->payroll_generate_id = $payrollGenerate->id;
                         $payroll_earn_deducs->type_name = $request->deductionstype[$i];
                         $payroll_earn_deducs->amount = $request->deductionsValue[$i];
@@ -276,17 +276,17 @@ class SmPayrollController extends Controller
     public function paymentPayroll(Request $request, $id, $role_id)
     {
         try {
-            $chart_of_accounts = SmChartOfAccount::where('type', 'E')
+            $chart_of_accounts = AramiscChartOfAccount::where('type', 'E')
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $payrollDetails = SmHrPayrollGenerate::find($id);
+            $payrollDetails = AramiscHrPayrollGenerate::find($id);
 
             $paymentMethods = AramiscPaymentMethhod::whereIn('method', ['Cash', 'Cheque', 'Bank'])
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $account_id = SmBankAccount::where('school_id', Auth::user()->school_id)
+            $account_id = AramiscBankAccount::where('school_id', Auth::user()->school_id)
                 ->get();
 
             return view('backEnd.humanResource.payroll.paymentPayroll', compact('payrollDetails', 'paymentMethods', 'role_id', 'chart_of_accounts', 'account_id'));
@@ -312,7 +312,7 @@ class SmPayrollController extends Controller
             $payroll_month = $request->payroll_month;
             $payroll_year = $request->payroll_year;
 
-            $payments = SmHrPayrollGenerate::find($request->payroll_generate_id);
+            $payments = AramiscHrPayrollGenerate::find($request->payroll_generate_id);
 
             $payrollPayment = new PayrollPayment;
             $payrollPayment->sm_hr_payroll_generate_id = $request->payroll_generate_id;
@@ -340,14 +340,14 @@ class SmPayrollController extends Controller
             }
 
 
-            $leave_deduct = SmLeaveDeductionInfo::where('payroll_id', $request->payroll_generate_id)->first();
+            $leave_deduct = AramiscLeaveDeductionInfo::where('payroll_id', $request->payroll_generate_id)->first();
             if (!empty($leave_deduct)) {
                 $leave_deduct->active_status = 1;
                 $leave_deduct->save();
             }
 
             if ($result) {
-                $store = new SmAddExpense();
+                $store = new AramiscAddExpense();
                 $store->name = 'Staff Payroll';
                 $store->expense_head_id = $request->expense_head_id;
                 $store->payroll_payment_id = $payrollPayment->id;
@@ -368,12 +368,12 @@ class SmPayrollController extends Controller
             }
 
             if ($request->payment_mode == 3) {
-                $bank = SmBankAccount::where('id', $request->bank_id)
+                $bank = AramiscBankAccount::where('id', $request->bank_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
                 $after_balance = $bank->current_balance - $request->submit_amount;
 
-                $bank_statement = new SmBankStatement();
+                $bank_statement = new AramiscBankStatement();
                 $bank_statement->amount = $request->submit_amount;
                 $bank_statement->after_balance = $after_balance;
                 $bank_statement->type = 0;
@@ -386,12 +386,12 @@ class SmPayrollController extends Controller
                 $bank_statement->payment_method = $request->payment_method;
                 $bank_statement->save();
 
-                $current_balance = SmBankAccount::find($request->bank_id);
+                $current_balance = AramiscBankAccount::find($request->bank_id);
                 $current_balance->current_balance = $after_balance;
                 $current_balance->update();
             }
 
-            $data['staffs'] = SmStaff::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
+            $data['staffs'] = AramiscStaff::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
             $data['roles'] = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
@@ -410,12 +410,12 @@ class SmPayrollController extends Controller
     {
 
         try {
-            $schoolDetails = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
-            $payrollDetails = SmHrPayrollGenerate::find($id);
+            $schoolDetails = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $payrollDetails = AramiscHrPayrollGenerate::find($id);
 
-            $payrollEarnDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'E')->where('school_id', Auth::user()->school_id)->get();
+            $payrollEarnDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'E')->where('school_id', Auth::user()->school_id)->get();
 
-            $payrollDedcDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'D')->where('school_id', Auth::user()->school_id)->get();
+            $payrollDedcDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'D')->where('school_id', Auth::user()->school_id)->get();
 
             return view('backEnd.humanResource.payroll.viewPayslip', compact('payrollDetails', 'payrollEarnDetails', 'payrollDedcDetails', 'schoolDetails'));
         } catch (\Exception $e) {
@@ -428,12 +428,12 @@ class SmPayrollController extends Controller
     {
 
         try {
-            $schoolDetails = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
-            $payrollDetails = SmHrPayrollGenerate::find($id);
+            $schoolDetails = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $payrollDetails = AramiscHrPayrollGenerate::find($id);
 
-            $payrollEarnDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'E')->where('school_id', Auth::user()->school_id)->get();
+            $payrollEarnDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'E')->where('school_id', Auth::user()->school_id)->get();
 
-            $payrollDedcDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'D')->where('school_id', Auth::user()->school_id)->get();
+            $payrollDedcDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'D')->where('school_id', Auth::user()->school_id)->get();
 
             return view('backEnd.humanResource.payroll.payslip_print', compact('payrollDetails', 'payrollEarnDetails', 'payrollDedcDetails', 'schoolDetails'));
         } catch (\Exception $e) {
@@ -503,7 +503,7 @@ class SmPayrollController extends Controller
     }
     public function viewPayrollPayment($generate_id)
     {
-        $generatePayroll = SmHrPayrollGenerate::find($generate_id);
+        $generatePayroll = AramiscHrPayrollGenerate::find($generate_id);
         $payrollPayments = $generatePayroll->payrollPayments;
         return view('backEnd.humanResource.payroll.view_payroll_payment_modal', compact('generatePayroll', 'payrollPayments'));
     }
@@ -517,16 +517,16 @@ class SmPayrollController extends Controller
                     $payrollPayment = PayrollPayment::find($payroll_payment_id);
 
                     if (auth()->user()->id == $payrollPayment->created_by || auth()->user()->role_id == 1) {
-                        $expenseDetail = SmAddExpense::where('payroll_payment_id', $payroll_payment_id)->first();
+                        $expenseDetail = AramiscAddExpense::where('payroll_payment_id', $payroll_payment_id)->first();
                         if ($expenseDetail) {
 
                             $expenseDetail->delete();
                         }
-                        $bankStatementDetail = SmBankStatement::where('payroll_payment_id', $payroll_payment_id)->first();
+                        $bankStatementDetail = AramiscBankStatement::where('payroll_payment_id', $payroll_payment_id)->first();
                         if ($bankStatementDetail) {
                             $bankStatementDetail->delete();
                         }
-                        $generatePayroll = SmHrPayrollGenerate::find($payrollPayment->sm_hr_payroll_generate_id);
+                        $generatePayroll = AramiscHrPayrollGenerate::find($payrollPayment->sm_hr_payroll_generate_id);
                         $generatePayroll->net_salary = $generatePayroll->net_salary + $payrollPayment->amount;
                         $generatePayroll->save();
                         $payrollPayment->delete();
@@ -543,12 +543,12 @@ class SmPayrollController extends Controller
     {
         try {
             $payrollPayment = PayrollPayment::find($id);
-            $schoolDetails = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
-            $payrollDetails = SmHrPayrollGenerate::find($payrollPayment->sm_hr_payroll_generate_id);
+            $schoolDetails = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $payrollDetails = AramiscHrPayrollGenerate::find($payrollPayment->sm_hr_payroll_generate_id);
 
-            $payrollEarnDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'E')->where('school_id', Auth::user()->school_id)->get();
+            $payrollEarnDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'E')->where('school_id', Auth::user()->school_id)->get();
 
-            $payrollDedcDetails = SmHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'D')->where('school_id', Auth::user()->school_id)->get();
+            $payrollDedcDetails = AramiscHrPayrollEarnDeduc::where('active_status', '=', '1')->where('payroll_generate_id', '=', $id)->where('earn_dedc_type', '=', 'D')->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.humanResource.payroll.payment_payslip_print', compact('payrollDetails', 'payrollEarnDetails', 'payrollDedcDetails', 'schoolDetails', 'payrollPayment'));
         } catch (\Throwable $th) {
             Toastr::error('Operation Failed', 'Failed');

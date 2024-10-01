@@ -1,6 +1,6 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use App\Models\MaintenanceSetting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

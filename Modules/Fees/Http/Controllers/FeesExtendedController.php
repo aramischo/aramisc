@@ -3,10 +3,10 @@
 namespace Modules\Fees\Http\Controllers;
 
 use App\User;
-use App\SmSchool;
-use App\SmAddIncome;
-use App\SmBankAccount;
-use App\SmBankStatement;
+use App\AramiscSchool;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
+use App\AramiscBankStatement;
 use App\AramiscPaymentMethhod;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
@@ -98,12 +98,12 @@ class FeesExtendedController extends Controller
                 // Bank
                 if ($request->payment_method == "Bank") {
                     $payment_method = AramiscPaymentMethhod::where('method', $request->payment_method)->first();
-                    $bank = SmBankAccount::where('id', $request->bank)
+                    $bank = AramiscBankAccount::where('id', $request->bank)
                         ->where('school_id', Auth::user()->school_id)
                         ->first();
                     $after_balance = $bank->current_balance + $request->paid_amount[$key] ?? 0;
 
-                    $bank_statement = new SmBankStatement();
+                    $bank_statement = new AramiscBankStatement();
                     $bank_statement->amount = $request->paid_amount[$key] ?? 0;
                     $bank_statement->after_balance = $after_balance;
                     $bank_statement->type = 1;
@@ -115,7 +115,7 @@ class FeesExtendedController extends Controller
                     $bank_statement->payment_method = $payment_method->id;
                     $bank_statement->save();
 
-                    $current_balance = SmBankAccount::find($request->bank);
+                    $current_balance = AramiscBankAccount::find($request->bank);
                     $current_balance->current_balance = $after_balance;
                     $current_balance->update();
                 }
@@ -155,7 +155,7 @@ class FeesExtendedController extends Controller
             $payment_method = AramiscPaymentMethhod::where('method', $transcation->payment_method)->first();
             $income_head = generalSetting();
 
-            $add_income = new SmAddIncome();
+            $add_income = new AramiscAddIncome();
             $add_income->name = 'Fees Collect';
             $add_income->date = date('Y-m-d');
             $add_income->amount = $allTranscation->paid_amount;
@@ -172,13 +172,13 @@ class FeesExtendedController extends Controller
             $add_income->save();
 
             if ($transcation->payment_method == "Bank") {
-                $bank = SmBankAccount::where('id', $transcation->bank_id)
+                $bank = AramiscBankAccount::where('id', $transcation->bank_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
 
                 $after_balance = $bank->current_balance + $total_paid_amount;
 
-                $bank_statement = new SmBankStatement();
+                $bank_statement = new AramiscBankStatement();
                 $bank_statement->amount = $allTranscation->paid_amount;
                 $bank_statement->after_balance = $after_balance;
                 $bank_statement->type = 1;
@@ -190,7 +190,7 @@ class FeesExtendedController extends Controller
                 $bank_statement->payment_method = $payment_method->id;
                 $bank_statement->save();
 
-                $current_balance = SmBankAccount::find($transcation->bank_id);
+                $current_balance = AramiscBankAccount::find($transcation->bank_id);
                 $current_balance->current_balance = $after_balance;
                 $current_balance->update();
             }
@@ -233,7 +233,7 @@ class FeesExtendedController extends Controller
 
            
 
-            $school = SmSchool::find($user->school_id);
+            $school = AramiscSchool::find($user->school_id);
             $compact['full_name'] = $user->full_name;
             $compact['method'] = $transcation->payment_method;
             $compact['create_date'] = date('Y-m-d');

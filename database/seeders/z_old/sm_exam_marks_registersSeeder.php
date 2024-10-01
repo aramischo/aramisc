@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\SmAssignSubject;
-use App\SmExamMarksRegister;
-use App\SmStudent;
+use App\AramiscAssignSubject;
+use App\AramiscExamMarksRegister;
+use App\AramiscStudent;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -18,14 +18,14 @@ class sm_exam_marks_registersSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $students = SmStudent::where('class_id', 1)->get();
+        $students = AramiscStudent::where('class_id', 1)->get();
         foreach ($students as $student) {
 
             $class_id = $student->class_id;
             $section_id = $student->section_id;
-            $subjects = SmAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
+            $subjects = AramiscAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
             foreach ($subjects as $subject) {
-                $store = new SmExamMarksRegister();
+                $store = new AramiscExamMarksRegister();
                 $store->exam_id = 1;
                 $store->student_id = $student->id;
                 $store->subject_id = $subject->subject_id;

@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\User;
-use App\SmStaff;
-use App\SmParent;
-use App\SmVehicle;
-use App\SmClassRoom;
-use App\SmAssignVehicle;
+use App\AramiscStaff;
+use App\AramiscParent;
+use App\AramiscVehicle;
+use App\AramiscClassRoom;
+use App\AramiscAssignVehicle;
 use App\AramiscDormitoryList;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -79,7 +79,7 @@ class sm_studentsSeeder extends Seeder
                     $newUser->toArray();
                     $parents_id = $newUser->id;
 
-                    $parent          = new SmParent();
+                    $parent          = new AramiscParent();
                     $parent->user_id = $parents_id;
 
                     $parent->fathers_name       = $Father_full_name;
@@ -109,10 +109,10 @@ class sm_studentsSeeder extends Seeder
                     $parents_id = $parent->id;
 
 
-                    $driver = SmStaff::whereRole(9)->where('active_status', 1)->first();
-                    $vehicle = SmVehicle::where('driver_id', $driver->id)->first();
-                    $route = SmAssignVehicle::where('vehicle_id', $vehicle->id)->first();
-                    $room = SmClassRoom::first();
+                    $driver = AramiscStaff::whereRole(9)->where('active_status', 1)->first();
+                    $vehicle = AramiscVehicle::where('driver_id', $driver->id)->first();
+                    $route = AramiscAssignVehicle::where('vehicle_id', $vehicle->id)->first();
+                    $room = AramiscClassRoom::first();
                     $dormitory = AramiscDormitoryList::first();
 
 

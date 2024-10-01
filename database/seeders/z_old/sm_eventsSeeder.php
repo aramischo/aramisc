@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmEvent;
+use App\AramiscEvent;
 use Illuminate\Database\Seeder;
 
 class sm_eventsSeeder extends Seeder

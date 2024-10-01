@@ -2,11 +2,11 @@
 
 namespace Modules\Lesson\Http\Controllers\Teacher;
 
-use App\SmAssignSubject;
-use App\SmClass;
-use App\SmClassTime;
-use App\SmStaff;
-use App\SmWeekend;
+use App\AramiscAssignSubject;
+use App\AramiscClass;
+use App\AramiscClassTime;
+use App\AramiscStaff;
+use App\AramiscWeekend;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -25,7 +25,7 @@ class TeacherLessonPlanController extends Controller
 
         try {
             $this_week = $weekNumber = date("W");
-            $week_end = SmWeekend::where('id',generalSetting()->week_start_id)->value('name');
+            $week_end = AramiscWeekend::where('id',generalSetting()->week_start_id)->value('name');
             $start_day = WEEK_DAYS_BY_NAME[$week_end ?? 'Saturday'];
             $end_day = $start_day == 0 ? 6 : $start_day - 1;
             $period = CarbonPeriod::create(Carbon::now()->startOfWeek($start_day)->format('Y-m-d'), Carbon::now()->endOfWeek($end_day)->format('Y-m-d'));
@@ -37,13 +37,13 @@ class TeacherLessonPlanController extends Controller
             }
 
             $login_id = Auth::user()->id;
-            $teachers = SmStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
+            $teachers = AramiscStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
                 $q->where('role_id', 4)->orWhere('previous_role_id', 4);
             })->where('school_id', Auth::user()->school_id)->first();
 
-            $class_times = SmClassTime::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
+            $class_times = AramiscClassTime::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
             $teacher_id = $teachers->id;
-            $sm_weekends = SmWeekend::where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $sm_weekends = AramiscWeekend::where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
 
             return view('lesson::teacher.teacherLessonPlan', compact('dates', 'this_week', 'class_times', 'teacher_id', 'sm_weekends', 'teachers'));
         } catch (\Exception$e) {
@@ -58,8 +58,8 @@ class TeacherLessonPlanController extends Controller
 
         try {
 
-            $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-            $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)
+            $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+            $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)
                 ->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                 ->where('sm_assign_subjects.academic_id', getAcademicId())
                 ->where('sm_assign_subjects.active_status', 1)
@@ -69,7 +69,7 @@ class TeacherLessonPlanController extends Controller
                 ->get();
 
             $login_id = Auth::user()->id;
-            $teacher = SmStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
+            $teacher = AramiscStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
                 $q->where('role_id', 4)->orWhere('previous_role_id', 4);
             })->where('school_id', Auth::user()->school_id)->first();
             $teachers = $teacher->id;
@@ -162,7 +162,7 @@ class TeacherLessonPlanController extends Controller
 
                 }
             }
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -198,14 +198,14 @@ class TeacherLessonPlanController extends Controller
             }
 
             $login_id = Auth::user()->id;
-            $teachers = SmStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
+            $teachers = AramiscStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
 	            $q->where('role_id', 4)->orWhere('previous_role_id', 4);
             })->where('school_id', Auth::user()->school_id)->first();
 
             $user = Auth::user();
-            $class_times = SmClassTime::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
+            $class_times = AramiscClassTime::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
             $teacher_id = $teachers->id;
-            $sm_weekends = SmWeekend::where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $sm_weekends = AramiscWeekend::where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
 
             return view('lesson::teacher.teacherLessonPlan', compact('dates', 'this_week', 'class_times', 'teacher_id', 'sm_weekends', 'teachers'));
 
@@ -233,14 +233,14 @@ class TeacherLessonPlanController extends Controller
             }
 
             $login_id = Auth::user()->id;
-            $teachers = SmStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
+            $teachers = AramiscStaff::where('active_status', 1)->where('user_id', $login_id)->where(function($q)  {
                 $q->where('role_id', 4)->orWhere('previous_role_id', 4);
             })->where('school_id', Auth::user()->school_id)->first();
 
             $user = Auth::user();
-            $class_times = SmClassTime::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
+            $class_times = AramiscClassTime::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->orderBy('period', 'ASC')->get();
             $teacher_id = $teachers->id;
-            $sm_weekends = SmWeekend::where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $sm_weekends = AramiscWeekend::where('school_id', Auth::user()->school_id)->orderBy('order', 'ASC')->where('active_status', 1)->get();
 
             return view('lesson::teacher.teacherLessonPlan', compact('dates', 'this_week', 'class_times', 'teacher_id', 'sm_weekends', 'teachers'));
         } catch (\Exception$e) {

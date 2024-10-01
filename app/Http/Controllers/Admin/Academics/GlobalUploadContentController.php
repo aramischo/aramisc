@@ -4,16 +4,16 @@
 namespace App\Http\Controllers\Admin\Academics;
 
 use App\User;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\ApiBaseMethod;
-use App\SmContentType;
-use App\SmClassSection;
+use App\AramiscContentType;
+use App\AramiscClassSection;
 use App\AramiscNotification;
-use App\SmAssignSubject;
-use App\SmGeneralSettings;
+use App\AramiscAssignSubject;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\AramiscTeacherUploadContent;
@@ -61,10 +61,10 @@ class GlobalUploadContentController extends Controller
             
 
             if (teacherAccess()) {
-                $teacher_info=SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info=AramiscStaff::where('user_id', Auth::user()->id)->first();
                 $classes= $teacher_info->classes;
             } else {
-                $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->get();
+                $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->get();
             }
 
             return view('backEnd.global.global_uploadContentList', compact( 'classes', 'uploadContents'));
@@ -232,7 +232,7 @@ class GlobalUploadContentController extends Controller
                         $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                     })->get();
                     foreach ($roles as $role) {
-                        $staffs = SmStaff::where('role_id', $role->id)->where('school_id', Auth::user()->school_id)->get();
+                        $staffs = AramiscStaff::where('role_id', $role->id)->where('school_id', Auth::user()->school_id)->get();
                         foreach ($staffs as $staff) {
                             $notification = new AramiscNotification;
                             $notification->user_id = $staff->user_id;
@@ -407,7 +407,7 @@ class GlobalUploadContentController extends Controller
             return redirect()->back();
         }
         $sections = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->get();
-        $contentTypes = SmContentType::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+        $contentTypes = AramiscContentType::where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
         $uploadContents = AramiscTeacherUploadContent::withoutGlobalScope(StatusAcademicSchoolScope::class)
                 ->withoutGlobalScope(GlobalAcademicScope::class)
@@ -415,7 +415,7 @@ class GlobalUploadContentController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-        $classes = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->whereNull('parent_id')->get();
+        $classes = AramiscClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->whereNull('parent_id')->get();
         $data = [];
         $data['editData'] = $editData;
         $data['contentTypes'] = $contentTypes;
@@ -450,7 +450,7 @@ class GlobalUploadContentController extends Controller
         
        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
 
         if($request->status != "lmsStudyMaterial"){
             if (isset($request->available_for)) {
@@ -496,7 +496,7 @@ class GlobalUploadContentController extends Controller
             $videomimes = ['video/mp4'];
             $audiomimes = ['audio/mp3'];
 
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('content_file');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -589,7 +589,7 @@ class GlobalUploadContentController extends Controller
                         $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                     })->get();
                     foreach ($roles as $role) {
-                        $staffs = SmStaff::where('role_id', $role->id)->where('school_id', Auth::user()->school_id)->get();
+                        $staffs = AramiscStaff::where('role_id', $role->id)->where('school_id', Auth::user()->school_id)->get();
                         foreach ($staffs as $staff) {
                             $notification = new AramiscNotification;
                             $notification->user_id = $staff->user_id;
@@ -930,7 +930,7 @@ class GlobalUploadContentController extends Controller
                                                             ->withoutGlobalScope(GlobalAcademicScope::class)
                                                             ->find($uploadContent);
                     if($parentContent && $parentContent->class){
-                        $class = SmClass::where('parent_id',$parentContent->class)->where('academic_id',getAcademicId())->first();
+                        $class = AramiscClass::where('parent_id',$parentContent->class)->where('academic_id',getAcademicId())->first();
                     } 
                     
                     if($parentContent && $parentContent->section){

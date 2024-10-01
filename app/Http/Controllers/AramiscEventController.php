@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\AramiscEvent;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscStudent;
 use App\YearCheck;
 use App\ApiBaseMethod;
 use App\AramiscNotification;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +65,7 @@ class AramiscEventController extends Controller
                 ->withInput();
         }
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('upload_file_name');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -224,7 +224,7 @@ class AramiscEventController extends Controller
         }
         
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('upload_file_name');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);

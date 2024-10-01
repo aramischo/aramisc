@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\v2\Admin\LeaveListResource;
 use App\AramiscAcademicYear;
 use Illuminate\Http\Request;
-use App\SmLeaveRequest;
+use App\AramiscLeaveRequest;
 use App\AramiscNotification;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class LeaveController extends Controller
 
     public function allPendingList(Request $request)
     {
-        $pendingRequest = SmLeaveRequest::with('leaveDefine', 'user', 'leaveType')
+        $pendingRequest = AramiscLeaveRequest::with('leaveDefine', 'user', 'leaveType')
             ->where('sm_leave_requests.active_status', 1)
             ->where('sm_leave_requests.approve_status', 'P')
             ->where('sm_leave_requests.school_id', $request->user()->school_id)
@@ -42,7 +42,7 @@ class LeaveController extends Controller
     }
     public function allAprroveList(Request $request)
     {
-        $aprroveRequest = SmLeaveRequest::with('leaveDefine', 'user', 'leaveType')
+        $aprroveRequest = AramiscLeaveRequest::with('leaveDefine', 'user', 'leaveType')
             ->where('sm_leave_requests.active_status', 1)
             ->where('sm_leave_requests.approve_status', 'A')
             ->where('sm_leave_requests.school_id', $request->user()->school_id)
@@ -65,7 +65,7 @@ class LeaveController extends Controller
     }
     public function allRejectedList(Request $request)
     {
-        $rejectedRequest = SmLeaveRequest::with('leaveDefine', 'user', 'leaveType')
+        $rejectedRequest = AramiscLeaveRequest::with('leaveDefine', 'user', 'leaveType')
             ->where('sm_leave_requests.active_status', 1)
             ->where('sm_leave_requests.approve_status', 'C')
             ->where('sm_leave_requests.school_id', $request->user()->school_id)
@@ -91,7 +91,7 @@ class LeaveController extends Controller
 
     public function updateApproveLeave(Request $request)
     {
-        $leave_request_data = SmLeaveRequest::find($request->leave_id);
+        $leave_request_data = AramiscLeaveRequest::find($request->leave_id);
         if (!$leave_request_data) {
             $response = [
                 'success' => false,

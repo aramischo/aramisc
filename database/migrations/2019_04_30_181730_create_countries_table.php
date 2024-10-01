@@ -1,6 +1,6 @@
 <?php
 
-use App\SmCountry;
+use App\AramiscCountry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -292,7 +292,7 @@ class CreateCountriesTable extends Migration
         ];
 
         foreach($datas as $data){
-            $new = new SmCountry();
+            $new = new AramiscCountry();
             $new->code = $data[0];
             $new->name = $data[1];
             $new->native = $data[2];

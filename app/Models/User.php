@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscStudent;
 use App\Envato\Envato;
 use GuzzleHttp\Client;
 use App\AramiscStudentGroup;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\AramiscStudentCategory;
 use App\Traits\UserChatMethods;
 use Laravel\Passport\HasApiTokens;
@@ -81,7 +81,7 @@ class User extends Authenticatable
     }
     public function staff()
     {
-        return $this->belongsTo('App\SmStaff', 'id', 'user_id');
+        return $this->belongsTo('App\AramiscStaff', 'id', 'user_id');
     }
 
     public function category()
@@ -95,12 +95,12 @@ class User extends Authenticatable
 
     public function parent()
     {
-        return $this->belongsTo('App\SmParent', 'id', 'user_id');
+        return $this->belongsTo('App\AramiscParent', 'id', 'user_id');
     }
 
     public function school()
     {
-        return $this->belongsTo('App\SmSchool', 'school_id', 'id');
+        return $this->belongsTo('App\AramiscSchool', 'school_id', 'id');
     }
 
     public function roles()
@@ -112,8 +112,8 @@ class User extends Authenticatable
     {
         $role_id = Auth::user()->role_id;
         $student = AramiscStudent::where('user_id', Auth::user()->id)->first();
-        $parent = SmParent::where('user_id', Auth::user()->id)->first();
-        $staff = SmStaff::where('user_id', Auth::user()->id)->first();
+        $parent = AramiscParent::where('user_id', Auth::user()->id)->first();
+        $staff = AramiscStaff::where('user_id', Auth::user()->id)->first();
         if ($role_id == 2)
             $profile = $student ? $student->student_photo : 'public/backEnd/img/admin/message-thumb.png';
         elseif ($role_id == 3)

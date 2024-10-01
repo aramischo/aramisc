@@ -7,59 +7,59 @@ use App\User;
 use App\AramiscBook;
 use App\AramiscExam;
 use ZipArchive;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscEvent;
 use App\AramiscRoute;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscHoliday;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmVehicle;
-use App\SmWeekend;
+use App\AramiscVehicle;
+use App\AramiscWeekend;
 use Carbon\Carbon;
 use App\AramiscExamType;
-use App\SmHomework;
+use App\AramiscHomework;
 use App\AramiscRoomList;
 use App\AramiscRoomType;
-use App\SmBaseSetup;
+use App\AramiscBaseSetup;
 use App\AramiscBookIssue;
-use App\SmClassTime;
+use App\AramiscClassTime;
 use App\AramiscComplaint;
-use App\SmLeaveType;
-use App\SmMarksGrade;
-use App\SmOnlineExam;
+use App\AramiscLeaveType;
+use App\AramiscMarksGrade;
+use App\AramiscOnlineExam;
 use App\ApiBaseMethod;
-use App\SmBankAccount;
-use App\SmLeaveDefine;
-use App\SmNoticeBoard;
+use App\AramiscBankAccount;
+use App\AramiscLeaveDefine;
+use App\AramiscNoticeBoard;
 use App\AramiscAcademicYear;
 use App\AramiscExamSchedule;
-use App\SmLeaveRequest;
+use App\AramiscLeaveRequest;
 use App\AramiscNotification;
 use App\AramiscStudentGroup;
-use App\SmAssignSubject;
-use App\SmAssignVehicle;
+use App\AramiscAssignSubject;
+use App\AramiscAssignVehicle;
 use App\AramiscDormitoryList;
-use App\SmLibraryMember;
+use App\AramiscLibraryMember;
 use Barryvdh\DomPDF\PDF;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\AramiscStudentCategory;
 use App\AramiscStudentDocument;
 use App\AramiscStudentTimeline;
 use App\AramiscStudentAttendance;
-use App\SmSubjectAttendance;
+use App\AramiscSubjectAttendance;
 use App\Traits\CustomFields;
 use Illuminate\Http\Request;
 use App\Models\AramiscCustomField;
 use App\Models\StudentRecord;
 use App\AramiscExamScheduleSubject;
-use App\SmClassOptionalSubject;
+use App\AramiscClassOptionalSubject;
 use App\AramiscTeacherUploadContent;
-use App\SmOptionalSubjectAssign;
+use App\AramiscOptionalSubjectAssign;
 use App\AramiscStudentTakeOnlineExam;
-use App\SmUploadHomeworkContent;
+use App\AramiscUploadHomeworkContent;
 use App\Traits\NotificationSend;
 use App\Models\SmCalendarSetting;
 use Illuminate\Support\Facades\DB;
@@ -209,11 +209,11 @@ class AramiscStudentPanelController extends Controller
             $data['cheque_info'] =  $bank_cheque_info->where('method', 'Cheque')->first();
             $records = $student_detail->studentRecords->load('directFeesInstallments.installment', 'directFeesInstallments.payments.user');
 
-            $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $student_detail->class_id)->first();
+            $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $student_detail->class_id)->first();
 
             $student_optional_subject = $student_detail->subjectAssign;
 
-            $driver = SmVehicle::where('sm_vehicles.id', '=', $student_detail->vechile_id)
+            $driver = AramiscVehicle::where('sm_vehicles.id', '=', $student_detail->vechile_id)
                 ->join('sm_staffs', 'sm_staffs.id', '=', 'sm_vehicles.driver_id')
                 ->first();
 
@@ -239,7 +239,7 @@ class AramiscStudentPanelController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $grades = SmMarksGrade::where('active_status', 1)
+            $grades = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -254,7 +254,7 @@ class AramiscStudentPanelController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $leave_details = SmLeaveRequest::where('staff_id', Auth::user()->id)
+            $leave_details = AramiscLeaveRequest::where('staff_id', Auth::user()->id)
                 ->where('role_id', Auth::user()->role_id)
                 ->where('active_status', 1)
                 ->where('academic_id', getAcademicId())
@@ -273,7 +273,7 @@ class AramiscStudentPanelController extends Controller
                 ->get();
             $paymentMethods = $all_paymentMethods->whereNotIn('method', ["Cash", "Wallet"])->load('gatewayDetail');
 
-            $bankAccounts = SmBankAccount::where('active_status', 1)
+            $bankAccounts = AramiscBankAccount::where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
@@ -359,7 +359,7 @@ class AramiscStudentPanelController extends Controller
                 ->whereIn('student_record_id', $studentRecord->pluck('id'))
                 ->get();
 
-            $subjectAttendance = SmSubjectAttendance::with('student')
+            $subjectAttendance = AramiscSubjectAttendance::with('student')
                 ->whereIn('academic_id', $studentRecord->pluck('academic_id'))
                 ->whereIn('student_record_id', $studentRecord->pluck('id'))
                 ->where('school_id', $student_detail->school_id)
@@ -438,14 +438,14 @@ class AramiscStudentPanelController extends Controller
                 // end
                 //sibling & parent info update
                 if ($request->sibling_id == 0 && $request->parent_id != "") {
-                    SmParent::destroy($student_detail->parent_id);
+                    AramiscParent::destroy($student_detail->parent_id);
                 } elseif (($request->sibling_id == 2 || $request->sibling_id == 1) && $request->parent_id != "") {
                 } else {
 
                     if (($request->sibling_id == 0 || $request->sibling_id == 1) && $request->parent_id == "") {
-                        $parent = SmParent::find($student_detail->parent_id);
+                        $parent = AramiscParent::find($student_detail->parent_id);
                     } elseif ($request->sibling_id == 2 && $request->parent_id == "") {
-                        $parent = new SmParent();
+                        $parent = new AramiscParent();
                     }
 
                     if ($parent) {
@@ -606,7 +606,7 @@ class AramiscStudentPanelController extends Controller
                 }
 
                 if (!empty($request->vehicle)) {
-                    $driver = SmVehicle::where('id', '=', $request->vehicle)
+                    $driver = AramiscVehicle::where('id', '=', $request->vehicle)
                         ->select('driver_id')
                         ->first();
                     $student->vechile_id = $request->vehicle;
@@ -741,15 +741,15 @@ class AramiscStudentPanelController extends Controller
         try {
             $student = AramiscStudent::find($id);
 
-            $classes = SmClass::where('active_status', '=', '1')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', '=', '1')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
-            $religions = SmBaseSetup::where('active_status', '=', '1')->where('base_group_id', '=', '2')->get();
-            $blood_groups = SmBaseSetup::where('active_status', '=', '1')->where('base_group_id', '=', '3')->get();
-            $genders = SmBaseSetup::where('active_status', '=', '1')->where('base_group_id', '=', '1')->get();
+            $religions = AramiscBaseSetup::where('active_status', '=', '1')->where('base_group_id', '=', '2')->get();
+            $blood_groups = AramiscBaseSetup::where('active_status', '=', '1')->where('base_group_id', '=', '3')->get();
+            $genders = AramiscBaseSetup::where('active_status', '=', '1')->where('base_group_id', '=', '1')->get();
             $route_lists = AramiscRoute::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
-            $vehicles = SmVehicle::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
+            $vehicles = AramiscVehicle::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
             $dormitory_lists = AramiscDormitoryList::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
-            $driver_lists = SmStaff::where([['active_status', '=', '1'], ['role_id', 9]])->where('school_id', Auth::user()->school_id)->get();
+            $driver_lists = AramiscStaff::where([['active_status', '=', '1'], ['role_id', 9]])->where('school_id', Auth::user()->school_id)->get();
             $categories = AramiscStudentCategory::where('school_id', Auth::user()->school_id)->get();
             $groups = AramiscStudentGroup::where('school_id', Auth::user()->school_id)->get();
             $sessions = AramiscAcademicYear::where('active_status', '=', '1')->where('school_id', Auth::user()->school_id)->get();
@@ -792,7 +792,7 @@ class AramiscStudentPanelController extends Controller
             $section_ids = $student_detail->studentRecords->pluck('section_id')->unique()->toArray();
             // end
 
-            $driver = SmVehicle::where('sm_vehicles.id', '=', $student_detail->vechile_id)
+            $driver = AramiscVehicle::where('sm_vehicles.id', '=', $student_detail->vechile_id)
                 ->join('sm_staffs', 'sm_staffs.id', '=', 'sm_vehicles.driver_id')
                 ->first();
             $siblings = AramiscStudent::where('parent_id', $student_detail->parent_id)->where('school_id', $user->school_id)->get();
@@ -824,18 +824,18 @@ class AramiscStudentPanelController extends Controller
                 ->where('school_id', $user->school_id)
                 ->get();
 
-            $grades = SmMarksGrade::where('active_status', 1)
+            $grades = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', $user->school_id)
                 ->get();
 
-            $totalSubjects = SmAssignSubject::whereIn('class_id', $class_ids)
+            $totalSubjects = AramiscAssignSubject::whereIn('class_id', $class_ids)
                 ->whereIn('section_id', $section_ids)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', $user->school_id)
                 ->get();
 
-            $totalNotices = SmNoticeBoard::where('active_status', 1)
+            $totalNotices = AramiscNoticeBoard::where('active_status', 1)
                 ->where('inform_to', 'LIKE', '%2%')
                 ->orderBy('id', 'DESC')
                 ->where('academic_id', getAcademicId())
@@ -853,7 +853,7 @@ class AramiscStudentPanelController extends Controller
                     ->where('school_id', $user->school_id)
                     ->get();
             } else {
-                $online_exams = SmOnlineExam::where('active_status', 1)
+                $online_exams = AramiscOnlineExam::where('active_status', 1)
                     ->where('status', 1)
                     ->whereIn('class_id', $class_ids)
                     ->whereIn('section_id', $section_ids)
@@ -862,7 +862,7 @@ class AramiscStudentPanelController extends Controller
                     ->get();
             }
 
-            $teachers = SmAssignSubject::select('teacher_id')
+            $teachers = AramiscAssignSubject::select('teacher_id')
                 ->whereIn('class_id', $class_ids)
                 ->whereIn('section_id', $section_ids)
                 ->distinct('teacher_id')
@@ -876,7 +876,7 @@ class AramiscStudentPanelController extends Controller
                 ->where('school_id', $user->school_id)
                 ->get();
 
-            $homeworkLists = SmHomework::whereIn('class_id', $class_ids)
+            $homeworkLists = AramiscHomework::whereIn('class_id', $class_ids)
                 ->whereIn('section_id', $section_ids)
                 ->where('evaluation_date', '=', null)
                 ->where('submission_date', '>', $now)
@@ -910,7 +910,7 @@ class AramiscStudentPanelController extends Controller
                 ->get();
             
             $student_detail = AramiscStudent::where('user_id', $user->id)->first();
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')
                 ->where('active_status', 1)
                 ->where('school_id', $user->school_id)
                 ->get();
@@ -927,7 +927,7 @@ class AramiscStudentPanelController extends Controller
             $student_details = Auth::user()->student->load('studentRecords', 'attendances');
             $student_records = $student_details->studentRecords;
 
-            $my_leaves = SmLeaveDefine::where('role_id', Auth::user()->role_id)->where('user_id', Auth::user()->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $my_leaves = AramiscLeaveDefine::where('role_id', Auth::user()->role_id)->where('user_id', Auth::user()->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             $now = Carbon::now();
             $year = $now->year;
@@ -935,7 +935,7 @@ class AramiscStudentPanelController extends Controller
             $days = cal_days_in_month(CAL_GREGORIAN, $now->month, $now->year);
             $attendance = $student_details->attendances;
 
-            $subjectAttendance = SmSubjectAttendance::with('student')
+            $subjectAttendance = AramiscSubjectAttendance::with('student')
                 ->whereIn('academic_id', $student_records->pluck('academic_id'))
                 ->whereIn('student_record_id', $student_records->pluck('id'))
                 ->whereIn('school_id', $student_records->pluck('school_id'))
@@ -1001,7 +1001,7 @@ class AramiscStudentPanelController extends Controller
         try {
             $user = auth()->user();
             $student_detail = AramiscStudent::where('user_id', $user->id)->first();
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')
                 ->where('active_status', 1)
                 ->where('school_id', $user->school_id)
                 ->get();
@@ -1025,9 +1025,9 @@ class AramiscStudentPanelController extends Controller
         try {
 
             $student_detail = Auth::user()->student;
-            $optional_subject_setup = SmClassOptionalSubject::where('class_id', '=', $student_detail->class_id)->first();
+            $optional_subject_setup = AramiscClassOptionalSubject::where('class_id', '=', $student_detail->class_id)->first();
             $records = StudentRecord::where('student_id', $student_detail->id)->where('academic_id', getAcademicId())->get();
-            $student_optional_subject = SmOptionalSubjectAssign::where('student_id', $student_detail->id)
+            $student_optional_subject = AramiscOptionalSubjectAssign::where('student_id', $student_detail->id)
                 ->where('session_id', '=', $student_detail->session_id)
                 ->first();
 
@@ -1037,22 +1037,22 @@ class AramiscStudentPanelController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $grades = SmMarksGrade::where('active_status', 1)
+            $grades = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $failgpa = SmMarksGrade::where('active_status', 1)
+            $failgpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $failgpaname = SmMarksGrade::where('active_status', 1)
+            $failgpaname = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->where('gpa', $failgpa)
                 ->first();
-            $maxgpa = SmMarksGrade::where('active_status', 1)
+            $maxgpa = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->max('gpa');
@@ -1098,7 +1098,7 @@ class AramiscStudentPanelController extends Controller
             $student_detail = Auth::user()->student;
             $records = studentRecords(null, $student_detail->id)->get();
             $smExam = AramiscExam::findOrFail($request->exam);
-            $assign_subjects = SmAssignSubject::where('class_id', $smExam->class_id)->where('section_id', $smExam->section_id)
+            $assign_subjects = AramiscAssignSubject::where('class_id', $smExam->class_id)->where('section_id', $smExam->section_id)
                 ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             if ($assign_subjects->count() == 0) {
@@ -1111,7 +1111,7 @@ class AramiscStudentPanelController extends Controller
             $section_id = $smExam->section_id;
             $exam_id = $smExam->id;
             $exam_type_id = $smExam->exam_type_id;
-            $exam_periods = SmClassTime::where('type', 'exam')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $exam_periods = AramiscClassTime::where('type', 'exam')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $exam_schedule_subjects = "";
             $assign_subject_check = "";
 
@@ -1136,7 +1136,7 @@ class AramiscStudentPanelController extends Controller
             $exam_type = AramiscExamType::find($exam_type_id)->title;
             $academic_id = AramiscExamType::find($exam_type_id)->academic_id;
             $academic_year = AramiscAcademicYear::find($academic_id);
-            $class_name = SmClass::find($class_id)->class_name;
+            $class_name = AramiscClass::find($class_id)->class_name;
             $section_name = AramiscSection::find($section_id)->section_name;
 
             $exam_schedules = AramiscExamSchedule::where('class_id', $class_id)->where('section_id', $section_id)
@@ -1165,7 +1165,7 @@ class AramiscStudentPanelController extends Controller
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $student_detail = AramiscStudent::where('user_id', $id)->first();
-                // $assign_subjects = SmAssignSubject::where('class_id', $student_detail->class_id)->where('section_id', $student_detail->section_id)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+                // $assign_subjects = AramiscAssignSubject::where('class_id', $student_detail->class_id)->where('section_id', $student_detail->section_id)->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
                 $exam_schedule = DB::table('sm_exam_schedules')
                     ->join('sm_students', 'sm_students.class_id', '=', 'sm_exam_schedules.class_id')
                     ->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exam_schedules.exam_term_id')
@@ -1189,7 +1189,7 @@ class AramiscStudentPanelController extends Controller
         try {
             $user = Auth::user();
             $student_detail = AramiscStudent::where('user_id', $user->id)->first();
-            $class = SmClass::find($student_detail->class_id);
+            $class = AramiscClass::find($student_detail->class_id);
             $section = AramiscSection::find($student_detail->section_id);
             $assign_subjects = AramiscExamScheduleSubject::where('exam_schedule_id', $id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
@@ -1231,7 +1231,7 @@ class AramiscStudentPanelController extends Controller
     public function studentHomeworkView($class_id, $section_id, $homework_id)
     {
         try {
-            $homeworkDetails = SmHomework::where('class_id', '=', $class_id)->where('section_id', '=', $section_id)->where('id', '=', $homework_id)->first();
+            $homeworkDetails = AramiscHomework::where('class_id', '=', $class_id)->where('section_id', '=', $section_id)->where('id', '=', $homework_id)->first();
             return view('backEnd.studentPanel.studentHomeworkView', compact('homeworkDetails', 'homework_id'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -1242,7 +1242,7 @@ class AramiscStudentPanelController extends Controller
     public function unStudentHomeworkView($sem_label_id, $homework)
     {
         try {
-            $homeworkDetails = SmHomework::find($homework);
+            $homeworkDetails = AramiscHomework::find($homework);
             $homework_id = $homework;
             return view('backEnd.studentPanel.studentHomeworkView', compact('homeworkDetails', 'homework_id'));
         } catch (\Exception $e) {
@@ -1277,7 +1277,7 @@ class AramiscStudentPanelController extends Controller
         try {
             $user = Auth::user();
             $student_detail = AramiscStudent::where('user_id', $user->id)->first();
-            $contents = SmUploadHomeworkContent::where('student_id', $student_detail->id)->where('homework_id', $homework_id)->get();
+            $contents = AramiscUploadHomeworkContent::where('student_id', $student_detail->id)->where('homework_id', $homework_id)->get();
             foreach ($contents as $key => $content) {
                 if ($content->file != "") {
                     if (file_exists($content->file)) {
@@ -1322,7 +1322,7 @@ class AramiscStudentPanelController extends Controller
                 $data[$key] = $fileName;
             }
             $all_filename = json_encode($data);
-            $content = new SmUploadHomeworkContent();
+            $content = new AramiscUploadHomeworkContent();
             $content->file = $all_filename;
             $content->student_id = $student_detail->id;
             $content->homework_id = $request->id;
@@ -1330,7 +1330,7 @@ class AramiscStudentPanelController extends Controller
             $content->academic_id = getAcademicId();
             $content->save();
 
-            $homework_info = SmHomeWork::find($request->id);
+            $homework_info = AramiscHomeWork::find($request->id);
             $teacher_info = $teacher_info = User::find($homework_info->created_by);
 
             $notification = new AramiscNotification;
@@ -1568,8 +1568,8 @@ class AramiscStudentPanelController extends Controller
             $user = Auth::user();
             $student_detail = AramiscStudent::where('user_id', $user->id)->first();
 
-            // $routes = SmAssignVehicle::where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
-            $routes = SmAssignVehicle::join('sm_vehicles', 'sm_assign_vehicles.vehicle_id', 'sm_vehicles.id')
+            // $routes = AramiscAssignVehicle::where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
+            $routes = AramiscAssignVehicle::join('sm_vehicles', 'sm_assign_vehicles.vehicle_id', 'sm_vehicles.id')
                 ->join('sm_students', 'sm_vehicles.id', 'sm_students.vechile_id')
                 ->where('sm_assign_vehicles.active_status', 1)
                 ->where('sm_students.user_id', Auth::user()->id)
@@ -1586,7 +1586,7 @@ class AramiscStudentPanelController extends Controller
     public function studentTransportViewModal($r_id, $v_id)
     {
         try {
-            $vehicle = SmVehicle::find($v_id);
+            $vehicle = AramiscVehicle::find($v_id);
             $route = AramiscRoute::find($r_id);
             return view('backEnd.studentPanel.student_transport_view_modal', compact('route', 'vehicle'));
         } catch (\Exception $e) {
@@ -1634,8 +1634,8 @@ class AramiscStudentPanelController extends Controller
             $user = Auth::user();
             $student_detail = AramiscStudent::where('user_id', $user->id)->first();
             // $books = AramiscBook::select('id', 'book_title')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
-            // $subjects = SmSubject::select('id', 'subject_name')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
-            $library_member = SmLibraryMember::where('member_type', 2)->where('student_staff_id', $student_detail->user_id)->first();
+            // $subjects = AramiscSubject::select('id', 'subject_name')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
+            $library_member = AramiscLibraryMember::where('member_type', 2)->where('student_staff_id', $student_detail->user_id)->first();
             if (empty($library_member)) {
                 Toastr::error('You are not library member ! Please contact with librarian', 'Failed');
                 return redirect()->back();
@@ -1659,7 +1659,7 @@ class AramiscStudentPanelController extends Controller
     {
         try {
             $data = [];
-            $allNotices = SmNoticeBoard::where('active_status', 1)->where('inform_to', 'LIKE', '%2%')
+            $allNotices = AramiscNoticeBoard::where('active_status', 1)->where('inform_to', 'LIKE', '%2%')
                 ->orderBy('id', 'DESC')
                 ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -1707,7 +1707,7 @@ class AramiscStudentPanelController extends Controller
                 ->where('sm_assign_class_teachers.active_status', '=', 1)
                 ->select('full_name')
                 ->first();
-            $settings = SmGeneralSettings::find(1);
+            $settings = AramiscGeneralSettings::find(1);
             if (@$settings->phone_number_privacy == 1) {
                 $permission = 1;
             } else {
@@ -1885,13 +1885,13 @@ class AramiscStudentPanelController extends Controller
             $user = Auth::user();
 
             if ($user) {
-                $my_leaves = SmLeaveDefine::where('role_id', $user->role_id)->where('user_id', $user->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                $apply_leaves = SmLeaveRequest::where('staff_id', $user->id)->where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                $leave_types = SmLeaveDefine::whereHas('leaveType')->where('role_id', $user->role_id)->where('user_id', $user->id)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+                $my_leaves = AramiscLeaveDefine::where('role_id', $user->role_id)->where('user_id', $user->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $apply_leaves = AramiscLeaveRequest::where('staff_id', $user->id)->where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $leave_types = AramiscLeaveDefine::whereHas('leaveType')->where('role_id', $user->role_id)->where('user_id', $user->id)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             } else {
-                $my_leaves = SmLeaveDefine::where('role_id', $request->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                $apply_leaves = SmLeaveRequest::where('role_id', $request->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                $leave_types = SmLeaveDefine::whereHas('leaveType')->where('role_id', $request->role_id)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+                $my_leaves = AramiscLeaveDefine::where('role_id', $request->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $apply_leaves = AramiscLeaveRequest::where('role_id', $request->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $leave_types = AramiscLeaveDefine::whereHas('leaveType')->where('role_id', $request->role_id)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             }
 
             return view('backEnd.student_leave.apply_leave', compact('apply_leaves', 'leave_types', 'my_leaves'));
@@ -1911,7 +1911,7 @@ class AramiscStudentPanelController extends Controller
             'attach_file' => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png,txt",
         ]);
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('attach_file');
             $fileSize = filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -1935,8 +1935,8 @@ class AramiscStudentPanelController extends Controller
                 $login_id = $request->login_id;
                 $role_id = $request->role_id;
             }
-            $leaveDefine = SmLeaveDefine::with('leaveType:id')->find($request->leave_type, ['id', 'type_id']);
-            $apply_leave = new SmLeaveRequest();
+            $leaveDefine = AramiscLeaveDefine::with('leaveType:id')->find($request->leave_type, ['id', 'type_id']);
+            $apply_leave = new AramiscLeaveRequest();
             $apply_leave->staff_id = $login_id;
             $apply_leave->role_id = $role_id;
             $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
@@ -1999,7 +1999,7 @@ class AramiscStudentPanelController extends Controller
     public function pendingLeave(Request $request)
     {
         try {
-            $apply_leaves = SmLeaveRequest::with('leaveDefine', 'student')->where([['active_status', 1], ['approve_status', 'P']])->where('staff_id', auth()->id())->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $apply_leaves = AramiscLeaveRequest::with('leaveDefine', 'student')->where([['active_status', 1], ['approve_status', 'P']])->where('staff_id', auth()->id())->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
 
             return view('backEnd.student_leave.pending_leave', compact('apply_leaves'));
@@ -2015,20 +2015,20 @@ class AramiscStudentPanelController extends Controller
             $user = Auth::user();
             if ($user) {
                 if ($user->role_id == 2) {
-                    $my_leaves = SmLeaveDefine::where('user_id', $user->id)->get();
-                    $apply_leaves = SmLeaveRequest::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                    $leave_types = SmLeaveDefine::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                    $my_leaves = AramiscLeaveDefine::where('user_id', $user->id)->get();
+                    $apply_leaves = AramiscLeaveRequest::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                    $leave_types = AramiscLeaveDefine::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 } else {
-                    $my_leaves = SmLeaveDefine::where('role_id', $user->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                    $apply_leaves = SmLeaveRequest::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                    $leave_types = SmLeaveDefine::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                    $my_leaves = AramiscLeaveDefine::where('role_id', $user->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                    $apply_leaves = AramiscLeaveRequest::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                    $leave_types = AramiscLeaveDefine::where('role_id', $user->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 }
             } else {
-                $my_leaves = SmLeaveDefine::where('role_id', $request->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                $apply_leaves = SmLeaveRequest::where('role_id', $request->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-                $leave_types = SmLeaveDefine::where('role_id', $request->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $my_leaves = AramiscLeaveDefine::where('role_id', $request->role_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $apply_leaves = AramiscLeaveRequest::where('role_id', $request->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $leave_types = AramiscLeaveDefine::where('role_id', $request->role_id)->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             }
-            $apply_leave = SmLeaveRequest::find($id);
+            $apply_leave = AramiscLeaveRequest::find($id);
             return view('backEnd.student_leave.apply_leave', compact('apply_leave', 'apply_leaves', 'leave_types', 'my_leaves'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -2047,7 +2047,7 @@ class AramiscStudentPanelController extends Controller
             'file' => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png",
         ]);
         try {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('attach_file');
             $fileSize = filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -2057,7 +2057,7 @@ class AramiscStudentPanelController extends Controller
             }
             $fileName = "";
             if ($request->file('attach_file') != "") {
-                $apply_leave = SmLeaveRequest::find($request->id);
+                $apply_leave = AramiscLeaveRequest::find($request->id);
                 if (file_exists($apply_leave->file)) {
                     unlink($apply_leave->file);
                 }
@@ -2077,7 +2077,7 @@ class AramiscStudentPanelController extends Controller
                 $role_id = $request->role_id;
             }
 
-            $apply_leave = SmLeaveRequest::find($request->id);
+            $apply_leave = AramiscLeaveRequest::find($request->id);
             $apply_leave->staff_id = $login_id;
             $apply_leave->role_id = $role_id;
             $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
@@ -2160,7 +2160,7 @@ class AramiscStudentPanelController extends Controller
             if (Auth::user()->role_id == 2) {
                 $student = AramiscStudent::where('user_id', $student_id)->first();
             }
-            $hwContent = SmUploadHomeworkContent::where('student_id', $student->id)->where('homework_id', $id)->get();
+            $hwContent = AramiscUploadHomeworkContent::where('student_id', $student->id)->where('homework_id', $id)->get();
             // $file_array= json_decode($hwContent->file, true);
             // $files = $file_array;
             // $zipname = 'Homework_Content_'.time().'.zip';

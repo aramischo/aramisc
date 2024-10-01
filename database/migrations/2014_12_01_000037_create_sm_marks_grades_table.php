@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmMarksGrade;
+use App\AramiscMarksGrade;
 
-class CreateSmMarksGradesTable extends Migration
+class CreateAramiscMarksGradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -46,7 +46,7 @@ class CreateSmMarksGradesTable extends Migration
             ['F',  '0.00',  0.00,    0.99,   0, 32.99,       'Failed !'],
         ];
         foreach ($data as $r) {
-            $store = new SmMarksGrade();
+            $store = new AramiscMarksGrade();
             $store->academic_id          = 1;
             $store->grade_name          = $r[0];
             $store->gpa                 = $r[1];

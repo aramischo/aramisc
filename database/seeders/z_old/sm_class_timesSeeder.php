@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmClassTime;
+use App\AramiscClassTime;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +15,7 @@ class sm_class_timesSeeder extends Seeder
      */
     public function run()
     {
-        //        SmClassTime::query()->truncate();
+        //        AramiscClassTime::query()->truncate();
         DB::table('sm_class_times')->insert([
             [
                 'type' => 'class',

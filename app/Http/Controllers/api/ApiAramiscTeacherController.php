@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\api;
 
 use App\User;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscStudent;
 use App\ApiBaseMethod;
-use App\SmContentType;
+use App\AramiscContentType;
 use App\AramiscAcademicYear;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use App\AramiscTeacherUploadContent;
 use Illuminate\Support\Facades\DB;
@@ -157,7 +157,7 @@ class ApiAramiscTeacherController extends Controller
     {
         try {
             $user = User::select('full_name', 'role_id', 'id')->find($user_id);
-            $contentTypes = SmContentType::where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', 1)->get();
+            $contentTypes = AramiscContentType::where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id', 1)->get();
 
             if ($user->role_id == 4) {
                 $uploadContents = AramiscTeacherUploadContent::where(function ($q) use ($user_id) {
@@ -215,8 +215,8 @@ class ApiAramiscTeacherController extends Controller
             }
 
             if ($user->role_id == 4) {
-                $teacher_info = SmStaff::where('user_id', $user->id)->first();
-                $classes = SmAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
+                $teacher_info = AramiscStaff::where('user_id', $user->id)->first();
+                $classes = AramiscAssignSubject::where('teacher_id', $teacher_info->id)->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                     ->where('sm_assign_subjects.academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->where('sm_assign_subjects.active_status', 1)
                     ->where('sm_assign_subjects.school_id', 1)
@@ -224,7 +224,7 @@ class ApiAramiscTeacherController extends Controller
                     ->distinct('sm_classes.id')
                     ->get();
             } elseif ($user->role_id == 5 || $user->role_id == 1) {
-                $classes = SmClass::where('active_status', 1)
+                $classes = AramiscClass::where('active_status', 1)
                     ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->where('school_id', 1)
                     ->select('sm_classes.id', 'class_name')

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\api\v2\Admin;
 
-use App\SmClass;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscParent;
 use App\AramiscStudent;
 use App\AramiscAcademicYear;
 use App\AramiscStudentDocument;
@@ -123,7 +123,7 @@ class StudentController extends Controller
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->student_id)->firstOrFail();
 
-        $data['profileParents'] = SmParent::withoutGlobalScope(SchoolScope::class)
+        $data['profileParents'] = AramiscParent::withoutGlobalScope(SchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $students->parent_id)
             ->select('id', 'fathers_name', 'fathers_mobile', 'fathers_occupation', 'fathers_photo', 'mothers_name', 'mothers_mobile', 'mothers_occupation', 'mothers_photo', 'guardians_name', 'guardians_mobile', 'guardians_email', 'guardians_occupation', 'guardians_relation', 'guardians_photo')

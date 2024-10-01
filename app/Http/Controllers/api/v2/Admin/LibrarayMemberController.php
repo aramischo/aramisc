@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\api\v2\Admin;
 
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscSection;
 
 
 use App\AramiscStudent;
 use App\Models\User;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
-use App\SmAssignSubject;
-use App\SmLibraryMember;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
+use App\AramiscLibraryMember;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\AramiscTeacherUploadContent;
@@ -51,13 +51,13 @@ class LibrarayMemberController extends Controller
     public function userNameList(Request $request)
     {
         if ($request->role_id != 3 || $request->role_id != 2) {
-            $allStaffs = SmStaff::whereRole($request->role_id)->where('school_id', auth()->user()->school_id)->select('id', 'full_name', 'user_id')->get();
+            $allStaffs = AramiscStaff::whereRole($request->role_id)->where('school_id', auth()->user()->school_id)->select('id', 'full_name', 'user_id')->get();
             $data = [];
             foreach ($allStaffs as $staffsvalue) {
-                $data[] = SmStaff::where('id', $staffsvalue->id)->where('school_id', auth()->user()->school_id)->select('id', 'full_name', 'user_id')->first();
+                $data[] = AramiscStaff::where('id', $staffsvalue->id)->where('school_id', auth()->user()->school_id)->select('id', 'full_name', 'user_id')->first();
             }
         } else {
-            $data = SmParent::where('active_status', 1)->where('school_id', auth()->user()->school_id)->select('id', 'fathers_name', 'user_id')->get();
+            $data = AramiscParent::where('active_status', 1)->where('school_id', auth()->user()->school_id)->select('id', 'fathers_name', 'user_id')->get();
         }
         
         $response = [
@@ -72,7 +72,7 @@ class LibrarayMemberController extends Controller
     {
         $data = [];
         if ($request->role_id == 3 || $request->role_id == 2) {
-            $data = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', auth()->user()->school_id)->select('id', 'class_name')->get();
+            $data = AramiscClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', auth()->user()->school_id)->select('id', 'class_name')->get();
         }
 
         if (!$data) {
@@ -93,7 +93,7 @@ class LibrarayMemberController extends Controller
 
     public function sectionList(Request $request)
     {
-        $sectionIds = SmClassSection::where('class_id', $request->class_id)
+        $sectionIds = AramiscClassSection::where('class_id', $request->class_id)
             ->where('school_id', auth()->user()->school_id)
             ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
             ->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
@@ -212,13 +212,13 @@ class LibrarayMemberController extends Controller
         } else {
             $user_id = $request->user_id;
         }
-        $isExitMember = SmLibraryMember::where('student_staff_id', $student_staff_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', auth()->user()->school_id)->status()->first();
+        $isExitMember = AramiscLibraryMember::where('student_staff_id', $student_staff_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', auth()->user()->school_id)->status()->first();
         if (!empty($isExitMember)) {
             $members = $isExitMember;
             $members->active_status = 1;
             $members->update();
         } else {
-            $members = new SmLibraryMember();
+            $members = new AramiscLibraryMember();
             $members->member_type = $request->member_type;
             $members->student_staff_id = $student_staff_id;
             $members->member_ud_id = $request->member_ud_id;

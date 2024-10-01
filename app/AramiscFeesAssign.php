@@ -10,8 +10,6 @@ use App\Scopes\StatusAcademicSchoolScope;
 class AramiscFeesAssign extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_fees_assigns";
     protected $guarded = ['id'];
     protected static function boot()
     {
@@ -19,7 +17,8 @@ class AramiscFeesAssign extends Model
   
         static::addGlobalScope(new StatusAcademicSchoolScope);
     }
-    
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_fees_assigns';
     public function feesGroupMaster(){
         return $this->belongsTo('App\AramiscFeesMaster', 'fees_master_id', 'id');
     }

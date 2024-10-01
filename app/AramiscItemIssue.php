@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscItemIssue extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_item_issues";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_item_issues';
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new AcademicSchoolScope);

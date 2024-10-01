@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +30,7 @@ class usersSeeder extends Seeder
         //     $user->toArray();
 
         //     //user details
-        //     $staff                  = new SmStaff();
+        //     $staff                  = new AramiscStaff();
         //     $staff->user_id         = $user->id;
         //     $staff->role_id         = 1;
         //     $staff->staff_no        = 1;

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmAdmissionQuery;
+use App\AramiscAdmissionQuery;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +15,7 @@ class sm_admission_queriesSeeder extends Seeder
      */
     public function run()
     {
-      SmAdmissionQuery::factory()->times(5)->create(['class' => 1]);
+      AramiscAdmissionQuery::factory()->times(5)->create(['class' => 1]);
         
     }
 }

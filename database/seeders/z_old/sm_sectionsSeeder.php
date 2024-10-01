@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmSection;
+use App\AramiscSection;
 use Illuminate\Database\Seeder;
 
 
@@ -17,7 +17,7 @@ class sm_sectionsSeeder extends Seeder
     {
 
        
-        SmSection::factory()->times(5)->create();
+        AramiscSection::factory()->times(5)->create();
      
     }
 }

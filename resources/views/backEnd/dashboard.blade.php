@@ -675,8 +675,8 @@
     for($i = 1; $i <= date('d'); $i++){
 
         $i = $i < 10? '0'.$i:$i;
-        @$income = App\SmAddIncome::monthlyIncome($i);
-        @$expense = App\SmAddIncome::monthlyExpense($i);
+        @$income = App\AramiscAddIncome::monthlyIncome($i);
+        @$expense = App\AramiscAddIncome::monthlyExpense($i);
 
         @$chart_data .= "{ day: '" . $i . "', income: " . @$income . ", expense:" . @$expense . " },";
     }
@@ -689,9 +689,9 @@
 
         $i = $i < 10? '0'.$i:$i;
 
-        @$yearlyIncome = App\SmAddIncome::yearlyIncome($i);
+        @$yearlyIncome = App\AramiscAddIncome::yearlyIncome($i);
 
-        @$yearlyExpense = App\SmAddIncome::yearlyExpense($i);
+        @$yearlyExpense = App\AramiscAddIncome::yearlyExpense($i);
 
         @$chart_data_yearly .= "{ y: '" . $i . "', income: " . @$yearlyIncome . ", expense:" . @$yearlyExpense . " },";
 

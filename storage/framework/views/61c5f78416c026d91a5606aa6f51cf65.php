@@ -43,7 +43,7 @@
         </div>
     </div>
 </section>
-<?php if (! $__env->hasRenderedOnce('aa940126-42f4-4477-8288-13d971e74938')): $__env->markAsRenderedOnce('aa940126-42f4-4477-8288-13d971e74938');
+<?php if (! $__env->hasRenderedOnce('f2d75821-8e1a-4a17-bb56-4ce4c72b3691')): $__env->markAsRenderedOnce('f2d75821-8e1a-4a17-bb56-4ce4c72b3691');
 $__env->startPush(config('pagebuilder.site_script_var')); ?>
     <script src="<?php echo e(asset('public/theme/edulia/packages/animate-number/multi-animated-counter.min.js')); ?>"></script>
 <?php $__env->stopPush(); endif; ?>

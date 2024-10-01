@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmDashboardSetting;
+use App\AramiscDashboardSetting;
 use Illuminate\Database\Seeder;
 
 class sm_dashboard_settingsSeeder extends Seeder
@@ -14,7 +14,7 @@ class sm_dashboard_settingsSeeder extends Seeder
      */
     public function run()
     {
-        SmDashboardSetting::query()->truncate();
+        AramiscDashboardSetting::query()->truncate();
 
     }
 }

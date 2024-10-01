@@ -1,12 +1,12 @@
 <?php
 
-use App\SmContactMessage;
+use App\AramiscContactMessage;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmContactMessagesTable extends Migration
+class CreateAramiscContactMessagesTable extends Migration
 {
     /**
      * Run the migrations.

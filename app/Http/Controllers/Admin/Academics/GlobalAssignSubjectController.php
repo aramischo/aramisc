@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin\Academics;
 
 use App\AramiscExam;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\YearCheck;
 use App\AramiscExamType;
 use App\AramiscExamSetup;
 use App\ApiBaseMethod;
-use App\SmClassSection;
-use App\SmAssignSubject;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use App\Traits\CcAveuneTrait;
 use App\AramiscTeacherUploadContent;
@@ -38,7 +38,7 @@ class GlobalAssignSubjectController extends Controller
     public function index(Request $request)
     {
         try {
-            $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
+            $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
             return view('backEnd.global.global_assign_subject', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -48,7 +48,7 @@ class GlobalAssignSubjectController extends Controller
     public function create(Request $request)
     {
         try {
-            $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
+            $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
             return view('backEnd.global.global_assign_subject_create', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -59,21 +59,21 @@ class GlobalAssignSubjectController extends Controller
     public function ajaxSubjectDropdown(Request $request)
     {
         try {
-            $staff_info = SmStaff::where('user_id', Auth::user()->id)->first();
+            $staff_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
             if (teacherAccess()) {
                 $class_id = $request->class;
-                $allSubjects = SmAssignSubject::where([['section_id', '=', $request->id], ['class_id', $class_id], ['teacher_id', $staff_info->id]])->where('school_id', Auth::user()->school_id)->get();
+                $allSubjects = AramiscAssignSubject::where([['section_id', '=', $request->id], ['class_id', $class_id], ['teacher_id', $staff_info->id]])->where('school_id', Auth::user()->school_id)->get();
                 $subjectsName = [];
                 foreach ($allSubjects as $allSubject) {
-                    $subjectsName[] = SmSubject::find($allSubject->subject_id);
+                    $subjectsName[] = AramiscSubject::find($allSubject->subject_id);
                 }
             } else {
                 $class_id = $request->class;
-                $allSubjects = SmAssignSubject::where([['section_id', '=', $request->id], ['class_id', $class_id]])->where('school_id', Auth::user()->school_id)->get();
+                $allSubjects = AramiscAssignSubject::where([['section_id', '=', $request->id], ['class_id', $class_id]])->where('school_id', Auth::user()->school_id)->get();
 
                 $subjectsName = [];
                 foreach ($allSubjects as $allSubject) {
-                    $subjectsName[] = SmSubject::find($allSubject->subject_id);
+                    $subjectsName[] = AramiscSubject::find($allSubject->subject_id);
                 }
             }
             return response()->json([$subjectsName]);
@@ -97,7 +97,7 @@ class GlobalAssignSubjectController extends Controller
         }
         try {
 
-            $assign_subjects=SmAssignSubject::query();
+            $assign_subjects=AramiscAssignSubject::query();
             $assign_subjects= $assign_subjects->where('class_id',$request->class);
 
             if($request->section !=null){
@@ -105,11 +105,11 @@ class GlobalAssignSubjectController extends Controller
             }
 
             $assign_subjects=$assign_subjects->where('school_id',Auth::user()->school_id)->get();
-            $subjects = SmSubject::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $teachers = SmStaff::where('active_status', 1)->where('role_id', 4)->where('school_id', Auth::user()->school_id)->get();
+            $subjects = AramiscSubject::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $teachers = AramiscStaff::where('active_status', 1)->where('role_id', 4)->where('school_id', Auth::user()->school_id)->get();
             $class_id = $request->class;
             $section_id = $request->section;
-            $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->with('groupclassSections')->where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.global.global_assign_subject_create', compact('classes', 'assign_subjects', 'teachers', 'subjects', 'class_id', 'section_id'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -120,8 +120,8 @@ class GlobalAssignSubjectController extends Controller
     public function assignSubjectAjax(Request $request)
     {
         try {
-            $subjects = SmSubject::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $teachers = SmStaff::status()->where('role_id', 4)->get();
+            $subjects = AramiscSubject::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $teachers = AramiscStaff::status()->where('role_id', 4)->get();
             return response()->json([$subjects, $teachers]);
         } catch (\Exception $e) {
             return Response::json(['error' => 'Error msg'], 404);
@@ -143,10 +143,10 @@ class GlobalAssignSubjectController extends Controller
                         if ($subject != "") {                            
                             if($request->section_id==null){
                                 $k = 0;
-                                $all_section=SmClassSection::where('class_id',$request->class_id)->get();
+                                $all_section=AramiscClassSection::where('class_id',$request->class_id)->get();
                                $t_teacher=count($request->teachers);
                                 foreach($all_section as $section){                                        
-                                    $assign_subject = new SmAssignSubject();
+                                    $assign_subject = new AramiscAssignSubject();
                                     $assign_subject->class_id = $request->class_id;
                                     $assign_subject->school_id = Auth::user()->school_id;
                                     $assign_subject->section_id = $section->section_id;
@@ -160,7 +160,7 @@ class GlobalAssignSubjectController extends Controller
                                 }
 
                             }else{
-                            $assign_subject = new SmAssignSubject();
+                            $assign_subject = new AramiscAssignSubject();
                             $assign_subject->class_id = $request->class_id;
                             $assign_subject->school_id = Auth::user()->school_id;
                             $assign_subject->section_id = $request->section_id;
@@ -177,7 +177,7 @@ class GlobalAssignSubjectController extends Controller
                 }
             } elseif ($request->update == 1) {
                 if($request->section_id ==null){
-                    $assign_subjects = SmAssignSubject::where('class_id', $request->class_id)->delete();
+                    $assign_subjects = AramiscAssignSubject::where('class_id', $request->class_id)->delete();
 
                     $i = 0;
                     if (! empty($request->subjects)) {
@@ -186,10 +186,10 @@ class GlobalAssignSubjectController extends Controller
                             $k = 0;
                             if (!empty($subject)) {
 
-                                $all_section=SmClassSection::where('class_id',$request->class_id)->get();
+                                $all_section=AramiscClassSection::where('class_id',$request->class_id)->get();
                                 foreach($all_section as $section){
                          
-                                $assign_subject = new SmAssignSubject();
+                                $assign_subject = new AramiscAssignSubject();
                                 $assign_subject->class_id = $request->class_id;
                                 $assign_subject->section_id = $section->section_id;
                                 $assign_subject->subject_id = $subject;
@@ -208,7 +208,7 @@ class GlobalAssignSubjectController extends Controller
                     }
 
                 }else{
-                    SmAssignSubject::where('class_id', $request->class_id)->where('section_id', $request->section_id)->delete();
+                    AramiscAssignSubject::where('class_id', $request->class_id)->where('section_id', $request->section_id)->delete();
                
                     $i = 0;
                     if (! empty($request->subjects)) {
@@ -216,7 +216,7 @@ class GlobalAssignSubjectController extends Controller
                         foreach ($request->subjects as $subject) {
                                 
                             if (!empty($subject)) {
-                                $assign_subject = new SmAssignSubject();
+                                $assign_subject = new AramiscAssignSubject();
                                 $assign_subject->class_id = $request->class_id;
                                 $assign_subject->section_id = $request->section_id;
                                 $assign_subject->subject_id = $subject;
@@ -248,10 +248,10 @@ class GlobalAssignSubjectController extends Controller
             'section' => 'required'
         ]);
         try {
-            $assign_subjects = SmAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->get();
-            $subjects = SmSubject::get();
-            $teachers = SmStaff::status()->where('role_id', 4)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $assign_subjects = AramiscAssignSubject::where('class_id', $request->class)->where('section_id', $request->section)->get();
+            $subjects = AramiscSubject::get();
+            $teachers = AramiscStaff::status()->where('role_id', 4)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             if ($assign_subjects->count() == 0) {
                 Toastr::error('No Result Found', 'Failed');
@@ -270,10 +270,10 @@ class GlobalAssignSubjectController extends Controller
     public function ajaxSelectSubject(Request $request)
     {
         try {
-            $subject_all = SmAssignSubject::where('class_id', '=', $request->class)->where('section_id', $request->section)->distinct('subject_id')->where('school_id', Auth::user()->school_id)->get();
+            $subject_all = AramiscAssignSubject::where('class_id', '=', $request->class)->where('section_id', $request->section)->distinct('subject_id')->where('school_id', Auth::user()->school_id)->get();
             $students = [];
             foreach ($subject_all as $allSubject) {
-                $students[] = SmSubject::find($allSubject->subject_id);
+                $students[] = AramiscSubject::find($allSubject->subject_id);
             }
             return response()->json([$students]);
         } catch (\Exception $e) {
@@ -283,12 +283,12 @@ class GlobalAssignSubjectController extends Controller
 
     public function loadAssignedSubject(Request $request){
         
-        $assignedClass = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($request->assignedClass);
+        $assignedClass = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($request->assignedClass);
         if($assignedClass){
-            $teachers = SmStaff::where('role_id',4)->where('school_id',Auth::user()->school_id)->get();
+            $teachers = AramiscStaff::where('role_id',4)->where('school_id',Auth::user()->school_id)->get();
             $class_id = $assignedClass->class_id;
             $section_id = $assignedClass->section_id;
-            $subjects = SmAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id',$class_id)->where('section_id',$section_id)->with('subject')->get();
+            $subjects = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id',$class_id)->where('section_id',$section_id)->with('subject')->get();
             $globalStudyMat = AramiscTeacherUploadContent::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('class',$class_id)->where('section',$section_id)->count();
            
             $data['subjects'] = $subjects;
@@ -339,16 +339,16 @@ class GlobalAssignSubjectController extends Controller
 
     public function saveAssignedSubject(Request $request){
       try{
-            $global_assignedClass = SmClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($request->section);
+            $global_assignedClass = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($request->section);
             
             if($global_assignedClass){
-                $global_class = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($global_assignedClass->class_id);
+                $global_class = AramiscClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($global_assignedClass->class_id);
                 $global_section = AramiscSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->find($global_assignedClass->section_id);
-                $existClass = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('parent_id',$global_class->id)->first();
+                $existClass = AramiscClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('parent_id',$global_class->id)->first();
                 $existSection = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('parent_id',$global_section->id)->first();
                 
                 if(! $existClass){
-                    $class = new SmClass();
+                    $class = new AramiscClass();
                     $class->parent_id = $global_class->id;
                     $class->class_name = $global_class->class_name;
                     $class->pass_mark = $global_class->pass_mark;
@@ -373,9 +373,9 @@ class GlobalAssignSubjectController extends Controller
                 }else{
                     $section = $existSection;
                 }
-                $existClassSection = SmClassSection::where('class_id',$class->id)->where('section_id',$section->id)->first();
+                $existClassSection = AramiscClassSection::where('class_id',$class->id)->where('section_id',$section->id)->first();
                 if(! $existClassSection){
-                    $smClassSection = new SmClassSection();
+                    $smClassSection = new AramiscClassSection();
                     $smClassSection->parent_id = $global_assignedClass->id;
                     $smClassSection->class_id = $class->id;
                     $smClassSection->section_id = $section->id;
@@ -389,10 +389,10 @@ class GlobalAssignSubjectController extends Controller
             if (isset($request->subjects)) {
                 foreach ($request->subjects as $key=>$subject) {
                     if ($subject != "") { 
-                        $global_sub = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($subject);
-                        $existSubject = SmSubject::where('parent_id',$global_sub->id)->first();
+                        $global_sub = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($subject);
+                        $existSubject = AramiscSubject::where('parent_id',$global_sub->id)->first();
                         if(! $existSubject){
-                            $new_subject = new SmSubject();
+                            $new_subject = new AramiscSubject();
                             $new_subject->parent_id = $global_sub->id;
                             $new_subject->subject_name = $global_sub->subject_name;
                             $new_subject->subject_type = $global_sub->subject_type;
@@ -408,8 +408,8 @@ class GlobalAssignSubjectController extends Controller
                             $new_subject= $existSubject;
                         }
                         
-                        SmAssignSubject::where('class_id',$class->id)->where('section_id',$section->id)->where('subject_id',$new_subject->id)->delete();
-                        $assign_subject = new SmAssignSubject();
+                        AramiscAssignSubject::where('class_id',$class->id)->where('section_id',$section->id)->where('subject_id',$new_subject->id)->delete();
+                        $assign_subject = new AramiscAssignSubject();
                         $assign_subject->parent_id = $global_assignedClass->id;
                         $assign_subject->class_id = $class->id;
                         $assign_subject->section_id = $section->id;
@@ -427,8 +427,8 @@ class GlobalAssignSubjectController extends Controller
                 if($request->exams){
                     foreach($request->exams as $exam_id){
                         $parentExam = AramiscExam::withoutGlobalScope(AcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->find($exam_id);
-                        $subject = SmSubject::where('parent_id', $parentExam->subject_id)->first(); 
-                        $class = SmClass::where('parent_id', $parentExam->class_id)->first();
+                        $subject = AramiscSubject::where('parent_id', $parentExam->subject_id)->first(); 
+                        $class = AramiscClass::where('parent_id', $parentExam->class_id)->first();
                         $section = AramiscSection::where('parent_id', $parentExam->section_id)->first();
                         $examType = AramiscExamType::where('parent_id', $parentExam->exam_type_id)->first();
                        
@@ -496,7 +496,7 @@ class GlobalAssignSubjectController extends Controller
 
 
     public function globalAssign(){
-        $classes = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
+        $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
         return view('backEnd.global.globalAssign',compact('classes'));
 
     }

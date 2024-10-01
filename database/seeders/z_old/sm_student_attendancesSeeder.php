@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\SmStudent;
-use App\SmStudentAttendance;
+use App\AramiscStudent;
+use App\AramiscStudentAttendance;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -17,8 +17,8 @@ class sm_student_attendancesSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        SmStudentAttendance::query()->truncate();
-        $studentList = SmStudent::where('class_id', 1)->get();
+        AramiscStudentAttendance::query()->truncate();
+        $studentList = AramiscStudent::where('class_id', 1)->get();
         foreach ($studentList as $student) {
             // $m = date('m');
             for ($m = 1; $m <= 2; $m++) {
@@ -38,7 +38,7 @@ class sm_student_attendancesSeeder extends Seeder
                         break;
                     }
 
-                    $sa                  = new SmStudentAttendance();
+                    $sa                  = new AramiscStudentAttendance();
                     $sa->student_id      = $student->id;
                     $sa->attendance_type = $status;
                     $sa->notes           = 'Sample Attendance for ' . $str;

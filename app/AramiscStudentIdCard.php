@@ -10,8 +10,8 @@ use App\Scopes\StatusAcademicSchoolScope;
 class AramiscStudentIdCard extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = 'sm_student_id_cards';
+    // Spécifiez le nom de la table explicitement
+   protected $table = 'sm_student_id_cards';
     protected static function boot()
     {
         parent::boot();

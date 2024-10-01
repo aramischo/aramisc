@@ -2,16 +2,16 @@
 
 use App\Models\ColorTheme;
 use App\InfixModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use App\Models\SmNotificationSetting;
+use App\Models\AramiscNotificationSetting;
 use Illuminate\Support\Facades\Schema;
 use Larabuild\Pagebuilder\Models\Page;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\RolePermission\Entities\Permission;
-use Modules\ParentRegistration\Entities\SmStudentField;
+use Modules\ParentRegistration\Entities\AramiscStudentField;
 
 return new class extends Migration
 {
@@ -318,14 +318,14 @@ return new class extends Migration
                     $page->update();
                 }
             }
-        $event = SmNotificationSetting::where('event', 'Student_Attendance')->first();
+        $event = AramiscNotificationSetting::where('event', 'Student_Attendance')->first();
         if($event){
             $shortCodes = ["Student" => "[student_name], [class], [section], [attendance_type]",
             "Parent" => "[parent_name], [student_name], [class], [section], [attendance_type]"];
             $event->shortcode = $shortCodes;
             $event->update();
         }
-        $event = SmNotificationSetting::where('event', 'Subject_Wise_Attendance')->first();
+        $event = AramiscNotificationSetting::where('event', 'Subject_Wise_Attendance')->first();
         if($event){
             $shortCodes = ["Student" => "[student_name], [subject], [attendance_type]",
             "Parent" => "[parent_name], [student_name], [subject], [attendance_type]",];
@@ -369,7 +369,7 @@ return new class extends Migration
 
         // Online registration change start
         if ((moduleStatusCheck('Lead') != true) && moduleStatusCheck('ParentRegistration')) {
-            SmStudentField::where('field_name', 'phone_number')->where('school_id', app('school')->id)->update(['is_required' => 1]);
+            AramiscStudentField::where('field_name', 'phone_number')->where('school_id', app('school')->id)->update(['is_required' => 1]);
         }
         // Online registration change end
 
@@ -434,7 +434,7 @@ return new class extends Migration
         }
 
         // function insertMenuManage($menu){
-        //     $menuData = SmHeaderMenuManager::create($menu);
+        //     $menuData = AramiscHeaderMenuManager::create($menu);
         //     if(gv($menu, 'childs')){
         //         foreach(gv($menu, 'childs') as $child){
         //             $child['parent_id'] = $menuData->id;

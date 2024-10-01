@@ -2,7 +2,7 @@
 
 use App\Models\ColorTheme;
 use App\InfixModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Models\AramiscNotificationSetting;
@@ -434,7 +434,7 @@ return new class extends Migration
         }
 
         // function insertMenuManage($menu){
-        //     $menuData = SmHeaderMenuManager::create($menu);
+        //     $menuData = AramiscHeaderMenuManager::create($menu);
         //     if(gv($menu, 'childs')){
         //         foreach(gv($menu, 'childs') as $child){
         //             $child['parent_id'] = $menuData->id;

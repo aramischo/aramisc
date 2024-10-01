@@ -22,7 +22,7 @@
     "BulkPrint": true,
     "XenditPayment": false,
     "HimalayaSms": false,
-    "Lms": false,
+    "Lms": true,
     "KhaltiPayment": false,
     "Fees": true,
     "AWSS3": false,

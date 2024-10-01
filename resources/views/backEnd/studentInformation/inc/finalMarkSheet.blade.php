@@ -1,7 +1,7 @@
 @php 
 $subjects = $record->assign_subject;
 $all_subject_ids = $subjects->pluck('subject_id')->toArray();
-$is_result_available = App\SmResultStore::where([
+$is_result_available = App\AramiscResultStore::where([
                     ['class_id', $record->class], 
                     ['section_id', $record->section], 
                     ['student_id', $record->student]])

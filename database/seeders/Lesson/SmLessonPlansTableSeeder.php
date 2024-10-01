@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Lesson;
 
-use App\SmWeekend;
+use App\AramiscWeekend;
 use Illuminate\Database\Seeder;
 use Modules\Lesson\Entities\SmLesson;
 use Modules\Lesson\Entities\LessonPlanner;
@@ -18,7 +18,7 @@ class SmLessonPlansTableSeeder extends Seeder
     public function run($school_id, $academic_id, $count)
     {
         //
-        $days = SmWeekend::where('school_id', $school_id)->get();
+        $days = AramiscWeekend::where('school_id', $school_id)->get();
         $lesson_id = SmLesson::where('school_id', $school_id)
                                 ->where('academic_id', $academic_id)
                                 ->value('id');

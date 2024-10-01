@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\SmFeesAssign;
-use App\SmFeesMaster;
-use App\SmStudent;
+use App\AramiscFeesAssign;
+use App\AramiscFeesMaster;
+use App\AramiscStudent;
 use Illuminate\Database\Seeder;
 
 class sm_fees_assignsSeeder extends Seeder
@@ -17,13 +17,13 @@ class sm_fees_assignsSeeder extends Seeder
     public function run()
     {
 
-        SmFeesAssign::query()->truncate();
-        $students = SmStudent::where('active_status', 1)->where('class_id', 1)->get();
+        AramiscFeesAssign::query()->truncate();
+        $students = AramiscStudent::where('active_status', 1)->where('class_id', 1)->get();
         foreach ($students as $student) {
             $val = 1 + rand() % 5;
-            $fees_masters = SmFeesMaster::where('active_status', 1)->take($val)->get();
+            $fees_masters = AramiscFeesMaster::where('active_status', 1)->take($val)->get();
             foreach ($fees_masters as $fees_master) {
-                $store = new SmFeesAssign();
+                $store = new AramiscFeesAssign();
                 $store->student_id = $student->id;
                 $store->fees_master_id = $fees_master->id;
                 $store->save();

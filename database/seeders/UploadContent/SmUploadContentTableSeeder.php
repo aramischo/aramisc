@@ -2,8 +2,8 @@
 
 namespace Database\Seeders\UploadContent;
 
-use App\SmClassSection;
-use App\SmTeacherUploadContent;
+use App\AramiscClassSection;
+use App\AramiscTeacherUploadContent;
 use Illuminate\Database\Seeder;
 
 class SmUploadContentTableSeeder extends Seeder
@@ -15,8 +15,8 @@ class SmUploadContentTableSeeder extends Seeder
      */
     public function run($school_id, $academic_id, $count=5)
     {
-        $classSection = SmClassSection::where('school_id', $school_id)->where('academic_id', $academic_id)->first();
-        SmTeacherUploadContent::factory()->times($count)->create(array_merge([
+        $classSection = AramiscClassSection::where('school_id', $school_id)->where('academic_id', $academic_id)->first();
+        AramiscTeacherUploadContent::factory()->times($count)->create(array_merge([
             'class' => $classSection->class_id,
             'section' => $classSection->section_id,
             'school_id'=>$school_id,

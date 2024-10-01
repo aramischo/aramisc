@@ -27,7 +27,7 @@ class CreateSchoolModulesTable extends Migration
         });
 
         if(moduleStatusCheck('Lead')){
-            $schools = \App\SmSchool::all();
+            $schools = \App\AramiscSchool::all();
             foreach($schools as $school){
                 $exists = SchoolModule::where('school_id', $school->id)->first();
                 if (!$exists){

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmUploadHomeworkContentsTable extends Migration
+class CreateAramiscUploadHomeworkContentsTable extends Migration
 {
     /**
      * Run the migrations.

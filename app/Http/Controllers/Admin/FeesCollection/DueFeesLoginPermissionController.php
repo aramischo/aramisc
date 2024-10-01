@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\FeesCollection;
 
 use App\User;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -17,7 +17,7 @@ class DueFeesLoginPermissionController extends Controller
     public function index(){
         try{
             $roles = InfixRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
-            $classes = SmClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
+            $classes = AramiscClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
             return view('backEnd.feesCollection.due_fees_login_permission', compact('roles', 'classes'));
         }
         catch(\Exception $e){
@@ -29,7 +29,7 @@ class DueFeesLoginPermissionController extends Controller
     public function search(Request $request){
         try{
             $roles = InfixRole::whereIn('id', [2,3])->where('school_id', auth()->user()->school_id)->get();
-            $classes = SmClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
+            $classes = AramiscClass::where('school_id',auth()->user()->school_id)->where('academic_id',getAcademicId())->get();
             $records = StudentRecord::query();
             $records->where('is_promote', 0)->where('school_id',auth()->user()->school_id);
             $records->when(moduleStatusCheck('University') && $request->filled('un_academic_id'), function ($u_query) use ($request) {

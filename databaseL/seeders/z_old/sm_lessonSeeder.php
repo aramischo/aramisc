@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Database\Seeder;
 use Modules\Lesson\Entities\SmLesson;
 
@@ -16,7 +16,7 @@ class sm_lessonSeeder extends Seeder
     public function run()
     {
 
-        $sections=SmAssignSubject::where('class_id',1)
+        $sections=AramiscAssignSubject::where('class_id',1)
                         ->where('subject_id',1)
                         ->get();
         $lessons=['Chapter 01','Chapter 02','Chapter 03','Chapter 04','Chapter 05','Chapter 06','Chapter 07','Chapter 08','Chapter 09','Chapter 10','Chapter 11','Chapter 12'];

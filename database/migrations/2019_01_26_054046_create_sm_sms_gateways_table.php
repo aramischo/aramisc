@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmSmsGateway;
+use App\AramiscSmsGateway;
 
-class CreateSmSmsGatewaysTable extends Migration
+class CreateAramiscSmsGatewaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -50,25 +50,25 @@ class CreateSmSmsGatewaysTable extends Migration
         });
 
 
-        $gateway = new SmSmsGateway();
+        $gateway = new AramiscSmsGateway();
         $gateway->gateway_name = 'Twilio';
         $gateway->save();
 
-        $gateway = new SmSmsGateway();
+        $gateway = new AramiscSmsGateway();
         $gateway->gateway_name = 'Msg91';
         $gateway->save();
 
-        $gateway = new SmSmsGateway();
+        $gateway = new AramiscSmsGateway();
         $gateway->gateway_name = 'TextLocal';
         $gateway->textlocal_sender = 'TXTLCL';
         $gateway->save();
 
-        $gateway = new SmSmsGateway();
+        $gateway = new AramiscSmsGateway();
         $gateway->gateway_name = 'AfricaTalking';
         $gateway->africatalking_username = 'sandbox';
         $gateway->save();
         
-        $gateway = new SmSmsGateway();
+        $gateway = new AramiscSmsGateway();
         $gateway->gateway_name = 'Mobile SMS';
         $gateway->save();
     }

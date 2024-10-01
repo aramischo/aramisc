@@ -5,18 +5,18 @@ namespace App\Http\Controllers\api\v2\Exam;
 use App\AramiscExam;
 use App\AramiscStudent;
 use App\AramiscExamType;
-use App\SmMarksGrade;
-use App\SmOnlineExam;
-use App\SmResultStore;
+use App\AramiscMarksGrade;
+use App\AramiscOnlineExam;
+use App\AramiscResultStore;
 use App\AramiscAcademicYear;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
-use App\SmGeneralSettings;
+use App\AramiscAssignSubject;
+use App\AramiscGeneralSettings;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmClassOptionalSubject;
-use App\SmOptionalSubjectAssign;
+use App\AramiscClassOptionalSubject;
+use App\AramiscOptionalSubjectAssign;
 use App\AramiscStudentTakeOnlineExam;
 use Illuminate\Support\Facades\DB;
 use App\Scopes\AcademicSchoolScope;
@@ -243,7 +243,7 @@ class ExamController extends Controller
                     return $exam;
                 });
         }
-        $online_exam =  SmOnlineExam::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $online_exam =  AramiscOnlineExam::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->selectRaw("*, $student_id as student_id")
             ->whereDoesntHave('studentAttend')
             ->where('active_status', 1)
@@ -304,7 +304,7 @@ class ExamController extends Controller
 
     private static function getExamResult($exam_id, $record)
     {
-        $eligible_subjects = SmAssignSubject::where('class_id', $record->class_id)
+        $eligible_subjects = AramiscAssignSubject::where('class_id', $record->class_id)
             ->where('section_id', $record->section_id)
 
             ->where('academic_id', getAcademicId())
@@ -314,7 +314,7 @@ class ExamController extends Controller
             ->get();
 
         foreach ($eligible_subjects as $subject) {
-            $getMark = SmResultStore::where([
+            $getMark = AramiscResultStore::where([
                 ['exam_type_id', $exam_id],
                 ['student_id', $record->student_id],
                 ['student_record_id', $record->id],
@@ -325,7 +325,7 @@ class ExamController extends Controller
                 continue;
             }
 
-            $result = SmResultStore::where([
+            $result = AramiscResultStore::where([
                 ['exam_type_id', $exam_id],
                 ['student_id', $record->student_id],
                 ['student_record_id', $record->id],

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\api\v2\NoticeBoard;
 
-use App\SmNoticeBoard;
+use App\AramiscNoticeBoard;
 use App\AramiscAcademicYear;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,7 @@ class NoticeBoardController extends Controller
     public function studentNoticeboard(Request $request)
     {
         $data = [];
-        $data['allNotices'] = SmNoticeBoard::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $data['allNotices'] = AramiscNoticeBoard::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->select('id', 'notice_title', 'notice_message', 'publish_on')
             ->where('active_status', 1)
             ->where('inform_to', 'LIKE', '%2%')
@@ -42,7 +42,7 @@ class NoticeBoardController extends Controller
     public function studentSingleNoticeboard(Request $request)
     {
         $data = [];
-        $data = SmNoticeBoard::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $data = AramiscNoticeBoard::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->select('id', 'notice_title', 'notice_message', 'publish_on')
             ->where('active_status', 1)
             ->where('inform_to', 'LIKE', '%2%')

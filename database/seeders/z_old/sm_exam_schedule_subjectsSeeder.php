@@ -1,7 +1,7 @@
 <?php
 namespace Database\Seeders;
 
-use App\SmExamScheduleSubject;
+use App\AramiscExamScheduleSubject;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -14,10 +14,10 @@ class sm_exam_schedule_subjectsSeeder extends Seeder
      */
     public function run()
     {
-//        SmExamScheduleSubject::query()->truncate();
+//        AramiscExamScheduleSubject::query()->truncate();
 //        $faker = Faker::create();
 //        for($i=1; $i<=10; $i++){
-//            $store= new SmExamScheduleSubject();
+//            $store= new AramiscExamScheduleSubject();
 //            $store->exam_schedule_id=1;
 //            $store->subject_id=$faker->numberBetween(1,4);
 //            $store->date=$faker->dateTime()->format('Y-m-d');

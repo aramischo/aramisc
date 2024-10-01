@@ -7,9 +7,9 @@ use App\AramiscAcademicYear;
 use Illuminate\Http\Request;
 
 use App\AramiscRoute;
-use App\SmAssignVehicle;
+use App\AramiscAssignVehicle;
 use Illuminate\Support\Facades\Auth;
-use App\SmVehicle;
+use App\AramiscVehicle;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +17,7 @@ class AssignVehicleController extends Controller
 {
     public function assignToRoute()
     {
-        $data['vehicles'] = SmVehicle::where('school_id', auth()->user()->school_id)->select('id', 'vehicle_no')->get();
+        $data['vehicles'] = AramiscVehicle::where('school_id', auth()->user()->school_id)->select('id', 'vehicle_no')->get();
         $data['routes'] = AramiscRoute::where('school_id', auth()->user()->school_id)->select('id', 'title')->get();
         if (!$data) {
             $response = [
@@ -46,7 +46,7 @@ class AssignVehicleController extends Controller
             'vehicles' => 'required|exists:sm_vehicles,id'
         ]);
 
-        $assign_vehicle = new SmAssignVehicle();
+        $assign_vehicle = new AramiscAssignVehicle();
         $assign_vehicle->route_id = $request->route;
         $assign_vehicle->vehicle_id = $request->vehicles;
         $assign_vehicle->school_id = auth()->user()->school_id;
@@ -71,7 +71,7 @@ class AssignVehicleController extends Controller
 
     public function assignList()
     {
-        $assignList = SmAssignVehicle::with('route', 'vehicle')
+        $assignList = AramiscAssignVehicle::with('route', 'vehicle')
             ->where('school_id', auth()->user()->school_id)
             ->get()
             ->map(function ($assign) {

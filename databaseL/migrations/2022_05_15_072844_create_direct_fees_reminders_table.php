@@ -1,6 +1,6 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use App\Models\DirectFeesReminder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -26,7 +26,7 @@ class CreateDirectFeesRemindersTable extends Migration
         });
 
         
-        $schools = SmSchool::all();
+        $schools = AramiscSchool::all();
         foreach($schools as $school){
             $data = new DirectFeesReminder();
             $data->due_date_before = 5;

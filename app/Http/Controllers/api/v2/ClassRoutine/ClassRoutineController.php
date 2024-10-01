@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\v2\ClassRoutine;
 use App\AramiscStudent;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmClassRoutineUpdate;
+use App\AramiscClassRoutineUpdate;
 use App\Http\Controllers\Controller;
 use App\Scopes\StatusAcademicSchoolScope;
 
@@ -20,7 +20,7 @@ class ClassRoutineController extends Controller
         $class_id = $record->class_id;
         $section_id = $record->section_id;
 
-        $data['class_routines'] = SmClassRoutineUpdate::withOutGlobalScope(StatusAcademicSchoolScope::class)
+        $data['class_routines'] = AramiscClassRoutineUpdate::withOutGlobalScope(StatusAcademicSchoolScope::class)
             ->with('weekend', 'classRoom', 'subject', 'teacherDetail', 'class', 'section')
             ->where('class_id', $class_id)
             ->where('section_id', $section_id)

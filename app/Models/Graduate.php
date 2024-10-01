@@ -50,6 +50,6 @@ class Graduate extends Model
 
     public function smClass()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id')->withDefault();
     }
 }

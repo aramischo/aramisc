@@ -1,11 +1,11 @@
 <?php
 
-use App\SmStyle;
+use App\AramiscStyle;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmStylesTable extends Migration
+class CreateAramiscStylesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -50,7 +50,7 @@ class CreateSmStylesTable extends Migration
         });
 
 
-        $s = new SmStyle();
+        $s = new AramiscStyle();
         $s->style_name = 'Default';
         $s->path_main_style = 'style.css';
         $s->path_infix_style = 'infix.css';
@@ -71,7 +71,7 @@ class CreateSmStylesTable extends Migration
         $s->is_active = 1;
         $s->save();
 
-        $s = new  SmStyle();
+        $s = new  AramiscStyle();
         $s->style_name = 'Lawn Green';
         $s->path_main_style = 'lawngreen_version/style.css';
         $s->path_infix_style = 'lawngreen_version/infix.css';
@@ -95,7 +95,7 @@ class CreateSmStylesTable extends Migration
         $s->save();
 
 
-        // $s = new  SmStyle();
+        // $s = new  AramiscStyle();
         // $s->style_name = 'Sky Blue';
         // $s->path_main_style = 'blue_version/style.css';
         // $s->path_infix_style = 'blue_version/infix.css';
@@ -122,7 +122,7 @@ class CreateSmStylesTable extends Migration
 
 
         //            Orange Color Theme
-        // $s = new  SmStyle();
+        // $s = new  AramiscStyle();
         // $s->style_name = 'Orange';
         // $s->path_main_style = 'orange_version/style.css';
         // $s->path_infix_style = 'orange_version/infix.css';
@@ -145,7 +145,7 @@ class CreateSmStylesTable extends Migration
         // $s->dashboardbackground = '#e7ecff';
         // $s->save();
 
-        // $s = new  SmStyle();
+        // $s = new  AramiscStyle();
         // $s->style_name = 'Paste';
         // $s->path_main_style = 'paste_version/style.css';
         // $s->path_infix_style = 'paste_version/infix.css';
@@ -168,7 +168,7 @@ class CreateSmStylesTable extends Migration
         // $s->dashboardbackground = '#e7ecff';
         // $s->save();
 
-        // $s = new  SmStyle();
+        // $s = new  AramiscStyle();
         // $s->style_name = 'Dark Blue';
         // $s->path_main_style = 'darkblue_version/style.css';
         // $s->path_infix_style = 'darkblue_version/infix.css';
@@ -191,7 +191,7 @@ class CreateSmStylesTable extends Migration
         // $s->dashboardbackground = '#e7ecff';
         // $s->save();
 
-        // $s = new  SmStyle();
+        // $s = new  AramiscStyle();
         // $s->style_name = 'Pink';
         // $s->path_main_style = 'pink_version/style.css';
         // $s->path_infix_style = 'pink_version/infix.css';
@@ -215,7 +215,7 @@ class CreateSmStylesTable extends Migration
         // $s->save();
 
 
-        // $s = new  SmStyle();
+        // $s = new  AramiscStyle();
         // $s->style_name = 'Dark';
         // $s->path_main_style = 'dark_version/style.css';
         // $s->path_infix_style = 'dark_version/infix.css';

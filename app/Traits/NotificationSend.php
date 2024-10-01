@@ -3,11 +3,11 @@
 namespace App\Traits;
 
 use App\Models\User;
-use App\SmsTemplate;
-use App\SmSmsGateway;
+use App\AramiscTemplate;
+use App\AramiscSmsGateway;
 use App\Jobs\EmailJob;
 use GuzzleHttp\Client;
-use App\SmEmailSetting;
+use App\AramiscEmailSetting;
 use App\AramiscNotification;
 use App\Models\StudentRecord;
 use Illuminate\Support\Facades\DB;
@@ -145,7 +145,7 @@ trait NotificationSend
         }
 
         $school_id = auth()->check() && saasSettings('email_settings') ? auth()->user()->school_id : 1;
-        $setting = SmEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
+        $setting = AramiscEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
 
         if (!$setting) {
             return;
@@ -208,13 +208,13 @@ trait NotificationSend
         }
 
         $school_id = auth()->check() && saasSettings('sms_settings') ? auth()->user()->school_id : 1;
-        $activeSmsGateway = SmSmsGateway::where('school_id', $school_id)->where('active_status', 1)->first();
+        $activeSmsGateway = AramiscSmsGateway::where('school_id', $school_id)->where('active_status', 1)->first();
         if (!$activeSmsGateway) {
             return;
         }
 
         $templete = $notificationData->template[$role]['SMS'];
-        $body = SmsTemplate::smsTempleteToBody($templete, $data);
+        $body = AramiscTemplate::smsTempleteToBody($templete, $data);
 
         try {
             if ($activeSmsGateway->gateway_name == 'Twilio') {

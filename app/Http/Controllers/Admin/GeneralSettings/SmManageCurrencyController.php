@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin\GeneralSettings;
 
 
-use App\SmCurrency;
-use App\SmGeneralSettings;
+use App\AramiscCurrency;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\GeneralSettings\SmCurrencyRequest;
+use App\Http\Requests\Admin\GeneralSettings\AramiscCurrencyRequest;
 
 class SmManageCurrencyController extends Controller
 {
@@ -23,7 +23,7 @@ class SmManageCurrencyController extends Controller
       public function manageCurrency()
       {
           try {            
-              $currencies = SmCurrency::with('active')->whereIn('school_id', [1, Auth::user()->school_id])->get();
+              $currencies = AramiscCurrency::with('active')->whereIn('school_id', [1, Auth::user()->school_id])->get();
               return view('backEnd.systemSettings.manageCurrency', compact('currencies'));
           } catch (\Exception $e) {
               Toastr::error('Operation Failed', 'Failed');
@@ -34,10 +34,10 @@ class SmManageCurrencyController extends Controller
       {
         return view('backEnd.systemSettings.create_update_currency');
       }
-      public function storeCurrency(SmCurrencyRequest $request)
+      public function storeCurrency(AramiscCurrencyRequest $request)
       {
           try {
-              $s = new SmCurrency();
+              $s = new AramiscCurrency();
               $s->name = $request->name;
               $s->code = $request->code;
               $s->symbol = $request->symbol;
@@ -56,10 +56,10 @@ class SmManageCurrencyController extends Controller
           }
       }
   
-      public function storeCurrencyUpdate(SmCurrencyRequest $request)
+      public function storeCurrencyUpdate(AramiscCurrencyRequest $request)
       {
           try {
-              $s = SmCurrency::findOrFail($request->id);
+              $s = AramiscCurrency::findOrFail($request->id);
               $s->name = $request->name;
               $s->code = $request->code;
               $s->symbol = $request->symbol;
@@ -88,8 +88,8 @@ class SmManageCurrencyController extends Controller
         //     return redirect()->route('manage-currency');
         // }
         try {
-            $currencies = SmCurrency::whereOr(['school_id', Auth::user()->school_id], ['school_id', 1])->get();
-            $editData = SmCurrency::where('id', $id)->first();
+            $currencies = AramiscCurrency::whereOr(['school_id', Auth::user()->school_id], ['school_id', 1])->get();
+            $editData = AramiscCurrency::where('id', $id)->first();
 
             return view('backEnd.systemSettings.create_update_currency', compact('editData', 'currencies'));
         } catch (\Exception $e) {
@@ -105,14 +105,14 @@ class SmManageCurrencyController extends Controller
         //     return redirect()->route('manage-currency');
         // }
         try {
-            $current_currency = SmGeneralSettings::where('school_id', Auth::user()->school_id)->where('currency', @schoolConfig()->currency)->where('currency_symbol', @schoolConfig()->currency_symbol)->first();
-            $del_currency = SmCurrency::findOrfail($id);
+            $current_currency = AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->where('currency', @schoolConfig()->currency)->where('currency_symbol', @schoolConfig()->currency_symbol)->first();
+            $del_currency = AramiscCurrency::findOrfail($id);
 
             if (!empty($current_currency) && $current_currency->currency == $del_currency->code && $current_currency->currency_symbol == $del_currency->symbol) {
                 Toastr::warning('You cannot delete current currency', 'Warning');
                 return redirect()->back();
             } else {
-                $currency = SmCurrency::findOrfail($id);
+                $currency = AramiscCurrency::findOrfail($id);
                 $currency->delete();
                 Toastr::success('Operation successful', 'Success');
                 return redirect()->back();
@@ -130,7 +130,7 @@ class SmManageCurrencyController extends Controller
             return redirect()->route('manage-currency');
         }
         try {
-            $currency = SmCurrency::findOrFail($id);
+            $currency = AramiscCurrency::findOrFail($id);
 
             $systemSettings = generalSetting();
             $systemSettings->currency = $currency->code;

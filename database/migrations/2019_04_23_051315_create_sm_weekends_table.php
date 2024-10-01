@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmWeekendsTable extends Migration
+class CreateAramiscWeekendsTable extends Migration
 {
     /**
      * Run the migrations.

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\api\v2\Teacher\Attendance;
 
-use App\SmClass;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscParent;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use Carbon\Carbon;
 use App\Models\User;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscNotification;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\Scopes\SchoolScope;
-use App\SmSubjectAttendance;
+use App\AramiscSubjectAttendance;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Traits\NotificationSend;
@@ -38,9 +38,9 @@ class SubjectWiseAttendanceController extends Controller
         $input['subject'] = $request->subject;
         $input['section'] = $request->section;
 
-        // $classes = SmClass::get();
-        // $sections = SmClassSection::with('sectionName')->where('class_id', $input['class'])->get();
-        // $subjects = SmAssignSubject::with('subject')->where('class_id', $input['class'])->where('section_id', $input['section'])
+        // $classes = AramiscClass::get();
+        // $sections = AramiscClassSection::with('sectionName')->where('class_id', $input['class'])->get();
+        // $subjects = AramiscAssignSubject::with('subject')->where('class_id', $input['class'])->where('section_id', $input['section'])
         //     ->get();
 
         $students = StudentRecord::with('studentDetail', 'studentDetail.DateSubjectWiseAttendances')
@@ -60,13 +60,13 @@ class SubjectWiseAttendanceController extends Controller
 
         $attendance_type = $students[0]['studentDetail']['DateSubjectWiseAttendances'] != null  ? $students[0]['studentDetail']['DateSubjectWiseAttendances']['attendance_type'] : '';
 
-        $data['class_name'] = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $data['class_name'] = AramiscClass::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->class)->first()->class_name;
         $data['section_name'] = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->section)->first()->section_name;
-        $data['subject_name'] = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $data['subject_name'] = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->subject)->first()->subject_name;
         $data['subject_id'] = (int)$request->subject;
@@ -101,7 +101,7 @@ class SubjectWiseAttendanceController extends Controller
     public function storeAttendance(Request $request)
     {
         foreach ($request->get('record_id', []) as $record_id => $student) {
-            $attendance = SmSubjectAttendance::where('student_id', $request->student_id[$record_id])
+            $attendance = AramiscSubjectAttendance::where('student_id', $request->student_id[$record_id])
                 ->where('subject_id', $request->subject_id)
                 ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
                 ->where('class_id', $request->class)
@@ -114,7 +114,7 @@ class SubjectWiseAttendanceController extends Controller
             if ($attendance != null) {
                 $attendance->delete();
             }
-            $attendance = new SmSubjectAttendance();
+            $attendance = new AramiscSubjectAttendance();
             $attendance->student_record_id = $student;
             $attendance->subject_id = $request->subject_id;
             $attendance->student_id = $request->student_id[$record_id];
@@ -159,7 +159,7 @@ class SubjectWiseAttendanceController extends Controller
         }
         if ($request->purpose == "mark") {
             foreach ($records as $record) {
-                $attendance = SmSubjectAttendance::where('student_id', $record->student_id)
+                $attendance = AramiscSubjectAttendance::where('student_id', $record->student_id)
                     ->where('subject_id', $request->subject_id)
                     ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
                     ->where('class_id', $request->class_id)->where('section_id', $request->section_id)
@@ -169,7 +169,7 @@ class SubjectWiseAttendanceController extends Controller
                     ->first();
                 if (!empty($attendance)) {
                     $attendance->delete();
-                    $attendance = new SmSubjectAttendance();
+                    $attendance = new AramiscSubjectAttendance();
                     $attendance->attendance_type = "H";
                     $attendance->notes = "Holiday";
                     $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
@@ -182,7 +182,7 @@ class SubjectWiseAttendanceController extends Controller
                     $attendance->school_id = auth()->user()->school_id;
                     $attendance->save();
                 } else {
-                    $attendance = new SmSubjectAttendance();
+                    $attendance = new AramiscSubjectAttendance();
                     $attendance->attendance_type = "H";
                     $attendance->notes = "Holiday";
                     $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
@@ -207,7 +207,7 @@ class SubjectWiseAttendanceController extends Controller
                 $student = AramiscStudent::withoutGlobalScope(SchoolScope::class)
                     ->where('school_id', auth()->user()->school_id)
                     ->where('id', $record->student_id)->first();
-                $subject = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+                $subject = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
                     ->where('school_id', auth()->user()->school_id)
                     ->where('id', $request->subject_id)->first();
                 $subject_name = $subject->subject_name;
@@ -231,7 +231,7 @@ class SubjectWiseAttendanceController extends Controller
 
 
                     // for parent user
-                    $parent = SmParent::find($student->parent_id);
+                    $parent = AramiscParent::find($student->parent_id);
                     if ($parent) {
                         $messege = app('translator')->get('student.Your_child_is_marked_holiday_in_the_attendance_on_subject', ['date' => $date, 'student_name' => $student->full_name . "'s", 'subject_name' => $subject_name]);
 
@@ -260,7 +260,7 @@ class SubjectWiseAttendanceController extends Controller
             ];
         } else {
             foreach ($records as $record) {
-                $attendance = SmSubjectAttendance::where('student_id', $record->student_id)
+                $attendance = AramiscSubjectAttendance::where('student_id', $record->student_id)
                     ->where('subject_id', $request->subject_id)
                     ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
                     ->where('class_id', $request->class_id)->where('section_id', $request->section_id)
@@ -290,11 +290,11 @@ class SubjectWiseAttendanceController extends Controller
         $input['section'] = $request->section_id;
 
 
-        /* $classes = SmClass::get();
-        $sections = SmClassSection::with('sectionName')
+        /* $classes = AramiscClass::get();
+        $sections = AramiscClassSection::with('sectionName')
             ->where('class_id', $input['class'])
             ->get();
-        $subjects = SmAssignSubject::with('subject')
+        $subjects = AramiscAssignSubject::with('subject')
             ->where('class_id', $input['class'])
             ->where('section_id', $input['section'])
             ->get(); */
@@ -332,7 +332,7 @@ class SubjectWiseAttendanceController extends Controller
         }
 
         $attendance_type = $students[0]['studentDetail']['DateSubjectWiseAttendances'] != null  ? $students[0]['studentDetail']['DateSubjectWiseAttendances']['attendance_type'] : '';
-        $subject = SmSubject::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+        $subject = AramiscSubject::withoutGlobalScopes([StatusAcademicSchoolScope::class])
             ->where('school_id', auth()->user()->school_id)
             ->select('id', 'subject_name')
             ->where('id', $request->subject_id)->first();
@@ -382,7 +382,7 @@ class SubjectWiseAttendanceController extends Controller
 
         $current_day = date('d');
 
-        $all_attendances = SmSubjectAttendance::whereNotNull('subject_id')
+        $all_attendances = AramiscSubjectAttendance::whereNotNull('subject_id')
             ->where('school_id', auth()->user()->school_id)
             ->whereMonth('attendance_date', $month)
             ->whereYear('attendance_date', $year)
@@ -413,7 +413,7 @@ class SubjectWiseAttendanceController extends Controller
             }
         }
 
-        (string)$data['class_name'] = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        (string)$data['class_name'] = AramiscClass::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $record->class_id)
             ->first()->class_name;
@@ -421,7 +421,7 @@ class SubjectWiseAttendanceController extends Controller
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $record->section_id)
             ->first()->section_name;
-        (string)$data['subject_name'] = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        (string)$data['subject_name'] = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->subject_id)
             ->first()->subject_name;

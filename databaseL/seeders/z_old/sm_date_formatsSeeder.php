@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmDateFormat;
+use App\AramiscDateFormat;
 use Illuminate\Database\Seeder;
 
 class sm_date_formatsSeeder extends Seeder
@@ -16,7 +16,7 @@ class sm_date_formatsSeeder extends Seeder
     {
 
 
-//        SmDateFormat::query()->truncate();
+//        AramiscDateFormat::query()->truncate();
 
         // $data = [
 
@@ -38,7 +38,7 @@ class sm_date_formatsSeeder extends Seeder
         // ];
 
         // foreach ($data as $dateFormate) {
-        //     $store = new SmDateFormat();
+        //     $store = new AramiscDateFormat();
         //     $store->format = $dateFormate[0];
         //     $store->normal_view = $dateFormate[1];
         //     $store->save();

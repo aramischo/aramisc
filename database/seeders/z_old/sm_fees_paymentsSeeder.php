@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\SmFeesPayment;
-use App\SmFeesType;
-use App\SmStudent;
+use App\AramiscFeesPayment;
+use App\AramiscFeesType;
+use App\AramiscStudent;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -17,12 +17,12 @@ class sm_fees_paymentsSeeder extends Seeder
      */
     public function run()
     {
-        $students = SmStudent::where('class_id', 1)->get();
+        $students = AramiscStudent::where('class_id', 1)->get();
         foreach ($students as $student) {
-            $fees_types = SmFeesType::where('active_status', 1)->get();
+            $fees_types = AramiscFeesType::where('active_status', 1)->get();
             
             foreach ($fees_types as $fees_type) {
-                $store = new SmFeesPayment();
+                $store = new AramiscFeesPayment();
                 $store->student_id = $student->id;
                 $store->fees_type_id = $fees_type->id;
                 $store->fees_discount_id = 1;

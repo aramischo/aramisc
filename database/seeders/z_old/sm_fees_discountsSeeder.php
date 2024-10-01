@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmFeesDiscount;
+use App\AramiscFeesDiscount;
 use Illuminate\Database\Seeder;
 
 class sm_fees_discountsSeeder extends Seeder
@@ -14,8 +14,8 @@ class sm_fees_discountsSeeder extends Seeder
      */
     public function run()
     {
-//        SmFeesDiscount::query()->truncate();
-        $store = new SmFeesDiscount();
+//        AramiscFeesDiscount::query()->truncate();
+        $store = new AramiscFeesDiscount();
         $store->name = 'Merit Scholarship';
         $store->code = 'SS-01';
         $store->type = 'year';
@@ -24,7 +24,7 @@ class sm_fees_discountsSeeder extends Seeder
         $store->save();
 
 
-        $store = new SmFeesDiscount();
+        $store = new AramiscFeesDiscount();
         $store->name = 'Siblings Scholarship';
         $store->code = 'SB-01';
         $store->type = 'once';

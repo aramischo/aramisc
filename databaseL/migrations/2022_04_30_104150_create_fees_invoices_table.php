@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\FeesInvoice;
-use App\SmSchool;
+use App\AramiscSchool;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -25,7 +25,7 @@ class CreateFeesInvoicesTable extends Migration
             $table->timestamps();
         });
 
-        $schools = SmSchool::all();
+        $schools = AramiscSchool::all();
         foreach($schools as $school){
             $store = new FeesInvoice();
             $store->prefix = 'infixEdu';

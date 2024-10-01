@@ -1,15 +1,15 @@
 <?php
 
-use App\SmSchool;
+use App\AramiscSchool;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
-use App\Models\SmStaffRegistrationField;
+use App\Models\AramiscStaffRegistrationField;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\RolePermission\Entities\InfixModuleInfo;
 
-class CreateSmStaffRegistrationFieldsTable extends Migration
+class CreateAramiscStaffRegistrationFieldsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -80,12 +80,12 @@ class CreateSmStaffRegistrationFieldsTable extends Migration
               'custom_fields',              
           ];
           
-            $all_schools = SmSchool::get();
+            $all_schools = AramiscSchool::get();
             foreach ($all_schools as $school) {
                 foreach ($request_fields as $key=>$value) {
-                    $exit = SmStaffRegistrationField::where('school_id', $school->id)->where('field_name', $value)->first();
+                    $exit = AramiscStaffRegistrationField::where('school_id', $school->id)->where('field_name', $value)->first();
                     if (!$exit) {
-                        $field=new SmStaffRegistrationField;
+                        $field=new AramiscStaffRegistrationField;
                         $field->position=$key+1;
                         $field->field_name=$value;
                         $field->label_name=$value;
@@ -114,9 +114,9 @@ class CreateSmStaffRegistrationFieldsTable extends Migration
                 
             ]; 
 
-                SmStaffRegistrationField::where('school_id', $school->id)->whereIn('field_name', $required_fields)->update(['is_required'=>1]); 
+                AramiscStaffRegistrationField::where('school_id', $school->id)->whereIn('field_name', $required_fields)->update(['is_required'=>1]); 
                 
-                SmStaffRegistrationField::where('school_id', $school->id)->whereIn('field_name', $staff_edit)->update(['staff_edit'=>1]); 
+                AramiscStaffRegistrationField::where('school_id', $school->id)->whereIn('field_name', $staff_edit)->update(['staff_edit'=>1]); 
 
             }
 

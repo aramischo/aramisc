@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmBookCategory;
+use App\AramiscBookCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 // use DB;
@@ -16,7 +16,7 @@ class sm_book_categoriesSeeder extends Seeder
      */
     public function run()
     {
-//        SmBookCategory::query()->truncate();
+//        AramiscBookCategory::query()->truncate();
         $book_categories=['Action and adventure','Alternate history','Anthology','Chick lit','Kids','Comic book','Coming-of-age','Crime','Drama',
             'Fairytale','Fantasy','Graphic novel','Historical fiction','Horror', 'Mystery','Paranormal romance'];
         foreach ($book_categories as $c) {

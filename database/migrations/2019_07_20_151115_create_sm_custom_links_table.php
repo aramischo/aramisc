@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\SmCustomLink;
-class CreateSmCustomLinksTable extends Migration
+use App\AramiscCustomLink;
+class CreateAramiscCustomLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -67,7 +67,7 @@ class CreateSmCustomLinksTable extends Migration
         }); 
 
 
-        $s         = new SmCustomLink();
+        $s         = new AramiscCustomLink();
         $s->title1 = 'Departments';
         $s->title2 = 'Health Care';
         $s->title3 = 'About Our System';

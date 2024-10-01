@@ -7,7 +7,7 @@ use App\YearCheck;
 use App\ApiBaseMethod;
 use App\BranchSection;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -203,7 +203,7 @@ class AramiscSectionController extends Controller
     public function delete(Request $request, $id)
     {
         try {
-            $tables = SmClassSection::where('section_id',$id)->first();
+            $tables = AramiscClassSection::where('section_id',$id)->first();
                 if ($tables == null) {
                       if (checkAdmin()) {
                         $delete_query = AramiscSection::destroy($request->id);

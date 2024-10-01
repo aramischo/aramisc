@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 
 class ApiBaseMethod extends Model
 {
@@ -15,7 +15,7 @@ class ApiBaseMethod extends Model
     public static function sendResponse($result, $message)
     {
 
-        $settings = SmGeneralSettings::find(1);
+        $settings = AramiscGeneralSettings::find(1);
         $api_status = $settings->api_url;
         $response = [];
         if ($api_status != 0) {

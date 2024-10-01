@@ -21,11 +21,11 @@ class CheckVerify
 
         $o = Envato::verifyPurchase(HP::set()->purchasecode);
         //isset($o['item']['id']) && $o['item']['id'] == "22885977 21834231"
-        if(isset($o['item']) && $o['item']['id'] == "22885977" && $o['buyer'] == HP::set()->envatouser){
+       /* if(isset($o['item']) && $o['item']['id'] == "22885977" && $o['buyer'] == HP::set()->envatouser){
             return $next($request);
         }else{
             return redirect('verify');
-        }
+        }*/
 
      }
 

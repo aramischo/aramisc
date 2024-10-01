@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmEventsTable extends Migration
+class CreateAramiscEventsTable extends Migration
 {
     public function up()
     {

@@ -6,12 +6,12 @@ use App\Scopes\StatusAcademicSchoolScope;
 use App\User;
 use App\AramiscStudent;
 use App\ApiBaseMethod;
-use App\SmBankAccount;
+use App\AramiscBankAccount;
 use App\AramiscAcademicYear;
 use App\AramiscBookCategory;
 use App\AramiscNotification;
 use App\AramiscPaymentMethhod;
-use App\SmBankPaymentSlip;
+use App\AramiscBankPaymentSlip;
 use Illuminate\Http\Request;
 use App\AramiscTeacherUploadContent;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +24,7 @@ class ApiSmSaasBankController extends Controller
 {
     public function saas_bankList(Request $request,$school_id){
         try {
-             $banks=SmBankAccount::where('active_status',1)
+             $banks=AramiscBankAccount::where('active_status',1)
                             ->where('academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($school_id))
                             ->where('school_id',$school_id)->get(['id','bank_name','account_name','account_number']);
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -87,7 +87,7 @@ class ApiSmSaasBankController extends Controller
             $payment_mode_name=ucwords($request->payment_mode);
             $payment_method=AramiscPaymentMethhod::where('method',$payment_mode_name)->first();
 
-            $payment = new SmBankPaymentSlip();
+            $payment = new AramiscBankPaymentSlip();
             $payment->date = $newformat;
             $payment->amount = $request->amount;
             $payment->note = $request->note;

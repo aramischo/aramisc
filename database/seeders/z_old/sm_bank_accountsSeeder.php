@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\SmBankAccount;
+use App\AramiscBankAccount;
 use Faker\Factory as Faker;
 
 class sm_bank_accountsSeeder extends Seeder
@@ -15,6 +15,6 @@ class sm_bank_accountsSeeder extends Seeder
      */
     public function run()
     {
-        SmBankAccount::factory()->times(10)->create();
+        AramiscBankAccount::factory()->times(10)->create();
     }
 }

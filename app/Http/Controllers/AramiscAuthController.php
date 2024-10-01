@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
-use App\SmClassRoom;
-use App\SmClassTime;
+use App\AramiscSubject;
+use App\AramiscClassRoom;
+use App\AramiscClassTime;
 use App\ApiBaseMethod;
 use Illuminate\Support\Str;
-use App\SmBackgroundSetting;
+use App\AramiscBackgroundSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -33,7 +33,7 @@ class AramiscAuthController extends Controller
 
     public function get_class_name(Request $request, $id)
     {
-        $get_class_name = SmClass::select('class_name as name')->where('id', $id)->first();
+        $get_class_name = AramiscClass::select('class_name as name')->where('id', $id)->first();
         return $get_class_name;
     }
 
@@ -45,25 +45,25 @@ class AramiscAuthController extends Controller
 
     public function get_teacher_name(Request $request, $id)
     {
-        $get_teacher_name = SmStaff::select('full_name as name')->where('id', $id)->first();
+        $get_teacher_name = AramiscStaff::select('full_name as name')->where('id', $id)->first();
         return $get_teacher_name;
     }
 
     public function get_subject_name(Request $request, $id)
     {
-        $get_subject_name = SmSubject::select('subject_name as name')->where('id', $id)->first();
+        $get_subject_name = AramiscSubject::select('subject_name as name')->where('id', $id)->first();
         return $get_subject_name;
     }
 
     public function get_room_name(Request $request, $id)
     {
-        $get_room_name = SmClassRoom::select('room_no as name')->where('id', $id)->first();
+        $get_room_name = AramiscClassRoom::select('room_no as name')->where('id', $id)->first();
         return $get_room_name;
     }
 
     public function get_class_period_name(Request $request, $id)
     {
-        $get_class_period_name = SmClassTime::select('period as name', 'start_time', 'end_time')->where('id', $id)->first();
+        $get_class_period_name = AramiscClassTime::select('period as name', 'start_time', 'end_time')->where('id', $id)->first();
         return $get_class_period_name;
     }
 
@@ -92,7 +92,7 @@ class AramiscAuthController extends Controller
     public function recoveryPassord()
     {
         try {
-            $login_background = SmBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
+            $login_background = AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
 
             if (empty($login_background)) {
                 $css = "background: url(" . url('public/backEnd/img/login-bg.jpg') . ")  no-repeat center; background-size: cover; ";
@@ -248,9 +248,9 @@ class AramiscAuthController extends Controller
                         $data['system_settings'] = DB::table('sm_general_settings')->where('school_id', Auth::user()->school_id)->get();
                         $data['TTL_RTL_status'] = '1=RTL,2=TTL';
                     } else if ($role_id == 3) {
-                        $data['userDetails'] = SmParent::where('user_id', $user->id)->first();
+                        $data['userDetails'] = AramiscParent::where('user_id', $user->id)->first();
                     } else {
-                        $data['userDetails'] = SmStaff::where('user_id', $user->id)->first();
+                        $data['userDetails'] = AramiscStaff::where('user_id', $user->id)->first();
                     }
                     return ApiBaseMethod::sendResponse($data, 'Login successful.');
                 } else {

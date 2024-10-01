@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmRoute;
+use App\AramiscRoute;
 
-class CreateSmRoutesTable extends Migration
+class CreateAramiscRoutesTable extends Migration
 {
     /**
      * Run the migrations.

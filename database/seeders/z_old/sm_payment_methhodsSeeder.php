@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use Illuminate\Database\Seeder;
 
 class sm_payment_methhodsSeeder extends Seeder
@@ -15,7 +15,7 @@ class sm_payment_methhodsSeeder extends Seeder
     public function run()
     {
 
-        // SmPaymentMethhod::query()->truncate();
+        // AramiscPaymentMethhod::query()->truncate();
 
         // DB::table('sm_payment_methhods')->insert([
         //     [

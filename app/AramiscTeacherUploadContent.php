@@ -11,7 +11,7 @@ class AramiscTeacherUploadContent extends Model
 {
     use HasFactory;
     // Spécifiez le nom de la table explicitement
-    protected $table = 'sm_teacher_upload_contens';
+    protected $table = 'sm_teacher_upload_contents';
     protected static function boot()
     {
         parent::boot();
@@ -33,7 +33,7 @@ class AramiscTeacherUploadContent extends Model
 
     public function contentTypes()
     {
-        return $this->belongsTo('App\SmContentType', 'content_type', 'id');
+        return $this->belongsTo('App\AramiscContentType', 'content_type', 'id');
     }
 
     public function roles()
@@ -43,12 +43,12 @@ class AramiscTeacherUploadContent extends Model
 
     public function classes()
     {
-        return $this->belongsTo('App\SmClass', 'class', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class);
+        return $this->belongsTo('App\AramiscClass', 'class', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class);
     }
 
     public function globalClasses()
     {
-        return $this->belongsTo('App\SmClass', 'class', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class);
+        return $this->belongsTo('App\AramiscClass', 'class', 'id')->withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class);
     }
 
     public function sections()

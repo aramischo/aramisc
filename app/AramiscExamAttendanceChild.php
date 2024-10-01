@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscExamAttendanceChild extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
-    protected $table = "sm_exam_attendance_childs";
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_exam_attendance_childs';
     protected $guarded = ['id'];
     public function studentInfo()
     {

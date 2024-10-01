@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmStudent;
-use App\SmStudentDocument;
+use App\AramiscStudent;
+use App\AramiscStudentDocument;
 
 class sm_student_documentsSeeder extends Seeder
 {
@@ -18,9 +18,9 @@ class sm_student_documentsSeeder extends Seeder
     {
         $faker = Faker::create();
       
-        $studentList = SmStudent::where('class_id', 1)->get();
+        $studentList = AramiscStudent::where('class_id', 1)->get();
         foreach($studentList as $student){
-            $s = new SmStudentDocument();
+            $s = new AramiscStudentDocument();
             $s->title = $faker->sentence($nbWords =3, $variableNbWords = true);           
             $s->student_staff_id = $faker->numberBetween(1, 100);
             $s->type = 'stu';

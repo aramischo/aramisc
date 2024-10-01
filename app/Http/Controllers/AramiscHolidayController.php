@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\AramiscHoliday;
 use App\YearCheck;
 use App\ApiBaseMethod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -70,7 +70,7 @@ class AramiscHolidayController extends Controller
 
 
         try{
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('upload_file_name');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -190,7 +190,7 @@ class AramiscHolidayController extends Controller
         }
 
         try{
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('upload_file_name');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);

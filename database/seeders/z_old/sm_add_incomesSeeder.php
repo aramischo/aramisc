@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 
 class sm_add_incomesSeeder extends Seeder
 {
@@ -15,6 +15,6 @@ class sm_add_incomesSeeder extends Seeder
      */
     public function run()
     {
-        SmAddIncome::factory()->times(5)->create();
+        AramiscAddIncome::factory()->times(5)->create();
     }
 }

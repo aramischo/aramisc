@@ -2,11 +2,11 @@
 
 namespace Modules\Lesson\Http\Controllers;
 use DataTables;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
-use App\SmSubject;
-use App\SmAssignSubject;
+use App\AramiscSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -65,7 +65,7 @@ class SmLessonController extends Controller
 
         DB::beginTransaction();
         try {
-            $sections = SmAssignSubject::where('class_id', $request->class)
+            $sections = AramiscAssignSubject::where('class_id', $request->class)
                 ->where('subject_id', $request->subject)
                 ->get();
             if (moduleStatusCheck('University')) {
@@ -284,11 +284,11 @@ class SmLessonController extends Controller
 
     public function loadLesson()
     {
-        $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
-        $subjects = SmAssignSubject::select('subject_id')
+        $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
+        $subjects = AramiscAssignSubject::select('subject_id')
         ->where('teacher_id', $teacher_info->id)->get();
 
-        $data['subjects'] = SmSubject::where('active_status', 1)
+        $data['subjects'] = AramiscSubject::where('active_status', 1)
         ->where('academic_id', getAcademicId())
         ->where('school_id', Auth::user()->school_id)->get();
         $data['sections'] = AramiscSection::where('active_status', 1)
@@ -306,11 +306,11 @@ class SmLessonController extends Controller
                 ->get();
         }
         if (!teacherAccess()) {
-            $data['classes'] = SmClass::where('active_status', 1)
+            $data['classes'] = AramiscClass::where('active_status', 1)
             ->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id)->get();
         } else {
-            $data['classes'] = SmAssignSubject::where('teacher_id', $teacher_info->id)
+            $data['classes'] = AramiscAssignSubject::where('teacher_id', $teacher_info->id)
                 ->join('sm_classes', 'sm_classes.id', 'sm_assign_subjects.class_id')
                 ->where('sm_assign_subjects.academic_id', getAcademicId())
                 ->where('sm_assign_subjects.active_status', 1)

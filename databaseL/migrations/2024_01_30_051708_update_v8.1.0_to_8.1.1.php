@@ -1,7 +1,7 @@
 <?php
 
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\InfixModuleManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -35,7 +35,7 @@ return new class extends Migration
             $del->delete();
         }
         
-        $schools = App\SmSchool::get();
+        $schools = App\AramiscSchool::get();
         foreach ($schools as $school) {
             $filesInFolder = Illuminate\Support\Facades\File::files(resource_path('/views/themes/edulia/demo/'));
             foreach ($filesInFolder as $path) {
@@ -80,7 +80,7 @@ return new class extends Migration
         }
 
         
-        $generalSettings = SmGeneralSettings::first();
+        $generalSettings = AramiscGeneralSettings::first();
         if($generalSettings){
             $generalSettings->software_version = '8.1.1';
         }

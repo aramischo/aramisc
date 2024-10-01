@@ -10,9 +10,8 @@ class AramiscComplaint extends Model
 {
         
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
+    // Spécifiez le nom de la table explicitement
     protected $table = 'sm_complaints';
-	
     protected static function boot()
     {
         parent::boot();
@@ -21,10 +20,10 @@ class AramiscComplaint extends Model
     }
    
     public function complaintType(){
-    	return $this->belongsTo('App\SmSetupAdmin', 'complaint_type', 'id');
+    	return $this->belongsTo('App\AramiscSetupAdmin', 'complaint_type', 'id');
     }
 
     public function complaintSource(){
-    	return $this->belongsTo('App\SmSetupAdmin', 'complaint_source', 'id');
+    	return $this->belongsTo('App\AramiscSetupAdmin', 'complaint_source', 'id');
     }
 }

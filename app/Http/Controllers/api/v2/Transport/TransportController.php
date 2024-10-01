@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v2\Transport;
 
 use App\AramiscStudent;
-use App\SmAssignVehicle;
+use App\AramiscAssignVehicle;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,7 +22,7 @@ class TransportController extends Controller
             ->where('school_id', auth()->user()->school_id)
             ->findOrFail($request->student_id);
 
-        $routes = SmAssignVehicle::with('route', 'vehicle')
+        $routes = AramiscAssignVehicle::with('route', 'vehicle')
             ->join('sm_vehicles', 'sm_assign_vehicles.vehicle_id', 'sm_vehicles.id')
             ->join('sm_students', 'sm_vehicles.id', 'sm_students.vechile_id')
             ->where('sm_assign_vehicles.active_status', 1)

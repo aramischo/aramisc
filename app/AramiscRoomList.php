@@ -9,13 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscRoomList extends Model
 {
     use HasFactory;
-	 // Spécifiez le nom de la table explicitement
-    protected $table = "sm_room_lists";
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new ActiveStatusSchoolScope);
     }
-   
+   // Spécifiez le nom de la table explicitement
+   protected $table = 'sm_room_lists';
     public function dormitory()
     {
         return $this->belongsTo('App\AramiscDormitoryList', 'dormitory_id');

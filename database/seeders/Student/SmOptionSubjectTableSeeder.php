@@ -2,10 +2,10 @@
 
 namespace Database\Seeders\Student;
 
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\Models\StudentRecord;
 use Illuminate\Database\Seeder;
-use App\SmOptionalSubjectAssign;
+use App\AramiscOptionalSubjectAssign;
 use Illuminate\Support\Facades\DB;
 
 class SmOptionSubjectTableSeeder extends Seeder
@@ -17,7 +17,7 @@ class SmOptionSubjectTableSeeder extends Seeder
      */
     public function run($school_id, $academic_id, $count=1)
     {
-        $classSection = SmClassSection::where('school_id', $school_id)->where('academic_id', $academic_id)
+        $classSection = AramiscClassSection::where('school_id', $school_id)->where('academic_id', $academic_id)
         ->latest()->first();
       
         $students = StudentRecord::where('class_id', $classSection->class_id)
@@ -29,7 +29,7 @@ class SmOptionSubjectTableSeeder extends Seeder
             $subjects= DB::table('sm_assign_subjects')->where('class_id',$classSection->class_id)->get();
             if(count($subjects)>0) {
                 foreach ($students as $row) {
-                    $s = new SmOptionalSubjectAssign();
+                    $s = new AramiscOptionalSubjectAssign();
                     $s->student_id = $row->student_id;
                     $s->session_id = $row->session_id;
                     $s->subject_id = 1;

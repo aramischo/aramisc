@@ -4,24 +4,24 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\SmToDo;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscEvent;
-use App\SmStaff;
-use App\SmSchool;
+use App\AramiscStaff;
+use App\AramiscSchool;
 use App\AramiscHoliday;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmUserLog;
+use App\AramiscUserLog;
 use App\YearCheck;
 use Carbon\Carbon;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\CheckSection;
 use App\GlobalVariable;
-use App\SmAddExpense;
-use App\SmNoticeBoard;
+use App\AramiscAddExpense;
+use App\AramiscNoticeBoard;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
-use App\SmGeneralSettings;
+use App\AramiscClassSection;
+use App\AramiscGeneralSettings;
 use App\InfixModuleManager;
 use App\Models\DueFeesLoginPrevent;
 use Illuminate\Support\Str;
@@ -55,7 +55,7 @@ class HomeController extends Controller
         try {
             $user = Auth::user();
             $role_id = $user->role_id;
-            $is_due_fees_login_permission   = SmGeneralSettings::where('school_id',Auth::user()->school_id)->first('due_fees_login');
+            $is_due_fees_login_permission   = AramiscGeneralSettings::where('school_id',Auth::user()->school_id)->first('due_fees_login');
             $is_due_fees_login_permission   = $is_due_fees_login_permission->due_fees_login;
             $student_due_fees_login_prevent = DueFeesLoginPrevent::where('user_id',$user->id)->where('school_id',$user->school_id)->where('role_id',2)->first();
             $parent_due_fees_login_prevent  = DueFeesLoginPrevent::where('user_id',$user->id)->where('school_id',$user->school_id)->where('role_id',3)->first();
@@ -119,7 +119,7 @@ class HomeController extends Controller
     {
        try {
             $chart_data =" ";
-            $day_incomes =  SmAddIncome::where('academic_id', getAcademicId())
+            $day_incomes =  AramiscAddIncome::where('academic_id', getAcademicId())
                 ->where('name', '!=', 'Fund Transfer')
                 ->where('school_id', Auth::user()->school_id)
                 ->where('active_status', 1)
@@ -128,7 +128,7 @@ class HomeController extends Controller
                 ->get(['amount','date']);
               
 
-            $day_expenses =  SmAddExpense::where('academic_id', getAcademicId())
+            $day_expenses =  AramiscAddExpense::where('academic_id', getAcademicId())
                 ->where('name', '!=', 'Fund Transfer')
                 ->where('school_id', Auth::user()->school_id)
                 ->where('active_status', 1)
@@ -252,7 +252,7 @@ class HomeController extends Controller
                     ->get();
             }
 
-            $staffs = SmStaff::where('school_id', $school_id)
+            $staffs = AramiscStaff::where('school_id', $school_id)
                 ->where('active_status', 1);
 
 
@@ -300,7 +300,7 @@ class HomeController extends Controller
             }
             //end lead reminder
 
-            $notices = SmNoticeBoard::query();
+            $notices = AramiscNoticeBoard::query();
             $notices->where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', $school_id) ;
             $notices->when(auth()->user()->role_id != 1, function ($query) {
                 $query->where('inform_to', 'LIKE', '%'.auth()->user()->role_id.'%');
@@ -502,7 +502,7 @@ class HomeController extends Controller
     public function viewNotice($id)
     {
         try {
-            $notice = SmNoticeBoard::find($id);
+            $notice = AramiscNoticeBoard::find($id);
             return view('backEnd.dashboard.view_notice', compact('notice'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

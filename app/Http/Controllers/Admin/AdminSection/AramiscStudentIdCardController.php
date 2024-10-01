@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin\AdminSection;
 
 use App\Role;
-use App\SmClass;
-use App\SmStaff;
-use App\SmParent;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscParent;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\YearCheck;
 use App\AramiscStudentIdCard;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
@@ -217,7 +217,7 @@ class AramiscStudentIdCardController extends Controller
         try {
             $id_cards = AramiscStudentIdCard::get();
             $roles = Role::get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.admin.idCard.generate_id_card', compact('id_cards','roles','classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -247,9 +247,9 @@ class AramiscStudentIdCardController extends Controller
                 ->get();
         } elseif ($request->role==3) {
             $studentGuardian = AramiscStudent::get('parent_id');
-            $s_students = SmParent::whereIn('id', $studentGuardian)->get();
+            $s_students = AramiscParent::whereIn('id', $studentGuardian)->get();
         } else {
-            $s_students = SmStaff::whereRole($request->role)->status()->get();
+            $s_students = AramiscStaff::whereRole($request->role)->status()->get();
         }
         $id_card = AramiscStudentIdCard::status()->find($request->id_card);
 
@@ -297,7 +297,7 @@ class AramiscStudentIdCardController extends Controller
             $card_id = $request->id_card;
             $class_id = $request->class; 
             $students = AramiscStudent::with('class','parents','section','gender')->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $id_cards = AramiscStudentIdCard::get();
             return view('backEnd.admin.idCard.generate_id_card_old', compact('id_cards', 'class_id', 'classes', 'students', 'card_id','section'));
         } catch (\Exception $e) {

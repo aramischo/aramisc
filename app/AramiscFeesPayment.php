@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AramiscFeesPayment extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
     // Spécifiez le nom de la table explicitement
-    protected $table = "sm_fees_payments";
+    protected $table = 'sm_fees_payments';
+    protected $guarded = ['id'];
+    
     public function studentInfo()
     {
         return $this->belongsTo('App\AramiscStudent', 'student_id', 'id');

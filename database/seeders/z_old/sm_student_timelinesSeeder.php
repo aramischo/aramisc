@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmStudent;
-use App\SmStudentTimeline;
+use App\AramiscStudent;
+use App\AramiscStudentTimeline;
 
 class sm_student_timelinesSeeder extends Seeder
 {
@@ -17,9 +17,9 @@ class sm_student_timelinesSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $studentList = SmStudent::where('class_id', 1)->get();
+        $studentList = AramiscStudent::where('class_id', 1)->get();
         foreach ($studentList as $student) {
-            $st = new SmStudentTimeline();
+            $st = new AramiscStudentTimeline();
             $st->staff_student_id = $student->id;
             $st->title = $faker->sentence($nbWords = 3, $variableNbWords = true);
             $st->date = $faker->dateTime()->format('Y-m-d');

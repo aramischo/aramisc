@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmOnlineExamQuestion;
+use App\AramiscOnlineExamQuestion;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +17,7 @@ class sm_online_exam_questionsSeeder extends Seeder
     {
         // $faker = Faker::create();
         // for($i=1; $i<=5; $i++){
-        //     $store= new SmOnlineExamQuestion();
+        //     $store= new AramiscOnlineExamQuestion();
         //     $store->online_exam_id=$i;
         //     $store->type=1;
         //     $store->mark=20+$i;

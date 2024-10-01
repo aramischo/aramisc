@@ -60,7 +60,7 @@ class MultipleCourseMigrationFixingMigration extends Migration
             $attendance->save();
         }
 
-        $subjectAttendances = \App\SmSubjectAttendance::all();
+        $subjectAttendances = \App\AramiscSubjectAttendance::all();
 
         foreach ($subjectAttendances as $attendance) {
             $record = \App\Models\StudentRecord::where(['student_id' => $attendance->student_id, 'school_id' => $attendance->school_id, 'academic_id' => $attendance->academic_id, 'class_id' => $attendance->class_id, 'section_id' => $attendance->section_id])->first();
@@ -77,7 +77,7 @@ class MultipleCourseMigrationFixingMigration extends Migration
             $examAttendance->save();
         }
 
-        $datas = \App\SmResultStore::all();
+        $datas = \App\AramiscResultStore::all();
 
         foreach ($datas as $data) {
             $record = \App\Models\StudentRecord::where(['student_id' => $data->student_id, 'school_id' => $data->school_id, 'academic_id' => $data->academic_id, 'class_id' => $data->class_id, 'section_id' => $data->section_id])->first();
@@ -86,7 +86,7 @@ class MultipleCourseMigrationFixingMigration extends Migration
         }
 
 
-        $datas = \App\SmMarkStore::withOutGlobalScope(AcademicSchoolScope::class)->get();
+        $datas = \App\AramiscMarkStore::withOutGlobalScope(AcademicSchoolScope::class)->get();
 
         foreach ($datas as $data) {
             $record = \App\Models\StudentRecord::where(['student_id' => $data->student_id, 'school_id' => $data->school_id, 'academic_id' => $data->academic_id, 'class_id' => $data->class_id, 'section_id' => $data->section_id])->first();
@@ -94,9 +94,9 @@ class MultipleCourseMigrationFixingMigration extends Migration
             $data->save();
         }
 
-        $schools = \App\SmSchool::all();
+        $schools = \App\AramiscSchool::all();
         foreach($schools as $school){
-            $setting = \App\SmGeneralSettings::where('school_id', $school->id)->first();
+            $setting = \App\AramiscGeneralSettings::where('school_id', $school->id)->first();
 
             if($setting && !$setting->academic_id){
                 $academic_year = \App\AramiscAcademicYear::where('school_id', $school->id)->first();

@@ -1,9 +1,9 @@
 
 <?php
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\Models\FrontResult;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;

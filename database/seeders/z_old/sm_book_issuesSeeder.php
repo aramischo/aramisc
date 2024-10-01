@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\SmBookIssue;
+use App\AramiscBookIssue;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmStudent;
-use App\SmBook;
+use App\AramiscStudent;
+use App\AramiscBook;
 
 class sm_book_issuesSeeder extends Seeder
 {
@@ -18,11 +18,11 @@ class sm_book_issuesSeeder extends Seeder
     public function run()
     {
 
-        // SmBookIssue::query()->truncate();
+        // AramiscBookIssue::query()->truncate();
         $faker = Faker::create();
-        $studentList = SmStudent::where('class_id', 1)->get();
+        $studentList = AramiscStudent::where('class_id', 1)->get();
         foreach ($studentList as $student) {
-            $store = new SmBookIssue();
+            $store = new AramiscBookIssue();
             $store->member_id = $student->id;
             $store->book_id = $faker->numberBetween(1, 11);
             $store->quantity = rand(1, 5);

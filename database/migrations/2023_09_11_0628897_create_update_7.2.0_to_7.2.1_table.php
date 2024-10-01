@@ -1,9 +1,9 @@
 <?php
 
-use App\SmPage;
-use App\SmsTemplate;
+use App\AramiscPage;
+use App\AramiscTemplate;
 use App\InfixModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

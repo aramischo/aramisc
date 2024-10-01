@@ -30,7 +30,7 @@
 [ {
   "@context" : "http://schema.org",
   "@type" : "SoftwareApplication",
-  "name" : "INFIX - Best School Management software system",
+  "name" : "Aramisc - Best School Management software system",
   "url" : "http://infixedu.com/",
   "author" : {
     "@type" : "Company",
@@ -108,7 +108,7 @@
                         <div class="banner_text_iner">
                             <h1>The Ultimate Education Management System for School,  Institute & Academy </h1>
                             <p>Managing various administrative tasks in one place is now quite easy and time
-                                savior with this INFIX and Give your valued time to your institute that will
+                                savior with this Aramisc and Give your valued time to your institute that will
                                 increase next generation productivity for our society.</p>
                             @if(!moduleStatusCheck('Saas'))
                             <a  class="btn_1" target="_blank" href="mailto:support@spondonit.com?subject=Request for saas school demo!&body=This is only a test!"> <i class="ti-email"></i> For Saas Demo</a>
@@ -185,7 +185,7 @@
                         <div class="single_feature_part">
                             <span class="single_feature_icon"><i class="ti-layout-grid3"></i></span>
                             <h4>Tons of Features</h4>
-                            <p>INFIX has all in one place. You’ll find everything what you are looking into education
+                            <p>Aramisc has all in one place. You’ll find everything what you are looking into education
                                 management system software. </p>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                         <div class="single_feature_part">
                             <span class="single_feature_icon"><i class="ti-layers"></i></span>
                             <h4>Proper Documentation</h4>
-                            <p>You know! Smart Idea always comes to well planners. And Our INFIX is Smart for its Well
+                            <p>You know! Smart Idea always comes to well planners. And Our Aramisc is Smart for its Well
                                 Documentation.
                             </p>
                         </div>
@@ -247,7 +247,7 @@
                 
                 <div class="col-md-5 col-lg-5">
                     <div class="video_section_text">
-                        <h2>Take A look Our INFIX Overview in Video</h2>
+                        <h2>Take A look Our Aramisc Overview in Video</h2>
  
                         <img src="{{asset('public/landing/img/Line.png')}}" alt=""> 
                         <p>What’s query you have in mind? How it works? Have look a Look in our videos you’ll crystal
@@ -494,7 +494,7 @@
                 <div class="col-xl-6 col-md-8">
                     <div class="section_tittle text-center">
                         <h5>AMazing Features</h5>
-                        <h2>More Features Has INFIX</h2>
+                        <h2>More Features Has Aramisc</h2>
                         <p>it's vast! Infix has more additional feature that will expect in a complete solution.</p>
                     </div>
                 </div>
@@ -659,7 +659,7 @@
                 <div class="col-xl-7 col-md-8">
                     <div class="section_tittle text-center">
                         <h5>Application Support</h5>
-                        <h2>INFIX Support Centre</h2>
+                        <h2>Aramisc Support Centre</h2>
                         <p>Need faster help? Ask your queries here. You’ll get instant help from us.</p>
                     </div>
                 </div>
@@ -701,10 +701,10 @@
  
                         <img src="{{asset('public/landing/img/logo.png')}}" alt=""> 
                         <h2>So Finally You Are Here! Now, All You Know About Our Features.</h2>
-                        <p>We Believe! It won’t a wrong decision in Purchasing our INFIX for your Institute.</p>
+                        <p>We Believe! It won’t a wrong decision in Purchasing our Aramisc for your Institute.</p>
                         <!-- <a href="http://salespanel.infixedu.com/" class="footer_btn"> <i class="ti-shopping-cart-full"></i> -->
                         <a href="https://aorasoft.com" target="_blank" class="footer_btn"> <i class="ti-shopping-cart-full"></i>
-                            <h3>Purchase infix</h3>
+                            <h3>Purchase aramisc</h3>
                             <p>The Ultimate Education ERP</p>
                         </a>
                     </div>

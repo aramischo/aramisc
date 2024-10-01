@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmPostalReceive;
+use App\AramiscPostalReceive;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -18,7 +18,7 @@ class sm_postal_receivesSeeder extends Seeder
         
         $faker = Faker::create();
         for ($i = 1; $i <= 5; $i++) {
-            $store = new SmPostalReceive();
+            $store = new AramiscPostalReceive();
 
             $store->from_title = $faker->name;
             $store->to_title = $faker->name;

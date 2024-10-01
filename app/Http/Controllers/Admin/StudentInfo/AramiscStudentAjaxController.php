@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Admin\StudentInfo;
 
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
-use App\SmVehicle;
+use App\AramiscSubject;
+use App\AramiscVehicle;
 use App\AramiscRoomList;
 use App\AramiscExamSetup;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
-use App\SmAssignSubject;
-use App\SmAssignVehicle;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
+use App\AramiscAssignVehicle;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Scopes\GlobalAcademicScope;
@@ -33,7 +33,7 @@ class AramiscStudentAjaxController extends Controller
     public function ajaxSectionSibling(Request $request)
     {
         try {
-            $sectionIds = SmClassSection::where('class_id', '=', $request->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $sectionIds = AramiscClassSection::where('class_id', '=', $request->id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             $sibling_sections = [];
             foreach ($sectionIds as $sectionId) {
@@ -69,7 +69,7 @@ class AramiscStudentAjaxController extends Controller
 
     public function ajaxSiblingInfoDetail(Request $request)
     {
-        $staff = $request->staff_id ?  SmStaff::with('roles')->find($request->staff_id) : null;
+        $staff = $request->staff_id ?  AramiscStaff::with('roles')->find($request->staff_id) : null;
         if ($staff && $staff->role_id == 1) {
             throw ValidationException::withMessages(['message' => __('common.super_admin_cannot_be_a_parent')]);
         }
@@ -89,9 +89,9 @@ class AramiscStudentAjaxController extends Controller
             } else if (app()->bound('school')) {
                 $school_id = app('school')->id;
             }
-            $vehicle_detail = SmAssignVehicle::where('route_id', $request->id)->where('school_id', $school_id)->first();
+            $vehicle_detail = AramiscAssignVehicle::where('route_id', $request->id)->where('school_id', $school_id)->first();
             $vehicles = explode(',', $vehicle_detail->vehicle_id);
-            $vehicle_info = SmVehicle::whereIn('id', $vehicles)->get();
+            $vehicle_info = AramiscVehicle::whereIn('id', $vehicles)->get();
 
             return response()->json([$vehicle_info]);
         } catch (\Exception $e) {
@@ -102,7 +102,7 @@ class AramiscStudentAjaxController extends Controller
     public function ajaxVehicleInfo(Request $request)
     {
         try {
-            $vehivle_detail = SmVehicle::find($request->id);
+            $vehivle_detail = AramiscVehicle::find($request->id);
             return response()->json([$vehivle_detail]);
         } catch (\Exception $e) {
             return response()->json("", 404);
@@ -172,7 +172,7 @@ class AramiscStudentAjaxController extends Controller
         try {
 
             if ($request->globalType) {
-                $subjects = SmAssignSubject::query();
+                $subjects = AramiscAssignSubject::query();
                 if ($request->id != "all_class") {
                     $subjects->where('class_id', '=', $request->id);
                 } else {
@@ -180,9 +180,9 @@ class AramiscStudentAjaxController extends Controller
                 }
                 $subjectIds = $subjects->withoutGlobalScope(StatusAcademicSchoolScope::class)->distinct('subject_id')->get()->pluck(['subject_id'])->toArray();
 
-                $subjects = SmSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->whereIn('id', $subjectIds)->get(['id', 'subject_name']);
+                $subjects = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->whereIn('id', $subjectIds)->get(['id', 'subject_name']);
             } else {
-                $subjects = SmAssignSubject::query();
+                $subjects = AramiscAssignSubject::query();
                 if (teacherAccess()) {
                     $subjects->where('teacher_id', Auth::user()->staff->id);
                 }
@@ -194,7 +194,7 @@ class AramiscStudentAjaxController extends Controller
                 $subjectIds = $subjects->get()->pluck(['subject_id'])->toArray();
 
 
-                $subjects = SmSubject::whereIn('id', $subjectIds)->get(['id', 'subject_name']);
+                $subjects = AramiscSubject::whereIn('id', $subjectIds)->get(['id', 'subject_name']);
             }
 
 
@@ -208,17 +208,17 @@ class AramiscStudentAjaxController extends Controller
     public function ajaxStudentPromoteSection(Request $request)
     {
         if ($request->parent) {
-            $class = SmClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->where('id', $request->id)->first();
-            $sectionIds = SmClassSection::where('class_id', '=', $request->id)
+            $class = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->where('id', $request->id)->first();
+            $sectionIds = AramiscClassSection::where('class_id', '=', $request->id)
                 ->where('school_id', Auth::user()->school_id)->get();
             $promote_sections = [];
             foreach ($sectionIds as $sectionId) {
                 $promote_sections[] = AramiscSection::where('id', $sectionId->section_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->whereNull('parent_id')->first(['id', 'section_name']);
             }
         } else {
-            $class = SmClass::find($request->id);
+            $class = AramiscClass::find($request->id);
             if (teacherAccess()) {
-                $sectionIds = SmAssignSubject::where('class_id', '=', $request->id)
+                $sectionIds = AramiscAssignSubject::where('class_id', '=', $request->id)
                     ->where('teacher_id', Auth::user()->staff->id)
                     ->where('school_id', Auth::user()->school_id)
                     ->where('academic_id', getAcademicId())
@@ -227,7 +227,7 @@ class AramiscStudentAjaxController extends Controller
                     ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                     ->get();
             } else {
-                $sectionIds = SmClassSection::where('class_id', $request->id)
+                $sectionIds = AramiscClassSection::where('class_id', $request->id)
                     ->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
             }
 
@@ -243,7 +243,7 @@ class AramiscStudentAjaxController extends Controller
 
     public function ajaxGetClass(Request $request)
     {
-        $classes = SmClass::where('created_at', 'LIKE', $request->year . '%')->get();
+        $classes = AramiscClass::where('created_at', 'LIKE', $request->year . '%')->get();
         return response()->json([$classes]);
     }
 
@@ -269,7 +269,7 @@ class AramiscStudentAjaxController extends Controller
     }
     public function ajaxPromoteYear(Request $request)
     {
-        $classes = SmClass::where('academic_id', $request->year)
+        $classes = AramiscClass::where('academic_id', $request->year)
             ->where('school_id', Auth::user()->school_id)
             ->withOutGlobalScope(StatusAcademicSchoolScope::class)
             ->get();
@@ -280,10 +280,10 @@ class AramiscStudentAjaxController extends Controller
     public function ajaxSectionStudent(Request $request)
     {
         try {
-            $class = SmClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($request->id);
+            $class = AramiscClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($request->id);
 
             if (teacherAccess()) {
-                $sectionIds = SmAssignSubject::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->id)
+                $sectionIds = AramiscAssignSubject::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->id)
                     ->where('teacher_id', Auth::user()->staff->id)
                     ->where('school_id', Auth::user()->school_id)
                     ->when($class, function ($q) use ($class) {
@@ -293,7 +293,7 @@ class AramiscStudentAjaxController extends Controller
                     ->distinct(['class_id', 'section_id'])
                     ->get();
             } else {
-                $sectionIds = SmClassSection::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->id)
+                $sectionIds = AramiscClassSection::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->id)
                     ->when($class, function ($q) use ($class) {
                         $q->where('academic_id', $class->academic_id);
                     })
@@ -309,8 +309,8 @@ class AramiscStudentAjaxController extends Controller
             }
 
             if (!($class)) {
-                $class = SmClass::withOutGlobalScope(GlobalAcademicScope::class)->withOutGlobalScope(StatusAcademicSchoolScope::class)->find($request->id);
-                $sectionIds = SmClassSection::withOutGlobalScope(GlobalAcademicScope::class)->withOutGlobalScope(StatusAcademicSchoolScope::class)
+                $class = AramiscClass::withOutGlobalScope(GlobalAcademicScope::class)->withOutGlobalScope(StatusAcademicSchoolScope::class)->find($request->id);
+                $sectionIds = AramiscClassSection::withOutGlobalScope(GlobalAcademicScope::class)->withOutGlobalScope(StatusAcademicSchoolScope::class)
                     ->where('class_id', $request->id)
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -333,14 +333,14 @@ class AramiscStudentAjaxController extends Controller
     {
 
         if (teacherAccess()) {
-            $sectionIds = SmAssignSubject::where('class_id', '=', $request->class_id)
+            $sectionIds = AramiscAssignSubject::where('class_id', '=', $request->class_id)
                 ->where('subject_id', '=', $request->subject_id)
                 ->where('teacher_id', Auth::user()->staff->id)
                 ->where('school_id', Auth::user()->school_id)
                 ->select('section_id')->groupBy('section_id')
                 ->get();
         } else {
-            $sectionIds = SmAssignSubject::where('class_id', '=', $request->class_id)
+            $sectionIds = AramiscAssignSubject::where('class_id', '=', $request->class_id)
                 ->where('subject_id', '=', $request->subject_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->select('section_id')->groupBy('section_id')
@@ -384,10 +384,10 @@ class AramiscStudentAjaxController extends Controller
         $academic_year = AramiscAcademicYear::where('id', $request->id)->first();
 
         if ($academic_year) {
-            $classes = SmClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', '=', '1')->where('academic_id', $request->id)->where('school_id', $academic_year->school_id)->get();
+            $classes = AramiscClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('active_status', '=', '1')->where('academic_id', $request->id)->where('school_id', $academic_year->school_id)->get();
         } else {
             $school = app('school');
-            $classes = SmClass::where('active_status', '=', '1')->where('academic_id', $request->id)->where('school_id', $school->id)->get();
+            $classes = AramiscClass::where('active_status', '=', '1')->where('academic_id', $request->id)->where('school_id', $school->id)->get();
         }
         return response()->json([$classes, $academic_year]);
     }
@@ -396,7 +396,7 @@ class AramiscStudentAjaxController extends Controller
     public function getSection(Request $request)
     {
         try {
-            $sectionIds = SmClassSection::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->id)->get();
+            $sectionIds = AramiscClassSection::withOutGlobalScope(StatusAcademicSchoolScope::class)->where('class_id', '=', $request->id)->get();
             $sections = [];
             foreach ($sectionIds as $sectionId) {
                 $sections[] = AramiscSection::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($sectionId->section_id);

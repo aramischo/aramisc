@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\api\v2\Admin;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Scopes\ActiveStatusSchoolScope;
@@ -45,7 +45,7 @@ class StaffController extends Controller
 
     public function roleWiseStaffList(Request $request)
     {
-        $data = SmStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
+        $data = AramiscStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('role_id', $request->role_id)
             ->get()->map(function ($value) {
@@ -78,7 +78,7 @@ class StaffController extends Controller
 
     public function individualStaffDetails(Request $request)
     {
-        $staff = SmStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
+        $staff = AramiscStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->findOrFail($request->staff_id);
 

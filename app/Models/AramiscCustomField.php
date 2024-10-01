@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscCustomField extends Model
 {
     use HasFactory;
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_custom_fields';
 
     protected static function boot()
     {

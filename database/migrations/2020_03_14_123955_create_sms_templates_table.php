@@ -1,13 +1,13 @@
 <?php
 
-use App\SmSchool;
-use App\SmsTemplate;
+use App\AramiscSchool;
+use App\AramiscTemplate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmsTemplatesTable extends Migration
+class CreateAramiscTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -3081,10 +3081,10 @@ class CreateSmsTemplatesTable extends Migration
 
             //Email End
         ];
-        // $schools=SmSchool::get(['id','school_name']);
+        // $schools=AramiscSchool::get(['id','school_name']);
         // foreach($schools as $school){
         foreach ($allTempletes as $allTemplete) {
-            $storeTemplete = new SmsTemplate();
+            $storeTemplete = new AramiscTemplate();
             $storeTemplete->type = $allTemplete[0];
             $storeTemplete->purpose = $allTemplete[1];
             $storeTemplete->subject = $allTemplete[2];
@@ -3101,11 +3101,11 @@ class CreateSmsTemplatesTable extends Migration
             ['sms', 'exam_mark_parent', '', 'Hello, [parent_name], your child [student_name] of class [class_name] ([section_name]) exam type [exam_type], [subject_marks]. School Name- [school_name], Thank You.', '', '[parent_name], [student_name], [class_name], [section_name], [exam_type], [subject_names], [total_mark], [school_name], [subject_marks]'],
         ];
 
-        $schools = SmSchool::get(['id', 'school_name']);
+        $schools = AramiscSchool::get(['id', 'school_name']);
         foreach ($schools as $school) {
             foreach ($allTempletes as $allTemplete) {
-                if (!SmsTemplate::where('purpose', $allTemplete[1])->first()) {
-                    $storeTemplete = new SmsTemplate();
+                if (!AramiscTemplate::where('purpose', $allTemplete[1])->first()) {
+                    $storeTemplete = new AramiscTemplate();
                     $storeTemplete->type = $allTemplete[0];
                     $storeTemplete->purpose = $allTemplete[1];
                     $storeTemplete->subject = $allTemplete[2];
@@ -3118,50 +3118,50 @@ class CreateSmsTemplatesTable extends Migration
             }
         }
 
-        $allDatas = SmsTemplate::all();
+        $allDatas = AramiscTemplate::all();
         foreach ($allDatas as $allData) {
             $existsData = str_contains($allData->variable, "[school_name]");
             $allData->variable = ($existsData) ? $allData->variable : $allData->variable . ", [school_name]";
             $allData->save();
         }
 
-        $templete = SmsTemplate::where('purpose', 'student_dues_fees')->first();
-        $templete1 = SmsTemplate::where('purpose', 'student_dues_fees_for_parent')->first();
+        $templete = AramiscTemplate::where('purpose', 'student_dues_fees')->first();
+        $templete1 = AramiscTemplate::where('purpose', 'student_dues_fees_for_parent')->first();
 
-        $studentUpdate = SmsTemplate::find($templete->id);
+        $studentUpdate = AramiscTemplate::find($templete->id);
         $studentUpdate->module = 'Fees';
         $studentUpdate->variable = '[student_name], [dues_amount], [fees_name], [date], [school_name]';
         $studentUpdate->save();
 
-        $parentUpdate = SmsTemplate::find($templete1->id);
+        $parentUpdate = AramiscTemplate::find($templete1->id);
         $parentUpdate->module = 'Fees';
         $parentUpdate->variable = '[parent_name], [dues_amount], [fees_name], [date], [school_name]';
         $parentUpdate->save();
 
-        $schools = SmSchool::get();
+        $schools = AramiscSchool::get();
 
         foreach ($schools as $school) {
-            $studenAttandance = SmsTemplate::where('purpose', 'parent_leave_approve_for_student')->where('school_id', $school->id)->first();
+            $studenAttandance = AramiscTemplate::where('purpose', 'parent_leave_approve_for_student')->where('school_id', $school->id)->first();
             $studenAttandance->body = str_replace('[staff_name]', '[parent_name]', $studenAttandance->body);
             $studenAttandance->variable = str_replace('[staff_name]', '[parent_name]', $studenAttandance->variable);
             $studenAttandance->save();
 
-            $holiday = SmsTemplate::where('purpose', 'holiday')->where('school_id', $school->id)->first();
+            $holiday = AramiscTemplate::where('purpose', 'holiday')->where('school_id', $school->id)->first();
             $holiday->body = str_replace('[holiday_name]', ' ', $holiday->body);
             $holiday->variable = str_replace('[holiday_name]', ' ', $holiday->variable);
             $holiday->save();
 
-            $BioMat1 = SmsTemplate::where('purpose', 'student_checkout')->where('school_id', $school->id)->first();
+            $BioMat1 = AramiscTemplate::where('purpose', 'student_checkout')->where('school_id', $school->id)->first();
             $BioMat1->module = "InfixBiometrics";
             $BioMat1->save();
 
-            $BioMat2 = SmsTemplate::where('purpose', 'student_early_checkout')->where('school_id', $school->id)->first();
+            $BioMat2 = AramiscTemplate::where('purpose', 'student_early_checkout')->where('school_id', $school->id)->first();
             $BioMat2->module = "InfixBiometrics";
             $BioMat2->save();
 
-            $check1 = SmsTemplate::where('purpose', 'student_fees_due')->where('school_id', $school->id)->first();
+            $check1 = AramiscTemplate::where('purpose', 'student_fees_due')->where('school_id', $school->id)->first();
             if (!$check1) {
-                $storeFeesDueStudent = new SmsTemplate();
+                $storeFeesDueStudent = new AramiscTemplate();
                 $storeFeesDueStudent->type = "sms";
                 $storeFeesDueStudent->purpose = "student_fees_due";
                 $storeFeesDueStudent->subject = "";
@@ -3173,9 +3173,9 @@ class CreateSmsTemplatesTable extends Migration
                 $storeFeesDueStudent->save();
             }
 
-            $check2 = SmsTemplate::where('purpose', 'student_fees_due_for_parent')->where('school_id', $school->id)->first();
+            $check2 = AramiscTemplate::where('purpose', 'student_fees_due_for_parent')->where('school_id', $school->id)->first();
             if (!$check2) {
-                $storeFeesDueStudent = new SmsTemplate();
+                $storeFeesDueStudent = new AramiscTemplate();
                 $storeFeesDueStudent->type = "sms";
                 $storeFeesDueStudent->purpose = "student_fees_due_for_parent";
                 $storeFeesDueStudent->subject = "";
@@ -3187,9 +3187,9 @@ class CreateSmsTemplatesTable extends Migration
                 $storeFeesDueStudent->save();
             }
 
-            $check3 = SmsTemplate::where('purpose', 'due_fees_payment')->where('school_id', $school->id)->first();
+            $check3 = AramiscTemplate::where('purpose', 'due_fees_payment')->where('school_id', $school->id)->first();
             if (!$check3) {
-                $storeFeesDueStudent = new SmsTemplate();
+                $storeFeesDueStudent = new AramiscTemplate();
                 $storeFeesDueStudent->type = "email";
                 $storeFeesDueStudent->purpose = "due_fees_payment";
                 $storeFeesDueStudent->subject = "Duee Fees Payment";

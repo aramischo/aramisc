@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin\StudentInfo;
 
 use App\User;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmUserLog;
+use App\AramiscUserLog;
 use Carbon\Carbon;
-use App\SmBaseSetup;
+use App\AramiscBaseSetup;
 use App\ApiBaseMethod;
 use Barryvdh\DomPDF\PDF;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\AramiscStudentCategory;
 use App\InfixModuleManager;
 use App\AramiscStudentAttendance;
@@ -39,9 +39,9 @@ class AramiscStudentReportController extends Controller
     public function studentReport(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $types = AramiscStudentCategory::get();
-            $genders = SmBaseSetup::where('base_group_id', '=', '1')->get();
+            $genders = AramiscBaseSetup::where('base_group_id', '=', '1')->get();
 
             return view('backEnd.studentInformation.student_report', compact('classes', 'types', 'genders'));
         } catch (\Exception $e) {
@@ -94,9 +94,9 @@ class AramiscStudentReportController extends Controller
             })->get();
 
             $data['student_records'] = $students;
-            $data['classes'] = SmClass::get();
+            $data['classes'] = AramiscClass::get();
             $data['types'] = AramiscStudentCategory::get();
-            $data['genders'] = SmBaseSetup::where('base_group_id', '=', '1')->get();
+            $data['genders'] = AramiscBaseSetup::where('base_group_id', '=', '1')->get();
             $data['class_id'] = $request->class_id;
             $data['gender_id'] = $request->gender;
             $data['type_id'] = $request->type;
@@ -115,13 +115,13 @@ class AramiscStudentReportController extends Controller
     {
         try {
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
                 $classes = $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
             $types = AramiscStudentCategory::get();
-            $genders = SmBaseSetup::where('base_group_id', '=', '1')->get();
+            $genders = AramiscBaseSetup::where('base_group_id', '=', '1')->get();
 
             return view('backEnd.studentInformation.student_attendance_report', compact('classes', 'types', 'genders'));
         } catch (\Exception $e) {
@@ -155,14 +155,14 @@ class AramiscStudentReportController extends Controller
             $class_id = $request->class;
             $section_id = $request->section;
             $current_day = date('d');
-            $clas = SmClass::findOrFail($request->class);
+            $clas = AramiscClass::findOrFail($request->class);
             $sec = AramiscSection::findOrFail($request->section);
             $days = cal_days_in_month(CAL_GREGORIAN, $request->month, $request->year);
             if (teacherAccess()) {
-                $teacher_info = SmStaff::where('user_id', Auth::user()->id)->first();
+                $teacher_info = AramiscStaff::where('user_id', Auth::user()->id)->first();
                 $classes = $teacher_info->classes;
             } else {
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
             }
             $students = AramiscStudent::where('class_id', $request->class)
                 ->where('section_id', $request->section)->get();
@@ -217,13 +217,13 @@ class AramiscStudentReportController extends Controller
             //         'month' => $month,
             //         'class_id' => $class_id,
             //         'section_id' => $section_id,
-            //         'class' => SmClass::find($class_id),
+            //         'class' => AramiscClass::find($class_id),
             //         'section' => AramiscSection::find($section_id),
             //     ]
             // )->setPaper('A4', 'landscape');
             // return $pdf->stream('student_attendance.pdf');
 
-            $class = SmClass::find($class_id);
+            $class = AramiscClass::find($class_id);
             $section = AramiscSection::find($section_id);
             return view('backEnd.studentInformation.student_attendance_print', compact('class', 'section', 'attendances', 'days', 'year', 'month', 'current_day', 'class_id', 'section_id'));
         } catch (\Exception $e) {
@@ -235,7 +235,7 @@ class AramiscStudentReportController extends Controller
     public function guardianReport(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.studentInformation.guardian_report', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -283,7 +283,7 @@ class AramiscStudentReportController extends Controller
             $students = $student_records->with('student.parents', 'class', 'section')->get();
             $data = [];
             $data['student_records'] = $students;
-            $data['classes'] = SmClass::get();
+            $data['classes'] = AramiscClass::get();
 
             $selected['class_id'] = $request->class_id;
             $selected['section_id'] = $request->section_id;
@@ -299,7 +299,7 @@ class AramiscStudentReportController extends Controller
     public function studentLoginReport(Request $request)
     {
         try {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             return view('backEnd.studentInformation.login_info', compact('classes'));
         } catch (\Exception $e) {
@@ -338,10 +338,10 @@ class AramiscStudentReportController extends Controller
 
             $students = $student_records->with('student.user', 'student.parents')->get();
             $data['student_records'] = $students;
-            $data['classes'] = SmClass::get();
+            $data['classes'] = AramiscClass::get();
             $data['class_id'] = $request->class;
             $data['section_id'] = $request->section;
-            $data['clas'] = SmClass::find($request->class);
+            $data['clas'] = AramiscClass::find($request->class);
             if (moduleStatusCheck('University')) {
                 $interface = App::make(UnCommonRepositoryInterface::class);
                 $data += $interface->getCommonData($request);
@@ -356,7 +356,7 @@ class AramiscStudentReportController extends Controller
     public function studentHistory(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $years = AramiscStudent::select('admission_date')->where('active_status', 1)
                 ->where('academic_id', getAcademicId())->get()
                 ->groupBy(function ($val) {
@@ -383,7 +383,7 @@ class AramiscStudentReportController extends Controller
         }
         try {
             $student_ids = $this->classSectionStudent($request);
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             $students = AramiscStudent::query();
             $students->where('academic_id', getAcademicId())->where('active_status', 1);
             if ($request->admission_year != "") {
@@ -401,7 +401,7 @@ class AramiscStudentReportController extends Controller
             $year = $request->admission_year;
             $student_id = null;
 
-            $clas = SmClass::find($request->class);
+            $clas = AramiscClass::find($request->class);
             return view('backEnd.studentInformation.student_history', compact('students', 'classes', 'years', 'class_id', 'year', 'clas', 'student_id'));
         } catch (\Exception $e) {
            

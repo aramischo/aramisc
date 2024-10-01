@@ -2,11 +2,11 @@
 
 namespace Database\Seeders\OnlineExam;
 
-use App\SmQuestionGroup;
+use App\AramiscQuestionGroup;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
-class SmQuestionGroupsTableSeeder extends Seeder
+class AramiscQuestionGroupsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,7 +17,7 @@ class SmQuestionGroupsTableSeeder extends Seeder
     {
         $faker = Faker::create();
         for($i=1; $i<=5; $i++){
-            $store= new SmQuestionGroup();
+            $store= new AramiscQuestionGroup();
             $store->title=$faker->word;
             $store->created_at = date('Y-m-d h:i:s');
             $store->school_id = $school_id;

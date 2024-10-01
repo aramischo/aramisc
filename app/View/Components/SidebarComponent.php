@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\SmParent;
+use App\AramiscParent;
 use Illuminate\View\Component;
 use App\Traits\SidebarDataStore;
 use Illuminate\Support\Facades\Cache;
@@ -35,7 +35,7 @@ class SidebarComponent extends Component
         $data['sidebar_menus'] = sidebar_menus();
         $data['paid_modules'] = $this->allActivePaidModules();
        
-        $data['childrens'] = SmParent::myChildrens();
+        $data['childrens'] = AramiscParent::myChildrens();
         #dd($data);
         return view('components.sidebar-component', $data);
     }

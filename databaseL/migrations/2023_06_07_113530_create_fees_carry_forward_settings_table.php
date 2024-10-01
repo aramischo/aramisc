@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\FeesCarryForwardSettings;
-use App\SmSchool;
+use App\AramiscSchool;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        $schools = SmSchool::get();
+        $schools = AramiscSchool::get();
         foreach($schools as $school){
             $storeData = new FeesCarryForwardSettings();
             $storeData->title = 'Fees Carry Forward';

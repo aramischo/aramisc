@@ -2,13 +2,13 @@
 
 namespace Database\Seeders\HumanResources;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
-use App\SmHrPayrollGenerate;
+use App\AramiscHrPayrollGenerate;
 use Illuminate\Database\Seeder;
 
-class SmHrPayrollGeneratesTableSeeder extends Seeder
+class AramiscHrPayrollGeneratesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,9 +20,9 @@ class SmHrPayrollGeneratesTableSeeder extends Seeder
         $faker = Faker::create();
         $increment = 100;
 
-        $staffs = SmStaff::where('active_status', 1)->whereIn('role_id',[4,5,6,7,8,9])->where('school_id', 1)->get(['id','user_id']);
+        $staffs = AramiscStaff::where('active_status', 1)->whereIn('role_id',[4,5,6,7,8,9])->where('school_id', 1)->get(['id','user_id']);
         foreach ($staffs as $staff) { 
-        $store = new SmHrPayrollGenerate();
+        $store = new AramiscHrPayrollGenerate();
             $store->staff_id = $staff->id;
             $store->basic_salary = 3000 + $increment;
             $store->total_earning = 5000 + $increment;

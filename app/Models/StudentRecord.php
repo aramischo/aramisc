@@ -3,18 +3,18 @@
 namespace App\Models;
 
 use App\AramiscExam;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscExamType;
-use App\SmHomework;
+use App\AramiscHomework;
 use App\AramiscFeesAssign;
-use App\SmOnlineExam;
-use App\SmResultStore;
+use App\AramiscOnlineExam;
+use App\AramiscResultStore;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\Scopes\SchoolScope;
 use App\AramiscStudentAttendance;
 use App\AramiscFeesAssignDiscount;
-use App\SmClassOptionalSubject;
+use App\AramiscClassOptionalSubject;
 use App\AramiscTeacherUploadContent;
 use App\AramiscStudentTakeOnlineExam;
 use Modules\Lms\Entities\Course;
@@ -64,7 +64,7 @@ class StudentRecord extends Model
 
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id')->withDefault()->withoutGlobalScope(StatusAcademicSchoolScope::class);
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id')->withDefault()->withoutGlobalScope(StatusAcademicSchoolScope::class);
     }
 
     public function admitcard()
@@ -82,7 +82,7 @@ class StudentRecord extends Model
     }
     public function smClass()
     {
-        return $this->belongsTo(SmClass::class, 'class_id');
+        return $this->belongsTo(AramiscClass::class, 'class_id');
     }
 
     public function unSection()
@@ -102,7 +102,7 @@ class StudentRecord extends Model
 
     public function school()
     {
-        return $this->belongsTo('App\SmSchool', 'school_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscSchool', 'school_id', 'id')->withDefault();
     }
     public function academic()
     {
@@ -110,7 +110,7 @@ class StudentRecord extends Model
     }
     public function classes()
     {
-        return $this->hasMany(SmClass::class, 'academic_id', 'academic_id');
+        return $this->hasMany(AramiscClass::class, 'academic_id', 'academic_id');
     }
 
     public function studentDetail()
@@ -130,12 +130,12 @@ class StudentRecord extends Model
 
     public function homework()
     {
-        return $this->hasMany(SmHomework::class, 'record_id', 'id')->whereNull('course_id')->whereNull('chapter_id')->whereNull('lesson_id');
+        return $this->hasMany(AramiscHomework::class, 'record_id', 'id')->whereNull('course_id')->whereNull('chapter_id')->whereNull('lesson_id');
     }
 
     public function saashomeworks()
     {
-        return $this->hasMany(SmHomework::class, 'record_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class);
+        return $this->hasMany(AramiscHomework::class, 'record_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class);
     }
 
     public function studentAttendance()
@@ -158,7 +158,7 @@ class StudentRecord extends Model
     }
     public function getHomeWorkAttribute()
     {
-        return SmHomework::with('classes', 'sections', 'subjects')->where('class_id', $this->class_id)->where('section_id', $this->section_id)
+        return AramiscHomework::with('classes', 'sections', 'subjects')->where('class_id', $this->class_id)->where('section_id', $this->section_id)
             ->whereNull('course_id')
             ->where('sm_homeworks.academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
     }
@@ -213,7 +213,7 @@ class StudentRecord extends Model
             $class = $this->class_id;
             $section = $this->section_id;
             $content = [];
-            $content = SmHomework::where('school_id', auth()->user()->school_id)
+            $content = AramiscHomework::where('school_id', auth()->user()->school_id)
                 ->where(function ($que) use ($class) {
                     return $que->where('class_id', $class)
                         ->orWhereNull('class_id');
@@ -234,7 +234,7 @@ class StudentRecord extends Model
             $un_semester_label_id = $this->un_semester_label_id;
             $section_id = $this->un_section_id;
             $content = [];
-            $content = SmHomework::where('school_id', auth()->user()->school_id)
+            $content = AramiscHomework::where('school_id', auth()->user()->school_id)
                 ->where(function ($que) use ($un_semester_label_id) {
                     return $que->where('un_semester_label_id', $un_semester_label_id);
                 })
@@ -257,7 +257,7 @@ class StudentRecord extends Model
 
     public function getAssignSubjectAttribute()
     {
-        return SmAssignSubject::where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('academic_id', $this->academic_id)->where('school_id', Auth::user()->school_id)->get();
+        return AramiscAssignSubject::where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('academic_id', $this->academic_id)->where('school_id', Auth::user()->school_id)->get();
     }
 
     public function getUnAssignSubjectAttribute()
@@ -267,7 +267,7 @@ class StudentRecord extends Model
 
     public function getOnlineExamAttribute()
     {
-        $subjectIds = SmAssignSubject::where('class_id', $this->class_id)
+        $subjectIds = AramiscAssignSubject::where('class_id', $this->class_id)
             ->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)
             ->where('academic_id', getAcademicId())
             ->pluck('subject_id')->unique();
@@ -289,7 +289,7 @@ class StudentRecord extends Model
                     return $exam;
                 });
         }
-        return SmOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->get();
+        return AramiscOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->get();
     }
     public function getInfixStudentTakeOnlineExamAttribute()
     {
@@ -319,7 +319,7 @@ class StudentRecord extends Model
     }
     public function getStudentTeacherAttribute()
     {
-        return SmAssignSubject::with('teacher', 'subject')->where('class_id', $this->class_id)
+        return AramiscAssignSubject::with('teacher', 'subject')->where('class_id', $this->class_id)
             ->where('section_id', $this->section_id)->distinct('teacher_id')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
     }
     public function getStudentVirtualClassAttribute()
@@ -447,7 +447,7 @@ class StudentRecord extends Model
 
     public function markStoreDetails()
     {
-        return $this->belongsTo('App\SmMarkStore', 'student_record_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscMarkStore', 'student_record_id', 'id')->withDefault();
     }
     public function unStudentSubjects()
     {

@@ -1,6 +1,6 @@
 <?php
 
-use App\SmLanguagePhrase;
+use App\AramiscLanguagePhrase;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -86,9 +86,9 @@ class CreateInvoiceSettingsTable extends Migration
 
             ];
             foreach ($d as $row) {
-                $s = SmLanguagePhrase::where('default_phrases', trim($row[1]))->first();
+                $s = AramiscLanguagePhrase::where('default_phrases', trim($row[1]))->first();
                 if (empty($s)) {
-                    $s = new SmLanguagePhrase();
+                    $s = new AramiscLanguagePhrase();
                 }
             
                 $s->modules = $row[0];

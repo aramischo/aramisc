@@ -1,7 +1,7 @@
 <?php
 
 use App\InfixModuleManager;
-use App\SmSchool;
+use App\AramiscSchool;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -132,7 +132,7 @@ function getSchool(){
     } elseif (auth()->check()) {
         $school = auth()->user()->school;
     } else{
-        $school = SmSchool::first();
+        $school = AramiscSchool::first();
     }
 
     return $school;

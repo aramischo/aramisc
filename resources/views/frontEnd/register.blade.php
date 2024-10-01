@@ -5,7 +5,7 @@ if(isset($setting->logo)) { generalSetting()->logo = $setting->logo; } else{ gen
 
 if(isset($setting->favicon)) { generalSetting()->favicon = $setting->favicon; } else{ generalSetting()->favicon = 'public/backEnd/img/favicon.png'; }
 
-$login_background = App\SmBackgroundSetting::where([['is_default',1],['title','Login Background']])->first();
+$login_background = App\AramiscBackgroundSetting::where([['is_default',1],['title','Login Background']])->first();
 
 if(empty($login_background)){
     $css = "";
@@ -17,7 +17,7 @@ if(empty($login_background)){
         $css = "background:".$login_background->color;
     }
 }
-activeStyle() = App\SmStyle::where('is_active', 1)->first();
+activeStyle() = App\AramiscStyle::where('is_active', 1)->first();
 
 $ttl_rtl = $setting->ttl_rtl;
 ?>

@@ -115,7 +115,7 @@ class User extends Authenticatable
 
     public function staff()
     {
-        return $this->belongsTo('App\SmStaff', 'id', 'user_id')->withoutGlobalScopes();
+        return $this->belongsTo('App\AramiscStaff', 'id', 'user_id')->withoutGlobalScopes();
     }
 
     public function category()
@@ -129,12 +129,12 @@ class User extends Authenticatable
 
     public function parent()
     {
-        return $this->belongsTo('App\SmParent', 'id', 'user_id');
+        return $this->belongsTo('App\AramiscParent', 'id', 'user_id');
     }
 
     public function school()
     {
-        return $this->belongsTo('App\SmSchool', 'school_id', 'id');
+        return $this->belongsTo('App\AramiscSchool', 'school_id', 'id');
     }
 
     public function roles()
@@ -170,8 +170,8 @@ class User extends Authenticatable
     public static function checkAuth()
     {
         return true;
-        // $gcc = new SmGeneralSettings;
-        // $php_extension_dll = SmGeneralSettings::where('id',auth()->user()->school_id)->first();
+        // $gcc = new AramiscGeneralSettings;
+        // $php_extension_dll = AramiscGeneralSettings::where('id',auth()->user()->school_id)->first();
         // $str = $gcc::$students;
         // $php_extension_ssl = Envato::aci($php_extension_dll->$str);
         // if (isset($php_extension_ssl[$gcc::$users][$gcc::$parents])) {
@@ -192,7 +192,7 @@ class User extends Authenticatable
         // if (!empty($is_data) && $is_data->email != null && $is_data->purchase_code != null) {
         //     $code = @$is_data->purchase_code;
         //     $email = @$is_data->email;
-        //     $is_verify = SmGeneralSettings::where($name, 1)->first();
+        //     $is_verify = AramiscGeneralSettings::where($name, 1)->first();
         //     if (!empty($is_verify)) {
         //         if (Config::get('app.app_pro')) {
         //             try {

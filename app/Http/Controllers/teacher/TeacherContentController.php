@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\teacher;
 
 use App\Role;
-use App\SmStaff;
+use App\AramiscStaff;
 use App\AramiscStudent;
 use App\YearCheck;
 use App\ApiBaseMethod;
 use App\AramiscNotification;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\AramiscTeacherUploadContent;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +55,7 @@ class TeacherContentController extends Controller
         try {
             $fileName = "";
             if ($request->file('attach_file') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -112,7 +112,7 @@ class TeacherContentController extends Controller
             })->get();
 
                 foreach ($roles as $role) {
-                    $staffs = SmStaff::where('role_id', $role->id)->get();
+                    $staffs = AramiscStaff::where('role_id', $role->id)->get();
                     foreach ($staffs as $staff) {
                         $notification = new AramiscNotification;
                         $notification->user_id = $staff->id;

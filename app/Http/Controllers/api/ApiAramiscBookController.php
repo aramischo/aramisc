@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 use App\LibrarySubject;
 use App\AramiscBook;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\ApiBaseMethod;
 use App\AramiscBookCategory;
 use Illuminate\Http\Request;
@@ -200,7 +200,7 @@ class ApiAramiscBookController extends Controller
         try {
             $editData = AramiscBook::find($id);
             $categories = AramiscBookCategory::all();
-            $subjects = SmSubject::all();
+            $subjects = AramiscSubject::all();
 
             $data = [];
             $data['editData'] = $editData->toArray();
@@ -219,7 +219,7 @@ class ApiAramiscBookController extends Controller
         try {
             $editData = AramiscBook::where('school_id',$school_id)->find($id);
             $categories = AramiscBookCategory::where('school_id',$school_id)->get();
-            $subjects = SmSubject::where('school_id',$school_id)->get();
+            $subjects = AramiscSubject::where('school_id',$school_id)->get();
 
 
             $data = [];

@@ -2,7 +2,7 @@
 
 use App\Scopes\AcademicSchoolScope;
 use App\Scopes\StatusAcademicSchoolScope;
-use App\SmStudentTakeOnlineExam;
+use App\AramiscStudentTakeOnlineExam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,9 +17,9 @@ class MultipleCourseDataMigration extends Migration
     public function up()
     {
         // Promoted data
-        $promotes = \App\SmStudentPromotion::all();
+        $promotes = \App\AramiscStudentPromotion::all();
         foreach ($promotes as $promote) {
-            $class = \App\SmClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where(['id' => $promote->class_id, 'school_id' => $promote->school_id])->first();
+            $class = \App\AramiscClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->where(['id' => $promote->class_id, 'school_id' => $promote->school_id])->first();
             $studentRecords = \App\Models\StudentRecord::firstOrCreate([
                 'student_id' => $promote->student_id,
                 'school_id' => $promote->school_id,
@@ -33,7 +33,7 @@ class MultipleCourseDataMigration extends Migration
         }
         // Student data migration
 
-        $students = \App\SmStudent::all();
+        $students = \App\AramiscStudent::all();
 
         foreach ($students as $student) {
             if ($student->class_id && $student->section_id && $student->session_id && $student->academic_id) {

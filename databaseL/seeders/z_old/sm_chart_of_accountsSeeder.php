@@ -3,8 +3,8 @@
 namespace Database\Seeders\Accounts;
 
 use Illuminate\Database\Seeder;
-use App\SmChartOfAccount;
-class SmChartOfAccountsTable extends Seeder
+use App\AramiscChartOfAccount;
+class AramiscChartOfAccountsTable extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,23 +14,23 @@ class SmChartOfAccountsTable extends Seeder
     public function run()
     {
 
-        // SmChartOfAccount::query()->truncate();
-        $store = new SmChartOfAccount();
+        // AramiscChartOfAccount::query()->truncate();
+        $store = new AramiscChartOfAccount();
         $store->head = 'Donation';
         $store->type = 'I';
         $store->save();
 
-        $store = new SmChartOfAccount();
+        $store = new AramiscChartOfAccount();
         $store->head = 'Scholarship';
         $store->type = 'E';
         $store->save();
 
-        $store = new SmChartOfAccount();
+        $store = new AramiscChartOfAccount();
         $store->head = 'Product Sales';
         $store->type = 'I';
         $store->save();
 
-        $store = new SmChartOfAccount();
+        $store = new AramiscChartOfAccount();
         $store->head = 'Utility Bills';
         $store->type = 'E';
         $store->save();

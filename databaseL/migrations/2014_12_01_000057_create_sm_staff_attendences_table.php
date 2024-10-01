@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmStaffAttendencesTable extends Migration
+class CreateAramiscStaffAttendencesTable extends Migration
 {
     /**
      * Run the migrations.

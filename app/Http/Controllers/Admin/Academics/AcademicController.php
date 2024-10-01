@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin\Academics;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;
 use App\ApiBaseMethod;
 use App\AramiscFeesPayment;
-use App\SmClassRoutine;
-use App\SmAssignSubject;
+use App\AramiscClassRoutine;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
-use App\SmAssignClassTeacher;
+use App\AramiscAssignClassTeacher;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +29,7 @@ class AcademicController extends Controller
     public function classRoutine()
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.academics.class_routine', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -39,7 +39,7 @@ class AcademicController extends Controller
     public function classRoutineCreate()
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.academics.class_routine_create', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -61,8 +61,8 @@ class AcademicController extends Controller
             $class_id = $request->class;
             $section_id = $request->section;
             $subject_id = $request->subject;
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
-            $class_routine = SmClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->where('subject_id', $request->subject)->first();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $class_routine = AramiscClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->where('subject_id', $request->subject)->first();
             if ($class_routine == "") {
                 $class_routine = "hello";
             }
@@ -77,12 +77,12 @@ class AcademicController extends Controller
     public function assignRoutineStore(Request $request)
     {
         try {
-            $class_routine = SmClassRoutine::where('class_id', $request->class_id)
+            $class_routine = AramiscClassRoutine::where('class_id', $request->class_id)
             ->where('section_id', $request->section_id)
             ->where('subject_id', $request->subject_id)
             ->delete();
             // if($check_assigned != ""){
-            $class_routine = new SmClassRoutine();
+            $class_routine = new AramiscClassRoutine();
             $class_routine->class_id = $request->class_id;
             $class_routine->section_id = $request->section_id;
             $class_routine->subject_id = $request->subject_id;
@@ -137,9 +137,9 @@ class AcademicController extends Controller
 
         try {
 
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
 
-            $class_routines = SmClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->where('school_id', Auth::user()->school_id)->get();
+            $class_routines = AramiscClassRoutine::where('class_id', $request->class)->where('section_id', $request->section)->where('school_id', Auth::user()->school_id)->get();
             $class_id = $request->class;
             return view('backEnd.academics.class_routine', compact('class_routines', 'classes', 'class_id'));
         } catch (\Exception $e) {
@@ -152,7 +152,7 @@ class AcademicController extends Controller
     {
         try {
 
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($classes, null);
@@ -181,7 +181,7 @@ class AcademicController extends Controller
         }
 
         try {
-            $class = SmClass::where('id', $request->class)->first();
+            $class = AramiscClass::where('id', $request->class)->first();
 
             if ($request->section != "") {
                 $section = AramiscSection::where('id', $request->section)->first();
@@ -198,7 +198,7 @@ class AcademicController extends Controller
             $students = $students->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
 
-            $assign_subjects = SmAssignSubject::query();
+            $assign_subjects = AramiscAssignSubject::query();
             $assign_subjects->where('active_status', 1);
             if ($request->section != "") {
                 $assign_subjects->where('section_id', $request->section);
@@ -207,7 +207,7 @@ class AcademicController extends Controller
             $assign_subjects = $assign_subjects->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
 
-            $assign_class_teacher = SmAssignClassTeacher::query();
+            $assign_class_teacher = AramiscAssignClassTeacher::query();
             $assign_class_teacher->where('active_status', 1);
             if ($request->section != "") {
                 $assign_class_teacher->where('section_id', $request->section);
@@ -239,7 +239,7 @@ class AcademicController extends Controller
             }
 
 
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];

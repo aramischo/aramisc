@@ -5,7 +5,7 @@ return [
     'module_manager_model' => App\InfixModuleManager::class,
     'module_manager_table' => 'infix_module_managers',
 
-    'settings_model' => App\SmGeneralSettings::class,
+    'settings_model' => App\AramiscGeneralSettings::class,
     'module_model' => Nwidart\Modules\Facades\Module::class,
 
     'user_model' => App\User::class,

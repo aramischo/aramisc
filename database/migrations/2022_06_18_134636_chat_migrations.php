@@ -2,7 +2,7 @@
 
 use App\Events\CreateClassGroupChat;
 use App\Scopes\StatusAcademicSchoolScope;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +20,7 @@ class ChatMigrations extends Migration
     {
         Group::truncate();
         GroupUser::truncate();
-        $subjects = SmAssignSubject::withOutGlobalScope(StatusAcademicSchoolScope::class)->get();
+        $subjects = AramiscAssignSubject::withOutGlobalScope(StatusAcademicSchoolScope::class)->get();
         foreach ($subjects as $assignSubject){
             event(new CreateClassGroupChat($assignSubject));
         }

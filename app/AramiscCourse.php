@@ -8,10 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscCourse extends Model
 {
     use HasFactory;
-
-    // Specify the table name explicitly
+    // Spécifiez le nom de la table explicitement
     protected $table = 'sm_courses';
-
     public function courseCategory()
     {
         return $this->belongsTo('App\AramiscCourseCategory', 'category_id', 'id')->withDefault();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use Illuminate\Http\Request;
 use App\Models\SmExpertTeacher;
 use App\Http\Controllers\Controller;
@@ -42,7 +42,7 @@ class SmExpertTeacherController extends Controller
                 $expertTeacher->school_id = auth()->user()->school_id;
                 $expertTeacher->save();
 
-                $staff = SmStaff::find($request->staff);
+                $staff = AramiscStaff::find($request->staff);
                 if ($staff != null) {
                     $staff->show_public = 1;
                     $staff->update();
@@ -74,7 +74,7 @@ class SmExpertTeacherController extends Controller
         try {
             $expertTeacher = SmExpertTeacher::where('id', $id)->first();
 
-            $staff = SmStaff::find($expertTeacher->staff_id);
+            $staff = AramiscStaff::find($expertTeacher->staff_id);
             if ($staff != null) {
                 $staff->show_public = 0;
                 $staff->update();

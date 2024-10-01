@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\SmStaff;
-use App\SmBaseSetup;
-use App\SmDesignation;
-use App\SmHumanDepartment;
+use App\AramiscStaff;
+use App\AramiscBaseSetup;
+use App\AramiscDesignation;
+use App\AramiscHumanDepartment;
 use App\Imports\StaffsImport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -17,13 +17,13 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\StaffImportBulkTemporary;
 use App\Http\Requests\StaffImportRequestForm;
 use Modules\RolePermission\Entities\InfixRole;
-use App\Http\Controllers\Admin\Hr\SmStaffController;
+use App\Http\Controllers\Admin\Hr\AramiscStaffController;
 
 class ImportController extends Controller
 {
     public function index()
     {
-        $data['genders'] = SmBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
+        $data['genders'] = AramiscBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
         $data['roles'] = InfixRole::where('is_saas', 0)
             ->where('active_status', 1)
             ->where(function ($q) {
@@ -33,11 +33,11 @@ class ImportController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        $data['departments'] = SmHumanDepartment::where('is_saas', 0)
+        $data['departments'] = AramiscHumanDepartment::where('is_saas', 0)
             ->orderBy('name', 'asc')
             ->get(['id', 'name']);
 
-        $data['designations'] = SmDesignation::where('is_saas', 0)
+        $data['designations'] = AramiscDesignation::where('is_saas', 0)
             ->orderBy('title', 'asc')
             ->get(['id', 'title']);
 
@@ -54,7 +54,7 @@ class ImportController extends Controller
 
                     if (isSubscriptionEnabled()) {
 
-                        $active_staff = SmStaff::where('school_id', Auth::user()->school_id)->where('active_status', 1)->count();
+                        $active_staff = AramiscStaff::where('school_id', Auth::user()->school_id)->where('active_status', 1)->count();
 
                         if (\Modules\Saas\Entities\SmPackagePlan::staff_limit() <= $active_staff && saasDomain() != 'school') {
                             DB::commit();
@@ -69,8 +69,8 @@ class ImportController extends Controller
                                 ->orWhere('type', 'System');
                         })
                         ->value('id') ?? null;
-                    $department_id = SmHumanDepartment::where('name', $singleStaff->department)->value('id') ?? null;
-                    $designation_id = SmDesignation::where('title', $singleStaff->designation)->value('id') ?? null;
+                    $department_id = AramiscHumanDepartment::where('name', $singleStaff->department)->value('id') ?? null;
+                    $designation_id = AramiscDesignation::where('title', $singleStaff->designation)->value('id') ?? null;
 
                     if ($this->checkExitUser($singleStaff->mobile, $singleStaff->email) || !$role_id) {
                         continue;
@@ -93,7 +93,7 @@ class ImportController extends Controller
                     if ($user) {
                         $basic_salary = $singleStaff->basic_salary ?? 0;
 
-                        $staff = new SmStaff();
+                        $staff = new AramiscStaff();
                         $staff->staff_no = $singleStaff->staff_no;
                         $staff->role_id = $role_id == 1 ? 5 : $role_id;
                         $staff->department_id = $department_id;

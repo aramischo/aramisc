@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\StudentInfo;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\AramiscAcademicYear;
@@ -13,7 +13,7 @@ class FrontendStudentListController extends Controller
 {
     public function ajaxFrontendClass(Request $request)
     {
-        $classes = SmClass::where('academic_id', $request->year)
+        $classes = AramiscClass::where('academic_id', $request->year)
             ->where('school_id', app('school')->id)
             ->get();
         return response()->json([$classes]);

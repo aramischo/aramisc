@@ -1,6 +1,6 @@
 <?php
 
-use App\SmsTemplate;
+use App\AramiscTemplate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -163,9 +163,9 @@ class CreateBehaviourRecordSettingsTable extends Migration
         ];
 
         foreach ($allTempletes as $allTemplete) {
-            $exist = SmsTemplate::where('purpose', $allTemplete[1])->where('type', $allTemplete[0])->first();
+            $exist = AramiscTemplate::where('purpose', $allTemplete[1])->where('type', $allTemplete[0])->first();
             if (!$exist) {
-                $storeTemplete = new SmsTemplate();
+                $storeTemplete = new AramiscTemplate();
                 $storeTemplete->type = $allTemplete[0];
                 $storeTemplete->purpose = $allTemplete[1];
                 $storeTemplete->subject = $allTemplete[2];

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\SmAcademicYear;
-use App\SmGeneralSettings;
+use App\AramiscAcademicYear;
+use App\AramiscGeneralSettings;
 use Illuminate\Database\Seeder;
 
 class sm_academic_yearsSeeder extends Seeder
@@ -15,20 +15,20 @@ class sm_academic_yearsSeeder extends Seeder
      */
     public function run()
     {
-        // SmAcademicYear::query()->truncate();
+        // AramiscAcademicYear::query()->truncate();
 
         // $year = date('Y');
         // $starting_date = $year . '-01-01';
         // $ending_date = $year . '-12-31';
-        // $s = new SmAcademicYear();
+        // $s = new AramiscAcademicYear();
         // $s->year = $year;
         // $s->title = 'Academic Year ' . $year;
         // $s->starting_date = $starting_date;
         // $s->ending_date = $ending_date;
         // $s->created_at = date('Y-m-d h:i:s');
         // $s->save();
-        // $academic_year = SmAcademicYear::first();
-        // $sm_general_setting = SmGeneralSettings::first();
+        // $academic_year = AramiscAcademicYear::first();
+        // $sm_general_setting = AramiscGeneralSettings::first();
         // $sm_general_setting->session_id = $academic_year->id;
         // $sm_general_setting->save();
 
@@ -38,7 +38,7 @@ class sm_academic_yearsSeeder extends Seeder
         //     for ($year = date('Y'); $year <= date('Y') + 2; $year++) {
         //         $starting_date = $year . '-01-01';
         //         $ending_date = $year . '-12-31';
-        //         $s = new SmAcademicYear();
+        //         $s = new AramiscAcademicYear();
         //         $s->year = $year;
         //         $s->title = 'Academic Year ' . $year;
         //         $s->starting_date = $starting_date;
@@ -48,8 +48,8 @@ class sm_academic_yearsSeeder extends Seeder
         //         $s->save();
         //     }
 
-        //     $academic_year = SmAcademicYear::where('school_id', $i)->first();
-        //     $sm_general_setting = SmGeneralSettings::where('school_id', $i)->first();
+        //     $academic_year = AramiscAcademicYear::where('school_id', $i)->first();
+        //     $sm_general_setting = AramiscGeneralSettings::where('school_id', $i)->first();
         //     $sm_general_setting->session_id = $academic_year->id;
         //     $sm_general_setting->save();
         // }

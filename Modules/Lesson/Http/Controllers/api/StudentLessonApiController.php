@@ -2,25 +2,25 @@
 
 namespace Modules\Lesson\Http\Controllers\api;
 
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\SmLesson;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
-use App\SmWeekend;
+use App\AramiscSubject;
+use App\AramiscWeekend;
 use Carbon\Carbon;
-use App\SmClassTime;
+use App\AramiscClassTime;
 use App\ApiBaseMethod;
 use App\SmLessonTopic;
 use App\SmLessonDetails;
 use Carbon\CarbonPeriod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\Scopes\SchoolScope;
 use App\SmLessonTopicDetail;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmClassRoutineUpdate;
+use App\AramiscClassRoutineUpdate;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
@@ -34,9 +34,9 @@ class StudentLessonApiController extends Controller
     {
         try {
             $student_detail = AramiscStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->first(['id','school_id']);
-            $gs = SmGeneralSettings::where('school_id',$student_detail->school_id)->first('week_start_id');
+            $gs = AramiscGeneralSettings::where('school_id',$student_detail->school_id)->first('week_start_id');
              $this_week = $weekNumber = date("W");
-            $week_end = SmWeekend::withOutGlobalScope(SchoolScope::class)->where('id',$gs->week_start_id)->value('name');
+            $week_end = AramiscWeekend::withOutGlobalScope(SchoolScope::class)->where('id',$gs->week_start_id)->value('name');
             $start_day = WEEK_DAYS_BY_NAME[$week_end ?? 'Saturday'];
             $end_day = $start_day == 0 ? 6 : $start_day - 1;
             $period = CarbonPeriod::create(Carbon::now()->startOfWeek($start_day)->format('Y-m-d'), Carbon::now()->endOfWeek($end_day)->format('Y-m-d'));
@@ -46,7 +46,7 @@ class StudentLessonApiController extends Controller
             }
 
             
-            $weeks = SmWeekend::withOutGlobalScope(SchoolScope::class)->orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',  $student_detail->school_id)->get()
+            $weeks = AramiscWeekend::withOutGlobalScope(SchoolScope::class)->orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',  $student_detail->school_id)->get()
                 ->map(function ($value, $index) use ($period) {
                     $dates = [];
                     foreach ($period as $date) {
@@ -77,12 +77,12 @@ class StudentLessonApiController extends Controller
             $student_id = AramiscStudent::withOutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->value('id');
             //return $student_detail;
 
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
             $record = StudentRecord::find($record_id);
             $class_id = $record->class_id;
             $section_id = $record->section_id;
 
-            $routine = SmClassRoutineUpdate::where('day', $day_id)
+            $routine = AramiscClassRoutineUpdate::where('day', $day_id)
                 ->where('class_id', $class_id)
                 ->where('section_id', $section_id)
                 ->where('academic_id', getAcademicId())
@@ -130,7 +130,7 @@ class StudentLessonApiController extends Controller
             $period = CarbonPeriod::create($start_date, $end_date);
 
             //return $student_detail;
-            $weeks = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get()
+            $weeks = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get()
 
                 ->map(function ($value, $index) use ($period) {
                     $dates = [];
@@ -166,7 +166,7 @@ class StudentLessonApiController extends Controller
 
             $period = CarbonPeriod::create($start_date, $end_date);
 
-            $weeks = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get()
+            $weeks = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get()
 
                 ->map(function ($value, $index) use ($period) {
                     $dates = [];

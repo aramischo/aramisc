@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmLanguage;
+use App\AramiscLanguage;
 
-class CreateSmLanguagesTable extends Migration
+class CreateAramiscLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -36,7 +36,7 @@ class CreateSmLanguagesTable extends Migration
 
 
 
-        $store = new SmLanguage();
+        $store = new AramiscLanguage();
         $store->language_name = 'English';
         $store->native = 'English';
         $store->language_universal = 'en';
@@ -45,7 +45,7 @@ class CreateSmLanguagesTable extends Migration
         $store->created_at = date('Y-m-d h:i:s');
         $store->save();
 
-        $store = new SmLanguage();
+        $store = new AramiscLanguage();
         $store->language_name = 'Bengali';
         $store->native = 'বাংলা';
         $store->language_universal = 'bn';
@@ -53,7 +53,7 @@ class CreateSmLanguagesTable extends Migration
         $store->created_at = date('Y-m-d h:i:s');
         $store->save();
 
-        $store = new SmLanguage();
+        $store = new AramiscLanguage();
         $store->language_name = 'Spanish';
         $store->native = 'Español';
         $store->language_universal = 'es';
@@ -63,7 +63,7 @@ class CreateSmLanguagesTable extends Migration
 
 
         $store->save();
-        $store = new SmLanguage();
+        $store = new AramiscLanguage();
         $store->language_name = 'French';
         $store->native = 'Français';
         $store->language_universal = 'fr';

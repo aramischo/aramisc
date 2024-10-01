@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\FeesCollection; 
 
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use Carbon\Carbon;
 use App\ApiBaseMethod;
@@ -33,7 +33,7 @@ class AramiscFeesCarryForwardController extends Controller
     public function feesForward(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.feesCollection.fees_forward', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -89,7 +89,7 @@ class AramiscFeesCarryForwardController extends Controller
                 ->withInput();
         }
         try {
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id',Auth::user()->school_id)
                         ->get();
@@ -228,7 +228,7 @@ class AramiscFeesCarryForwardController extends Controller
     public function feesCarryForward()
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.systemSettings.feesCarryForwardView', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -239,7 +239,7 @@ class AramiscFeesCarryForwardController extends Controller
     public function feesCarryForwardSearch(AramiscFeesForwardSearchRequest $request)
     {
         try {
-            $data['classes'] = SmClass::where('active_status', 1)
+            $data['classes'] = AramiscClass::where('active_status', 1)
                         ->where('academic_id', getAcademicId())
                         ->where('school_id',Auth::user()->school_id)
                         ->get();
@@ -343,7 +343,7 @@ class AramiscFeesCarryForwardController extends Controller
     public function feesCarryForwardLogView()
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('backEnd.systemSettings.feesCarryForwardLogView', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

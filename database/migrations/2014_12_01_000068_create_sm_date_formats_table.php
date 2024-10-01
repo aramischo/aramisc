@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmDateFormat;
+use App\AramiscDateFormat;
 
-class CreateSmDateFormatsTable extends Migration
+class CreateAramiscDateFormatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -56,7 +56,7 @@ class CreateSmDateFormatsTable extends Migration
         ];
 
         foreach ($data as $dateFormate) {
-            $store = new SmDateFormat();
+            $store = new AramiscDateFormat();
             $store->format = $dateFormate[0];
             $store->normal_view = $dateFormate[1];
             $store->created_at = date('Y-m-d h:i:s');

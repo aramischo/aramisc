@@ -5,11 +5,11 @@ namespace App\Http\Controllers\api\v2\Teacher\Attendance;
 use App\Http\Controllers\Controller;
 use App\AramiscAcademicYear;
 use Illuminate\Http\Request;
-use App\SmClass;
+use App\AramiscClass;
 use Illuminate\Support\Facades\Auth;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscSection;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 
 
 
@@ -18,7 +18,7 @@ class AttendanceReportController extends Controller
 {
     public function classes()
     {
-        $classes = SmClass::where('active_status', 1)
+        $classes = AramiscClass::where('active_status', 1)
             ->where(
                 'academic_id',
                 AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR()
@@ -48,7 +48,7 @@ class AttendanceReportController extends Controller
         ]);
 
         if ($request->parent) {
-            $class = SmClass::withoutGlobalScope(GlobalAcademicScope::class)
+            $class = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)
                 ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                 ->where('school_id', Auth::user()->school_id)
                 ->with('groupclassSections')
@@ -56,7 +56,7 @@ class AttendanceReportController extends Controller
                 ->where('id', $request->class_id)
                 ->first();
 
-            $sectionIds = SmClassSection::where('class_id', '=', $request->class_id)
+            $sectionIds = AramiscClassSection::where('class_id', '=', $request->class_id)
                 ->where('school_id', Auth::user()->school_id)->get();
 
             $promote_sections = [];
@@ -69,9 +69,9 @@ class AttendanceReportController extends Controller
                     ->first(['id', 'section_name']);
             }
         } else {
-            $class = SmClass::find($request->class_id);
+            $class = AramiscClass::find($request->class_id);
             if (teacherAccess()) {
-                $sectionIds = SmAssignSubject::where('class_id', '=', $request->class_id)
+                $sectionIds = AramiscAssignSubject::where('class_id', '=', $request->class_id)
                     ->where('teacher_id', Auth::user()->staff->id)
                     ->where('school_id', Auth::user()->school_id)
                     ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
@@ -80,7 +80,7 @@ class AttendanceReportController extends Controller
                     ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                     ->get();
             } else {
-                $sectionIds = SmClassSection::where('class_id', $request->class_id)
+                $sectionIds = AramiscClassSection::where('class_id', $request->class_id)
                     ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                     ->get();
             }

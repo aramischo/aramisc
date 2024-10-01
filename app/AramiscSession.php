@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscSession extends Model
 {
     use HasFactory;
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_sessions';
 }

@@ -4,36 +4,36 @@ namespace Database\Seeders;
 
 use App\User;
 use App\AramiscExam;
-use App\SmClass;
-use App\SmStaff;
-use App\SmStyle;
-use App\SmParent;
-use App\SmSchool;
+use App\AramiscClass;
+use App\AramiscStaff;
+use App\AramiscStyle;
+use App\AramiscParent;
+use App\AramiscSchool;
 use App\AramiscSection;
 use App\AramiscStudent;
-use App\SmSubject;
+use App\AramiscSubject;
 use App\AramiscVisitor;
 use App\AramiscExamType;
 use App\AramiscFeesType;
-use App\SmLanguage;
-use App\SmClassRoom;
-use App\SmClassTime;
+use App\AramiscLanguage;
+use App\AramiscClassRoom;
+use App\AramiscClassTime;
 use App\AramiscExamSetup;
 use App\AramiscFeesGroup;
-use App\SmMarkStore;
+use App\AramiscMarkStore;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;
-use App\SmMarksGrade;
-use App\SmResultStore;
+use App\AramiscMarksGrade;
+use App\AramiscResultStore;
 use App\GlobalVariable;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscExamSchedule;
-use App\SmAssignSubject;
-use App\SmQuestionGroup;
+use App\AramiscAssignSubject;
+use App\AramiscQuestionGroup;
 use App\AramiscExamAttendance;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\InfixModuleManager;
 use Faker\Factory as Faker;
 use App\AramiscExamAttendanceChild;
@@ -65,13 +65,13 @@ class sm_schoolsSeeder extends Seeder
             $faker = Faker::create();
             $prefix = "school";
             for($i=2; $i<=5; $i++){
-                $class_id = SmClass::where('school_id',$i)->where('academic_id',$i)->first('id')->id;
-                $section_id = SmClassSection::where('school_id',$i)->where('class_id',$class_id)->where('academic_id',$i)->first('section_id')->section_id;
+                $class_id = AramiscClass::where('school_id',$i)->where('academic_id',$i)->first('id')->id;
+                $section_id = AramiscClassSection::where('school_id',$i)->where('class_id',$class_id)->where('academic_id',$i)->first('section_id')->section_id;
 
                 $email= $prefix.'_'.$i.'@infixedu.com';
                 $school= $faker->company. ' School';
 
-                $store= new SmSchool();
+                $store= new AramiscSchool();
                 $store->school_name= $school;
                 $store->email= $email;
                 $store->domain= 'school'.$i;
@@ -93,7 +93,7 @@ class sm_schoolsSeeder extends Seeder
                 $user->toArray();
 
                 //user details
-                $staff                  = new SmStaff();
+                $staff                  = new AramiscStaff();
                 $staff->user_id         = $user->id;
                 $staff->role_id         = 1;
                 $staff->staff_no        = 1;
@@ -246,7 +246,7 @@ class sm_schoolsSeeder extends Seeder
                 $classData = ['One', 'Two', 'Three', 'Four', 'Five'];
                 foreach ($classData as $row) {
                     for ($j = 2; $j <= 2; $j++) {
-                        $s = new SmClass();
+                        $s = new AramiscClass();
                         $s->class_name = $row . ' ' . $j;
                         $s->created_at = date('Y-m-d h:i:s');
                         $s->school_id = $i;
@@ -256,11 +256,11 @@ class sm_schoolsSeeder extends Seeder
                 } 
 
                 for ($j = 2; $j <= 2; $j++) {
-                    $classes= SmClass::where('school_id', $i)->get();
+                    $classes= AramiscClass::where('school_id', $i)->get();
                     foreach ($classes as  $class) {
                         $sections=AramiscSection::where('school_id', $i)->get();
                         foreach ($sections as $section) {
-                            $s = new SmClassSection();
+                            $s = new AramiscClassSection();
                             $s->class_id = $class->id;
                             $s->section_id = $section->id;
                             $s->school_id = $i;
@@ -399,7 +399,7 @@ class sm_schoolsSeeder extends Seeder
                         [
                             'user_id'          => $staff_id_number,
                             'role_id'          => $role_id,
-                            'staff_no'         => count(\App\SmStaff::all()) + 1,
+                            'staff_no'         => count(\App\AramiscStaff::all()) + 1,
                             'designation_id'   => 1,
                             'department_id'    => 1,
                             'first_name'       => $First_Name,
@@ -491,7 +491,7 @@ class sm_schoolsSeeder extends Seeder
                                 $newUser->toArray();
                                 $parents_id = $newUser->id;
             
-                                $parent          = new SmParent();
+                                $parent          = new AramiscParent();
                                 $parent->user_id = $parents_id;
             
                                 $parent->fathers_name       = $Father_full_name;
@@ -577,7 +577,7 @@ class sm_schoolsSeeder extends Seeder
                 }
 
                 for ($j = 1; $j <= 3; $j++) {
-                    $exam_time = new SmClassTime();
+                    $exam_time = new AramiscClassTime();
                     $exam_time->type = "exam";
                     $exam_time->period = $j."st period";
                     $exam_time->start_time = '09:00:00';
@@ -598,10 +598,10 @@ class sm_schoolsSeeder extends Seeder
                 }
 
 
-                $teacher = SmStaff::where('role_id', 4)->where('school_id',$i)->first();
-                $class_ids = SmClass::where('school_id', $i)->first();
-                $data = SmClassSection::where('class_id', $class_ids->id)->where('school_id',$i)->get();
-                $subject_id = SmSubject::where('school_id', $i)->get();
+                $teacher = AramiscStaff::where('role_id', 4)->where('school_id',$i)->first();
+                $class_ids = AramiscClass::where('school_id', $i)->first();
+                $data = AramiscClassSection::where('class_id', $class_ids->id)->where('school_id',$i)->get();
+                $subject_id = AramiscSubject::where('school_id', $i)->get();
 
                 foreach ($data as $datum) {
                     $class_id = $datum->class_id;
@@ -624,12 +624,12 @@ class sm_schoolsSeeder extends Seeder
 
 
                 $exams_types= AramiscExamType::where('school_id',$i)->get();
-                $class_id = SmClass::where('school_id', $i)->where('academic_id',$i)->first('id')->id;
-                $sections = SmClassSection::where('class_id', $class_id)->get();
-                $subjects_ids = SmSubject::where('school_id', $i)->get();
+                $class_id = AramiscClass::where('school_id', $i)->where('academic_id',$i)->first('id')->id;
+                $sections = AramiscClassSection::where('class_id', $class_id)->get();
+                $subjects_ids = AramiscSubject::where('school_id', $i)->get();
                 foreach ($exams_types as $exam_type_id) {
                     foreach ($sections as $section) {
-                        $subject_for_sections = SmAssignSubject::where('class_id', $class_id)->where('section_id', $section->section_id)->get();
+                        $subject_for_sections = AramiscAssignSubject::where('class_id', $class_id)->where('section_id', $section->section_id)->get();
                         $eligible_subjects = [];
                         foreach ($subject_for_sections as $subject_for_section) {
                             $eligible_subjects[] = $subject_for_section->subject_id;
@@ -666,7 +666,7 @@ class sm_schoolsSeeder extends Seeder
 
 
                 for($j=301; $j <= 304; $j++){
-                    $class_room = new SmClassRoom();
+                    $class_room = new AramiscClassRoom();
                     $class_room->room_no = "Room".$j;
                     $class_room->capacity = 50;
                     $class_room->school_id = $i;
@@ -676,8 +676,8 @@ class sm_schoolsSeeder extends Seeder
                 
                 
                 
-                $examTime = SmClassTime::where('school_id',$i)->where('academic_id',$i)->first();
-                $room = SmClassRoom::where('school_id',$i)->where('academic_id',$i)->first();
+                $examTime = AramiscClassTime::where('school_id',$i)->where('academic_id',$i)->first();
+                $room = AramiscClassRoom::where('school_id',$i)->where('academic_id',$i)->first();
                     foreach($exams_types as $exam_type_id){
                         foreach($sections as $section){
                             foreach ($subjects_ids as $subject_id) {
@@ -739,7 +739,7 @@ class sm_schoolsSeeder extends Seeder
                     ['F',  '0.00',  0.00,    0.99,   0, 32,       'Failed !'],
                 ];
                 foreach ($dataGrade as $r) {
-                    $store = new SmMarksGrade();
+                    $store = new AramiscMarksGrade();
                     $store->academic_id         = $i;
                     $store->school_id           = $i;
                     $store->grade_name          = $r[0];
@@ -760,7 +760,7 @@ class sm_schoolsSeeder extends Seeder
                 foreach($sections as $section){
                     foreach ($subjects_ids as $subject_id) {
                         foreach ($students as $student) { 
-                            $marks_register = new SmMarkStore();
+                            $marks_register = new AramiscMarkStore();
                             $marks_register->exam_term_id           = $examType;
                             $marks_register->class_id               = $class_id;
                             $marks_register->section_id             = $section->section_id;
@@ -774,7 +774,7 @@ class sm_schoolsSeeder extends Seeder
                             $marks_register->academic_id = $i;
                             $marks_register->save();
 
-                            $mark_grade = SmMarksGrade::where([
+                            $mark_grade = AramiscMarksGrade::where([
                                         ['percent_from', '<=', $marks_register->total_marks], 
                                         ['percent_upto', '>=', $marks_register->total_marks]])
                                         ->where('academic_id',$i)
@@ -782,7 +782,7 @@ class sm_schoolsSeeder extends Seeder
                                         ->first();
 
 
-                            $result_record = new SmResultStore();
+                            $result_record = new AramiscResultStore();
                             $result_record->class_id               =   $class_id;
                             $result_record->section_id             =   $section->section_id;
                             $result_record->subject_id             =   $subject_id->id;
@@ -805,7 +805,7 @@ class sm_schoolsSeeder extends Seeder
 
 
                 for($j=1; $j<=5; $j++){
-                    $store= new SmQuestionGroup();
+                    $store= new AramiscQuestionGroup();
                     $store->title = $faker->word;
                     $store->save();
                 }
@@ -894,7 +894,7 @@ class sm_schoolsSeeder extends Seeder
             $saasPurchase->is_default = 0;
             $saasPurchase->update();
 
-            $act = SmGeneralSettings::first();
+            $act = AramiscGeneralSettings::first();
             $act->Saas= 1;
             $act->save();
         

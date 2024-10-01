@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
-use App\SmSubject;
+use App\AramiscSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AramiscNotificationSetting extends Model
 {
     use HasFactory;
-
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_notification_settings';
     protected $casts = ['destination' => 'array', 'template' => 'array', 'subject' => 'array', 'recipient' => 'array', 'shortcode' => 'array'];
 
     public static function templeteData($body, $data)
@@ -55,7 +56,7 @@ class AramiscNotificationSetting extends Model
         }
 
         if (@$data['class']) {
-            $class = SmClass::find($data['class']);
+            $class = AramiscClass::find($data['class']);
             $body = str_replace('[class]', @$class->class_name, $body);
         }
 
@@ -65,7 +66,7 @@ class AramiscNotificationSetting extends Model
         }
 
         if (@$data['class_id']) {
-            $class = SmClass::find($data['class_id'], ['class_name']);
+            $class = AramiscClass::find($data['class_id'], ['class_name']);
             $body = str_replace('[class]', @$class->class_name, $body);
         }
 
@@ -75,7 +76,7 @@ class AramiscNotificationSetting extends Model
         }
 
         if (@$data['subject_id']) {
-            $subject = SmSubject::find($data['subject_id'], ['subject_name']);
+            $subject = AramiscSubject::find($data['subject_id'], ['subject_name']);
             $body = str_replace('[subject]', @$subject->subject_name, $body);
         }
         return $body;

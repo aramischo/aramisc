@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin\Examination;
 use Exception;
 
 use App\AramiscExam;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\YearCheck;
 use App\AramiscExamType;
 use App\ApiBaseMethod;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use App\CustomResultSetting;
 use Illuminate\Http\Request;
 use App\AramiscCustomTemporaryResult;
@@ -228,7 +228,7 @@ class CustomResultSettingController extends Controller
     {
         try {
             $exams = AramiscExamType::get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -316,7 +316,7 @@ class CustomResultSettingController extends Controller
             $InputClassId = $request->class;
             $InputSectionId = $request->section;
 
-            $class          = SmClass::find($InputClassId);
+            $class          = AramiscClass::find($InputClassId);
             $section        = AramiscSection::find($InputSectionId);
 
             $class_name = $class->class_name;
@@ -329,13 +329,13 @@ class CustomResultSettingController extends Controller
                 ->DISTINCT()
                 ->get();
 
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
 
             $eligible_students = AramiscStudent::where('class_id', $InputClassId)
                 ->where('section_id', $InputSectionId)
                 ->get();
 
-            $eligible_subjects = SmAssignSubject::where('class_id', $InputClassId)
+            $eligible_subjects = AramiscAssignSubject::where('class_id', $InputClassId)
                 ->get();
 
             $student_yearly_result = [];
@@ -380,7 +380,7 @@ class CustomResultSettingController extends Controller
             }
 
             $customresult = AramiscCustomTemporaryResult::orderBy('final_result', 'DESC')->where('school_id', Auth::user()->school_id)->get();
-            $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->get();
+            $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->get();
             $custom_result_setup = CustomResultSetting::where('academic_year', generalSetting()->session_id)->first();
 
             if (!empty($custom_result_setup)) {
@@ -415,7 +415,7 @@ class CustomResultSettingController extends Controller
                 $InputClassId = $class;
                 $InputSectionId = $section;
 
-                $class          = SmClass::find($InputClassId);
+                $class          = AramiscClass::find($InputClassId);
                 $section        = AramiscSection::find($InputSectionId);
                 $class_name =$class ->class_name;
 
@@ -424,9 +424,9 @@ class CustomResultSettingController extends Controller
                 $result_archive = [];
 
                 $assigned_exam  = AramiscExam::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->select('exam_type_id')->DISTINCT()->get();
-                $classes        = SmClass::get();
+                $classes        = AramiscClass::get();
                 $eligible_students       = AramiscStudent::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->get();
-                $eligible_subjects       = SmAssignSubject::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->get();
+                $eligible_subjects       = AramiscAssignSubject::where('class_id', $InputClassId)->where('section_id', $InputSectionId)->where('academic_id', getAcademicId())->get();
                 $student_yearly_result   = [];
                 $result_archive = [];
 
@@ -467,7 +467,7 @@ class CustomResultSettingController extends Controller
                 }
 
                 $customresult = AramiscCustomTemporaryResult::orderBy('final_result', 'DESC')->where('school_id', Auth::user()->school_id)->get();
-                $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->get();
+                $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->get();
 
                 $system_setting = generalSetting()->session_id;
                 $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
@@ -487,7 +487,7 @@ class CustomResultSettingController extends Controller
     {
         try {
             $exams = AramiscExam::get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
@@ -526,9 +526,9 @@ class CustomResultSettingController extends Controller
         }
         try {
             $exams = AramiscExam::get();
-            $classes = SmClass::get();
-            $class = SmClass::findOrfail($request->class);
-            $section = SmClass::findOrfail($request->section);
+            $classes = AramiscClass::get();
+            $class = AramiscClass::findOrfail($request->class);
+            $section = AramiscClass::findOrfail($request->section);
             $studentDetails = AramiscStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
                 ->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')
@@ -537,7 +537,7 @@ class CustomResultSettingController extends Controller
 
             $system_setting = generalSetting()->session_id;
             $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
-            $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
+            $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
             $assigned_exam = AramiscExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
 
             if ($assigned_exam->count() != 3) {
@@ -574,8 +574,8 @@ class CustomResultSettingController extends Controller
         }
         try {
             $exams = AramiscExam::get();
-            $classes = SmClass::get();
-            $class = SmClass::findOrfail($request->class);
+            $classes = AramiscClass::get();
+            $class = AramiscClass::findOrfail($request->class);
             $section = AramiscSection::findOrfail($request->section);
             $studentDetails = AramiscStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
@@ -585,7 +585,7 @@ class CustomResultSettingController extends Controller
 
             $system_setting = generalSetting()->session_id;
             $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
-            $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
+            $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
             $assigned_exam = AramiscExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
 
             if ($assigned_exam->count() != 3) {
@@ -620,8 +620,8 @@ class CustomResultSettingController extends Controller
         }
         try {
             $exams = AramiscExam::get();
-            $classes = SmClass::get();
-            $class = SmClass::findOrfail($request->class);
+            $classes = AramiscClass::get();
+            $class = AramiscClass::findOrfail($request->class);
             $section = AramiscSection::findOrfail($request->section);
             $studentDetails = AramiscStudent::where('sm_students.id', '=', $request->student)
                 ->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')
@@ -631,7 +631,7 @@ class CustomResultSettingController extends Controller
 
             $system_setting =generalSetting()->session_id;
             $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
-            $assign_subjects = SmAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
+            $assign_subjects = AramiscAssignSubject::where('class_id', $class->id)->where('section_id', $section->id)->where('sm_assign_subjects.academic_id', getAcademicId())->join('sm_subjects', 'sm_subjects.id', '=', 'sm_assign_subjects.subject_id')->get();
             $assigned_exam = AramiscExam::where('class_id', $class->id)->where('section_id', $section->id)->select('exam_type_id', 'title')->join('sm_exam_types', 'sm_exam_types.id', '=', 'sm_exams.exam_type_id')->DISTINCT()->get();
 
             if ($assigned_exam->count() != 3) {

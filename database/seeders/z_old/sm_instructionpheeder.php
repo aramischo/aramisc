@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\SmInstruction;
+use App\AramiscInstruction;
 
 class sm_instructionpheeder extends Seeder
 {
@@ -17,7 +17,7 @@ class sm_instructionpheeder extends Seeder
     {
         $faker = Faker::create();
         for($i=1; $i<=5; $i++){
-            $store= new SmInstruction();
+            $store= new AramiscInstruction();
             $store->title=$faker->word;
             $store->description=$faker->realText($maxNbChars = 200, $indexSize = 1);
             $store->school_id=1;

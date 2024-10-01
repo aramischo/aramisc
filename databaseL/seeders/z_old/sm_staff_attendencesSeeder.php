@@ -2,11 +2,11 @@
 
 namespace Database\Seeders\HumanResources;
 
-use App\SmStaff;
-use App\SmStaffAttendence;
+use App\AramiscStaff;
+use App\AramiscStaffAttendence;
 use Illuminate\Database\Seeder;
 
-class SmStaffAttendancesTableSeeder extends Seeder
+class AramiscStaffAttendancesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class SmStaffAttendancesTableSeeder extends Seeder
      */
     public function run($school_id, $academic_id)
     {
-        $staffs = SmStaff::where('school_id',$school_id)->get(['id','user_id']);
+        $staffs = AramiscStaff::where('school_id',$school_id)->get(['id','user_id']);
         $days = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
         $status = ['P','L','A'];
         for ($i = 1; $i <= $days; $i++) {
@@ -25,7 +25,7 @@ class SmStaffAttendancesTableSeeder extends Seeder
                 }
                 $date = date('Y') . '-' . date('m') . '-' . $d;                    
 
-                $sa = new SmStaffAttendence;
+                $sa = new AramiscStaffAttendence;
                 $sa->staff_id = $staff->id;
                 $sa->attendence_type = array_rand($status);
                 $sa->notes = 'Sample Attendance for Staff';

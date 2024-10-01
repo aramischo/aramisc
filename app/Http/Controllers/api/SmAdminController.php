@@ -6,7 +6,7 @@ use App\User;
 use App\AramiscVisitor;
 use App\AramiscComplaint;
 use App\ApiBaseMethod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -91,7 +91,7 @@ class SmAdminController extends SmBaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
-        $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
         $file = $request->file('file');
         $fileSize =  filesize($file);
         $fileSizeKb = ($fileSize / 1000000);
@@ -156,7 +156,7 @@ class SmAdminController extends SmBaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
-        $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
         $file = $request->file('file');
         $fileSize =  filesize($file);
         $fileSizeKb = ($fileSize / 1000000);
@@ -248,7 +248,7 @@ class SmAdminController extends SmBaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
-        $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+        $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
         $file = $request->file('file');
         $fileSize =  filesize($file);
         $fileSizeKb = ($fileSize / 1000000);

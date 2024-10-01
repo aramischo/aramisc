@@ -3,8 +3,8 @@
 namespace App;
 
 use App\Scopes\AcademicSchoolScope;
-use App\SmAssignSubject;
-use App\SmGeneralSettings;
+use App\AramiscAssignSubject;
+use App\AramiscGeneralSettings;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,7 +44,7 @@ class CustomResultSetting extends Model
     }
     public static function termResult($exam_id,$class_id,$section_id,$student_id,$subject_count){
         try {
-            $assigned_subject=SmAssignSubject::where('class_id',$class_id)->where('section_id',$section_id)->get();
+            $assigned_subject=AramiscAssignSubject::where('class_id',$class_id)->where('section_id',$section_id)->get();
             $mark_store=DB::table('sm_mark_stores')->where([['class_id', $class_id], ['section_id', $section_id], ['exam_term_id', $exam_id], ['student_id', $student_id]])->first();
             $subject_marks=[];
             $subject_gpas=[];
@@ -88,11 +88,11 @@ class CustomResultSetting extends Model
 
     public static function getFinalResult($exam_id,$class_id,$section_id,$student_id,$percentage){
         try {
-            $system_setting=SmGeneralSettings::where('id',auth()->user()->school_id)->first();
+            $system_setting=AramiscGeneralSettings::where('id',auth()->user()->school_id)->first();
                 $system_setting=$system_setting->session_id;
                 $custom_result_setup=CustomResultSetting::where('academic_year',$system_setting)->first();
 
-                $assigned_subject=SmAssignSubject::where('class_id',$class_id)->where('section_id',$section_id)->get();
+                $assigned_subject=AramiscAssignSubject::where('class_id',$class_id)->where('section_id',$section_id)->get();
 
                 $all_subjects_gpa=[];
                 foreach ($assigned_subject as  $subject) {

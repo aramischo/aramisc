@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AramiscVisitor extends Model
 {
-
+   
     protected static function boot()
     {
         parent::boot();
@@ -17,6 +17,8 @@ class AramiscVisitor extends Model
     }
 
     use HasFactory;
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_visitors';
     public function user()
     {
         return $this->belongsTo('App\User', 'created_by', 'id')->withDefault();

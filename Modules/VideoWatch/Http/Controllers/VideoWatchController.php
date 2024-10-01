@@ -3,9 +3,9 @@
 namespace Modules\VideoWatch\Http\Controllers;
 
 use DB;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use App\AramiscTeacherUploadContent;
 use Illuminate\Routing\Controller;

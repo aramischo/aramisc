@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use Validator;
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\tableList; 
 use App\ApiBaseMethod;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -61,8 +61,8 @@ class ApiAramiscAcademicYearController extends Controller
             $yr = AramiscAcademicYear::orderBy('year', 'desc')->first();
             $created_year = $request->year . '-01-01 12:00:00';
 
-            $tables = ['App\SmClass', 'App\AramiscSection', 'App\AramiscExamType'];
-            // $tables = ['App\SmClass', 'App\AramiscSection', 'App\SmSubject', 'App\AramiscExamSetup', 'App\AramiscExamType', 'App\SmMarksGrade', 'App\SmVehicle', 'App\SmClassTime', 'App\SmClassSection'];
+            $tables = ['App\AramiscClass', 'App\AramiscSection', 'App\AramiscExamType'];
+            // $tables = ['App\AramiscClass', 'App\AramiscSection', 'App\AramiscSubject', 'App\AramiscExamSetup', 'App\AramiscExamType', 'App\AramiscMarksGrade', 'App\AramiscVehicle', 'App\AramiscClassTime', 'App\AramiscClassSection'];
             foreach ($tables as $table_name) {
                 $data = $table_name::where('created_at', 'like', '%' . $yr->year . '%')->get();
                 if (!empty($data)) {
@@ -74,12 +74,12 @@ class ApiAramiscAcademicYearController extends Controller
                     }
                 }
             }
-            $classes = SmClass::where('created_at', 'LIKE', '%' . $created_year . '%')->get();
+            $classes = AramiscClass::where('created_at', 'LIKE', '%' . $created_year . '%')->get();
             $sections = AramiscSection::where('created_at', 'LIKE', '%' . $created_year . '%')->get();
 
             foreach ($classes as $class) {
                 foreach ($sections as $section) {
-                    $class_section = new SmClassSection();
+                    $class_section = new AramiscClassSection();
                     $class_section->class_id = $class->id;
                     $class_section->section_id = $section->id;
                     $class_section->created_at = $created_year;
@@ -194,8 +194,8 @@ class ApiAramiscAcademicYearController extends Controller
             $yr = AramiscAcademicYear::orderBy('year', 'desc')->first();
             $created_year = $request->year . '-01-01 12:00:00';
             if ($yr->year != $request->year) {
-                // $tables = ['App\SmClass', 'App\AramiscSection', 'App\SmSubject', 'App\AramiscExamSetup', 'App\AramiscExamType', 'App\SmMarksGrade', 'App\SmVehicle', 'App\SmClassTime'];
-                $tables = ['App\SmClass', 'App\AramiscSection'];
+                // $tables = ['App\AramiscClass', 'App\AramiscSection', 'App\AramiscSubject', 'App\AramiscExamSetup', 'App\AramiscExamType', 'App\AramiscMarksGrade', 'App\AramiscVehicle', 'App\AramiscClassTime'];
+                $tables = ['App\AramiscClass', 'App\AramiscSection'];
                 foreach ($tables as $table_name) {
                     $data = $table_name::where('created_at', 'like', '%' . $yr->year . '%')->get();
                     if (!empty($data)) {

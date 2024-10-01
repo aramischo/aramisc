@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\FrontSettings;
 
 use App\AramiscCourse;
 use App\AramiscCourseCategory;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;

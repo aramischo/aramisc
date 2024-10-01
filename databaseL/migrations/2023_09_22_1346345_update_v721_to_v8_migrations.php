@@ -1,9 +1,9 @@
 <?php
 
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\InfixModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Larabuild\Pagebuilder\Models\Page;
 use Illuminate\Database\Schema\Blueprint;
@@ -588,7 +588,7 @@ return new class extends Migration
             $s->activated_date = date('Y-m-d');
             $s->save();
 
-            $controller = new \App\Http\Controllers\Admin\SystemSettings\SmAddOnsController();
+            $controller = new \App\Http\Controllers\Admin\SystemSettings\AramiscAddOnsController();
             $controller->FreemoduleAddOnsEnable("DownloadCenter");
         }
         

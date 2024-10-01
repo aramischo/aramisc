@@ -1,13 +1,13 @@
 <?php
 
-use App\SmModulePermission;
+use App\AramiscModulePermission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 
-class CreateSmModulePermissionsTable extends Migration
+class CreateAramiscModulePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -101,7 +101,7 @@ class CreateSmModulePermissionsTable extends Migration
        // $sql = "INSERT INTO `sm_module_permissions` (`id`, `dashboard_id`, `name`, `active_status`, `created_by`, `updated_by`, `school_id`, `created_at`, `updated_at`) VALUES
 
        foreach($datas as $data){
-            $new = new SmModulePermission();
+            $new = new AramiscModulePermission();
             $new->id = $data[0];
             $new->dashboard_id = $data[1];
             $new->name = $data[2];

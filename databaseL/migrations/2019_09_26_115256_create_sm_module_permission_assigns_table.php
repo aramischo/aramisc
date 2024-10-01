@@ -1,12 +1,12 @@
 <?php
 
-use App\SmModulePermissionAssign;
+use App\AramiscModulePermissionAssign;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmModulePermissionAssignsTable extends Migration
+class CreateAramiscModulePermissionAssignsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -43,7 +43,7 @@ class CreateSmModulePermissionAssignsTable extends Migration
 
         //         for ($i = 1; $i <= 21; ++$i) {
 
-        //             $assign = new SmModulePermissionAssign();
+        //             $assign = new AramiscModulePermissionAssign();
         //             $assign->module_id = $i;
         //             $assign->role_id = $j;
         //             $assign->created_by = 1;
@@ -55,7 +55,7 @@ class CreateSmModulePermissionAssignsTable extends Migration
 
         // for ($i = 22; $i <= 35; ++$i) {
 
-        //     $assign = new SmModulePermissionAssign();
+        //     $assign = new AramiscModulePermissionAssign();
         //     $assign->module_id = $i;
         //     $assign->role_id = 2;
         //     $assign->created_by = 1;
@@ -65,7 +65,7 @@ class CreateSmModulePermissionAssignsTable extends Migration
 
         // for ($i = 36; $i <= 46; ++$i) {
 
-        //     $assign = new SmModulePermissionAssign();
+        //     $assign = new AramiscModulePermissionAssign();
         //     $assign->module_id = $i;
         //     $assign->role_id = 3;
         //     $assign->created_by = 1;
@@ -165,7 +165,7 @@ class CreateSmModulePermissionAssignsTable extends Migration
        ];
 
        foreach($datas as $data){
-        $new = new SmModulePermissionAssign();
+        $new = new AramiscModulePermissionAssign();
         $new->id = $data[0];
         $new->active_status = $data[1];
         $new->created_at = $data[2];

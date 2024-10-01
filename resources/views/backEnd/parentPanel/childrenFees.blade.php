@@ -167,7 +167,7 @@
 
                                                             @if ($rest_amount = !0)
                                                                 @php
-                                                                    $already_add = App\SmBankPaymentSlip::where('student_id', $fees_assigned->student_id)
+                                                                    $already_add = App\AramiscBankPaymentSlip::where('student_id', $fees_assigned->student_id)
                                                                         ->where('fees_type_id', $fees_assigned->feesGroupMaster->fees_type_id)
                                                                         ->first();
                                                                 @endphp

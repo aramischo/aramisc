@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmContactPage;
+use App\AramiscContactPage;
 use Illuminate\Database\Seeder;
 
 class sm_contact_pagesSeeder extends Seeder
@@ -14,7 +14,7 @@ class sm_contact_pagesSeeder extends Seeder
      */
     public function run()
     {
-        // SmContactPage::query()->truncate();
+        // AramiscContactPage::query()->truncate();
         // DB::table('sm_contact_pages')->insert([
         //     [
         //         'title' => 'Contact Us',

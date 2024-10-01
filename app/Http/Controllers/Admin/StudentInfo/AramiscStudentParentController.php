@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\StudentInfo;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscStudent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,7 @@ class AramiscStudentParentController extends Controller
     public function parentList()
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $parents = AramiscStudent::with('parents', 'studentRecord.class', 'studentRecord.section')->get();
             return view('backEnd.studentInformation.student_parent_list', compact('parents', 'classes'));
         } catch (\Exception $e) {
@@ -24,7 +24,7 @@ class AramiscStudentParentController extends Controller
     public function parentListSearch(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             $parents = AramiscStudent::with('parents', 'studentRecord.class', 'studentRecord.section')
                 ->when($request->class_id, function ($q) use ($request) {
                     $q->whereHas('studentRecord.class', function ($query) use ($request) {

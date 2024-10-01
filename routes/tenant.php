@@ -18,29 +18,29 @@ Route::group(['middleware' => []], function () {
         if (moduleStatusCheck('Saas') == TRUE) {
             Route::get('login', 'Auth\LoginController@loginFormTwo')->name('login');
         }
-         Route::get('/', 'SmFrontendController@index')->name('/');
+         Route::get('/', 'AramiscFrontendController@index')->name('/');
     }
 
     Route::get('login', 'Auth\LoginController@loginFormTwo')->name('login');
 
     if(!moduleStatusCheck('Saas')){
-        Route::get('/', 'SmFrontendController@index')->name('/');
+        Route::get('/', 'AramiscFrontendController@index')->name('/');
     }
 
 
     if (activeTheme() != 'edulia') {
 
-        Route::get('home', 'SmFrontendController@index');
-        Route::get('about', 'SmFrontendController@about');
-        Route::get('course', 'SmFrontendController@course');
-        Route::post('load-more-course', 'SmFrontendController@loadMoreCourse')->name('load-more-course');
-        Route::get('course-Details/{id}', 'SmFrontendController@courseDetails')->name('course-Details')->where('id', '[0-9]+');
-        Route::get('news-page', 'SmFrontendController@newsPage');
-        Route::post('load-more-news', 'SmFrontendController@loadMoreNews')->name('load-more-news');
-        Route::get('news-details/{id}', 'SmFrontendController@newsDetails')->name('news-Details')->where('id', '[0-9]+');
-        Route::get('contact', 'SmFrontendController@contact');
-        Route::get('exam-result', 'SmFrontendController@examResult')->name('examResult');
-        Route::get('class-exam-routine', 'SmFrontendController@classExamRoutine')->name('class-exam-routine');
+        Route::get('home', 'AramiscFrontendController@index');
+        Route::get('about', 'AramiscFrontendController@about');
+        Route::get('course', 'AramiscFrontendController@course');
+        Route::post('load-more-course', 'AramiscFrontendController@loadMoreCourse')->name('load-more-course');
+        Route::get('course-Details/{id}', 'AramiscFrontendController@courseDetails')->name('course-Details')->where('id', '[0-9]+');
+        Route::get('news-page', 'AramiscFrontendController@newsPage');
+        Route::post('load-more-news', 'AramiscFrontendController@loadMoreNews')->name('load-more-news');
+        Route::get('news-details/{id}', 'AramiscFrontendController@newsDetails')->name('news-Details')->where('id', '[0-9]+');
+        Route::get('contact', 'AramiscFrontendController@contact');
+        Route::get('exam-result', 'AramiscFrontendController@examResult')->name('examResult');
+        Route::get('class-exam-routine', 'AramiscFrontendController@classExamRoutine')->name('class-exam-routine');
     }
     //front pages without auth
     // Route::group(['middleware' => ['ThemeCheckMiddleware']], function () {
@@ -146,41 +146,41 @@ Route::group(['middleware' => []], function () {
 
     //for testimonial
 
-    Route::get('/testimonial', 'SmTestimonialController@index')->name('testimonial_index')->middleware('userRolePermission:testimonial_index');
-    Route::post('/testimonial-store', 'SmTestimonialController@store')->name('store_testimonial')->middleware('userRolePermission:store_testimonial');
-    Route::post('/testimonial-update', 'SmTestimonialController@update')->name('update_testimonial')->middleware('userRolePermission:edit-testimonial');
-    Route::get('testimonial-details/{id}', 'SmTestimonialController@testimonialDetails')->name('testimonial-details')->middleware('userRolePermission:testimonial-details');
-    Route::get('for-delete-testimonial/{id}', 'SmTestimonialController@forDeleteTestimonial')->name('for-delete-testimonial')->middleware('userRolePermission:for-delete-testimonial');
-    Route::get('delete-testimonial/{id}', 'SmTestimonialController@delete')->name('delete-testimonial');
-    Route::get('edit-testimonial/{id}', 'SmTestimonialController@edit')->name('edit-testimonial')->middleware('userRolePermission:edit-testimonial');
+    Route::get('/testimonial', 'AramiscTestimonialController@index')->name('testimonial_index')->middleware('userRolePermission:testimonial_index');
+    Route::post('/testimonial-store', 'AramiscTestimonialController@store')->name('store_testimonial')->middleware('userRolePermission:store_testimonial');
+    Route::post('/testimonial-update', 'AramiscTestimonialController@update')->name('update_testimonial')->middleware('userRolePermission:edit-testimonial');
+    Route::get('testimonial-details/{id}', 'AramiscTestimonialController@testimonialDetails')->name('testimonial-details')->middleware('userRolePermission:testimonial-details');
+    Route::get('for-delete-testimonial/{id}', 'AramiscTestimonialController@forDeleteTestimonial')->name('for-delete-testimonial')->middleware('userRolePermission:for-delete-testimonial');
+    Route::get('delete-testimonial/{id}', 'AramiscTestimonialController@delete')->name('delete-testimonial');
+    Route::get('edit-testimonial/{id}', 'AramiscTestimonialController@edit')->name('edit-testimonial')->middleware('userRolePermission:edit-testimonial');
 
     // Contact us
-    Route::get('contact-page', 'SmFrontendController@conpactPage')->name('conpactPage')->middleware('userRolePermission:conpactPage');
-    Route::get('contact-page/edit', 'SmFrontendController@contactPageEdit')->name('contactPageEdit');
-    Route::post('contact-page/update', 'SmFrontendController@contactPageStore')->name('contactPageStore');
+    Route::get('contact-page', 'AramiscFrontendController@conpactPage')->name('conpactPage')->middleware('userRolePermission:conpactPage');
+    Route::get('contact-page/edit', 'AramiscFrontendController@contactPageEdit')->name('contactPageEdit');
+    Route::post('contact-page/update', 'AramiscFrontendController@contactPageStore')->name('contactPageStore');
 
     // contact message
-    Route::get('contact-message', 'SmFrontendController@contactMessage')->name('contactMessage')->middleware('userRolePermission:contactMessage');
-    Route::get('delete-message/{id}', 'SmFrontendController@deleteMessage')->name('delete-message')->middleware('userRolePermission:delete-message');
+    Route::get('contact-message', 'AramiscFrontendController@contactMessage')->name('contactMessage')->middleware('userRolePermission:contactMessage');
+    Route::get('delete-message/{id}', 'AramiscFrontendController@deleteMessage')->name('delete-message')->middleware('userRolePermission:delete-message');
 
     // News route start
-    // Route::get('news-heading-update', 'SmFrontendController@newsHeading')->name('news-heading-update')->middleware('userRolePermission:news-heading-update');
-    // Route::post('news-heading-update', 'SmFrontendController@newsHeadingUpdate')->name('news-heading-update')->middleware('userRolePermission:news-heading-update');
+    // Route::get('news-heading-update', 'AramiscFrontendController@newsHeading')->name('news-heading-update')->middleware('userRolePermission:news-heading-update');
+    // Route::post('news-heading-update', 'AramiscFrontendController@newsHeadingUpdate')->name('news-heading-update')->middleware('userRolePermission:news-heading-update');
 
     // Course route start
-    // Route::get('course-heading-update', 'SmFrontendController@courseHeading')->name('course-heading-update')->middleware('userRolePermission:course-heading-update');
-    // Route::post('course-heading-update', 'SmFrontendController@courseHeadingUpdate')->name('course-heading-update')->middleware('userRolePermission:course-heading-update');
+    // Route::get('course-heading-update', 'AramiscFrontendController@courseHeading')->name('course-heading-update')->middleware('userRolePermission:course-heading-update');
+    // Route::post('course-heading-update', 'AramiscFrontendController@courseHeadingUpdate')->name('course-heading-update')->middleware('userRolePermission:course-heading-update');
 
     // Course Details route start
-    Route::get('course-details-heading', 'SmFrontendController@courseDetailsHeading')->name('course-details-heading')->middleware('userRolePermission:course-details-heading');
-    Route::post('course-heading-details-update', 'SmFrontendController@courseDetailsHeadingUpdate')->name('course-details-heading-update')->middleware('userRolePermission:course-details-heading-update');
+    Route::get('course-details-heading', 'AramiscFrontendController@courseDetailsHeading')->name('course-details-heading')->middleware('userRolePermission:course-details-heading');
+    Route::post('course-heading-details-update', 'AramiscFrontendController@courseDetailsHeadingUpdate')->name('course-details-heading-update')->middleware('userRolePermission:course-details-heading-update');
 
-    Route::get('about-page', 'SmFrontendController@aboutPage')->name('about-page')->middleware('userRolePermission:about-page');
-    Route::get('about-page/edit', 'SmFrontendController@aboutPageEdit')->name('about-page/edit');
-    Route::post('about-page/update', 'SmFrontendController@aboutPageStore')->name('about-page/update');
+    Route::get('about-page', 'AramiscFrontendController@aboutPage')->name('about-page')->middleware('userRolePermission:about-page');
+    Route::get('about-page/edit', 'AramiscFrontendController@aboutPageEdit')->name('about-page/edit');
+    Route::post('about-page/update', 'AramiscFrontendController@aboutPageStore')->name('about-page/update');
 
-    Route::post('send-message', 'SmFrontendController@sendMessage');
-    Route::get('edulia-send-message', 'SmFrontendController@sendMessage');
+    Route::post('send-message', 'AramiscFrontendController@sendMessage');
+    Route::get('edulia-send-message', 'AramiscFrontendController@sendMessage');
 
     Route::get('custom-links', 'Admin\SystemSettings\SmSystemSettingController@customLinks')->name('custom-links')->middleware('userRolePermission:custom-links');
     Route::post('custom-links-update', 'Admin\SystemSettings\SmSystemSettingController@customLinksUpdate')->name('custom-links-update')->middleware('userRolePermission:custom-links-update');
@@ -190,27 +190,27 @@ Route::group(['middleware' => []], function () {
     Route::post('admin-home-page-update', 'Admin\SystemSettings\SmSystemSettingController@homePageUpdate')->name('admin-home-page-update')->middleware('userRolePermission:admin-home-page-update');
 
     // social media
-    Route::get('social-media', 'SmFrontendController@socialMedia')->name('social-media')->middleware('userRolePermission:social-media');
-    Route::post('social-media-store', 'SmFrontendController@socialMediaStore')->name('social-media-store');
-    Route::get('social-media-edit/{id}', 'SmFrontendController@socialMediaEdit')->name('social-media-edit');
-    Route::post('social-media-update', 'SmFrontendController@socialMediaUpdate')->name('social-media-update');
-    Route::get('social-media-delete/{id}', 'SmFrontendController@socialMediaDelete')->name('social-media-delete');
+    Route::get('social-media', 'AramiscFrontendController@socialMedia')->name('social-media')->middleware('userRolePermission:social-media');
+    Route::post('social-media-store', 'AramiscFrontendController@socialMediaStore')->name('social-media-store');
+    Route::get('social-media-edit/{id}', 'AramiscFrontendController@socialMediaEdit')->name('social-media-edit');
+    Route::post('social-media-update', 'AramiscFrontendController@socialMediaUpdate')->name('social-media-update');
+    Route::get('social-media-delete/{id}', 'AramiscFrontendController@socialMediaDelete')->name('social-media-delete');
 
     // Header Menu Manager
-    Route::get('header-menu-manager', 'SmFrontendController@headerMenuManager')->name('header-menu-manager')->middleware('userRolePermission:header-menu-manager');
-    Route::post('add-element', 'SmFrontendController@addElement')->name('add-element')->middleware('userRolePermission:add-element');
-    Route::post('reordering', 'SmFrontendController@reordering')->name('reordering');
-    Route::post('element-update', 'SmFrontendController@elementUpdate')->name('element-update')->middleware('userRolePermission:element-update');
-    Route::post('delete-element', 'SmFrontendController@deleteElement')->name('delete-element')->middleware('userRolePermission:delete-element');
+    Route::get('header-menu-manager', 'AramiscFrontendController@headerMenuManager')->name('header-menu-manager')->middleware('userRolePermission:header-menu-manager');
+    Route::post('add-element', 'AramiscFrontendController@addElement')->name('add-element')->middleware('userRolePermission:add-element');
+    Route::post('reordering', 'AramiscFrontendController@reordering')->name('reordering');
+    Route::post('element-update', 'AramiscFrontendController@elementUpdate')->name('element-update')->middleware('userRolePermission:element-update');
+    Route::post('delete-element', 'AramiscFrontendController@deleteElement')->name('delete-element')->middleware('userRolePermission:delete-element');
 
     // Pages
-    Route::get('create-page', 'SmFrontendController@createPage')->name('create-page')->middleware('userRolePermission:656');
-    Route::post('save-page-data', 'SmFrontendController@savePageData')->name('save-page-data')->middleware('userRolePermission:save-page-data');
-    Route::get('edit-page/{id}', 'SmFrontendController@editPage')->name('edit-page')->middleware('userRolePermission:edit-page');
-    Route::post('update-page-data', 'SmFrontendController@updatePageData')->name('update-page-data')->middleware('userRolePermission:edit-page');
-    Route::get('view-page/{slug}', 'SmFrontendController@viewPage')->name('view-page');
-    Route::get('page-list', 'SmFrontendController@pageList')->name('page-list')->middleware('userRolePermission:page-list');
-    Route::post('delete-page/{id}', 'SmFrontendController@deletePage')->name('delete-page')->middleware('userRolePermission:delete-page');
+    Route::get('create-page', 'AramiscFrontendController@createPage')->name('create-page')->middleware('userRolePermission:656');
+    Route::post('save-page-data', 'AramiscFrontendController@savePageData')->name('save-page-data')->middleware('userRolePermission:save-page-data');
+    Route::get('edit-page/{id}', 'AramiscFrontendController@editPage')->name('edit-page')->middleware('userRolePermission:edit-page');
+    Route::post('update-page-data', 'AramiscFrontendController@updatePageData')->name('update-page-data')->middleware('userRolePermission:edit-page');
+    Route::get('view-page/{slug}', 'AramiscFrontendController@viewPage')->name('view-page');
+    Route::get('page-list', 'AramiscFrontendController@pageList')->name('page-list')->middleware('userRolePermission:page-list');
+    Route::post('delete-page/{id}', 'AramiscFrontendController@deletePage')->name('delete-page')->middleware('userRolePermission:delete-page');
     Route::get('download-header-image/{file_name}', function ($file_name = null) {
         $file = public_path() . '/uploads/pages/' . $file_name;
         if (file_exists($file)) {
@@ -251,8 +251,8 @@ Route::group(['middleware' => []], function () {
 
     Route::post('student-update-pic/{id}', ['as' => 'student_update_pic', 'uses' => 'AramiscStudentAdmissionController@studentUpdatePic']);
     Route::post('student-document-delete', ['as' => 'student_document_delete', 'uses' => 'AramiscStudentAdmissionController@deleteStudentDocument']);
-    Route::post('staff-document-delete', ['as' => 'staff-document-delete', 'uses' => 'Admin\Hr\SmStaffController@deleteStaffDoc']);
-    Route::get('view-leave-details-apply/{id}', 'Admin\Leave\SmLeaveRequestController@viewLeaveDetails')->name('view-leave-details-apply');
+    Route::post('staff-document-delete', ['as' => 'staff-document-delete', 'uses' => 'AramiscStaffController@deleteStaffDoc']);
+    Route::get('view-leave-details-apply/{id}', 'Admin\Leave\AramiscLeaveRequestController@viewLeaveDetails')->name('view-leave-details-apply');
 
     Route::group(['middleware' => ['auth']], function () {
         Route::get('theme-style-active', 'Admin\SystemSettings\SmSystemSettingController@themeStyleActive');
@@ -270,7 +270,7 @@ Route::group(['middleware' => []], function () {
     Route::get('/student_update', 'HomeController@studentUpdate');
     Route::get('/class_update_new', 'HomeController@classUpdateNew');
 
-    Route::get('developer-tool/{purpose}', 'SmFrontendController@developerTool')->name('developerTool');
+    Route::get('developer-tool/{purpose}', 'AramiscFrontendController@developerTool')->name('developerTool');
 
     Route::group(['middleware' => ['XSS']], function () {
         Route::get('update-system', 'Admin\SystemSettings\SmSystemSettingController@UpdateSystem');
@@ -278,8 +278,8 @@ Route::group(['middleware' => []], function () {
         // Route::post('system-verify', 'InstallController@systemVerifyPurchases')->name('systemVerifyPurchases');
         // Route::get('module-verify', 'InstallController@ModuleVerify')->name('ModuleVerify');
         // Route::post('module-verify-purchase', 'InstallController@ModuleverifyPurchases')->name('ModuleverifyPurchases');
-        Route::get('institution-privacy-policy', 'SmFrontendController@institutionPrivacyPolicy')->name('institution-privacy-policy');
-        Route::get('institution-terms-service', 'SmFrontendController@institutionTermServices')->name('institution-terms-service');
+        Route::get('institution-privacy-policy', 'AramiscFrontendController@institutionPrivacyPolicy')->name('institution-privacy-policy');
+        Route::get('institution-terms-service', 'AramiscFrontendController@institutionTermServices')->name('institution-terms-service');
 
         //payment Gateway
         Route::any('payment_gateway_success_callback/{method}', 'PaymentGatewayCallbackController@successCallBack')->name('payment.success');
@@ -292,8 +292,8 @@ Route::group(['middleware' => []], function () {
 
 
         //USER REGISTER SECTION
-        Route::get('register', 'SmFrontendController@register')->name('register');
-        Route::post('register', 'SmFrontendController@customer_register')->name('customer_register');
+        Route::get('register', 'AramiscFrontendController@register')->name('register');
+        Route::post('register', 'AramiscFrontendController@customer_register')->name('customer_register');
 
 
         Route::get('error-404', function () {
@@ -305,7 +305,7 @@ Route::group(['middleware' => []], function () {
 
         /* ::::::::::::::::::::::::: START SEARCH ROUTES :::::::::::::::::::::::::: */
 
-        // Route::get('moduleAddOnsEnable/{name}', 'SmAddOnsController@moduleAddOnsEnable')->name('moduleAddOnsEnable');
+        // Route::get('moduleAddOnsEnable/{name}', 'AramiscAddOnsController@moduleAddOnsEnable')->name('moduleAddOnsEnable');
         Route::post('/search', 'AramiscSearchController@search')->name('search');
         Route::post('/dashboard-student-search', 'AramiscSearchController@dashboardStudentSearch')->name('dashboard-student-search');
 
@@ -336,11 +336,11 @@ Route::group(['middleware' => []], function () {
 
     //Exam result Page
 
-    Route::get('exam-result-search', 'SmFrontendController@examResultSearch')->name('examResultSearch');
+    Route::get('exam-result-search', 'AramiscFrontendController@examResultSearch')->name('examResultSearch');
 
     // class/exam routine page
 
-    Route::get('class-exam-routine-search', 'SmFrontendController@classExamRoutineSearch')->name('class-exam-routine-search');
+    Route::get('class-exam-routine-search', 'AramiscFrontendController@classExamRoutineSearch')->name('class-exam-routine-search');
 
     // ThemeBased Controller
     Route::controller(FrontendController::class)->as('frontend.')->group(function ($routes) {

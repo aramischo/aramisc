@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\teacher;
-use App\SmStaff;
+use App\AramiscStaff;
 use App\YearCheck;
-use App\SmHomework;
+use App\AramiscHomework;
 use App\ApiBaseMethod;
-use App\SmAssignSubject;
+use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -53,7 +53,7 @@ class HomeWorkController extends Controller
                 $file->move('public/uploads/homework/', $fileName);
                 $fileName = 'public/uploads/homework/' . $fileName;
             }
-            $homeworks = new SmHomework;
+            $homeworks = new AramiscHomework;
             $homeworks->class_id = $request->class;
             $homeworks->section_id = $request->section;
             $homeworks->subject_id = $request->subject;
@@ -82,9 +82,9 @@ class HomeWorkController extends Controller
     public function homeworkList(Request $request, $id)
     {
         try {
-            $teacher = SmStaff::where('user_id', '=', $id)->first();
+            $teacher = AramiscStaff::where('user_id', '=', $id)->first();
             $teacher_id = $teacher->id;
-            $subject_list = SmAssignSubject::where('teacher_id', '=', $teacher_id)->where('school_id',Auth::user()->school_id)->get();
+            $subject_list = AramiscAssignSubject::where('teacher_id', '=', $teacher_id)->where('school_id',Auth::user()->school_id)->get();
             $i = 0;
             foreach ($subject_list as $subject) {
                 $homework_subject_list[$subject->subject->subject_name] = $subject->subject->subject_name;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmBaseSetup;
+use App\AramiscBaseSetup;
 use App\Models\SmDonor;
 use App\Traits\CustomFields;
 use Illuminate\Http\Request;
@@ -23,9 +23,9 @@ class SmDonorController extends Controller
     {
         try {
             $data['custom_fields'] = AramiscCustomField::where('form_name', 'donor_registration')->where('school_id', Auth::user()->school_id)->get();
-            $data['religions'] = SmBaseSetup::where('base_group_id', '=', '2')->get(['id', 'base_setup_name']);
-            $data['blood_groups'] = SmBaseSetup::where('base_group_id', '=', '3')->get(['id', 'base_setup_name']);
-            $data['genders'] = SmBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
+            $data['religions'] = AramiscBaseSetup::where('base_group_id', '=', '2')->get(['id', 'base_setup_name']);
+            $data['blood_groups'] = AramiscBaseSetup::where('base_group_id', '=', '3')->get(['id', 'base_setup_name']);
+            $data['genders'] = AramiscBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
             $data['donors'] = SmDonor::where('school_id', app('school')->id)->get();
 
             return view('backEnd.frontSettings.donor.donor', $data);
@@ -85,9 +85,9 @@ class SmDonorController extends Controller
         try {
             $data['donors'] = SmDonor::where('school_id', app('school')->id)->get();
             $data['add_donor'] = SmDonor::find($id);
-            $data['religions'] = SmBaseSetup::where('base_group_id', '=', '2')->get(['id', 'base_setup_name']);
-            $data['blood_groups'] = SmBaseSetup::where('base_group_id', '=', '3')->get(['id', 'base_setup_name']);
-            $data['genders'] = SmBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
+            $data['religions'] = AramiscBaseSetup::where('base_group_id', '=', '2')->get(['id', 'base_setup_name']);
+            $data['blood_groups'] = AramiscBaseSetup::where('base_group_id', '=', '3')->get(['id', 'base_setup_name']);
+            $data['genders'] = AramiscBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
             $data['custom_filed_values'] = json_decode($data['add_donor']->custom_field);
             $data['custom_fields'] = AramiscCustomField::where('form_name', 'donor_registration')->where('school_id', Auth::user()->school_id)->get();
 

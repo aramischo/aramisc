@@ -5,17 +5,17 @@ namespace App\Http\Controllers\api\v2\Homework;
 use App\User;
 use Exception;
 use App\AramiscStudent;
-use App\SmHomework;
+use App\AramiscHomework;
 use App\AramiscAcademicYear;
 use App\AramiscNotification;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmUploadHomeworkContent;
+use App\AramiscUploadHomeworkContent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\StatusAcademicSchoolScope;
-use App\Http\Resources\SmHomeworkResource;
+use App\Http\Resources\AramiscHomeworkResource;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\StudentHomeworkSubmitNotification;
 
@@ -23,7 +23,7 @@ class HomeworkController extends Controller
 {
     public function adminTeacherhomework()
     {
-        $all_homeworks = SmHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $all_homeworks = AramiscHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id ?? app('school')->id)
             ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
             ->with(['subjects' => function ($q) {
@@ -49,7 +49,7 @@ class HomeworkController extends Controller
     public function studentHomework(Request $request)
     {
         $record = StudentRecord::findOrFail($request->record_id);
-        $homeworkLists = SmHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)->with(['subjects' => function ($q) {
+        $homeworkLists = AramiscHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)->with(['subjects' => function ($q) {
             $q->withoutGlobalScopes([StatusAcademicSchoolScope::class])->where('school_id', auth()->user()->school_id);
         }, 'lmsHomeworkCompleted'])->where('school_id', auth()->user()->school_id)
             ->where(function ($que) use ($record) {
@@ -66,7 +66,7 @@ class HomeworkController extends Controller
             ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
             ->get();
 
-        $data['homeworkLists'] = SmHomeworkResource::collection($homeworkLists);
+        $data['homeworkLists'] = AramiscHomeworkResource::collection($homeworkLists);
 
         $response = [
             'success' => true,
@@ -79,7 +79,7 @@ class HomeworkController extends Controller
     {
         $record = StudentRecord::where('school_id', auth()->user()->school_id)->where('id', $request->record_id)->firstOrFail();
 
-        $homeworkLists = SmHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)->with(['subjects' => function ($q) {
+        $homeworkLists = AramiscHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)->with(['subjects' => function ($q) {
             $q->withoutGlobalScope(StatusAcademicSchoolScope::class)
                 ->where('school_id', auth()->user()->school_id)
                 ->select('id', 'subject_name');
@@ -115,7 +115,7 @@ class HomeworkController extends Controller
             'homework_id'   => 'required',
         ]);
 
-        $homeworkDetails = SmHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $homeworkDetails = AramiscHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('class_id', $request->class_id)
             ->where('section_id', $request->section_id)
@@ -130,7 +130,7 @@ class HomeworkController extends Controller
 
     public function studentHomeworkFileDownload(Request $request)
     {
-        $homeworkDetails = SmHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $homeworkDetails = AramiscHomework::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->homework_id)
             ->firstOrFail();
@@ -177,7 +177,7 @@ class HomeworkController extends Controller
             $data[$key] = $fileName;
         }
         $all_filename = json_encode($data);
-        $content = new SmUploadHomeworkContent();
+        $content = new AramiscUploadHomeworkContent();
         $content->file = $all_filename;
         $content->student_id = $student_detail->id;
         $content->homework_id = $request->id;
@@ -185,7 +185,7 @@ class HomeworkController extends Controller
         $content->academic_id = AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR();
         $content->save();
 
-        $homework_info = SmHomeWork::withoutGlobalScope(StatusAcademicSchoolScope::class)
+        $homework_info = AramiscHomeWork::withoutGlobalScope(StatusAcademicSchoolScope::class)
             ->where('school_id', auth()->user()->school_id)
             ->where('id', $request->id)
             ->first();

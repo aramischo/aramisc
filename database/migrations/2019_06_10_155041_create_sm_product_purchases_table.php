@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmProductPurchase;
-class CreateSmProductPurchasesTable extends Migration
+use App\AramiscProductPurchase;
+class CreateAramiscProductPurchasesTable extends Migration
 {
     /**
      * Run the migrations.

@@ -1,11 +1,11 @@
 <?php
 
-use App\SmHeaderMenuManager;
+use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmHeaderMenuManagersTable extends Migration
+class CreateAramiscHeaderMenuManagersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,7 +31,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
             $table->timestamps();
         });
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 1;
         // $store->type = 'sPages';
         // $store->element_id = 1;
@@ -39,7 +39,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
         // $store->link = '/';
         // $store->save();
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 2;
         // $store->type = 'sPages';
         // $store->element_id = 2;
@@ -47,7 +47,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
         // $store->link = '/about';
         // $store->save();
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 3;
         // $store->type = 'sPages';
         // $store->element_id = 3;
@@ -55,7 +55,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
         // $store->link = '/course';
         // $store->save();
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 4;
         // $store->type = 'sPages';
         // $store->element_id = 4;
@@ -63,7 +63,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
         // $store->link = '/news-page';
         // $store->save();
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 5;
         // $store->type = 'sPages';
         // $store->element_id = 5;
@@ -71,7 +71,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
         // $store->link = '/contact';
         // $store->save();
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 6;
         // $store->type = 'sPages';
         // $store->element_id = 6;
@@ -79,7 +79,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
         // $store->link = '/login';
         // $store->save();
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 7;
         // $store->type = 'sPages';
         // $store->element_id = 7;
@@ -87,7 +87,7 @@ class CreateSmHeaderMenuManagersTable extends Migration
         // $store->link = '/exam-result';
         // $store->save();
 
-        // $store = new SmHeaderMenuManager();
+        // $store = new AramiscHeaderMenuManager();
         // $store->id = 8;
         // $store->type = 'sPages';
         // $store->element_id = 8;

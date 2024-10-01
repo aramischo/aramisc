@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api\v2\Student\Payment;
 
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 use App\AramiscAcademicYear;
 use App\AramiscPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Scopes\AcademicSchoolScope;
@@ -108,9 +108,9 @@ class PaymentHandlerController extends Controller
                         $feesInvoiceChild->save();
                     }
 
-                    $income_head = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first('income_head_id');
+                    $income_head = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first('income_head_id');
 
-                    $add_income = new SmAddIncome();
+                    $add_income = new AramiscAddIncome();
                     $add_income->name = 'Fees Collect';
                     $add_income->date = date('Y-m-d');
                     $add_income->amount = $request->amount;

@@ -3,7 +3,7 @@
 namespace App\PaymentGateway;
 
 use App\User;
-use App\SmParent;
+use App\AramiscParent;
 use App\AramiscStudent;
 use App\AramiscFeesAssign;
 use App\AramiscFeesMaster;

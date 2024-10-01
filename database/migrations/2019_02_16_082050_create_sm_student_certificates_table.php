@@ -1,11 +1,11 @@
 <?php
 
-use App\SmStudentCertificate;
+use App\AramiscStudentCertificate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmStudentCertificatesTable extends Migration
+class CreateAramiscStudentCertificatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -50,7 +50,7 @@ class CreateSmStudentCertificatesTable extends Migration
         });
 
 
-        $s                      = new SmStudentCertificate();
+        $s                      = new AramiscStudentCertificate();
         $s->name                = 'Certificate in Technical Communication (PCTC)';
         $s->header_left_text    = 'Since 2020';
         $s->date                = '2020-05-17';

@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\SmModulePermission;
+use App\AramiscModulePermission;
 use App\Models\SchoolModule;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;

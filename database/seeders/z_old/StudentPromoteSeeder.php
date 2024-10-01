@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use Illuminate\Database\Seeder;
 
 class StudentPromoteSeeder extends Seeder
@@ -14,9 +14,9 @@ class StudentPromoteSeeder extends Seeder
      */
     public function run()
     {
-        $academic_year = SmAcademicYear::find(1);
+        $academic_year = AramiscAcademicYear::find(1);
         $new_year = $academic_year->year + 1;
-        $new_academic_year = new SmAcademicYear();
+        $new_academic_year = new AramiscAcademicYear();
         $new_academic_year->year = $new_year;
         $new_academic_year->title = "Academic Year  " . $new_year;
         $new_academic_year->starting_date =  $new_year . "-01-01";

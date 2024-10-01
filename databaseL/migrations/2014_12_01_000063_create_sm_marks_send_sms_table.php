@@ -4,7 +4,7 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Database\Migrations\Migration;
 
-    class CreateSmMarksSendSmsTable extends Migration
+    class CreateAramiscMarksSendSmsTable extends Migration
     {
         /**
          * Run the migrations.

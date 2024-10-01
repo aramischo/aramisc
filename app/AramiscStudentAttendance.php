@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class AramiscStudentAttendance extends Model
 {
     use HasFactory;
-	// Spécifiez le nom de la table explicitement
     protected $table = "sm_student_attendances";
     
     protected $casts = [

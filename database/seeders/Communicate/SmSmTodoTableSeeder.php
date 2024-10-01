@@ -5,7 +5,7 @@ namespace Database\Seeders\Communicate;
 use App\SmToDo;
 use Illuminate\Database\Seeder;
 
-class SmSmTodoTableSeeder extends Seeder
+class SmAramiscTodoTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

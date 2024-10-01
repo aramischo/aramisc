@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\SmAddIncome;
+use App\AramiscAddIncome;
 
-class CreateSmAddIncomesTable extends Migration
+class CreateAramiscAddIncomesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -51,7 +51,7 @@ class CreateSmAddIncomesTable extends Migration
 
 
 
-        // $store = new SmAddIncome();
+        // $store = new AramiscAddIncome();
         // $store->name                =           'Donation for Boys football match';
         // $store->income_head_id     =           1;
         // $store->payment_method_id   =           1;
@@ -61,7 +61,7 @@ class CreateSmAddIncomesTable extends Migration
 
 
 
-        // $store = new SmAddIncome();
+        // $store = new AramiscAddIncome();
         // $store->name                =           'Product Sales';
         // $store->income_head_id     =           2;
         // $store->payment_method_id   =           1;

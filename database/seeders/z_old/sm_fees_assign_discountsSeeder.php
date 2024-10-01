@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\SmFeesAssignDiscount;
-use App\SmStudent;
+use App\AramiscFeesAssignDiscount;
+use App\AramiscStudent;
 use Illuminate\Database\Seeder;
 
 class sm_fees_assign_discountsSeeder extends Seeder
@@ -15,10 +15,10 @@ class sm_fees_assign_discountsSeeder extends Seeder
      */
     public function run()
     {
-//        SmFeesAssignDiscount::query()->truncate();
-        $students = SmStudent::where('class_id', 1)->get();
+//        AramiscFeesAssignDiscount::query()->truncate();
+        $students = AramiscStudent::where('class_id', 1)->get();
         foreach ($students as $student) {
-            $store = new SmFeesAssignDiscount();
+            $store = new AramiscFeesAssignDiscount();
             $store->fees_discount_id = 1;
             $store->student_id = $student->id;
             $store->save();

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\SmDormitoryList;
-use App\SmRoomList;
-use App\SmRoomType;
+use App\AramiscDormitoryList;
+use App\AramiscRoomList;
+use App\AramiscRoomType;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -19,12 +19,12 @@ class sm_room_listsSeeder extends Seeder
     {
 
         $faker = Faker::create();
-        $dormitories = SmDormitoryList::take(3)->get(); //7
-        $rooms = SmRoomType::take(3)->get(); //6
+        $dormitories = AramiscDormitoryList::take(3)->get(); //7
+        $rooms = AramiscRoomType::take(3)->get(); //6
 
         foreach ($dormitories as $dormitory) {
             foreach ($rooms as $room) {
-                $store = new SmRoomList();
+                $store = new AramiscRoomList();
                 $store->name = $faker->text(10);
                 $store->dormitory_id = $dormitory->id;
                 $store->room_type_id = $room->id;

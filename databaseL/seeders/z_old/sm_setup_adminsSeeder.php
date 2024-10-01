@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\SmSetupAdmin;
+use App\AramiscSetupAdmin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 // use DB;
@@ -19,7 +19,7 @@ class sm_setup_adminsSeeder extends Seeder
 
 
        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        SmSetupAdmin::truncate();
+        AramiscSetupAdmin::truncate();
 
 
 
@@ -47,7 +47,7 @@ class sm_setup_adminsSeeder extends Seeder
         ];
 
         foreach ($dataArr as $data) {
-            $store = new SmSetupAdmin();
+            $store = new AramiscSetupAdmin();
             $store->id                  =  $data[0];
             $store->type                =  $data[1];
             $store->name                =  $data[2];

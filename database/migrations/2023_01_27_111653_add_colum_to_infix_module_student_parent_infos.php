@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Modules\ParentRegistration\Entities\SmStudentField;
+use Modules\ParentRegistration\Entities\AramiscStudentField;
 use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
 
 class AddColumToInfixModuleStudentParentInfos extends Migration
@@ -107,13 +107,13 @@ class AddColumToInfixModuleStudentParentInfos extends Migration
             }
         });
 
-        \App\Models\SmStudentRegistrationField::whereIn('field_name', ['route', 'vehicle'])->update([
+        \App\Models\AramiscStudentRegistrationField::whereIn('field_name', ['route', 'vehicle'])->update([
             'admin_section' => 'transport'
         ]);
-        \App\Models\SmStudentRegistrationField::whereIn('field_name', ['dormitory_name', 'room_number'])->update([
+        \App\Models\AramiscStudentRegistrationField::whereIn('field_name', ['dormitory_name', 'room_number'])->update([
             'admin_section' => 'dormitory'
         ]);
-        \App\Models\SmStudentRegistrationField::whereIn('field_name', ['custom_field'])->update([
+        \App\Models\AramiscStudentRegistrationField::whereIn('field_name', ['custom_field'])->update([
             'admin_section' => 'custom_field'
         ]);
 
@@ -124,14 +124,14 @@ class AddColumToInfixModuleStudentParentInfos extends Migration
                 }
             });
 
-            if(class_exists(SmStudentField::class)){
-                SmStudentField::whereIn('field_name', ['route', 'vehicle'])->update([
+            if(class_exists(AramiscStudentField::class)){
+                AramiscStudentField::whereIn('field_name', ['route', 'vehicle'])->update([
                     'admin_section' => 'transport'
                 ]);
-                SmStudentField::whereIn('field_name', ['dormitory_name', 'room_number'])->update([
+                AramiscStudentField::whereIn('field_name', ['dormitory_name', 'room_number'])->update([
                     'admin_section' => 'dormitory'
                 ]);
-                SmStudentField::whereIn('field_name', ['custom_field'])->update([
+                AramiscStudentField::whereIn('field_name', ['custom_field'])->update([
                     'admin_section' => 'custom_field'
                 ]);
             }

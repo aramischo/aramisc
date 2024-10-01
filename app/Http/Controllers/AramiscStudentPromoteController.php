@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\SmClass;
+use App\AramiscClass;
 use App\AramiscSection;
 use App\AramiscStudent;
 use App\AramiscExamType;
 use App\AramiscAcademicYear;
-use App\SmClassSection;
+use App\AramiscClassSection;
 use App\AramiscStudentPromotion;
 use App\CustomResultSetting;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmAssignClassTeacher;
-use App\SmTemporaryMeritlist;
+use App\AramiscAssignClassTeacher;
+use App\AramiscTemporaryMeritlist;
 use App\Traits\NotificationSend;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -34,7 +34,7 @@ class AramiscStudentPromoteController extends Controller
         try {
             $generalSetting = generalSetting();
             $sessions = AramiscAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)->get();
             $exams = AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)->get();
@@ -86,13 +86,13 @@ class AramiscStudentPromoteController extends Controller
             $sessions = AramiscAcademicYear::where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
-            $currrent_academic_class = SmClass::where('active_status', 1)
+            $currrent_academic_class = AramiscClass::where('active_status', 1)
                 ->where('academic_id', $request->current_session)
                 ->withOutGlobalScope(StatusAcademicSchoolScope::class)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $classes = SmClass::with('classSection')->where('active_status', 1)
+            $classes = AramiscClass::with('classSection')->where('active_status', 1)
                 ->where('academic_id', $request->promote_session)
                 ->withOutGlobalScope(StatusAcademicSchoolScope::class)
                 ->where('school_id', Auth::user()->school_id)
@@ -107,11 +107,11 @@ class AramiscStudentPromoteController extends Controller
 
             $next_sections = collect();
             if ($next_class) {
-                $next_sections = SmClassSection::with('sectionWithoutGlobal')->where('class_id', '=', $next_class->id)->where('academic_id', $request->promote_session)
+                $next_sections = AramiscClassSection::with('sectionWithoutGlobal')->where('class_id', '=', $next_class->id)->where('academic_id', $request->promote_session)
                     ->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
             }
 
-            $search_current_class = SmClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->findOrFail($request->current_class);
+            $search_current_class = AramiscClass::withoutGlobalScope(StatusAcademicSchoolScope::class)->findOrFail($request->current_class);
             $search_current_section = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)->find($request->current_section);
             $search_current_academic_year = AramiscAcademicYear::find($request->current_session);
             $search_promote_academic_year = AramiscAcademicYear::find($request->promote_session);
@@ -231,7 +231,7 @@ class AramiscStudentPromoteController extends Controller
         //                         $student_promote->result_status = gv($student_data, 'result') ? gv($student_data, 'result') : 'F';
         //                         $student_promote->save();
 
-        //                         $teacherInfo = SmAssignClassTeacher::where('class_id', $student_promote->current_class_id)->where('section_id', $student_promote->current_section_id)->first();
+        //                         $teacherInfo = AramiscAssignClassTeacher::where('class_id', $student_promote->current_class_id)->where('section_id', $student_promote->current_section_id)->first();
         //                         $data['class'] = gv($student_data, 'class');
         //                         $data['section'] = gv($student_data, 'section');
         //                         if (!is_null($teacherInfo)) {
@@ -370,7 +370,7 @@ class AramiscStudentPromoteController extends Controller
         //     //                 $student_promote->result_status = gv($student_data, 'result') ? gv($student_data, 'result') : 'F';
         //     //                 $student_promote->save();
 
-        //     //                 $teacherInfo = SmAssignClassTeacher::where('class_id', $student_promote->current_class_id)->where('section_id', $student_promote->current_section_id)->first();
+        //     //                 $teacherInfo = AramiscAssignClassTeacher::where('class_id', $student_promote->current_class_id)->where('section_id', $student_promote->current_section_id)->first();
         //     //                 $data['class'] = gv($student_data, 'class');
         //     //                 $data['section'] = gv($student_data, 'section');
         //     //                 if (!is_null($teacherInfo)) {
@@ -522,7 +522,7 @@ class AramiscStudentPromoteController extends Controller
                             $student_promote->result_status = gv($student_data, 'result') ? gv($student_data, 'result') : 'F';
                             $student_promote->save();
 
-                            $teacherInfo = SmAssignClassTeacher::where('class_id', $student_promote->current_class_id)->where('section_id', $student_promote->current_section_id)->first();
+                            $teacherInfo = AramiscAssignClassTeacher::where('class_id', $student_promote->current_class_id)->where('section_id', $student_promote->current_section_id)->first();
                             $data['class'] = gv($student_data, 'class');
                             $data['section'] = gv($student_data, 'section');
                             if (!is_null($teacherInfo)) {
@@ -640,7 +640,7 @@ class AramiscStudentPromoteController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get()->pluck('student_id')->toArray();
 
-            $students = SmTemporaryMeritlist::query()->with('class', 'studentinfo', 'section');
+            $students = AramiscTemporaryMeritlist::query()->with('class', 'studentinfo', 'section');
 
 
             if ($request->current_session) {
@@ -676,7 +676,7 @@ class AramiscStudentPromoteController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $classes = SmClass::with('classSection')->where('active_status', 1)
+            $classes = AramiscClass::with('classSection')->where('active_status', 1)
                 ->where('academic_id', $request->promote_session)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
@@ -688,7 +688,7 @@ class AramiscStudentPromoteController extends Controller
             }
 
             $next_class = $classes->except($current_class)->first();
-            $search_current_class = SmClass::findOrFail($request->current_class);
+            $search_current_class = AramiscClass::findOrFail($request->current_class);
             $search_current_section = AramiscSection::find($request->current_section);
             $search_current_academic_year = AramiscAcademicYear::find($request->current_session);
             $search_promote_academic_year = AramiscAcademicYear::find($request->promote_session);
