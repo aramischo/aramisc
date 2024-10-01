@@ -237,132 +237,116 @@
     }
 
     function setPageSettings(){
-        var mainArray = {
-            'grids': [],
-            'section_data': [],
-        };
-        var currentSectionData = currentSectionStyles = [];
-        var directory = null;
-        // let iframe = window.frames['pagebuilder'].contentDocument;
+    var mainArray = {
+        'grids': [],
+        'section_data': [],
+    };
 
-        let iframe = $('#pagebuilder-iframe').contents();
+    let iframe = $('#pagebuilder-iframe').contents();
 
-        // let grids = iframe.getElementsByClassName("griddable");
+    iframe.find('.griddable').each(function(index, item) {
+        let _this = $(this); 
+        let cols = _this.data('cols');
 
-        iframe.find('.griddable').each(function(index, item) {
-            let _this = jQuery(this); 
-            let cols = _this.data('cols');
-
-            if (Array.isArray(cols)) {
-                let data = [];
-
-                cols.forEach(function(col, index){
-                    let _col = _this.find('.droppable').eq(index);
-
-                    if(_col.length){
-                        data[index] = [];
-
-                        if(_col.find('.sectionable').length > 0) {
-                            _col.find('.sectionable').each(function(sectionIndex,section){
-                                data[index].push({
-                                    'id':section.id,
-                                    'section_id':section.getAttribute('data-section'),
-                                    'position':sectionIndex
-                                });
-                            });
-                        }
-                        else{
-                            if(_col.find('.removeable').length > 0){
-                                _col.find('.removeable').each(function(sectionIndex,section){
-                                    data[index].push({
-                                        'id':'',
-                                        'section_id':'',
-                                        'position':sectionIndex
-                                    });
-                                });
-                            }
-                        }
-                    }
+        let data = [];
+        _this.find('.droppable').each(function(colIndex, colItem) {
+            let _col = $(this);
+            let sections = [];
+            _col.find('.sectionable').each(function(sectionIndex, section){
+                sections.push({
+                    'id': section.id,
+                    'section_id': section.getAttribute('data-section'),
+                    'position': sectionIndex
                 });
-
-                mainArray.grids.push({
-                    'grid': _this.data('grid-name'),
-                    'position':index,
-                    'grid_id': _this.attr('id'),
-                    'data':data
-                });
-            } else {
-                console.error("The 'cols' variable is not an array.");
-            }
+            });
+            data.push(sections);
         });
+
+        mainArray.grids.push({
+            'grid': _this.data('grid-name'),
+            'position': index,
+            'grid_id': _this.attr('id'),
+            'data': data
+        });
+    });
 
     mainArray.section_data = window.sectionData;
 
-        let section_id = $('#current-section-id').val();
-        let grid_id = $('#current-grid-id').val();
-        let form_id = 'current-section-form';
-        if(section_id !== ''){
-            currentSectionData = $('#current-section-form').serialize();
-            currentSectionStyles = $('#current-advanced-settings-form').serialize();
-            directory = $('#pagebuilder-iframe').contents().find('#' + section_id).data("section");
-        }
-        let ajaxUrl = `{{ url('${pb_prefix}set-page-settings') }}`;
+    let section_id = $('#current-section-id').val();
+    let grid_id = $('#current-grid-id').val();
+    let form_id = 'current-section-form';
 
-        if(pageId && ajaxUrl){
-            $.ajax({
-                type:'POST',
-                url:ajaxUrl,
-                data:{'page_id': pageId, 'settings': mainArray,'current_section_data':currentSectionData, 'current_advanced_settings': currentSectionStyles,'directory':directory},
-                dataType:'json',
-                success:function(data){
-                    $('.savePageData').removeClass('pb-btn-actionload');
-                    window.unsavedChanges = false;
-                    if( data.success ){
-                        if(grid_id){
-                            let content_width = $('#content_width').select2("val"); 
-                            // if(content_width){
-                                manageContentWidth(content_width, $('#boxed_slider_input').val());
-                            // }
-                            $('#pagebuilder-iframe').contents().find('#'+grid_id).removeAttr('style');
-                            $('#pagebuilder-iframe').contents().find('#'+grid_id + ' .pb-bg-overlay').remove();
+    let currentSectionData = '';
+    let currentSectionStyles = '';
+    let directory = '';
 
-                            if(data.bgOverlay){
-                                data.css += 'position:relative';
-                                $('#pagebuilder-iframe').contents().find('#'+grid_id).prepend(data.bgOverlay); 
-                            }
-
-                            if(data.css){
-                                $('#pagebuilder-iframe').contents().find('#'+grid_id).attr('style',data.css);
-                            }
-                            $('#pagebuilder-iframe').contents().find('#'+grid_id).removeAttr('class');
-                            $('#pagebuilder-iframe').contents().find('#'+grid_id).attr('class', 'pb-themesection griddable '+data.classes);
-
-                        }
-
-                        if(section_id){
-
-                            if (data.html) {
-                                $('#pagebuilder-iframe').contents().find('#' + section_id + ' .section-data-' + directory).html(data.html);
-                            }
-
-                            if(directory){
-                                extractJs(directory);
-                            }  
-                        }
-                        window.unsavedChanges = false;
-                        window.sectionData = data.sectionData;
-                    }
-                },
-                error : function(error){
-                    $('.savePageData').removeClass('pb-btn-actionload');
-                    window.unsavedChanges = false;
-                }
-            });
-        }
-
-
-        // document.getElementById("pagebuilder-iframe").contentDocument.location.reload(true);
+    if(section_id !== ''){
+        currentSectionData = $('#current-section-form').serialize();
+        currentSectionStyles = $('#current-advanced-settings-form').serialize();
+        directory = $('#pagebuilder-iframe').contents().find('#' + section_id).data("section");
     }
+    
+    let ajaxUrl = `{{ url('${pb_prefix}set-page-settings') }}`;
+
+    if(pageId && ajaxUrl){
+        $.ajax({
+            type: 'POST',
+            url: ajaxUrl,
+            data: {
+                'page_id': pageId,
+                'settings': mainArray,
+                'current_section_data': currentSectionData,
+                'current_advanced_settings': currentSectionStyles,
+                'directory': directory
+            },
+            dataType: 'json',
+            success: function(data){
+                $('.savePageData').removeClass('pb-btn-actionload');
+                window.unsavedChanges = false;
+                if(data.success){
+                    if(grid_id){
+                        let content_width = $('#content_width').select2("val"); 
+                        if(content_width){
+                            manageContentWidth(content_width, $('#boxed_slider_input').val());
+                        }
+                        $('#pagebuilder-iframe').contents().find('#'+grid_id).removeAttr('style');
+                        $('#pagebuilder-iframe').contents().find('#'+grid_id + ' .pb-bg-overlay').remove();
+
+                        if(data.bgOverlay){
+                            data.css += 'position:relative';
+                            $('#pagebuilder-iframe').contents().find('#'+grid_id).prepend(data.bgOverlay); 
+                        }
+
+                        if(data.css){
+                            $('#pagebuilder-iframe').contents().find('#'+grid_id).attr('style',data.css);
+                        }
+                        $('#pagebuilder-iframe').contents().find('#'+grid_id).removeAttr('class');
+                        $('#pagebuilder-iframe').contents().find('#'+grid_id).attr('class', 'pb-themesection griddable '+data.classes);
+                    }
+
+                    if(section_id){
+                        if(data.html){
+                            $('#pagebuilder-iframe').contents().find('#' + section_id + ' .section-data-' + directory).html(data.html);
+                        }
+
+                        if(directory){
+                            extractJs(directory);
+                        }  
+                    }
+                    window.unsavedChanges = false;
+                    window.sectionData = data.sectionData;
+                }
+            },
+            error: function(error){
+                $('.savePageData').removeClass('pb-btn-actionload');
+                window.unsavedChanges = false;
+            }
+        });
+    }
+
+    // document.getElementById("pagebuilder-iframe").contentDocument.location.reload(true);
+}
+
 
     function getSectionSettings(sectionId) {
         let section = $('#pagebuilder-iframe').contents().find('#'+sectionId);

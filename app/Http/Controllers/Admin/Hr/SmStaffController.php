@@ -12,13 +12,13 @@ use App\SmDesignation;
 use App\SmLeaveRequest;
 use App\SmGeneralSettings;
 use App\SmHumanDepartment;
-use App\SmStudentDocument;
-use App\SmStudentTimeline;
-use App\AramiscModuleManager;
+use App\AramiscStudentDocument;
+use App\AramiscStudentTimeline;
+use App\InfixModuleManager;
 use App\SmHrPayrollGenerate;
 use App\Traits\CustomFields;
 use Illuminate\Http\Request;
-use App\Models\SmCustomField;
+use App\Models\AramiscCustomField;
 use App\Models\SmExpertTeacher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -35,8 +35,9 @@ use Modules\MultiBranch\Entities\Branch;
 use CreateSmStaffRegistrationFieldsTable;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Admin\Hr\staffRequest;
+use App\SmLeaveDefine;
 use Illuminate\Validation\ValidationException;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class SmStaffController extends Controller
 {
@@ -48,7 +49,7 @@ class SmStaffController extends Controller
         $this->User = json_encode(User::find(1));
         $this->SmGeneralSettings = json_encode(generalSetting());
         $this->SmUserLog = json_encode(SmUserLog::find(1));
-        $this->AramiscModuleManager = json_encode(AramiscModuleManager::find(1));
+        $this->InfixModuleManager = json_encode(InfixModuleManager::find(1));
         $this->URL = url('/');
     }
 
@@ -56,7 +57,7 @@ class SmStaffController extends Controller
     {
         try {
 
-            $roles = AramiscRole::query();
+            $roles = InfixRole::query();
             $roles->whereNotIn('id', [2, 3]);
             if (Auth::user()->role_id != 1) {
                 $roles->whereNotIn('id', [1]);
@@ -127,7 +128,7 @@ class SmStaffController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->max('staff_no');
 
-            $roles = AramiscRole::where('is_saas', 0)->where('active_status', '=', 1)
+            $roles = InfixRole::where('is_saas', 0)->where('active_status', '=', 1)
                 ->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })
@@ -153,7 +154,7 @@ class SmStaffController extends Controller
                 ->where('school_id', auth()->user()->school_id)
                 ->get(['id', 'base_setup_name']);
 
-            $custom_fields = SmCustomField::where('form_name', 'staff_registration')->get();
+            $custom_fields = AramiscCustomField::where('form_name', 'staff_registration')->get();
             $is_required = SmStaffRegistrationField::where('school_id', auth()->user()->school_id)->where('is_required', 1)->pluck('field_name')->toArray();
 
             session()->forget('staff_photo');
@@ -225,8 +226,6 @@ class SmStaffController extends Controller
                     $this->assignChatGroup($user);
                 }
 
-
-
                 $basic_salary = !empty($request->basic_salary) ? $request->basic_salary : 0;
 
                 $staff = new SmStaff();
@@ -292,8 +291,43 @@ class SmStaffController extends Controller
                     $staff->custom_field = json_encode($dataImage, true);
                 }
                 //Custom Field End
+
+                // leaver define data  insert for staff
                 $results = $staff->save();
                 $staff->toArray();
+
+                $st_role_id = $request->role_id; 
+                $school_id = Auth::user()->school_id; 
+                $academic_id = getAcademicId(); 
+                $user_id = $user->id; 
+
+                $existingLeaveDefines = SmLeaveDefine::where('role_id', $st_role_id)
+                    ->where('school_id', $school_id)
+                    ->where('academic_id', $academic_id)
+                    ->get();
+
+                $existingTypes = [];
+
+                foreach ($existingLeaveDefines as $leaveDefine) {
+                    if (!isset($existingTypes[$leaveDefine->type_id])) {
+                        $leaveDefineInstance = new SmLeaveDefine();
+                        $leaveDefineInstance->role_id = $st_role_id;
+                        $leaveDefineInstance->type_id = $leaveDefine->type_id;
+                        $leaveDefineInstance->days = $leaveDefine->days;
+                        $leaveDefineInstance->school_id = $school_id;
+                        $leaveDefineInstance->user_id = $user_id;
+
+                        if (moduleStatusCheck('University')) {
+                            $leaveDefineInstance->un_academic_id = $academic_id;
+                        } else {
+                            $leaveDefineInstance->academic_id = $academic_id;
+                        }
+                        $leaveDefineInstance->save();
+                        $existingTypes[$leaveDefine->type_id] = true;
+                    }
+                }
+
+            
                 DB::commit();
                 //Expert Staff Start
                 if($request->show_public == 1){
@@ -355,7 +389,7 @@ class SmStaffController extends Controller
       
             $max_staff_no = SmStaff::withOutGlobalScopes()->where('is_saas', 0)->where('school_id', Auth::user()->school_id)->max('staff_no');
 
-            $roles = AramiscRole::where('active_status', '=', 1)
+            $roles = InfixRole::where('active_status', '=', 1)
                 ->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })
@@ -377,7 +411,7 @@ class SmStaffController extends Controller
             ->get();
 
             // Custom Field Start
-            $custom_fields = SmCustomField::where('form_name', 'staff_registration')
+            $custom_fields = AramiscCustomField::where('form_name', 'staff_registration')
             ->where('school_id', Auth::user()->school_id)->get();
             $custom_filed_values = json_decode($editData->custom_field);
             $student = $editData;
@@ -703,7 +737,7 @@ class SmStaffController extends Controller
     {
 
         try {
-            $roles = AramiscRole::where('is_saas', 0)
+            $roles = InfixRole::where('is_saas', 0)
                 ->where('active_status', '=', '1')
                 ->select('id', 'name', 'type')
                 ->where('id', '!=', 2)
@@ -739,8 +773,8 @@ class SmStaffController extends Controller
             if (!empty($staffDetails)) {
                 $staffPayrollDetails = SmHrPayrollGenerate::where('staff_id', $id)->where('payroll_status', '!=', 'NG')->where('school_id', Auth::user()->school_id)->get();
                 $staffLeaveDetails = SmLeaveRequest::where('staff_id', $staffDetails->user_id)->where('school_id', Auth::user()->school_id)->get();
-                $staffDocumentsDetails = SmStudentDocument::where('student_staff_id', $id)->where('type', '=', 'stf')->where('school_id', Auth::user()->school_id)->get();
-                $timelines = SmStudentTimeline::where('staff_student_id', $id)->where('type', '=', 'stf')->where('school_id', Auth::user()->school_id)->get();
+                $staffDocumentsDetails = AramiscStudentDocument::where('student_staff_id', $id)->where('type', '=', 'stf')->where('school_id', Auth::user()->school_id)->get();
+                $timelines = AramiscStudentTimeline::where('staff_student_id', $id)->where('type', '=', 'stf')->where('school_id', Auth::user()->school_id)->get();
 
                 $custom_field_data = $staffDetails->custom_field;
 
@@ -791,11 +825,11 @@ class SmStaffController extends Controller
             $all_staffs = $staff->where('school_id', Auth::user()->school_id)->get();
 
             if (Auth::user()->role_id != 1) {
-                $roles = AramiscRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 5)->where(function ($q) {
+                $roles = InfixRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 5)->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })->get();
             } else {
-                $roles = AramiscRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+                $roles = InfixRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })->get();
             }
@@ -842,7 +876,7 @@ class SmStaffController extends Controller
                     $document_photo = 'public/uploads/staff/document/' . $document_photo;
                 }
 
-                $document = new SmStudentDocument();
+                $document = new AramiscStudentDocument();
                 $document->title = $request->title;
                 $document->student_staff_id = $request->staff_id;
                 $document->type = 'stf';
@@ -883,7 +917,7 @@ class SmStaffController extends Controller
     public function deleteStaffDocument($id)
     {
         try {
-            $result = SmStudentDocument::where('student_staff_id', $id)->first();
+            $result = AramiscStudentDocument::where('student_staff_id', $id)->first();
             if ($result) {
 
                 if (file_exists($result->file)) {
@@ -937,7 +971,7 @@ class SmStaffController extends Controller
                     $document_photo = 'public/uploads/staff/timeline/' . $document_photo;
                 }
 
-                $timeline = new SmStudentTimeline();
+                $timeline = new AramiscStudentTimeline();
                 $timeline->staff_student_id = $request->staff_student_id;
                 $timeline->title = $request->title;
                 $timeline->type = 'stf';
@@ -974,7 +1008,7 @@ class SmStaffController extends Controller
     {
 
         try {
-            $result = SmStudentTimeline::destroy($id);
+            $result = AramiscStudentTimeline::destroy($id);
             if ($result) {
                 Toastr::success('Operation successful', 'Success');
                 return redirect()->back()->with(['staffTimeline' => 'active']);

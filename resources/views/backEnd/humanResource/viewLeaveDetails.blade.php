@@ -125,7 +125,7 @@ $days = $days_between + 1;
                             @lang('leave.leave_status')
                         </div>
                     </div>
-                        @if (Auth::user()->role_id==1 || Auth::user()->role_id==4)
+                        @if (Auth::user()->role_id==1 || Auth::user()->role_id==4 || userPermission('approve-leave-edit','approve-leave-delete'))
                                 <div class="col-lg-4 col-md-7">
                                     <div class="d-flex radio-btn-flex flex-column">
                                         <div class="d-flex mb-2">
@@ -262,7 +262,7 @@ $days = $days_between + 1;
                             @foreach($staff_leaves as $staff_leave)
                             @php
 
-                            $approved_leaves = App\SmLeaveRequest::approvedLeaveModal($staff_leave->id, $leaveDetails->role_id, $leaveDetails->staff_id);
+                            $approved_leaves = App\AramiscLeaveRequest::approvedLeaveModal($staff_leave->id, $leaveDetails->role_id, $leaveDetails->staff_id);
                                 $remaining_days = $staff_leave->days - $approved_leaves;
                             @endphp
                             <tr>

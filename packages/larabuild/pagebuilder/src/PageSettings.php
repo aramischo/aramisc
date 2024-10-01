@@ -27,7 +27,9 @@ class PageSettings
 
     public function getHeaderFooterPage($pageName)
     {
-        $page = Page::where('name', $pageName)->first();
+        $school_id = auth()->user()->school_id;
+        $page = Page::where(['name'=> $pageName,'school_id' => $school_id])->first();
+        
         if (config('cache.default') != 'null') {
             return Cache::rememberForever('pagebuilder__pageData_' . $page->id, function () use ($page) {
                 return $page;

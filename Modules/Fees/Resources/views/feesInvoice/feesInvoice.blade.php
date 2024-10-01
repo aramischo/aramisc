@@ -89,7 +89,7 @@
                                         ['required' => 
                                             ['USN', 'UD', 'UA', 'US', 'USL','USEC'],'hide'=> ['USUB'],
                                             'div'=>'col-lg-12','row'=>1,
-                                             'mt'=>'mt-0','disabled'=>true
+                                             'mt'=>'mt-0'
                                         ])
                     
                                         <div class="row">
@@ -113,20 +113,21 @@
                                         </div>
                                     @else
                                         <div class="row">
-                                            <div class="col-lg-12 mt-15">
-                                                <label class="primary_input_label" for="">
-                                                    {{ __('common.class') }}
-                                                        <span class="text-danger"> *</span>
-                                                </label>
-                                                <select class="primary_select  form-control{{ $errors->has('class') ? ' is-invalid' : '' }}" name="class" id="selectClass">
-                                                    <option data-display="@lang('common.select_class') *" value="">@lang('common.select_class') *</option>
-                                                        @foreach($classes as $class)
-                                                            <option value="{{$class->id}}" {{isset($invoiceInfo)? ($invoiceInfo->class_id == $class->id?'selected':''):''}} >{{$class->class_name}}</option>
-                                                        @endforeach
+                                            <div class="col-lg-12 mt-30-md" id="id-card-div">
+                                                <label for="class"> {{ __('common.class') }}  <span class="text-danger">*</span></label>
+                                                <select class="primary_select form-control{{ $errors->has('class') ? ' is-invalid' : '' }}"
+                                                    id="select_class" name="class">
+                                                    <option data-display="@lang('common.select_class') *" value="">@lang('common.select_class')</option>
+                                                    @foreach ($classes as $class)
+                                                        <option value="{{ $class->id }}"
+                                                            {{ isset($invoiceInfo) ? ($invoiceInfo->class_id == $class->id ? 'selected' : '') : '' }}>
+                                                            {{ @$class->class_name }}</option>
+                                                    @endforeach
                                                 </select>
-                                                @if($errors->has('class'))
+                                                @if ($errors->has('class'))
                                                     <span class="text-danger invalid-select" role="alert">
-                                                        {{ $errors->first('class') }}</span>
+                                                        {{ $errors->first('class') }}
+                                                    </span>
                                                 @endif
                                             </div>
                                         </div>

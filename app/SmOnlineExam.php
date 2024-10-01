@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
+use Modules\OnlineExam\Entities\InfixStudentTakeOnlineExam;
 
 class SmOnlineExam extends Model
 {
@@ -14,11 +14,11 @@ class SmOnlineExam extends Model
         parent::boot();
         static::addGlobalScope(new StatusAcademicSchoolScope);
     }
- 
-    
+
+
     public function studentInfo()
     {
-        return $this->belongsTo('App\SmStudent', 'id', 'student_id');
+        return $this->belongsTo('App\AramiscStudent', 'id', 'student_id');
     }
 
     public function class()
@@ -29,12 +29,12 @@ class SmOnlineExam extends Model
     public function section()
     {
         if (moduleStatusCheck('University')) {
-            return $this->belongsTo('App\SmSection', 'un_section_id', 'id');
+            return $this->belongsTo('App\AramiscSection', 'un_section_id', 'id');
         } else {
-            return $this->belongsTo('App\SmSection', 'section_id', 'id');
+            return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
         }
-        
-       
+
+
     }
 
     public function subject()
@@ -61,15 +61,15 @@ class SmOnlineExam extends Model
 
         try {
             if (moduleStatusCheck('OnlineExam')==true) {
-                $marks = AramiscStudentTakeOnlineExam::select('status', 'student_done', 'total_marks')
-                ->where('online_exam_id', $exam_id)->where('student_id', $student_id)
-                ->where('student_record_id', $record_id)
-                ->first();
+                $marks = InfixStudentTakeOnlineExam::select('status', 'student_done', 'total_marks')
+                    ->where('online_exam_id', $exam_id)->where('student_id', $student_id)
+                    ->where('student_record_id', $record_id)
+                    ->first();
             } else {
-                $marks = SmStudentTakeOnlineExam::select('status', 'total_marks')
-                ->where('online_exam_id', $exam_id)
-                ->where('student_id', $student_id)
-                ->first();
+                $marks = AramiscStudentTakeOnlineExam::select('status', 'total_marks')
+                    ->where('online_exam_id', $exam_id)
+                    ->where('student_id', $student_id)
+                    ->first();
             }
             return $marks;
         } catch (\Exception $e) {
@@ -78,8 +78,14 @@ class SmOnlineExam extends Model
         }
     }
 
+    public function studentAttend()
+    {
+        return $this->hasOne('App\AramiscStudentTakeOnlineExam', 'online_exam_id', 'id');
+    }
+
     public function smStudentTakeOnlineExam()
     {
-        return $this->hasMany('App\SmStudentTakeOnlineExam', 'online_exam_id', 'id');
+        return $this->hasMany('App\AramiscStudentTakeOnlineExam', 'online_exam_id', 'id');
     }
+
 }

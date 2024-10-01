@@ -6,7 +6,7 @@
     App::setLocale(getUserLanguage());
     $ttl_rtl = userRtlLtl();
 
-    $login_background = App\SmBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
+    $login_background = App\AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
 
     if (empty($login_background)) {
         $css = 'background: url(' . url('public/backEnd/img/edulia-login-bg.jpg') . ') no-repeat center; background-size: cover; ';
@@ -137,7 +137,7 @@
                             <a href="{{ route('recoveryPassord') }}" id='forget'>@lang('auth.forget_password')?</a>
                         </div>
                         <div class="input-control">
-                            <input type="submit" class='input-control-input' value="@lang('auth.sign_in')">
+                            <input type="submit" class='input-control-input' value="Sign In">
                         </div>
                     </form>
                 </div>

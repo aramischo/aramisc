@@ -63,7 +63,7 @@
                                                  </thead>
                                                  <tbody>
                                                      @php 
-                                                     $student_detail = App\SmStudent::where('user_id', Auth::user()->id)->first();
+                                                     $student_detail = App\AramiscStudent::where('user_id', Auth::user()->id)->first();
                                                      if(moduleStatusCheck('University')){
                                                          $homeworks = $record->homeworkContents('is_university');
                                                      }else{

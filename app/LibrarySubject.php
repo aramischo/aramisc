@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class LibrarySubject extends Model
 {
     use HasFactory;
+    
+    protected $casts = [
+        'id'            => 'integer',
+        'subject_name'  => 'string',
+    ];
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new StatusAcademicSchoolScope);
@@ -20,6 +25,6 @@ class LibrarySubject extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\SmBookCategory', 'sb_category_id', 'id');
+        return $this->belongsTo('App\AramiscBookCategory', 'sb_category_id', 'id');
     }
 }

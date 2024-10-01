@@ -2,12 +2,12 @@
 
 namespace Modules\Fees\Http\Controllers\api;
 
-use App\SmSection;
-use App\SmAddIncome;
-use App\SmBankAccount;
-use App\SmClassSection;
-use App\SmAssignSubject;
-use App\SmPaymentMethhod;
+use App\AramiscSection;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
+use App\AramiscClassSection;
+use App\AramiscAssignSubject;
+use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use Illuminate\Routing\Controller;
@@ -34,8 +34,8 @@ class AjaxController extends Controller
                                 'fine'=>$value->fine,
                             ];
                         });
-        $paymentMethods = SmPaymentMethhod::whereIn('method', ['Cash','Cheque','Bank'])->get();
-        $banks = SmBankAccount::where('school_id', auth()->user()->school_id)->get();
+        $paymentMethods = AramiscPaymentMethhod::whereIn('method', ['Cash','Cheque','Bank'])->get();
+        $banks = AramiscBankAccount::where('school_id', auth()->user()->school_id)->get();
         return response()->json(compact('feesinvoice', 'feesTranscations','paymentMethods','banks'));
     }
 
@@ -83,7 +83,7 @@ class AjaxController extends Controller
     {
         try{
             if (teacherAccess()) {
-                $sectionIds = SmAssignSubject::where('class_id', '=', $request->class_id)
+                $sectionIds = AramiscAssignSubject::where('class_id', '=', $request->class_id)
                             ->where('teacher_id', auth()->user()->staff->id)
                             ->where('school_id', auth()->user()->school_id)
                             ->where('academic_id', getAcademicId())
@@ -91,14 +91,14 @@ class AjaxController extends Controller
                             ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                             ->get();
             } else {
-                $sectionIds = SmClassSection::where('class_id', '=', $request->class_id)
+                $sectionIds = AramiscClassSection::where('class_id', '=', $request->class_id)
                                 ->where('school_id', auth()->user()->school_id)
                                 ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                                 ->get();
             }
             $promote_sections = [];
             foreach ($sectionIds as $sectionId) {
-                $promote_sections[] = SmSection::where('id', $sectionId->section_id)
+                $promote_sections[] = AramiscSection::where('id', $sectionId->section_id)
                                     ->withoutGlobalScope(StatusAcademicSchoolScope::class)
                                     ->first(['id','section_name']);
             }
@@ -144,10 +144,10 @@ class AjaxController extends Controller
             $transcation->payment_method= $request->methodName;
             $transcation->update();
             
-            $income = SmAddIncome::where('fees_collection_id', $request->feesInvoiceId)
+            $income = AramiscAddIncome::where('fees_collection_id', $request->feesInvoiceId)
                     ->first();
 
-            $updateIncome = SmAddIncome::find($income->id);
+            $updateIncome = AramiscAddIncome::find($income->id);
             $updateIncome->fees_collection_id = $transcation->id;
             $updateIncome->update();
 

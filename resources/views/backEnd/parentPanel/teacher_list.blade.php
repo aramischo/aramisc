@@ -103,12 +103,12 @@
                                                         @if (generalSetting()->teacher_phone_view)
                                                             <th>@lang('common.phone')</th>
                                                         @endif
-                                                        @if ($aramiscTeacherEvaluationSetting->is_enable == 0)
-                                                            @if (in_array('3', $aramiscTeacherEvaluationSetting->submitted_by))
-                                                                @if (date('m/d/Y') >= date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->from_date)) &&
-                                                                        date('m/d/Y') <= date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->to_date)))
-                                                                    <th width="15%">@lang('aramiscTeacherEvaluation.rate')</th>
-                                                                    <th width="50%">@lang('aramiscTeacherEvaluation.comment')</th>
+                                                        @if ($teacherEvaluationSetting->is_enable == 0)
+                                                            @if (in_array('3', $teacherEvaluationSetting->submitted_by))
+                                                                @if (date('m/d/Y') >= date('m/d/Y', strtotime($teacherEvaluationSetting->from_date)) &&
+                                                                        date('m/d/Y') <= date('m/d/Y', strtotime($teacherEvaluationSetting->to_date)))
+                                                                    <th width="15%">@lang('teacherEvaluation.rate')</th>
+                                                                    <th width="50%">@lang('teacherEvaluation.comment')</th>
                                                                     <th width="10%">@lang('common.action')</th>
                                                                 @endif
                                                             @endif
@@ -133,11 +133,11 @@
                                                                 <td>{{ @$value->teacher != '' ? @$value->teacher->mobile : '' }}
                                                                 </td>
                                                             @endif
-                                                            @if ($aramiscTeacherEvaluationSetting->is_enable == 0)
-                                                                @if (in_array('3', $aramiscTeacherEvaluationSetting->submitted_by))
-                                                                    @if (date('m/d/Y') >= date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->from_date)) &&
-                                                                            date('m/d/Y') <= date('m/d/Y', strtotime($aramiscTeacherEvaluationSetting->to_date)))
-                                                                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-submit', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
+                                                            @if ($teacherEvaluationSetting->is_enable == 0)
+                                                                @if (in_array('3', $teacherEvaluationSetting->submitted_by))
+                                                                    @if (date('m/d/Y') >= date('m/d/Y', strtotime($teacherEvaluationSetting->from_date)) &&
+                                                                            date('m/d/Y') <= date('m/d/Y', strtotime($teacherEvaluationSetting->to_date)))
+                                                                        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-submit', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
                                                                         <input type="hidden" name="teacher_id"
                                                                             value="{{ $value->teacher_id }}">
                                                                         <input type="hidden" name="record_id"

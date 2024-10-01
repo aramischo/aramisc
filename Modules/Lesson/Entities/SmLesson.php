@@ -20,15 +20,15 @@ class SmLesson extends Model
 
     public function class()
     {
-        return $this->belongsTo('App\SmClass', 'class_id', 'id');
+        return $this->belongsTo('App\AramiscClass', 'class_id', 'id');
     }
     public function section()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id');
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
     }
     public function subject()
     {
-        return $this->belongsTo('App\SmSubject', 'subject_id', 'id');
+        return $this->belongsTo('App\AramiscSubject', 'subject_id', 'id');
     }
 
     public function lessons()

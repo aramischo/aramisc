@@ -53,7 +53,7 @@
                                             <td>
                                                 @php
                                                     $role_id = $id_card->role_id == 2 ? 2 : 0;
-                                                    $role_names = App\SmStudentIdCard::roleName($id_card->id);
+                                                    $role_names = App\AramiscStudentIdCard::roleName($id_card->id);
                                                 @endphp
                                                 @foreach ($role_names as $role_name)
                                                     {{ $role_name->name }},

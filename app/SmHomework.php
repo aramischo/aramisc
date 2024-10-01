@@ -22,8 +22,28 @@ class SmHomework extends Model
     protected $appends=['HomeworkPercentage'];
 
     protected $casts = [
-        'active_status' => 'integer',
-        'marks' => 'double'        
+        'id'                => 'integer',
+        'homework_date'     => 'string',
+        'submission_date'   => 'string',
+        'evaluation_date'   => 'string',
+        'file'              => 'string',
+        'marks'             => 'double',
+        'description'       => 'string',
+        'active_status'     => 'integer',
+        'created_at'        => 'string',
+        'updated_at'        => 'string',
+        'evaluated_by'      => 'integer',
+        'class_id'          => 'integer',
+        'record_id'         => 'integer',
+        'section_id'        => 'integer',
+        'subject_id'        => 'integer',
+        'created_by'        => 'integer',
+        'updated_by'        => 'integer',
+        'school_id'         => 'integer',
+        'academic_id'       => 'integer',
+        'course_id'         => 'integer',
+        'lesson_id'         => 'integer',
+        'chapter_id'        => 'integer',
     ];
 
     protected static function boot(){
@@ -51,11 +71,11 @@ class SmHomework extends Model
 
     public function sections()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id');
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
     }
     public function section()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id');
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
     }
     public function unSection(){
         return $this->belongsTo(UnSemesterLabelAssignSection::class, 'un_section_id', 'id');
@@ -63,7 +83,7 @@ class SmHomework extends Model
 
     public function saassection()
     {
-        return $this->belongsTo('App\SmSection', 'section_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class,GlobalAcademicScope::class);
+        return $this->belongsTo('App\AramiscSection', 'section_id', 'id')->withOutGlobalScope(StatusAcademicSchoolScope::class,GlobalAcademicScope::class);
     }
 
     public function homeworkCompleted()
@@ -140,7 +160,7 @@ class SmHomework extends Model
     public function getHomeworkPercentageAttribute()
     {
         try {
-            $totalStudents = SmStudent::withOutGlobalScope(StatusAcademicSchoolScope::class)->select('id')
+            $totalStudents = AramiscStudent::withOutGlobalScope(StatusAcademicSchoolScope::class)->select('id')
                 ->where('class_id', $this->class_id)
                 ->where('section_id', $this->section_id)
                 ->where('school_id', auth()->user()->school_id)

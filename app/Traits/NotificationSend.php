@@ -3,18 +3,18 @@
 namespace App\Traits;
 
 use App\Models\User;
-use App\SmsTemplate;
-use App\SmSmsGateway;
+use App\AramiscTemplate;
+use App\AramiscSmsGateway;
 use App\Jobs\EmailJob;
 use GuzzleHttp\Client;
-use App\SmEmailSetting;
-use App\SmNotification;
+use App\AramiscEmailSetting;
+use App\AramiscNotification;
 use App\Models\StudentRecord;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
-use App\Models\SmNotificationSetting;
+use App\Models\AramiscNotificationSetting;
 use AfricasTalking\SDK\AfricasTalking;
 use App\Notifications\AppNotification;
 use Illuminate\Support\Facades\Config;
@@ -27,7 +27,7 @@ trait NotificationSend
     public function sent_notifications($event, $user_ids, $data, $role_names)
     {
         try {
-            $notificationData = SmNotificationSetting::where('event', $event)
+            $notificationData = AramiscNotificationSetting::where('event', $event)
                 ->where('school_id', auth()->user()->school_id)
                 ->first();
 
@@ -145,7 +145,7 @@ trait NotificationSend
         }
 
         $school_id = auth()->check() && saasSettings('email_settings') ? auth()->user()->school_id : 1;
-        $setting = SmEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
+        $setting = AramiscEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
 
         if (!$setting) {
             return;
@@ -157,7 +157,7 @@ trait NotificationSend
         $subject = $notificationData->subject[$role];
         $templete = $notificationData->template[$role]['Email'];
 
-        $body = SmNotificationSetting::templeteData($templete, $data);
+        $body = AramiscNotificationSetting::templeteData($templete, $data);
         $view = view('backEnd.email.emailBody', compact('body'));
 
         try {
@@ -208,13 +208,13 @@ trait NotificationSend
         }
 
         $school_id = auth()->check() && saasSettings('sms_settings') ? auth()->user()->school_id : 1;
-        $activeSmsGateway = SmSmsGateway::where('school_id', $school_id)->where('active_status', 1)->first();
+        $activeSmsGateway = AramiscSmsGateway::where('school_id', $school_id)->where('active_status', 1)->first();
         if (!$activeSmsGateway) {
             return;
         }
 
         $templete = $notificationData->template[$role]['SMS'];
-        $body = SmsTemplate::smsTempleteToBody($templete, $data);
+        $body = AramiscTemplate::smsTempleteToBody($templete, $data);
 
         try {
             if ($activeSmsGateway->gateway_name == 'Twilio') {
@@ -308,9 +308,9 @@ trait NotificationSend
         }
 
         $templete = $notificationData->template[$role]['Web'];
-        $body = SmNotificationSetting::templeteData($templete, $data);
+        $body = AramiscNotificationSetting::templeteData($templete, $data);
 
-        $notification = new SmNotification;
+        $notification = new AramiscNotification;
         $notification->user_id = gv($data, 'user_id');
         $notification->role_id = gv($data, 'role_id');
         $notification->message = $body;
@@ -333,7 +333,7 @@ trait NotificationSend
 
         try {
             $templete = $notificationData->template[$role]['App'];                  
-            $data['message'] = SmNotificationSetting::templeteData($templete, $data);
+            $data['message'] = AramiscNotificationSetting::templeteData($templete, $data);
             $user = User::find(gv($data, 'user_id'));
             if($user){
                 Notification::send($user, new AppNotification($data));

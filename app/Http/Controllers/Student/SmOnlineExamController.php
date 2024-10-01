@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\SmStudent;
+use App\AramiscStudent;
 use App\YearCheck;
 use App\SmOnlineExam;
 use App\ApiBaseMethod;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\SmQuestionBank;
 use App\SmAssignSubject;
 use App\SmGeneralSettings;
@@ -14,16 +14,16 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\SmQuestionBankMuOption;
-use App\SmStudentTakeOnlineExam;
+use App\AramiscStudentTakeOnlineExam;
 use Illuminate\Support\Facades\DB;
 use App\SmOnlineExamQuestionAssign;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\SmStudentTakeOnlnExQuesOption;
+use App\AramiscStudentTakeOnlnExQuesOption;
 use App\OnlineExamStudentAnswerMarking;
-use App\SmStudentTakeOnlineExamQuestion;
+use App\AramiscStudentTakeOnlineExamQuestion;
 use Modules\University\Entities\UnAssignSubject;
 
 class SmOnlineExamController extends Controller
@@ -35,7 +35,7 @@ class SmOnlineExamController extends Controller
         // User::checkAuth();
     }
 
-    public function aramiscStudentOnlineExam()
+    public function studentOnlineExam()
     {
         try {
             $time_zone_setup = SmGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
@@ -79,7 +79,7 @@ class SmOnlineExamController extends Controller
                 }
 
                 if (!in_array('F',$question_types_array)) {
-                   $online_take_exam_mark = SmStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
+                   $online_take_exam_mark = AramiscStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
                         ->where('student_id', Auth::user()->student->id)->first();
          
                     $online_take_exam_mark->total_marks=$obtain_marks;
@@ -88,10 +88,10 @@ class SmOnlineExamController extends Controller
                 }
             }
            
-            $online_take_exam_mark = SmStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
+            $online_take_exam_mark = AramiscStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
             ->where('student_id', Auth::user()->student->id)->first();
             if (!$online_take_exam_mark) {
-                $online_take_exam_mark = new SmStudentTakeOnlineExam();
+                $online_take_exam_mark = new AramiscStudentTakeOnlineExam();
                 $online_take_exam_mark->online_exam_id=$request->online_exam_id;
                 $online_take_exam_mark->student_id=Auth::user()->student->id;
             }
@@ -105,7 +105,7 @@ class SmOnlineExamController extends Controller
             
             $online_take_exam_mark->save();
             
-            $notification = new SmNotification;
+            $notification = new AramiscNotification;
             $notification->user_id = $teacher_info->teacher->user_id;
             $notification->role_id = $teacher_info->teacher->role_id;
             $notification->date = date('Y-m-d');
@@ -313,7 +313,7 @@ class SmOnlineExamController extends Controller
 
     function universityStudentOnlineExamSubmit($request){
         $student = Auth::user()->student;
-        $exam_status = SmStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $request->online_exam_id)->where('school_id', Auth::user()->school_id)->first();
+        $exam_status = AramiscStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $request->online_exam_id)->where('school_id', Auth::user()->school_id)->first();
         if (!empty($exam_status) &&  $exam_status->student_done == 1) {
             Toastr::warning('You are already participated this exam', 'Failed');
             return redirect()->back();
@@ -324,7 +324,7 @@ class SmOnlineExamController extends Controller
             $online_exam = SmOnlineExam::findOrFail($request->online_exam_id);
             
             $record_id = $student->studentRecord->id;
-            $take_online_exam = new SmStudentTakeOnlineExam();
+            $take_online_exam = new AramiscStudentTakeOnlineExam();
             $take_online_exam->online_exam_id = $request->online_exam_id;
             $take_online_exam->student_id = $student->id;
             $take_online_exam->record_id = $record_id ?? null;
@@ -343,7 +343,7 @@ class SmOnlineExamController extends Controller
                 $suitable_words = 'answer_word_' . $question_id;
                 $suitable_words = $request->$suitable_words;
 
-                $exam_question = new SmStudentTakeOnlineExamQuestion();
+                $exam_question = new AramiscStudentTakeOnlineExamQuestion();
                 $exam_question->take_online_exam_id = $take_online_exam->id;
                 $exam_question->question_bank_id = $question_id;
                 $exam_question->trueFalse = $trueFalse;
@@ -373,7 +373,7 @@ class SmOnlineExamController extends Controller
                     $total_marks = 0;
                     foreach ($question_options as $question_option) {
                         $options = 'options_' . $question_id . '_' . $i++;
-                        $exam_question_option = new SmStudentTakeOnlnExQuesOption();
+                        $exam_question_option = new AramiscStudentTakeOnlnExQuesOption();
                         $exam_question_option->take_online_exam_question_id = $exam_question->id;
                         $exam_question_option->title = $question_option->title;
                         $exam_question_option->school_id = Auth::user()->school_id;
@@ -395,7 +395,7 @@ class SmOnlineExamController extends Controller
                 }
             }
             if (!in_array("F", $question_types) && $online_exam_info->auto_mark == 1) {
-                $online_take_exam_mark = SmStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
+                $online_take_exam_mark = AramiscStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
                     ->where('student_id', $student->id)->where('un_academic_id', getAcademicId())->first();
                 // return Auth::user()->id;
                 if ($online_take_exam_mark) {
@@ -420,13 +420,13 @@ class SmOnlineExamController extends Controller
         Toastr::error('Operation Failed', 'Failed');
         return redirect()->back();
     }
-    public function aramiscStudentOnlineExamSubmit(Request $request)
+    public function studentOnlineExamSubmit(Request $request)
     {
         if (moduleStatusCheck('University')) {
            return  $this->universityStudentOnlineExamSubmit($request);
         } else {
             $student = Auth::user()->student;
-            $exam_status = SmStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $request->online_exam_id)->where('school_id', Auth::user()->school_id)->first();
+            $exam_status = AramiscStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $request->online_exam_id)->where('school_id', Auth::user()->school_id)->first();
             if (@$exam_status->student_done == 1) {
                 Toastr::warning('You are already participated this exam', 'Failed');
                 return redirect()->back();
@@ -436,7 +436,7 @@ class SmOnlineExamController extends Controller
             try {
                 $online_exam = SmOnlineExam::findOrFail($request->online_exam_id);
                 $record_id = studentRecords($request->merge(['class'=>$online_exam->class_id, 'section'=>$online_exam->section_id]), null)->first()->id;
-                $take_online_exam = new SmStudentTakeOnlineExam();
+                $take_online_exam = new AramiscStudentTakeOnlineExam();
                 $take_online_exam->online_exam_id = $request->online_exam_id;
                 $take_online_exam->student_id = $student->id;
                 $take_online_exam->record_id = $record_id ?? null;
@@ -456,7 +456,7 @@ class SmOnlineExamController extends Controller
                     $suitable_words = 'answer_word_' . $question_id;
                     $suitable_words = $request->$suitable_words;
     
-                    $exam_question = new SmStudentTakeOnlineExamQuestion();
+                    $exam_question = new AramiscStudentTakeOnlineExamQuestion();
                     $exam_question->take_online_exam_id = $take_online_exam->id;
                     $exam_question->question_bank_id = $question_id;
                     $exam_question->trueFalse = $trueFalse;
@@ -486,7 +486,7 @@ class SmOnlineExamController extends Controller
                         $total_marks = 0;
                         foreach ($question_options as $question_option) {
                             $options = 'options_' . $question_id . '_' . $i++;
-                            $exam_question_option = new SmStudentTakeOnlnExQuesOption();
+                            $exam_question_option = new AramiscStudentTakeOnlnExQuesOption();
                             $exam_question_option->take_online_exam_question_id = $exam_question->id;
                             $exam_question_option->title = $question_option->title;
                             $exam_question_option->school_id = Auth::user()->school_id;
@@ -508,7 +508,7 @@ class SmOnlineExamController extends Controller
                     }
                 }
                 if (!in_array("F", $question_types) && $online_exam_info->auto_mark == 1) {
-                    $online_take_exam_mark = SmStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
+                    $online_take_exam_mark = AramiscStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)
                         ->where('student_id', $student->id)->where('academic_id', getAcademicId())->first();
                     // return Auth::user()->id;
                     if ($online_take_exam_mark) {
@@ -558,10 +558,10 @@ class SmOnlineExamController extends Controller
 
             $record_id = studentRecords($request->merge(['class'=>$online_exam->class_id,'section'=>$online_exam->section_id]), null)->first('id')->id;
           
-            $take_exam = SmStudentTakeOnlineExam::where('student_id', $student->id)
+            $take_exam = AramiscStudentTakeOnlineExam::where('student_id', $student->id)
                 ->where('online_exam_id', $request->online_exam_id)->where('school_id', Auth::user()->school_id)->first();
             if (empty($take_exam)) {
-                $take_exam = new SmStudentTakeOnlineExam();
+                $take_exam = new AramiscStudentTakeOnlineExam();
                 $take_exam->student_id = $student->id;
                 $take_exam->record_id = $record_id;
                 $take_exam->online_exam_id = $request->online_exam_id;
@@ -583,15 +583,15 @@ class SmOnlineExamController extends Controller
             }
 
             
-            //SmStudentTakeOnlineExamQuestion
+            //AramiscStudentTakeOnlineExamQuestion
 
             $question_bank = SmQuestionBank::find($request->question_id);
 
 
 
-            $exam_question =SmStudentTakeOnlineExamQuestion::where('take_online_exam_id',$take_exam->id)->where('question_bank_id',$request->question_id)->first();
+            $exam_question =AramiscStudentTakeOnlineExamQuestion::where('take_online_exam_id',$take_exam->id)->where('question_bank_id',$request->question_id)->first();
             if ($exam_question=="") {
-                $exam_question = new SmStudentTakeOnlineExamQuestion();
+                $exam_question = new AramiscStudentTakeOnlineExamQuestion();
                 $exam_question->take_online_exam_id = $take_exam->id;
                 $exam_question->question_bank_id = $request->question_id;
     
@@ -632,7 +632,7 @@ class SmOnlineExamController extends Controller
             $time_zone_setup = SmGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
                 ->where('school_id', Auth::user()->school_id)->first();
 
-            $result_views = SmStudentTakeOnlineExam::where('active_status', 1)->where('status', 2)
+            $result_views = AramiscStudentTakeOnlineExam::where('active_status', 1)->where('status', 2)
                 ->where('academic_id', getAcademicId())
                 ->where('student_id', @Auth::user()->student->id)
                 ->where('school_id', Auth::user()->school_id)
@@ -664,7 +664,7 @@ class SmOnlineExamController extends Controller
             
             $assign_questions=SmOnlineExamQuestionAssign::where('online_exam_id', $exam_id)->get();
 
-            $take_online_exam = SmStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)->where('school_id', Auth::user()->school_id)->first();
+            $take_online_exam = AramiscStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)->where('school_id', Auth::user()->school_id)->first();
            
             $assigned_question_list=[];
                $assigneds= SmOnlineExamQuestionAssign::where('online_exam_id', $exam_id)->select('question_bank_id')->get();
@@ -693,7 +693,7 @@ class SmOnlineExamController extends Controller
         }
     }
 
-    public function aramiscStudentOnlineExamApi(Request $request, $id)
+    public function studentOnlineExamApi(Request $request, $id)
     {
 
         try {
@@ -701,7 +701,7 @@ class SmOnlineExamController extends Controller
 
                 $data = [];
 
-                $student = SmStudent::where('user_id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $student = AramiscStudent::where('user_id', $id)->where('school_id', Auth::user()->school_id)->first();
 
                 $now = date('H:i:s');
                 $today = date('Y-m-d');
@@ -726,12 +726,12 @@ class SmOnlineExamController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscChooseExamApi(Request $request, $id)
+    public function chooseExamApi(Request $request, $id)
     {
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
 
-                $student = SmStudent::where('user_id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $student = AramiscStudent::where('user_id', $id)->where('school_id', Auth::user()->school_id)->first();
 
                 $student_exams = DB::table('sm_online_exams')
                     ->where('class_id', $student->class_id)
@@ -746,12 +746,12 @@ class SmOnlineExamController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscExamResultApi(Request $request, $id, $exam_id)
+    public function examResultApi(Request $request, $id, $exam_id)
     {
         try {
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $student = SmStudent::where('user_id', $id)->where('school_id', Auth::user()->school_id)->first();
+                $student = AramiscStudent::where('user_id', $id)->where('school_id', Auth::user()->school_id)->first();
 
                 $student_exams = DB::table('sm_online_exams')
                     ->where('class_id', $student->class_id)

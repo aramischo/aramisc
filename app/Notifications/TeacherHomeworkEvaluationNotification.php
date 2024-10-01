@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\SmNotification;
+use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,7 +18,7 @@ class TeacherHomeworkEvaluationNotification extends Notification
      *
      * @return void
      */
-    public function __construct(SmNotification $sm_notification)
+    public function __construct(AramiscNotification $sm_notification)
     {
         $this->sm_notification = $sm_notification;
     }

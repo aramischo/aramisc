@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\FrontSettings;
 
 use App\SmPage;
-use App\SmNewsPage;
+use App\AramiscNewsPage;
 use App\Models\FrontendExamResult;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;

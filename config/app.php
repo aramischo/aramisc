@@ -9,7 +9,7 @@ return [
 
     'debug' => env('APP_DEBUG', true),
 
-    'name' => env('APP_NAME', 'Aramisc'),
+    'name' => env('APP_NAME', 'Infix Edu'),
 
     'force_https'=> env('FORCE_HTTPS',false),
 
@@ -90,7 +90,7 @@ return [
     */
 
     // 'locale' => app()->getLocale(),
-    'locale' => 'fr',
+    'locale' => 'en',
 
 
     /*

@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($record->aramiscDirectFeesInstallments as $key => $feesInstallment)
+                @foreach ($record->directFeesInstallments as $key => $feesInstallment)
                     @php
                         $total_fees += discount_fees($feesInstallment->amount, $feesInstallment->discount_amount);
                         $total_paid += $feesInstallment->paid_amount;

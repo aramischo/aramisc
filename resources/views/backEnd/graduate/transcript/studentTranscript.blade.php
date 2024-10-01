@@ -317,8 +317,8 @@
                                                     <img src="{{asset(generalSetting()->logo)}}" alt="{{generalSetting()->school_name }}">
                                                 </div>
                                                 <div class="">
-                                                    <h4>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}}</h4>
-                                                    <h5>{{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}</h5>
+                                                    <h4>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}}</h4>
+                                                    <h5>{{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}}</h5>
                                                     <h5>{{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}}</h5>
                                                     <h5>{{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}</h5>
                                                 </div>
@@ -333,17 +333,17 @@
                                 <thead>
                                     <tr>
                                         <th>@lang('library.full_name')</th>
-                                        <th>{{$aramiscStudentDetails->full_name}}</th>
+                                        <th>{{$studentDetails->full_name}}</th>
                                         <th>@lang('admin.gender')</th>
-                                        <th>{{@$aramiscStudentDetails->gender->base_setup_name}}</th>
+                                        <th>{{@$studentDetails->gender->base_setup_name}}</th>
                                         <th>@lang('student.date_of_birth')</th>
-                                        <th>{{dateConvert(@$aramiscStudentDetails->date_of_birth)}}</th>
+                                        <th>{{dateConvert(@$studentDetails->date_of_birth)}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>@lang('student.roll_no')</td>
-                                        <td>{{$aramiscStudentDetails->roll_no}}</td>
+                                        <td>{{$studentDetails->roll_no}}</td>
                                         @if (moduleStatusCheck('University'))
                                             <td>@lang('student.admission')</td>
                                             <td>{{@$admission->unSemesterLabel->name}} ({{@$admission->unAcademic->name}})</td>
@@ -356,7 +356,7 @@
                                         <td>@lang('university::un.program')</td>
                                         <td>{{@$studentRecordDetails->first()->unDepartment->name}}</td>
                                         <td>@lang('university::un.total_credit_hours')</td>
-                                        <td>{{number_format(aramiscStudentSubjectCredit($aramiscStudentDetails->id), 2, '.', '')}}</td>
+                                        <td>{{number_format(studentSubjectCredit($studentDetails->id), 2, '.', '')}}</td>
                                         <td>@lang('university::un.cumulative_avg')</td>
                                         <td class="cum-avg"></td>
                                     </tr>
@@ -380,7 +380,7 @@
                                     @foreach($record->unAcademic->unSemesterLabels as $unSemesterLabel)
                                         @if(isMarkRegister($unSemesterLabel->id))
                                             @php
-                                                $subjects = aramiscStudentSubject($unSemesterLabel->id, $unSemesterLabel->un_academic_id, $aramiscStudentDetails->id);
+                                                $subjects = studentSubject($unSemesterLabel->id, $unSemesterLabel->un_academic_id, $studentDetails->id);
                                                 $totalSubject = count($subjects);
                                                 $semesterWiseAttempted = 0;
                                                 $passed = 0;
@@ -392,7 +392,7 @@
                                             </tr>
                                             @foreach($subjects as $subject)
                                                 @php
-                                                    $mark = unStudentFullMark($unSemesterLabel->id, $unSemesterLabel->un_academic_id, $subject->subject->id, $aramiscStudentDetails->id);
+                                                    $mark = unStudentFullMark($unSemesterLabel->id, $unSemesterLabel->un_academic_id, $subject->subject->id, $studentDetails->id);
                                                     $attempted += $subject->subject->number_of_hours;
                                                     $semesterWiseAttempted += $subject->subject->number_of_hours;
                                                     $failPass = failPassStatus($mark, $subject->subject->pass_mark, $unSemesterLabel->id, $unSemesterLabel->un_academic_id, $subject->subject->id);

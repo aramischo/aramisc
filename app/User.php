@@ -14,7 +14,7 @@ use Modules\TwoFactorAuth\Entities\TwoFactorSetting;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 
 class User extends Authenticatable
 {
@@ -45,7 +45,6 @@ class User extends Authenticatable
         'school_id' => 'integer',
         'rtl_ltl' => 'integer',
         'student_id' => 'integer',
-        'school_id' => 'integer',
         'active_status' => 'integer',
         'style_id' => 'integer',
         'selected_session' => 'integer',
@@ -111,36 +110,36 @@ class User extends Authenticatable
 
     public function student()
     {
-        return $this->belongsTo('App\SmStudent', 'id', 'user_id')->withoutGlobalScopes();
+        return $this->belongsTo('App\AramiscStudent', 'id', 'user_id')->withoutGlobalScopes();
     }
 
     public function staff()
     {
-        return $this->belongsTo('App\SmStaff', 'id', 'user_id')->withoutGlobalScopes();
+        return $this->belongsTo('App\AramiscStaff', 'id', 'user_id')->withoutGlobalScopes();
     }
 
     public function category()
     {
-        return $this->belongsTo(SmStudentCategory::class,'category_id','id');
+        return $this->belongsTo(AramiscStudentCategory::class,'category_id','id');
     }
     public function group()
     {
-        return $this->belongsTo(SmStudentGroup::class,'group_id','id');
+        return $this->belongsTo(AramiscStudentGroup::class,'group_id','id');
     }
 
     public function parent()
     {
-        return $this->belongsTo('App\SmParent', 'id', 'user_id');
+        return $this->belongsTo('App\AramiscParent', 'id', 'user_id');
     }
 
     public function school()
     {
-        return $this->belongsTo('App\SmSchool', 'school_id', 'id');
+        return $this->belongsTo('App\AramiscSchool', 'school_id', 'id');
     }
 
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
     }
 
     /**
@@ -171,8 +170,8 @@ class User extends Authenticatable
     public static function checkAuth()
     {
         return true;
-        // $gcc = new SmGeneralSettings;
-        // $php_extension_dll = SmGeneralSettings::where('id',auth()->user()->school_id)->first();
+        // $gcc = new AramiscGeneralSettings;
+        // $php_extension_dll = AramiscGeneralSettings::where('id',auth()->user()->school_id)->first();
         // $str = $gcc::$students;
         // $php_extension_ssl = Envato::aci($php_extension_dll->$str);
         // if (isset($php_extension_ssl[$gcc::$users][$gcc::$parents])) {
@@ -189,11 +188,11 @@ class User extends Authenticatable
     {
         return true;
         // $time_limit = 101;
-        // $is_data = AramiscModuleManager::where('name', $name)->where('purchase_code', '!=', '')->first();
+        // $is_data = InfixModuleManager::where('name', $name)->where('purchase_code', '!=', '')->first();
         // if (!empty($is_data) && $is_data->email != null && $is_data->purchase_code != null) {
         //     $code = @$is_data->purchase_code;
         //     $email = @$is_data->email;
-        //     $is_verify = SmGeneralSettings::where($name, 1)->first();
+        //     $is_verify = AramiscGeneralSettings::where($name, 1)->first();
         //     if (!empty($is_verify)) {
         //         if (Config::get('app.app_pro')) {
         //             try {
@@ -255,12 +254,12 @@ class User extends Authenticatable
 
     public function permissions()
     {
-        return $this->hasMany(AramiscPermissionAssign::class, 'role_id', 'id');
+        return $this->hasMany(InfixPermissionAssign::class, 'role_id', 'id');
     }
 
     public function allNotifications()
     {
-        return $this->hasMany('App\SmNotification','user_id','id')->where('academic_id',getAcademicId())->latest();
+        return $this->hasMany('App\AramiscNotification','user_id','id')->where('academic_id',getAcademicId())->latest();
     }
 
     public function generateCode()

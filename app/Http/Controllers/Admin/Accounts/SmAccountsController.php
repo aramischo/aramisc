@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Admin\Accounts;
 use DateTime;
 use Exception;
 use Carbon\Carbon;
-use App\SmItemSell;
+use App\AramiscItemSell;
 use App\SmAddIncome;
 use App\SmAddExpense;
-use App\SmFeesMaster;
+use App\AramiscFeesMaster;
 use App\ApiBaseMethod;
 use App\SmBankAccount;
-use App\SmFeesPayment;
-use App\SmItemReceive;
+use App\AramiscFeesPayment;
+use App\AramiscItemReceive;
 use App\SmBankStatement;
 use App\SmAmountTransfer;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use App\SmHrPayrollGenerate;
 use Illuminate\Http\Request;
 use App\Traits\NotificationSend;
@@ -63,13 +63,13 @@ class SmAccountsController extends Controller
                         ->where('school_id', Auth::user()->school_id)
                         ->get();
 
-                    $fees_payments = SmFeesPayment::where('updated_at', '>=', $date_time_from)
+                    $fees_payments = AramiscFeesPayment::where('updated_at', '>=', $date_time_from)
                         ->where('updated_at', '<=', $date_time_to)
                         ->where('active_status', 1)
                         ->where('school_id', Auth::user()->school_id)
                         ->sum('amount');
 
-                    $item_sells = SmItemSell::where('updated_at', '>=', $date_time_from)
+                    $item_sells = AramiscItemSell::where('updated_at', '>=', $date_time_from)
                         ->where('updated_at', '<=', $date_time_to)
                         ->where('active_status', 1)
                         ->where('school_id', Auth::user()->school_id)
@@ -79,32 +79,32 @@ class SmAccountsController extends Controller
                     $transport = 0;
                     $add_incomes = [];
                     $fees_payments = '';
-                    $item_sells = SmItemSell::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
+                    $item_sells = AramiscItemSell::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
                 } elseif ($request->filtering_income == "fees") {
                     $dormitory = 0;
                     $add_incomes = [];
                     $transport = 0;
                     $item_sells = '';
-                    $fees_payments = SmFeesPayment::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('amount');
+                    $fees_payments = AramiscFeesPayment::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('amount');
                 } elseif ($request->filtering_income == "dormitory") {
                     $add_incomes = [];
                     $fees_payments = '';
                     $item_sells = '';
                     $transport = 0;
-                    $fees_masters = SmFeesMaster::select('fees_type_id')->Where('fees_group_id', 2)->where('school_id', Auth::user()->school_id)->get();
+                    $fees_masters = AramiscFeesMaster::select('fees_type_id')->Where('fees_group_id', 2)->where('school_id', Auth::user()->school_id)->get();
                     $dormitory = 0;
                     foreach ($fees_masters as $fees_master) {
-                        $dormitory = $dormitory + SmFeesPayment::where('fees_type_id', $fees_master->fees_type_id)->where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('amount');
+                        $dormitory = $dormitory + AramiscFeesPayment::where('fees_type_id', $fees_master->fees_type_id)->where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('amount');
                     }
                 } else {
                     $add_incomes = [];
                     $fees_payments = '';
                     $item_sells = '';
                     $dormitory = 0;
-                    $fees_masters = SmFeesMaster::select('fees_type_id')->Where('fees_group_id', 1)->where('school_id', Auth::user()->school_id)->get();
+                    $fees_masters = AramiscFeesMaster::select('fees_type_id')->Where('fees_group_id', 1)->where('school_id', Auth::user()->school_id)->get();
                     $transport = 0;
                     foreach ($fees_masters as $fees_master) {
-                        $transport = $transport + SmFeesPayment::where('fees_type_id', $fees_master->fees_type_id)->where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('amount');
+                        $transport = $transport + AramiscFeesPayment::where('fees_type_id', $fees_master->fees_type_id)->where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('amount');
                     }
                 }
 
@@ -112,16 +112,16 @@ class SmAccountsController extends Controller
             } else {
                 if ($request->filtering_expense == "all") {
                     $add_expenses = SmAddExpense::where('date', '>=', $date_from)->where('date', '<=', $date_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-                    $item_receives = SmItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
+                    $item_receives = AramiscItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
                     $payroll_payments = SmHrPayrollGenerate::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('payroll_status', 'P')->where('school_id', Auth::user()->school_id)->sum('net_salary');
                 } elseif ($request->filtering_expense == "receive") {
                     $add_expenses = [];
-                    $item_receives = SmItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
+                    $item_receives = AramiscItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
                     $payroll_payments = '';
                 } else {
                     $add_expenses = [];
                     $item_receives = '';
-                    $payroll_payments = SmItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
+                    $payroll_payments = AramiscItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
                 }
                 return view('backEnd.accounts.search_income', compact('add_expenses', 'item_receives', 'payroll_payments', 'type_id', 'from_date', 'to_date'));
             }
@@ -155,7 +155,7 @@ class SmAccountsController extends Controller
 
             $add_expenses = SmAddExpense::where('date', '>=', $date_from)->where('date', '<=', $date_to)->where('active_status', 1)->get();
 
-            $item_receives = SmItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
+            $item_receives = AramiscItemReceive::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('school_id', Auth::user()->school_id)->sum('total_paid');
             $payroll_payments = SmHrPayrollGenerate::where('updated_at', '>=', $date_time_from)->where('updated_at', '<=', $date_time_to)->where('active_status', 1)->where('payroll_status', 'P')->where('school_id', Auth::user()->school_id)->sum('net_salary');
             return view('backEnd.accounts.search_expense', compact('add_expenses', 'item_receives', 'payroll_payments'));
         } catch (Exception $e) {
@@ -243,7 +243,7 @@ class SmAccountsController extends Controller
     public function transaction()
     {
         try {
-            $payment_methods = SmPaymentMethhod::where('school_id', Auth::user()->school_id)->get();
+            $payment_methods = AramiscPaymentMethhod::where('school_id', Auth::user()->school_id)->get();
             return view('backEnd.accounts.transaction', compact('payment_methods'));
         } catch (Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -259,11 +259,11 @@ class SmAccountsController extends Controller
                 $date_from = new DateTime(trim($rangeArr[0]));
                 $date_to = new DateTime(trim($rangeArr[1]));
             }
-            $payment_methods = SmPaymentMethhod::where('school_id', Auth::user()->school_id)->get();
+            $payment_methods = AramiscPaymentMethhod::where('school_id', Auth::user()->school_id)->get();
             $payment_method = $request->payment_method;
 
             if ($request->payment_method != "all") {
-                $method_id = SmPaymentMethhod::find($request->payment_method);
+                $method_id = AramiscPaymentMethhod::find($request->payment_method);
                 $search_info['method_id'] = $method_id->id;
             }
 
@@ -346,7 +346,7 @@ class SmAccountsController extends Controller
     public function fundTransfer()
     {
         try {
-            $payment_methods = SmPaymentMethhod::get(['method', 'id']);
+            $payment_methods = AramiscPaymentMethhod::get(['method', 'id']);
             $bank_accounts = SmBankAccount::get();
             $transfers = SmAmountTransfer::where('school_id', Auth::user()->school_id)->get();
             $bank_amount = SmBankAccount::sum('current_balance');
@@ -379,7 +379,7 @@ class SmAccountsController extends Controller
                 return redirect()->back();
             } elseif ($request->from_payment_method == $request->to_payment_method) {
                 if ($request->from_payment_method != 3) {
-                    $message = SmPaymentMethhod::where('id', $request->from_payment_method)
+                    $message = AramiscPaymentMethhod::where('id', $request->from_payment_method)
                         ->where('school_id', Auth::user()->school_id)
                         ->first();
                     Toastr::warning(@$message->method . ' to ' . @$message->method . ' transfer is not accepted', 'Warning');
@@ -388,7 +388,7 @@ class SmAccountsController extends Controller
             }
             // Validation Part End
 
-            $from_payment = SmPaymentMethhod::where('school_id', Auth::user()->school_id)->findOrFail($request->from_payment_method);
+            $from_payment = AramiscPaymentMethhod::where('school_id', Auth::user()->school_id)->findOrFail($request->from_payment_method);
 
             if ($from_payment->method == 'Bank') {
                 $balance = SmBankAccount::where('school_id', Auth::user()->school_id)->findOrFail($request->from_bank_name)->current_balance;

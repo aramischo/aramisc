@@ -6,6 +6,9 @@ namespace Larabuild\Pagebuilder\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Larabuild\Pagebuilder\Models\Page;
 use Larabuild\Optionbuilder\Facades\Settings;
 use Larabuild\Pagebuilder\Facades\PageSettings;
@@ -370,4 +373,47 @@ class PageBuilderController extends Controller {
         setCurrentPageId($page->id);
         return view('pagebuilder::pagebuilder', compact('grid_templates', 'components', 'page', 'componentTabs'));
     }
+
+    public function frontendReset($slug) {
+  
+        $filesInFolder = File::files(resource_path("/views/themes/edulia/demo/"));
+        
+        foreach ($filesInFolder as $path) {
+            $file = pathinfo($path);
+    
+            if (file_exists($file['dirname'] . '/' . $file['basename'])) {
+                $file_content =  file_get_contents($file['dirname'] . '/' . $file['basename']);
+                $file_data = json_decode($file_content, true);
+    
+                if ($file_data['slug'] == $slug) {
+                   
+                    $check = DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')
+                        ->where('school_id', Auth::user()->school_id)
+                        ->where('slug', $slug)
+                        ->first();
+                    
+                    if ($check) {
+                        DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')
+                            ->where('school_id', Auth::user()->school_id)
+                            ->where('slug', $slug)
+                            ->delete();
+                    }
+    
+                    DB::table(config('pagebuilder.db_prefix', 'infixedu__') . 'pages')->insert([
+                        'name' => $file_data['name'],
+                        'title' => $file_data['title'],
+                        'description' => $file_data['description'],
+                        'slug' => $file_data['slug'],
+                        'settings' => json_encode($file_data['settings']),
+                        'home_page' => $file_data['home_page'],
+                        'status' => 'published',
+                        'is_default' => 1,
+                        'school_id' => Auth::user()->school_id
+                    ]);
+                }
+            }
+        }
+        return redirect()->back();
+    }
+    
 }

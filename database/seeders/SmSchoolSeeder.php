@@ -87,9 +87,9 @@ use App\SmTeacherUploadContent;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Modules\Lesson\Entities\SmLesson;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\Saas\Events\InstituteRegistration;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 use Modules\Saas\Entities\SaasSchoolModulePermissionAssign;
 
 class SmSchoolSeeder extends Seeder
@@ -234,14 +234,14 @@ class SmSchoolSeeder extends Seeder
         //                     for ($i = 1; $i <= 5; $i++) {                                
         //                         User::factory()->times(1)->create([
         //                             'role_id' =>2,
-        //                             'email'=>'student_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@aramisc.com', 
-        //                             'username'=>'student_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@aramisc.com',
+        //                             'email'=>'student_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@infixedu.com', 
+        //                             'username'=>'student_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@infixedu.com',
         //                             'school_id' =>$school->id,
         //                         ]);
         //                         User::factory()->times(1)->create([
         //                             'role_id' =>3,
-        //                             'email'=>'guardian_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@aramisc.com', 
-        //                             'username'=>'guardian_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@aramisc.com',
+        //                             'email'=>'guardian_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@infixedu.com', 
+        //                             'username'=>'guardian_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@infixedu.com',
         //                             'school_id' =>$school->id,
         //                         ]);
         //                         $studentUser=User::where('school_id',$school->id)->where('role_id',2)->latest('id')->first();
@@ -261,7 +261,7 @@ class SmSchoolSeeder extends Seeder
         //                             'parent_id' => $parent->id,
         //                             'class_id' => $data->class_id,
         //                             'section_id' => $data->section_id,
-        //                             'email' => 'student_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@aramisc.com',                                
+        //                             'email' => 'student_'.$data->class_id.'_'.$data->section_id.'_'.$i.'@infixedu.com',                                
         //                         ], $school_academic));                                       
                     
                                 
@@ -364,10 +364,10 @@ class SmSchoolSeeder extends Seeder
 
         //             //
         //             //Examination
-        //             $aramiscAssignSubjects = SmAssignSubject::where('school_id', $school->id)->where('academic_id', $academic_year->id)->get();
+        //             $assignSubjects = SmAssignSubject::where('school_id', $school->id)->where('academic_id', $academic_year->id)->get();
         //             SmMarksGrade::factory()->times(7)->create($school_academic);
-        //             SmExamType::factory()->times(3)->create($school_academic)->each(function ($examTerm) use ($aramiscAssignSubjects, $school, $academic_year) {
-        //                 foreach ($aramiscAssignSubjects as $classSectionSubject) {
+        //             SmExamType::factory()->times(3)->create($school_academic)->each(function ($examTerm) use ($assignSubjects, $school, $academic_year) {
+        //                 foreach ($assignSubjects as $classSectionSubject) {
         //                     $s = new SmExamSetup();
         //                     $s->class_id = $classSectionSubject->class_id;
         //                     $s->section_id = $classSectionSubject->section_id;
@@ -404,9 +404,9 @@ class SmSchoolSeeder extends Seeder
         //                     $date = date('Y') . '-' . date('m') . '-' . $d;
         //                     $sa = new SmStudentAttendance();
         //                     $sa->student_id = $student->id;
-        //                     $sa->aramiscAttendance_type = 'P';
+        //                     $sa->attendance_type = 'P';
         //                     $sa->notes = 'Sample Attendance for Student';
-        //                     $sa->aramiscAttendance_date = $date;
+        //                     $sa->attendance_date = $date;
         //                     $sa->school_id = $school->id;
         //                     $sa->academic_id = $academic_year->id;
         //                     $sa->save();
@@ -427,7 +427,7 @@ class SmSchoolSeeder extends Seeder
         //                     $sa->save();
         //                 }
         //             }
-        //             $rules = AramiscRole::where('active_status', '=', '1')->where('id', '!=', 1) /* ->where('id', '!=', 2) */->where('id', '!=', 3)->where('id', '!=', 10)->get();
+        //             $rules = InfixRole::where('active_status', '=', '1')->where('id', '!=', 1) /* ->where('id', '!=', 2) */->where('id', '!=', 3)->where('id', '!=', 10)->get();
         //             $staffs = SmStaff::where('role_id', 4)->where('school_id', $school->id)->get();
         //             SmLeaveType::factory()->times(5)->create($school_academic)->each(function ($leaveTypes) use ($rules, $school, $academic_year, $staffs) {
         //                 foreach ($rules as $key => $value) {
@@ -678,7 +678,7 @@ class SmSchoolSeeder extends Seeder
         //         }
         
         //         for ($j = 1; $j <= 541; $j++) {
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $j;
         //             $permission->role_id = 5;
         //             $permission->school_id = $school->id;
@@ -688,7 +688,7 @@ class SmSchoolSeeder extends Seeder
         //         $admins = [800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813, 814, 815, 900, 901, 902, 903, 904];
         
         //         foreach ($admins as $key => $value) {
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 5;
         //             $permission->school_id = $school->id;
@@ -697,7 +697,7 @@ class SmSchoolSeeder extends Seeder
         
         //         $ids = [399, 400, 401, 402, 403, 404, 428, 429, 430, 431, 456, 457, 458, 459, 460, 461, 462, 463, 478, 482, 483, 484, 549];
         //         foreach ($ids as $id) {
-        //             $permission = AramiscPermissionAssign::where('school_id', $school->id)->where('role_id', 5)->where('module_id', $id)->first();
+        //             $permission = InfixPermissionAssign::where('school_id', $school->id)->where('role_id', 5)->where('module_id', $id)->first();
         //             if ($permission) {
         //                 $permission->delete();
         //             }
@@ -708,7 +708,7 @@ class SmSchoolSeeder extends Seeder
         
         //         foreach ($teachers as $key => $value) {
         
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 4;
         //             $permission->school_id = $school->id;
@@ -720,7 +720,7 @@ class SmSchoolSeeder extends Seeder
         
         //         foreach ($receiptionists as $key => $value) {
         
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 7;
         //             $permission->school_id = $school->id;
@@ -732,7 +732,7 @@ class SmSchoolSeeder extends Seeder
         
         //         foreach ($librarians as $key => $value) {
         
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 8;
         //             $permission->school_id = $school->id;
@@ -744,7 +744,7 @@ class SmSchoolSeeder extends Seeder
         
         //         foreach ($drivers as $key => $value) {
         
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 9;
         //             $permission->school_id = $school->id;
@@ -756,7 +756,7 @@ class SmSchoolSeeder extends Seeder
         
         //         foreach ($accountants as $key => $value) {
         
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 6;
         //             $permission->school_id = $school->id;
@@ -765,7 +765,7 @@ class SmSchoolSeeder extends Seeder
         
         //         // student
         //         for ($j = 1; $j <= 55; $j++) {
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $j;
         //             $permission->role_id = 2;
         //             $permission->school_id = $school->id;
@@ -774,7 +774,7 @@ class SmSchoolSeeder extends Seeder
         
         //         $students = [800, 810, 815, 900, 901, 902, 903, 904];
         //         foreach ($students as $key => $value) {
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 2;
         //             $permission->school_id = $school->id;
@@ -783,7 +783,7 @@ class SmSchoolSeeder extends Seeder
         
         //         // parent
         //         for ($j = 56; $j <= 99; $j++) {
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $j;
         //             $permission->role_id = 3;
         //             $permission->school_id = $school->id;
@@ -792,7 +792,7 @@ class SmSchoolSeeder extends Seeder
         //         // chat module
         //         $parents = [910, 911, 912, 913, 914];
         //         foreach ($parents as $key => $value) {
-        //             $permission = new AramiscPermissionAssign();
+        //             $permission = new InfixPermissionAssign();
         //             $permission->module_id = $value;
         //             $permission->role_id = 3;
         //             $permission->school_id = $school->id;
@@ -807,12 +807,12 @@ class SmSchoolSeeder extends Seeder
         //             ]);
         //             if($item == 'Lawn Green') {
         //                 $theme->path_main_style = 'lawngreen_version/style.css';
-        //                 $theme->path_aramisc_style = 'lawngreen_version/aramisc.css';
-        //                 $theme->path_aramisc_style = false;
+        //                 $theme->path_infix_style = 'lawngreen_version/infix.css';
+        //                 $theme->path_infix_style = false;                   
         //                 $theme->box_shadow = true;                   
         //             }else {
         //                 $theme->path_main_style = 'style.css';
-        //                 $theme->path_aramisc_style = 'aramisc.css';
+        //                 $theme->path_infix_style = 'infix.css';
         //                 $theme->is_default = $key == 0 ? 1: 0;
         //             }
         //             $theme->color_mode = "gradient";
@@ -1021,54 +1021,54 @@ class SmSchoolSeeder extends Seeder
         //         $s->title3 = 'About Our System';
         //         $s->title4 = 'Resources';
         
-        //         $s->link_label1 = 'About Aramisc';
-        //         $s->link_href1  = 'http://aramisc.com';
+        //         $s->link_label1 = 'About Infix';
+        //         $s->link_href1  = 'http://infixedu.com';
         
-        //         $s->link_label2 = 'Aramisc Home';
-        //         $s->link_href2  = 'http://aramisc.com/home';
+        //         $s->link_label2 = 'Infix Home';
+        //         $s->link_href2  = 'http://infixedu.com/home';
         
         //         $s->link_label3 = 'Business';
-        //         $s->link_href3  = 'http://aramisc.com';
+        //         $s->link_href3  = 'http://infixedu.com';
         
         //         $s->link_label4 = 'link_label4';
-        //         $s->link_href4  = 'http://aramisc.com';
+        //         $s->link_href4  = 'http://infixedu.com';
         
         //         $s->link_label5 = 'link_label5';
-        //         $s->link_href5  = 'http://aramisc.com';
+        //         $s->link_href5  = 'http://infixedu.com';
         
         //         $s->link_label6 = 'link_label6';
-        //         $s->link_href6  = 'http://aramisc.com';
+        //         $s->link_href6  = 'http://infixedu.com';
         
         //         $s->link_label7 = 'link_label7';
-        //         $s->link_href7  = 'http://aramisc.com';
+        //         $s->link_href7  = 'http://infixedu.com';
         
         //         $s->link_label8 = 'link_label8';
-        //         $s->link_href8  = 'http://aramisc.com';
+        //         $s->link_href8  = 'http://infixedu.com';
         
         //         $s->link_label9  = 'Home';
-        //         $s->link_href9   = 'http://aramisc.com/home';
+        //         $s->link_href9   = 'http://infixedu.com/home';
         
         //         $s->link_label10 = 'About';
-        //         $s->link_href10  = 'http://aramisc.com/about';
+        //         $s->link_href10  = 'http://infixedu.com/about';
         
         
         //         $s->link_label11 = 'Contact';
-        //         $s->link_href11  = 'http://aramisc.com/contact';
+        //         $s->link_href11  = 'http://infixedu.com/contact';
         
         //         $s->link_label12 = 'link_label12';
-        //         $s->link_href12  = 'http://aramisc.com';
+        //         $s->link_href12  = 'http://infixedu.com';
         
         //         $s->link_label13 = 'link_label13';
-        //         $s->link_href13  = 'http://aramisc.com';
+        //         $s->link_href13  = 'http://infixedu.com';
         
         //         $s->link_label14 = 'link_label14';
-        //         $s->link_href14  = 'http://aramisc.com';
+        //         $s->link_href14  = 'http://infixedu.com';
         
         //         $s->link_label15 = 'link_label15';
-        //         $s->link_href15  = 'http://aramisc.com';
+        //         $s->link_href15  = 'http://infixedu.com';
         
         //         $s->link_label16 = 'link_label16';
-        //         $s->link_href16  = 'http://aramisc.com';
+        //         $s->link_href16  = 'http://infixedu.com';
         //         $s->school_id = $school->id; 
         //         $s->save();
 

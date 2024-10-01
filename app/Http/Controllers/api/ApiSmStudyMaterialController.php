@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\api;
 
-use App\SmStudent;
+use App\AramiscStudent;
 use App\ApiBaseMethod;
 use App\Scopes\SchoolScope;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use Illuminate\Http\Request;
-use App\SmTeacherUploadContent;
+use App\AramiscTeacherUploadContent;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\StudentRecord;
@@ -18,7 +18,7 @@ class ApiSmStudyMaterialController extends Controller
 
 
     /**
-     *aramiscStudentAssignmentApi
+     *studentAssignmentApi
      * @response {
      *"success": true,
      *"data": {
@@ -31,7 +31,7 @@ class ApiSmStudyMaterialController extends Controller
      *    "class_id": 42,
      *    "section_id": 1
      *    },
-     *    "aramiscUploadContents": [
+     *    "uploadContents": [
      *    {
      *        "content_title": "Assignment",
      *        "upload_date": "2021-04-05",
@@ -42,29 +42,29 @@ class ApiSmStudyMaterialController extends Controller
      *},
 
      */
-    public function aramiscStudentAssignmentApi(Request $request, $user_id, $record_id)
+    public function studentAssignmentApi(Request $request, $user_id, $record_id)
     {
 
-        $student_detail = SmStudent::where('user_id', $user_id)->first();
+        $student_detail = AramiscStudent::where('user_id', $user_id)->first();
         $record = StudentRecord::where('id', $record_id)->where('student_id', $student_detail->id)->first();
-        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
+        $uploadContents = AramiscTeacherUploadContent::where('content_type', 'as')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
                     ->orWhere([['class', $record->class_id], ['section', $record->section_id]]);
-            })->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+            })->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
+            $data['uploadContents'] = $uploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
 
 
     /**
-     *aramiscStudentSyllabusApi
+     *studentSyllabusApi
      * @response {
      *"success": true,
      *"data": {
@@ -77,7 +77,7 @@ class ApiSmStudyMaterialController extends Controller
      *    "class_id": 42,
      *    "section_id": 1
      *    },
-     *    "aramiscUploadContents": [
+     *    "uploadContents": [
      *    {
      *        "content_title": "Syllabus",
      *        "upload_date": "2021-04-05",
@@ -88,13 +88,13 @@ class ApiSmStudyMaterialController extends Controller
      *},
 
      */
-    public function aramiscStudentSyllabusApi(Request $request, $user_id, $record_id)
+    public function studentSyllabusApi(Request $request, $user_id, $record_id)
     {
-        $student_detail = SmStudent::where('user_id', $user_id)->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
+        $student_detail = AramiscStudent::where('user_id', $user_id)->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
 
         $record = StudentRecord::where('id', $record_id)->first();
         
-        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')->where('academic_id',SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+        $uploadContents = AramiscTeacherUploadContent::where('content_type', 'sy')->where('academic_id',AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                                 ->where(function ($que) use ($record) {
                                     return $que->where('class', $record->class_id)
                                         ->orWhereNull('class');
@@ -108,7 +108,7 @@ class ApiSmStudyMaterialController extends Controller
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
+            $data['uploadContents'] = $uploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
@@ -127,7 +127,7 @@ class ApiSmStudyMaterialController extends Controller
      *    "class_id": 42,
      *    "section_id": 1
      *    },
-     *    "aramiscUploadContents": [
+     *    "uploadContents": [
      *    {
      *        "content_title": "Other Download",
      *        "upload_date": "2021-04-05",
@@ -141,49 +141,49 @@ class ApiSmStudyMaterialController extends Controller
     public function studentOtherDownloadsApi(Request $request, $user_id, $record_id)
     {
 
-        $student_detail = SmStudent::where('user_id', $user_id)->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
+        $student_detail = AramiscStudent::where('user_id', $user_id)->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
 
         $record = StudentRecord::where('id', $record_id)->where('student_id', $student_detail->id)->first();
-        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')
+        $uploadContents = AramiscTeacherUploadContent::where('content_type', 'ot')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
                     ->orWhere([['class', $record->class_id], ['section', $record->section_id]]);
-            })->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
+            })->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
+            $data['uploadContents'] = $uploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_aramiscStudentAssignmentApi(Request $request, $school_id, $user_id, $record_id)
+    public function saas_studentAssignmentApi(Request $request, $school_id, $user_id, $record_id)
     {
       
-        $student_detail = SmStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)->first();
+        $student_detail = AramiscStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)->first();
          $record = StudentRecord::where('id', $record_id)
         ->where('student_id', $student_detail->id)
         ->where('school_id', $school_id)
         ->first();
-        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'as')
+        $uploadContents = AramiscTeacherUploadContent::where('content_type', 'as')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
                     ->orWhere([['class', @$record->class_id], ['section', @$record->section_id]]);
-            })->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))->where('school_id', $school_id)->get();
+            })->where('academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($school_id))->where('school_id', $school_id)->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = @$student_detail->toArray();
-            $data['aramiscUploadContents'] = @$aramiscUploadContents->toArray();
+            $data['uploadContents'] = @$uploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
-    public function saas_aramiscStudentSyllabusApi(Request $request, $school_id, $user_id, $record_id)
+    public function saas_studentSyllabusApi(Request $request, $school_id, $user_id, $record_id)
     {
 
-        $student_detail = SmStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)
+        $student_detail = AramiscStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)
         ->first(['id', 'full_name', 'admission_no', 'email', 'mobile', 'class_id', 'section_id']);
         $record = StudentRecord::where('id', $record_id)
         ->where('student_id', $student_detail->id)
@@ -192,43 +192,43 @@ class ApiSmStudyMaterialController extends Controller
         if (!$student_detail) {
             $data = [];
             $data['student_detail'] = [];
-            $data['aramiscUploadContents'] = [];
+            $data['uploadContents'] = [];
             return ApiBaseMethod::sendResponse($data, null);
         }
-        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'sy')
+        $uploadContents = AramiscTeacherUploadContent::where('content_type', 'sy')
             ->select('content_title', 'upload_date', 'description', 'upload_file', 'source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
                     ->orWhere([['class', $record->class_id], ['section', $record->section_id]]);
-            })->where('school_id', $school_id)->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))
+            })->where('school_id', $school_id)->where('academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($school_id))
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
+            $data['uploadContents'] = $uploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }
     public function saas_studentOtherDownloadsApi(Request $request, $school_id, $user_id, $record_id)
     {
 
-        $student_detail = SmStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)
+        $student_detail = AramiscStudent::withoutGlobalScope(SchoolScope::class)->where('user_id', $user_id)->where('school_id', $school_id)
         ->first(['id','full_name','admission_no','email','mobile','class_id','section_id']);
         $record = StudentRecord::where('id', $record_id)->where('student_id', $student_detail->id)->where('school_id', $school_id)->first();
-        $aramiscUploadContents = SmTeacherUploadContent::where('content_type', 'ot')
+        $uploadContents = AramiscTeacherUploadContent::where('content_type', 'ot')
             ->select('content_title', 'upload_date', 'description', 'upload_file','source_url')
             ->where(function ($query) use ($record) {
                 $query->where('available_for_all_classes', 1)
                     ->orWhere([['class', $record->class_id], ['section', $record->section_id]]);
             })->where('school_id', $school_id)
-            ->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))
+            ->where('academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($school_id))
             ->get();
 
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = [];
             $data['student_detail'] = $student_detail->toArray();
-            $data['aramiscUploadContents'] = $aramiscUploadContents->toArray();
+            $data['uploadContents'] = $uploadContents->toArray();
             return ApiBaseMethod::sendResponse($data, null);
         }
     }

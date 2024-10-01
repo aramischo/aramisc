@@ -15,9 +15,12 @@
       font-family: 'Poppins', sans-serif;
     }
     .student_marks_table{
-      width: 95%;
-      margin: 10px auto 0 auto;
-    }
+            padding-top: 15px;
+      }
+      .student_marks_table{
+          width: 95%;
+          margin: 10px auto 0 auto;
+      }
     .text_center{
       text-align: center;
     }
@@ -143,35 +146,56 @@
         left: 0;
         right: 0;
       }
-      .footer .footer_widget{
-        width: 30%;
-      }
       .footer .footer_widget .copyies_text{
         justify-content: space-between;
       }
   </style>
+  @if($invoiceSettings->per_th==1)
+      <style>
+          .footer .footer_widget{
+              width: 100%;
+          }
+      </style>
+  @elseif($invoiceSettings->per_th==2)
+      <style>
+          .footer .footer_widget{
+              width: 100%;
+          }
+      </style>
+  @elseif($invoiceSettings->per_th==3)
+      <style>
+          .footer .footer_widget{
+              width: 30%;
+          }
+      </style>
+  @endif
   <style type="text/css" media="print">
       @page { size: A4 landscape; }
   </style>
   </head>
   <script>
     var is_chrome = function () { return Boolean(window.chrome); }
-      if(is_chrome){
-          //  window.print();
-          //  setTimeout(function(){window.close();}, 10000);
-           //give them 10 seconds to print, then close
-        }else{
-           window.print();
-        }
-  </script>
+    if(is_chrome){
+        window.print();
+        //  setTimeout(function(){window.close();}, 10000);
+        //  give them 10 seconds to print, then close
+    }else{
+        window.print();
+    }
+</script>
   <body onLoad="loadHandler();">
         @php  
+          $invoice_no= $invoiceSettings->prefix !=null ? $invoiceSettings->prefix.$student->admission_no.$student->id.rand(10,1000) : (string) date('Ymd').$student->admission_no.$student->id.rand(10,1000);
           $setting = generalSetting();
         @endphp
+
+    <div class="page">
+    <div class="subpage">
       <div class="student_marks_table print" >
       <table class="custom_table">
         <thead>
           <tr>
+            @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <!-- first header  -->
             <th colspan="2">
               <div style="float:left; width:30%">
@@ -197,6 +221,7 @@
                   <p>
                     @lang('student.student_name'): {{@$student->studentDetail->full_name}} 
                   </p>
+                  <p>@lang('bulkprint::bulk.invoice_no') : {{$invoice_no}}</p>
                 </li>
 
                 <li>
@@ -210,6 +235,14 @@
                   <p>
                     @lang('student.roll'):{{@$student->roll_no}}
                   </p>
+                  <li>
+                    <p>
+                        @lang('common.section'): {{@$student->section->section_name}}
+                    </p>
+                    <p>
+                        @lang('common.group'): ___
+                    </p>
+                </li>
                 </li>
                 <li>
                   @if(@moduleStatusCheck('University'))
@@ -217,7 +250,7 @@
                     @lang('common.section'): {{@$student->section->section_name}}
                   </p> 
                   @endif 
-                  @if(moduleStatusCheck('University') || aramiscDirectFees())
+                  @if(moduleStatusCheck('University') || directFees())
                     @if(count($fees_assigneds) == 1)
                     <p>
                     @lang('fees.payment_id'):
@@ -231,8 +264,11 @@
             </th>
             <!-- space  -->
             <th class="border-0" rowspan="9"></th>
+          @endif
 
-            <!-- 2nd header  -->
+          
+          <!-- 2nd header  -->
+          @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <th colspan="2">
                   <div style="float:left; width:30%">
                     @if (file_exists($setting->logo))
@@ -257,6 +293,7 @@
                       <p>
                         @lang('student.student_name'): {{@$student->studentDetail->full_name}} 
                       </p>
+                      <p>@lang('bulkprint::bulk.invoice_no') : {{$invoice_no}}</p>
                     </li>
                     <li>
                       <p>
@@ -269,6 +306,14 @@
                       <p>
                         @lang('student.roll'):{{@$student->roll_no}}
                       </p>
+                      <li>
+                        <p>
+                            @lang('common.section'): {{@$student->section->section_name}}
+                        </p>
+                        <p>
+                            @lang('common.group'): ___
+                        </p>
+                    </li>
                     </li>
                     <li>
                       @if(moduleStatusCheck('University'))
@@ -276,12 +321,11 @@
                         @lang('common.section'): {{@$student->section->section_name}}
                       </p> 
                       @endif 
-                      @if(moduleStatusCheck('University') || aramiscDirectFees())
+                      @if(moduleStatusCheck('University') || directFees())
                       @if(count($fees_assigneds) == 1)
                       <p>
                       @lang('fees.payment_id'):
                         <strong> {{@universityFeesInvoice($feesInstallment->invoice_no)}}</strong>
-    
                       </p>
                       @endif
                       @endif 
@@ -289,8 +333,11 @@
                   </ul>
             </th>
 
-            <th class="border-0" rowspan="9"></th>
+          @endif
             <!-- space  -->
+
+          @if($invoiceSettings->per_th==3)
+          <th class="border-0" rowspan="9"></th>
 
             <!-- 3rd header  -->
             <th colspan="2">
@@ -317,6 +364,7 @@
                     <p>
                       @lang('student.student_name'): {{@$student->studentDetail->full_name}} 
                     </p>
+                    <p>@lang('bulkprint::bulk.invoice_no') : {{$invoice_no}}</p>
                   </li>
                   <li>
                     <p>
@@ -329,6 +377,14 @@
                     <p>
                       @lang('student.roll'):{{@$student->roll_no}}
                     </p>
+                    <li>
+                      <p>
+                          @lang('common.section'): {{@$student->section->section_name}}
+                      </p>
+                      <p>
+                          @lang('common.group'): ___
+                      </p>
+                  </li>
                   </li>
                   <li>
                     @if(moduleStatusCheck('University'))
@@ -336,7 +392,7 @@
                       @lang('common.section'): {{@$student->section->section_name}}
                     </p> 
                     @endif 
-                    @if(moduleStatusCheck('University') || aramiscDirectFees())
+                    @if(moduleStatusCheck('University') || directFees())
                     @if(count($fees_assigneds) == 1)
                     <p>
                     @lang('fees.payment_id'):
@@ -348,23 +404,32 @@
                   </li>
                 </ul>
             </th>
+          @endif
 
           </tr>
         </thead>
         <tbody>
             <tr>
               <!-- first header  -->
-                <th>@lang('fees.fees_details')</th>
-                <th>@lang('accounts.amount') ({{generalSetting()->currency_symbol}})</th>
+              @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+                <th class="text-right">@lang('fees.fees_details')</th>
+                <th class="text-right">@lang('accounts.amount') ({{generalSetting()->currency_symbol}})</th>
                 <!-- space  -->
                 <th class="border-0" rowspan="{{7+count($fees_assigneds)}}" ></th>
+              @endif
                 <!-- 2nd header  -->
-                <th>@lang('fees.fees_details')</th>
-                <th>@lang('accounts.amount') ({{generalSetting()->currency_symbol}})</th>
+              @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+
+                <th class="text-right">@lang('fees.fees_details')</th>
+                <th class="text-right">@lang('accounts.amount') ({{generalSetting()->currency_symbol}})</th>
                 <th class="border-0" rowspan="{{7+count($fees_assigneds)}}" ></th>
+              @endif
+
+              @if( $invoiceSettings->per_th==3)
                 <!-- 3rd header  -->
-                <th>@lang('fees.fees_details')</th>
-                <th>@lang('accounts.amount') ({{generalSetting()->currency_symbol}})</th>
+                <th class="text-right">@lang('fees.fees_details')</th>
+                <th class="text-right">@lang('accounts.amount') ({{generalSetting()->currency_symbol}})</th>
+              @endif
             </tr>
         @php
           $grand_total = 0;
@@ -391,6 +456,8 @@
       @endphp
       <tr>
           {{-- 1st warp start here  --}}
+          @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+
             <td class="border-top">
                 <p>
                   {{@$feesInstallment->installment->title }}
@@ -449,8 +516,12 @@
                 @endif
                 <br>
             </td>
+            @endif
+
           {{-- 1st warp End  --}}
-                    {{-- 1st warp start here  --}}
+
+                {{-- 2nd warp start here  --}}
+                @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
                     <td class="border-top">
                       <p>
                         {{@$feesInstallment->installment->title }}
@@ -509,8 +580,10 @@
                       @endif
                       <br>
                   </td>
-                {{-- 1st warp End  --}}
-                          {{-- 1st warp start here  --}}
+                @endif
+                {{-- 2nd warp End  --}}
+                      {{-- 3rd warp start here  --}}
+                      @if($invoiceSettings->per_th==3)
                           <td class="border-top">
                             <p>
                               {{@$feesInstallment->installment->title }}
@@ -569,7 +642,8 @@
                             @endif
                             <br>
                         </td>
-        {{-- 1st warp End  --}}
+                      @endif
+        {{-- 3rd warp End  --}}
       </tr>
       @endforeach
 
@@ -577,11 +651,13 @@
 
 
       {{-- direct fees start here --}}
-      @elseif(aramiscDirectFees())
+      
+      @elseif(directFees())
       @foreach($fees_assigneds as $feesInstallment)
       @php
-      if(($feesInstallment->active_status == 0)){
-        $totalpayable += discountFees($feesInstallment->id);
+      $activeStatus = $feesInstallment->active_status ?? null;
+      if($activeStatus === 0){
+          $totalpayable += discountFees($feesInstallment->id);
       }
       $grand_total += discountFees($feesInstallment->id); 
       $total_grand_paid +=  $feesInstallment->paid_amount;
@@ -589,6 +665,7 @@
       @endphp
       <tr>
           {{-- 1st warp start here  --}}
+          @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <td class="border-top">
                 <p>
                   {{@$feesInstallment->installment->title }}
@@ -625,9 +702,7 @@
                     </strong> 
                   </p>
 
-                @endif
-
-                  
+                @endif  
             </td>
             <td class="border-top" style="text-align: right">
                 {{number_format($feesInstallment->amount, 2, '.', '') }}
@@ -645,8 +720,12 @@
                 @endif
                 <br>
             </td>
+          @endif
+
           {{-- 1st warp End  --}}
-                    {{-- 1st warp start here  --}}
+          
+                  {{-- 2nd warp start here  --}}
+                  @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
                     <td class="border-top">
                       <p>
                         {{@$feesInstallment->installment->title }}
@@ -684,8 +763,6 @@
                         </p>
       
                       @endif
-      
-                        
                   </td>
                   <td class="border-top" style="text-align: right">
                       {{number_format($feesInstallment->amount, 2, '.', '') }}
@@ -703,8 +780,12 @@
                       @endif
                       <br>
                   </td>
-                {{-- 1st warp End  --}}
-                          {{-- 1st warp start here  --}}
+                @endif
+                {{-- 2nd warp End  --}}
+
+          {{-- 3rd warp start here  --}}
+          @if($invoiceSettings->per_th==3)
+
             <td class="border-top">
               <p>
                 {{@$feesInstallment->installment->title }}
@@ -761,6 +842,7 @@
               @endif
               <br>
           </td>
+        @endif
         {{-- 1st warp End  --}}
       </tr>
       @endforeach
@@ -775,10 +857,10 @@
               $total_discount += $discount_amount;
               $student_id = $fees_assigned->student_id;
               //Sum of total paid amount of single fees type
-              $paid = \App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('amount');
+              $paid = \App\AramiscFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('amount');
               $total_grand_paid += $paid;
               //Sum of total fine for single fees type
-            $fine = \App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('fine');
+            $fine = \App\AramiscFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id,$fees_assigned->student_id, $fees_assigned->record_id)->sum('fine');
             $total_fine += $fine;
             $total_paid = $discount_amount + $paid;
           @endphp
@@ -790,6 +872,8 @@
               $totalpayable+=$p_amount;
             @endphp
              <!-- first td wrap  -->
+            @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+
              {{-- @if ($p_amount>0) --}}
                 <td class="border-top">
                     <p>
@@ -841,10 +925,13 @@
                   {{number_format(@$p_amount, 2, '.', '')}}
                 </td>
              {{-- @endif --}}
+            @endif
           
 
             <!-- 2nd td wrap  -->
             {{-- @if ($p_amount>0) --}}
+          @if( $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+
             <td class="border-top">
               <p>
                 {{$fees_assigned->feesGroupMaster!=""?$fees_assigned->feesGroupMaster->feesGroups->name:""}} 
@@ -895,11 +982,12 @@
               <br>
               {{number_format(@$p_amount, 2, '.', '')}}
             </td>
-
+          @endif
             {{-- @endif --}}
 
             <!-- 3rd td wrap  -->
             {{-- @if ($p_amount>0) --}}
+          @if($invoiceSettings->per_th==3)
             <td class="border-top">
               <p>
                 {{$fees_assigned->feesGroupMaster!=""?$fees_assigned->feesGroupMaster->feesGroups->name:""}} 
@@ -950,6 +1038,8 @@
               <br>
               {{number_format(@$p_amount, 2, '.', '')}}
             </td>
+          @endif
+
             {{-- @endif --}}
           </tr>
           @endforeach
@@ -964,6 +1054,7 @@
               }
           @endphp
           <tr>
+          @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <td>
               <p>
                 <strong>
@@ -975,6 +1066,9 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) $grand_total, 2, '.', '')}} </strong>
              </td>
+            @endif
+
+          @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <td>
               <p>
                 <strong>
@@ -986,7 +1080,10 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) $grand_total, 2, '.', '')}} </strong>
              </td>
-            <!-- 3rd td wrap  -->
+          @endif
+
+          <!-- 3rd td wrap  -->
+          @if($invoiceSettings->per_th==3)
             <td>
               <p>
                 <strong>
@@ -998,10 +1095,13 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) $grand_total, 2, '.', '')}} </strong>
              </td>
+             @endif
           </tr>
 
 
           <tr>
+            @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+
             <td>
               <p>
                 <strong>
@@ -1013,6 +1113,9 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) $total_grand_paid, 2, '.', '')}} </strong>
              </td>
+            @endif
+
+            @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <td>
               <p>
                 <strong>
@@ -1024,7 +1127,10 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) $total_grand_paid, 2, '.', '')}} </strong>
              </td>
+
+            @endif
             <!-- 3rd td wrap  -->
+            @if($invoiceSettings->per_th==3)
             <td>
               <p>
                 <strong>
@@ -1036,9 +1142,11 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) $total_grand_paid, 2, '.', '')}} </strong>
              </td>
+            @endif
           </tr>
 
           <tr>
+            @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <td>
               <p>
                 <strong>
@@ -1050,6 +1158,9 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) ($grand_total - $total_grand_paid - $discount_amount), 2, '.', '')}} </strong>
              </td>
+            @endif
+
+            @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
             <td>
               <p>
                 <strong>
@@ -1061,6 +1172,9 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) ($grand_total - $total_grand_paid - $discount_amount), 2, '.', '')}} </strong>
              </td>
+             @endif
+
+            @if($invoiceSettings->per_th==3)
             <!-- 3rd td wrap  -->
             <td>
               <p>
@@ -1073,26 +1187,38 @@
               {{-- {{ number_format((float) $unapplied_discount_amount, 2, '.', '')}}<br> --}}
               <strong> {{ number_format((float) ($grand_total - $total_grand_paid - $discount_amount), 2, '.', '')}} </strong>
              </td>
+             @endif
           </tr>
           
           <tr>
           </tr>
 
           <tr>
+            @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+
                 <td colspan="2" >
                   @lang('fees.if_unpaid_admission_will_be_cancelled_after')
                 </td>
+              @endif
+
+              @if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+
                 <!-- 2nd td wrap  -->
                 <td colspan="2" >
                   @lang('fees.if_unpaid_admission_will_be_cancelled_after')
                 </td>
+              @endif
+
+              @if($invoiceSettings->per_th==3)
                 <!-- 3rd td wrap  -->
                 <td colspan="2" >
                   @lang('fees.if_unpaid_admission_will_be_cancelled_after')
                 </td>
+              @endif
           </tr>
 
           <tr>
+            @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
                 <td colspan="2">
                   <p class="parents_num text_center"> 
                     @lang('fees.parents_phone_number') : 
@@ -1101,8 +1227,10 @@
                     </span> 
                   </p>
                 </td>
-                
-                <!-- 2nd td wrap  -->
+              @endif
+
+              <!-- 2nd td wrap  -->
+              @if( $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
                 <td colspan="2">
                   <p class="parents_num text_center"> 
                     @lang('fees.parents_phone_number') : 
@@ -1111,7 +1239,10 @@
                     </span> 
                   </p>
                 </td>
-                <!-- 2nd td wrap  -->
+              @endif
+
+              <!-- 3rd td wrap  -->
+              @if($invoiceSettings->per_th==3)
                 <td colspan="2">
                   <p class="parents_num text_center"> 
                     @lang('fees.parents_phone_number') : 
@@ -1120,50 +1251,80 @@
                     </span> 
                   </p>
                 </td>
+              @endif
           </tr>
         </tbody>
       </table>
     </div>
 <footer class="footer" >
-  <div class="footer_widget">
-    <ul class="copyies_text">
-      <li>@lang('fees.parent/student')</li>
-      <li>@lang('fees.cashier')</li>
-      <li>@lang('fees.officer')</li>
-    </ul>
-    <p class="copy_collect">
-      @lang('fees.parent/student_copy')
-    </p>
-  </div>
+  @if($invoiceSettings->per_th==1 || $invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
   <div class="footer_widget">
       <ul class="copyies_text">
-        <li>@lang('fees.parent/student')</li>
-        <li>
-          @lang('fees.cashier')
-        </li>
-        <li>
-          @lang('fees.officer')
-        </li>
+          @if(!empty($invoiceSettings->footer_1) && $invoiceSettings->signature_p==1)  <li> {{$invoiceSettings->footer_1 !='' ? $invoiceSettings->footer_1 :''}}</li> @endif
+          @if(!empty($invoiceSettings->footer_2) && $invoiceSettings->signature_c==1)  <li> {{$invoiceSettings->footer_2 !='' ? $invoiceSettings->footer_2 :''}}</li> @endif
+          @if(!empty($invoiceSettings->footer_3) && $invoiceSettings->signature_o==1)  <li> {{$invoiceSettings->footer_3 !='' ? $invoiceSettings->footer_3 :''}}</li> @endif
+
       </ul>
       <p class="copy_collect">
-        @lang('fees.parent/student_copy')
+
+
+          @if(!empty($invoiceSettings->copy_s) && $invoiceSettings->c_signature_p==1)
+              {{ $invoiceSettings->copy_s }} @lang('common.copy')
+          @elseif(!empty($invoiceSettings->copy_o) && $invoiceSettings->c_signature_o==1)
+              {{ $invoiceSettings->copy_o }} @lang('common.copy')
+          @elseif(!empty($invoiceSettings->copy_c) && $invoiceSettings->c_signature_c==1)
+              {{ $invoiceSettings->copy_c }} @lang('common.copy')
+          @else
+              @lang('fees.parent_student_copy')
+          @endif
+
       </p>
-    </div>
-    <div class="footer_widget">
-        <ul class="copyies_text">
-          <li>@lang('fees.parent/student')</li>
-          <li>
-            @lang('fees.cashier')
-          </li>
-          <li>
-            @lang('fees.officer')
-          </li>
-        </ul>
-        <p class="copy_collect">
-          @lang('fees.parent/student_copy')
-        </p>
-      </div>
+  </div>
+@endif
+@if($invoiceSettings->per_th==2 || $invoiceSettings->per_th==3)
+  <div class="footer_widget">
+      <ul class="copyies_text">
+          @if(!empty($invoiceSettings->footer_1) && $invoiceSettings->signature_p==1)  <li> {{$invoiceSettings->footer_1 !='' ? $invoiceSettings->footer_1 :''}}</li> @endif
+          @if(!empty($invoiceSettings->footer_2) && $invoiceSettings->signature_c==1)  <li> {{$invoiceSettings->footer_2 !='' ? $invoiceSettings->footer_2 :''}}</li> @endif
+          @if(!empty($invoiceSettings->footer_3) && $invoiceSettings->signature_o==1)  <li> {{$invoiceSettings->footer_3 !='' ? $invoiceSettings->footer_3 :''}}</li> @endif
+      </ul>
+      <p class="copy_collect">
+
+
+          @if(!empty($invoiceSettings->copy_o) && $invoiceSettings->c_signature_o==1)
+              {{ $invoiceSettings->copy_o }} @lang('common.copy')
+          @elseif(!empty($invoiceSettings->copy_c) && $invoiceSettings->c_signature_c==1)
+              {{ $invoiceSettings->copy_c }} @lang('common.copy')
+          @elseif(!empty($invoiceSettings->copy_p) && $invoiceSettings->c_signature_p==1)
+              {{ $invoiceSettings->copy_p }} @lang('common.copy')
+          @else
+              @lang('fees.office_copy')
+          @endif
+      </p>
+  </div>
+@endif
+@if($invoiceSettings->per_th==3)
+  <div class="footer_widget">
+      <ul class="copyies_text">
+          @if(!empty($invoiceSettings->footer_1) && $invoiceSettings->signature_p==1)  <li> {{$invoiceSettings->footer_1 !='' ? $invoiceSettings->footer_1 :''}}</li> @endif
+          @if(!empty($invoiceSettings->footer_2) && $invoiceSettings->signature_c==1)  <li> {{$invoiceSettings->footer_2 !='' ? $invoiceSettings->footer_2 :''}}</li> @endif
+          @if(!empty($invoiceSettings->footer_3) && $invoiceSettings->signature_o==1)  <li> {{$invoiceSettings->footer_3 !='' ? $invoiceSettings->footer_3 :''}}</li> @endif
+      </ul>
+      <p class="copy_collect">
+          @if(!empty($invoiceSettings->copy_c) && $invoiceSettings->c_signature_c==1)
+              {{ $invoiceSettings->copy_c }} @lang('common.copy')
+
+          @else
+
+          @endif
+      </p>
+  </div>
+@endif
+
 </footer>
+
+</div>
+</div>
   <script>
     function printInvoice() {
       window.print();

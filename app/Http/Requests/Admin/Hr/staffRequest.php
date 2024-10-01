@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Admin\Hr;
 
-use App\SmStaff;
+use App\AramiscStaff;
 use App\Traits\CustomFields;
 use Illuminate\Validation\Rule;
-use App\Models\SmStaffRegistrationField;
+use App\Models\AramiscStaffRegistrationField;
 use Illuminate\Foundation\Http\FormRequest;
 
 class staffRequest extends FormRequest
@@ -37,12 +37,12 @@ class staffRequest extends FormRequest
         }
         $school_id = auth()->user()->school_id;
         if ($id) {
-            $staff = SmStaff::withOutGlobalScopes()->where('school_id', $school_id)->findOrFail($id);
+            $staff = AramiscStaff::withOutGlobalScopes()->where('school_id', $school_id)->findOrFail($id);
         }
 
         $academic_id = getAcademicId();
 
-        $field = SmStaffRegistrationField::where('school_id', $school_id);
+        $field = AramiscStaffRegistrationField::where('school_id', $school_id);
         if($staff && auth()->user()->staff->id == $staff->id){
             $field = $field->where('staff_edit', 1)->where('is_required', 1);
         } else{

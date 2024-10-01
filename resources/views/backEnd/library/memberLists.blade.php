@@ -45,7 +45,7 @@
                   <td>
   
                     @if($value->member_type == '2')
-                        {{$value->aramiscStudentDetails != ""? $value->aramiscStudentDetails->full_name:''}}
+                        {{$value->studentDetails != ""? $value->studentDetails->full_name:''}}
                     @elseif($value->member_type == '3')
                    
                         {{$value->parentsDetails != ""? $value->parentsDetails->fathers_name ? $value->parentsDetails->fathers_name : $value->parentsDetails->guardians_name  :'No Name'}}
@@ -58,7 +58,7 @@
                   <td>{{$value->memberTypes->name}}</td>
                   <td>
                     @if($value->member_type == '2')
-                        {{$value->aramiscStudentDetails != ""? $value->aramiscStudentDetails->mobile:''}}
+                        {{$value->studentDetails != ""? $value->studentDetails->mobile:''}}
                     @elseif($value->member_type == '3')
                         {{$value->parentsDetails != ""? $value->parentsDetails->fathers_mobile:''}}
                     @else
@@ -68,7 +68,7 @@
                     </td>
                   <td>
                     @if($value->member_type == '2')
-                        {{$value->aramiscStudentDetails != ""? $value->aramiscStudentDetails->email:''}}
+                        {{$value->studentDetails != ""? $value->studentDetails->email:''}}
                     @elseif($value->member_type == '3')
                         {{$value->parentsDetails != ""? $value->parentsDetails->guardians_email:''}}
                     @else

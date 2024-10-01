@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\SmTestimonial;
+use App\AramiscTestimonial;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -23,7 +23,7 @@ class Testimonial extends Component
      */
     public function render(): View|Closure|string
     {
-        $testimonials = SmTestimonial::query();
+        $testimonials = AramiscTestimonial::query();
         $testimonials ->where('school_id', app('school')->id);
         if($this->sorting =='asc'){
             $testimonials->orderBy('id','asc');

@@ -1,14 +1,14 @@
 <?php
 
 
-use App\SmStaff;
-use App\SmSchool;
-use App\SmBaseSetup;
+use App\AramiscStaff;
+use App\AramiscSchool;
+use App\AramiscBaseSetup;
 use App\Models\Theme;
-use App\SmNotification;
-use App\SmGeneralSettings;
-use App\AramiscModuleManager;
-use App\SmHeaderMenuManager;
+use App\AramiscNotification;
+use App\AramiscGeneralSettings;
+use App\InfixModuleManager;
+use App\AramiscHeaderMenuManager;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -20,18 +20,21 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Modules\MenuManage\Entities\Sidebar;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\InfixModuleInfo;
 use App\Http\Controllers\TeacherEvaluationController;
 use Modules\RolePermission\Entities\AssignPermission;
-use App\Http\Controllers\SmAcademicCalendarController;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use App\Http\Controllers\AramiscAcademicCalendarController;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 use App\Http\Controllers\TeacherEvaluationReportController;
 use App\Http\Controllers\Admin\SystemSettings\PluginController;
-use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
+use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
 use App\Http\Controllers\Admin\FrontSettings\ThemeManageController;
-use App\Http\Controllers\Admin\FeesCollection\SmFeesCarryForwardController;
+use App\Http\Controllers\Admin\FeesCollection\AramiscFeesCarryForwardController;
 use App\Http\Controllers\Admin\FeesCollection\DueFeesLoginPermissionController;
+use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 Route::get('checkForeignKey', 'HomeController@checkForeignKey')->name('checkForeignKey');
 
 //ADMIN
@@ -40,7 +43,6 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('reg', function () {
     dd('hello');
 });
-
 
 Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
@@ -68,7 +70,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             return redirect()->back();
         })->name('download-holiday-document');
 
-        Route::get('get-other-days-ajax', 'Admin\Academics\SmClassRoutineNewController@getOtherDaysAjax');
+        Route::get('get-other-days-ajax', 'Admin\Academics\AramiscClassRoutineNewController@getOtherDaysAjax');
 
 
         /* ******************* Dashboard Setting ***************************** */
@@ -82,7 +84,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('set-fcm_key', 'Admin\SystemSettings\SmSystemSettingController@setFCMkey')->name('set_fcm_key');
         /* ******************* Dashboard Setting ***************************** */
 
-        Route::get('delete-student-document/{id}', ['as' => 'delete-student-document', 'uses' => 'SmStudentAdmissionController@deleteDocument']);
+        Route::get('delete-student-document/{id}', ['as' => 'delete-student-document', 'uses' => 'AramiscStudentAdmissionController@deleteDocument']);
 
 
         Route::view('/admin-setup', 'frontEnd.admin_setup');
@@ -149,8 +151,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Role Permission
-        // Route::get('assign-permission/{id}', ['as' => 'assign_permission', 'uses' => 'SmRolePermissionController@assignPermission']);
-        // Route::post('role-permission-store', ['as' => 'role_permission_store', 'uses' => 'SmRolePermissionController@rolePermissionStore']);
+        // Route::get('assign-permission/{id}', ['as' => 'assign_permission', 'uses' => 'AramiscRolePermissionController@assignPermission']);
+        // Route::post('role-permission-store', ['as' => 'role_permission_store', 'uses' => 'AramiscRolePermissionController@rolePermissionStore']);
 
 
         // Module Permission
@@ -167,189 +169,189 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('user-create', ['as' => 'user_create', 'uses' => 'UserController@create']);
 
         // Base group
-        // Route::get('base-group', ['as' => 'base_group', 'uses' => 'SmBaseGroupController@index']);
-        // Route::post('base-group-store', ['as' => 'base_group_store', 'uses' => 'SmBaseGroupController@store']);
-        // Route::get('base-group-edit/{id}', ['as' => 'base_group_edit', 'uses' => 'SmBaseGroupController@edit']);
-        // Route::post('base-group-update', ['as' => 'base_group_update', 'uses' => 'SmBaseGroupController@update']);
-        // Route::get('base-group-delete/{id}', ['as' => 'base_group_delete', 'uses' => 'SmBaseGroupController@delete']);
+        // Route::get('base-group', ['as' => 'base_group', 'uses' => 'AramiscBaseGroupController@index']);
+        // Route::post('base-group-store', ['as' => 'base_group_store', 'uses' => 'AramiscBaseGroupController@store']);
+        // Route::get('base-group-edit/{id}', ['as' => 'base_group_edit', 'uses' => 'AramiscBaseGroupController@edit']);
+        // Route::post('base-group-update', ['as' => 'base_group_update', 'uses' => 'AramiscBaseGroupController@update']);
+        // Route::get('base-group-delete/{id}', ['as' => 'base_group_delete', 'uses' => 'AramiscBaseGroupController@delete']);
 
         // Base setup
-        Route::get('base-setup', ['as' => 'base_setup', 'uses' => 'Admin\SystemSettings\SmBaseSetupController@index'])->middleware('userRolePermission:base_setup');
-        Route::post('base-setup-store', ['as' => 'base_setup_store', 'uses' => 'Admin\SystemSettings\SmBaseSetupController@store'])->middleware('userRolePermission:base_setup_store');
-        Route::get('base-setup-edit/{id}', ['as' => 'base_setup_edit', 'uses' => 'Admin\SystemSettings\SmBaseSetupController@edit'])->middleware('userRolePermission:base_setup_edit');
-        Route::post('base-setup-update', ['as' => 'base_setup_update', 'uses' => 'Admin\SystemSettings\SmBaseSetupController@update'])->middleware('userRolePermission:base_setup_edit');
-        Route::post('base-setup-delete', ['as' => 'base_setup_delete', 'uses' => 'Admin\SystemSettings\SmBaseSetupController@delete'])->middleware('userRolePermission:base_setup_delete');
+        Route::get('base-setup', ['as' => 'base_setup', 'uses' => 'Admin\SystemSettings\AramiscBaseSetupController@index'])->middleware('userRolePermission:base_setup');
+        Route::post('base-setup-store', ['as' => 'base_setup_store', 'uses' => 'Admin\SystemSettings\AramiscBaseSetupController@store'])->middleware('userRolePermission:base_setup_store');
+        Route::get('base-setup-edit/{id}', ['as' => 'base_setup_edit', 'uses' => 'Admin\SystemSettings\AramiscBaseSetupController@edit'])->middleware('userRolePermission:base_setup_edit');
+        Route::post('base-setup-update', ['as' => 'base_setup_update', 'uses' => 'Admin\SystemSettings\AramiscBaseSetupController@update'])->middleware('userRolePermission:base_setup_edit');
+        Route::post('base-setup-delete', ['as' => 'base_setup_delete', 'uses' => 'Admin\SystemSettings\AramiscBaseSetupController@delete'])->middleware('userRolePermission:base_setup_delete');
 
         //// Academics Routing
 
         // Class route
-        Route::get('class', ['as' => 'class', 'uses' => 'Admin\Academics\SmClassController@index'])->middleware('userRolePermission:class');
-        Route::post('class-store', ['as' => 'class_store', 'uses' => 'Admin\Academics\SmClassController@store'])->middleware('userRolePermission:class_store');
-        Route::get('class-edit/{id}', ['as' => 'class_edit', 'uses' => 'Admin\Academics\SmClassController@edit'])->middleware('userRolePermission:class_edit');
-        Route::post('class-update', ['as' => 'class_update', 'uses' => 'Admin\Academics\SmClassController@update'])->middleware('userRolePermission:class_edit');
-        Route::get('class-delete/{id}', ['as' => 'class_delete', 'uses' => 'Admin\Academics\SmClassController@delete'])->middleware('userRolePermission:class_delete');
+        Route::get('class', ['as' => 'class', 'uses' => 'Admin\Academics\AramiscClassController@index'])->middleware('userRolePermission:class');
+        Route::post('class-store', ['as' => 'class_store', 'uses' => 'Admin\Academics\AramiscClassController@store'])->middleware('userRolePermission:class_store');
+        Route::get('class-edit/{id}', ['as' => 'class_edit', 'uses' => 'Admin\Academics\AramiscClassController@edit'])->middleware('userRolePermission:class_edit');
+        Route::post('class-update', ['as' => 'class_update', 'uses' => 'Admin\Academics\AramiscClassController@update'])->middleware('userRolePermission:class_edit');
+        Route::get('class-delete/{id}', ['as' => 'class_delete', 'uses' => 'Admin\Academics\AramiscClassController@delete'])->middleware('userRolePermission:class_delete');
 
 
         //*********************************************** START SUBJECT WISE ATTENDANCE ****************************************************** */
-        Route::get('subject-wise-aramiscAttendance',  'Admin\StudentInfo\SmSubjectAttendanceController@index')->name('subject-wise-aramiscAttendance')->middleware('userRolePermission:subject-wise-aramiscAttendance');
-        Route::get('subject-aramiscAttendance-search',  'Admin\StudentInfo\SmSubjectAttendanceController@search')->name('subject-aramiscAttendance-search');
-        Route::post('subject-aramiscAttendance-store',  'Admin\StudentInfo\SmSubjectAttendanceController@storeAttendance')->name('subject-aramiscAttendance-store')->middleware('userRolePermission:student-aramiscAttendance-store');
-        Route::post('subject-aramiscAttendance-store-second',  'Admin\StudentInfo\SmSubjectAttendanceController@storeAttendanceSecond')->name('subject-aramiscAttendance-store-second')->middleware('userRolePermission:student-aramiscAttendance-store');
-        Route::post('student-subject-holiday-store',  'Admin\StudentInfo\SmSubjectAttendanceController@subjectHolidayStore')->name('student-subject-holiday-store');
+        Route::get('subject-wise-attendance',  'Admin\StudentInfo\AramiscSubjectAttendanceController@index')->name('subject-wise-attendance')->middleware('userRolePermission:subject-wise-attendance');
+        Route::get('subject-attendance-search',  'Admin\StudentInfo\AramiscSubjectAttendanceController@search')->name('subject-attendance-search');
+        Route::post('subject-attendance-store',  'Admin\StudentInfo\AramiscSubjectAttendanceController@storeAttendance')->name('subject-attendance-store')->middleware('userRolePermission:student-attendance-store');
+        Route::post('subject-attendance-store-second',  'Admin\StudentInfo\AramiscSubjectAttendanceController@storeAttendanceSecond')->name('subject-attendance-store-second')->middleware('userRolePermission:student-attendance-store');
+        Route::post('student-subject-holiday-store',  'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectHolidayStore')->name('student-subject-holiday-store');
 
 
         // Student Attendance Report
-        Route::get('subject-aramiscAttendance-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReport')->name('subject-aramiscAttendance-report')->middleware('userRolePermission:subject-aramiscAttendance-report');
-        Route::post('subject-aramiscAttendance-report-search', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportSearch')->name('subject-aramiscAttendance-report-search');
-        Route::get('subject-aramiscAttendance-report-search', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReport');
+        Route::get('subject-attendance-report', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceReport')->name('subject-attendance-report')->middleware('userRolePermission:subject-attendance-report');
+        Route::post('subject-attendance-report-search', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceReportSearch')->name('subject-attendance-report-search');
+        Route::get('subject-attendance-report-search', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceReport');
 
-        Route::get('subject-aramiscAttendance-average-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceAverageReport');
-        Route::post('subject-aramiscAttendance-average-report', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceAverageReportSearch');
+        Route::get('subject-attendance-average-report', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceAverageReport');
+        Route::post('subject-attendance-average-report', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceAverageReportSearch');
 
-        // Route::get('subject-aramiscAttendance-report/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportPrint');
-        Route::get('subject-aramiscAttendance-average/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportAveragePrint')->name('subject-average-aramiscAttendance/print')->middleware('userRolePermission:subject-aramiscAttendance/print');
+        // Route::get('subject-attendance-report/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceReportPrint');
+        Route::get('subject-attendance-average/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceReportAveragePrint')->name('subject-average-attendance/print')->middleware('userRolePermission:subject-attendance/print');
 
         // for university module
 
-        Route::get('un-subject-aramiscAttendance-average/print/{semester_label_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@unSubjectAttendanceReportAveragePrint')->name('un-subject-average-aramiscAttendance/print')->middleware('userRolePermission:subject-aramiscAttendance/print');
+        Route::get('un-subject-attendance-average/print/{semester_label_id}/{month}/{year}', 'Admin\StudentInfo\AramiscSubjectAttendanceController@unSubjectAttendanceReportAveragePrint')->name('un-subject-average-attendance/print')->middleware('userRolePermission:subject-attendance/print');
 
-        Route::get('subject-aramiscAttendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmSubjectAttendanceController@subjectAttendanceReportPrint')->name('subject-aramiscAttendance/print')->middleware('userRolePermission:subject-aramiscAttendance/print');
+        Route::get('subject-attendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\AramiscSubjectAttendanceController@subjectAttendanceReportPrint')->name('subject-attendance/print')->middleware('userRolePermission:subject-attendance/print');
         //*********************************************** END SUBJECT WISE ATTENDANCE ****************************************************** */
 
 
 
         // Student Attendance Report
-        Route::get('student-aramiscAttendance-report', ['as' => 'student_aramiscAttendance_report', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceReportController@index'])->middleware('userRolePermission:student_aramiscAttendance_report');
-        Route::post('student-aramiscAttendance-report-search', ['as' => 'student_aramiscAttendance_report_search', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceReportController@search']);
-        Route::get('student-aramiscAttendance-report-search', 'Admin\StudentInfo\SmStudentAttendanceReportController@index');
-        Route::get('student-aramiscAttendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\SmStudentAttendanceReportController@print')->name('student-aramiscAttendance-print');
+        Route::get('student-attendance-report', ['as' => 'student_attendance_report', 'uses' => 'Admin\StudentInfo\AramiscStudentAttendanceReportController@index'])->middleware('userRolePermission:student_attendance_report');
+        Route::post('student-attendance-report-search', ['as' => 'student_attendance_report_search', 'uses' => 'Admin\StudentInfo\AramiscStudentAttendanceReportController@search']);
+        Route::get('student-attendance-report-search', 'Admin\StudentInfo\AramiscStudentAttendanceReportController@index');
+        Route::get('student-attendance/print/{class_id}/{section_id}/{month}/{year}', 'Admin\StudentInfo\AramiscStudentAttendanceReportController@print')->name('student-attendance-print');
 
 
         // for university module
-        Route::get('un-student-aramiscAttendance/print/{semester_id}/{month}/{year}', 'Admin\StudentInfo\SmStudentAttendanceReportController@unPrint')->name('un-student-aramiscAttendance-print');
+        Route::get('un-student-attendance/print/{semester_id}/{month}/{year}', 'Admin\StudentInfo\AramiscStudentAttendanceReportController@unPrint')->name('un-student-attendance-print');
         //Class Section routes
-        Route::get('optional-subject',  'Admin\SystemSettings\SmOptionalSubjectAssignController@index')->name('optional-subject')->middleware('userRolePermission:optional-subject');
+        Route::get('optional-subject',  'Admin\SystemSettings\AramiscOptionalSubjectAssignController@index')->name('optional-subject')->middleware('userRolePermission:optional-subject');
 
-        Route::any('assign-optional-subject',  'Admin\SystemSettings\SmOptionalSubjectAssignController@assignOptionalSubjectSearch')->name('assign_optional_subject_search');
-        Route::any('assign-optional-subject-search',  'Admin\SystemSettings\SmOptionalSubjectAssignController@assignOptionalSubject');
-        Route::post('assign-optional-subject-store',  'Admin\SystemSettings\SmOptionalSubjectAssignController@assignOptionalSubjectStore')->name('assign-optional-subject-store');
+        Route::any('assign-optional-subject',  'Admin\SystemSettings\AramiscOptionalSubjectAssignController@assignOptionalSubjectSearch')->name('assign_optional_subject_search');
+        Route::any('assign-optional-subject-search',  'Admin\SystemSettings\AramiscOptionalSubjectAssignController@assignOptionalSubject');
+        Route::post('assign-optional-subject-store',  'Admin\SystemSettings\AramiscOptionalSubjectAssignController@assignOptionalSubjectStore')->name('assign-optional-subject-store');
 
 
-        Route::get('section', ['as' => 'section', 'uses' => 'Admin\Academics\SmSectionController@index'])->middleware('userRolePermission:section');
+        Route::get('section', ['as' => 'section', 'uses' => 'Admin\Academics\AramiscSectionController@index'])->middleware('userRolePermission:section');
 
-        Route::post('section-store', ['as' => 'section_store', 'uses' => 'Admin\Academics\SmSectionController@store'])->middleware('userRolePermission:section_store');
-        Route::get('section-edit/{id}', ['as' => 'section_edit', 'uses' => 'Admin\Academics\SmSectionController@edit'])->middleware('userRolePermission:section_edit');
-        Route::post('section-update', ['as' => 'section_update', 'uses' => 'Admin\Academics\SmSectionController@update'])->middleware('userRolePermission:section_edit');
-        Route::get('section-delete/{id}', ['as' => 'section_delete', 'uses' => 'Admin\Academics\SmSectionController@delete'])->middleware('userRolePermission:section_delete');
+        Route::post('section-store', ['as' => 'section_store', 'uses' => 'Admin\Academics\AramiscSectionController@store'])->middleware('userRolePermission:section_store');
+        Route::get('section-edit/{id}', ['as' => 'section_edit', 'uses' => 'Admin\Academics\AramiscSectionController@edit'])->middleware('userRolePermission:section_edit');
+        Route::post('section-update', ['as' => 'section_update', 'uses' => 'Admin\Academics\AramiscSectionController@update'])->middleware('userRolePermission:section_edit');
+        Route::get('section-delete/{id}', ['as' => 'section_delete', 'uses' => 'Admin\Academics\AramiscSectionController@delete'])->middleware('userRolePermission:section_delete');
 
         // Subject routes
-        Route::get('subject', ['as' => 'subject', 'uses' => 'Admin\Academics\SmSubjectController@index'])->middleware('userRolePermission:subject');
-        Route::post('subject-store', ['as' => 'subject_store', 'uses' => 'Admin\Academics\SmSubjectController@store'])->middleware('userRolePermission:subject_store');
-        Route::get('subject-edit/{id}', ['as' => 'subject_edit', 'uses' => 'Admin\Academics\SmSubjectController@edit'])->middleware('userRolePermission:subject_edit');
-        Route::post('subject-update', ['as' => 'subject_update', 'uses' => 'Admin\Academics\SmSubjectController@update'])->middleware('userRolePermission:subject_edit');
-        Route::get('subject-delete/{id}', ['as' => 'subject_delete', 'uses' => 'Admin\Academics\SmSubjectController@delete'])->middleware('userRolePermission:subject_delete');
+        Route::get('subject', ['as' => 'subject', 'uses' => 'Admin\Academics\AramiscSubjectController@index'])->middleware('userRolePermission:subject');
+        Route::post('subject-store', ['as' => 'subject_store', 'uses' => 'Admin\Academics\AramiscSubjectController@store'])->middleware('userRolePermission:subject_store');
+        Route::get('subject-edit/{id}', ['as' => 'subject_edit', 'uses' => 'Admin\Academics\AramiscSubjectController@edit'])->middleware('userRolePermission:subject_edit');
+        Route::post('subject-update', ['as' => 'subject_update', 'uses' => 'Admin\Academics\AramiscSubjectController@update'])->middleware('userRolePermission:subject_edit');
+        Route::get('subject-delete/{id}', ['as' => 'subject_delete', 'uses' => 'Admin\Academics\AramiscSubjectController@delete'])->middleware('userRolePermission:subject_delete');
 
         //Class Routine
-        // Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'SmAcademicsController@aramiscClassRoutine']);
-        // Route::get('class-routine-create', ['as' => 'class_routine_create', 'uses' => 'SmAcademicsController@aramiscClassRoutineCreate']);
-        Route::get('ajaxSelectSubject', 'SmAcademicsController@ajaxSelectSubject');
+        // Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'AramiscAcademicsController@classRoutine']);
+        // Route::get('class-routine-create', ['as' => 'class_routine_create', 'uses' => 'AramiscAcademicsController@classRoutineCreate']);
+        Route::get('ajaxSelectSubject', 'AramiscAcademicsController@ajaxSelectSubject');
         Route::get('ajaxSelectCurrency', 'Admin\SystemSettings\SmSystemSettingController@ajaxSelectCurrency');
 
-        // Route::post('assign-routine-search', 'SmAcademicsController@aramiscAssignRoutineSearch');
-        // Route::get('assign-routine-search', 'SmAcademicsController@aramiscClassRoutine');
-        // Route::post('assign-routine-store', 'SmAcademicsController@aramiscAssignRoutineStore');
-        // Route::post('class-routine-report-search', 'SmAcademicsController@aramiscClassRoutineReportSearch');
-        // Route::get('class-routine-report-search', 'SmAcademicsController@aramiscClassRoutineReportSearch');
+        // Route::post('assign-routine-search', 'AramiscAcademicsController@assignRoutineSearch');
+        // Route::get('assign-routine-search', 'AramiscAcademicsController@classRoutine');
+        // Route::post('assign-routine-store', 'AramiscAcademicsController@assignRoutineStore');
+        // Route::post('class-routine-report-search', 'AramiscAcademicsController@classRoutineReportSearch');
+        // Route::get('class-routine-report-search', 'AramiscAcademicsController@classRoutineReportSearch');
 
 
         // class routine new
 
-        Route::get('class-routine-new', ['as' => 'class_routine_new', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutine'])->middleware('userRolePermission:class_routine');
+        Route::get('class-routine-new', ['as' => 'class_routine_new', 'uses' => 'Admin\Academics\AramiscClassRoutineNewController@classRoutine'])->middleware('userRolePermission:class_routine');
 
 
 
 
-        // Route::post('class-routine-new', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineSearch')->name('class_routine_new');
-        Route::get('add-new-routine/{class_time_id}/{day}/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@aramiscAddNewClassRoutine')->name('add-new-routine')->middleware('userRolePermission:add-new-class-routine-store');
+        // Route::post('class-routine-new', 'Admin\Academics\AramiscClassRoutineNewController@classRoutineSearch')->name('class_routine_new');
+        Route::get('add-new-routine/{class_time_id}/{day}/{class_id}/{section_id}', 'Admin\Academics\AramiscClassRoutineNewController@addNewClassRoutine')->name('add-new-routine')->middleware('userRolePermission:add-new-class-routine-store');
 
-        Route::post('add-new-class-routine-store', 'Admin\Academics\SmClassRoutineNewController@aramiscAddNewClassRoutineStore')->name('add-new-class-routine-store')->middleware('userRolePermission:add-new-class-routine-store');
+        Route::post('add-new-class-routine-store', 'Admin\Academics\AramiscClassRoutineNewController@addNewClassRoutineStore')->name('add-new-class-routine-store')->middleware('userRolePermission:add-new-class-routine-store');
 
 
-        Route::get('get-class-teacher-ajax', 'Admin\Academics\SmClassRoutineNewController@getClassTeacherAjax');
-        Route::get('delete-class-routine/{id}', 'Admin\Academics\SmClassRoutineNewController@aramiscDeleteClassRoutine')->name('delete-class-routine')->middleware('userRolePermission:delete-class-routine');
+        Route::get('get-class-teacher-ajax', 'Admin\Academics\AramiscClassRoutineNewController@getClassTeacherAjax');
+        Route::get('delete-class-routine/{id}', 'Admin\Academics\AramiscClassRoutineNewController@deleteClassRoutine')->name('delete-class-routine')->middleware('userRolePermission:delete-class-routine');
 
-        Route::get('class-routine-new/{class_id}/{section_id}', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineRedirect');
+        Route::get('class-routine-new/{class_id}/{section_id}', 'Admin\Academics\AramiscClassRoutineNewController@classRoutineRedirect');
 
-        Route::post('delete-class-routine', 'Admin\Academics\SmClassRoutineNewController@destroyClassRoutine')->name('destroy-class-routine')->middleware('userRolePermission:delete-class-routine');
+        Route::post('delete-class-routine', 'Admin\Academics\AramiscClassRoutineNewController@destroyClassRoutine')->name('destroy-class-routine')->middleware('userRolePermission:delete-class-routine');
         //Student Panel
 
-        Route::get('print-teacher-routine/{teacher_id}', 'Admin\Academics\SmClassRoutineNewController@printTeacherRoutine')->name('print-teacher-routine');
-        Route::get('view-teacher-routine', 'teacher\SmAcademicsController@viewTeacherRoutine')->name('view-teacher-routine');
+        Route::get('print-teacher-routine/{teacher_id}', 'Admin\Academics\AramiscClassRoutineNewController@printTeacherRoutine')->name('print-teacher-routine');
+        Route::get('view-teacher-routine', 'teacher\AramiscAcademicsController@viewTeacherRoutine')->name('view-teacher-routine');
 
         //assign subject
-        Route::get('assign-subject', ['as' => 'assign_subject', 'uses' => 'Admin\Academics\SmAssignSubjectController@index'])->middleware('userRolePermission:assign_subject');
+        Route::get('assign-subject', ['as' => 'assign_subject', 'uses' => 'Admin\Academics\AramiscAssignSubjectController@index'])->middleware('userRolePermission:assign_subject');
 
-        Route::get('assign-subject-create', ['as' => 'assign_subject_create', 'uses' => 'Admin\Academics\SmAssignSubjectController@create'])->middleware('userRolePermission:assign-subject-store');
+        Route::get('assign-subject-create', ['as' => 'assign_subject_create', 'uses' => 'Admin\Academics\AramiscAssignSubjectController@create'])->middleware('userRolePermission:assign-subject-store');
 
-        Route::post('assign-subject-search', ['as' => 'assign_subject_search', 'uses' => 'Admin\Academics\SmAssignSubjectController@search']);
-        Route::get('assign-subject-search', 'Admin\Academics\SmAssignSubjectController@create');
-        Route::post('assign-subject-store', 'Admin\Academics\SmAssignSubjectController@aramiscAssignSubjectStore')->name('assign-subject-store')->middleware('userRolePermission:assign-subject-store');
-        Route::get('assign-subject-store', 'Admin\Academics\SmAssignSubjectController@create');
-        Route::post('assign-subject', 'Admin\Academics\SmAssignSubjectController@aramiscAssignSubjectFind')->name('assign-subject');
-        Route::get('assign-subject-get-by-ajax', 'Admin\Academics\SmAssignSubjectController@aramiscAssignSubjectAjax');
+        Route::post('assign-subject-search', ['as' => 'assign_subject_search', 'uses' => 'Admin\Academics\AramiscAssignSubjectController@search']);
+        Route::get('assign-subject-search', 'Admin\Academics\AramiscAssignSubjectController@create');
+        Route::post('assign-subject-store', 'Admin\Academics\AramiscAssignSubjectController@assignSubjectStore')->name('assign-subject-store')->middleware('userRolePermission:assign-subject-store');
+        Route::get('assign-subject-store', 'Admin\Academics\AramiscAssignSubjectController@create');
+        Route::post('assign-subject', 'Admin\Academics\AramiscAssignSubjectController@assignSubjectFind')->name('assign-subject');
+        Route::get('assign-subject-get-by-ajax', 'Admin\Academics\AramiscAssignSubjectController@assignSubjectAjax');
 
         //Assign Class Teacher
-        // Route::resource('assign-class-teacher', 'SmAssignClassTeacherControler')->middleware('userRolePermission:253');
-        Route::get('assign-class-teacher', 'Admin\Academics\SmAssignClassTeacherController@index')->name('assign-class-teacher')->middleware('userRolePermission:assign-class-teacher');
-        Route::post('assign-class-teacher', 'Admin\Academics\SmAssignClassTeacherController@store')->name('assign-class-teacher-store')->middleware('userRolePermission:assign-class-teacher-store');
-        Route::get('assign-class-teacher/{id}', 'Admin\Academics\SmAssignClassTeacherController@edit')->name('assign-class-teacher-edit')->middleware('userRolePermission:assign-class-teacher-edit');
-        Route::put('assign-class-teacher/{id}', 'Admin\Academics\SmAssignClassTeacherController@update')->name('assign-class-teacher-update')->middleware('userRolePermission:assign-class-teacher-edit');
-        Route::delete('assign-class-teacher/{id}', 'Admin\Academics\SmAssignClassTeacherController@destroy')->name('assign-class-teacher-delete')->middleware('userRolePermission:assign-class-teacher-delete');
+        // Route::resource('assign-class-teacher', 'AramiscAssignClassTeacherControler')->middleware('userRolePermission:253');
+        Route::get('assign-class-teacher', 'Admin\Academics\AramiscAssignClassTeacherController@index')->name('assign-class-teacher')->middleware('userRolePermission:assign-class-teacher');
+        Route::post('assign-class-teacher', 'Admin\Academics\AramiscAssignClassTeacherController@store')->name('assign-class-teacher-store')->middleware('userRolePermission:assign-class-teacher-store');
+        Route::get('assign-class-teacher/{id}', 'Admin\Academics\AramiscAssignClassTeacherController@edit')->name('assign-class-teacher-edit')->middleware('userRolePermission:assign-class-teacher-edit');
+        Route::put('assign-class-teacher/{id}', 'Admin\Academics\AramiscAssignClassTeacherController@update')->name('assign-class-teacher-update')->middleware('userRolePermission:assign-class-teacher-edit');
+        Route::delete('assign-class-teacher/{id}', 'Admin\Academics\AramiscAssignClassTeacherController@destroy')->name('assign-class-teacher-delete')->middleware('userRolePermission:assign-class-teacher-delete');
         // Class room
-        // Route::resource('class-room', 'SmClassRoomController')->middleware('userRolePermission:269');
-        Route::get('class-room', 'Admin\Academics\SmClassRoomController@index')->name('class-room')->middleware('userRolePermission:class-room');
-        Route::post('class-room', 'Admin\Academics\SmClassRoomController@store')->name('class-room-store')->middleware('userRolePermission:class-room-store');
-        Route::get('class-room/{id}', 'Admin\Academics\SmClassRoomController@edit')->name('class-room-edit')->middleware('userRolePermission:class-room-edit');
-        Route::put('class-room/{id}', 'Admin\Academics\SmClassRoomController@update')->name('class-room-update')->middleware('userRolePermission:class-room-edit');
-        Route::delete('class-room/{id}', 'Admin\Academics\SmClassRoomController@destroy')->name('class-room-delete')->middleware('userRolePermission:class-room-delete');
+        // Route::resource('class-room', 'AramiscClassRoomController')->middleware('userRolePermission:269');
+        Route::get('class-room', 'Admin\Academics\AramiscClassRoomController@index')->name('class-room')->middleware('userRolePermission:class-room');
+        Route::post('class-room', 'Admin\Academics\AramiscClassRoomController@store')->name('class-room-store')->middleware('userRolePermission:class-room-store');
+        Route::get('class-room/{id}', 'Admin\Academics\AramiscClassRoomController@edit')->name('class-room-edit')->middleware('userRolePermission:class-room-edit');
+        Route::put('class-room/{id}', 'Admin\Academics\AramiscClassRoomController@update')->name('class-room-update')->middleware('userRolePermission:class-room-edit');
+        Route::delete('class-room/{id}', 'Admin\Academics\AramiscClassRoomController@destroy')->name('class-room-delete')->middleware('userRolePermission:class-room-delete');
 
-        // Route::resource('class-time', 'SmClassTimeController')->middleware('userRolePermission:273');
-        // Route::get('class-time', 'Admin\Academics\SmClassTimeController@index')->name('class-time')->middleware('userRolePermission:273');
-        // Route::post('class-time', 'Admin\Academics\SmClassTimeController@store')->name('class-time')->middleware('userRolePermission:274');
-        // Route::get('class-time/{id}', 'Admin\Academics\SmClassTimeController@edit')->name('class-time-edit')->middleware('userRolePermission:275');
-        // Route::put('class-time/{id}', 'Admin\Academics\SmClassTimeController@update')->name('class-time-update')->middleware('userRolePermission:275');
-        // Route::delete('class-time/{id}', 'Admin\Academics\SmClassTimeController@destroy')->name('class-time-delete');
+        // Route::resource('class-time', 'AramiscClassTimeController')->middleware('userRolePermission:273');
+        // Route::get('class-time', 'Admin\Academics\AramiscClassTimeController@index')->name('class-time')->middleware('userRolePermission:273');
+        // Route::post('class-time', 'Admin\Academics\AramiscClassTimeController@store')->name('class-time')->middleware('userRolePermission:274');
+        // Route::get('class-time/{id}', 'Admin\Academics\AramiscClassTimeController@edit')->name('class-time-edit')->middleware('userRolePermission:275');
+        // Route::put('class-time/{id}', 'Admin\Academics\AramiscClassTimeController@update')->name('class-time-update')->middleware('userRolePermission:275');
+        // Route::delete('class-time/{id}', 'Admin\Academics\AramiscClassTimeController@destroy')->name('class-time-delete');
 
 
 
 
         //Admission Query
-        Route::get('admission-query', ['as' => 'admission_query', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@index'])->middleware('userRolePermission:admission_query');
+        Route::get('admission-query', ['as' => 'admission_query', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@index'])->middleware('userRolePermission:admission_query');
 
-        Route::post('admission-query-store-a', ['as' => 'admission_query_store_a', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@store']);
+        Route::post('admission-query-store-a', ['as' => 'admission_query_store_a', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@store']);
 
-        Route::get('admission-query-edit/{id}', ['as' => 'admission_query_edit', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@edit'])->middleware('userRolePermission:admission_query_edit');
-        Route::post('admission-query-update', ['as' => 'admission_query_update', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@update']);
-        Route::get('add-query/{id}', ['as' => 'add_query', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@addQuery'])->middleware('userRolePermission:add_query');
-        Route::post('query-followup-store', ['as' => 'query_followup_store', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@queryFollowupStore']);
-        Route::get('delete-follow-up/{id}', ['as' => 'delete_follow_up', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@deleteFollowUp']);
-        Route::post('admission-query-delete', ['as' => 'admission_query_delete', 'uses' => 'Admin\AdminSection\SmAdmissionQueryController@delete'])->middleware('userRolePermission:15');
+        Route::get('admission-query-edit/{id}', ['as' => 'admission_query_edit', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@edit'])->middleware('userRolePermission:admission_query_edit');
+        Route::post('admission-query-update', ['as' => 'admission_query_update', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@update']);
+        Route::get('add-query/{id}', ['as' => 'add_query', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@addQuery']);
+        Route::post('query-followup-store', ['as' => 'query_followup_store', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@queryFollowupStore']);
+        Route::get('delete-follow-up/{id}', ['as' => 'delete_follow_up', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@deleteFollowUp']);
+        Route::post('admission-query-delete', ['as' => 'admission_query_delete', 'uses' => 'Admin\AdminSection\AramiscAdmissionQueryController@delete'])->middleware('userRolePermission:admission_query_delete');
 
-        Route::post('admission-query-search', 'Admin\AdminSection\SmAdmissionQueryController@admissionQuerySearch')->name('admission-query-search');
-        Route::get('admission-query-search', 'Admin\AdminSection\SmAdmissionQueryController@index');
+        Route::post('admission-query-search', 'Admin\AdminSection\AramiscAdmissionQueryController@admissionQuerySearch')->name('admission-query-search');
+        Route::get('admission-query-search', 'Admin\AdminSection\AramiscAdmissionQueryController@index');
 
-        Route::get('admission-query-datatable', 'Admin\AdminSection\SmAdmissionQueryController@admissionQueryDatatable')->name('admission-query-datatable');
+        Route::get('admission-query-datatable', 'Admin\AdminSection\AramiscAdmissionQueryController@admissionQueryDatatable')->name('admission-query-datatable');
 
         // Visitor routes
 
-        Route::get('visitor', ['as' => 'visitor', 'uses' => 'Admin\AdminSection\SmVisitorController@index'])->middleware('userRolePermission:visitor');
-        Route::post('visitor-store', ['as' => 'visitor_store', 'uses' => 'Admin\AdminSection\SmVisitorController@store'])->middleware('userRolePermission:visitor_store');
-        Route::get('visitor-edit/{id}', ['as' => 'visitor_edit', 'uses' => 'Admin\AdminSection\SmVisitorController@edit'])->middleware('userRolePermission:visitor_edit');
-        Route::post('visitor-update', ['as' => 'visitor_update', 'uses' => 'Admin\AdminSection\SmVisitorController@update'])->middleware('userRolePermission:visitor_edit');
-        Route::post('visitor-delete', ['as' => 'visitor_delete', 'uses' => 'Admin\AdminSection\SmVisitorController@delete'])->middleware('userRolePermission:visitor_delete');
-        Route::get('download-visitor-document/{file_name}', ['as' => 'visitor_download', 'uses' => 'Admin\AdminSection\SmVisitorController@download_files'])->middleware('userRolePermission:visitor_download');
+        Route::get('visitor', ['as' => 'visitor', 'uses' => 'Admin\AdminSection\AramiscVisitorController@index'])->middleware('userRolePermission:visitor');
+        Route::post('visitor-store', ['as' => 'visitor_store', 'uses' => 'Admin\AdminSection\AramiscVisitorController@store'])->middleware('userRolePermission:visitor_store');
+        Route::get('visitor-edit/{id}', ['as' => 'visitor_edit', 'uses' => 'Admin\AdminSection\AramiscVisitorController@edit'])->middleware('userRolePermission:visitor_edit');
+        Route::post('visitor-update', ['as' => 'visitor_update', 'uses' => 'Admin\AdminSection\AramiscVisitorController@update'])->middleware('userRolePermission:visitor_edit');
+        Route::post('visitor-delete', ['as' => 'visitor_delete', 'uses' => 'Admin\AdminSection\AramiscVisitorController@delete'])->middleware('userRolePermission:visitor_delete');
+        Route::get('download-visitor-document/{file_name}', ['as' => 'visitor_download', 'uses' => 'Admin\AdminSection\AramiscVisitorController@download_files'])->middleware('userRolePermission:visitor_download');
 
-        Route::get('visitor-datatable', ['as' => 'visitor_datatable', 'uses' => 'Admin\AdminSection\SmVisitorController@visitorDatatable']);
+        Route::get('visitor-datatable', ['as' => 'visitor_datatable', 'uses' => 'Admin\AdminSection\AramiscVisitorController@visitorDatatable']);
 
         // Route::get('download-visitor-document/{file_name}', function ($file_name = null) {
 
@@ -360,60 +362,60 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         // });
 
         // Fees Group routes
-        Route::get('fees-group', ['as' => 'fees_group', 'uses' => 'Admin\FeesCollection\SmFeesGroupController@index'])->middleware('userRolePermission:fees_group');
-        Route::post('fees-group-store', ['as' => 'fees_group_store', 'uses' => 'Admin\FeesCollection\SmFeesGroupController@store'])->middleware('userRolePermission:fees_group_store');
-        Route::get('fees-group-edit/{id}', ['as' => 'fees_group_edit', 'uses' => 'Admin\FeesCollection\SmFeesGroupController@edit'])->middleware('userRolePermission:fees_group_edit');
-        Route::post('fees-group-update', ['as' => 'fees_group_update', 'uses' => 'Admin\FeesCollection\SmFeesGroupController@update'])->middleware('userRolePermission:fees_group_edit');
-        Route::post('fees-group-delete', ['as' => 'fees_group_delete', 'uses' => 'Admin\FeesCollection\SmFeesGroupController@deleteGroup'])->middleware('userRolePermission:fees_group_delete');
+        Route::get('fees-group', ['as' => 'fees_group', 'uses' => 'Admin\FeesCollection\AramiscFeesGroupController@index'])->middleware('userRolePermission:fees_group');
+        Route::post('fees-group-store', ['as' => 'fees_group_store', 'uses' => 'Admin\FeesCollection\AramiscFeesGroupController@store'])->middleware('userRolePermission:fees_group_store');
+        Route::get('fees-group-edit/{id}', ['as' => 'fees_group_edit', 'uses' => 'Admin\FeesCollection\AramiscFeesGroupController@edit'])->middleware('userRolePermission:fees_group_edit');
+        Route::post('fees-group-update', ['as' => 'fees_group_update', 'uses' => 'Admin\FeesCollection\AramiscFeesGroupController@update'])->middleware('userRolePermission:fees_group_edit');
+        Route::post('fees-group-delete', ['as' => 'fees_group_delete', 'uses' => 'Admin\FeesCollection\AramiscFeesGroupController@deleteGroup'])->middleware('userRolePermission:fees_group_delete');
 
         // Fees type routes
-        Route::get('fees-type', ['as' => 'fees_type', 'uses' => 'Admin\FeesCollection\SmFeesTypeController@index'])->middleware('userRolePermission:fees_type');
-        Route::post('fees-type-store', ['as' => 'fees_type_store', 'uses' => 'Admin\FeesCollection\SmFeesTypeController@store'])->middleware('userRolePermission:fees_type_store');
-        Route::get('fees-type-edit/{id}', ['as' => 'fees_type_edit', 'uses' => 'Admin\FeesCollection\SmFeesTypeController@edit'])->middleware('userRolePermission:fees_type_edit');
-        Route::post('fees-type-update', ['as' => 'fees_type_update', 'uses' => 'Admin\FeesCollection\SmFeesTypeController@update'])->middleware('userRolePermission:fees_type_edit');
-        Route::get('fees-type-delete/{id}', ['as' => 'fees_type_delete', 'uses' => 'Admin\FeesCollection\SmFeesTypeController@delete'])->middleware('userRolePermission:fees_type_delete');
+        Route::get('fees-type', ['as' => 'fees_type', 'uses' => 'Admin\FeesCollection\AramiscFeesTypeController@index'])->middleware('userRolePermission:fees_type');
+        Route::post('fees-type-store', ['as' => 'fees_type_store', 'uses' => 'Admin\FeesCollection\AramiscFeesTypeController@store'])->middleware('userRolePermission:fees_type_store');
+        Route::get('fees-type-edit/{id}', ['as' => 'fees_type_edit', 'uses' => 'Admin\FeesCollection\AramiscFeesTypeController@edit'])->middleware('userRolePermission:fees_type_edit');
+        Route::post('fees-type-update', ['as' => 'fees_type_update', 'uses' => 'Admin\FeesCollection\AramiscFeesTypeController@update'])->middleware('userRolePermission:fees_type_edit');
+        Route::get('fees-type-delete/{id}', ['as' => 'fees_type_delete', 'uses' => 'Admin\FeesCollection\AramiscFeesTypeController@delete'])->middleware('userRolePermission:fees_type_delete');
 
         // Fees Discount routes
-        Route::get('fees-discount', ['as' => 'fees_discount', 'uses' => 'Admin\FeesCollection\SmFeesDiscountController@index'])->middleware('userRolePermission:fees_discount');
-        Route::post('fees-discount-store', ['as' => 'fees_discount_store', 'uses' => 'Admin\FeesCollection\SmFeesDiscountController@store'])->middleware('userRolePermission:fees_discount_store');
-        Route::get('fees-discount-edit/{id}', ['as' => 'fees_discount_edit', 'uses' => 'Admin\FeesCollection\SmFeesDiscountController@edit'])->middleware('userRolePermission:fees_discount_edit');
-        Route::post('fees-discount-update', ['as' => 'fees_discount_update', 'uses' => 'Admin\FeesCollection\SmFeesDiscountController@update'])->middleware('userRolePermission:fees_discount_edit');
-        Route::get('fees-discount-delete/{id}', ['as' => 'fees_discount_delete', 'uses' => 'Admin\FeesCollection\SmFeesDiscountController@delete'])->middleware('userRolePermission:fees_discount_delete');
-        Route::get('fees-discount-assign/{id}', ['as' => 'fees_discount_assign', 'uses' => 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAssign'])->middleware('userRolePermission:fees_discount_assign');
-        Route::post('fees-discount-assign-search', 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAssignSearch')->name('fees-discount-assign-search');
-        Route::post('fees-discount-assign-store', 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAssignStore');
-        Route::post('directfees/fees-discount-assign-store', 'Admin\FeesCollection\SmFeesDiscountController@aramiscDirectFeesDiscountAssignStore')->name('aramiscDirectFees.fees-discount-assign-store');
+        Route::get('fees-discount', ['as' => 'fees_discount', 'uses' => 'Admin\FeesCollection\AramiscFeesDiscountController@index'])->middleware('userRolePermission:fees_discount');
+        Route::post('fees-discount-store', ['as' => 'fees_discount_store', 'uses' => 'Admin\FeesCollection\AramiscFeesDiscountController@store'])->middleware('userRolePermission:fees_discount_store');
+        Route::get('fees-discount-edit/{id}', ['as' => 'fees_discount_edit', 'uses' => 'Admin\FeesCollection\AramiscFeesDiscountController@edit'])->middleware('userRolePermission:fees_discount_edit');
+        Route::post('fees-discount-update', ['as' => 'fees_discount_update', 'uses' => 'Admin\FeesCollection\AramiscFeesDiscountController@update'])->middleware('userRolePermission:fees_discount_edit');
+        Route::get('fees-discount-delete/{id}', ['as' => 'fees_discount_delete', 'uses' => 'Admin\FeesCollection\AramiscFeesDiscountController@delete'])->middleware('userRolePermission:fees_discount_delete');
+        Route::get('fees-discount-assign/{id}', ['as' => 'fees_discount_assign', 'uses' => 'Admin\FeesCollection\AramiscFeesDiscountController@feesDiscountAssign'])->middleware('userRolePermission:fees_discount_assign');
+        Route::post('fees-discount-assign-search', 'Admin\FeesCollection\AramiscFeesDiscountController@feesDiscountAssignSearch')->name('fees-discount-assign-search');
+        Route::post('fees-discount-assign-store', 'Admin\FeesCollection\AramiscFeesDiscountController@feesDiscountAssignStore');
+        Route::post('directfees/fees-discount-assign-store', 'Admin\FeesCollection\AramiscFeesDiscountController@directFeesDiscountAssignStore')->name('directFees.fees-discount-assign-store');
 
-        Route::get('fees-generate-modal/{amount}/{student_id}/{type}/{master}/{assign_id}/{record_id}', 'Admin\FeesCollection\SmFeesController@aramiscFeesGenerateModal')->name('fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
-        Route::get('fees-discount-amount-search', 'Admin\FeesCollection\SmFeesDiscountController@feesDiscountAmountSearch');
+        Route::get('fees-generate-modal/{amount}/{student_id}/{type}/{master}/{assign_id}/{record_id}', 'Admin\FeesCollection\AramiscFeesController@feesGenerateModal')->name('fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
+        Route::get('fees-discount-amount-search', 'Admin\FeesCollection\AramiscFeesDiscountController@feesDiscountAmountSearch');
         //delete fees payment
-        Route::post('fees-payment-delete', 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentDelete')->name('fees-payment-delete');
+        Route::post('fees-payment-delete', 'Admin\FeesCollection\AramiscFeesController@feesPaymentDelete')->name('fees-payment-delete');
 
-        Route::get('direct-fees-generate-modal/{amount}/{installment_id}/{record_id}', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesGenerateModal')->name('direct-fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
-        Route::post('aramiscDirectFeesInstallmentUpdate', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesInstallmentUpdate')->name('aramiscDirectFeesInstallmentUpdate')->middleware('userRolePermission:fees-generate-modal');
+        Route::get('direct-fees-generate-modal/{amount}/{installment_id}/{record_id}', 'Admin\FeesCollection\AramiscFeesController@directFeesGenerateModal')->name('direct-fees-generate-modal')->middleware('userRolePermission:fees-generate-modal');
+        Route::post('directFeesInstallmentUpdate', 'Admin\FeesCollection\AramiscFeesController@directFeesInstallmentUpdate')->name('directFeesInstallmentUpdate')->middleware('userRolePermission:fees-generate-modal');
 
-        Route::get('direct-fees-total-payment/{record_id}', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesTotalPayment')->name('direct-fees-total-payment');
-        Route::post('direct-fees-total-payment', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesTotalPaymentSubmit')->name('direct-fees-total-payment-submit')->middleware('userRolePermission:fees-generate-modal');
+        Route::get('direct-fees-total-payment/{record_id}', 'Admin\FeesCollection\AramiscFeesController@directFeesTotalPayment')->name('direct-fees-total-payment');
+        Route::post('direct-fees-total-payment', 'Admin\FeesCollection\AramiscFeesController@directFeesTotalPaymentSubmit')->name('direct-fees-total-payment-submit')->middleware('userRolePermission:fees-generate-modal');
 
 
-        Route::get('aramiscDirectFees/editSubPaymentModal/{payment_id}/{paid_amount}', 'Admin\FeesCollection\SmFeesController@editSubPaymentModal')->name('aramiscDirectFees.editSubPaymentModal')->middleware('userRolePermission:fees-generate-modal');
-        Route::post('aramiscDirectFees/deleteSubPayment', 'Admin\FeesCollection\SmFeesController@deleteSubPayment')->name('aramiscDirectFees.deleteSubPayment');
-        Route::post('aramiscDirectFees/updateSubPaymentModal', 'Admin\FeesCollection\SmFeesController@updateSubPaymentModal')->name('aramiscDirectFees.updateSubPaymentModal');
-        Route::get('aramiscDirectFees/viewPaymentReceipt/{id}', 'Admin\FeesCollection\SmFeesController@viewPaymentReceipt')->name('aramiscDirectFees.viewPaymentReceipt');
-        Route::get('aramiscDirectFees/setting', 'Admin\FeesCollection\SmFeesController@aramiscDirectFeesSetting')->name('aramiscDirectFees.setting');
-        Route::post('aramiscDirectFees/feesInvoiceUpdate', 'Admin\FeesCollection\SmFeesController@feesInvoiceUpdate')->name('aramiscDirectFees.feesInvoiceUpdate');
-        Route::post('aramiscDirectFees/paymentReminder', 'Admin\FeesCollection\SmFeesController@paymentReminder')->name('aramiscDirectFees.paymentReminder');
+        Route::get('directFees/editSubPaymentModal/{payment_id}/{paid_amount}', 'Admin\FeesCollection\AramiscFeesController@editSubPaymentModal')->name('directFees.editSubPaymentModal')->middleware('userRolePermission:fees-generate-modal');
+        Route::post('directFees/deleteSubPayment', 'Admin\FeesCollection\AramiscFeesController@deleteSubPayment')->name('directFees.deleteSubPayment');
+        Route::post('directFees/updateSubPaymentModal', 'Admin\FeesCollection\AramiscFeesController@updateSubPaymentModal')->name('directFees.updateSubPaymentModal');
+        Route::get('directFees/viewPaymentReceipt/{id}', 'Admin\FeesCollection\AramiscFeesController@viewPaymentReceipt')->name('directFees.viewPaymentReceipt');
+        Route::get('directFees/setting', 'Admin\FeesCollection\AramiscFeesController@directFeesSetting')->name('directFees.setting');
+        Route::post('directFees/feesInvoiceUpdate', 'Admin\FeesCollection\AramiscFeesController@feesInvoiceUpdate')->name('directFees.feesInvoiceUpdate');
+        Route::post('directFees/paymentReminder', 'Admin\FeesCollection\AramiscFeesController@paymentReminder')->name('directFees.paymentReminder');
 
         // Fees carry forward
-        Route::get('fees-forward', ['as' => 'fees_forward', 'uses' => 'Admin\FeesCollection\SmFeesCarryForwardController@feesForward'])->middleware('userRolePermission:fees_forward');
-        Route::post('fees-forward-search', 'Admin\FeesCollection\SmFeesCarryForwardController@feesForwardSearch')->name('fees-forward-search')->middleware('userRolePermission:fees_forward');
-        Route::get('fees-forward-search', 'Admin\FeesCollection\SmFeesCarryForwardController@feesForward')->middleware('userRolePermission:fees_forward');
+        Route::get('fees-forward', ['as' => 'fees_forward', 'uses' => 'Admin\FeesCollection\AramiscFeesCarryForwardController@feesForward'])->middleware('userRolePermission:fees_forward');
+        Route::post('fees-forward-search', 'Admin\FeesCollection\AramiscFeesCarryForwardController@feesForwardSearch')->name('fees-forward-search')->middleware('userRolePermission:fees_forward');
+        Route::get('fees-forward-search', 'Admin\FeesCollection\AramiscFeesCarryForwardController@feesForward')->middleware('userRolePermission:fees_forward');
 
-        Route::post('fees-forward-store', 'Admin\FeesCollection\SmFeesCarryForwardController@feesForwardStore')->name('fees-forward-store')->middleware('userRolePermission:fees_forward');
-        Route::get('fees-forward-store', 'Admin\FeesCollection\SmFeesCarryForwardController@feesForward')->middleware('userRolePermission:fees_forward');;
+        Route::post('fees-forward-store', 'Admin\FeesCollection\AramiscFeesCarryForwardController@feesForwardStore')->name('fees-forward-store')->middleware('userRolePermission:fees_forward');
+        Route::get('fees-forward-store', 'Admin\FeesCollection\AramiscFeesCarryForwardController@feesForward')->middleware('userRolePermission:fees_forward');;
 
         //fees payment store
-        Route::post('fees-payment-store', 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentStore')->name('fees-payment-store');
+        Route::post('fees-payment-store', 'Admin\FeesCollection\AramiscFeesController@feesPaymentStore')->name('fees-payment-store');
 
         Route::get('bank-slip-view/{file_name}', function ($file_name = null) {
 
@@ -424,50 +426,50 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         })->name('bank-slip-view');
 
         // Collect Fees
-        Route::get('collect-fees', ['as' => 'collect_fees', 'uses' => 'Admin\FeesCollection\SmFeesCollectController@index'])->middleware('userRolePermission:collect_fees');
-        Route::get('fees-collect-student-wise/{id}', ['as' => 'fees_collect_student_wise', 'uses' => 'Admin\FeesCollection\SmFeesCollectController@aramiscCollectFeesStudent'])->where('id', '[0-9]+')->middleware('userRolePermission:110');
+        Route::get('collect-fees', ['as' => 'collect_fees', 'uses' => 'Admin\FeesCollection\AramiscFeesCollectController@index'])->middleware('userRolePermission:collect_fees');
+        Route::get('fees-collect-student-wise/{id}', ['as' => 'fees_collect_student_wise', 'uses' => 'Admin\FeesCollection\AramiscFeesCollectController@collectFeesStudent'])->where('id', '[0-9]+')->middleware('userRolePermission:fees_collect_student_wise');
 
-        Route::post('collect-fees', ['as' => 'collect_fees_search', 'uses' => 'Admin\FeesCollection\SmFeesCollectController@search']);
+        Route::post('collect-fees', ['as' => 'collect_fees_search', 'uses' => 'Admin\FeesCollection\AramiscFeesCollectController@search']);
 
 
         // fees print
-        Route::get('fees-payment-print/{id}/{group}', ['as' => 'fees_payment_print', 'uses' => 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentPrint']);
+        Route::get('fees-payment-print/{id}/{group}', ['as' => 'fees_payment_print', 'uses' => 'Admin\FeesCollection\AramiscFeesController@feesPaymentPrint']);
 
-        Route::get('fees-payment-invoice-print/{id}/{group}', ['as' => 'fees_payment_invoice_print', 'uses' => 'Admin\FeesCollection\SmFeesController@aramiscFeesPaymentInvoicePrint']);
+        Route::get('fees-payment-invoice-print/{id}/{group}', ['as' => 'fees_payment_invoice_print', 'uses' => 'Admin\FeesCollection\AramiscFeesController@feesPaymentInvoicePrint']);
 
-        Route::get('fees-group-print/{id}', ['as' => 'fees_group_print', 'uses' => 'Admin\FeesCollection\SmFeesController@feesGroupPrint'])->where('id', '[0-9]+');
+        Route::get('fees-group-print/{id}', ['as' => 'fees_group_print', 'uses' => 'Admin\FeesCollection\AramiscFeesController@feesGroupPrint'])->where('id', '[0-9]+');
 
-        Route::get('fees-groups-print/{id}/{s_id}', 'Admin\FeesCollection\SmFeesController@feesGroupsPrint');
+        Route::get('fees-groups-print/{id}/{s_id}', 'Admin\FeesCollection\AramiscFeesController@feesGroupsPrint');
 
         //Search Fees Payment
-        Route::get('search-fees-payment', ['as' => 'search_fees_payment', 'uses' => 'Admin\FeesCollection\SmSearchFeesPaymentController@index'])->middleware('userRolePermission:search_fees_payment');
-        Route::post('fees-payment-search', ['as' => 'fees_payment_searches', 'uses' => 'Admin\FeesCollection\SmSearchFeesPaymentController@search']);
-        Route::get('fees-payment-search', ['as' => 'fees_payment_search', 'uses' => 'Admin\FeesCollection\SmSearchFeesPaymentController@index']);
-        Route::get('edit-fees-payment/{id}', ['as' => 'edit-fees-payment', 'uses' => 'Admin\FeesCollection\SmSearchFeesPaymentController@editFeesPayment']);
-        Route::post('fees-payment-update', ['as' => 'fees-payment-update', 'uses' => 'Admin\FeesCollection\SmSearchFeesPaymentController@updateFeesPayment']);
+        Route::get('search-fees-payment', ['as' => 'search_fees_payment', 'uses' => 'Admin\FeesCollection\AramiscSearchFeesPaymentController@index'])->middleware('userRolePermission:search_fees_payment');
+        Route::post('fees-payment-search', ['as' => 'fees_payment_searches', 'uses' => 'Admin\FeesCollection\AramiscSearchFeesPaymentController@search']);
+        Route::get('fees-payment-search', ['as' => 'fees_payment_search', 'uses' => 'Admin\FeesCollection\AramiscSearchFeesPaymentController@index']);
+        Route::get('edit-fees-payment/{id}', ['as' => 'edit-fees-payment', 'uses' => 'Admin\FeesCollection\AramiscSearchFeesPaymentController@editFeesPayment']);
+        Route::post('fees-payment-update', ['as' => 'fees-payment-update', 'uses' => 'Admin\FeesCollection\AramiscSearchFeesPaymentController@updateFeesPayment']);
         //Fees Search due
-        Route::get('search-fees-due', ['as' => 'search_fees_due', 'uses' => 'Admin\FeesCollection\SmFeesController@searchFeesDue'])->middleware('userRolePermission:search_fees_due');
-        Route::post('fees-due-search', ['as' => 'fees_due_searches', 'uses' => 'Admin\FeesCollection\SmFeesController@feesDueSearch']);
-        Route::get('fees-due-search', ['as' => 'fees_due_search', 'uses' => 'Admin\FeesCollection\SmFeesController@searchFeesDue']);
+        Route::get('search-fees-due', ['as' => 'search_fees_due', 'uses' => 'Admin\FeesCollection\AramiscFeesController@searchFeesDue'])->middleware('userRolePermission:search_fees_due');
+        Route::post('fees-due-search', ['as' => 'fees_due_searches', 'uses' => 'Admin\FeesCollection\AramiscFeesController@feesDueSearch']);
+        Route::get('fees-due-search', ['as' => 'fees_due_search', 'uses' => 'Admin\FeesCollection\AramiscFeesController@searchFeesDue']);
 
 
-        Route::post('send-dues-fees-email', 'Admin\FeesCollection\SmFeesController@sendDuesFeesEmail')->name('send-dues-fees-email');
+        Route::post('send-dues-fees-email', 'Admin\FeesCollection\AramiscFeesController@sendDuesFeesEmail')->name('send-dues-fees-email');
 
         // fees bank slip approve
-        Route::get('bank-payment-slip', 'Admin\FeesCollection\SmFeesBankPaymentController@bankPaymentSlip')->name('bank-payment-slip');
-        Route::post('bank-payment-slip', 'Admin\FeesCollection\SmFeesBankPaymentController@bankPaymentSlipSearch')->name('bank-payment-slips');
-        Route::post('approve-fees-payment', 'Admin\FeesCollection\SmFeesBankPaymentController@approveFeesPayment')->name('approve-fees-payment');
-        Route::post('reject-fees-payment', 'Admin\FeesCollection\SmFeesBankPaymentController@rejectFeesPayment')->name('reject-fees-payment');
+        Route::get('bank-payment-slip', 'Admin\FeesCollection\AramiscFeesBankPaymentController@bankPaymentSlip')->name('bank-payment-slip');
+        Route::post('bank-payment-slip', 'Admin\FeesCollection\AramiscFeesBankPaymentController@bankPaymentSlipSearch')->name('bank-payment-slips');
+        Route::post('approve-fees-payment', 'Admin\FeesCollection\AramiscFeesBankPaymentController@approveFeesPayment')->name('approve-fees-payment');
+        Route::post('reject-fees-payment', 'Admin\FeesCollection\AramiscFeesBankPaymentController@rejectFeesPayment')->name('reject-fees-payment');
         Route::get('bank-payment-slip-ajax', 'DatatableQueryController@bankPaymentSlipAjax')->name('bank-payment-slip-ajax');
 
         //Fees Statement
-        Route::get('fees-statement', ['as' => 'fees_statement', 'uses' => 'Admin\FeesCollection\SmFeesController@feesStatemnt'])->middleware('userRolePermission:fees_statement');
-        Route::post('fees-statement-search', ['as' => 'fees_statement_search', 'uses' => 'Admin\FeesCollection\SmFeesController@feesStatementSearch']);
+        Route::get('fees-statement', ['as' => 'fees_statement', 'uses' => 'Admin\FeesCollection\AramiscFeesController@feesStatemnt'])->middleware('userRolePermission:fees_statement');
+        Route::post('fees-statement-search', ['as' => 'fees_statement_search', 'uses' => 'Admin\FeesCollection\AramiscFeesController@feesStatementSearch']);
 
         // Balance fees report
-        Route::get('balance-fees-report', ['as' => 'balance_fees_report', 'uses' => 'Admin\FeesCollection\SmFeesReportController@balanceFeesReport'])->middleware('userRolePermission:balance_fees_report');
-        Route::post('balance-fees-search', ['as' => 'balance_fees_searches', 'uses' => 'Admin\FeesCollection\SmFeesReportController@balanceFeesSearch']);
-        Route::get('balance-fees-search', ['as' => 'balance_fees_search', 'uses' => 'Admin\FeesCollection\SmFeesReportController@balanceFeesReport']);
+        Route::get('balance-fees-report', ['as' => 'balance_fees_report', 'uses' => 'Admin\FeesCollection\AramiscFeesReportController@balanceFeesReport'])->middleware('userRolePermission:balance_fees_report');
+        Route::post('balance-fees-search', ['as' => 'balance_fees_searches', 'uses' => 'Admin\FeesCollection\AramiscFeesReportController@balanceFeesSearch']);
+        Route::get('balance-fees-search', ['as' => 'balance_fees_search', 'uses' => 'Admin\FeesCollection\AramiscFeesReportController@balanceFeesReport']);
 
         // Transaction Report
         Route::get('transaction-report', ['as' => 'transaction_report', 'uses' => 'Admin\FeesCollection\SmCollectionReportController@transactionReport'])->middleware('userRolePermission:transaction_report');
@@ -476,80 +478,80 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         //Fine Report
-        Route::get('fine-report', ['as' => 'fine-report', 'uses' => 'Admin\FeesCollection\SmFeesController@fineReport'])->middleware('userRolePermission:fine-report');
-        Route::post('fine-report-search', ['as' => 'fine-report-search', 'uses' => 'Admin\FeesCollection\SmFeesController@fineReportSearch']);
+        Route::get('fine-report', ['as' => 'fine-report', 'uses' => 'Admin\FeesCollection\AramiscFeesController@fineReport'])->middleware('userRolePermission:fine-report');
+        Route::post('fine-report-search', ['as' => 'fine-report-search', 'uses' => 'Admin\FeesCollection\AramiscFeesController@fineReportSearch']);
 
 
         // Class Report
-        Route::get('class-report', ['as' => 'class_report', 'uses' => 'SmAcademicsController@aramiscClassReport'])->middleware('userRolePermission:class_report');
-        Route::post('class-report', ['as' => 'class_reports', 'uses' => 'SmAcademicsController@aramiscClassReportSearch']);
+        Route::get('class-report', ['as' => 'class_report', 'uses' => 'AramiscAcademicsController@classReport'])->middleware('userRolePermission:class_report');
+        Route::post('class-report', ['as' => 'class_reports', 'uses' => 'AramiscAcademicsController@classReportSearch']);
 
 
         // merit list Report
-        Route::get('merit-list-report', ['as' => 'merit_list_report', 'uses' => 'Admin\Examination\SmExaminationController@meritListReport'])->middleware('userRolePermission:merit_list_report');
-        Route::post('merit-list-report', ['as' => 'merit_list_reports', 'uses' => 'Admin\Examination\SmExaminationController@meritListReportSearch']);
-        Route::get('merit-list/print/{exam_id}/{class_id}/{section_id}',  'Admin\Examination\SmExaminationController@meritListPrint')->name('merit-list/print');
+        Route::get('merit-list-report', ['as' => 'merit_list_report', 'uses' => 'Admin\Examination\AramiscExaminationController@meritListReport'])->middleware('userRolePermission:merit_list_report');
+        Route::post('merit-list-report', ['as' => 'merit_list_reports', 'uses' => 'Admin\Examination\AramiscExaminationController@meritListReportSearch']);
+        Route::get('merit-list/print/{exam_id}/{class_id}/{section_id}',  'Admin\Examination\AramiscExaminationController@meritListPrint')->name('merit-list/print');
 
 
         //tabulation sheet report
-        Route::get('reports-tabulation-sheet', ['as' => 'reports_tabulation_sheet', 'uses' => 'Admin\Examination\SmExaminationController@reportsTabulationSheet']);
-        Route::post('reports-tabulation-sheet', ['as' => 'reports_tabulation_sheets', 'uses' => 'Admin\Examination\SmExaminationController@reportsTabulationSheetSearch']);
+        Route::get('reports-tabulation-sheet', ['as' => 'reports_tabulation_sheet', 'uses' => 'Admin\Examination\AramiscExaminationController@reportsTabulationSheet']);
+        Route::post('reports-tabulation-sheet', ['as' => 'reports_tabulation_sheets', 'uses' => 'Admin\Examination\AramiscExaminationController@reportsTabulationSheetSearch']);
 
 
         //results-archive report resultsArchive
-        Route::get('results-archive', 'Admin\Examination\SmExaminationController@resultsArchiveView')->name('results-archive');
-        Route::get('get-archive-class', 'Admin\Examination\SmExaminationController@getArchiveClass');
-        Route::post('results-archive',  'Admin\Examination\SmExaminationController@resultsArchiveSearch');
+        Route::get('results-archive', 'Admin\Examination\AramiscExaminationController@resultsArchiveView')->name('results-archive');
+        Route::get('get-archive-class', 'Admin\Examination\AramiscExaminationController@getArchiveClass');
+        Route::post('results-archive',  'Admin\Examination\AramiscExaminationController@resultsArchiveSearch');
 
         //Previous Record
-        Route::get('previous-record', 'SmStudentAdmissionController@previousRecord')->name('previous-record')->middleware('userRolePermission:previous-record');
-        Route::post('previous-record',  'SmStudentAdmissionController@previousRecordSearch')->name('previous-records');
+        Route::get('previous-record', 'AramiscStudentAdmissionController@previousRecord')->name('previous-record')->middleware('userRolePermission:previous-record');
+        Route::post('previous-record',  'AramiscStudentAdmissionController@previousRecordSearch')->name('previous-records');
 
         //previous-class-results
-        Route::get('previous-class-results', 'Admin\Examination\SmExaminationController@previousClassResults')->name('previous-class-results')->middleware('userRolePermission:previous-class-results');
-        Route::post('previous-class-results-view', 'Admin\Examination\SmExaminationController@previousClassResultsViewPost')->name('previous-class-results-view');
-        Route::post('previous-student-record', 'Admin\Examination\SmExaminationController@previousStudentRecord')->name('previous-student-record');
+        Route::get('previous-class-results', 'Admin\Examination\AramiscExaminationController@previousClassResults')->name('previous-class-results')->middleware('userRolePermission:previous-class-results');
+        Route::post('previous-class-results-view', 'Admin\Examination\AramiscExaminationController@previousClassResultsViewPost')->name('previous-class-results-view');
+        Route::post('previous-student-record', 'Admin\Examination\AramiscExaminationController@previousStudentRecord')->name('previous-student-record');
 
-        Route::post('session-student', 'Admin\Examination\SmExaminationController@sessionStudentGet')->name('session_student');
+        Route::post('session-student', 'Admin\Examination\AramiscExaminationController@sessionStudentGet')->name('session_student');
 
-        Route::post('previous-class-results', 'Admin\Examination\SmExaminationController@previousClassResultsViewPrint')->name('previous-class-result-print');
+        Route::post('previous-class-results', 'Admin\Examination\AramiscExaminationController@previousClassResultsViewPrint')->name('previous-class-result-print');
         // merit list Report
-        Route::get('online-exam-report', ['as' => 'online_exam_report', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamReport'])->middleware('userRolePermission:online_exam_report');
-        Route::post('online-exam-report', ['as' => 'online_exam_reports', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamReportSearch']);
+        Route::get('online-exam-report', ['as' => 'online_exam_report', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamReport'])->middleware('userRolePermission:online_exam_report');
+        Route::post('online-exam-report', ['as' => 'online_exam_reports', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamReportSearch']);
 
         // class routine report
-        Route::get('class-routine-report', ['as' => 'class_routine_report', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineReport'])->middleware('userRolePermission:class_routine_report');
-        Route::post('class-routine-report', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineReportSearch')->name('class_routine_reports');
+        Route::get('class-routine-report', ['as' => 'class_routine_report', 'uses' => 'Admin\Academics\AramiscClassRoutineNewController@classRoutineReport'])->middleware('userRolePermission:class_routine_report');
+        Route::post('class-routine-report', 'Admin\Academics\AramiscClassRoutineNewController@classRoutineReportSearch')->name('class_routine_reports');
 
 
         // exam routine report
-        Route::get('exam-routine-report', ['as' => 'exam_routine_report', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineReport'])->middleware('userRolePermission:exam_routine_report');
-        Route::post('exam-routine-report', ['as' => 'exam_routine_reports', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineReportSearch']);
+        Route::get('exam-routine-report', ['as' => 'exam_routine_report', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examRoutineReport'])->middleware('userRolePermission:exam_routine_report');
+        Route::post('exam-routine-report', ['as' => 'exam_routine_reports', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examRoutineReportSearch']);
 
 
-        Route::get('exam-routine/print/{exam_id}', 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineReportSearchPrint')->name('exam-routine/print');
+        Route::get('exam-routine/print/{exam_id}', 'Admin\Examination\AramiscExamRoutineController@examRoutineReportSearchPrint')->name('exam-routine/print');
 
-        Route::get('teacher-class-routine-report', ['as' => 'teacher_class_routine_report', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscTeacherClassRoutineReport'])->middleware('userRolePermission:teacher_class_routine_report');
-        Route::post('teacher-class-routine-report', 'Admin\Academics\SmClassRoutineNewController@aramiscTeacherClassRoutineReportSearch')->name('teacher-class-routine-report');
+        Route::get('teacher-class-routine-report', ['as' => 'teacher_class_routine_report', 'uses' => 'Admin\Academics\AramiscClassRoutineNewController@teacherClassRoutineReport'])->middleware('userRolePermission:teacher_class_routine_report');
+        Route::post('teacher-class-routine-report', 'Admin\Academics\AramiscClassRoutineNewController@teacherClassRoutineReportSearch')->name('teacher-class-routine-report');
 
 
         // mark sheet Report
-        Route::get('mark-sheet-report', ['as' => 'mark_sheet_report', 'uses' => 'Admin\Examination\SmExaminationController@markSheetReport']);
-        Route::post('mark-sheet-report', ['as' => 'mark_sheet_reports', 'uses' => 'Admin\Examination\SmExaminationController@markSheetReportSearch']);
-        Route::get('mark-sheet-report/print/{exam_id}/{class_id}/{section_id}/{student_id}', ['as' => 'mark_sheet_report_print', 'uses' => 'Admin\Examination\SmExaminationController@aramiscMarkSheetReportStudentPrint']);
+        Route::get('mark-sheet-report', ['as' => 'mark_sheet_report', 'uses' => 'Admin\Examination\AramiscExaminationController@markSheetReport']);
+        Route::post('mark-sheet-report', ['as' => 'mark_sheet_reports', 'uses' => 'Admin\Examination\AramiscExaminationController@markSheetReportSearch']);
+        Route::get('mark-sheet-report/print/{exam_id}/{class_id}/{section_id}/{student_id}', ['as' => 'mark_sheet_report_print', 'uses' => 'Admin\Examination\AramiscExaminationController@markSheetReportStudentPrint']);
 
 
         //mark sheet report student
-        Route::get('mark-sheet-report-student', ['as' => 'mark_sheet_report_student', 'uses' => 'Admin\Examination\SmExaminationController@aramiscMarkSheetReportStudent'])->middleware('userRolePermission:mark_sheet_report_student');
-        Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_students', 'uses' => 'Admin\Examination\SmExaminationController@aramiscMarkSheetReportStudentSearch']);
+        Route::get('mark-sheet-report-student', ['as' => 'mark_sheet_report_student', 'uses' => 'Admin\Examination\AramiscExaminationController@markSheetReportStudent'])->middleware('userRolePermission:mark_sheet_report_student');
+        Route::post('mark-sheet-report-student', ['as' => 'mark_sheet_report_students', 'uses' => 'Admin\Examination\AramiscExaminationController@markSheetReportStudentSearch']);
 
         //100 Percent mark sheet report student
-        Route::get('percent-marksheet-report', ['as' => 'percent-marksheet-report', 'uses' => 'Admin\Examination\SmExaminationController@percentMarkSheetReport']);
+        Route::get('percent-marksheet-report', ['as' => 'percent-marksheet-report', 'uses' => 'Admin\Examination\AramiscExaminationController@percentMarkSheetReport']);
 
 
         //user log
-        Route::get('student-fine-report', ['as' => 'student_fine_report', 'uses' => 'Admin\FeesCollection\SmFeesController@studentFineReport'])->middleware('userRolePermission:student_fine_report');
-        Route::post('student-fine-report', ['as' => 'student_fine_reports', 'uses' => 'Admin\FeesCollection\SmFeesController@studentFineReportSearch']);
+        Route::get('student-fine-report', ['as' => 'student_fine_report', 'uses' => 'Admin\FeesCollection\AramiscFeesController@studentFineReport'])->middleware('userRolePermission:student_fine_report');
+        Route::post('student-fine-report', ['as' => 'student_fine_reports', 'uses' => 'Admin\FeesCollection\AramiscFeesController@studentFineReportSearch']);
         Route::get('user-log-ajax', ['as' => 'user_log_ajax', 'uses' => 'DatatableQueryController@userLogAjax'])->middleware('userRolePermission:user_log');
 
         //user log
@@ -558,31 +560,31 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('income-list-datatable', ['as' => 'incom_list_datatable', 'uses' => 'DatatableQueryController@incomeList']);
 
         // income head routes
-        // Route::get('income-head', ['as' => 'income_head', 'uses' => 'SmIncomeHeadController@index']);
-        // Route::post('income-head-store', ['as' => 'income_head_store', 'uses' => 'SmIncomeHeadController@store']);
-        // Route::get('income-head-edit/{id}', ['as' => 'income_head_edit', 'uses' => 'SmIncomeHeadController@edit']);
-        // Route::post('income-head-update', ['as' => 'income_head_update', 'uses' => 'SmIncomeHeadController@update']);
-        // Route::get('income-head-delete/{id}', ['as' => 'income_head_delete', 'uses' => 'SmIncomeHeadController@delete']);
+        // Route::get('income-head', ['as' => 'income_head', 'uses' => 'AramiscIncomeHeadController@index']);
+        // Route::post('income-head-store', ['as' => 'income_head_store', 'uses' => 'AramiscIncomeHeadController@store']);
+        // Route::get('income-head-edit/{id}', ['as' => 'income_head_edit', 'uses' => 'AramiscIncomeHeadController@edit']);
+        // Route::post('income-head-update', ['as' => 'income_head_update', 'uses' => 'AramiscIncomeHeadController@update']);
+        // Route::get('income-head-delete/{id}', ['as' => 'income_head_delete', 'uses' => 'AramiscIncomeHeadController@delete']);
 
         // Search account
-        Route::get('search-account', ['as' => 'search_account', 'uses' => 'Admin\Accounts\SmAccountsController@searchAccount'])->middleware('userRolePermission:147');
-        Route::post('search-account', ['as' => 'search_accounts', 'uses' => 'Admin\Accounts\SmAccountsController@searchAccountReportByDate']);
-        Route::get('fund-transfer', ['as' => 'fund-transfer', 'uses' => 'Admin\Accounts\SmAccountsController@fundTransfer'])->middleware('userRolePermission:fund-transfer');
-        Route::post('fund-transfer-store', ['as' => 'fund-transfer-store', 'uses' => 'Admin\Accounts\SmAccountsController@fundTransferStore']);
-        Route::get('transaction', ['as' => 'transaction', 'uses' => 'Admin\Accounts\SmAccountsController@transaction'])->middleware('userRolePermission:transaction');
-        Route::post('transaction-search', ['as' => 'transaction-search', 'uses' => 'Admin\Accounts\SmAccountsController@transactionSearch']);
+        Route::get('search-account', ['as' => 'search_account', 'uses' => 'Admin\Accounts\AramiscAccountsController@searchAccount'])->middleware('userRolePermission:147');
+        Route::post('search-account', ['as' => 'search_accounts', 'uses' => 'Admin\Accounts\AramiscAccountsController@searchAccountReportByDate']);
+        Route::get('fund-transfer', ['as' => 'fund-transfer', 'uses' => 'Admin\Accounts\AramiscAccountsController@fundTransfer'])->middleware('userRolePermission:fund-transfer');
+        Route::post('fund-transfer-store', ['as' => 'fund-transfer-store', 'uses' => 'Admin\Accounts\AramiscAccountsController@fundTransferStore']);
+        Route::get('transaction', ['as' => 'transaction', 'uses' => 'Admin\Accounts\AramiscAccountsController@transaction'])->middleware('userRolePermission:transaction');
+        Route::post('transaction-search', ['as' => 'transaction-search', 'uses' => 'Admin\Accounts\AramiscAccountsController@transactionSearch']);
 
         // Accounts Payroll Report
-        Route::get('accounts-payroll-report', ['as' => 'accounts-payroll-report', 'uses' => 'Admin\Accounts\SmAccountsController@accountsPayrollReport'])->middleware('userRolePermission:accounts-payroll-report');
-        Route::post('accounts-payroll-report-search', ['as' => 'accounts-payroll-report-search', 'uses' => 'Admin\Accounts\SmAccountsController@accountsPayrollReportSearch']);
+        Route::get('accounts-payroll-report', ['as' => 'accounts-payroll-report', 'uses' => 'Admin\Accounts\AramiscAccountsController@accountsPayrollReport'])->middleware('userRolePermission:accounts-payroll-report');
+        Route::post('accounts-payroll-report-search', ['as' => 'accounts-payroll-report-search', 'uses' => 'Admin\Accounts\AramiscAccountsController@accountsPayrollReportSearch']);
 
 
         // add income routes
-        Route::get('add-income', ['as' => 'add_income', 'uses' => 'Admin\Accounts\SmAddIncomeController@index'])->middleware('userRolePermission:add_income');
-        Route::post('add-income-store', ['as' => 'add_income_store', 'uses' => 'Admin\Accounts\SmAddIncomeController@store'])->middleware('userRolePermission:add_income_store');
-        Route::get('add-income-edit/{id}', ['as' => 'add_income_edit', 'uses' => 'Admin\Accounts\SmAddIncomeController@edit'])->middleware('userRolePermission:add_income_edit');
-        Route::post('add-income-update', ['as' => 'add_income_update', 'uses' => 'Admin\Accounts\SmAddIncomeController@update'])->middleware('userRolePermission:add_income_edit');
-        Route::post('add-income-delete', ['as' => 'add_income_delete', 'uses' => 'Admin\Accounts\SmAddIncomeController@delete'])->middleware('userRolePermission:add_income_delete');
+        Route::get('add-income', ['as' => 'add_income', 'uses' => 'Admin\Accounts\AramiscAddIncomeController@index'])->middleware('userRolePermission:add_income');
+        Route::post('add-income-store', ['as' => 'add_income_store', 'uses' => 'Admin\Accounts\AramiscAddIncomeController@store'])->middleware('userRolePermission:add_income_store');
+        Route::get('add-income-edit/{id}', ['as' => 'add_income_edit', 'uses' => 'Admin\Accounts\AramiscAddIncomeController@edit'])->middleware('userRolePermission:add_income_edit');
+        Route::post('add-income-update', ['as' => 'add_income_update', 'uses' => 'Admin\Accounts\AramiscAddIncomeController@update'])->middleware('userRolePermission:add_income_edit');
+        Route::post('add-income-delete', ['as' => 'add_income_delete', 'uses' => 'Admin\Accounts\AramiscAddIncomeController@delete'])->middleware('userRolePermission:add_income_delete');
         Route::get('download-income-document/{file_name}', function ($file_name = null) {
             $file = public_path() . '/uploads/add_income/' . $file_name;
             if (file_exists($file)) {
@@ -592,346 +594,346 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Profit of account
-        Route::get('profit', ['as' => 'profit', 'uses' => 'Admin\Accounts\SmAccountsController@profit'])->middleware('userRolePermission:profit');
-        Route::post('search-profit-by-date', ['as' => 'search_profit_by_dates', 'uses' => 'Admin\Accounts\SmAccountsController@searchProfitByDate']);
-        Route::get('search-profit-by-date', ['as' => 'search_profit_by_date', 'uses' => 'Admin\Accounts\SmAccountsController@profit']);
+        Route::get('profit', ['as' => 'profit', 'uses' => 'Admin\Accounts\AramiscAccountsController@profit'])->middleware('userRolePermission:profit');
+        Route::post('search-profit-by-date', ['as' => 'search_profit_by_dates', 'uses' => 'Admin\Accounts\AramiscAccountsController@searchProfitByDate']);
+        Route::get('search-profit-by-date', ['as' => 'search_profit_by_date', 'uses' => 'Admin\Accounts\AramiscAccountsController@profit']);
 
         // Student Type Routes
-        Route::get('student-category', ['as' => 'student_category', 'uses' => 'Admin\StudentInfo\SmStudentCategoryController@index'])->middleware('userRolePermission:student_category');
-        Route::post('student-category-store', ['as' => 'student_category_store', 'uses' => 'Admin\StudentInfo\SmStudentCategoryController@store'])->middleware('userRolePermission:student_category_store');
-        Route::get('student-category-edit/{id}', ['as' => 'student_category_edit', 'uses' => 'Admin\StudentInfo\SmStudentCategoryController@edit'])->middleware('userRolePermission:student_category_edit');
-        Route::post('student-category-update', ['as' => 'student_category_update', 'uses' => 'Admin\StudentInfo\SmStudentCategoryController@update'])->middleware('userRolePermission:student_category_edit');
-        Route::get('student-category-delete/{id}', ['as' => 'student_category_delete', 'uses' => 'Admin\StudentInfo\SmStudentCategoryController@delete'])->middleware('userRolePermission:student_category_delete');
+        Route::get('student-category', ['as' => 'student_category', 'uses' => 'Admin\StudentInfo\AramiscStudentCategoryController@index'])->middleware('userRolePermission:student_category');
+        Route::post('student-category-store', ['as' => 'student_category_store', 'uses' => 'Admin\StudentInfo\AramiscStudentCategoryController@store'])->middleware('userRolePermission:student_category_store');
+        Route::get('student-category-edit/{id}', ['as' => 'student_category_edit', 'uses' => 'Admin\StudentInfo\AramiscStudentCategoryController@edit'])->middleware('userRolePermission:student_category_edit');
+        Route::post('student-category-update', ['as' => 'student_category_update', 'uses' => 'Admin\StudentInfo\AramiscStudentCategoryController@update'])->middleware('userRolePermission:student_category_edit');
+        Route::get('student-category-delete/{id}', ['as' => 'student_category_delete', 'uses' => 'Admin\StudentInfo\AramiscStudentCategoryController@delete'])->middleware('userRolePermission:student_category_delete');
 
         // Student Group Routes
-        Route::get('student-group', ['as' => 'student_group', 'uses' => 'Admin\StudentInfo\SmStudentGroupController@index'])->middleware('userRolePermission:student_group');
-        Route::post('student-group-store', ['as' => 'student_group_store', 'uses' => 'Admin\StudentInfo\SmStudentGroupController@store'])->middleware('userRolePermission:student_group_store');
-        Route::get('student-group-edit/{id}', ['as' => 'student_group_edit', 'uses' => 'Admin\StudentInfo\SmStudentGroupController@edit'])->middleware('userRolePermission:student_group_edit');
-        Route::post('student-group-update', ['as' => 'student_group_update', 'uses' => 'Admin\StudentInfo\SmStudentGroupController@update'])->middleware('userRolePermission:student_group_edit');
-        Route::get('student-group-delete/{id}', ['as' => 'student_group_delete', 'uses' => 'Admin\StudentInfo\SmStudentGroupController@delete'])->middleware('userRolePermission:student_group_delete');
+        Route::get('student-group', ['as' => 'student_group', 'uses' => 'Admin\StudentInfo\AramiscStudentGroupController@index'])->middleware('userRolePermission:student_group');
+        Route::post('student-group-store', ['as' => 'student_group_store', 'uses' => 'Admin\StudentInfo\AramiscStudentGroupController@store'])->middleware('userRolePermission:student_group_store');
+        Route::get('student-group-edit/{id}', ['as' => 'student_group_edit', 'uses' => 'Admin\StudentInfo\AramiscStudentGroupController@edit'])->middleware('userRolePermission:student_group_edit');
+        Route::post('student-group-update', ['as' => 'student_group_update', 'uses' => 'Admin\StudentInfo\AramiscStudentGroupController@update'])->middleware('userRolePermission:student_group_edit');
+        Route::get('student-group-delete/{id}', ['as' => 'student_group_delete', 'uses' => 'Admin\StudentInfo\AramiscStudentGroupController@delete'])->middleware('userRolePermission:student_group_delete');
 
         // Student Group Routes
 
-        // Route::get('payment-method', ['as' => 'payment_method', 'uses' => 'SmPaymentMethodController@index'])->middleware('userRolePermission:payment_method');
-        // Route::post('payment-method-store', ['as' => 'payment_method_store', 'uses' => 'SmPaymentMethodController@store'])->middleware('userRolePermission:153');
-        // Route::get('payment-method-settings-edit/{id}', ['as' => 'payment_method_edit', 'uses' => 'SmPaymentMethodController@edit'])->middleware('userRolePermission:154');
-        // Route::post('payment-method-update', ['as' => 'payment_method_update', 'uses' => 'SmPaymentMethodController@update'])->middleware('userRolePermission:154');
-        // Route::get('delete-payment-method/{id}', ['as' => 'payment_method_delete', 'uses' => 'SmPaymentMethodController@delete'])->middleware('userRolePermission:155');
+        // Route::get('payment-method', ['as' => 'payment_method', 'uses' => 'AramiscPaymentMethodController@index'])->middleware('userRolePermission:payment_method');
+        // Route::post('payment-method-store', ['as' => 'payment_method_store', 'uses' => 'AramiscPaymentMethodController@store'])->middleware('userRolePermission:153');
+        // Route::get('payment-method-settings-edit/{id}', ['as' => 'payment_method_edit', 'uses' => 'AramiscPaymentMethodController@edit'])->middleware('userRolePermission:154');
+        // Route::post('payment-method-update', ['as' => 'payment_method_update', 'uses' => 'AramiscPaymentMethodController@update'])->middleware('userRolePermission:154');
+        // Route::get('delete-payment-method/{id}', ['as' => 'payment_method_delete', 'uses' => 'AramiscPaymentMethodController@delete'])->middleware('userRolePermission:155');
 
 
         //academic year
-        // Route::resource('academic-year', 'Admin\SystemSettings\SmAcademicYearController')->middleware('userRolePermission:432');
-        Route::get('academic-year', 'Admin\SystemSettings\SmAcademicYearController@index')->name('academic-year')->middleware('userRolePermission:academic-year');
-        Route::post('academic-year', 'Admin\SystemSettings\SmAcademicYearController@store')->name('academic-years')->middleware('userRolePermission:academic-year-store');
-        Route::get('academic-year/{id}', 'Admin\SystemSettings\SmAcademicYearController@show')->name('academic-year-edit')->middleware('userRolePermission:academic-year-edit');
-        Route::put('academic-year/{id}', 'Admin\SystemSettings\SmAcademicYearController@update')->name('academic-year-update')->middleware('userRolePermission:academic-year-edit');
-        Route::delete('academic-year/{id}', 'Admin\SystemSettings\SmAcademicYearController@destroy')->name('academic-year-delete')->middleware('userRolePermission:academic-year-delete');
+        // Route::resource('academic-year', 'Admin\SystemSettings\AramiscAcademicYearController')->middleware('userRolePermission:432');
+        Route::get('academic-year', 'Admin\SystemSettings\AramiscAcademicYearController@index')->name('academic-year')->middleware('userRolePermission:academic-year');
+        Route::post('academic-year', 'Admin\SystemSettings\AramiscAcademicYearController@store')->name('academic-years')->middleware('userRolePermission:academic-year-store');
+        Route::get('academic-year/{id}', 'Admin\SystemSettings\AramiscAcademicYearController@show')->name('academic-year-edit')->middleware('userRolePermission:academic-year-edit');
+        Route::put('academic-year/{id}', 'Admin\SystemSettings\AramiscAcademicYearController@update')->name('academic-year-update')->middleware('userRolePermission:academic-year-edit');
+        Route::delete('academic-year/{id}', 'Admin\SystemSettings\AramiscAcademicYearController@destroy')->name('academic-year-delete')->middleware('userRolePermission:academic-year-delete');
 
         //Session
-        Route::resource('session', 'SmSessionController');
+        Route::resource('session', 'AramiscSessionController');
 
 
         // exam
-        Route::get('exam-reset', 'Admin\Examination\SmExamController@exam_reset');
+        Route::get('exam-reset', 'Admin\Examination\AramiscExamController@exam_reset');
 
-        // Route::resource('exam', 'Admin\Examination\SmExamController')->middleware('userRolePermission:214');
-        Route::get('exam', 'Admin\Examination\SmExamController@index')->name('exam')->middleware('userRolePermission:exam');
-        Route::post('exam', 'Admin\Examination\SmExamController@store')->name('exam-store')->middleware('userRolePermission:exam-setup-store');
-        Route::get('exam/{id}', 'Admin\Examination\SmExamController@show')->name('exam-edit')->middleware('userRolePermission:exam-edit');
-        Route::put('exam/{id}', 'Admin\Examination\SmExamController@update')->name('exam-update')->middleware('userRolePermission:exam-edit');
-        Route::delete('exam/{id}', 'Admin\Examination\SmExamController@destroy')->name('exam-delete')->middleware('userRolePermission:exam-delete');
+        // Route::resource('exam', 'Admin\Examination\AramiscExamController')->middleware('userRolePermission:214');
+        Route::get('exam', 'Admin\Examination\AramiscExamController@index')->name('exam')->middleware('userRolePermission:exam');
+        Route::post('exam', 'Admin\Examination\AramiscExamController@store')->name('exam-store')->middleware('userRolePermission:exam-setup-store');
+        Route::get('exam/{id}', 'Admin\Examination\AramiscExamController@show')->name('exam-edit')->middleware('userRolePermission:exam-edit');
+        Route::put('exam/{id}', 'Admin\Examination\AramiscExamController@update')->name('exam-update')->middleware('userRolePermission:exam-edit');
+        Route::delete('exam/{id}', 'Admin\Examination\AramiscExamController@destroy')->name('exam-delete')->middleware('userRolePermission:exam-delete');
 
-        Route::get('exam-marks-setup/{id}', 'Admin\Examination\SmExamController@exam_setup')->name('exam-marks-setup')->where('id', '[0-9]+');
-        Route::get('get-class-subjects', 'Admin\Examination\SmExamController@aramiscGetClassSubjects');
-        Route::get('subject-assign-check', 'Admin\Examination\SmExamController@subjectAssignCheck');
+        Route::get('exam-marks-setup/{id}', 'Admin\Examination\AramiscExamController@exam_setup')->name('exam-marks-setup')->where('id', '[0-9]+');
+        Route::get('get-class-subjects', 'Admin\Examination\AramiscExamController@getClassSubjects');
+        Route::get('subject-assign-check', 'Admin\Examination\AramiscExamController@subjectAssignCheck');
 
         // If 100% Mark Option is Enable
-        Route::get('custom-marksheet-report', 'Admin\Examination\SmExamController@customMarksheetReport')->name('custom-marksheet-report')->middleware('userRolePermission:custom-marksheet-report');
-        Route::post('percent-marksheet-print', 'Admin\Examination\SmExaminationController@percentMarksheetPrint')->name('percent-marksheet-print')->middleware('userRolePermission:percent-marksheet-print');
+        Route::get('custom-marksheet-report', 'Admin\Examination\AramiscExamController@customMarksheetReport')->name('custom-marksheet-report')->middleware('userRolePermission:custom-marksheet-report');
+        Route::post('percent-marksheet-print', 'Admin\Examination\AramiscExaminationController@percentMarksheetPrint')->name('percent-marksheet-print')->middleware('userRolePermission:percent-marksheet-print');
 
         // Dormitory Module
         //Dormitory List
-        // Route::resource('dormitory-list', 'Admin\Dormitory\SmDormitoryListController')->middleware('userRolePermission:367');
-        Route::get('dormitory-list', 'Admin\Dormitory\SmDormitoryListController@index')->name('dormitory-list-index')->middleware('userRolePermission:dormitory-list-index');
-        Route::post('dormitory-list', 'Admin\Dormitory\SmDormitoryListController@store')->name('dormitory-list-store');
-        Route::get('dormitory-list/{id}', 'Admin\Dormitory\SmDormitoryListController@show')->name('dormitory-list-edit');
-        Route::put('dormitory-list/{id}', 'Admin\Dormitory\SmDormitoryListController@update')->name('dormitory-list-update');
-        Route::delete('dormitory-list/{id}', 'Admin\Dormitory\SmDormitoryListController@destroy')->name('dormitory-list-delete');
+        // Route::resource('dormitory-list', 'Admin\Dormitory\AramiscDormitoryListController')->middleware('userRolePermission:367');
+        Route::get('dormitory-list', 'Admin\Dormitory\AramiscDormitoryListController@index')->name('dormitory-list-index')->middleware('userRolePermission:dormitory-list-index');
+        Route::post('dormitory-list', 'Admin\Dormitory\AramiscDormitoryListController@store')->name('dormitory-list-store')->middleware('userRolePermission:dormitory-list-store');
+        Route::get('dormitory-list/{id}', 'Admin\Dormitory\AramiscDormitoryListController@show')->name('dormitory-list-edit');
+        Route::put('dormitory-list/{id}', 'Admin\Dormitory\AramiscDormitoryListController@update')->name('dormitory-list-update');
+        Route::delete('dormitory-list/{id}', 'Admin\Dormitory\AramiscDormitoryListController@destroy')->name('dormitory-list-delete');
 
         //Room Type
-        // Route::resource('room-type', 'Admin\Dormitory\SmRoomTypeController@')->middleware('userRolePermission:371');
-        Route::get('room-type', 'Admin\Dormitory\SmRoomTypeController@index')->name('room-type-index')->middleware('userRolePermission:room-type-index');
-        Route::post('room-type', 'Admin\Dormitory\SmRoomTypeController@store')->name('room-type-store');
-        Route::get('room-type/{id}', 'Admin\Dormitory\SmRoomTypeController@show')->name('room-type-edit');
-        Route::put('room-type/{id}', 'Admin\Dormitory\SmRoomTypeController@update')->name('room-type-update');
-        Route::delete('room-type/{id}', 'Admin\Dormitory\SmRoomTypeController@destroy')->name('room-type-delete');
+        // Route::resource('room-type', 'Admin\Dormitory\AramiscRoomTypeController@')->middleware('userRolePermission:371');
+        Route::get('room-type', 'Admin\Dormitory\AramiscRoomTypeController@index')->name('room-type-index')->middleware('userRolePermission:room-type-index');
+        Route::post('room-type', 'Admin\Dormitory\AramiscRoomTypeController@store')->name('room-type-store');
+        Route::get('room-type/{id}', 'Admin\Dormitory\AramiscRoomTypeController@show')->name('room-type-edit');
+        Route::put('room-type/{id}', 'Admin\Dormitory\AramiscRoomTypeController@update')->name('room-type-update');
+        Route::delete('room-type/{id}', 'Admin\Dormitory\AramiscRoomTypeController@destroy')->name('room-type-delete');
 
         //Room Type
-        // Route::resource('room-list', 'Admin\Dormitory\SmRoomListController')->middleware('userRolePermission:363');
-        Route::get('room-list', 'Admin\Dormitory\SmRoomListController@index')->name('room-list-index')->middleware('userRolePermission:room-list-index');
-        Route::post('room-list', 'Admin\Dormitory\SmRoomListController@store')->name('room-list-store')->middleware('userRolePermission:room-list-index');
-        Route::get('room-list/{id}', 'Admin\Dormitory\SmRoomListController@show')->name('room-list-edit')->middleware('userRolePermission:room-list-index');
-        Route::put('room-list/{id}', 'Admin\Dormitory\SmRoomListController@update')->name('room-list-update')->middleware('userRolePermission:room-list-index');
-        Route::delete('room-list/{id}', 'Admin\Dormitory\SmRoomListController@destroy')->name('room-list-delete')->middleware('userRolePermission:room-list-index');
+        // Route::resource('room-list', 'Admin\Dormitory\AramiscRoomListController')->middleware('userRolePermission:363');
+        Route::get('room-list', 'Admin\Dormitory\AramiscRoomListController@index')->name('room-list-index')->middleware('userRolePermission:room-list-index');
+        Route::post('room-list', 'Admin\Dormitory\AramiscRoomListController@store')->name('room-list-store')->middleware('userRolePermission:room-list-index');
+        Route::get('room-list/{id}', 'Admin\Dormitory\AramiscRoomListController@show')->name('room-list-edit')->middleware('userRolePermission:room-list-index');
+        Route::put('room-list/{id}', 'Admin\Dormitory\AramiscRoomListController@update')->name('room-list-update')->middleware('userRolePermission:room-list-index');
+        Route::delete('room-list/{id}', 'Admin\Dormitory\AramiscRoomListController@destroy')->name('room-list-delete')->middleware('userRolePermission:room-list-index');
 
         // Student Dormitory Report
-        Route::get('student-dormitory-report', ['as' => 'student_dormitory_report_index', 'uses' => 'Admin\Dormitory\SmDormitoryController@aramiscStudentDormitoryReport'])->middleware('userRolePermission:student_dormitory_report');
+        Route::get('student-dormitory-report', ['as' => 'student_dormitory_report_index', 'uses' => 'Admin\Dormitory\AramiscDormitoryController@studentDormitoryReport'])->middleware('userRolePermission:student_dormitory_report');
 
-        Route::post('student-dormitory-report', ['as' => 'student_dormitory_report_store', 'uses' => 'Admin\Dormitory\SmDormitoryController@aramiscStudentDormitoryReportSearch']);
+        Route::post('student-dormitory-report', ['as' => 'student_dormitory_report_store', 'uses' => 'Admin\Dormitory\AramiscDormitoryController@studentDormitoryReportSearch']);
 
 
         // Transport Module Start
         //Vehicle
-        // Route::resource('vehicle', 'Admin\Transport\SmVehicleController')->middleware('userRolePermission:353');
-        Route::get('vehicle', 'Admin\Transport\SmVehicleController@index')->name('vehicle-index')->middleware('userRolePermission:vehicle-index');
-        Route::post('vehicle', 'Admin\Transport\SmVehicleController@store')->name('vehicle-store');
-        Route::get('vehicle/{id}', 'Admin\Transport\SmVehicleController@show')->name('vehicle-edit')->middleware('userRolePermission:vehicle-edit');
-        Route::put('vehicle/{id}', 'Admin\Transport\SmVehicleController@update')->name('vehicle-update')->middleware('userRolePermission:vehicle-edit');
-        Route::delete('vehicle/{id}', 'Admin\Transport\SmVehicleController@destroy')->name('vehicle-delete')->middleware('userRolePermission:vehicle-delete');
+        // Route::resource('vehicle', 'Admin\Transport\AramiscVehicleController')->middleware('userRolePermission:353');
+        Route::get('vehicle', 'Admin\Transport\AramiscVehicleController@index')->name('vehicle-index')->middleware('userRolePermission:vehicle-index');
+        Route::post('vehicle', 'Admin\Transport\AramiscVehicleController@store')->name('vehicle-store');
+        Route::get('vehicle/{id}', 'Admin\Transport\AramiscVehicleController@show')->name('vehicle-edit')->middleware('userRolePermission:vehicle-edit');
+        Route::put('vehicle/{id}', 'Admin\Transport\AramiscVehicleController@update')->name('vehicle-update')->middleware('userRolePermission:vehicle-edit');
+        Route::delete('vehicle/{id}', 'Admin\Transport\AramiscVehicleController@destroy')->name('vehicle-delete')->middleware('userRolePermission:vehicle-delete');
 
         //Assign Vehicle
-        // Route::resource('assign-vehicle', 'Admin\Transport\SmAssignVehicleController')->middleware('userRolePermission:357');
-        Route::get('assign-vehicle', 'Admin\Transport\SmAssignVehicleController@index')->name('assign-vehicle-index')->middleware('userRolePermission:assign-vehicle-index');
-        Route::post('assign-vehicle', 'Admin\Transport\SmAssignVehicleController@store')->name('assign-vehicle-store');
-        Route::get('assign-vehicle/{id}/edit', 'Admin\Transport\SmAssignVehicleController@edit')->name('assign-vehicle-edit')->middleware('userRolePermission:assign-vehicle-index');
-        Route::put('assign-vehicle/{id}', 'Admin\Transport\SmAssignVehicleController@update')->name('assign-vehicle-update')->middleware('userRolePermission:assign-vehicle-index');
-        // Route::delete('assign-vehicle/{id}', 'Admin\Transport\SmAssignVehicleController@delete')->name('assign-vehicle-delete')->middleware('userRolePermission:360');
+        // Route::resource('assign-vehicle', 'Admin\Transport\AramiscAssignVehicleController')->middleware('userRolePermission:357');
+        Route::get('assign-vehicle', 'Admin\Transport\AramiscAssignVehicleController@index')->name('assign-vehicle-index')->middleware('userRolePermission:assign-vehicle-index');
+        Route::post('assign-vehicle', 'Admin\Transport\AramiscAssignVehicleController@store')->name('assign-vehicle-store');
+        Route::get('assign-vehicle/{id}/edit', 'Admin\Transport\AramiscAssignVehicleController@edit')->name('assign-vehicle-edit')->middleware('userRolePermission:assign-vehicle-index');
+        Route::put('assign-vehicle/{id}', 'Admin\Transport\AramiscAssignVehicleController@update')->name('assign-vehicle-update')->middleware('userRolePermission:assign-vehicle-index');
+        // Route::delete('assign-vehicle/{id}', 'Admin\Transport\AramiscAssignVehicleController@delete')->name('assign-vehicle-delete')->middleware('userRolePermission:360');
 
-        Route::post('assign-vehicle-delete', 'Admin\Transport\SmAssignVehicleController@delete')->name('assign-vehicle-delete')->middleware('userRolePermission:assign-vehicle-index');
+        Route::post('assign-vehicle-delete', 'Admin\Transport\AramiscAssignVehicleController@delete')->name('assign-vehicle-delete')->middleware('userRolePermission:assign-vehicle-index');
 
         // student transport report
-        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\SmTransportController@aramiscStudentTransportReport'])->middleware('userRolePermission:student_transport_report');
-        Route::post('student-transport-report', ['as' => 'student_transport_report_store', 'uses' => 'Admin\Transport\SmTransportController@aramiscStudentTransportReportSearch']);
+        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\SmTransportController@studentTransportReport'])->middleware('userRolePermission:student_transport_report');
+        Route::post('student-transport-report', ['as' => 'student_transport_report_store', 'uses' => 'Admin\Transport\SmTransportController@studentTransportReportSearch']);
 
         // Route transport
-        // Route::resource('transport-route', 'Admin\Transport\SmRouteController')->middleware('userRolePermission:349');
-        Route::get('transport-route', 'Admin\Transport\SmRouteController@index')->name('transport-route-index')->middleware('userRolePermission:transport-route-index');
-        Route::post('transport-route', 'Admin\Transport\SmRouteController@store')->name('transport-route-store');
-        Route::get('transport-route/{id}', 'Admin\Transport\SmRouteController@show')->name('transport-route-edit');
-        Route::put('transport-route/{id}', 'Admin\Transport\SmRouteController@update')->name('transport-route-update');
-        Route::delete('transport-route/{id}', 'Admin\Transport\SmRouteController@destroy')->name('transport-route-delete');
+        // Route::resource('transport-route', 'Admin\Transport\AramiscRouteController')->middleware('userRolePermission:349');
+        Route::get('transport-route', 'Admin\Transport\AramiscRouteController@index')->name('transport-route-index')->middleware('userRolePermission:transport-route-index');
+        Route::post('transport-route', 'Admin\Transport\AramiscRouteController@store')->name('transport-route-store');
+        Route::get('transport-route/{id}', 'Admin\Transport\AramiscRouteController@show')->name('transport-route-edit')->middleware('userRolePermission:transport-route-edit');
+        Route::put('transport-route/{id}', 'Admin\Transport\AramiscRouteController@update')->name('transport-route-update');
+        Route::delete('transport-route/{id}', 'Admin\Transport\AramiscRouteController@destroy')->name('transport-route-delete')->middleware('userRolePermission:transport-route-delete');
 
         //// Examination
         // instruction Routes
-        Route::get('instruction', 'SmInstructionController@index')->name('instruction');
-        Route::post('instruction', 'SmInstructionController@store')->name('instruction-store');
-        Route::get('instruction/{id}', 'SmInstructionController@show')->name('instruction-edit');
-        Route::put('instruction/{id}', 'SmInstructionController@update')->name('instruction-update');
-        Route::delete('instruction/{id}', 'SmInstructionController@destroy')->name('instruction-delete');
+        Route::get('instruction', 'AramiscInstructionController@index')->name('instruction');
+        Route::post('instruction', 'AramiscInstructionController@store')->name('instruction-store');
+        Route::get('instruction/{id}', 'AramiscInstructionController@show')->name('instruction-edit');
+        Route::put('instruction/{id}', 'AramiscInstructionController@update')->name('instruction-update');
+        Route::delete('instruction/{id}', 'AramiscInstructionController@destroy')->name('instruction-delete');
 
         // Question Level
-        // Route::get('question-level', 'SmQuestionLevelController@index')->name('question-level');
-        // Route::post('question-level', 'SmQuestionLevelController@store')->name('question-level');
-        // Route::get('question-level/{id}', 'SmQuestionLevelController@show')->name('question-level-edit');
-        // Route::put('question-level/{id}', 'SmQuestionLevelController@update')->name('question-level-update');
-        // Route::delete('question-level/{id}', 'SmQuestionLevelController@destroy')->name('question-level-delete');
+        // Route::get('question-level', 'AramiscQuestionLevelController@index')->name('question-level');
+        // Route::post('question-level', 'AramiscQuestionLevelController@store')->name('question-level');
+        // Route::get('question-level/{id}', 'AramiscQuestionLevelController@show')->name('question-level-edit');
+        // Route::put('question-level/{id}', 'AramiscQuestionLevelController@update')->name('question-level-update');
+        // Route::delete('question-level/{id}', 'AramiscQuestionLevelController@destroy')->name('question-level-delete');
 
         // Question group
-        // Route::resource('question-group', 'Admin\OnlineExam\SmQuestionGroupController')->middleware('userRolePermission:230');
-        Route::get('question-group', 'Admin\OnlineExam\SmQuestionGroupController@index')->name('question-group')->middleware('userRolePermission:question-group');
-        Route::post('question-group', 'Admin\OnlineExam\SmQuestionGroupController@store')->name('question-group-store')->middleware('userRolePermission:question-group-store');
-        Route::get('question-group/{id}', 'Admin\OnlineExam\SmQuestionGroupController@show')->name('question-group-edit')->middleware('userRolePermission:question-group-edit');
-        Route::put('question-group/{id}', 'Admin\OnlineExam\SmQuestionGroupController@update')->name('question-group-update')->middleware('userRolePermission:question-group-edit');
-        Route::delete('question-group/{id}', 'Admin\OnlineExam\SmQuestionGroupController@destroy')->name('question-group-delete')->middleware('userRolePermission:question-group-delete');
+        // Route::resource('question-group', 'Admin\OnlineExam\AramiscQuestionGroupController')->middleware('userRolePermission:230');
+        Route::get('question-group', 'Admin\OnlineExam\AramiscQuestionGroupController@index')->name('question-group')->middleware('userRolePermission:question-group');
+        Route::post('question-group', 'Admin\OnlineExam\AramiscQuestionGroupController@store')->name('question-group-store')->middleware('userRolePermission:question-group-store');
+        Route::get('question-group/{id}', 'Admin\OnlineExam\AramiscQuestionGroupController@show')->name('question-group-edit')->middleware('userRolePermission:question-group-edit');
+        Route::put('question-group/{id}', 'Admin\OnlineExam\AramiscQuestionGroupController@update')->name('question-group-update')->middleware('userRolePermission:question-group-edit');
+        Route::delete('question-group/{id}', 'Admin\OnlineExam\AramiscQuestionGroupController@destroy')->name('question-group-delete')->middleware('userRolePermission:question-group-delete');
 
         // Question bank
-        // Route::resource('question-bank', 'SmQuestionBankController')->middleware('userRolePermission:234');
-        Route::get('question-bank', 'Admin\OnlineExam\SmQuestionBankController@index')->name('question-bank')->middleware('userRolePermission:question-bank');
-        Route::post('question-bank', 'Admin\OnlineExam\SmQuestionBankController@store')->name('question-bank-store')->middleware('userRolePermission:question-bank-store');
-        Route::get('question-bank/{id}', 'Admin\OnlineExam\SmQuestionBankController@show')->name('question-bank-edit')->middleware('userRolePermission:question-bank-edit');
-        Route::put('question-bank/{id}', 'Admin\OnlineExam\SmQuestionBankController@update')->name('question-bank-update')->middleware('userRolePermission:question-bank-edit');
-        Route::delete('question-bank/{id}', 'Admin\OnlineExam\SmQuestionBankController@destroy')->name('question-bank-delete')->middleware('userRolePermission:question-bank-delete');
+        // Route::resource('question-bank', 'AramiscQuestionBankController')->middleware('userRolePermission:234');
+        Route::get('question-bank', 'Admin\OnlineExam\AramiscQuestionBankController@index')->name('question-bank')->middleware('userRolePermission:question-bank');
+        Route::post('question-bank', 'Admin\OnlineExam\AramiscQuestionBankController@store')->name('question-bank-store')->middleware('userRolePermission:question-bank-store');
+        Route::get('question-bank/{id}', 'Admin\OnlineExam\AramiscQuestionBankController@show')->name('question-bank-edit')->middleware('userRolePermission:question-bank-edit');
+        Route::put('question-bank/{id}', 'Admin\OnlineExam\AramiscQuestionBankController@update')->name('question-bank-update')->middleware('userRolePermission:question-bank-edit');
+        Route::delete('question-bank/{id}', 'Admin\OnlineExam\AramiscQuestionBankController@destroy')->name('question-bank-delete')->middleware('userRolePermission:question-bank-delete');
 
 
         // Marks Grade
-        // Route::resource('marks-grade', 'Admin\Examination\SmMarksGradeController')->middleware('userRolePermission:225');
-        Route::get('marks-grade', 'Admin\Examination\SmMarksGradeController@index')->name('marks-grade')->middleware('userRolePermission:marks-grade');
-        Route::post('marks-grade', 'Admin\Examination\SmMarksGradeController@store')->name('marks-grade-store')->middleware('userRolePermission:marks-grade-store');
-        Route::get('marks-grade/{id}', 'Admin\Examination\SmMarksGradeController@show')->name('marks-grade-edit')->middleware('userRolePermission:marks-grade-edit');
-        Route::put('marks-grade/{id}', 'Admin\Examination\SmMarksGradeController@update')->name('marks-grade-update')->middleware('userRolePermission:marks-grade-edit');
-        Route::delete('marks-grade/{id}', 'Admin\Examination\SmMarksGradeController@destroy')->name('marks-grade-delete')->middleware('userRolePermission:marks-grade-delete');
+        // Route::resource('marks-grade', 'Admin\Examination\AramiscMarksGradeController')->middleware('userRolePermission:225');
+        Route::get('marks-grade', 'Admin\Examination\AramiscMarksGradeController@index')->name('marks-grade')->middleware('userRolePermission:marks-grade');
+        Route::post('marks-grade', 'Admin\Examination\AramiscMarksGradeController@store')->name('marks-grade-store')->middleware('userRolePermission:marks-grade-store');
+        Route::get('marks-grade/{id}', 'Admin\Examination\AramiscMarksGradeController@show')->name('marks-grade-edit')->middleware('userRolePermission:marks-grade-edit');
+        Route::put('marks-grade/{id}', 'Admin\Examination\AramiscMarksGradeController@update')->name('marks-grade-update')->middleware('userRolePermission:marks-grade-edit');
+        Route::delete('marks-grade/{id}', 'Admin\Examination\AramiscMarksGradeController@destroy')->name('marks-grade-delete')->middleware('userRolePermission:marks-grade-delete');
 
 
         // exam
-        // Route::resource('exam', 'Admin\Examination\SmExamController');
+        // Route::resource('exam', 'Admin\Examination\AramiscExamController');
 
-        Route::get('exam-type', 'Admin\Examination\SmExaminationController@exam_type')->name('exam-type')->middleware('userRolePermission:exam-type');
-        Route::get('exam-type-edit/{id}', ['as' => 'exam_type_edit', 'uses' => 'Admin\Examination\SmExaminationController@exam_type_edit'])->middleware('userRolePermission:exam_type_edit');
-        Route::post('exam-type-store', ['as' => 'exam_type_store', 'uses' => 'Admin\Examination\SmExaminationController@exam_type_store'])->middleware('userRolePermission:exam_type_store');
-        Route::post('exam-type-update', ['as' => 'exam_type_update', 'uses' => 'Admin\Examination\SmExaminationController@exam_type_update'])->middleware('userRolePermission:exam_type_edit');
-        Route::get('exam-type-delete/{id}', ['as' => 'exam_type_delete', 'uses' => 'Admin\Examination\SmExaminationController@exam_type_delete'])->middleware('userRolePermission:exam_type_delete');
+        Route::get('exam-type', 'Admin\Examination\AramiscExaminationController@exam_type')->name('exam-type')->middleware('userRolePermission:exam-type');
+        Route::get('exam-type-edit/{id}', ['as' => 'exam_type_edit', 'uses' => 'Admin\Examination\AramiscExaminationController@exam_type_edit'])->middleware('userRolePermission:exam_type_edit');
+        Route::post('exam-type-store', ['as' => 'exam_type_store', 'uses' => 'Admin\Examination\AramiscExaminationController@exam_type_store'])->middleware('userRolePermission:exam_type_store');
+        Route::post('exam-type-update', ['as' => 'exam_type_update', 'uses' => 'Admin\Examination\AramiscExaminationController@exam_type_update'])->middleware('userRolePermission:exam_type_edit');
+        Route::get('exam-type-delete/{id}', ['as' => 'exam_type_delete', 'uses' => 'Admin\Examination\AramiscExaminationController@exam_type_delete'])->middleware('userRolePermission:exam_type_delete');
 
 
-        Route::get('exam-setup/{id}', 'Admin\Examination\SmExamController@aramiscExamSetup');
-        Route::post('exam-setup-store', 'Admin\Examination\SmExamController@aramiscExamSetupStore')->name('exam-setup-store');
+        Route::get('exam-setup/{id}', 'Admin\Examination\AramiscExamController@examSetup');
+        Route::post('exam-setup-store', 'Admin\Examination\AramiscExamController@examSetupStore')->name('exam-setup-store');
 
 
         // exam
-        // Route::resource('department', 'SmHumanDepartmentController')->middleware('userRolePermission:184');
-        Route::get('department', 'Admin\Hr\SmHumanDepartmentController@index')->name('department')->middleware('userRolePermission:department');
-        Route::post('department', 'Admin\Hr\SmHumanDepartmentController@store')->name('department-store')->middleware('userRolePermission:department-store');
-        Route::get('department/{id}', 'Admin\Hr\SmHumanDepartmentController@show')->name('department-edit')->middleware('userRolePermission:department-edit');
-        Route::put('department/{id}', 'Admin\Hr\SmHumanDepartmentController@update')->name('department-update')->middleware('userRolePermission:department-edit');
-        Route::delete('department/{id}', 'Admin\Hr\SmHumanDepartmentController@destroy')->name('department-delete')->middleware('userRolePermission:department-delete');
+        // Route::resource('department', 'AramiscHumanDepartmentController')->middleware('userRolePermission:184');
+        Route::get('department', 'Admin\Hr\AramiscHumanDepartmentController@index')->name('department')->middleware('userRolePermission:department');
+        Route::post('department', 'Admin\Hr\AramiscHumanDepartmentController@store')->name('department-store')->middleware('userRolePermission:department-store');
+        Route::get('department/{id}', 'Admin\Hr\AramiscHumanDepartmentController@show')->name('department-edit')->middleware('userRolePermission:department-edit');
+        Route::put('department/{id}', 'Admin\Hr\AramiscHumanDepartmentController@update')->name('department-update')->middleware('userRolePermission:department-edit');
+        Route::delete('department/{id}', 'Admin\Hr\AramiscHumanDepartmentController@destroy')->name('department-delete')->middleware('userRolePermission:department-delete');
 
-        // Route::post('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamScheduleStore']);
-        // Route::get('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamScheduleCreate']);
+        // Route::post('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\AramiscExaminationController@examScheduleStore']);
+        // Route::get('exam-schedule-store', ['as' => 'exam_schedule_store', 'uses' => 'Admin\Examination\AramiscExaminationController@examScheduleCreate']);
 
         //Exam Schedule
-        Route::get('exam-schedule', ['as' => 'exam_schedule', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamSchedule'])->middleware('userRolePermission:exam_schedule');
+        Route::get('exam-schedule', ['as' => 'exam_schedule', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examSchedule'])->middleware('userRolePermission:exam_schedule');
 
-        Route::post('exam-schedule-report-search', ['as' => 'exam_schedule_report_search_new', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamScheduleReportSearch']);
+        Route::post('exam-schedule-report-search', ['as' => 'exam_schedule_report_search_new', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examScheduleReportSearch']);
 
-        Route::get('exam-schedule-report-search', ['as' => 'exam_schedule_report_search', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamSchedule']);
-        Route::get('exam-schedule/print/{exam_id}/{class_id}/{section_id}', ['as' => 'exam_schedule_print', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamSchedulePrint']);
-        Route::get('view-exam-schedule/{class_id}/{section_id}/{exam_id}', ['as' => 'view_exam_schedule', 'uses' => 'Admin\Examination\SmExaminationController@viewExamSchedule']);
+        Route::get('exam-schedule-report-search', ['as' => 'exam_schedule_report_search', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examSchedule']);
+        Route::get('exam-schedule/print/{exam_id}/{class_id}/{section_id}', ['as' => 'exam_schedule_print', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examSchedulePrint']);
+        Route::get('view-exam-schedule/{class_id}/{section_id}/{exam_id}', ['as' => 'view_exam_schedule', 'uses' => 'Admin\Examination\AramiscExaminationController@viewExamSchedule']);
 
 
         //Exam Schedule create
-        Route::get('exam-schedule-create', ['as' => 'exam_schedule_create', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamScheduleCreate'])->middleware('userRolePermission:exam_schedule_store');
+        Route::get('exam-schedule-create', ['as' => 'exam_schedule_create', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examScheduleCreate'])->middleware('userRolePermission:exam_schedule_create');
 
-        Route::post('exam-schedule-create', ['as' => 'exam_schedule_create_store', 'uses' => 'Admin\Examination\SmExamRoutineController@aramiscExamScheduleSearch'])->middleware('userRolePermission:exam_schedule_store');
-
-
-        Route::post('delete-exam-routine', 'SmExamRoutineController@deleteExamRoutine')->name('delete-exam-routine');/* delete exam rouitne for update =abunayem */
+        Route::post('exam-schedule-create', ['as' => 'exam_schedule_create_store', 'uses' => 'Admin\Examination\AramiscExamRoutineController@examScheduleSearch'])->middleware('userRolePermission:exam_schedule_store');
 
 
+        Route::post('delete-exam-routine', 'AramiscExamRoutineController@deleteExamRoutine')->name('delete-exam-routine');/* delete exam rouitne for update =abunayem */
 
 
 
-        Route::get('exam-routine-view/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\SmExamRoutineController@aramiscExamRoutineView');
-        Route::get('exam-routine-print/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\SmExamRoutineController@aramiscExamRoutinePrint')->name('exam-routine-print');
+
+
+        Route::get('exam-routine-view/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\AramiscExamRoutineController@examRoutineView');
+        Route::get('exam-routine-print/{class_id}/{section_id}/{exam_period_id}', 'Admin\Examination\AramiscExamRoutineController@examRoutinePrint')->name('exam-routine-print');
 
         //view exam status
-        Route::get('view-exam-status/{exam_id}', ['as' => 'view_exam_status', 'uses' => 'Admin\Examination\SmExaminationController@viewExamStatus']);
+        Route::get('view-exam-status/{exam_id}', ['as' => 'view_exam_status', 'uses' => 'Admin\Examination\AramiscExaminationController@viewExamStatus']);
 
         // marks register
-        Route::get('marks-register', ['as' => 'marks_register', 'uses' => 'Admin\Examination\SmExamMarkRegisterController@index']);
-        Route::post('marks-register', ['as' => 'marks_register_search', 'uses' => 'Admin\Examination\SmExamMarkRegisterController@reportSearch']);
+        Route::get('marks-register', ['as' => 'marks_register', 'uses' => 'Admin\Examination\AramiscExamMarkRegisterController@index']);
+        Route::post('marks-register', ['as' => 'marks_register_search', 'uses' => 'Admin\Examination\AramiscExamMarkRegisterController@reportSearch']);
 
-        Route::get('marks-register-create', ['as' => 'marks_register_create', 'uses' => 'Admin\Examination\SmExamMarkRegisterController@create']);
+        Route::get('marks-register-create', ['as' => 'marks_register_create', 'uses' => 'Admin\Examination\AramiscExamMarkRegisterController@create']);
 
-        Route::post('add-exam-routine-store', 'Admin\Examination\SmExamRoutineController@addExamRoutineStore')->name('add-exam-routine-store');
+        Route::post('add-exam-routine-store', 'Admin\Examination\AramiscExamRoutineController@addExamRoutineStore')->name('add-exam-routine-store');
 
-        Route::post('marks-register-create', ['as' => 'marks_register_create_search', 'uses' => 'Admin\Examination\SmExamMarkRegisterController@search']);
+        Route::post('marks-register-create', ['as' => 'marks_register_create_search', 'uses' => 'Admin\Examination\AramiscExamMarkRegisterController@search']);
 
-        Route::post('marks_register_store', ['as' => 'marks_register_store', 'uses' => 'Admin\Examination\SmExamMarkRegisterController@store']);
+        Route::post('marks_register_store', ['as' => 'marks_register_store', 'uses' => 'Admin\Examination\AramiscExamMarkRegisterController@store']); 
 
-        Route::get('exam-settings', ['as' => 'exam-settings', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@index'])->middleware('userRolePermission:exam-settings');
-        Route::post('save-exam-content', ['as' => 'save-exam-content', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@store'])->middleware('userRolePermission:save-exam-content');
-        Route::get('edit-exam-settings/{id}', ['as' => 'edit-exam-settings', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@edit']);
-        Route::post('update-exam-content', ['as' => 'update-exam-content', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@update'])->middleware('userRolePermission:708');
+        Route::get('exam-settings', ['as' => 'exam-settings', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@index'])->middleware('userRolePermission:exam-settings');
+        Route::post('save-exam-content', ['as' => 'save-exam-content', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@store'])->middleware('userRolePermission:save-exam-content');
+        Route::get('edit-exam-settings/{id}', ['as' => 'edit-exam-settings', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@edit'])->middleware('userRolePermission:edit-exam-settings');
+        Route::post('update-exam-content', ['as' => 'update-exam-content', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@update'])->middleware('userRolePermission:update-exam-content');
 
-        Route::get('delete-content/{id}', ['as' => 'delete-content', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@delete'])->middleware('userRolePermission:delete-content');
+        Route::get('delete-content/{id}', ['as' => 'delete-content', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@delete'])->middleware('userRolePermission:delete-content');
 
-        Route::get('exam-report-position', ['as' => 'exam-report-position', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@examReportPosition']);
-        Route::post('exam-report-position-store', ['as' => 'exam-report-position-store', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@examReportPositionStore']);
+        Route::get('exam-report-position', ['as' => 'exam-report-position', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@examReportPosition']);
+        Route::post('exam-report-position-store', ['as' => 'exam-report-position-store', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@examReportPositionStore']);
 
-        Route::get('all-exam-report-position', ['as' => 'all-exam-report-position', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@allExamReportPosition']);
-        Route::post('all-exam-report-position-store', ['as' => 'all-exam-report-position-store', 'uses' => 'Admin\Examination\SmExamFormatSettingsController@allExamReportPositionStore']);
+        Route::get('all-exam-report-position', ['as' => 'all-exam-report-position', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@allExamReportPosition']);
+        Route::post('all-exam-report-position-store', ['as' => 'all-exam-report-position-store', 'uses' => 'Admin\Examination\AramiscExamFormatSettingsController@allExamReportPositionStore']);
 
 
         //Seat Plan
-        Route::get('seat-plan', ['as' => 'seat_plan', 'uses' => 'Admin\Examination\SmExaminationController@seatPlan']);
-        Route::post('seat-plan-report-search', ['as' => 'seat_plan_report_search_new', 'uses' => 'Admin\Examination\SmExaminationController@seatPlanReportSearch']);
-        Route::get('seat-plan-report-search', ['as' => 'seat_plan_report_search', 'uses' => 'Admin\Examination\SmExaminationController@seatPlan']);
+        Route::get('seat-plan', ['as' => 'seat_plan', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlan']);
+        Route::post('seat-plan-report-search', ['as' => 'seat_plan_report_search_new', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlanReportSearch']);
+        Route::get('seat-plan-report-search', ['as' => 'seat_plan_report_search', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlan']);
 
-        Route::get('seat-plan-create', ['as' => 'seat_plan_create', 'uses' => 'Admin\Examination\SmExaminationController@seatPlanCreate']);
+        Route::get('seat-plan-create', ['as' => 'seat_plan_create', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlanCreate']);
 
-        Route::post('seat-plan-store', ['as' => 'seat_plan_store_create', 'uses' => 'Admin\Examination\SmExaminationController@seatPlanStore']);
-        Route::get('seat-plan-store', ['as' => 'seat_plan_store', 'uses' => 'Admin\Examination\SmExaminationController@seatPlanCreate']);
+        Route::post('seat-plan-store', ['as' => 'seat_plan_store_create', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlanStore']);
+        Route::get('seat-plan-store', ['as' => 'seat_plan_store', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlanCreate']);
 
-        Route::post('seat-plan-search', ['as' => 'seat_plan_create_search', 'uses' => 'Admin\Examination\SmExaminationController@seatPlanSearch']);
-        Route::get('seat-plan-search', ['as' => 'seat_plan_search', 'uses' => 'Admin\Examination\SmExaminationController@seatPlanCreate']);
-        Route::get('assign-exam-room-get-by-ajax', ['as' => 'assign-exam-room-get-by-ajax', 'uses' => 'Admin\Examination\SmExaminationController@getExamRoomByAjax']);
-        Route::get('get-room-capacity', ['as' => 'get-room-capacity', 'uses' => 'Admin\Examination\SmExaminationController@getRoomCapacity']);
+        Route::post('seat-plan-search', ['as' => 'seat_plan_create_search', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlanSearch']);
+        Route::get('seat-plan-search', ['as' => 'seat_plan_search', 'uses' => 'Admin\Examination\AramiscExaminationController@seatPlanCreate']);
+        Route::get('assign-exam-room-get-by-ajax', ['as' => 'assign-exam-room-get-by-ajax', 'uses' => 'Admin\Examination\AramiscExaminationController@getExamRoomByAjax']);
+        Route::get('get-room-capacity', ['as' => 'get-room-capacity', 'uses' => 'Admin\Examination\AramiscExaminationController@getRoomCapacity']);
 
 
         // Exam Attendance
-        Route::get('exam-aramiscAttendance', ['as' => 'exam_aramiscAttendance', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamAttendance']);
-        Route::post('exam-aramiscAttendance', ['as' => 'exam_aramiscAttendance_search', 'uses' => 'Admin\Examination\SmExaminationController@aramiscExamAttendanceAeportSearch']);
+        Route::get('exam-attendance', ['as' => 'exam_attendance', 'uses' => 'Admin\Examination\AramiscExaminationController@examAttendance']);
+        Route::post('exam-attendance', ['as' => 'exam_attendance_search', 'uses' => 'Admin\Examination\AramiscExaminationController@examAttendanceAeportSearch']);
 
 
-        Route::get('exam-aramiscAttendance-create', ['as' => 'exam_aramiscAttendance_create', 'uses' => 'Admin\Examination\SmExamAttendanceController@aramiscExamAttendanceCreate']);
-        Route::post('exam-aramiscAttendance-create', ['as' => 'exam_aramiscAttendance_create_search', 'uses' => 'Admin\Examination\SmExamAttendanceController@aramiscExamAttendanceSearch']);
+        Route::get('exam-attendance-create', ['as' => 'exam_attendance_create', 'uses' => 'Admin\Examination\AramiscExamAttendanceController@examAttendanceCreate']);
+        Route::post('exam-attendance-create', ['as' => 'exam_attendance_create_search', 'uses' => 'Admin\Examination\AramiscExamAttendanceController@examAttendanceSearch']);
 
-        Route::post('exam-aramiscAttendance-store', 'Admin\Examination\SmExamAttendanceController@aramiscExamAttendanceStore')->name('exam-aramiscAttendance-store');
+        Route::post('exam-attendance-store', 'Admin\Examination\AramiscExamAttendanceController@examAttendanceStore')->name('exam-attendance-store');
         // Send Marks By SmS
-        Route::get('send-marks-by-sms', ['as' => 'send_marks_by_sms', 'uses' => 'Admin\Examination\SmExaminationController@sendMarksBySms'])->middleware('userRolePermission:send_marks_by_sms');
-        Route::post('send-marks-by-sms-store', ['as' => 'send_marks_by_sms_store', 'uses' => 'Admin\Examination\SmExaminationController@sendMarksBySmsStore'])->middleware('userRolePermission:marks-grade-edit');
+        Route::get('send-marks-by-sms', ['as' => 'send_marks_by_sms', 'uses' => 'Admin\Examination\AramiscExaminationController@sendMarksBySms'])->middleware('userRolePermission:send_marks_by_sms');
+        Route::post('send-marks-by-sms-store', ['as' => 'send_marks_by_sms_store', 'uses' => 'Admin\Examination\AramiscExaminationController@sendMarksBySmsStore'])->middleware('userRolePermission:marks-grade-edit');
 
 
         // Online Exam
-        // Route::resource('online-exam', 'Admin\OnlineExam\SmOnlineExamController')->middleware('userRolePermission:238');
-        Route::get('online-exam', 'Admin\OnlineExam\SmOnlineExamController@index')->name('online-exam')->middleware('userRolePermission:online-exam');
-        Route::post('online-exam', 'Admin\OnlineExam\SmOnlineExamController@store')->name('online-exam-store')->middleware('userRolePermission:online-exam-store');
-        Route::get('online-exam/{id}', 'Admin\OnlineExam\SmOnlineExamController@edit')->name('online-exam-edit')->middleware('userRolePermission:online-exam-edit');
-        Route::get('view-online-exam-question/{id}', 'Admin\OnlineExam\SmOnlineExamController@viewOnlineExam')->name('online-exam-question-view')->middleware('userRolePermission:online-exam');
-        Route::put('online-exam/{id}', 'Admin\OnlineExam\SmOnlineExamController@update')->name('online-exam-update')->middleware('userRolePermission:online-exam-edit');
-        // Route::delete('online-exam/{id}', 'Admin\OnlineExam\SmOnlineExamController@delete')->name('online-exam-delete')->middleware('userRolePermission:241');
+        // Route::resource('online-exam', 'Admin\OnlineExam\AramiscOnlineExamController')->middleware('userRolePermission:238');
+        Route::get('online-exam', 'Admin\OnlineExam\AramiscOnlineExamController@index')->name('online-exam')->middleware('userRolePermission:online-exam');
+        Route::post('online-exam', 'Admin\OnlineExam\AramiscOnlineExamController@store')->name('online-exam-store')->middleware('userRolePermission:online-exam-store');
+        Route::get('online-exam/{id}', 'Admin\OnlineExam\AramiscOnlineExamController@edit')->name('online-exam-edit')->middleware('userRolePermission:online-exam-edit');
+        Route::get('view-online-exam-question/{id}', 'Admin\OnlineExam\AramiscOnlineExamController@viewOnlineExam')->name('online-exam-question-view')->middleware('userRolePermission:online-exam');
+        Route::put('online-exam/{id}', 'Admin\OnlineExam\AramiscOnlineExamController@update')->name('online-exam-update')->middleware('userRolePermission:online-exam-edit');
+        // Route::delete('online-exam/{id}', 'Admin\OnlineExam\AramiscOnlineExamController@delete')->name('online-exam-delete')->middleware('userRolePermission:241');
 
-        Route::post('online-exam-delete', 'Admin\OnlineExam\SmOnlineExamController@delete')->name('online-exam-delete')->middleware('userRolePermission:online-exam-delete');
-        Route::get('manage-online-exam-question/{id}', ['as' => 'manage_online_exam_question', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@manageOnlineExamQuestion'])->middleware('userRolePermission:manage_online_exam_question');
-        Route::post('online_exam_question_store', ['as' => 'online_exam_question_store', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@manageOnlineExamQuestionStore']);
+        Route::post('online-exam-delete', 'Admin\OnlineExam\AramiscOnlineExamController@delete')->name('online-exam-delete')->middleware('userRolePermission:online-exam-delete');
+        Route::get('manage-online-exam-question/{id}', ['as' => 'manage_online_exam_question', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@manageOnlineExamQuestion'])->middleware('userRolePermission:manage_online_exam_question');
+        Route::post('online_exam_question_store', ['as' => 'online_exam_question_store', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@manageOnlineExamQuestionStore']);
 
-        Route::get('online-exam-publish/{id}', ['as' => 'online_exam_publish', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamPublish']);
-        Route::get('online-exam-publish-cancel/{id}', ['as' => 'online_exam_publish_cancel', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamPublishCancel']);
+        Route::get('online-exam-publish/{id}', ['as' => 'online_exam_publish', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamPublish']);
+        Route::get('online-exam-publish-cancel/{id}', ['as' => 'online_exam_publish_cancel', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamPublishCancel']);
 
-        Route::get('online-question-edit/{id}/{type}/{examId}', 'Admin\OnlineExam\SmOnlineExamController@onlineQuestionEdit');
-        Route::post('online-exam-question-edit', ['as' => 'online_exam_question_edit', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamQuestionEdit']);
-        Route::post('online-exam-question-delete', 'Admin\OnlineExam\SmOnlineExamController@onlineExamQuestionDelete')->name('online-exam-question-delete');
+        Route::get('online-question-edit/{id}/{type}/{examId}', 'Admin\OnlineExam\AramiscOnlineExamController@onlineQuestionEdit');
+        Route::post('online-exam-question-edit', ['as' => 'online_exam_question_edit', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamQuestionEdit']);
+        Route::post('online-exam-question-delete', 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamQuestionDelete')->name('online-exam-question-delete');
 
         // store online exam question
-        Route::post('online-exam-question-assign', ['as' => 'online_exam_question_assign', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamQuestionAssign']);
+        Route::post('online-exam-question-assign', ['as' => 'online_exam_question_assign', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamQuestionAssign']);
 
-        Route::get('view_online_question_modal/{id}', ['as' => 'view_online_question_modal', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@viewOnlineQuestionModal']);
+        Route::get('view_online_question_modal/{id}', ['as' => 'view_online_question_modal', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@viewOnlineQuestionModal']);
 
 
         // Online exam marks
-        Route::get('online-exam-marks-register/{id}', ['as' => 'online_exam_marks_register', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamMarksRegister']);
+        Route::get('online-exam-marks-register/{id}', ['as' => 'online_exam_marks_register', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamMarksRegister']);
 
-        // Route::post('online-exam-marks-store', ['as' => 'online_exam_marks_store', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamMarksStore']);
-        Route::get('online-exam-result/{id}', ['as' => 'online_exam_result', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamResult'])->middleware('userRolePermission:online_exam_result');
+        // Route::post('online-exam-marks-store', ['as' => 'online_exam_marks_store', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamMarksStore']);
+        Route::get('online-exam-result/{id}', ['as' => 'online_exam_result', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamResult'])->middleware('userRolePermission:online_exam_result');
 
-        Route::get('online-exam-marking/{exam_id}/{s_id}', ['as' => 'online_exam_marking', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamMarking']);
-        Route::post('online-exam-marks-store', ['as' => 'online_exam_marks_store', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamMarkingStore']);
+        Route::get('online-exam-marking/{exam_id}/{s_id}', ['as' => 'online_exam_marking', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamMarking']);
+        Route::post('online-exam-marks-store', ['as' => 'online_exam_marks_store', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamMarkingStore']);
 
-        Route::get('online-exam-datatable', ['as' => 'online_exam_datatable', 'uses' => 'Admin\OnlineExam\SmOnlineExamController@onlineExamDatatable']);
+        Route::get('online-exam-datatable', ['as' => 'online_exam_datatable', 'uses' => 'Admin\OnlineExam\AramiscOnlineExamController@onlineExamDatatable']);
 
         // Staff Hourly rate
-        // Route::get('hourly-rate', 'SmHourlyRateController@index')->name('hourly-rate');
-        // Route::post('hourly-rate', 'SmHourlyRateController@store')->name('hourly-rate');
-        // Route::get('hourly-rate', 'SmHourlyRateController@show')->name('hourly-rate');
-        // Route::put('hourly-rate', 'SmHourlyRateController@update')->name('hourly-rate');
-        // Route::delete('hourly-rate', 'SmHourlyRateController@destroy')->name('hourly-rate');
+        // Route::get('hourly-rate', 'AramiscHourlyRateController@index')->name('hourly-rate');
+        // Route::post('hourly-rate', 'AramiscHourlyRateController@store')->name('hourly-rate');
+        // Route::get('hourly-rate', 'AramiscHourlyRateController@show')->name('hourly-rate');
+        // Route::put('hourly-rate', 'AramiscHourlyRateController@update')->name('hourly-rate');
+        // Route::delete('hourly-rate', 'AramiscHourlyRateController@destroy')->name('hourly-rate');
 
         // Staff leave type
-        // Route::resource('leave-type', 'SmLeaveTypeController')->middleware('userRolePermission:203');
-        Route::get('leave-type', 'Admin\Leave\SmLeaveTypeController@index')->name('leave-type')->middleware('userRolePermission:leave-type');
-        Route::post('leave-type', 'Admin\Leave\SmLeaveTypeController@store')->name('leave-type-store')->middleware('userRolePermission:leave-type-store');
-        Route::get('leave-type/{id}', 'Admin\Leave\SmLeaveTypeController@show')->name('leave-type-edit')->middleware('userRolePermission:leave-type-edit');
-        Route::put('leave-type/{id}', 'Admin\Leave\SmLeaveTypeController@update')->name('leave-type-update')->middleware('userRolePermission:leave-type-edit');
-        Route::delete('leave-type/{id}', 'Admin\Leave\SmLeaveTypeController@destroy')->name('leave-type-delete')->middleware('userRolePermission:leave-type-delete');
+        // Route::resource('leave-type', 'AramiscLeaveTypeController')->middleware('userRolePermission:203');
+        Route::get('leave-type', 'Admin\Leave\AramiscLeaveTypeController@index')->name('leave-type')->middleware('userRolePermission:leave-type');
+        Route::post('leave-type', 'Admin\Leave\AramiscLeaveTypeController@store')->name('leave-type-store')->middleware('userRolePermission:leave-type-store');
+        Route::get('leave-type/{id}', 'Admin\Leave\AramiscLeaveTypeController@show')->name('leave-type-edit')->middleware('userRolePermission:leave-type-edit');
+        Route::put('leave-type/{id}', 'Admin\Leave\AramiscLeaveTypeController@update')->name('leave-type-update')->middleware('userRolePermission:leave-type-edit');
+        Route::delete('leave-type/{id}', 'Admin\Leave\AramiscLeaveTypeController@destroy')->name('leave-type-delete')->middleware('userRolePermission:leave-type-delete');
 
         // Staff leave define
-        // Route::resource('leave-define', 'Admin\Leave\SmLeaveDefineController')->middleware('userRolePermission:199');
-        Route::get('leave-define', 'Admin\Leave\SmLeaveDefineController@index')->name('leave-define')->middleware('userRolePermission:leave-define');
-        Route::post('leave-define', 'Admin\Leave\SmLeaveDefineController@store')->name('leave-define-store');
-        Route::get('leave-define/{id}', 'Admin\Leave\SmLeaveDefineController@show')->name('leave-define-edit')->middleware('userRolePermission:leave-define-edit');
-        Route::put('leave-define/{id}', 'Admin\Leave\SmLeaveDefineController@update')->name('leave-define-update')->middleware('userRolePermission:leave-define-edit');
-        Route::delete('leave-define', 'Admin\Leave\SmLeaveDefineController@destroy')->name('leave-define-delete')->middleware('userRolePermission:leave-define-delete');
-        Route::post('leave-define-updateLeave', 'Admin\Leave\SmLeaveDefineController@updateLeave')->name('leave-define-updateLeave')->middleware('userRolePermission:leave-define-edit');
+        // Route::resource('leave-define', 'Admin\Leave\AramiscLeaveDefineController')->middleware('userRolePermission:199');
+        Route::get('leave-define', 'Admin\Leave\AramiscLeaveDefineController@index')->name('leave-define')->middleware('userRolePermission:leave-define');
+        Route::post('leave-define', 'Admin\Leave\AramiscLeaveDefineController@store')->name('leave-define-store');
+        Route::get('leave-define/{id}', 'Admin\Leave\AramiscLeaveDefineController@show')->name('leave-define-edit')->middleware('userRolePermission:leave-define-edit');
+        Route::put('leave-define/{id}', 'Admin\Leave\AramiscLeaveDefineController@update')->name('leave-define-update')->middleware('userRolePermission:leave-define-edit');
+        Route::delete('leave-define', 'Admin\Leave\AramiscLeaveDefineController@destroy')->name('leave-define-delete')->middleware('userRolePermission:leave-define-delete');
+        Route::post('leave-define-updateLeave', 'Admin\Leave\AramiscLeaveDefineController@updateLeave')->name('leave-define-updateLeave')->middleware('userRolePermission:leave-define-edit');
 
         Route::get('leave-define-ajax', 'DatatableQueryController@leaveDefineList')->name('leave-define-ajax')->middleware('userRolePermission:leave-define');
 
         // Staff leave define
-        // Route::resource('apply-leave', 'SmLeaveRequestController')->middleware('userRolePermission:193');
-        Route::get('apply-leave', 'Admin\Leave\SmLeaveRequestController@index')->name('apply-leave')->middleware('userRolePermission:apply-leave');
-        Route::post('apply-leave', 'Admin\Leave\SmLeaveRequestController@store')->name('apply-leave-store')->middleware('userRolePermission:apply-leave-store');
-        Route::get('apply-leave/{id}', 'Admin\Leave\SmLeaveRequestController@show')->name('apply-leave-edit')->middleware('userRolePermission:apply-leave-edit');
-        Route::put('apply-leave/{id}', 'Admin\Leave\SmLeaveRequestController@update')->name('apply-leave-update')->middleware('userRolePermission:apply-leave-edit');
-        Route::delete('apply-leave/{id}', 'Admin\Leave\SmLeaveRequestController@destroy')->name('apply-leave-delete')->middleware('userRolePermission:apply-leave-delete');
-        Route::post('apply-leave-delte', 'Admin\Leave\SmLeaveRequestController@deleteLeave')->name('delete-apply-leave')->middleware('userRolePermission:apply-leave-delete');
+        // Route::resource('apply-leave', 'AramiscLeaveRequestController')->middleware('userRolePermission:193');
+        Route::get('apply-leave', 'Admin\Leave\AramiscLeaveRequestController@index')->name('apply-leave')->middleware('userRolePermission:apply-leave');
+        Route::post('apply-leave', 'Admin\Leave\AramiscLeaveRequestController@store')->name('apply-leave-store')->middleware('userRolePermission:apply-leave-store');
+        Route::get('apply-leave/{id}', 'Admin\Leave\AramiscLeaveRequestController@show')->name('apply-leave-edit')->middleware('userRolePermission:apply-leave-edit');
+        Route::put('apply-leave/{id}', 'Admin\Leave\AramiscLeaveRequestController@update')->name('apply-leave-update')->middleware('userRolePermission:apply-leave-edit');
+        Route::delete('apply-leave/{id}', 'Admin\Leave\AramiscLeaveRequestController@destroy')->name('apply-leave-delete')->middleware('userRolePermission:apply-leave-delete');
+        Route::post('apply-leave-delte', 'Admin\Leave\AramiscLeaveRequestController@deleteLeave')->name('delete-apply-leave')->middleware('userRolePermission:apply-leave-delete');
 
 
         // Route::resource('approve-leave', 'Admin\Leave\SmApproveLeaveController')->middleware('userRolePermission:189');
@@ -941,7 +943,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::put('approve-leave/{id}', 'Admin\Leave\SmApproveLeaveController@update')->name('approve-leave-update');
         Route::delete('approve-leave/{id}', 'Admin\Leave\SmApproveLeaveController@destroy')->name('approve-leave-delete')->middleware('userRolePermission:approve-leave-delete');
 
-        Route::get('pending-leave', 'Admin\Leave\SmApproveLeaveController@aramiscPendingLeave')->name('pending-leave')->middleware('userRolePermission:pending-leave');
+        Route::get('pending-leave', 'Admin\Leave\SmApproveLeaveController@pendingLeave')->name('pending-leave')->middleware('userRolePermission:pending-leave');
 
         Route::post('update-approve-leave', 'Admin\Leave\SmApproveLeaveController@updateApproveLeave')->name('update-approve-leave');
 
@@ -951,42 +953,42 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Staff designation
-        // Route::resource('designation', 'SmDesignationController')->middleware('userRolePermission:180');
-        Route::get('designation', 'Admin\Hr\SmDesignationController@index')->name('designation')->middleware('userRolePermission:designation');
-        Route::post('designation', 'Admin\Hr\SmDesignationController@store')->name('designation-store')->middleware('userRolePermission:designation-store');
-        Route::get('designation/{id}', 'Admin\Hr\SmDesignationController@show')->name('designation-edit')->middleware('userRolePermission:designation-edit');
-        Route::put('designation/{id}', 'Admin\Hr\SmDesignationController@update')->name('designation-update')->middleware('userRolePermission:designation-edit');
-        Route::delete('designation/{id}', 'Admin\Hr\SmDesignationController@destroy')->name('designation-delete')->middleware('userRolePermission:designation-delete');
+        // Route::resource('designation', 'AramiscDesignationController')->middleware('userRolePermission:180');
+        Route::get('designation', 'Admin\Hr\AramiscDesignationController@index')->name('designation')->middleware('userRolePermission:designation');
+        Route::post('designation', 'Admin\Hr\AramiscDesignationController@store')->name('designation-store')->middleware('userRolePermission:designation-store');
+        Route::get('designation/{id}', 'Admin\Hr\AramiscDesignationController@show')->name('designation-edit')->middleware('userRolePermission:designation-edit');
+        Route::put('designation/{id}', 'Admin\Hr\AramiscDesignationController@update')->name('designation-update')->middleware('userRolePermission:designation-edit');
+        Route::delete('designation/{id}', 'Admin\Hr\AramiscDesignationController@destroy')->name('designation-delete')->middleware('userRolePermission:designation-delete');
 
 
         // Bank Account
-        // Route::resource('bank-account', 'Admin\Accounts\SmBankAccountController')->middleware('userRolePermission:156');
-        Route::get('bank-account', 'Admin\Accounts\SmBankAccountController@index')->name('bank-account')->middleware('userRolePermission:bank-account');
-        Route::post('bank-account', 'Admin\Accounts\SmBankAccountController@store')->name('bank-account-store')->middleware('userRolePermission:bank-account-store');
-        Route::get('bank-account/{id}', 'Admin\Accounts\SmBankAccountController@show')->name('bank-account-edit');
-        Route::put('bank-account/{id}', 'Admin\Accounts\SmBankAccountController@update')->name('bank-account-update');
-        Route::get('bank-transaction/{id}', 'Admin\Accounts\SmBankAccountController@bankTransaction')->name('bank-transaction')->middleware('userRolePermission:bank-transaction');
-        Route::delete('bank-account-delete', 'Admin\Accounts\SmBankAccountController@destroy')->name('bank-account-delete')->middleware('userRolePermission:bank-account-delete');
-        Route::get('bank-account-datatable', 'Admin\Accounts\SmBankAccountController@bankAccountDatatable')->name('bank-account-datatable')->middleware('userRolePermission:bank-account-datatable');
+        // Route::resource('bank-account', 'Admin\Accounts\AramiscBankAccountController')->middleware('userRolePermission:156');
+        Route::get('bank-account', 'Admin\Accounts\AramiscBankAccountController@index')->name('bank-account')->middleware('userRolePermission:bank-account');
+        Route::post('bank-account', 'Admin\Accounts\AramiscBankAccountController@store')->name('bank-account-store')->middleware('userRolePermission:bank-account-store');
+        Route::get('bank-account/{id}', 'Admin\Accounts\AramiscBankAccountController@show')->name('bank-account-edit');
+        Route::put('bank-account/{id}', 'Admin\Accounts\AramiscBankAccountController@update')->name('bank-account-update');
+        Route::get('bank-transaction/{id}', 'Admin\Accounts\AramiscBankAccountController@bankTransaction')->name('bank-transaction')->middleware('userRolePermission:bank-transaction');
+        Route::delete('bank-account-delete', 'Admin\Accounts\AramiscBankAccountController@destroy')->name('bank-account-delete')->middleware('userRolePermission:bank-account-delete');
+        Route::get('bank-account-datatable', 'Admin\Accounts\AramiscBankAccountController@bankAccountDatatable')->name('bank-account-datatable');
 
         // Expense head
-        // Route::resource('expense-head', 'SmExpenseHeadController');   //not used 
+        // Route::resource('expense-head', 'AramiscExpenseHeadController');   //not used 
 
         // Chart Of Account
-        // Route::resource('chart-of-account', 'SmChartOfAccountController')->middleware('userRolePermission:148');
-        Route::get('chart-of-account', 'Admin\Accounts\SmChartOfAccountController@index')->name('chart-of-account')->middleware('userRolePermission:chart-of-account');
-        Route::post('chart-of-account', 'Admin\Accounts\SmChartOfAccountController@store')->name('chart-of-account-store')->middleware('userRolePermission:chart-of-account-store');
-        Route::get('chart-of-account/{id}', 'Admin\Accounts\SmChartOfAccountController@show')->name('chart-of-account-edit')->middleware('userRolePermission:chart-of-account-edit');
-        Route::put('chart-of-account/{id}', 'Admin\Accounts\SmChartOfAccountController@update')->name('chart-of-account-update')->middleware('userRolePermission:chart-of-account-edit');
-        Route::delete('chart-of-account/{id}', 'Admin\Accounts\SmChartOfAccountController@destroy')->name('chart-of-account-delete')->middleware('userRolePermission:chart-of-account-delete');
+        // Route::resource('chart-of-account', 'AramiscChartOfAccountController')->middleware('userRolePermission:148');
+        Route::get('chart-of-account', 'Admin\Accounts\AramiscChartOfAccountController@index')->name('chart-of-account')->middleware('userRolePermission:chart-of-account');
+        Route::post('chart-of-account', 'Admin\Accounts\AramiscChartOfAccountController@store')->name('chart-of-account-store')->middleware('userRolePermission:chart-of-account-store');
+        Route::get('chart-of-account/{id}', 'Admin\Accounts\AramiscChartOfAccountController@show')->name('chart-of-account-edit')->middleware('userRolePermission:chart-of-account-edit');
+        Route::put('chart-of-account/{id}', 'Admin\Accounts\AramiscChartOfAccountController@update')->name('chart-of-account-update')->middleware('userRolePermission:chart-of-account-edit');
+        Route::delete('chart-of-account/{id}', 'Admin\Accounts\AramiscChartOfAccountController@destroy')->name('chart-of-account-delete')->middleware('userRolePermission:chart-of-account-delete');
 
         // Add Expense
-        // Route::resource('add-expense', 'Admin\Accounts\SmAddExpenseController')->middleware('userRolePermission:143');
-        Route::get('add-expense', 'Admin\Accounts\SmAddExpenseController@index')->name('add-expense')->middleware('userRolePermission:add-expense');
-        Route::post('add-expense', 'Admin\Accounts\SmAddExpenseController@store')->name('add-expense-store')->middleware('userRolePermission:add-expense-store');
-        Route::get('add-expense/{id}', 'Admin\Accounts\SmAddExpenseController@show')->name('add-expense-edit')->middleware('userRolePermission:add-expense-edit');
-        Route::put('add-expense/{id}', 'Admin\Accounts\SmAddExpenseController@update')->name('add-expense-update')->middleware('userRolePermission:add-expense-edit');
-        Route::post('add-expense-delete', 'Admin\Accounts\SmAddExpenseController@destroy')->name('add-expense-delete')->middleware('userRolePermission:add-expense-delete');
+        // Route::resource('add-expense', 'Admin\Accounts\AramiscAddExpenseController')->middleware('userRolePermission:143');
+        Route::get('add-expense', 'Admin\Accounts\AramiscAddExpenseController@index')->name('add-expense')->middleware('userRolePermission:add-expense');
+        Route::post('add-expense', 'Admin\Accounts\AramiscAddExpenseController@store')->name('add-expense-store')->middleware('userRolePermission:add-expense-store');
+        Route::get('add-expense/{id}', 'Admin\Accounts\AramiscAddExpenseController@show')->name('add-expense-edit')->middleware('userRolePermission:add-expense-edit');
+        Route::put('add-expense/{id}', 'Admin\Accounts\AramiscAddExpenseController@update')->name('add-expense-update')->middleware('userRolePermission:add-expense-edit');
+        Route::post('add-expense-delete', 'Admin\Accounts\AramiscAddExpenseController@destroy')->name('add-expense-delete')->middleware('userRolePermission:add-expense-delete');
         Route::get('download-expense-document/{file_name}', function ($file_name = null) {
             $file = public_path() . '/uploads/addExpense/' . $file_name;
             if (file_exists($file)) {
@@ -994,35 +996,35 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             }
         })->name('download-expense-document');
         // Fees Master
-        // Route::resource('fees-master', 'Admin\FeesCollection\SmFeesMasterController')->middleware('userRolePermission:118');
-        Route::get('fees-master', 'Admin\FeesCollection\SmFeesMasterController@index')->name('fees-master')->middleware('userRolePermission:fees-master');
-        Route::post('fees-master', 'Admin\FeesCollection\SmFeesMasterController@store')->name('fees-master-store')->middleware('userRolePermission:fees-master-store');
-        Route::get('fees-master/{id}', 'Admin\FeesCollection\SmFeesMasterController@show')->name('fees-master-edit')->middleware('userRolePermission:fees-master-edit');
-        Route::put('fees-master/{id}', 'Admin\FeesCollection\SmFeesMasterController@update')->name('fees-master-update')->middleware('userRolePermission:fees-master-edit');
-        Route::delete('fees-master/{id}', 'Admin\FeesCollection\SmFeesMasterController@destroy')->name('fees-master-delete')->middleware('userRolePermission:fees-master-delete');
+        // Route::resource('fees-master', 'Admin\FeesCollection\AramiscFeesMasterController')->middleware('userRolePermission:118');
+        Route::get('fees-master', 'Admin\FeesCollection\AramiscFeesMasterController@index')->name('fees-master')->middleware('userRolePermission:fees-master');
+        Route::post('fees-master', 'Admin\FeesCollection\AramiscFeesMasterController@store')->name('fees-master-store')->middleware('userRolePermission:fees-master-store');
+        Route::get('fees-master/{id}', 'Admin\FeesCollection\AramiscFeesMasterController@show')->name('fees-master-edit')->middleware('userRolePermission:fees-master-edit');
+        Route::put('fees-master/{id}', 'Admin\FeesCollection\AramiscFeesMasterController@update')->name('fees-master-update')->middleware('userRolePermission:fees-master-edit');
+        Route::delete('fees-master/{id}', 'Admin\FeesCollection\AramiscFeesMasterController@destroy')->name('fees-master-delete')->middleware('userRolePermission:fees-master-delete');
 
-        Route::post('fees-master-single-delete', 'Admin\FeesCollection\SmFeesMasterController@deleteSingle')->name('fees-master-single-delete')->middleware('userRolePermission:fees-master-delete');
-        Route::post('fees-master-group-delete', 'Admin\FeesCollection\SmFeesMasterController@deleteGroup')->name('fees-master-group-delete');
-        Route::get('fees-assign/{id}', ['as' => 'fees_assign', 'uses' => 'Admin\FeesCollection\SmFeesMasterController@feesAssign']);
+        Route::post('fees-master-single-delete', 'Admin\FeesCollection\AramiscFeesMasterController@deleteSingle')->name('fees-master-single-delete')->middleware('userRolePermission:fees-master-delete');
+        Route::post('fees-master-group-delete', 'Admin\FeesCollection\AramiscFeesMasterController@deleteGroup')->name('fees-master-group-delete');
+        Route::get('fees-assign/{id}', ['as' => 'fees_assign', 'uses' => 'Admin\FeesCollection\AramiscFeesMasterController@feesAssign']);
 
-        Route::post('fees-assign-search', 'Admin\FeesCollection\SmFeesMasterController@feesAssignSearch')->name('fees-assign-search');
+        Route::post('fees-assign-search', 'Admin\FeesCollection\AramiscFeesMasterController@feesAssignSearch')->name('fees-assign-search');
 
-        Route::post('btn-assign-fees-group', 'Admin\FeesCollection\SmFeesMasterController@feesAssignStore');
-        Route::post('unssign-all-fees-group', 'Admin\FeesCollection\SmFeesMasterController@feesUnassignAll');
+        Route::post('btn-assign-fees-group', 'Admin\FeesCollection\AramiscFeesMasterController@feesAssignStore');
+        Route::post('unssign-all-fees-group', 'Admin\FeesCollection\AramiscFeesMasterController@feesUnassignAll');
 
-        Route::get('fees-assign-datatable', 'Admin\FeesCollection\SmFeesMasterController@feesAssignDatatable')->name('fees-assign-datatable')->middleware('userRolePermission:fees-assign-datatable');
+        Route::get('fees-assign-datatable', 'Admin\FeesCollection\AramiscFeesMasterController@feesAssignDatatable')->name('fees-assign-datatable');
 
         //installment
-        Route::post('fees-installment-update', 'Admin\FeesCollection\SmFeesMasterController@feesInstallmentUpdate')->name('feesInstallmentUpdate');
+        Route::post('fees-installment-update', 'Admin\FeesCollection\AramiscFeesMasterController@feesInstallmentUpdate')->name('feesInstallmentUpdate');
 
         // Complaint
-        // Route::resource('complaint', 'SmComplaintController')->middleware('userRolePermission:21'); 
-        Route::get('complaint', 'Admin\AdminSection\SmComplaintController@index')->name('complaint')->middleware('userRolePermission:complaint');
-        Route::post('complaint', 'Admin\AdminSection\SmComplaintController@store')->name('complaint_store')->middleware('userRolePermission:complaint_store');
-        Route::get('complaint/{id}', 'Admin\AdminSection\SmComplaintController@show')->name('complaint_show')->middleware('userRolePermission:complaint_show');
-        Route::get('complaint/{id}/edit', 'Admin\AdminSection\SmComplaintController@edit')->name('complaint_edit')->middleware('userRolePermission:complaint_edit');
-        Route::put('complaint/{id}', 'Admin\AdminSection\SmComplaintController@update')->name('complaint_update')->middleware('userRolePermission:complaint_edit');
-        Route::post('delete-complaint', 'Admin\AdminSection\SmComplaintController@destroy')->name('complaint_delete')->middleware('userRolePermission:complaint_delete');
+        // Route::resource('complaint', 'AramiscComplaintController')->middleware('userRolePermission:21'); 
+        Route::get('complaint', 'Admin\AdminSection\AramiscComplaintController@index')->name('complaint')->middleware('userRolePermission:complaint');
+        Route::post('complaint', 'Admin\AdminSection\AramiscComplaintController@store')->name('complaint_store')->middleware('userRolePermission:complaint_store');
+        Route::get('complaint/{id}', 'Admin\AdminSection\AramiscComplaintController@show')->name('complaint_show')->middleware('userRolePermission:complaint_show');
+        Route::get('complaint/{id}/edit', 'Admin\AdminSection\AramiscComplaintController@edit')->name('complaint_edit')->middleware('userRolePermission:complaint_edit');
+        Route::put('complaint/{id}', 'Admin\AdminSection\AramiscComplaintController@update')->name('complaint_update')->middleware('userRolePermission:complaint_edit');
+        Route::post('delete-complaint', 'Admin\AdminSection\AramiscComplaintController@destroy')->name('complaint_delete')->middleware('userRolePermission:complaint_delete');
 
         Route::get('download-complaint-document/{file_name}', function ($file_name = null) {
             $file = public_path() . '/uploads/complaint/' . $file_name;
@@ -1034,20 +1036,20 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         // Complaint
 
-        Route::get('setup-admin', 'Admin\AdminSection\SmSetupAdminController@index')->name('setup-admin')->middleware('userRolePermission:setup-admin');
-        Route::post('setup-admin', 'Admin\AdminSection\SmSetupAdminController@store')->name('setup-admin-store')->middleware('userRolePermission:setup-admin-store');
-        Route::get('setup-admin/{id}', 'Admin\AdminSection\SmSetupAdminController@show')->name('setup-admin-edit')->middleware('userRolePermission:setup-admin-edit');
-        Route::put('setup-admin/{id}', 'Admin\AdminSection\SmSetupAdminController@update')->name('setup-admin-update')->middleware('userRolePermission:setup-admin-edit');
-        Route::get('setup-admin-delete/{id}', 'Admin\AdminSection\SmSetupAdminController@destroy')->name('setup-admin-delete')->middleware('userRolePermission:setup-admin-delete');
+        Route::get('setup-admin', 'Admin\AdminSection\AramiscSetupAdminController@index')->name('setup-admin')->middleware('userRolePermission:setup-admin');
+        Route::post('setup-admin', 'Admin\AdminSection\AramiscSetupAdminController@store')->name('setup-admin-store')->middleware('userRolePermission:setup-admin-store');
+        Route::get('setup-admin/{id}', 'Admin\AdminSection\AramiscSetupAdminController@show')->name('setup-admin-edit')->middleware('userRolePermission:setup-admin-edit');
+        Route::put('setup-admin/{id}', 'Admin\AdminSection\AramiscSetupAdminController@update')->name('setup-admin-update')->middleware('userRolePermission:setup-admin-edit');
+        Route::get('setup-admin-delete/{id}', 'Admin\AdminSection\AramiscSetupAdminController@destroy')->name('setup-admin-delete')->middleware('userRolePermission:setup-admin-delete');
 
 
         // Postal Receive
-        // Route::resource('postal-receive', 'SmPostalReceiveController');
-        Route::get('postal-receive', 'Admin\AdminSection\SmPostalReceiveController@index')->name('postal-receive')->middleware('userRolePermission:postal-receive');
-        Route::post('postal-receive', 'Admin\AdminSection\SmPostalReceiveController@store')->name('postal-receive-store')->middleware('userRolePermission:postal-receive-store');
-        Route::get('postal-receive/{id}', 'Admin\AdminSection\SmPostalReceiveController@show')->name('postal-receive_edit')->middleware('userRolePermission:postal-receive-edit');
-        Route::put('postal-receive/{id}', 'Admin\AdminSection\SmPostalReceiveController@update')->name('postal-receive_update')->middleware('userRolePermission:postal-receive-edit');
-        Route::post('postal-receive-delete', 'Admin\AdminSection\SmPostalReceiveController@destroy')->name('postal-receive_delete')->middleware('userRolePermission:postal-receive-delete');
+        // Route::resource('postal-receive', 'AramiscPostalReceiveController');
+        Route::get('postal-receive', 'Admin\AdminSection\AramiscPostalReceiveController@index')->name('postal-receive')->middleware('userRolePermission:postal-receive');
+        Route::post('postal-receive', 'Admin\AdminSection\AramiscPostalReceiveController@store')->name('postal-receive-store')->middleware('userRolePermission:postal-receive-store');
+        Route::get('postal-receive/{id}', 'Admin\AdminSection\AramiscPostalReceiveController@show')->name('postal-receive_edit')->middleware('userRolePermission:postal-receive_edit');
+        Route::put('postal-receive/{id}', 'Admin\AdminSection\AramiscPostalReceiveController@update')->name('postal-receive_update')->middleware('userRolePermission:postal-receive_edit');
+        Route::post('postal-receive-delete', 'Admin\AdminSection\AramiscPostalReceiveController@destroy')->name('postal-receive_delete')->middleware('userRolePermission:postal-receive_delete');
 
         Route::get('postal-receive-document/{file_name}', function ($file_name = null) {
             $file = public_path() . '/uploads/postal/' . $file_name;
@@ -1057,15 +1059,15 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         })->name('postal-receive-document')->middleware('userRolePermission:postal-receive-document');
 
 
-        Route::get('postal-receive-datatable', 'Admin\AdminSection\SmPostalReceiveController@postalReceiveDatatable')->name('postal-receive-datatable')->middleware('userRolePermission:postal-receive-datatable');
+        Route::get('postal-receive-datatable', 'Admin\AdminSection\AramiscPostalReceiveController@postalReceiveDatatable')->name('postal-receive-datatable');
 
         // Postal Dispatch
-        // Route::resource('postal-dispatch', 'SmPostalDispatchController');
-        Route::get('postal-dispatch', 'Admin\AdminSection\SmPostalDispatchController@index')->name('postal-dispatch')->middleware('userRolePermission:postal-dispatch');
-        Route::post('postal-dispatch', 'Admin\AdminSection\SmPostalDispatchController@store')->name('postal-dispatch-store')->middleware('userRolePermission:postal-dispatch-store');
-        Route::get('postal-dispatch/{id}', 'Admin\AdminSection\SmPostalDispatchController@show')->name('postal-dispatch_edit')->middleware('userRolePermission:postal-dispatch_edit');
-        Route::put('postal-dispatch/{id}', 'Admin\AdminSection\SmPostalDispatchController@update')->name('postal-dispatch_update')->middleware('userRolePermission:postal-dispatch_edit');
-        Route::post('postal-dispatch-delete', 'Admin\AdminSection\SmPostalDispatchController@destroy')->name('postal-dispatch_delete')->middleware('userRolePermission:postal-dispatch_delete');
+        // Route::resource('postal-dispatch', 'AramiscPostalDispatchController');
+        Route::get('postal-dispatch', 'Admin\AdminSection\AramiscPostalDispatchController@index')->name('postal-dispatch')->middleware('userRolePermission:postal-dispatch');
+        Route::post('postal-dispatch', 'Admin\AdminSection\AramiscPostalDispatchController@store')->name('postal-dispatch-store')->middleware('userRolePermission:postal-dispatch-store');
+        Route::get('postal-dispatch/{id}', 'Admin\AdminSection\AramiscPostalDispatchController@show')->name('postal-dispatch_edit')->middleware('userRolePermission:postal-dispatch_edit');
+        Route::put('postal-dispatch/{id}', 'Admin\AdminSection\AramiscPostalDispatchController@update')->name('postal-dispatch_update')->middleware('userRolePermission:postal-dispatch_edit');
+        Route::post('postal-dispatch-delete', 'Admin\AdminSection\AramiscPostalDispatchController@destroy')->name('postal-dispatch_delete')->middleware('userRolePermission:postal-dispatch_delete');
 
         Route::get('postal-dispatch-document/{file_name}', function ($file_name = null) {
 
@@ -1077,118 +1079,118 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             }
         })->name('postal-dispatch-document')->middleware('userRolePermission:postal-dispatch-document');
 
-        Route::get('postal-dispatch-datatable', 'Admin\AdminSection\SmPostalDispatchController@postalDispatchDatatable')->name('postal_dispatch_datatable')->middleware('userRolePermission:postal-dispatch-datatable');
+        Route::get('postal-dispatch-datatable', 'Admin\AdminSection\AramiscPostalDispatchController@postalDispatchDatatable')->name('postal_dispatch_datatable');
 
         // Phone Call Log
-        // Route::resource('phone-call', 'SmPhoneCallLogController');
-        Route::get('phone-call', 'Admin\AdminSection\SmPhoneCallLogController@index')->name('phone-call')->middleware('userRolePermission:phone-call');
-        Route::post('phone-call', 'Admin\AdminSection\SmPhoneCallLogController@store')->name('phone-call-store')->middleware('userRolePermission:phone-call-store');
-        Route::get('phone-call/{id}', 'Admin\AdminSection\SmPhoneCallLogController@show')->name('phone-call_edit')->middleware('userRolePermission:phone-call_edit');
-        Route::put('phone-call/{id}', 'Admin\AdminSection\SmPhoneCallLogController@update')->name('phone-call_update')->middleware('userRolePermission:phone-call_edit');
-        Route::delete('phone-call-delete', 'Admin\AdminSection\SmPhoneCallLogController@destroy')->name('phone-call_delete')->middleware('userRolePermission:phone-call_delete');
-        Route::get('phone-call-datatable', 'Admin\AdminSection\SmPhoneCallLogController@phoneCallDatatable')->name('phone-call-datatable');
+        // Route::resource('phone-call', 'AramiscPhoneCallLogController');
+        Route::get('phone-call', 'Admin\AdminSection\AramiscPhoneCallLogController@index')->name('phone-call')->middleware('userRolePermission:phone-call');
+        Route::post('phone-call', 'Admin\AdminSection\AramiscPhoneCallLogController@store')->name('phone-call-store')->middleware('userRolePermission:phone-call-store');
+        Route::get('phone-call/{id}', 'Admin\AdminSection\AramiscPhoneCallLogController@show')->name('phone-call_edit')->middleware('userRolePermission:phone-call_edit');
+        Route::put('phone-call/{id}', 'Admin\AdminSection\AramiscPhoneCallLogController@update')->name('phone-call_update')->middleware('userRolePermission:phone-call_edit');
+        Route::delete('phone-call-delete', 'Admin\AdminSection\AramiscPhoneCallLogController@destroy')->name('phone-call_delete')->middleware('userRolePermission:phone-call_delete');
+        Route::get('phone-call-datatable', 'Admin\AdminSection\AramiscPhoneCallLogController@phoneCallDatatable')->name('phone-call-datatable');
 
         // Student Certificate
-        // Route::resource('student-certificate', 'SmStudentCertificateController');
-        Route::get('student-certificate', 'Admin\AdminSection\SmStudentCertificateController@index')->name('student-certificate')->middleware('userRolePermission:student-certificate');
-        Route::post('student-certificate', 'Admin\AdminSection\SmStudentCertificateController@store')->name('student-certificate-store')->middleware('userRolePermission:student-certificate-store');
-        Route::get('student-certificate/{id}', 'Admin\AdminSection\SmStudentCertificateController@edit')->name('student-certificate-edit')->middleware('userRolePermission:student-certificate-edit');
-        Route::put('student-certificate/{id}', 'Admin\AdminSection\SmStudentCertificateController@update')->name('student-certificate-update')->middleware('userRolePermission:student-certificate-edit');
-        Route::delete('student-certificate/{id}', 'Admin\AdminSection\SmStudentCertificateController@destroy')->name('student-certificate-delete')->middleware('userRolePermission:student-certificate-delete');
+        // Route::resource('student-certificate', 'AramiscStudentCertificateController');
+        Route::get('student-certificate', 'Admin\AdminSection\AramiscStudentCertificateController@index')->name('student-certificate')->middleware('userRolePermission:student-certificate');
+        Route::post('student-certificate', 'Admin\AdminSection\AramiscStudentCertificateController@store')->name('student-certificate-store')->middleware('userRolePermission:student-certificate-store');
+        Route::get('student-certificate/{id}', 'Admin\AdminSection\AramiscStudentCertificateController@edit')->name('student-certificate-edit')->middleware('userRolePermission:student-certificate-edit');
+        Route::put('student-certificate/{id}', 'Admin\AdminSection\AramiscStudentCertificateController@update')->name('student-certificate-update')->middleware('userRolePermission:student-certificate-edit');
+        Route::delete('student-certificate/{id}', 'Admin\AdminSection\AramiscStudentCertificateController@destroy')->name('student-certificate-delete')->middleware('userRolePermission:student-certificate-delete');
 
         // Generate certificate
-        Route::get('generate-certificate', ['as' => 'generate_certificate', 'uses' => 'Admin\AdminSection\SmStudentCertificateController@generateCertificate'])->middleware('userRolePermission:generate_certificate');
-        Route::post('generate-certificate', ['as' => 'generate_certificate_search', 'uses' => 'Admin\AdminSection\SmStudentCertificateController@generateCertificateSearch'])->middleware('userRolePermission:generate_certificate');
+        Route::get('generate-certificate', ['as' => 'generate_certificate', 'uses' => 'Admin\AdminSection\AramiscStudentCertificateController@generateCertificate'])->middleware('userRolePermission:generate_certificate');
+        Route::post('generate-certificate', ['as' => 'generate_certificate_search', 'uses' => 'Admin\AdminSection\AramiscStudentCertificateController@generateCertificateSearch'])->middleware('userRolePermission:generate_certificate');
         // print certificate
-        Route::get('generate-certificate-print/{s_id}/{c_id}', ['as' => 'student_certificate_generate', 'uses' => 'Admin\AdminSection\SmStudentCertificateController@generateCertificateGenerate']);
+        Route::get('generate-certificate-print/{s_id}/{c_id}', ['as' => 'student_certificate_generate', 'uses' => 'Admin\AdminSection\AramiscStudentCertificateController@generateCertificateGenerate']);
 
-        Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutine'])->middleware('userRolePermission:class_routine');
+        Route::get('class-routine', ['as' => 'class_routine', 'uses' => 'Admin\Academics\AramiscClassRoutineNewController@classRoutine'])->middleware('userRolePermission:class_routine');
 
 
         // Student Certificate
-        //Route::get('certificate', 'Admin\AdminSection\SmStudentCertificateController@index')->name('certificate')->middleware('userRolePermission:49');
-        //Route::get('create-certificate', 'Admin\AdminSection\SmStudentCertificateController@createCertificate')->name('create-certificate');
-        //Route::post('student-certificate-store', 'Admin\AdminSection\SmStudentCertificateController@store')->name('student-certificate-store')->middleware('userRolePermission:50');
-        //Route::get('student-certificate-edit/{id}', 'Admin\AdminSection\SmStudentCertificateController@edit')->name('student-certificate-edit')->middleware('userRolePermission:51');
-        //Route::post('student-certificate-update', 'Admin\AdminSection\SmStudentCertificateController@update')->name('student-certificate-update')->middleware('userRolePermission:51');
-        //Route::post('student-certificate-delete', 'Admin\AdminSection\SmStudentCertificateController@destroy')->name('student-certificate-delete')->middleware('userRolePermission:52');
-        //Route::get('view-certificate/{id}', 'Admin\AdminSection\SmStudentCertificateController@viewCertificate')->name('view-certificate');
+        //Route::get('certificate', 'Admin\AdminSection\AramiscStudentCertificateController@index')->name('certificate')->middleware('userRolePermission:49');
+        //Route::get('create-certificate', 'Admin\AdminSection\AramiscStudentCertificateController@createCertificate')->name('create-certificate');
+        //Route::post('student-certificate-store', 'Admin\AdminSection\AramiscStudentCertificateController@store')->name('student-certificate-store')->middleware('userRolePermission:50');
+        //Route::get('student-certificate-edit/{id}', 'Admin\AdminSection\AramiscStudentCertificateController@edit')->name('student-certificate-edit')->middleware('userRolePermission:51');
+        //Route::post('student-certificate-update', 'Admin\AdminSection\AramiscStudentCertificateController@update')->name('student-certificate-update')->middleware('userRolePermission:51');
+        //Route::post('student-certificate-delete', 'Admin\AdminSection\AramiscStudentCertificateController@destroy')->name('student-certificate-delete')->middleware('userRolePermission:52');
+        //Route::get('view-certificate/{id}', 'Admin\AdminSection\AramiscStudentCertificateController@viewCertificate')->name('view-certificate');
 
 
         // print certificate
-        // Route::get('generate-certificate-print/{s_id}/{c_id}', ['as' => 'student_certificate_generate', 'uses' => 'Admin\AdminSection\SmStudentCertificateController@generateCertificateGenerate']);
+        // Route::get('generate-certificate-print/{s_id}/{c_id}', ['as' => 'student_certificate_generate', 'uses' => 'Admin\AdminSection\AramiscStudentCertificateController@generateCertificateGenerate']);
 
 
 
 
 
-        Route::get('class-routine-new', 'Admin\Academics\SmClassRoutineNewController@aramiscClassRoutineSearch')->name('class_routine_new')->middleware('userRolePermission:add-new-class-routine-store');/* change method for class routine update ->abunayem */
-        Route::post('day-wise-class-routine', 'Admin\Academics\SmClassRoutineNewController@dayWiseClassRoutine')->name('dayWise_class_routine');
+        Route::get('class-routine-new', 'Admin\Academics\AramiscClassRoutineNewController@classRoutineSearch')->name('class_routine_new')->middleware('userRolePermission:add-new-class-routine-store');/* change method for class routine update ->abunayem */
+        Route::post('day-wise-class-routine', 'Admin\Academics\AramiscClassRoutineNewController@dayWiseClassRoutine')->name('dayWise_class_routine');
 
-        Route::get('print-teacher-routine/{teacher_id}', 'Admin\Academics\SmClassRoutineNewController@printTeacherRoutine')->name('print-teacher-routine');
+        Route::get('print-teacher-routine/{teacher_id}', 'Admin\Academics\AramiscClassRoutineNewController@printTeacherRoutine')->name('print-teacher-routine');
 
         // Student ID Card
-        // Route::resource('student-id-card', 'Admin\AdminSection\SmStudentIdCardController');
+        // Route::resource('student-id-card', 'Admin\AdminSection\AramiscStudentIdCardController');
 
-        Route::get('student-id-card', 'Admin\AdminSection\SmStudentIdCardController@index')->name('student-id-card')->middleware('userRolePermission:student-id-card');
-        Route::get('create-id-card', 'Admin\AdminSection\SmStudentIdCardController@create_id_card')->name('create-id-card');
-        Route::post('genaret-id-card-bulk', 'Admin\AdminSection\SmStudentIdCardController@generateIdCardBulk')->name('genaret-id-card-bulk');
-        Route::post('store-id-card', 'Admin\AdminSection\SmStudentIdCardController@store')->name('store-id-card')->middleware('userRolePermission:create-id-card');
-        Route::get('student-id-card/{id}', 'Admin\AdminSection\SmStudentIdCardController@edit')->name('student-id-card-edit')->middleware('userRolePermission:student-id-card-edit');
-        Route::put('student-id-card/{id}', 'Admin\AdminSection\SmStudentIdCardController@update')->name('student-id-card-update')->middleware('userRolePermission:student-id-card-edit');
-        Route::post('student-id-card', 'Admin\AdminSection\SmStudentIdCardController@destroy')->name('student-id-card-delete')->middleware('userRolePermission:student-id-card-delete');
+        Route::get('student-id-card', 'Admin\AdminSection\AramiscStudentIdCardController@index')->name('student-id-card')->middleware('userRolePermission:student-id-card');
+        Route::get('create-id-card', 'Admin\AdminSection\AramiscStudentIdCardController@create_id_card')->name('create-id-card');
+        Route::post('genaret-id-card-bulk', 'Admin\AdminSection\AramiscStudentIdCardController@generateIdCardBulk')->name('genaret-id-card-bulk');
+        Route::post('store-id-card', 'Admin\AdminSection\AramiscStudentIdCardController@store')->name('store-id-card')->middleware('userRolePermission:create-id-card');
+        Route::get('student-id-card/{id}', 'Admin\AdminSection\AramiscStudentIdCardController@edit')->name('student-id-card-edit')->middleware('userRolePermission:student-id-card-edit');
+        Route::put('student-id-card/{id}', 'Admin\AdminSection\AramiscStudentIdCardController@update')->name('student-id-card-update')->middleware('userRolePermission:student-id-card-edit');
+        Route::post('student-id-card', 'Admin\AdminSection\AramiscStudentIdCardController@destroy')->name('student-id-card-delete')->middleware('userRolePermission:student-id-card-delete');
 
-        Route::get('generate-id-card', ['as' => 'generate_id_card', 'uses' => 'Admin\AdminSection\SmStudentIdCardController@generateIdCard'])->middleware('userRolePermission:generate_id_card');
-        Route::post('generate-id-card-search', ['as' => 'generate_id_card_bulk_search', 'uses' => 'Admin\AdminSection\SmStudentIdCardController@generateIdCardBulk']);
+        Route::get('generate-id-card', ['as' => 'generate_id_card', 'uses' => 'Admin\AdminSection\AramiscStudentIdCardController@generateIdCard'])->middleware('userRolePermission:generate_id_card');
+        Route::post('generate-id-card-search', ['as' => 'generate_id_card_bulk_search', 'uses' => 'Admin\AdminSection\AramiscStudentIdCardController@generateIdCardBulk']);
 
 
-        // Route::post('generate-id-card-search', ['as' => 'generate_id_card_search', 'uses' => 'Admin\AdminSection\SmStudentIdCardController@generateIdCardSearch']);
-        Route::get('generate-id-card-search', ['as' => 'generate_id_card_search', 'uses' => 'Admin\AdminSection\SmStudentIdCardController@generateIdCard']);
-        Route::get('generate-id-card-print/{s_id}/{c_id}', 'Admin\AdminSection\SmStudentIdCardController@generateIdCardPrint');
+        // Route::post('generate-id-card-search', ['as' => 'generate_id_card_search', 'uses' => 'Admin\AdminSection\AramiscStudentIdCardController@generateIdCardSearch']);
+        Route::get('generate-id-card-search', ['as' => 'generate_id_card_search', 'uses' => 'Admin\AdminSection\AramiscStudentIdCardController@generateIdCard']);
+        Route::get('generate-id-card-print/{s_id}/{c_id}', 'Admin\AdminSection\AramiscStudentIdCardController@generateIdCardPrint');
 
 
 
         // Student Module /Student Admission
-        Route::get('student-admission', ['as' => 'student_admission', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@index'])->middleware('userRolePermission:student_admission');
-        Route::get('student-admission-check/{id}', ['as' => 'student_admission_check', 'uses' => 'SmStudentAdmissionController@admissionCheck']);
-        Route::get('student-admission-update-check/{val}/{id}', ['as' => 'student_admission_check_update', 'uses' => 'SmStudentAdmissionController@admissionCheckUpdate']);
-        Route::post('student-admission-pic', ['as' => 'student_admission_pic', 'uses' => 'SmStudentAdmissionController@aramiscAdmissionPic']);
+        Route::get('student-admission', ['as' => 'student_admission', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@index'])->middleware('userRolePermission:student_admission');
+        Route::get('student-admission-check/{id}', ['as' => 'student_admission_check', 'uses' => 'AramiscStudentAdmissionController@admissionCheck']);
+        Route::get('student-admission-update-check/{val}/{id}', ['as' => 'student_admission_check_update', 'uses' => 'AramiscStudentAdmissionController@admissionCheckUpdate']);
+        Route::post('student-admission-pic', ['as' => 'student_admission_pic', 'uses' => 'AramiscStudentAdmissionController@admissionPic']);
 
         // Ajax get vehicle
-        Route::get('/academic-year-get-class', 'SmStudentAdmissionController@academicYearGetClass');
+        Route::get('/academic-year-get-class', 'AramiscStudentAdmissionController@academicYearGetClass');
 
         // Ajax get vehicle
 
 
         // Ajax Section
-        Route::get('/ajaxVehicleInfo', 'Admin\StudentInfo\SmStudentAjaxController@ajaxVehicleInfo');
+        Route::get('/ajaxVehicleInfo', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxVehicleInfo');
 
         // Ajax Roll No
-        Route::get('/ajax-get-roll-id', 'Admin\StudentInfo\SmStudentAjaxController@ajaxGetRollId');
+        Route::get('/ajax-get-roll-id', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxGetRollId');
 
         // Ajax Roll exist check
-        Route::get('/ajax-get-roll-id-check', 'Admin\StudentInfo\SmStudentAjaxController@ajaxGetRollIdCheck');
+        Route::get('/ajax-get-roll-id-check', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxGetRollIdCheck');
 
         // Ajax Section
-        Route::get('/ajaxSectionStudent', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSectionStudent');
+        Route::get('/ajaxSectionStudent', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSectionStudent');
 
         // Ajax Subject
-        Route::get('/ajaxSubjectFromClass', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSubjectClass');
+        Route::get('/ajaxSubjectFromClass', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSubjectClass');
 
-        Route::get('/ajaxSubjectFromExamType', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSubjectFromExamType');
+        Route::get('/ajaxSubjectFromExamType', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSubjectFromExamType');
 
         // Ajax room details
 
         //ajax id card type
 
-        Route::get('/ajaxIdCard', 'Admin\AdminSection\SmStudentIdCardController@ajaxIdCard');
+        Route::get('/ajaxIdCard', 'Admin\AdminSection\AramiscStudentIdCardController@ajaxIdCard');
         //student store
-        Route::post('student-store', ['as' => 'student_store', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@store'])->middleware('userRolePermission:student_store');
+        Route::post('student-store', ['as' => 'student_store', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@store'])->middleware('userRolePermission:student_store');
 
         //Student details document
 
-        Route::get('delete-document/{id}', ['as' => 'delete_document', 'uses' => 'SmStudentAdmissionController@deleteDocument'])->middleware('userRolePermission:delete_document');
-        Route::post('upload-document', ['as' => 'upload_document', 'uses' => 'SmStudentAdmissionController@uploadDocument']);
+        Route::get('delete-document/{id}', ['as' => 'delete_document', 'uses' => 'AramiscStudentAdmissionController@deleteDocument'])->middleware('userRolePermission:delete_document');
+        Route::post('upload-document', ['as' => 'upload_document', 'uses' => 'AramiscStudentAdmissionController@uploadDocument']);
 
 
 
@@ -1204,7 +1206,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Student timeline upload
-        Route::post('student-timeline-store', ['as' => 'student_timeline_store', 'uses' => 'SmStudentAdmissionController@studentTimelineStore']);
+        Route::post('student-timeline-store', ['as' => 'student_timeline_store', 'uses' => 'AramiscStudentAdmissionController@studentTimelineStore']);
         //parent
         Route::get('parent-download-timeline-doc/{file_name}', function ($file_name = null) {
             $file = public_path() . '/uploads/student/timeline/' . $file_name;
@@ -1214,148 +1216,148 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             return redirect()->back();
         })->name('parent-download-timeline-doc');
 
-        Route::get('delete-timeline/{id}', ['as' => 'delete_timeline', 'uses' => 'SmStudentAdmissionController@deleteTimeline']);
+        Route::get('delete-timeline/{id}', ['as' => 'delete_timeline', 'uses' => 'AramiscStudentAdmissionController@deleteTimeline']);
 
 
         //student import
-        Route::get('import-student', ['as' => 'import_student', 'uses' => 'SmStudentAdmissionController@importStudent'])->middleware('userRolePermission:import_student');
-        Route::get('download_student_file', ['as' => 'download_student_file', 'uses' => 'SmStudentAdmissionController@downloadStudentFile']);
-        Route::post('student-bulk-store', ['as' => 'student_bulk_store', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@studentBulkStore']);
+        Route::get('import-student', ['as' => 'import_student', 'uses' => 'AramiscStudentAdmissionController@importStudent'])->middleware('userRolePermission:import_student');
+        Route::get('download_student_file', ['as' => 'download_student_file', 'uses' => 'AramiscStudentAdmissionController@downloadStudentFile']);
+        Route::post('student-bulk-store', ['as' => 'student_bulk_store', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@studentBulkStore']);
 
         //Ajax Sibling section
-        Route::get('ajaxSectionSibling', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSectionSibling');
+        Route::get('ajaxSectionSibling', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSectionSibling');
 
         //Ajax Sibling info
-        Route::get('ajaxSiblingInfo', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSiblingInfo');
+        Route::get('ajaxSiblingInfo', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSiblingInfo');
 
         //Ajax Sibling info detail
-        Route::get('ajaxSiblingInfoDetail', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSiblingInfoDetail');
+        Route::get('ajaxSiblingInfoDetail', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSiblingInfoDetail');
 
 
         //Datatables
-        Route::get('student-list-datatable', ['as' => 'student_list_datatable', 'uses' => 'DatatableQueryController@aramiscStudentDetailsDatatable'])->middleware('userRolePermission:student_list');
+        Route::get('student-list-datatable', ['as' => 'student_list_datatable', 'uses' => 'DatatableQueryController@studentDetailsDatatable'])->middleware('userRolePermission:student_list');
 
 
         // student list
-        Route::get('student-list', ['as' => 'student_list', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@aramiscStudentDetails'])->middleware('userRolePermission:student_list');
-        Route::get('student-settings', ['as' => 'student_settings', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@settings'])->middleware('userRolePermission:student_settings');
-        Route::post('student/field/switch', ['as' => 'student_switch', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@statusUpdate']);
-        Route::post('student/field/show', ['as' => 'student_show', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@studentFieldShow']);
+        Route::get('student-list', ['as' => 'student_list', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@studentDetails'])->middleware('userRolePermission:student_list');
+        Route::get('student-settings', ['as' => 'student_settings', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@settings'])->middleware('userRolePermission:student_settings');
+        Route::post('student/field/switch', ['as' => 'student_switch', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@statusUpdate']);
+        Route::post('student/field/show', ['as' => 'student_show', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@studentFieldShow']);
 
         // parent list
-        Route::get('parent-list', ['as' => 'parent-list', 'uses' => 'Admin\StudentInfo\SmStudentParentController@parentList'])->middleware('userRolePermission:parent-list');
-        Route::get('parent-list-search', ['as' => 'parent-list-search', 'uses' => 'Admin\StudentInfo\SmStudentParentController@parentListSearch'])->middleware('userRolePermission:parent-list-search');
+        Route::get('parent-list', ['as' => 'parent-list', 'uses' => 'Admin\StudentInfo\AramiscStudentParentController@parentList'])->middleware('userRolePermission:parent-list');
+        Route::get('parent-list-search', ['as' => 'parent-list-search', 'uses' => 'Admin\StudentInfo\AramiscStudentParentController@parentListSearch'])->middleware('userRolePermission:parent-list-search');
 
         // student search
-        Route::post('student-list-search', 'DatatableQueryController@aramiscStudentDetailsDatatable')->name('student-list-search');
+        Route::post('student-list-search', 'DatatableQueryController@studentDetailsDatatable')->name('student-list-search');
         Route::post('ajax-student-list-search', 'DatatableQueryController@searchStudentList')->name('ajax-student-list-search');
 
-        Route::get('student-list-search', 'SmStudentAdmissionController@aramiscStudentDetails');
+        Route::get('student-list-search', 'AramiscStudentAdmissionController@studentDetails');
 
         //student list
-        Route::get('student-view/{id}/{type?}', ['as' => 'student_view', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@view']);
+        Route::get('student-view/{id}/{type?}', ['as' => 'student_view', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@view']);
 
         //student delete
-        Route::post('student-delete', 'SmStudentAdmissionController@studentDelete')->name('student-delete');
+        Route::post('student-delete', 'AramiscStudentAdmissionController@studentDelete')->name('student-delete');
 
 
         // student edit
-        Route::get('student-edit/{id}', ['as' => 'student_edit', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@edit'])->middleware('userRolePermission:student_edit');
+        Route::get('student-edit/{id}', ['as' => 'student_edit', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@edit'])->middleware('userRolePermission:student_edit');
         // Student Update
-        Route::post('student-update', ['as' => 'student_update', 'uses' => 'Admin\StudentInfo\SmStudentAdmissionController@update']);
-        // Route::post('student-update-pic/{id}', ['as' => 'student_update_pic', 'uses' => 'SmStudentAdmissionController@studentUpdatePic']);
+        Route::post('student-update', ['as' => 'student_update', 'uses' => 'Admin\StudentInfo\AramiscStudentAdmissionController@update']);
+        // Route::post('student-update-pic/{id}', ['as' => 'student_update_pic', 'uses' => 'AramiscStudentAdmissionController@studentUpdatePic']);
 
         // Student Promote search
-        // Route::get('student-promote', ['as' => 'student_promote', 'uses' => 'SmStudentAdmissionController@studentPromote'])->middleware('userRolePermission:81');
+        // Route::get('student-promote', ['as' => 'student_promote', 'uses' => 'AramiscStudentAdmissionController@studentPromote'])->middleware('userRolePermission:81');
 
-        // Route::get('student-current-search', 'SmStudentAdmissionController@studentPromote');
-        // Route::post('student-current-search', 'SmStudentAdmissionController@studentCurrentSearch')->name('student-current-search');
+        // Route::get('student-current-search', 'AramiscStudentAdmissionController@studentPromote');
+        // Route::post('student-current-search', 'AramiscStudentAdmissionController@studentCurrentSearch')->name('student-current-search');
 
-        // Route::get('student-current-search-custom', 'SmStudentAdmissionController@studentPromoteCustom');
-        // Route::post('student-current-search-custom', 'SmStudentAdmissionController@studentCurrentSearchCustom')->name('student-current-search-custom');
+        // Route::get('student-current-search-custom', 'AramiscStudentAdmissionController@studentPromoteCustom');
+        // Route::post('student-current-search-custom', 'AramiscStudentAdmissionController@studentCurrentSearchCustom')->name('student-current-search-custom');
 
-        Route::get('view-academic-performance/{id}', 'SmStudentAdmissionController@view_academic_performance');
+        Route::get('view-academic-performance/{id}', 'AramiscStudentAdmissionController@view_academic_performance');
 
 
         // // Student Promote Store
-        // Route::get('student-promote-store', 'SmStudentAdmissionController@studentPromote');
-        // Route::post('student-proadminmote-store', 'SmStudentAdmissionController@studentPromoteStore')->name('student-promote-store')->middleware('userRolePermission:82');
+        // Route::get('student-promote-store', 'AramiscStudentAdmissionController@studentPromote');
+        // Route::post('student-proadminmote-store', 'AramiscStudentAdmissionController@studentPromoteStore')->name('student-promote-store')->middleware('userRolePermission:82');
 
-        Route::get('student-promote', ['as' => 'student_promote', 'uses' => 'SmStudentPromoteController@index'])->middleware('userRolePermission:student_promote');
-        Route::get('student-current-search', 'SmStudentPromoteController@studentCurrentSearch')->name('student-current-search');
-        Route::post('student-current-search', 'SmStudentPromoteController@studentCurrentSearch');
-        Route::get('ajaxStudentRollCheck', 'SmStudentPromoteController@rollCheck');
-        Route::post('student-promote-store', 'SmStudentPromoteController@promote')->name('student-promote-store')->middleware('userRolePermission:student-promote-store');
-        Route::get('student-current-search-with-exam', 'SmStudentPromoteController@studentSearchWithExam')->name('student-current-search-with-exam');
+        Route::get('student-promote', ['as' => 'student_promote', 'uses' => 'AramiscStudentPromoteController@index'])->middleware('userRolePermission:student_promote');
+        Route::get('student-current-search', 'AramiscStudentPromoteController@studentCurrentSearch')->name('student-current-search');
+        Route::post('student-current-search', 'AramiscStudentPromoteController@studentCurrentSearch');
+        Route::get('ajaxStudentRollCheck', 'AramiscStudentPromoteController@rollCheck');
+        Route::post('student-promote-store', 'AramiscStudentPromoteController@promote')->name('student-promote-store')->middleware('userRolePermission:student-promote-store');
+        Route::get('student-current-search-with-exam', 'AramiscStudentPromoteController@studentSearchWithExam')->name('student-current-search-with-exam');
 
 
         // // Student Promote Store Custom
-        Route::get('student-promote-store-custom', 'SmStudentAdmissionController@studentPromoteCustom');
-        Route::post('student-promote-store-custom', 'SmStudentAdmissionController@studentPromoteCustomStore')->name('student-promote-store-custom')->middleware('userRolePermission:student-promote-store');
+        Route::get('student-promote-store-custom', 'AramiscStudentAdmissionController@studentPromoteCustom');
+        Route::post('student-promote-store-custom', 'AramiscStudentAdmissionController@studentPromoteCustomStore')->name('student-promote-store-custom')->middleware('userRolePermission:student-promote-store');
 
         // Student Export
-        Route::get('all-student-export', 'SmStudentAdmissionController@allStudentExport')->name('all-student-export')->middleware('userRolePermission:all-student-export');
-        Route::get('all-student-export-excel', 'SmStudentAdmissionController@allStudentExportExcel')->name('all-student-export-excel')->middleware('userRolePermission:all-student-export-excel');
-        Route::get('all-student-export-pdf', 'SmStudentAdmissionController@allStudentExportPdf')->name('all-student-export-pdf')->middleware('userRolePermission:all-student-export-pdf');
+        Route::get('all-student-export', 'AramiscStudentAdmissionController@allStudentExport')->name('all-student-export')->middleware('userRolePermission:all-student-export');
+        Route::get('all-student-export-excel', 'AramiscStudentAdmissionController@allStudentExportExcel')->name('all-student-export-excel')->middleware('userRolePermission:all-student-export-excel');
+        Route::get('all-student-export-pdf', 'AramiscStudentAdmissionController@allStudentExportPdf')->name('all-student-export-pdf')->middleware('userRolePermission:all-student-export-pdf');
 
 
         //Ajax Student Promote Section
-        Route::get('ajaxStudentPromoteSection', 'Admin\StudentInfo\SmStudentAjaxController@ajaxStudentPromoteSection');
-        Route::get('ajaxSubjectSection', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSubjectSection');
-        Route::get('ajax-get-class', 'Admin\StudentInfo\SmStudentAjaxController@ajaxGetClass');
-        Route::get('SearchMultipleSection', 'SmStudentAdmissionController@SearchMultipleSection');
+        Route::get('ajaxStudentPromoteSection', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxStudentPromoteSection');
+        Route::get('ajaxSubjectSection', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSubjectSection');
+        Route::get('ajax-get-class', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxGetClass');
+        Route::get('SearchMultipleSection', 'AramiscStudentAdmissionController@SearchMultipleSection');
         //Ajax Student Select
-        Route::get('ajaxSelectStudent', 'Admin\StudentInfo\SmStudentAjaxController@ajaxSelectStudent');
+        Route::get('ajaxSelectStudent', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxSelectStudent');
 
-        Route::get('promote-year/{id?}', 'Admin\StudentInfo\SmStudentAjaxController@ajaxPromoteYear');
+        Route::get('promote-year/{id?}', 'Admin\StudentInfo\AramiscStudentAjaxController@ajaxPromoteYear');
 
         // Student Attendance
-        Route::get('student-aramiscAttendance', ['as' => 'student_aramiscAttendance', 'uses' => 'Admin\StudentInfo\SmStudentAttendanceController@index'])->middleware('userRolePermission:student_aramiscAttendance');
-        Route::post('student-search', 'Admin\StudentInfo\SmStudentAttendanceController@studentSearch')->name('student-search');
-        Route::any('ajax-student-aramiscAttendance-search/{class_id}/{section}/{date}', 'DatatableQueryController@AjaxStudentSearch');
-        Route::get('student-search', 'Admin\StudentInfo\SmStudentAttendanceController@index');
+        Route::get('student-attendance', ['as' => 'student_attendance', 'uses' => 'Admin\StudentInfo\AramiscStudentAttendanceController@index'])->middleware('userRolePermission:student_attendance');
+        Route::post('student-search', 'Admin\StudentInfo\AramiscStudentAttendanceController@studentSearch')->name('student-search');
+        Route::any('ajax-student-attendance-search/{class_id}/{section}/{date}', 'DatatableQueryController@AjaxStudentSearch');
+        Route::get('student-search', 'Admin\StudentInfo\AramiscStudentAttendanceController@index');
 
-        Route::post('student-aramiscAttendance-store', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceStore')->name('student-aramiscAttendance-store')->middleware('userRolePermission:student-aramiscAttendance-store');
-        Route::post('student-aramiscAttendance-holiday', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceHoliday')->name('student-aramiscAttendance-holiday');
+        Route::post('student-attendance-store', 'Admin\StudentInfo\AramiscStudentAttendanceController@studentAttendanceStore')->name('student-attendance-store')->middleware('userRolePermission:student-attendance-store');
+        Route::post('student-attendance-holiday', 'Admin\StudentInfo\AramiscStudentAttendanceController@studentAttendanceHoliday')->name('student-attendance-holiday');
 
 
-        Route::get('student-aramiscAttendance-import', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceImport')->name('student-aramiscAttendance-import');
-        Route::get('download-student-aramiscAttendance-file', 'Admin\StudentInfo\SmStudentAttendanceController@downloadStudentAtendanceFile');
-        Route::post('student-aramiscAttendance-bulk-store', 'Admin\StudentInfo\SmStudentAttendanceController@studentAttendanceBulkStore')->name('student-aramiscAttendance-bulk-store');
+        Route::get('student-attendance-import', 'Admin\StudentInfo\AramiscStudentAttendanceController@studentAttendanceImport')->name('student-attendance-import');
+        Route::get('download-student-attendance-file', 'Admin\StudentInfo\AramiscStudentAttendanceController@downloadStudentAtendanceFile');
+        Route::post('student-attendance-bulk-store', 'Admin\StudentInfo\AramiscStudentAttendanceController@studentAttendanceBulkStore')->name('student-attendance-bulk-store');
 
         //Student Report
-        Route::get('student-report', ['as' => 'student_report', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentReport'])->middleware('userRolePermission:student_report');
-        Route::post('student-report', ['as' => 'student_report_search', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentReportSearch']);
+        Route::get('student-report', ['as' => 'student_report', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentReport'])->middleware('userRolePermission:student_report');
+        Route::post('student-report', ['as' => 'student_report_search', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentReportSearch']);
 
 
         //guardian report
-        Route::get('guardian-report', ['as' => 'guardian_report', 'uses' => 'Admin\StudentInfo\SmStudentReportController@guardianReport'])->middleware('userRolePermission:guardian_report');
-        Route::post('guardian-report-search', ['as' => 'guardian_report_search_new', 'uses' => 'Admin\StudentInfo\SmStudentReportController@guardianReportSearch']);
-        Route::get('guardian-report-search', ['as' => 'guardian_report_search', 'uses' => 'Admin\StudentInfo\SmStudentReportController@guardianReport']);
+        Route::get('guardian-report', ['as' => 'guardian_report', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@guardianReport'])->middleware('userRolePermission:guardian_report');
+        Route::post('guardian-report-search', ['as' => 'guardian_report_search_new', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@guardianReportSearch']);
+        Route::get('guardian-report-search', ['as' => 'guardian_report_search', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@guardianReport']);
 
-        Route::get('student-history', ['as' => 'student_history', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentHistory'])->middleware('userRolePermission:student_history');
-        Route::post('student-history-search', ['as' => 'student_history_search_new', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentHistorySearch']);
-        Route::get('student-history-search', ['as' => 'student_history_search', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentHistory']);
+        Route::get('student-history', ['as' => 'student_history', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentHistory'])->middleware('userRolePermission:student_history');
+        Route::post('student-history-search', ['as' => 'student_history_search_new', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentHistorySearch']);
+        Route::get('student-history-search', ['as' => 'student_history_search', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentHistory']);
 
 
         // student login report
-        Route::get('student-login-report', ['as' => 'student_login_report', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentLoginReport'])->middleware('userRolePermission:student_login_report');
-        Route::post('student-login-search', ['as' => 'student_login_report_search', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentLoginSearch']);
-        Route::get('student-login-search', ['as' => 'student_login_search', 'uses' => 'Admin\StudentInfo\SmStudentReportController@studentLoginReport']);
+        Route::get('student-login-report', ['as' => 'student_login_report', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentLoginReport'])->middleware('userRolePermission:student_login_report');
+        Route::post('student-login-search', ['as' => 'student_login_report_search', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentLoginSearch']);
+        Route::get('student-login-search', ['as' => 'student_login_search', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentLoginReport']);
 
         // student & parent reset password
         Route::post('reset-student-password', 'Admin\RolePermission\SmResetPasswordController@resetStudentPassword')->name('reset-student-password');
 
 
         // Disabled Student
-        Route::get('disabled-student', ['as' => 'disabled_student', 'uses' => 'SmStudentAdmissionController@disabledStudent'])->middleware('userRolePermission:disabled_student');
+        Route::get('disabled-student', ['as' => 'disabled_student', 'uses' => 'AramiscStudentAdmissionController@disabledStudent'])->middleware('userRolePermission:disabled_student');
 
-        Route::post('disabled-student', ['as' => 'disabled_student_search', 'uses' => 'SmStudentAdmissionController@disabledStudentSearch']);
-        Route::post('disabled-student-delete', ['as' => 'disable_student_delete', 'uses' => 'SmStudentAdmissionController@disabledStudentDelete'])->middleware('userRolePermission:disable_student_delete');
-        Route::post('enable-student', ['as' => 'enable_student', 'uses' => 'SmStudentAdmissionController@enableStudent'])->middleware('userRolePermission:enable_student');
+        Route::post('disabled-student', ['as' => 'disabled_student_search', 'uses' => 'AramiscStudentAdmissionController@disabledStudentSearch']);
+        Route::post('disabled-student-delete', ['as' => 'disable_student_delete', 'uses' => 'AramiscStudentAdmissionController@disabledStudentDelete'])->middleware('userRolePermission:disable_student_delete');
+        Route::post('enable-student', ['as' => 'enable_student', 'uses' => 'AramiscStudentAdmissionController@enableStudent'])->middleware('userRolePermission:enable_student');
 
 
-        Route::get('student-report-search', 'SmStudentAdmissionController@studentReport');
+        Route::get('student-report-search', 'AramiscStudentAdmissionController@studentReport');
 
         Route::get('language-list', 'Admin\SystemSettings\LanguageController@index')->name('language-list')->middleware('userRolePermission:language-list');
         Route::get('language-list/{id}', 'Admin\SystemSettings\LanguageController@show')->name('language_edit')->middleware('userRolePermission:language_edit');
@@ -1369,10 +1371,10 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('tabulation-sheet-report', ['as' => 'tabulation_sheet_report_search', 'uses' => 'Admin\Report\SmReportController@tabulationSheetReportSearch']);
         Route::post('tabulation-sheet/print', 'Admin\Report\SmReportController@tabulationSheetReportPrint')->name('tabulation-sheet/print');
 
-        Route::get('optional-subject-setup/delete/{id}', 'Admin\SystemSettings\SmOptionalSubjectAssignController@optionalSetupDelete')->name('delete_optional_subject')->middleware('userRolePermission:delete_optional_subject');
-        Route::get('optional-subject-setup/edit/{id}', 'Admin\SystemSettings\SmOptionalSubjectAssignController@optionalSetupEdit')->name('class_optional_edit')->middleware('userRolePermission:class_optional_edit');
-        Route::get('optional-subject-setup', 'Admin\SystemSettings\SmOptionalSubjectAssignController@optionalSetup')->name('class_optional')->middleware('userRolePermission:class_optional');
-        Route::post('optional-subject-setup', 'Admin\SystemSettings\SmOptionalSubjectAssignController@optionalSetupStore')->name('optional_subject_setup_post')->middleware('userRolePermission:optional_subject_setup_post');
+        Route::get('optional-subject-setup/delete/{id}', 'Admin\SystemSettings\AramiscOptionalSubjectAssignController@optionalSetupDelete')->name('delete_optional_subject')->middleware('userRolePermission:delete_optional_subject');
+        Route::get('optional-subject-setup/edit/{id}', 'Admin\SystemSettings\AramiscOptionalSubjectAssignController@optionalSetupEdit')->name('class_optional_edit')->middleware('userRolePermission:class_optional_edit');
+        Route::get('optional-subject-setup', 'Admin\SystemSettings\AramiscOptionalSubjectAssignController@optionalSetup')->name('class_optional')->middleware('userRolePermission:class_optional');
+        Route::post('optional-subject-setup', 'Admin\SystemSettings\AramiscOptionalSubjectAssignController@optionalSetupStore')->name('optional_subject_setup_post')->middleware('userRolePermission:optional_subject_setup_post');
 
         // progress card report
         Route::get('progress-card-report', ['as' => 'progress_card_report', 'uses' => 'Admin\Report\SmReportController@progressCardReport'])->middleware('userRolePermission:progress_card_report');
@@ -1385,35 +1387,35 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // staff directory
-        Route::get('staff-directory', ['as' => 'staff_directory', 'uses' => 'Admin\Hr\SmStaffController@staffList'])->middleware('userRolePermission:staff_directory');
+        Route::get('staff-directory', ['as' => 'staff_directory', 'uses' => 'Admin\Hr\AramiscStaffController@staffList'])->middleware('userRolePermission:staff_directory');
         Route::get('staff-directory-ajax', ['as' => 'staff_directory_ajax', 'uses' => 'DatatableQueryController@getStaffList'])->middleware('userRolePermission:staff_directory');
 
 
-        Route::post('search-staff', ['as' => 'searchStaff', 'uses' => 'Admin\Hr\SmStaffController@searchStaff']);
+        Route::post('search-staff', ['as' => 'searchStaff', 'uses' => 'Admin\Hr\AramiscStaffController@searchStaff']);
         Route::post('search-staff-ajax', ['as' => 'AjaxSearchStaff', 'uses' => 'DatatableQueryController@getStaffList']);
 
-        Route::get('add-staff', ['as' => 'addStaff', 'uses' => 'Admin\Hr\SmStaffController@addStaff'])->middleware('userRolePermission:addStaff');
-        Route::post('staff-store', ['as' => 'staffStore', 'uses' => 'Admin\Hr\SmStaffController@staffStore']);
-        Route::post('staff-pic-store', ['as' => 'staffPicStore', 'uses' => 'Admin\Hr\SmStaffController@staffPicStore']);
+        Route::get('add-staff', ['as' => 'addStaff', 'uses' => 'Admin\Hr\AramiscStaffController@addStaff'])->middleware('userRolePermission:addStaff');
+        Route::post('staff-store', ['as' => 'staffStore', 'uses' => 'Admin\Hr\AramiscStaffController@staffStore']);
+        Route::post('staff-pic-store', ['as' => 'staffPicStore', 'uses' => 'Admin\Hr\AramiscStaffController@staffPicStore']);
 
 
-        Route::get('edit-staff/{id}', ['as' => 'editStaff', 'uses' => 'Admin\Hr\SmStaffController@editStaff']);
-        Route::post('update-staff', ['as' => 'staffUpdate', 'uses' => 'Admin\Hr\SmStaffController@staffUpdate']);
-        Route::post('staff-profile-update/{id}', ['as' => 'staffProfileUpdate', 'uses' => 'Admin\Hr\SmStaffController@staffProfileUpdate']);
+        Route::get('edit-staff/{id}', ['as' => 'editStaff', 'uses' => 'Admin\Hr\AramiscStaffController@editStaff']);
+        Route::post('update-staff', ['as' => 'staffUpdate', 'uses' => 'Admin\Hr\AramiscStaffController@staffUpdate']);
+        Route::post('staff-profile-update/{id}', ['as' => 'staffProfileUpdate', 'uses' => 'Admin\Hr\AramiscStaffController@staffProfileUpdate']);
 
-        // Route::get('staff-roles', ['as' => 'viewStaff', 'uses' => 'Admin\Hr\SmStaffController@staffRoles']);
-        Route::get('view-staff/{id}', ['as' => 'viewStaff', 'uses' => 'Admin\Hr\SmStaffController@viewStaff']);
-        Route::get('delete-staff-view/{id}', ['as' => 'deleteStaffView', 'uses' => 'Admin\Hr\SmStaffController@deleteStaffView']);
+        // Route::get('staff-roles', ['as' => 'viewStaff', 'uses' => 'Admin\Hr\AramiscStaffController@staffRoles']);
+        Route::get('view-staff/{id}', ['as' => 'viewStaff', 'uses' => 'Admin\Hr\AramiscStaffController@viewStaff']);
+        Route::get('delete-staff-view/{id}', ['as' => 'deleteStaffView', 'uses' => 'Admin\Hr\AramiscStaffController@deleteStaffView']);
 
-        Route::get('deleteStaff/{id}', 'Admin\Hr\SmStaffController@deleteStaff')->name('deleteStaff')->middleware('userRolePermission:deleteStaff');
-        Route::post('delete-staff', 'Admin\Hr\SmStaffController@delete_staff')->name('delete_staff');
-        Route::get('staff-settings', 'Admin\Hr\SmStaffController@settings')->name('staff_settings')->middleware('userRolePermission:staff_settings');
-        Route::post('staff/field/switch', ['as' => 'staff_switch', 'uses' => 'Admin\Hr\SmStaffController@statusUpdate']);
-        Route::post('teacher/field_view', ['as' => 'teacher_field_view', 'uses' => 'Admin\Hr\SmStaffController@teacherFieldView']);
-        Route::get('staff-disable-enable', 'Admin\Hr\SmStaffController@staffDisableEnable')->name('staff-disable-enable');
+        Route::get('deleteStaff/{id}', 'Admin\Hr\AramiscStaffController@deleteStaff')->name('deleteStaff')->middleware('userRolePermission:deleteStaff');
+        Route::post('delete-staff', 'Admin\Hr\AramiscStaffController@delete_staff')->name('delete_staff');
+        Route::get('staff-settings', 'Admin\Hr\AramiscStaffController@settings')->name('staff_settings')->middleware('userRolePermission:staff_settings');
+        Route::post('staff/field/switch', ['as' => 'staff_switch', 'uses' => 'Admin\Hr\AramiscStaffController@statusUpdate']);
+        Route::post('teacher/field_view', ['as' => 'teacher_field_view', 'uses' => 'Admin\Hr\AramiscStaffController@teacherFieldView']);
+        Route::get('staff-disable-enable', 'Admin\Hr\AramiscStaffController@staffDisableEnable')->name('staff-disable-enable');
 
-        Route::get('upload-staff-documents/{id}', 'Admin\Hr\SmStaffController@uploadStaffDocuments');
-        Route::post('save_upload_document', 'Admin\Hr\SmStaffController@saveUploadDocument')->name('save_upload_document');
+        Route::get('upload-staff-documents/{id}', 'Admin\Hr\AramiscStaffController@uploadStaffDocuments');
+        Route::post('save_upload_document', 'Admin\Hr\AramiscStaffController@saveUploadDocument')->name('save_upload_document');
         Route::get('download-staff-document/{file_name}', function ($file_name = null) {
             $file = public_path() . '/uploads/staff/document/' . $file_name;
             if (file_exists($file)) {
@@ -1449,36 +1451,36 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             }
         })->name('download-staff-timeline-doc');
 
-        Route::get('delete-staff-document-view/{id}', 'Admin\Hr\SmStaffController@deleteStaffDocumentView')->name('delete-staff-document-view');
-        Route::get('delete-staff-document/{id}', 'Admin\Hr\SmStaffController@deleteStaffDocument')->name('delete-staff-document');
+        Route::get('delete-staff-document-view/{id}', 'Admin\Hr\AramiscStaffController@deleteStaffDocumentView')->name('delete-staff-document-view');
+        Route::get('delete-staff-document/{id}', 'Admin\Hr\AramiscStaffController@deleteStaffDocument')->name('delete-staff-document');
 
         // staff timeline
-        Route::get('add-staff-timeline/{id}', 'Admin\Hr\SmStaffController@addStaffTimeline');
-        Route::post('staff_timeline_store', 'Admin\Hr\SmStaffController@storeStaffTimeline')->name('staff_timeline_store');
-        Route::get('delete-staff-timeline-view/{id}', 'Admin\Hr\SmStaffController@deleteStaffTimelineView')->name('delete-staff-timeline-view');
-        Route::get('delete-staff-timeline/{id}', 'Admin\Hr\SmStaffController@deleteStaffTimeline')->name('delete-staff-timeline');
+        Route::get('add-staff-timeline/{id}', 'Admin\Hr\AramiscStaffController@addStaffTimeline');
+        Route::post('staff_timeline_store', 'Admin\Hr\AramiscStaffController@storeStaffTimeline')->name('staff_timeline_store');
+        Route::get('delete-staff-timeline-view/{id}', 'Admin\Hr\AramiscStaffController@deleteStaffTimelineView')->name('delete-staff-timeline-view');
+        Route::get('delete-staff-timeline/{id}', 'Admin\Hr\AramiscStaffController@deleteStaffTimeline')->name('delete-staff-timeline');
 
 
         //Staff Attendance
-        Route::get('staff-aramiscAttendance', ['as' => 'staff_aramiscAttendance', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendance'])->middleware('userRolePermission:staff_aramiscAttendance');
-        Route::post('staff-aramiscAttendance', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceSearch')->name('staff-aramiscAttendance-search');
-        Route::post('staff-aramiscAttendance-store', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceStore')->name('staff-aramiscAttendance-store')->middleware('userRolePermission:staff-aramiscAttendance-store');
-        Route::post('staff-holiday-store', 'Admin\Hr\SmStaffAttendanceController@staffHolidayStore')->name('staff-holiday-store')->middleware('userRolePermission:staff-holiday-store');
+        Route::get('staff-attendance', ['as' => 'staff_attendance', 'uses' => 'Admin\Hr\AramiscStaffAttendanceController@staffAttendance'])->middleware('userRolePermission:staff_attendance');
+        Route::post('staff-attendance', 'Admin\Hr\AramiscStaffAttendanceController@staffAttendanceSearch')->name('staff-attendance-search');
+        Route::post('staff-attendance-store', 'Admin\Hr\AramiscStaffAttendanceController@staffAttendanceStore')->name('staff-attendance-store')->middleware('userRolePermission:staff-attendance-store');
+        Route::post('staff-holiday-store', 'Admin\Hr\AramiscStaffAttendanceController@staffHolidayStore')->name('staff-holiday-store')->middleware('userRolePermission:staff-holiday-store');
 
-        Route::get('staff-aramiscAttendance-report', ['as' => 'staff_aramiscAttendance_report', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendanceReport'])->middleware('userRolePermission:staff_aramiscAttendance_report');
-        Route::post('staff-aramiscAttendance-report', ['as' => 'staff_aramiscAttendance_report_search', 'uses' => 'Admin\Hr\SmStaffAttendanceController@staffAttendanceReportSearch']);
+        Route::get('staff-attendance-report', ['as' => 'staff_attendance_report', 'uses' => 'Admin\Hr\AramiscStaffAttendanceController@staffAttendanceReport'])->middleware('userRolePermission:staff_attendance_report');
+        Route::post('staff-attendance-report', ['as' => 'staff_attendance_report_search', 'uses' => 'Admin\Hr\AramiscStaffAttendanceController@staffAttendanceReportSearch']);
 
-        Route::get('staff-aramiscAttendance/print/{role_id}/{month}/{year}/', 'Admin\Hr\SmStaffAttendanceController@staffAttendancePrint')->name('staff-aramiscAttendance/print');
-
-
-        // Biometric aramiscAttendance
-        Route::post('aramiscAttendance', 'Admin\Hr\SmStaffAttendanceController@aramiscAttendanceData')->name('aramiscAttendanceData');
+        Route::get('staff-attendance/print/{role_id}/{month}/{year}/', 'Admin\Hr\AramiscStaffAttendanceController@staffAttendancePrint')->name('staff-attendance/print');
 
 
+        // Biometric attendance
+        Route::post('attendance', 'Admin\Hr\AramiscStaffAttendanceController@attendanceData')->name('attendanceData');
 
-        Route::get('staff-aramiscAttendance-import', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceImport')->name('staff-aramiscAttendance-import');
-        Route::get('download-staff-aramiscAttendance-file', 'Admin\Hr\SmStaffAttendanceController@downloadStaffAttendanceFile');
-        Route::post('staff-aramiscAttendance-bulk-store', 'Admin\Hr\SmStaffAttendanceController@staffAttendanceBulkStore')->name('staff-aramiscAttendance-bulk-store');
+
+
+        Route::get('staff-attendance-import', 'Admin\Hr\AramiscStaffAttendanceController@staffAttendanceImport')->name('staff-attendance-import');
+        Route::get('download-staff-attendance-file', 'Admin\Hr\AramiscStaffAttendanceController@downloadStaffAttendanceFile');
+        Route::post('staff-attendance-bulk-store', 'Admin\Hr\AramiscStaffAttendanceController@staffAttendanceBulkStore')->name('staff-attendance-bulk-store');
 
         //payroll
         Route::get('payroll', ['as' => 'payroll', 'uses' => 'Admin\Hr\SmPayrollController@index'])->middleware('userRolePermission:payroll');
@@ -1502,22 +1504,22 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('payroll-report', 'Admin\Hr\SmPayrollController@searchPayrollReport')->name('searchPayrollReport');
 
         //Homework
-        Route::get('homework-list', ['as' => 'homework-list', 'uses' => 'Admin\Homework\SmHomeworkController@aramiscHomeworkList'])->middleware('userRolePermission:homework-list');
+        Route::get('homework-list', ['as' => 'homework-list', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkList'])->middleware('userRolePermission:homework-list');
 
-        Route::post('homework-list', ['as' => 'homework-list-search', 'uses' => 'Admin\Homework\SmHomeworkController@searchHomework'])->middleware('userRolePermission:homework-list');
-        Route::get('homework-edit/{id}', ['as' => 'homework_edit', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkEdit'])->middleware('userRolePermission:homework_edit');
-        Route::post('homework-update', ['as' => 'homework_update', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkUpdate'])->middleware('userRolePermission:homework_edit');
-        Route::get('homework-delete/{id}', ['as' => 'homework_delete', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkDelete'])->middleware('userRolePermission:homework_delete');
+        Route::post('homework-list', ['as' => 'homework-list-search', 'uses' => 'Admin\Homework\AramiscHomeworkController@searchHomework'])->middleware('userRolePermission:homework-list');
+        Route::get('homework-edit/{id}', ['as' => 'homework_edit', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkEdit'])->middleware('userRolePermission:homework_edit');
+        Route::post('homework-update', ['as' => 'homework_update', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkUpdate'])->middleware('userRolePermission:homework_edit');
+        Route::get('homework-delete/{id}', ['as' => 'homework_delete', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkDelete'])->middleware('userRolePermission:homework_delete');
 
-        Route::post('homework-delete', ['as' => 'homework-delete', 'uses' => 'Admin\Homework\SmHomeworkController@deleteHomework'])->middleware('userRolePermission:homework_delete');
-        Route::get('add-homeworks', ['as' => 'add-homeworks', 'uses' => 'Admin\Homework\SmHomeworkController@aramiscAddHomework'])->middleware('userRolePermission:add-homeworks');
-        Route::post('save-homework-data', ['as' => 'saveHomeworkData', 'uses' => 'Admin\Homework\SmHomeworkController@saveHomeworkData'])->middleware('userRolePermission:saveHomeworkData');
-        Route::get('download-uploaded-content-admin/{id}/{student_id}', 'Admin\Homework\SmHomeworkController@downloadHomeworkData')->name('download-uploaded-content-admin');
-        //Route::get('evaluation-homework/{class_id}/{section_id}', 'Admin\Homework\SmHomeworkController@evaluationHomework');
-        Route::get('evaluation-homework/{class_id}/{section_id}/{homework_id}', 'Admin\Homework\SmHomeworkController@evaluationHomework')->name('evaluation-homework')->middleware('userRolePermission:evaluation-homework');
-        Route::get('university/evaluation-homework/{sem_label_id}/{homework_id}', 'Admin\Homework\SmHomeworkController@unEvaluationHomework')->name('university.unevaluation-homework')->middleware('userRolePermission:evaluation-homework');
-        Route::post('save-homework-evaluation-data', ['as' => 'save-homework-evaluation-data', 'uses' => 'Admin\Homework\SmHomeworkController@saveHomeworkEvaluationData']);
-        Route::get('evaluation-report', 'Admin\Homework\SmHomeworkController@EvaluationReport')->name('evaluation-report')->middleware('userRolePermission:evaluation-report');
+        Route::post('homework-delete', ['as' => 'homework-delete', 'uses' => 'Admin\Homework\AramiscHomeworkController@deleteHomework'])->middleware('userRolePermission:homework_delete');
+        Route::get('add-homeworks', ['as' => 'add-homeworks', 'uses' => 'Admin\Homework\AramiscHomeworkController@addHomework'])->middleware('userRolePermission:add-homeworks');
+        Route::post('save-homework-data', ['as' => 'saveHomeworkData', 'uses' => 'Admin\Homework\AramiscHomeworkController@saveHomeworkData'])->middleware('userRolePermission:saveHomeworkData');
+        Route::get('download-uploaded-content-admin/{id}/{student_id}', 'Admin\Homework\AramiscHomeworkController@downloadHomeworkData')->name('download-uploaded-content-admin');
+        //Route::get('evaluation-homework/{class_id}/{section_id}', 'Admin\Homework\AramiscHomeworkController@evaluationHomework');
+        Route::get('evaluation-homework/{class_id}/{section_id}/{homework_id}', 'Admin\Homework\AramiscHomeworkController@evaluationHomework')->name('evaluation-homework')->middleware('userRolePermission:evaluation-homework');
+        Route::get('university/evaluation-homework/{sem_label_id}/{homework_id}', 'Admin\Homework\AramiscHomeworkController@unEvaluationHomework')->name('university.unevaluation-homework')->middleware('userRolePermission:evaluation-homework');
+        Route::post('save-homework-evaluation-data', ['as' => 'save-homework-evaluation-data', 'uses' => 'Admin\Homework\AramiscHomeworkController@saveHomeworkEvaluationData']);
+        Route::get('evaluation-report', 'Admin\Homework\AramiscHomeworkController@EvaluationReport')->name('evaluation-report')->middleware('userRolePermission:evaluation-report');
         Route::get('evaluation-document-download/{file_name}', function ($file_name = null) {
             $file = public_path() . '/uploads/homework/' . $file_name;
             if (file_exists($file)) {
@@ -1525,21 +1527,21 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             }
         })->name('evaluation-document-download');
 
-        Route::post('evaluation-report', ['as' => 'search-evaluation', 'uses' => 'Admin\Homework\SmHomeworkController@searchEvaluation']);
-        // Route::get('search-evaluation', 'Admin\Homework\SmHomeworkController@EvaluationReport');
-        Route::get('view-evaluation-report/{homework_id}', 'Admin\Homework\SmHomeworkController@viewEvaluationReport')->name('view-evaluation-report')->middleware('userRolePermission:view-evaluation-report');
+        Route::post('evaluation-report', ['as' => 'search-evaluation', 'uses' => 'Admin\Homework\AramiscHomeworkController@searchEvaluation']);
+        // Route::get('search-evaluation', 'Admin\Homework\AramiscHomeworkController@EvaluationReport');
+        Route::get('view-evaluation-report/{homework_id}', 'Admin\Homework\AramiscHomeworkController@viewEvaluationReport')->name('view-evaluation-report')->middleware('userRolePermission:view-evaluation-report');
 
-        Route::get('homework-report', ['as' => 'homework-report', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkReport'])->middleware('userRolePermission:homework-report');
-        Route::get('homework-report-search', ['as' => 'homework-report-search', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkReportSearch'])->middleware('userRolePermission:homework-report-search');
-        Route::get('homework-report-view/{student_id}/{class_id}/{section_id}/{homework_id}', ['as' => 'homework-report-view', 'uses' => 'Admin\Homework\SmHomeworkController@homeworkReportView']);
+        Route::get('homework-report', ['as' => 'homework-report', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkReport'])->middleware('userRolePermission:homework-report');
+        Route::get('homework-report-search', ['as' => 'homework-report-search', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkReportSearch'])->middleware('userRolePermission:homework-report-search');
+        Route::get('homework-report-view/{student_id}/{class_id}/{section_id}/{homework_id}', ['as' => 'homework-report-view', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkReportView']);
 
         //Study Material
         Route::get('upload-content', 'Admin\StudyMaterial\SmUploadContentController@index')->name('upload-content')->middleware('userRolePermission:upload-content');
         Route::post('save-upload-content', 'Admin\StudyMaterial\SmUploadContentController@store')->name('save-upload-content')->middleware('userRolePermission:save-upload-content');
 
         //
-        Route::get('upload-content-edit/{id}', 'Admin\StudyMaterial\SmUploadContentController@aramiscUploadContentEdit')->name('upload-content-edit')->middleware('userRolePermission:upload-content-edit');
-        Route::get('upload-content-view/{id}', 'Admin\StudyMaterial\SmUploadContentController@aramiscUploadContentView')->name('upload-content-view');
+        Route::get('upload-content-edit/{id}', 'Admin\StudyMaterial\SmUploadContentController@uploadContentEdit')->name('upload-content-edit')->middleware('userRolePermission:upload-content-edit');
+        Route::get('upload-content-view/{id}', 'Admin\StudyMaterial\SmUploadContentController@uploadContentView')->name('upload-content-view');
         //
         Route::post('update-upload-content', 'Admin\StudyMaterial\SmUploadContentController@updateUploadContent')->name('update-upload-content');
         Route::post('delete-upload-content', 'Admin\StudyMaterial\SmUploadContentController@deleteUploadContent')->name('delete-upload-content')->middleware('userRolePermission:delete-upload-content');
@@ -1552,95 +1554,95 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
             }
         })->name('download-content-document');
 
-        Route::get('assignment-list', 'Admin\StudyMaterial\SmUploadContentController@aramiscAssignmentList')->name('assignment-list')->middleware('userRolePermission:assignment-list');
+        Route::get('assignment-list', 'Admin\StudyMaterial\SmUploadContentController@assignmentList')->name('assignment-list')->middleware('userRolePermission:assignment-list');
         Route::get('study-metarial-list', 'Admin\StudyMaterial\SmUploadContentController@studyMetarialList')->name('study-metarial-list');
-        Route::get('syllabus-list', 'Admin\StudyMaterial\SmUploadContentController@aramiscSyllabusList')->name('syllabus-list')->middleware('userRolePermission:syllabus-list');
+        Route::get('syllabus-list', 'Admin\StudyMaterial\SmUploadContentController@syllabusList')->name('syllabus-list')->middleware('userRolePermission:syllabus-list');
         Route::get('other-download-list', 'Admin\StudyMaterial\SmUploadContentController@otherDownloadList')->name('other-download-list')->middleware('userRolePermission:other-download-list');
 
-        Route::get('assignment-list-ajax', 'DatatableQueryController@aramiscAssignmentList')->name('assignment-list-ajax')->middleware('userRolePermission:assignment-list');
-        Route::get('syllabus-list-ajax', 'DatatableQueryController@aramiscSyllabusList')->name('syllabus-list-ajax')->middleware('userRolePermission:syllabus-list');
+        Route::get('assignment-list-ajax', 'DatatableQueryController@assignmentList')->name('assignment-list-ajax')->middleware('userRolePermission:assignment-list');
+        Route::get('syllabus-list-ajax', 'DatatableQueryController@syllabusList')->name('syllabus-list-ajax')->middleware('userRolePermission:syllabus-list');
         // Communicate
-        Route::get('notice-list', 'Admin\Communicate\SmNoticeController@noticeList')->name('notice-list')->middleware('userRolePermission:notice-list');
-        Route::get('administrator-notice', 'Admin\Communicate\SmNoticeController@administratorNotice')->name('administrator-notice');
-        Route::get('add-notice', 'Admin\Communicate\SmNoticeController@sendMessage')->name('add-notice');
-        Route::post('save-notice-data', 'Admin\Communicate\SmNoticeController@saveNoticeData')->name('save-notice-data');
-        Route::get('edit-notice/{id}', 'Admin\Communicate\SmNoticeController@editNotice')->name('edit-notice');
-        Route::post('update-notice-data', 'Admin\Communicate\SmNoticeController@updateNoticeData')->name('update-notice-data');
-        Route::get('delete-notice-view/{id}', 'Admin\Communicate\SmNoticeController@deleteNoticeView')->name('delete-notice-view')->middleware('userRolePermission:delete-notice-view');
+        Route::get('notice-list', 'Admin\Communicate\AramiscNoticeController@noticeList')->name('notice-list')->middleware('userRolePermission:notice-list');
+        Route::get('administrator-notice', 'Admin\Communicate\AramiscNoticeController@administratorNotice')->name('administrator-notice');
+        Route::get('add-notice', 'Admin\Communicate\AramiscNoticeController@sendMessage')->name('add-notice');
+        Route::post('save-notice-data', 'Admin\Communicate\AramiscNoticeController@saveNoticeData')->name('save-notice-data');
+        Route::get('edit-notice/{id}', 'Admin\Communicate\AramiscNoticeController@editNotice')->name('edit-notice');
+        Route::post('update-notice-data', 'Admin\Communicate\AramiscNoticeController@updateNoticeData')->name('update-notice-data');
+        Route::get('delete-notice-view/{id}', 'Admin\Communicate\AramiscNoticeController@deleteNoticeView')->name('delete-notice-view')->middleware('userRolePermission:delete-notice-view');
         Route::get('send-email-sms-view', 'Admin\Communicate\SmCommunicateController@sendEmailSmsView')->name('send-email-sms-view')->middleware('userRolePermission:send-email-sms-view');
         Route::post('send-email-sms', 'Admin\Communicate\SmCommunicateController@sendEmailSms')->name('send-email-sms')->middleware('userRolePermission:send-email-sms');
         Route::get('email-sms-log', 'Admin\Communicate\SmCommunicateController@emailSmsLog')->name('email-sms-log')->middleware('userRolePermission:email-sms-log');
-        Route::get('delete-notice/{id}', 'Admin\Communicate\SmNoticeController@deleteNotice')->name('delete-notice');
+        Route::get('delete-notice/{id}', 'Admin\Communicate\AramiscNoticeController@deleteNotice')->name('delete-notice');
 
         Route::get('studStaffByRole', 'Admin\Communicate\SmCommunicateController@studStaffByRole');
 
         Route::get('email-sms-log-ajax', 'DatatableQueryController@emailSmsLogAjax')->name('emailSmsLogAjax')->middleware('userRolePermission:email-sms-log');
 
         //Holiday
-        // Route::resource('holiday', 'Admin\SystemSettings\SmHolidayController');
-        Route::get('holiday', 'Admin\SystemSettings\SmHolidayController@index')->name('holiday')->middleware('userRolePermission:holiday');
-        Route::post('holiday', 'Admin\SystemSettings\SmHolidayController@store')->name('holiday-store')->middleware('userRolePermission:holiday-store');
-        Route::get('holiday/{id}/edit', 'Admin\SystemSettings\SmHolidayController@edit')->name('holiday-edit')->middleware('userRolePermission:holiday-edit');
-        Route::put('holiday/{id}', 'Admin\SystemSettings\SmHolidayController@update')->name('holiday-update')->middleware('userRolePermission:holiday-edit');
-        Route::get('delete-holiday-data-view/{id}', 'Admin\SystemSettings\SmHolidayController@deleteHolidayView')->name('delete-holiday-data-view')->middleware('userRolePermission:delete-holiday-data-view');
-        Route::get('delete-holiday-data/{id}', 'Admin\SystemSettings\SmHolidayController@deleteHoliday')->name('delete-holiday-data')->middleware('userRolePermission:delete-holiday-data');
+        // Route::resource('holiday', 'Admin\SystemSettings\AramiscHolidayController');
+        Route::get('holiday', 'Admin\SystemSettings\AramiscHolidayController@index')->name('holiday')->middleware('userRolePermission:holiday');
+        Route::post('holiday', 'Admin\SystemSettings\AramiscHolidayController@store')->name('holiday-store')->middleware('userRolePermission:holiday-store');
+        Route::get('holiday/{id}/edit', 'Admin\SystemSettings\AramiscHolidayController@edit')->name('holiday-edit')->middleware('userRolePermission:holiday-edit');
+        Route::put('holiday/{id}', 'Admin\SystemSettings\AramiscHolidayController@update')->name('holiday-update')->middleware('userRolePermission:holiday-edit');
+        Route::get('delete-holiday-data-view/{id}', 'Admin\SystemSettings\AramiscHolidayController@deleteHolidayView')->name('delete-holiday-data-view')->middleware('userRolePermission:delete-holiday-data-view');
+        Route::get('delete-holiday-data/{id}', 'Admin\SystemSettings\AramiscHolidayController@deleteHoliday')->name('delete-holiday-data')->middleware('userRolePermission:delete-holiday-data');
 
         //Notification Settings
-        Route::controller('Admin\SystemSettings\SmNotificationController')->group(function () {
+        Route::controller('Admin\SystemSettings\AramiscNotificationController')->group(function () {
             Route::get('notification_settings', 'index')->name('notification_settings')->middleware('userRolePermission:notification_settings');
             Route::get('notification_event_modal/{id}/{key}', 'notificationEventModal')->name('notification_event_modal');
             Route::post('notification-settings-update', 'notificationSettingsUpdate')->name('notification_settings_update');
         });
 
 
-        // Route::resource('weekend', 'Admin\SystemSettings\SmWeekendController');
-        Route::get('weekend', 'Admin\SystemSettings\SmWeekendController@index')->name('weekend')->middleware('userRolePermission:weekend');
-        Route::post('weekend/switch', 'Admin\SystemSettings\SmWeekendController@store')
+        // Route::resource('weekend', 'Admin\SystemSettings\AramiscWeekendController');
+        Route::get('weekend', 'Admin\SystemSettings\AramiscWeekendController@index')->name('weekend')->middleware('userRolePermission:weekend');
+        Route::post('weekend/switch', 'Admin\SystemSettings\AramiscWeekendController@store')
             ->name('weekend.store')->middleware('userRolePermission:weekend.store');
-        Route::get('weekend/{id}', 'Admin\SystemSettings\SmWeekendController@edit')->name('weekend-edit');
-        Route::put('weekend/{id}', 'Admin\SystemSettings\SmWeekendController@update')->name('weekend-update');
+        Route::get('weekend/{id}', 'Admin\SystemSettings\AramiscWeekendController@edit')->name('weekend-edit');
+        Route::put('weekend/{id}', 'Admin\SystemSettings\AramiscWeekendController@update')->name('weekend-update');
 
         //Book Category
-        // Route::resource('book-category-list', 'Admin\Library\SmBookCategoryController');
-        Route::get('book-category-list', 'Admin\Library\SmBookCategoryController@index')->name('book-category-list')->middleware('userRolePermission:book-category-list');
-        Route::post('book-category-list', 'Admin\Library\SmBookCategoryController@store')->name('book-category-list-store')->middleware('userRolePermission:book-category-list-store');
-        Route::get('book-category-list/{id}', 'Admin\Library\SmBookCategoryController@edit')->name('book-category-list-edit')->middleware('userRolePermission:book-category-list-edit');
-        Route::put('book-category-list/{id}', 'Admin\Library\SmBookCategoryController@update')->name('book-category-list-update')->middleware('userRolePermission:book-category-list-edit');
-        Route::delete('book-category-list/{id}', 'Admin\Library\SmBookCategoryController@destroy')->name('book-category-list-delete')->middleware('userRolePermission:book-category-list-delete');
+        // Route::resource('book-category-list', 'Admin\Library\AramiscBookCategoryController');
+        Route::get('book-category-list', 'Admin\Library\AramiscBookCategoryController@index')->name('book-category-list')->middleware('userRolePermission:book-category-list');
+        Route::post('book-category-list', 'Admin\Library\AramiscBookCategoryController@store')->name('book-category-list-store')->middleware('userRolePermission:book-category-list-store');
+        Route::get('book-category-list/{id}', 'Admin\Library\AramiscBookCategoryController@edit')->name('book-category-list-edit')->middleware('userRolePermission:book-category-list-edit');
+        Route::put('book-category-list/{id}', 'Admin\Library\AramiscBookCategoryController@update')->name('book-category-list-update')->middleware('userRolePermission:book-category-list-edit');
+        Route::delete('book-category-list/{id}', 'Admin\Library\AramiscBookCategoryController@destroy')->name('book-category-list-delete')->middleware('userRolePermission:book-category-list-delete');
 
-        Route::get('delete-book-category-view/{id}', 'Admin\Library\SmBookCategoryController@deleteBookCategoryView');
-        Route::get('delete-book-category/{id}', 'Admin\Library\SmBookCategoryController@deleteBookCategory')->name('delete-book-category');
+        Route::get('delete-book-category-view/{id}', 'Admin\Library\AramiscBookCategoryController@deleteBookCategoryView');
+        Route::get('delete-book-category/{id}', 'Admin\Library\AramiscBookCategoryController@deleteBookCategory')->name('delete-book-category');
 
         // Book
-        Route::get('book-list', 'Admin\Library\SmBookController@index')->name('book-list')->middleware('userRolePermission:book-list');
-        Route::get('add-book', 'Admin\Library\SmBookController@addBook')->name('add-book')->middleware('userRolePermission:add-book');
-        Route::post('save-book-data', 'Admin\Library\SmBookController@saveBookData')->name('save-book-data')->middleware('userRolePermission:save-book-data');
-        Route::get('edit-book/{id}', 'Admin\Library\SmBookController@editBook')->name('edit-book');
-        Route::post('update-book-data/{id}', 'Admin\Library\SmBookController@updateBookData')->name('update-book-data');
-        Route::get('delete-book-view/{id}', 'Admin\Library\SmBookController@deleteBookView')->name('delete-book-view')->middleware('userRolePermission:delete-book-view');
-        Route::get('delete-book/{id}', 'Admin\Library\SmBookController@deleteBook');
-        Route::get('member-list', 'Admin\Library\SmBookController@memberList')->name('member-list')->middleware('userRolePermission:member-list');
-        Route::get('issue-books/{member_type}/{id}', 'Admin\Library\SmBookController@issueBooks')->name('issue-books');
-        Route::post('save-issue-book-data', 'Admin\Library\SmBookController@saveIssueBookData')->name('save-issue-book-data');
-        Route::get('return-book-view/{id}', 'Admin\Library\SmBookController@returnBookView')->name('return-book-view')->middleware('userRolePermission:return-book-view');
-        Route::get('return-book/{id}', 'Admin\Library\SmBookController@returnBook')->name('return-book');
-        Route::get('all-issed-book', 'Admin\Library\SmBookController@allIssuedBook')->name('all-issed-book')->middleware('userRolePermission:all-issed-book');
-        Route::post('all-issed-book', 'Admin\Library\SmBookController@searchIssuedBook')->name('search-issued-book');
+        Route::get('book-list', 'Admin\Library\AramiscBookController@index')->name('book-list')->middleware('userRolePermission:book-list');
+        Route::get('add-book', 'Admin\Library\AramiscBookController@addBook')->name('add-book')->middleware('userRolePermission:add-book');
+        Route::post('save-book-data', 'Admin\Library\AramiscBookController@saveBookData')->name('save-book-data')->middleware('userRolePermission:save-book-data');
+        Route::get('edit-book/{id}', 'Admin\Library\AramiscBookController@editBook')->name('edit-book');
+        Route::post('update-book-data/{id}', 'Admin\Library\AramiscBookController@updateBookData')->name('update-book-data');
+        Route::get('delete-book-view/{id}', 'Admin\Library\AramiscBookController@deleteBookView')->name('delete-book-view')->middleware('userRolePermission:delete-book-view');
+        Route::get('delete-book/{id}', 'Admin\Library\AramiscBookController@deleteBook');
+        Route::get('member-list', 'Admin\Library\AramiscBookController@memberList')->name('member-list')->middleware('userRolePermission:member-list');
+        Route::get('issue-books/{member_type}/{id}', 'Admin\Library\AramiscBookController@issueBooks')->name('issue-books');
+        Route::post('save-issue-book-data', 'Admin\Library\AramiscBookController@saveIssueBookData')->name('save-issue-book-data');
+        Route::get('return-book-view/{id}', 'Admin\Library\AramiscBookController@returnBookView')->name('return-book-view')->middleware('userRolePermission:return-book-view');
+        Route::get('return-book/{id}', 'Admin\Library\AramiscBookController@returnBook')->name('return-book');
+        Route::get('all-issed-book', 'Admin\Library\AramiscBookController@allIssuedBook')->name('all-issed-book')->middleware('userRolePermission:all-issed-book');
+        Route::post('all-issed-book', 'Admin\Library\AramiscBookController@searchIssuedBook')->name('search-issued-book');
         // Route::get('search-issued-book', 'p@allIssuedBook');
 
 
         // Library Subject routes
-        Route::get('library-subject', ['as' => 'library_subject', 'uses' => 'Admin\Library\SmBookController@subjectList'])->middleware('userRolePermission:library_subject');
-        Route::post('library-subject-store', ['as' => 'library_subject_store', 'uses' => 'Admin\Library\SmBookController@store'])->middleware('userRolePermission:library_subject_store');
-        Route::get('library-subject-edit/{id}', ['as' => 'library_subject_edit', 'uses' => 'Admin\Library\SmBookController@edit'])->middleware('userRolePermission:library_subject_edit');
-        Route::post('library-subject-update', ['as' => 'library_subject_update', 'uses' => 'Admin\Library\SmBookController@update'])->middleware('userRolePermission:library_subject_edit');
-        Route::get('library-subject-delete/{id}', ['as' => 'library_subject_delete', 'uses' => 'Admin\Library\SmBookController@delete'])->middleware('userRolePermission:library_subject_delete');
+        Route::get('library-subject', ['as' => 'library_subject', 'uses' => 'Admin\Library\AramiscBookController@subjectList'])->middleware('userRolePermission:library_subject');
+        Route::post('library-subject-store', ['as' => 'library_subject_store', 'uses' => 'Admin\Library\AramiscBookController@store'])->middleware('userRolePermission:library_subject_store');
+        Route::get('library-subject-edit/{id}', ['as' => 'library_subject_edit', 'uses' => 'Admin\Library\AramiscBookController@edit'])->middleware('userRolePermission:library_subject_edit');
+        Route::post('library-subject-update', ['as' => 'library_subject_update', 'uses' => 'Admin\Library\AramiscBookController@update'])->middleware('userRolePermission:library_subject_edit');
+        Route::get('library-subject-delete/{id}', ['as' => 'library_subject_delete', 'uses' => 'Admin\Library\AramiscBookController@delete'])->middleware('userRolePermission:library_subject_delete');
         //library member
-        // Route::resource('library-member', 'Admin\Library\SmLibraryMemberController');
-        Route::get('library-member', 'Admin\Library\SmLibraryMemberController@index')->name('library-member')->middleware('userRolePermission:library-member');
-        Route::post('library-member', 'Admin\Library\SmLibraryMemberController@store')->name('library-member-store')->middleware('userRolePermission:library-member-store');
+        // Route::resource('library-member', 'Admin\Library\AramiscLibraryMemberController');
+        Route::get('library-member', 'Admin\Library\AramiscLibraryMemberController@index')->name('library-member')->middleware('userRolePermission:library-member');
+        Route::post('library-member', 'Admin\Library\AramiscLibraryMemberController@store')->name('library-member-store')->middleware('userRolePermission:library-member-store');
 
-        Route::get('cancel-membership/{id}', 'Admin\Library\SmLibraryMemberController@cancelMembership')->name('cancel-membership')->middleware('userRolePermission:cancel-membership');
+        Route::get('cancel-membership/{id}', 'Admin\Library\AramiscLibraryMemberController@cancelMembership')->name('cancel-membership')->middleware('userRolePermission:cancel-membership');
 
 
         // Ajax Subject in dropdown by section change
@@ -1651,99 +1653,99 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         //inventory
-        // Route::resource('item-category', 'Admin\Inventory\SmItemCategoryController');
-        Route::get('item-category', 'Admin\Inventory\SmItemCategoryController@index')->name('item-category')->middleware('userRolePermission:item-category');
-        Route::post('item-category', 'Admin\Inventory\SmItemCategoryController@store')->name('item-category-store')->middleware('userRolePermission:item-category-store');
-        Route::get('item-category/{id}', 'Admin\Inventory\SmItemCategoryController@edit')->name('item-category-edit')->middleware('userRolePermission:item-category-edit');
-        Route::put('item-category/{id}', 'Admin\Inventory\SmItemCategoryController@update')->name('item-category-update')->middleware('userRolePermission:item-category-edit');
+        // Route::resource('item-category', 'Admin\Inventory\AramiscItemCategoryController');
+        Route::get('item-category', 'Admin\Inventory\AramiscItemCategoryController@index')->name('item-category')->middleware('userRolePermission:item-category');
+        Route::post('item-category', 'Admin\Inventory\AramiscItemCategoryController@store')->name('item-category-store')->middleware('userRolePermission:item-category-store');
+        Route::get('item-category/{id}', 'Admin\Inventory\AramiscItemCategoryController@edit')->name('item-category-edit')->middleware('userRolePermission:item-category-edit');
+        Route::put('item-category/{id}', 'Admin\Inventory\AramiscItemCategoryController@update')->name('item-category-update')->middleware('userRolePermission:item-category-edit');
 
-        Route::get('delete-item-category-view/{id}', 'Admin\Inventory\SmItemCategoryController@deleteItemCategoryView')->name('delete-item-category-view')->middleware('userRolePermission:delete-item-category-view');
-        Route::get('delete-item-category/{id}', 'Admin\Inventory\SmItemCategoryController@deleteItemCategory')->name('delete-item-category')->middleware('userRolePermission:delete-item-category-view');
+        Route::get('delete-item-category-view/{id}', 'Admin\Inventory\AramiscItemCategoryController@deleteItemCategoryView')->name('delete-item-category-view')->middleware('userRolePermission:delete-item-category-view');
+        Route::get('delete-item-category/{id}', 'Admin\Inventory\AramiscItemCategoryController@deleteItemCategory')->name('delete-item-category')->middleware('userRolePermission:delete-item-category-view');
 
-        // Route::resource('item-list', 'Admin\Inventory\SmItemController');
-        Route::get('item-list', 'Admin\Inventory\SmItemController@index')->name('item-list')->middleware('userRolePermission:item-list');
-        Route::post('item-list', 'Admin\Inventory\SmItemController@store')->name('item-list-store')->middleware('userRolePermission:item-list-store');
-        Route::get('item-list/{id}', 'Admin\Inventory\SmItemController@edit')->name('item-list-edit')->middleware('userRolePermission:item-list-edit');
-        Route::put('item-list/{id}', 'Admin\Inventory\SmItemController@update')->name('item-list-update')->middleware('userRolePermission:item-list-edit');
+        // Route::resource('item-list', 'Admin\Inventory\AramiscItemController');
+        Route::get('item-list', 'Admin\Inventory\AramiscItemController@index')->name('item-list')->middleware('userRolePermission:item-list');
+        Route::post('item-list', 'Admin\Inventory\AramiscItemController@store')->name('item-list-store')->middleware('userRolePermission:item-list-store');
+        Route::get('item-list/{id}', 'Admin\Inventory\AramiscItemController@edit')->name('item-list-edit')->middleware('userRolePermission:item-list-edit');
+        Route::put('item-list/{id}', 'Admin\Inventory\AramiscItemController@update')->name('item-list-update')->middleware('userRolePermission:item-list-edit');
 
-        Route::get('delete-item-view/{id}', 'Admin\Inventory\SmItemController@deleteItemView')->name('delete-item-view')->middleware('userRolePermission:delete-item-view');
-        Route::get('delete-item/{id}', 'Admin\Inventory\SmItemController@deleteItem')->name('delete-item')->middleware('userRolePermission:delete-item-view');
+        Route::get('delete-item-view/{id}', 'Admin\Inventory\AramiscItemController@deleteItemView')->name('delete-item-view')->middleware('userRolePermission:delete-item-view');
+        Route::get('delete-item/{id}', 'Admin\Inventory\AramiscItemController@deleteItem')->name('delete-item')->middleware('userRolePermission:delete-item-view');
 
-        // Route::resource('item-store', 'Admin\Inventory\SmItemStoreController');
-        Route::get('item-store', 'Admin\Inventory\SmItemStoreController@index')->name('item-store')->middleware('userRolePermission:item-store');
-        Route::post('item-store', 'Admin\Inventory\SmItemStoreController@store')->name('item-store-store')->middleware('userRolePermission:item-store-store');
-        Route::get('item-store/{id}', 'Admin\Inventory\SmItemStoreController@edit')->name('item-store-edit')->middleware('userRolePermission:item-store-edit');
-        Route::put('item-store/{id}', 'Admin\Inventory\SmItemStoreController@update')->name('item-store-update')->middleware('userRolePermission:item-store-edit');
+        // Route::resource('item-store', 'Admin\Inventory\AramiscItemStoreController');
+        Route::get('item-store', 'Admin\Inventory\AramiscItemStoreController@index')->name('item-store')->middleware('userRolePermission:item-store');
+        Route::post('item-store', 'Admin\Inventory\AramiscItemStoreController@store')->name('item-store-store')->middleware('userRolePermission:item-store-store');
+        Route::get('item-store/{id}', 'Admin\Inventory\AramiscItemStoreController@edit')->name('item-store-edit')->middleware('userRolePermission:item-store-edit');
+        Route::put('item-store/{id}', 'Admin\Inventory\AramiscItemStoreController@update')->name('item-store-update')->middleware('userRolePermission:item-store-edit');
 
-        Route::get('delete-store-view/{id}', 'Admin\Inventory\SmItemStoreController@deleteStoreView')->name('delete-store-view')->middleware('userRolePermission:delete-store-view');
-        Route::get('delete-store/{id}', 'Admin\Inventory\SmItemStoreController@deleteStore')->name('delete-store')->middleware('userRolePermission:delete-store-view');
+        Route::get('delete-store-view/{id}', 'Admin\Inventory\AramiscItemStoreController@deleteStoreView')->name('delete-store-view')->middleware('userRolePermission:delete-store-view');
+        Route::get('delete-store/{id}', 'Admin\Inventory\AramiscItemStoreController@deleteStore')->name('delete-store')->middleware('userRolePermission:delete-store-view');
 
-        Route::get('item-receive', 'Admin\Inventory\SmItemReceiveController@itemReceive')->name('item-receive')->middleware('userRolePermission:item-receive');
-        Route::post('get-receive-item', 'Admin\Inventory\SmItemReceiveController@getReceiveItem');
-        Route::post('save-item-receive-data', 'Admin\Inventory\SmItemReceiveController@saveItemReceiveData')->name('save-item-receive-data')->middleware('userRolePermission:save-item-receive-data');
-        Route::get('item-receive-list', 'Admin\Inventory\SmItemReceiveController@itemReceiveList')->name('item-receive-list')->middleware('userRolePermission:item-receive-list');
-        Route::get('edit-item-receive/{id}', 'Admin\Inventory\SmItemReceiveController@editItemReceive')->name('edit-item-receive')->middleware('userRolePermission:edit-item-receive');
-        Route::post('update-edit-item-receive-data/{id}', 'Admin\Inventory\SmItemReceiveController@updateItemReceiveData')->name('update-edit-item-receive-data')->middleware('userRolePermission:edit-item-receive');
-        Route::post('delete-receive-item', 'Admin\Inventory\SmItemReceiveController@deleteReceiveItem');
-        Route::get('view-item-receive/{id}', 'Admin\Inventory\SmItemReceiveController@viewItemReceive')->name('view-item-receive');
-        Route::get('add-payment/{id}', 'Admin\Inventory\SmItemReceiveController@itemReceivePayment')->name('add-payment');
-        Route::post('save-item-receive-payment', 'Admin\Inventory\SmItemReceiveController@saveItemReceivePayment')->name('save-item-receive-payment');
-        Route::get('view-receive-payments/{id}', 'Admin\Inventory\SmItemReceiveController@viewReceivePayments')->name('view-receive-payments')->middleware('userRolePermission:view-receive-payments');
-        Route::post('delete-receive-payment', 'Admin\Inventory\SmItemReceiveController@deleteReceivePayment');
-        Route::get('delete-item-receive-view/{id}', 'Admin\Inventory\SmItemReceiveController@deleteItemReceiveView')->name('delete-item-receive-view')->middleware('userRolePermission:delete-item-receive-view');
-        Route::get('delete-item-receive/{id}', 'Admin\Inventory\SmItemReceiveController@deleteItemReceive')->name('delete-item-receive');
-        Route::get('delete-item-sale-view/{id}', 'Admin\Inventory\SmItemReceiveController@deleteItemSaleView')->name('delete-item-sale-view')->middleware('userRolePermission:delete-item-sale-view');
-        Route::get('delete-item-sale/{id}', 'Admin\Inventory\SmItemReceiveController@deleteItemSale');
-        Route::get('cancel-item-receive-view/{id}', 'Admin\Inventory\SmItemReceiveController@cancelItemReceiveView')->name('cancel-item-receive-view');
-        Route::get('cancel-item-receive/{id}', 'Admin\Inventory\SmItemReceiveController@cancelItemReceive')->name('cancel-item-receive');
+        Route::get('item-receive', 'Admin\Inventory\AramiscItemReceiveController@itemReceive')->name('item-receive')->middleware('userRolePermission:item-receive');
+        Route::post('get-receive-item', 'Admin\Inventory\AramiscItemReceiveController@getReceiveItem');
+        Route::post('save-item-receive-data', 'Admin\Inventory\AramiscItemReceiveController@saveItemReceiveData')->name('save-item-receive-data')->middleware('userRolePermission:save-item-receive-data');
+        Route::get('item-receive-list', 'Admin\Inventory\AramiscItemReceiveController@itemReceiveList')->name('item-receive-list')->middleware('userRolePermission:item-receive-list');
+        Route::get('edit-item-receive/{id}', 'Admin\Inventory\AramiscItemReceiveController@editItemReceive')->name('edit-item-receive')->middleware('userRolePermission:edit-item-receive');
+        Route::post('update-edit-item-receive-data/{id}', 'Admin\Inventory\AramiscItemReceiveController@updateItemReceiveData')->name('update-edit-item-receive-data')->middleware('userRolePermission:edit-item-receive');
+        Route::post('delete-receive-item', 'Admin\Inventory\AramiscItemReceiveController@deleteReceiveItem');
+        Route::get('view-item-receive/{id}', 'Admin\Inventory\AramiscItemReceiveController@viewItemReceive')->name('view-item-receive');
+        Route::get('add-payment/{id}', 'Admin\Inventory\AramiscItemReceiveController@itemReceivePayment')->name('add-payment');
+        Route::post('save-item-receive-payment', 'Admin\Inventory\AramiscItemReceiveController@saveItemReceivePayment')->name('save-item-receive-payment');
+        Route::get('view-receive-payments/{id}', 'Admin\Inventory\AramiscItemReceiveController@viewReceivePayments')->name('view-receive-payments')->middleware('userRolePermission:view-receive-payments');
+        Route::post('delete-receive-payment', 'Admin\Inventory\AramiscItemReceiveController@deleteReceivePayment');
+        Route::get('delete-item-receive-view/{id}', 'Admin\Inventory\AramiscItemReceiveController@deleteItemReceiveView')->name('delete-item-receive-view')->middleware('userRolePermission:delete-item-receive-view');
+        Route::get('delete-item-receive/{id}', 'Admin\Inventory\AramiscItemReceiveController@deleteItemReceive')->name('delete-item-receive');
+        Route::get('delete-item-sale-view/{id}', 'Admin\Inventory\AramiscItemReceiveController@deleteItemSaleView')->name('delete-item-sale-view')->middleware('userRolePermission:delete-item-sale-view');
+        Route::get('delete-item-sale/{id}', 'Admin\Inventory\AramiscItemReceiveController@deleteItemSale');
+        Route::get('cancel-item-receive-view/{id}', 'Admin\Inventory\AramiscItemReceiveController@cancelItemReceiveView')->name('cancel-item-receive-view');
+        Route::get('cancel-item-receive/{id}', 'Admin\Inventory\AramiscItemReceiveController@cancelItemReceive')->name('cancel-item-receive');
 
         // Item Sell in inventory
-        Route::get('item-sell-list', 'Admin\Inventory\SmItemSellController@itemSellList')->name('item-sell-list')->middleware('userRolePermission:item-sell-list');
-        Route::get('item-sell', 'Admin\Inventory\SmItemSellController@itemSell')->name('item-sell')->middleware('userRolePermission:save-item-sell-data');
-        Route::post('save-item-sell-data', 'Admin\Inventory\SmItemSellController@saveItemSellData')->name('save-item-sell-data');
+        Route::get('item-sell-list', 'Admin\Inventory\AramiscItemSellController@itemSellList')->name('item-sell-list')->middleware('userRolePermission:item-sell-list');
+        Route::get('item-sell', 'Admin\Inventory\AramiscItemSellController@itemSell')->name('item-sell')->middleware('userRolePermission:save-item-sell-data');
+        Route::post('save-item-sell-data', 'Admin\Inventory\AramiscItemSellController@saveItemSellData')->name('save-item-sell-data');
 
-        Route::post('check-product-quantity', 'Admin\Inventory\SmItemSellController@checkProductQuantity');
-        Route::get('edit-item-sell/{id}', 'Admin\Inventory\SmItemSellController@editItemSell')->name('edit-item-sell')->middleware('userRolePermission:edit-item-sell');
+        Route::post('check-product-quantity', 'Admin\Inventory\AramiscItemSellController@checkProductQuantity');
+        Route::get('edit-item-sell/{id}', 'Admin\Inventory\AramiscItemSellController@editItemSell')->name('edit-item-sell')->middleware('userRolePermission:edit-item-sell');
 
-        Route::post('update-item-sell-data', 'Admin\Inventory\SmItemSellController@UpdateItemSellData')->name('update-item-sell-data');
-
-
+        Route::post('update-item-sell-data', 'Admin\Inventory\AramiscItemSellController@UpdateItemSellData')->name('update-item-sell-data');
 
 
-        Route::get('item-issue', 'Admin\Inventory\SmItemSellController@itemIssueList')->name('item-issue')->middleware('userRolePermission:item-issue');
-        Route::post('save-item-issue-data', 'Admin\Inventory\SmItemSellController@saveItemIssueData')->name('save-item-issue-data')->middleware('userRolePermission:save-item-issue-data');
-        Route::get('getItemByCategory', 'Admin\Inventory\SmItemSellController@getItemByCategory');
-        Route::get('return-item-view/{id}', 'Admin\Inventory\SmItemSellController@returnItemView')->name('return-item-view')->middleware('userRolePermission:return-item-view');
-        Route::get('return-item/{id}', 'Admin\Inventory\SmItemSellController@returnItem')->name('return-item');
 
-        Route::get('view-item-sell/{id}', 'Admin\Inventory\SmItemSellController@viewItemSell')->name('view-item-sell');
-        Route::get('view-item-sell-print/{id}', 'Admin\Inventory\SmItemSellController@viewItemSellPrint')->name('view-item-sell-print');
 
-        Route::get('add-payment-sell/{id}', 'Admin\Inventory\SmItemSellController@itemSellPayment')->name('add-payment-sell')->middleware('userRolePermission:add-payment-sell');
-        Route::post('save-item-sell-payment', 'Admin\Inventory\SmItemSellController@saveItemSellPayment')->name('save-item-sell-payment');
+        Route::get('item-issue', 'Admin\Inventory\AramiscItemSellController@itemIssueList')->name('item-issue')->middleware('userRolePermission:item-issue');
+        Route::post('save-item-issue-data', 'Admin\Inventory\AramiscItemSellController@saveItemIssueData')->name('save-item-issue-data')->middleware('userRolePermission:save-item-issue-data');
+        Route::get('getItemByCategory', 'Admin\Inventory\AramiscItemSellController@getItemByCategory');
+        Route::get('return-item-view/{id}', 'Admin\Inventory\AramiscItemSellController@returnItemView')->name('return-item-view')->middleware('userRolePermission:return-item-view');
+        Route::get('return-item/{id}', 'Admin\Inventory\AramiscItemSellController@returnItem')->name('return-item');
+
+        Route::get('view-item-sell/{id}', 'Admin\Inventory\AramiscItemSellController@viewItemSell')->name('view-item-sell');
+        Route::get('view-item-sell-print/{id}', 'Admin\Inventory\AramiscItemSellController@viewItemSellPrint')->name('view-item-sell-print');
+
+        Route::get('add-payment-sell/{id}', 'Admin\Inventory\AramiscItemSellController@itemSellPayment')->name('add-payment-sell')->middleware('userRolePermission:add-payment-sell');
+        Route::post('save-item-sell-payment', 'Admin\Inventory\AramiscItemSellController@saveItemSellPayment')->name('save-item-sell-payment');
 
 
         //Supplier
-        // Route::resource('suppliers', 'Admin\Inventory\SmSupplierController');
-        Route::get('suppliers', 'Admin\Inventory\SmSupplierController@index')->name('suppliers')->middleware('userRolePermission:suppliers');
-        Route::post('suppliers', 'Admin\Inventory\SmSupplierController@store')->name('suppliers-store')->middleware('userRolePermission:suppliers-store');
-        Route::get('suppliers/{id}', 'Admin\Inventory\SmSupplierController@edit')->name('suppliers-edit')->middleware('userRolePermission:suppliers-edit');
-        Route::put('suppliers/{id}', 'Admin\Inventory\SmSupplierController@update')->name('suppliers-update')->middleware('userRolePermission:suppliers-edit');
-        Route::get('delete-supplier-view/{id}', 'Admin\Inventory\SmSupplierController@deleteSupplierView')->name('delete-supplier-view')->middleware('userRolePermission:suppliers-delete');
-        Route::get('delete-supplier/{id}', 'Admin\Inventory\SmSupplierController@deleteSupplier')->name('delete-supplier')->middleware('userRolePermission:delete-supplier-view');
+        // Route::resource('suppliers', 'Admin\Inventory\AramiscSupplierController');
+        Route::get('suppliers', 'Admin\Inventory\AramiscSupplierController@index')->name('suppliers')->middleware('userRolePermission:suppliers');
+        Route::post('suppliers', 'Admin\Inventory\AramiscSupplierController@store')->name('suppliers-store')->middleware('userRolePermission:suppliers-store');
+        Route::get('suppliers/{id}', 'Admin\Inventory\AramiscSupplierController@edit')->name('suppliers-edit')->middleware('userRolePermission:suppliers-edit');
+        Route::put('suppliers/{id}', 'Admin\Inventory\AramiscSupplierController@update')->name('suppliers-update')->middleware('userRolePermission:suppliers-edit');
+        Route::get('delete-supplier-view/{id}', 'Admin\Inventory\AramiscSupplierController@deleteSupplierView')->name('delete-supplier-view')->middleware('userRolePermission:suppliers-delete');
+        Route::get('delete-supplier/{id}', 'Admin\Inventory\AramiscSupplierController@deleteSupplier')->name('delete-supplier')->middleware('userRolePermission:delete-supplier');
 
 
-        Route::get('view-sell-payments/{id}', 'Admin\Inventory\SmItemSellController@viewSellPayments')->name('view-sell-payments')->middleware('userRolePermission:view-sell-payments');
+        Route::get('view-sell-payments/{id}', 'Admin\Inventory\AramiscItemSellController@viewSellPayments')->name('view-sell-payments')->middleware('userRolePermission:view-sell-payments');
 
 
-        Route::post('delete-sell-payment', 'Admin\Inventory\SmItemSellController@deleteSellPayment');
-        Route::get('cancel-item-sell-view/{id}', 'Admin\Inventory\SmItemSellController@cancelItemSellView')->name('cancel-item-sell-view');
-        Route::get('cancel-item-sell/{id}', 'Admin\Inventory\SmItemSellController@cancelItemSell')->name('cancel-item-sell');
+        Route::post('delete-sell-payment', 'Admin\Inventory\AramiscItemSellController@deleteSellPayment');
+        Route::get('cancel-item-sell-view/{id}', 'Admin\Inventory\AramiscItemSellController@cancelItemSellView')->name('cancel-item-sell-view');
+        Route::get('cancel-item-sell/{id}', 'Admin\Inventory\AramiscItemSellController@cancelItemSell')->name('cancel-item-sell');
 
 
         //library member
-        // Route::resource('library-member', 'Admin\Library\SmLibraryMemberController');
-        // Route::get('cancel-membership/{id}', 'Admin\Library\SmLibraryMemberController@cancelMembership');
+        // Route::resource('library-member', 'Admin\Library\AramiscLibraryMemberController');
+        // Route::get('cancel-membership/{id}', 'Admin\Library\AramiscLibraryMemberController@cancelMembership');
 
 
         //ajax theme change
@@ -1824,23 +1826,23 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('update-school-logo', 'Admin\SystemSettings\SmSystemSettingController@updateSchoolLogo')->name('update-school-logo')->middleware('userRolePermission:update-school-logo');
 
         //Custom Field Start
-        Route::get('student-registration-custom-field', 'SmCustomFieldController@index')->name('student-reg-custom-field')->middleware('userRolePermission:student-reg-custom-field');
-        Route::post('store-student-registration-custom-field', 'SmCustomFieldController@store')->name('store-student-registration-custom-field')->middleware('userRolePermission:store-student-registration-custom-field');
-        Route::get('edit-custom-field/{id}', 'SmCustomFieldController@edit')->name('edit-custom-field')->middleware('userRolePermission:edit-custom-field');
-        Route::post('update-student-registration-custom-field', 'SmCustomFieldController@update')->name('update-student-registration-custom-field');
-        Route::post('delete-custom-field', 'SmCustomFieldController@destroy')->name('delete-custom-field')->middleware('userRolePermission:delete-custom-field');
+        Route::get('student-registration-custom-field', 'AramiscCustomFieldController@index')->name('student-reg-custom-field')->middleware('userRolePermission:student-reg-custom-field');
+        Route::post('store-student-registration-custom-field', 'AramiscCustomFieldController@store')->name('store-student-registration-custom-field')->middleware('userRolePermission:store-student-registration-custom-field');
+        Route::get('edit-custom-field/{id}', 'AramiscCustomFieldController@edit')->name('edit-custom-field')->middleware('userRolePermission:edit-custom-field');
+        Route::post('update-student-registration-custom-field', 'AramiscCustomFieldController@update')->name('update-student-registration-custom-field');
+        Route::post('delete-custom-field', 'AramiscCustomFieldController@destroy')->name('delete-custom-field')->middleware('userRolePermission:delete-custom-field');
 
-        Route::get('staff-reg-custom-field', 'SmCustomFieldController@staff_reg_custom_field')->name('staff-reg-custom-field')->middleware('userRolePermission:staff-reg-custom-field');
-        Route::post('store-staff-registration-custom-field', 'SmCustomFieldController@store_staff_registration_custom_field')->name('store-staff-registration-custom-field')->middleware('userRolePermission:store-staff-registration-custom-field');
-        Route::get('edit-staff-custom-field/{id}', 'SmCustomFieldController@edit_staff_custom_field')->name('edit-staff-custom-field');
-        Route::post('update-staff-custom-field', 'SmCustomFieldController@update_staff_custom_field')->name('update-staff-custom-field')->middleware('userRolePermission:edit-staff-custom-field');
-        Route::post('delete-staff-custom-field', 'SmCustomFieldController@delete_staff_custom_field')->name('delete-staff-custom-field')->middleware('userRolePermission:delete-staff-custom-field');
+        Route::get('staff-reg-custom-field', 'AramiscCustomFieldController@staff_reg_custom_field')->name('staff-reg-custom-field')->middleware('userRolePermission:staff-reg-custom-field');
+        Route::post('store-staff-registration-custom-field', 'AramiscCustomFieldController@store_staff_registration_custom_field')->name('store-staff-registration-custom-field')->middleware('userRolePermission:store-staff-registration-custom-field');
+        Route::get('edit-staff-custom-field/{id}', 'AramiscCustomFieldController@edit_staff_custom_field')->name('edit-staff-custom-field');
+        Route::post('update-staff-custom-field', 'AramiscCustomFieldController@update_staff_custom_field')->name('update-staff-custom-field')->middleware('userRolePermission:edit-staff-custom-field');
+        Route::post('delete-staff-custom-field', 'AramiscCustomFieldController@delete_staff_custom_field')->name('delete-staff-custom-field')->middleware('userRolePermission:delete-staff-custom-field');
 
-        Route::get('donor-reg-custom-field', 'SmCustomFieldController@donor_reg_custom_field')->name('donor-reg-custom-field')->middleware('userRolePermission:donor-reg-custom-field');
-        Route::post('store-donor-registration-custom-field', 'SmCustomFieldController@store_donor_registration_custom_field')->name('store-donor-registration-custom-field')->middleware('userRolePermission:store-donor-registration-custom-field');
-        Route::get('edit-donor-custom-field/{id}', 'SmCustomFieldController@edit_donor_custom_field')->name('edit-donor-custom-field');
-        Route::post('update-donor-custom-field', 'SmCustomFieldController@update_donor_custom_field')->name('update-donor-custom-field')->middleware('userRolePermission:edit-donor-custom-field');
-        Route::post('delete-donor-custom-field', 'SmCustomFieldController@delete_donor_custom_field')->name('delete-donor-custom-field')->middleware('userRolePermission:delete-donor-custom-field');
+        Route::get('donor-reg-custom-field', 'AramiscCustomFieldController@donor_reg_custom_field')->name('donor-reg-custom-field')->middleware('userRolePermission:donor-reg-custom-field');
+        Route::post('store-donor-registration-custom-field', 'AramiscCustomFieldController@store_donor_registration_custom_field')->name('store-donor-registration-custom-field')->middleware('userRolePermission:store-donor-registration-custom-field');
+        Route::get('edit-donor-custom-field/{id}', 'AramiscCustomFieldController@edit_donor_custom_field')->name('edit-donor-custom-field');
+        Route::post('update-donor-custom-field', 'AramiscCustomFieldController@update_donor_custom_field')->name('update-donor-custom-field')->middleware('userRolePermission:edit-donor-custom-field');
+        Route::post('delete-donor-custom-field', 'AramiscCustomFieldController@delete_donor_custom_field')->name('delete-donor-custom-field')->middleware('userRolePermission:delete-donor-custom-field');
         //Custom Field End
 
 
@@ -1868,12 +1870,12 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         //Route::post('stripe_post', 'SmSmsTestController@stripePost');
 
         //Collect fees By Online Payment Gateway(Paypal)
-        Route::get('collect-fees-gateway/{amount}/{student_id}/{type}', 'SmCollectFeesByPaymentGateway@aramiscCollectFeesByGateway');
-        Route::post('payByPaypal', 'SmCollectFeesByPaymentGateway@payByPaypal')->name('payByPaypal');
+        Route::get('collect-fees-gateway/{amount}/{student_id}/{type}', 'AramiscCollectFeesByPaymentGateway@collectFeesByGateway');
+        Route::post('payByPaypal', 'AramiscCollectFeesByPaymentGateway@payByPaypal')->name('payByPaypal');
 
         //Collect fees By Online Payment Gateway(Stripe)
-        Route::get('collect-fees-stripe/{amount}/{student_id}/{type}', 'SmCollectFeesByPaymentGateway@aramiscCollectFeesStripe');
-        Route::post('collect-fees-stripe-strore', 'SmCollectFeesByPaymentGateway@stripeStore')->name('collect-fees-stripe-strore');
+        Route::get('collect-fees-stripe/{amount}/{student_id}/{type}', 'AramiscCollectFeesByPaymentGateway@collectFeesStripe');
+        Route::post('collect-fees-stripe-strore', 'AramiscCollectFeesByPaymentGateway@stripeStore')->name('collect-fees-stripe-strore');
 
         // To Do list
 
@@ -1903,29 +1905,29 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('exam-step-skip', 'Admin\Examination\CustomResultSettingController@stepSkipUpdate')->name('exam.step.skip.update');
 
         // login access control
-        Route::get('login-access-control', 'SmLoginAccessControlController@loginAccessControl')->name('login-access-control')->middleware('userRolePermission:login-access-control');
-        Route::post('login-access-control', 'SmLoginAccessControlController@searchUser')->name('login-access-control-search');
-        Route::get('login-access-permission', 'SmLoginAccessControlController@loginAccessPermission');
-        Route::get('login-password-reset', 'SmLoginAccessControlController@loginPasswordDefault');
+        Route::get('login-access-control', 'AramiscLoginAccessControlController@loginAccessControl')->name('login-access-control')->middleware('userRolePermission:login-access-control');
+        Route::post('login-access-control', 'AramiscLoginAccessControlController@searchUser')->name('login-access-control-search');
+        Route::get('login-access-permission', 'AramiscLoginAccessControlController@loginAccessPermission');
+        Route::get('login-password-reset', 'AramiscLoginAccessControlController@loginPasswordDefault');
 
         Route::get('button-disable-enable', 'Admin\SystemSettings\SmSystemSettingController@buttonDisableEnable')->name('button-disable-enable')->middleware('userRolePermission:button-disable-enable');
 
-        Route::get('manage-adons', 'Admin\SystemSettings\SmAddOnsController@ManageAddOns')->name('manage-adons')->middleware('userRolePermission:manage-adons');
-        Route::get('manage-adons-delete/{name}', 'Admin\SystemSettings\SmAddOnsController@ManageAddOns')->name('deleteModule');
-        Route::get('manage-adons-enable/{name}', 'Admin\SystemSettings\SmAddOnsController@moduleAddOnsEnable')->name('moduleAddOnsEnable');
-        Route::get('manage-adons-disable/{name}', 'Admin\SystemSettings\SmAddOnsController@moduleAddOnsDisable')->name('moduleAddOnsDisable');
+        Route::get('manage-adons', 'Admin\SystemSettings\AramiscAddOnsController@ManageAddOns')->name('manage-adons')->middleware('userRolePermission:manage-adons');
+        Route::get('manage-adons-delete/{name}', 'Admin\SystemSettings\AramiscAddOnsController@ManageAddOns')->name('deleteModule');
+        Route::get('manage-adons-enable/{name}', 'Admin\SystemSettings\AramiscAddOnsController@moduleAddOnsEnable')->name('moduleAddOnsEnable');
+        Route::get('manage-adons-disable/{name}', 'Admin\SystemSettings\AramiscAddOnsController@moduleAddOnsDisable')->name('moduleAddOnsDisable');
 
-        // Route::post('manage-adons-validation', 'Admin\SystemSettings\SmAddOnsController@ManageAddOnsValidation')->name('ManageAddOnsValidation')->middleware('userRolePermission:400');
-        Route::get('ModuleRefresh', 'Admin\SystemSettings\SmAddOnsController@ModuleRefresh')->name('ModuleRefresh');
+        // Route::post('manage-adons-validation', 'Admin\SystemSettings\AramiscAddOnsController@ManageAddOnsValidation')->name('ManageAddOnsValidation')->middleware('userRolePermission:400');
+        Route::get('ModuleRefresh', 'Admin\SystemSettings\AramiscAddOnsController@ModuleRefresh')->name('ModuleRefresh');
         Route::get('view-as-superadmin', 'Admin\SystemSettings\SmSystemSettingController@viewAsSuperadmin')->name('viewAsSuperadmin');
 
 
 
-        Route::get('/sms-template', 'Admin\Communicate\SmsEmailTemplateController@SmsTemplate')->name('sms-template');
-        Route::post('/sms-template/{id}', 'Admin\Communicate\SmsEmailTemplateController@SmsTemplateStore')->name('sms-template-store')->middleware('userRolePermission:sms-template-store');
+        Route::get('/sms-template', 'Admin\Communicate\SmsEmailTemplateController@AramiscTemplate')->name('sms-template');
+        Route::post('/sms-template/{id}', 'Admin\Communicate\SmsEmailTemplateController@AramiscTemplateStore')->name('sms-template-store')->middleware('userRolePermission:sms-template-store');
 
-        Route::get('/sms-template-new', 'Admin\Communicate\SmsEmailTemplateController@SmsTemplateNew')->name('sms-template-new')->middleware('userRolePermission:sms-template-new');
-        Route::post('/sms-template-new', 'Admin\Communicate\SmsEmailTemplateController@SmsTemplateNewStore')->name('sms-template-new-store')->middleware('userRolePermission:sms-template-new-store');
+        Route::get('/sms-template-new', 'Admin\Communicate\SmsEmailTemplateController@AramiscTemplateNew')->name('sms-template-new')->middleware('userRolePermission:sms-template-new');
+        Route::post('/sms-template-new', 'Admin\Communicate\SmsEmailTemplateController@AramiscTemplateNewStore')->name('sms-template-new-store')->middleware('userRolePermission:sms-template-new-store');
     });
 
 
@@ -1961,11 +1963,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     //Front Settings Route
 
     // Header Menu Manager
-    Route::get('header-menu-manager', 'Admin\FrontSettings\SmHeaderMenuManagerController@index')->name('header-menu-manager')->middleware('userRolePermission:header-menu-manager');
-    Route::post('add-element', 'Admin\FrontSettings\SmHeaderMenuManagerController@store')->name('add-element')->middleware('userRolePermission:add-element');
-    Route::post('reordering', 'Admin\FrontSettings\SmHeaderMenuManagerController@reordering')->name('reordering');
-    Route::post('element-update', 'Admin\FrontSettings\SmHeaderMenuManagerController@update')->name('element-update')->middleware('userRolePermission:element-update');
-    Route::post('delete-element', 'Admin\FrontSettings\SmHeaderMenuManagerController@delete')->name('delete-element')->middleware('userRolePermission:delete-element');
+    Route::get('header-menu-manager', 'Admin\FrontSettings\AramiscHeaderMenuManagerController@index')->name('header-menu-manager')->middleware('userRolePermission:header-menu-manager');
+    Route::post('add-element', 'Admin\FrontSettings\AramiscHeaderMenuManagerController@store')->name('add-element')->middleware('userRolePermission:add-element');
+    Route::post('reordering', 'Admin\FrontSettings\AramiscHeaderMenuManagerController@reordering')->name('reordering');
+    Route::post('element-update', 'Admin\FrontSettings\AramiscHeaderMenuManagerController@update')->name('element-update')->middleware('userRolePermission:element-update');
+    Route::post('delete-element', 'Admin\FrontSettings\AramiscHeaderMenuManagerController@delete')->name('delete-element')->middleware('userRolePermission:delete-element');
 
     // admin-home-page
     Route::get('admin-home-page', 'Admin\FrontSettings\HomePageController@index')->name('admin-home-page')->middleware('userRolePermission:admin-home-page');
@@ -1976,73 +1978,73 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
     // News route start
-    Route::get('exam-result-page', 'Admin\FrontSettings\SmPageController@examResultPage')->name('exam-result-page')->middleware('userRolePermission:exam-result-page');
-    Route::post('exam-page-result-update', 'Admin\FrontSettings\SmPageController@examResultPageUpdate')->name('exam-result-page-update');
+    Route::get('exam-result-page', 'Admin\FrontSettings\AramiscPageController@examResultPage')->name('exam-result-page')->middleware('userRolePermission:exam-result-page');
+    Route::post('exam-page-result-update', 'Admin\FrontSettings\AramiscPageController@examResultPageUpdate')->name('exam-result-page-update');
 
     //news categroy
-    Route::get('news-category', 'Admin\FrontSettings\SmNewsCategoryController@index')->name('news-category')->middleware('userRolePermission:news-category');
-    Route::post('/news-category-store', 'Admin\FrontSettings\SmNewsCategoryController@store')->name('store_news_category')->middleware('userRolePermission:store_news_category');
-    Route::get('edit-news-category/{id}', 'Admin\FrontSettings\SmNewsCategoryController@edit')->name('edit-news-category')->middleware('userRolePermission:edit-news-category');
-    Route::post('/news-category-update', 'Admin\FrontSettings\SmNewsCategoryController@update')->name('update_news_category')->middleware('userRolePermission:edit-news-category');
-    Route::get('for-delete-news-category/{id}', 'Admin\FrontSettings\SmNewsCategoryController@deleteModalOpen')->name('for-delete-news-category')->middleware('userRolePermission:for-delete-news-category');
-    Route::get('delete-news-category/{id}', 'Admin\FrontSettings\SmNewsCategoryController@delete')->name('delete-news-category');
+    Route::get('news-category', 'Admin\FrontSettings\AramiscNewsCategoryController@index')->name('news-category')->middleware('userRolePermission:news-category');
+    Route::post('/news-category-store', 'Admin\FrontSettings\AramiscNewsCategoryController@store')->name('store_news_category')->middleware('userRolePermission:store_news_category');
+    Route::get('edit-news-category/{id}', 'Admin\FrontSettings\AramiscNewsCategoryController@edit')->name('edit-news-category')->middleware('userRolePermission:edit-news-category');
+    Route::post('/news-category-update', 'Admin\FrontSettings\AramiscNewsCategoryController@update')->name('update_news_category')->middleware('userRolePermission:edit-news-category');
+    Route::get('for-delete-news-category/{id}', 'Admin\FrontSettings\AramiscNewsCategoryController@deleteModalOpen')->name('for-delete-news-category')->middleware('userRolePermission:for-delete-news-category');
+    Route::get('delete-news-category/{id}', 'Admin\FrontSettings\AramiscNewsCategoryController@delete')->name('delete-news-category');
 
     // news 
 
-    Route::get('/news', 'Admin\FrontSettings\SmNewsController@index')->name('news_index');
-    Route::post('/news-store', 'Admin\FrontSettings\SmNewsController@store')->name('store_news')->middleware('userRolePermission:store_news');
-    Route::post('/news-update', 'Admin\FrontSettings\SmNewsController@update')->name('update_news')->middleware('userRolePermission:edit-news');
-    Route::get('newsDetails/{id}', 'Admin\FrontSettings\SmNewsController@newsDetails')->name('newsDetails')->middleware('userRolePermission:496');
-    Route::get('for-delete-news/{id}', 'Admin\FrontSettings\SmNewsController@forDeleteNews')->name('for-delete-news')->middleware('userRolePermission:delete-news');
-    Route::get('delete-news/{id}', 'Admin\FrontSettings\SmNewsController@delete')->name('delete-news');
-    Route::get('edit-news/{id}', 'Admin\FrontSettings\SmNewsController@edit')->name('edit-news')->middleware('userRolePermission:edit-news');
+    Route::get('/news', 'Admin\FrontSettings\AramiscNewsController@index')->name('news_index');
+    Route::post('/news-store', 'Admin\FrontSettings\AramiscNewsController@store')->name('store_news')->middleware('userRolePermission:store_news');
+    Route::post('/news-update', 'Admin\FrontSettings\AramiscNewsController@update')->name('update_news')->middleware('userRolePermission:edit-news');
+    Route::get('newsDetails/{id}', 'Admin\FrontSettings\AramiscNewsController@newsDetails')->name('newsDetails')->middleware('userRolePermission:496');
+    Route::get('for-delete-news/{id}', 'Admin\FrontSettings\AramiscNewsController@forDeleteNews')->name('for-delete-news')->middleware('userRolePermission:delete-news');
+    Route::get('delete-news/{id}', 'Admin\FrontSettings\AramiscNewsController@delete')->name('delete-news');
+    Route::get('edit-news/{id}', 'Admin\FrontSettings\AramiscNewsController@edit')->name('edit-news')->middleware('userRolePermission:edit-news');
 
 
     // Course route start
-    Route::get('course-heading-update', 'Admin\FrontSettings\SmCourseHeadingController@index')->name('course-heading-update')->middleware('userRolePermission:course-heading-update');
-    Route::post('course-heading-update', 'Admin\FrontSettings\SmCourseHeadingController@update')->name('course-heading-updat-new')->middleware('userRolePermission:course-heading-update');
+    Route::get('course-heading-update', 'Admin\FrontSettings\AramiscCourseHeadingController@index')->name('course-heading-update')->middleware('userRolePermission:course-heading-update');
+    Route::post('course-heading-update', 'Admin\FrontSettings\AramiscCourseHeadingController@update')->name('course-heading-updat-new')->middleware('userRolePermission:course-heading-update');
 
     // Course Details route start
-    Route::get('course-details-heading', 'Admin\FrontSettings\SmCourseHeadingDetailsController@index')->name('course-details-heading')->middleware('userRolePermission:course-details-heading');
-    Route::post('course-heading-details-update', 'Admin\FrontSettings\SmCourseHeadingDetailsController@update')->name('course-details-heading-update')->middleware('userRolePermission:course-details-heading');
+    Route::get('course-details-heading', 'Admin\FrontSettings\AramiscCourseHeadingDetailsController@index')->name('course-details-heading')->middleware('userRolePermission:course-details-heading');
+    Route::post('course-heading-details-update', 'Admin\FrontSettings\AramiscCourseHeadingDetailsController@update')->name('course-details-heading-update')->middleware('userRolePermission:course-details-heading');
 
     //For course module
-    Route::get('course-category', 'Admin\FrontSettings\SmCourseCategoryController@index')->name('course-category')->middleware('userRolePermission:course-category');
-    Route::post('store-course-category', 'Admin\FrontSettings\SmCourseCategoryController@store')->name('store-course-category')->middleware('userRolePermission:store-course-category');
-    Route::get('edit-course-category/{id}', 'Admin\FrontSettings\SmCourseCategoryController@edit')->name('edit-course-category')->middleware('userRolePermission:edit-course-category');
-    Route::post('update-course-category', 'Admin\FrontSettings\SmCourseCategoryController@update')->name('update-course-category')->middleware('userRolePermission:edit-course-category');
-    Route::post('delete-course-category/{id}', 'Admin\FrontSettings\SmCourseCategoryController@delete')->name('delete-course-category')->middleware('userRolePermission:delete-course-category');
+    Route::get('course-category', 'Admin\FrontSettings\AramiscCourseCategoryController@index')->name('course-category')->middleware('userRolePermission:course-category');
+    Route::post('store-course-category', 'Admin\FrontSettings\AramiscCourseCategoryController@store')->name('store-course-category')->middleware('userRolePermission:store-course-category');
+    Route::get('edit-course-category/{id}', 'Admin\FrontSettings\AramiscCourseCategoryController@edit')->name('edit-course-category')->middleware('userRolePermission:edit-course-category');
+    Route::post('update-course-category', 'Admin\FrontSettings\AramiscCourseCategoryController@update')->name('update-course-category')->middleware('userRolePermission:edit-course-category');
+    Route::post('delete-course-category/{id}', 'Admin\FrontSettings\AramiscCourseCategoryController@delete')->name('delete-course-category')->middleware('userRolePermission:delete-course-category');
 
     //for frontend
-    Route::get('view-course-category/{id}', 'Admin\FrontSettings\SmCourseCategoryController@view')->name('view-course-category');
+    Route::get('view-course-category/{id}', 'Admin\FrontSettings\AramiscCourseCategoryController@view')->name('view-course-category');
     //course List
-    Route::get('course-list', 'Admin\FrontSettings\SmCourseListController@index')->name('course-list')->middleware('userRolePermission:course-list');
-    Route::post('/course-store', 'Admin\FrontSettings\SmCourseListController@store')->name('store_course')->middleware('userRolePermission:store_course');
-    Route::post('/course-update', 'Admin\FrontSettings\SmCourseListController@update')->name('update_course')->middleware('userRolePermission:edit-course');
-    Route::get('for-delete-course/{id}', 'Admin\FrontSettings\SmCourseListController@forDeleteCourse')->name('for-delete-course')->middleware('userRolePermission:delete-course');
-    Route::get('delete-course/{id}', 'Admin\FrontSettings\SmCourseListController@destroy')->name('delete-course')->middleware('userRolePermission:delete-course');
+    Route::get('course-list', 'Admin\FrontSettings\AramiscCourseListController@index')->name('course-list')->middleware('userRolePermission:course-list');
+    Route::post('/course-store', 'Admin\FrontSettings\AramiscCourseListController@store')->name('store_course')->middleware('userRolePermission:store_course');
+    Route::post('/course-update', 'Admin\FrontSettings\AramiscCourseListController@update')->name('update_course')->middleware('userRolePermission:edit-course');
+    Route::get('for-delete-course/{id}', 'Admin\FrontSettings\AramiscCourseListController@forDeleteCourse')->name('for-delete-course')->middleware('userRolePermission:delete-course');
+    Route::get('delete-course/{id}', 'Admin\FrontSettings\AramiscCourseListController@destroy')->name('delete-course')->middleware('userRolePermission:delete-course');
 
-    Route::get('edit-course/{id}', 'Admin\FrontSettings\SmCourseListController@edit')->name('edit-course')->middleware('userRolePermission:edit-course');
-    Route::get('course-Details-admin/{id}', 'Admin\FrontSettings\SmCourseListController@courseDetails')->name('course-Details-admin')->middleware('userRolePermission:course-Details-admin');
+    Route::get('edit-course/{id}', 'Admin\FrontSettings\AramiscCourseListController@edit')->name('edit-course')->middleware('userRolePermission:edit-course');
+    Route::get('course-Details-admin/{id}', 'Admin\FrontSettings\AramiscCourseListController@courseDetails')->name('course-Details-admin')->middleware('userRolePermission:course-Details-admin');
 
 
     //for testimonial
-    Route::get('/testimonial', 'Admin\FrontSettings\SmTestimonialController@index')->name('testimonial_index')->middleware('userRolePermission:testimonial_index');
+    Route::get('/testimonial', 'Admin\FrontSettings\AramiscTestimonialController@index')->name('testimonial_index')->middleware('userRolePermission:testimonial_index');
 
-    Route::post('/testimonial-store', 'Admin\FrontSettings\SmTestimonialController@store')->name('store_testimonial')->middleware('userRolePermission:store_testimonial');
-    Route::post('/testimonial-update', 'Admin\FrontSettings\SmTestimonialController@update')->name('update_testimonial')->middleware('userRolePermission:edit-testimonial');
-    Route::get('testimonial-details/{id}', 'Admin\FrontSettings\SmTestimonialController@testimonialDetails')->name('testimonial-details')->middleware('userRolePermission:testimonial-details');
-    Route::get('for-delete-testimonial/{id}', 'Admin\FrontSettings\SmTestimonialController@forDeleteTestimonial')->name('for-delete-testimonial')->middleware('userRolePermission:for-delete-testimonial');
-    Route::get('delete-testimonial/{id}', 'Admin\FrontSettings\SmTestimonialController@delete')->name('delete-testimonial');
-    Route::get('edit-testimonial/{id}', 'Admin\FrontSettings\SmTestimonialController@edit')->name('edit-testimonial')->middleware('userRolePermission:edit-testimonial');
+    Route::post('/testimonial-store', 'Admin\FrontSettings\AramiscTestimonialController@store')->name('store_testimonial')->middleware('userRolePermission:store_testimonial');
+    Route::post('/testimonial-update', 'Admin\FrontSettings\AramiscTestimonialController@update')->name('update_testimonial')->middleware('userRolePermission:edit-testimonial');
+    Route::get('testimonial-details/{id}', 'Admin\FrontSettings\AramiscTestimonialController@testimonialDetails')->name('testimonial-details')->middleware('userRolePermission:testimonial-details');
+    Route::get('for-delete-testimonial/{id}', 'Admin\FrontSettings\AramiscTestimonialController@forDeleteTestimonial')->name('for-delete-testimonial')->middleware('userRolePermission:for-delete-testimonial');
+    Route::get('delete-testimonial/{id}', 'Admin\FrontSettings\AramiscTestimonialController@delete')->name('delete-testimonial');
+    Route::get('edit-testimonial/{id}', 'Admin\FrontSettings\AramiscTestimonialController@edit')->name('edit-testimonial')->middleware('userRolePermission:edit-testimonial');
 
     //for home-slider
-    Route::get('/home-slider', 'Admin\FrontSettings\SmHomeSliderController@index')->name('home-slider')->middleware('userRolePermission:home-slider');
-    Route::post('/home-slider-store', 'Admin\FrontSettings\SmHomeSliderController@store')->name('home-slider-store')->middleware('userRolePermission:home-slider-store');
-    Route::get('/home-slider-edit/{id}', 'Admin\FrontSettings\SmHomeSliderController@edit')->name('home-slider-edit')->middleware('userRolePermission:home-slider-edit');
-    Route::post('/home-slider-update', 'Admin\FrontSettings\SmHomeSliderController@update')->name('home-slider-update')->middleware('userRolePermission:home-slider-update');
-    Route::get('/home-slider-delete-modal/{id}', 'Admin\FrontSettings\SmHomeSliderController@deleteModal')->name('home-slider-delete-modal')->middleware('userRolePermission:home-slider-delete-modal');
-    Route::get('/home-slider-delete/{id}', 'Admin\FrontSettings\SmHomeSliderController@delete')->name('home-slider-delete')->middleware('userRolePermission:home-slider-delete');
+    Route::get('/home-slider', 'Admin\FrontSettings\AramiscHomeSliderController@index')->name('home-slider')->middleware('userRolePermission:home-slider');
+    Route::post('/home-slider-store', 'Admin\FrontSettings\AramiscHomeSliderController@store')->name('home-slider-store')->middleware('userRolePermission:home-slider-store');
+    Route::get('/home-slider-edit/{id}', 'Admin\FrontSettings\AramiscHomeSliderController@edit')->name('home-slider-edit')->middleware('userRolePermission:home-slider-edit');
+    Route::post('/home-slider-update', 'Admin\FrontSettings\AramiscHomeSliderController@update')->name('home-slider-update')->middleware('userRolePermission:home-slider-update');
+    Route::get('/home-slider-delete-modal/{id}', 'Admin\FrontSettings\AramiscHomeSliderController@deleteModal')->name('home-slider-delete-modal')->middleware('userRolePermission:home-slider-delete-modal');
+    Route::get('/home-slider-delete/{id}', 'Admin\FrontSettings\AramiscHomeSliderController@delete')->name('home-slider-delete')->middleware('userRolePermission:home-slider-delete');
 
     //for expert-teacher
     Route::get('/expert-teacher', 'Admin\FrontSettings\SmExpertTeacherController@index')->name('expert-teacher')->middleware('userRolePermission:expert-teacher');
@@ -2095,12 +2097,12 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('/front-exam-routine-delete/{id}', 'Admin\FrontSettings\SmFrontExamRoutineController@delete')->name('front-exam-routine-delete')->middleware('userRolePermission:front-exam-routine-delete');
 
     //for front-academic-calendar
-    Route::get('/front-academic-calendar', 'Admin\FrontSettings\SmAcademicCalendarController@index')->name('front-academic-calendar')->middleware('userRolePermission:front-academic-calendar');
-    Route::post('/front-academic-calendar-store', 'Admin\FrontSettings\SmAcademicCalendarController@store')->name('front-academic-calendar-store')->middleware('userRolePermission:front-academic-calendar-store');
-    Route::get('/front-academic-calendar-edit/{id}', 'Admin\FrontSettings\SmAcademicCalendarController@edit')->name('front-academic-calendar-edit')->middleware('userRolePermission:front-academic-calendar-edit');
-    Route::post('/front-academic-calendar-update', 'Admin\FrontSettings\SmAcademicCalendarController@update')->name('front-academic-calendar-update')->middleware('userRolePermission:front-academic-calendar-update');
-    Route::get('/front-academic-calendar-delete-modal/{id}', 'Admin\FrontSettings\SmAcademicCalendarController@deleteModal')->name('front-academic-calendar-delete-modal')->middleware('userRolePermission:front-academic-calendar-delete-modal');
-    Route::get('/front-academic-calendar-delete/{id}', 'Admin\FrontSettings\SmAcademicCalendarController@delete')->name('front-academic-calendar-delete')->middleware('userRolePermission:front-academic-calendar-delete');
+    Route::get('/front-academic-calendar', 'Admin\FrontSettings\AramiscAcademicCalendarController@index')->name('front-academic-calendar')->middleware('userRolePermission:front-academic-calendar');
+    Route::post('/front-academic-calendar-store', 'Admin\FrontSettings\AramiscAcademicCalendarController@store')->name('front-academic-calendar-store')->middleware('userRolePermission:front-academic-calendar-store');
+    Route::get('/front-academic-calendar-edit/{id}', 'Admin\FrontSettings\AramiscAcademicCalendarController@edit')->name('front-academic-calendar-edit')->middleware('userRolePermission:front-academic-calendar-edit');
+    Route::post('/front-academic-calendar-update', 'Admin\FrontSettings\AramiscAcademicCalendarController@update')->name('front-academic-calendar-update')->middleware('userRolePermission:front-academic-calendar-update');
+    Route::get('/front-academic-calendar-delete-modal/{id}', 'Admin\FrontSettings\AramiscAcademicCalendarController@deleteModal')->name('front-academic-calendar-delete-modal')->middleware('userRolePermission:front-academic-calendar-delete-modal');
+    Route::get('/front-academic-calendar-delete/{id}', 'Admin\FrontSettings\AramiscAcademicCalendarController@delete')->name('front-academic-calendar-delete')->middleware('userRolePermission:front-academic-calendar-delete');
 
     //for speech-slider
     Route::get('/speech-slider', 'Admin\FrontSettings\SpeechSliderController@index')->name('speech-slider')->middleware('userRolePermission:speech-slider');
@@ -2127,12 +2129,12 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('/form-download-delete/{id}', 'Admin\FrontSettings\SmFormDownloadController@delete')->name('form-download-delete')->middleware('userRolePermission:form-download-delete');
 
     // Contact us
-    Route::get('contact-page', 'Admin\FrontSettings\SmContactUsController@index')->name('conpactPage')->middleware('userRolePermission:conpactPage');
-    Route::get('contact-page/edit', 'Admin\FrontSettings\SmContactUsController@edit')->name('contactPageEdit');
-    Route::post('contact-page/update', 'Admin\FrontSettings\SmContactUsController@update')->name('contactPageStore');
+    Route::get('contact-page', 'Admin\FrontSettings\AramiscContactUsController@index')->name('conpactPage')->middleware('userRolePermission:conpactPage');
+    Route::get('contact-page/edit', 'Admin\FrontSettings\AramiscContactUsController@edit')->name('contactPageEdit');
+    Route::post('contact-page/update', 'Admin\FrontSettings\AramiscContactUsController@update')->name('contactPageStore');
 
     // contact message
-    Route::get('delete-message/{id}', 'SmFrontendController@deleteMessage')->name('delete-message')->middleware('userRolePermission:delete-message');
+    Route::get('delete-message/{id}', 'AramiscFrontendController@deleteMessage')->name('delete-message')->middleware('userRolePermission:delete-message');
 
 
 
@@ -2144,11 +2146,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('social-media-delete/{id}', 'Admin\FrontSettings\SmSocialMediaController@delete')->name('social-media-delete');
 
     //page
-    Route::get('page-list', 'Admin\FrontSettings\SmPageController@index')->name('page-list')->middleware('userRolePermission:page-list');
-    Route::get('create-page', 'Admin\FrontSettings\SmPageController@create')->name('create-page')->middleware('userRolePermission:save-page-data');
-    Route::post('save-page-data', 'Admin\FrontSettings\SmPageController@store')->name('save-page-data')->middleware('userRolePermission:save-page-data');
-    Route::get('edit-page/{id}', 'Admin\FrontSettings\SmPageController@edit')->name('edit-page')->middleware('userRolePermission:edit-page');
-    Route::post('update-page-data', 'Admin\FrontSettings\SmPageController@update')->name('update-page-data')->middleware('userRolePermission:edit-page');
+    Route::get('page-list', 'Admin\FrontSettings\AramiscPageController@index')->name('page-list')->middleware('userRolePermission:page-list');
+    Route::get('create-page', 'Admin\FrontSettings\AramiscPageController@create')->name('create-page')->middleware('userRolePermission:save-page-data');
+    Route::post('save-page-data', 'Admin\FrontSettings\AramiscPageController@store')->name('save-page-data')->middleware('userRolePermission:save-page-data');
+    Route::get('edit-page/{id}', 'Admin\FrontSettings\AramiscPageController@edit')->name('edit-page')->middleware('userRolePermission:edit-page');
+    Route::post('update-page-data', 'Admin\FrontSettings\AramiscPageController@update')->name('update-page-data')->middleware('userRolePermission:edit-page');
 
     // about us
     Route::get('about-page', 'Admin\FrontSettings\AboutPageController@index')->name('about-page')->middleware('userRolePermission:about-page');
@@ -2159,7 +2161,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('custom-links', 'Admin\FrontSettings\SmFooterWidgetController@index')->name('custom-links')->middleware('userRolePermission:custom-links');
     Route::post('custom-links-update', 'Admin\FrontSettings\SmFooterWidgetController@update')->name('custom-links-update')->middleware('userRolePermission:custom-links');
     //student class assign -abunayem
-    Route::get('student/{id}/assign-class', 'Admin\StudentInfo\SmStudentAdmissionController@assignClass')->name('student.assign-class');
+    Route::get('student/{id}/assign-class', 'Admin\StudentInfo\AramiscStudentAdmissionController@assignClass')->name('student.assign-class');
 
 
 
@@ -2167,20 +2169,20 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
 
-    Route::post('student/record-delete', 'Admin\StudentInfo\SmStudentAdmissionController@deleteRecord')->name('student.record.delete');
-    Route::get('ajax-get-academic', 'Admin\StudentInfo\SmStudentAdmissionController@getSchool')
+    Route::post('student/record-delete', 'Admin\StudentInfo\AramiscStudentAdmissionController@deleteRecord')->name('student.record.delete');
+    Route::get('ajax-get-academic', 'Admin\StudentInfo\AramiscStudentAdmissionController@getSchool')
         ->name('get-school');
-    Route::post('student/record-store', 'Admin\StudentInfo\SmStudentAdmissionController@recordStore')->name('student.record.store');
-    Route::get('student/assign-edit/{student_id}/{record_id}', 'Admin\StudentInfo\SmStudentAdmissionController@recordEdit')->name('student_assign_edit');
-    Route::post('student/record-update', 'Admin\StudentInfo\SmStudentAdmissionController@recordUpdate')->name('student.record.update');
-    Route::get('student/check-exit', 'Admin\StudentInfo\SmStudentAdmissionController@checkExitStudent');
+    Route::post('student/record-store', 'Admin\StudentInfo\AramiscStudentAdmissionController@recordStore')->name('student.record.store');
+    Route::get('student/assign-edit/{student_id}/{record_id}', 'Admin\StudentInfo\AramiscStudentAdmissionController@recordEdit')->name('student_assign_edit');
+    Route::post('student/record-update', 'Admin\StudentInfo\AramiscStudentAdmissionController@recordUpdate')->name('student.record.update');
+    Route::get('student/check-exit', 'Admin\StudentInfo\AramiscStudentAdmissionController@checkExitStudent');
 
 
-    Route::get('mm', 'Admin\StudentInfo\SmStudentAdmissionController@mm');
+    Route::get('mm', 'Admin\StudentInfo\AramiscStudentAdmissionController@mm');
 
 
     //Smart Web system modification
-    Route::get('return_exam_view', 'Admin\Examination\SmExamController@examView')->name('examView');
+    Route::get('return_exam_view', 'Admin\Examination\AramiscExamController@examView')->name('examView');
     Route::get('subject_mark_sheet', 'Admin\Report\SubjectMarkSheetReportController@index')->name('subjectMarkSheet')->middleware('userRolePermission:subjectMarkSheet');
     Route::post('subject_mark_sheet-search', 'Admin\Report\SubjectMarkSheetReportController@search')->name('subjectMarkSheetSearch')->middleware('userRolePermission:subjectMarkSheet');
     Route::post('subject_mark_sheet-print', 'Admin\Report\SubjectMarkSheetReportController@print')->name('subjectMarkSheetPrint')->middleware('userRolePermission:subjectMarkSheet');
@@ -2209,9 +2211,9 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
     // Unassigned Student
-    Route::get('unassigned-student', ['as' => 'unassigned_student', 'uses' => 'SmStudentAdmissionController@unassignedStudent'])->middleware('userRolePermission:unassigned_student');
-    Route::get('sorting-student-list/{class_id}', ['as' => 'sorting_student_list', 'uses' => 'SmStudentAdmissionController@sortingStudent'])->middleware('userRolePermission:student_list');
-    Route::get('sorting-student-section-list/{class_id}/{section_id}', ['as' => 'sorting_student_list_section', 'uses' => 'SmStudentAdmissionController@sortingSectionStudent'])->middleware('userRolePermission:student_list');
+    Route::get('unassigned-student', ['as' => 'unassigned_student', 'uses' => 'AramiscStudentAdmissionController@unassignedStudent'])->middleware('userRolePermission:unassigned_student');
+    Route::get('sorting-student-list/{class_id}', ['as' => 'sorting_student_list', 'uses' => 'AramiscStudentAdmissionController@sortingStudent'])->middleware('userRolePermission:student_list');
+    Route::get('sorting-student-section-list/{class_id}/{section_id}', ['as' => 'sorting_student_list_section', 'uses' => 'AramiscStudentAdmissionController@sortingSectionStudent'])->middleware('userRolePermission:student_list');
 
     Route::get('multi-class-student', 'Admin\StudentInfo\StudentMultiRecordController@multiRecord')->name('student.multi-class-student')->middleware('userRolePermission:student.multi-class-student');
 
@@ -2273,11 +2275,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
     Route::post('global-assign-subject-search', ['as' => 'global_assign_subject_search', 'uses' => 'Admin\Academics\GlobalAssignSubjectController@search'])->middleware('userRolePermission:global_assign_subject_search');
     Route::get('global-assign-subject-search', 'Admin\Academics\GlobalAssignSubjectController@create')->name('global-assign-subject-create')->middleware('userRolePermission:global-assign-subject-create');
-    Route::post('global-assign-subject-store', 'Admin\Academics\GlobalAssignSubjectController@aramiscAssignSubjectStore')->name('global_assign-subject-store')->middleware('userRolePermission:global_assign-subject-store');
+    Route::post('global-assign-subject-store', 'Admin\Academics\GlobalAssignSubjectController@assignSubjectStore')->name('global_assign-subject-store')->middleware('userRolePermission:global_assign-subject-store');
     Route::get('global-assign-subject-store', 'Admin\Academics\GlobalAssignSubjectController@create');
-    Route::post('global-assign-subject', 'Admin\Academics\GlobalAssignSubjectController@aramiscAssignSubjectFind')->name('global_assign-subject')->middleware('userRolePermission:global_assign-subject');
-    Route::get('global-assign-subject-get-by-ajax', 'Admin\Academics\GlobalAssignSubjectController@aramiscAssignSubjectAjax');
-    Route::get('global-get-assigned-subjects', 'Admin\Academics\GlobalAssignSubjectController@aramiscLoadAssignedSubject')->name('aramiscLoadAssignedSubject')->middleware('userRolePermission:aramiscLoadAssignedSubject');;
+    Route::post('global-assign-subject', 'Admin\Academics\GlobalAssignSubjectController@assignSubjectFind')->name('global_assign-subject')->middleware('userRolePermission:global_assign-subject');
+    Route::get('global-assign-subject-get-by-ajax', 'Admin\Academics\GlobalAssignSubjectController@assignSubjectAjax');
+    Route::get('global-get-assigned-subjects', 'Admin\Academics\GlobalAssignSubjectController@loadAssignedSubject')->name('loadAssignedSubject')->middleware('userRolePermission:loadAssignedSubject');;
 
     Route::post('global-save-assigned-subjects', 'Admin\Academics\GlobalAssignSubjectController@saveAssignedSubject')->name('saveAssignedSubject');
 
@@ -2286,13 +2288,13 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::post('global-save-upload-content', 'Admin\Academics\GlobalUploadContentController@store')->name('global-save-upload-content')->middleware('userRolePermission:global-save-upload-content');
 
     //
-    Route::get('global-upload-content-edit/{id}', 'Admin\Academics\GlobalUploadContentController@aramiscUploadContentEdit')->name('global-upload-content-edit')->middleware('userRolePermission:global-upload-content-edit');
-    Route::get('global-upload-content-view/{id}', 'Admin\Academics\GlobalUploadContentController@aramiscUploadContentView')->name('global-upload-content-view')->middleware('userRolePermission:global-upload-content-view');
+    Route::get('global-upload-content-edit/{id}', 'Admin\Academics\GlobalUploadContentController@uploadContentEdit')->name('global-upload-content-edit')->middleware('userRolePermission:global-upload-content-edit');
+    Route::get('global-upload-content-view/{id}', 'Admin\Academics\GlobalUploadContentController@uploadContentView')->name('global-upload-content-view')->middleware('userRolePermission:global-upload-content-view');
     //
     Route::post('global-update-upload-content', 'Admin\Academics\GlobalUploadContentController@updateUploadContent')->name('global-update-upload-content');
     Route::post('global-delete-upload-content', 'Admin\Academics\GlobalUploadContentController@deleteUploadContent')->name('global-delete-upload-content')->middleware('userRolePermission:global-delete-upload-content');
-    Route::get('global-upload-content-modal', 'Admin\Academics\GlobalUploadContentController@aramiscStudyMaterialModal')->name('aramiscStudyMaterialModal')->middleware('userRolePermission:aramiscStudyMaterialModal');
-    Route::post('assigned-global-upload-content', 'Admin\Academics\GlobalUploadContentController@aramiscStudyMaterialAssigned')->name('aramiscStudyMaterialAssigned')->middleware('userRolePermission:aramiscStudyMaterialAssigned');
+    Route::get('global-upload-content-modal', 'Admin\Academics\GlobalUploadContentController@studyMaterialModal')->name('studyMaterialModal')->middleware('userRolePermission:studyMaterialModal');
+    Route::post('assigned-global-upload-content', 'Admin\Academics\GlobalUploadContentController@studyMaterialAssigned')->name('studyMaterialAssigned')->middleware('userRolePermission:studyMaterialAssigned');
 
     Route::get('global-exam-type', 'Admin\Academics\GlobalExaminationController@exam_type')->name('global_exam-type')->middleware('userRolePermission:global_exam-type');
     Route::get('global-exam-type-edit/{id}', ['as' => 'global_exam_type_edit', 'uses' => 'Admin\Academics\GlobalExaminationController@exam_type_edit'])->middleware('userRolePermission:global_exam_type_edit');
@@ -2315,7 +2317,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('complaint-list-datatable', 'DatatableQueryController@complaintDetailsDatatable')->name('complaint_list_datatable');
     Route::get('unassign-student-list-datatable', 'DatatableQueryController@unAssignStudentList')->name('unassign-student-list-datatable');
     Route::get('disable-student-list-datatable', 'DatatableQueryController@disableStudentList')->name('disable-student-list-datatable');
-    Route::get('upload-content-list-datatable', 'DatatableQueryController@aramiscUploadContentListDatatable')->name('upload-content-list-datatable');
+    Route::get('upload-content-list-datatable', 'DatatableQueryController@uploadContentListDatatable')->name('upload-content-list-datatable');
     Route::get('other-download-list-datatable', 'DatatableQueryController@otherDownloadList')->name('other-download-list-datatable');
     Route::get('get-fees-payment-ajax', 'DatatableQueryController@ajaxFeesPayment')->name('ajaxFeesPayment');
     Route::get('get-bank-slip-ajax', 'DatatableQueryController@ajaxBankSlip')->name('ajaxBankSlip');
@@ -2324,13 +2326,13 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('pending-leave-request-ajax', 'DatatableQueryController@ajaxPendingLeave')->name('ajaxPendingLeave');
 
     Route::get('approve-leave-request-ajax', 'DatatableQueryController@ajaxApproveLeave')->name('ajaxApproveLeave');
-    Route::get('homework-list-ajax', 'DatatableQueryController@aramiscHomeworkListAjax')->name('homework-list-ajax')->middleware('userRolePermission:homework-list');
+    Route::get('homework-list-ajax', 'DatatableQueryController@homeworkListAjax')->name('homework-list-ajax')->middleware('userRolePermission:homework-list');
     Route::get('book-list-ajax', 'DatatableQueryController@bookListAjax')->name('book-list-ajax');
     Route::get('all-issed-book-ajax', 'DatatableQueryController@allIssuedBookAjax')->name('all-issed-book-ajax');
     Route::get('item-list-ajax', 'DatatableQueryController@itemsListAjax')->name('item-list-ajax');
     Route::get('item-receive-list-ajax', 'DatatableQueryController@itemReceiveListAjax')->name('item-receive-list-ajax');
 
-    Route::get('student-transport-report-ajax',  'DatatableQueryController@aramiscStudentTransportReportAjax')->name('aramiscStudentTransportReportAjax');
+    Route::get('student-transport-report-ajax',  'DatatableQueryController@studentTransportReportAjax')->name('studentTransportReportAjax');
     Route::get('graduate-list-ajax',  'DatatableQueryController@graduateListAjax')->name('graduateListAjax');
 
 
@@ -2349,49 +2351,49 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::post('exam-signature-settings/update',  'ExamSignatureSettingsController@update')->name('exam-signature-settings-update');
 
     // Fees Carry Forward
-    Route::get('fees-carry-forward-settings-view', [SmFeesCarryForwardController::class, 'feesCarryForwardSettingsView'])->name('fees-carry-forward-settings-view');
-    Route::get('fees-carry-forward-settings-view-fees-collection', [SmFeesCarryForwardController::class, 'feesCarryForwardSettingsView'])->name('fees-carry-forward-settings-view-fees-collection');
-    Route::post('fees-carry-forward-settings-store', [SmFeesCarryForwardController::class, 'feesCarryForwardSettings'])->name('fees-carry-forward-settings-store');
+    Route::get('fees-carry-forward-settings-view', [AramiscFeesCarryForwardController::class, 'feesCarryForwardSettingsView'])->name('fees-carry-forward-settings-view');
+    Route::get('fees-carry-forward-settings-view-fees-collection', [AramiscFeesCarryForwardController::class, 'feesCarryForwardSettingsView'])->name('fees-carry-forward-settings-view-fees-collection');
+    Route::post('fees-carry-forward-settings-store', [AramiscFeesCarryForwardController::class, 'feesCarryForwardSettings'])->name('fees-carry-forward-settings-store');
 
-    Route::get('fees-carry-forward-view', [SmFeesCarryForwardController::class, 'feesCarryForward'])->name('fees-carry-forward-view');
-    Route::get('fees-carry-forward-view-fees-collection', [SmFeesCarryForwardController::class, 'feesCarryForward'])->name('fees-carry-forward-view-fees-collection');
-    Route::post('fees-carry-forward-search', [SmFeesCarryForwardController::class, 'feesCarryForwardSearch'])->name('fees-carry-forward-search');
-    Route::post('fees-carry-forward-store', [SmFeesCarryForwardController::class, 'feesCarryForwardStore'])->name('fees-carry-forward-store');
+    Route::get('fees-carry-forward-view', [AramiscFeesCarryForwardController::class, 'feesCarryForward'])->name('fees-carry-forward-view');
+    Route::get('fees-carry-forward-view-fees-collection', [AramiscFeesCarryForwardController::class, 'feesCarryForward'])->name('fees-carry-forward-view-fees-collection');
+    Route::post('fees-carry-forward-search', [AramiscFeesCarryForwardController::class, 'feesCarryForwardSearch'])->name('fees-carry-forward-search');
+    Route::post('fees-carry-forward-store', [AramiscFeesCarryForwardController::class, 'feesCarryForwardStore'])->name('fees-carry-forward-store');
 
-    Route::get('fees-carry-forward-log-view', [SmFeesCarryForwardController::class, 'feesCarryForwardLogView'])->name('fees-carry-forward-log-view');
-    Route::get('fees-carry-forward-log-view-fees-collection', [SmFeesCarryForwardController::class, 'feesCarryForwardLogView'])->name('fees-carry-forward-log-view-fees-collection');
-    Route::get('fees-carry-forward-log-search', [SmFeesCarryForwardController::class, 'feesCarryForwardLogSearch'])->name('fees-carry-forward-log-search');
+    Route::get('fees-carry-forward-log-view', [AramiscFeesCarryForwardController::class, 'feesCarryForwardLogView'])->name('fees-carry-forward-log-view');
+    Route::get('fees-carry-forward-log-view-fees-collection', [AramiscFeesCarryForwardController::class, 'feesCarryForwardLogView'])->name('fees-carry-forward-log-view-fees-collection');
+    Route::get('fees-carry-forward-log-search', [AramiscFeesCarryForwardController::class, 'feesCarryForwardLogSearch'])->name('fees-carry-forward-log-search');
 
 
     // Teacher Evaluation Settings
-    Route::get('teacher-evaluation-setting', [TeacherEvaluationController::class, 'aramiscTeacherEvaluationSetting'])->name('teacher-evaluation-setting');
-    Route::put('teacher-evaluation-setting-update', [TeacherEvaluationController::class, 'aramiscTeacherEvaluationSettingUpdate'])->name('teacher-evaluation-setting-update');
+    Route::get('teacher-evaluation-setting', [TeacherEvaluationController::class, 'teacherEvaluationSetting'])->name('teacher-evaluation-setting');
+    Route::put('teacher-evaluation-setting-update', [TeacherEvaluationController::class, 'teacherEvaluationSettingUpdate'])->name('teacher-evaluation-setting-update');
 
     // Teacher Evaluation Submit Parent & Student Panel
-    Route::post('teacher-evaluation-submit', [TeacherEvaluationController::class, 'aramiscTeacherEvaluationSubmit'])->name('teacher-evaluation-submit');
+    Route::post('teacher-evaluation-submit', [TeacherEvaluationController::class, 'teacherEvaluationSubmit'])->name('teacher-evaluation-submit');
 
     // Teacher Evaluation Reports
     Route::get('get-assign-subject-teacher', [TeacherEvaluationReportController::class, 'getAssignSubjectTeacher'])->name('get-assign-subject-teacher');
-    Route::get('teacher-approved-evaluation-report', [TeacherEvaluationReportController::class, 'aramiscTeacherApprovedEvaluationReport'])->name('teacher-approved-evaluation-report');
+    Route::get('teacher-approved-evaluation-report', [TeacherEvaluationReportController::class, 'teacherApprovedEvaluationReport'])->name('teacher-approved-evaluation-report');
     Route::get('teacher-pending-evaluation-report', [TeacherEvaluationReportController::class, 'teacherPendingEvaluationReport'])->name('teacher-pending-evaluation-report');
     Route::get('teacher-wise-evaluation-report', [TeacherEvaluationReportController::class, 'teacherWiseEvaluationReport'])->name('teacher-wise-evaluation-report');
 
     // Teacher Evaluation Reports Search
-    Route::get('teacher-approved-evaluation-report-search', [TeacherEvaluationReportController::class, 'aramiscTeacherApprovedEvaluationReportSearch'])->name('teacher-approved-evaluation-report-search');
+    Route::get('teacher-approved-evaluation-report-search', [TeacherEvaluationReportController::class, 'teacherApprovedEvaluationReportSearch'])->name('teacher-approved-evaluation-report-search');
     Route::get('teacher-pending-evaluation-report-search', [TeacherEvaluationReportController::class, 'teacherPendingEvaluationReportSearch'])->name('teacher-pending-evaluation-report-search');
     Route::get('teacher-wise-evaluation-report-search', [TeacherEvaluationReportController::class, 'teacherWiseEvaluationReportSearch'])->name('teacher-wise-evaluation-report-search');
 
     // Teacher Evaluation Reports Save/Delete
-    Route::get('teacher-evaluation-approve-submit/{id}', [TeacherEvaluationReportController::class, 'aramiscTeacherEvaluationApproveSubmit'])->name('teacher-evaluation-approve-submit');
-    Route::get('teacher-evaluation-approve-delete/{id}', [TeacherEvaluationReportController::class, 'aramiscTeacherEvaluationApproveDelete'])->name('teacher-evaluation-approve-delete');
+    Route::get('teacher-evaluation-approve-submit/{id}', [TeacherEvaluationReportController::class, 'teacherEvaluationApproveSubmit'])->name('teacher-evaluation-approve-submit');
+    Route::get('teacher-evaluation-approve-delete/{id}', [TeacherEvaluationReportController::class, 'teacherEvaluationApproveDelete'])->name('teacher-evaluation-approve-delete');
 
 
     Route::get('teacher-panel-evaluation-report', [TeacherEvaluationReportController::class, 'teacherPanelEvaluationReport'])->name('teacher-panel-evaluation-report');
 
-    Route::controller('Admin\Communicate\SmEventController')->group(function () {
+    Route::controller('Admin\Communicate\AramiscEventController')->group(function () {
         Route::get('event', 'index')->name('event')->middleware('userRolePermission:event');
         Route::get('new-design', 'newDesign');
-        Route::post('event', 'store')->name('event-store')->middleware('userRolePermission:event-store');
+        Route::post('event', 'store')->name('event')->middleware('userRolePermission:event-store');
         Route::get('event/{id}', 'edit')->name('event-edit')->middleware('userRolePermission:event-edit');
         Route::put('event/{id}', 'update')->name('event-update')->middleware('userRolePermission:event-edit');
         Route::get('delete-event-view/{id}', 'deleteEventView')->name('delete-event-view')->middleware('userRolePermission:delete-event-view');
@@ -2405,17 +2407,17 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         })->name('download-event-document');
     });
 
-    Route::controller('SmAcademicCalendarController')->group(function () {
+    Route::controller('AramiscAcademicCalendarController')->group(function () {
         Route::get('academic-calendar', 'academicCalendarView')->name('academic-calendar')->middleware('userRolePermission:academic-calendar');
         Route::post('store-academic-calendar-settings', 'storeAcademicCalendarSettings')->name('store-academic-calendar-settings')->middleware('userRolePermission:store-academic-calendar-settings');
     });
 
     // class/exam routine routes front site
-    Route::get('class-exam-routine-page', 'Admin\FrontSettings\SmClassExamRoutinePageController@classExamRoutinePage')->name('class-exam-routine-page')->middleware('userRolePermission:class-exam-routine-page');
-    Route::post('class-exam-routine-page-update', 'Admin\FrontSettings\SmClassExamRoutinePageController@classExamRoutinePageUpdate')->name('class-exam-routine-page-update')->middleware('userRolePermission:class-exam-routine-page-update');
+    Route::get('class-exam-routine-page', 'Admin\FrontSettings\AramiscClassExamRoutinePageController@classExamRoutinePage')->name('class-exam-routine-page')->middleware('userRolePermission:class-exam-routine-page');
+    Route::post('class-exam-routine-page-update', 'Admin\FrontSettings\AramiscClassExamRoutinePageController@classExamRoutinePageUpdate')->name('class-exam-routine-page-update')->middleware('userRolePermission:class-exam-routine-page-update');
 
     Route::post('arrange-table-row-position', 'Admin\SystemSettings\SmSystemSettingController@arrangeTablePosition');
-    Route::get('store-data-test', 'Admin\SystemSettings\SmNotificationController@insertdata')->name('store-data');
+    Route::get('store-data-test', 'Admin\SystemSettings\AramiscNotificationController@insertdata')->name('store-data');
 
    
 

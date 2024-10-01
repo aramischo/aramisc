@@ -16,11 +16,11 @@ class SmBankPaymentSlip extends Model
         static::addGlobalScope(new AcademicSchoolScope);
     }
     public function studentInfo(){
-    	return $this->belongsTo('App\SmStudent', 'student_id', 'id');
+    	return $this->belongsTo('App\AramiscStudent', 'student_id', 'id');
     }
 
     public function feesType(){
-    	return $this->belongsTo('App\SmFeesType', 'fees_type_id', 'id');
+    	return $this->belongsTo('App\AramiscFeesType', 'fees_type_id', 'id');
     }
     public function bank(){
     	return $this->belongsTo('App\SmBankAccount', 'bank_id', 'id');

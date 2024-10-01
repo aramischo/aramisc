@@ -4,8 +4,8 @@ namespace App\Listeners;
 
 use App\Events\ClassTeacherGetAllStudent;
 use App\Models\InvitationType;
-use App\SmSection;
-use App\SmStaff;
+use App\AramiscSection;
+use App\AramiscStaff;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Modules\Chat\Entities\Invitation;
@@ -30,7 +30,7 @@ class ListenClassTeacherGetAllStudent
      */
     public function handle(ClassTeacherGetAllStudent $event)
     {
-        $section = SmSection::find($event->assign_class_teacher->section_id);
+        $section = AramiscSection::find($event->assign_class_teacher->section_id);
         if($section){
             if ( $event->type == 'update'){
                 $old = InvitationType::where('type', 'class-teacher')->where('section_id', $section->id)->first();
@@ -51,7 +51,7 @@ class ListenClassTeacherGetAllStudent
 
     public function insertion($section, ClassTeacherGetAllStudent $event)
     {
-        $teacher = SmStaff::find($event->class_teacher->teacher_id)->staff_user;
+        $teacher = AramiscStaff::find($event->class_teacher->teacher_id)->staff_user;
         foreach ($section->students as $student) {
             $exist = Invitation::where('from', $teacher->id)->where('to', $student->id)->first();
             if (is_null($exist) && $teacher->id != $student->id){

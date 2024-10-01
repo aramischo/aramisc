@@ -1,15 +1,15 @@
 <?php
 
 namespace Modules\Lesson\Http\Controllers\Student;
-use App\SmClass;
-use App\SmStaff;
+use App\AramiscClass;
+use App\AramiscStaff;
 use App\SmLesson;
-use App\SmSection;
-use App\SmStudent;
-use App\SmSubject;
-use App\SmWeekend;
+use App\AramiscSection;
+use App\AramiscStudent;
+use App\AramiscSubject;
+use App\AramiscWeekend;
 use Carbon\Carbon;
-use App\SmClassTime;
+use App\AramiscClassTime;
 use App\ApiBaseMethod;
 use App\SmLessonTopic;
 use App\SmLessonDetails;
@@ -35,7 +35,7 @@ class StudentLessonPlanController extends Controller
         try {
           
             $this_week= $weekNumber = date("W");            
-            $week_end = SmWeekend::where('id',generalSetting()->week_start_id)->value('name');
+            $week_end = AramiscWeekend::where('id',generalSetting()->week_start_id)->value('name');
             $start_day = WEEK_DAYS_BY_NAME[$week_end ?? 'Saturday'];
             $end_day = $start_day==0 ? 6 : $start_day-1;
             $period = CarbonPeriod::create(Carbon::now()->startOfWeek($start_day)->format('Y-m-d'), Carbon::now()->endOfWeek($end_day)->format('Y-m-d'));
@@ -44,14 +44,14 @@ class StudentLessonPlanController extends Controller
                     $dates[] = $date->format('Y-m-d');
                  
              }
-            $student_detail = SmStudent::where('user_id', auth()->user()->id)->first();
+            $student_detail = AramiscStudent::where('user_id', auth()->user()->id)->first();
             //return $student_detail;
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;
 
             $records = studentRecords(null, $student_detail->id)->get();
 
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
             return view('lesson::student.student_lesson_plan', compact('dates','this_week','class_id','section_id', 'sm_weekends','records'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -68,13 +68,13 @@ class StudentLessonPlanController extends Controller
         } else {
             $login_id = Auth::user()->id;
         }
-        $student_detail = SmStudent::where('user_id', $login_id)->first();
+        $student_detail = AramiscStudent::where('user_id', $login_id)->first();
         $class=$student_detail->class_id;
         $section=$student_detail->section_id;       
         $academic_id=$student_detail->academic_id;
         $school_id=$student_detail->school_id;
         $records = studentRecords(null, $student_detail->id)->get();         
-        $classes = SmClass::get();
+        $classes = AramiscClass::get();
 
         return view('lesson::student.student_lesson_plan_overview',compact('classes', 'records'));
 
@@ -111,14 +111,14 @@ class StudentLessonPlanController extends Controller
                 }
             }
 
-            $student_detail = SmStudent::where('user_id', $user_id)->first();
+            $student_detail = AramiscStudent::where('user_id', $user_id)->first();
             //return $student_detail;
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;
 
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
 
-            $class_times = SmClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+            $class_times = AramiscClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
 
             $records = studentRecords(null, $student_detail->id)->get();
             return view('lesson::student.student_lesson_plan', compact('dates','this_week','class_times', 'class_id', 'section_id', 'sm_weekends','records'));
@@ -155,14 +155,14 @@ class StudentLessonPlanController extends Controller
                 }
             }
 
-            $student_detail = SmStudent::where('user_id', $user_id)->first();
+            $student_detail = AramiscStudent::where('user_id', $user_id)->first();
             //return $student_detail;
             $class_id = $student_detail->class_id;
             $section_id = $student_detail->section_id;
 
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id',Auth::user()->school_id)->get();
 
-            $class_times = SmClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
+            $class_times = AramiscClassTime::where('type', 'class')->where('academic_id', getAcademicId())->where('school_id',Auth::user()->school_id)->get();
 
             $records = studentRecords(null, $student_detail->id)->get();
 

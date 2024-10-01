@@ -259,9 +259,9 @@
                             $discount_amount = $fees_assigned->applied_discount;
                             $total_discount += $discount_amount;
                             $student_id = $fees_assigned->student_id;
-                            $paid = App\SmFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
+                            $paid = App\AramiscFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'amount', $fees_assigned->record_id);
                             $total_grand_paid += $paid;
-                            $fine = App\SmFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
+                            $fine = App\AramiscFeesAssign::discountSum($fees_assigned->student_id, $fees_assigned->feesGroupMaster->feesTypes->id, 'fine', $fees_assigned->record_id);
                             $total_fine += $fine;
                             $total_paid = $discount_amount + $paid;
                         @endphp
@@ -309,7 +309,7 @@
                             </td>
                         </tr>
                             @php
-                                $payments = App\SmFeesAssign::aramiscFeesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
+                                $payments = App\AramiscFeesAssign::feesPayment($fees_assigned->feesGroupMaster->feesTypes->id, $fees_assigned->student_id, $fees_assigned->record_id);
                                 $i = 0;
                             @endphp
                             @foreach($payments as $payment)

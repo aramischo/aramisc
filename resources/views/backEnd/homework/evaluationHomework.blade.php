@@ -53,8 +53,8 @@
                                             @foreach($students as $value)
 
                                                 @php
-                                                    $submitted_student =  App\SmHomework::evaluationHomework($value->id, $homeworkDetails->id);
-                                                    @$uploadedContent = App\SmHomework::uploadedContent(@$value->id, $homeworkDetails->id);
+                                                    $submitted_student =  App\AramiscHomework::evaluationHomework($value->id, $homeworkDetails->id);
+                                                    @$uploadedContent = App\AramiscHomework::uploadedContent(@$value->id, $homeworkDetails->id);
                                                     $file_paths=[];
                                                     foreach ($uploadedContent as $key => $files_row) {
                                                         $only_files=json_decode($files_row->file);

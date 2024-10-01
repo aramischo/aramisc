@@ -3,10 +3,10 @@
 namespace Modules\TemplateSettings\Http\Controllers;
 
 use App\User;
-use App\SmUserLog;
-use App\SmsTemplate;
-use App\SmGeneralSettings;
-use App\AramiscModuleManager;
+use App\AramiscUserLog;
+use App\AramiscTemplate;
+use App\AramiscGeneralSettings;
+use App\InfixModuleManager;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
@@ -37,7 +37,7 @@ class TemplateSettingsController extends Controller
     {
 
         try {
-            $data = \App\AramiscModuleManager::where('name', 'TemplateSettings')->first();
+            $data = \App\InfixModuleManager::where('name', 'TemplateSettings')->first();
             return view('templatesettings::index', compact('data'));
         }catch(\Exception $e) {
             Log::info($e->getMessage());
@@ -48,7 +48,7 @@ class TemplateSettingsController extends Controller
 
     public function emailTemplate()
     {
-        $emailTempletes = SmsTemplate::where('type', 'email')->where('school_id', auth()->user()->school_id)->get();
+        $emailTempletes = AramiscTemplate::where('type', 'email')->where('school_id', auth()->user()->school_id)->get();
 
         return view('templatesettings::emailTemplate', compact('emailTempletes'));
     }
@@ -61,7 +61,7 @@ class TemplateSettingsController extends Controller
         ]);
 
         try {
-            $updateData = SmsTemplate::find($request->id);
+            $updateData = AramiscTemplate::find($request->id);
             $updateData->type = "email";
             $updateData->subject = $request->subject;
             $updateData->body = $request->body;
@@ -79,7 +79,7 @@ class TemplateSettingsController extends Controller
     public function smsTemplate()
     {
         try {
-            $smsTemplates = SmsTemplate::where('type','sms')
+            $smsTemplates = AramiscTemplate::where('type','sms')
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
@@ -92,7 +92,7 @@ class TemplateSettingsController extends Controller
 
     public function smsTemplateUpdate(Request $request){
         try {
-            $updateData = SmsTemplate::find($request->id);
+            $updateData = AramiscTemplate::find($request->id);
             $updateData->type = 'sms';
             $updateData->body = $request->body;
             $updateData->status = $request->status? 1 : 0;

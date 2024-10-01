@@ -260,10 +260,10 @@
                                                             </div>
                                                             <div class="col-lg-6 ml-30">
                                                                 <h3 class="text-white"> 
-                                                                    {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}}
+                                                                    {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} 
                                                                 </h3> 
                                                                 <p class="text-white mb-0">
-                                                                    {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}
+                                                                    {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} 
                                                                 </p>
                                                                 <p class="text-white mb-0">
                                                                     @lang('common.email'):  {{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}},   @lang('common.phone'):  {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}} 
@@ -272,7 +272,7 @@
                                                             <div class="offset-2">
                                                             </div>
                                                         </div>
-                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
 
                                             </div>
                                         <div class="card-body">

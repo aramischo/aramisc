@@ -195,7 +195,7 @@
                                                     @endphp
                                                     @foreach($results as $result)
                                                     @php
-                                                        $subjectDetails = App\SmMarksRegister::subjectDetails($marks_register->exam_id, $marks_register->class_id, $marks_register->section_id, $result->subject_id);
+                                                        $subjectDetails = App\AramiscMarksRegister::subjectDetails($marks_register->exam_id, $marks_register->class_id, $marks_register->section_id, $result->subject_id);
                                                         $grand_total_marks += $subjectDetails->full_mark;
 
                                                         if($result->abs == 0){

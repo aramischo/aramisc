@@ -79,9 +79,11 @@
                                             name="staff" id="selectStaffs">
                                             <option data-display="@lang('common.name') *" value="">@lang('common.name') *
                                             </option>
-                                            @foreach ($roles as $value)
-                                                <option value="{{ $value->id }}">{{ $value->full_name }}
+                                            @foreach ($expertTeachers as $value)
+                                                @if($value->satff)
+                                                <option value="{{ $value->satff_id }}">{{ $value->satff->full_name }}
                                                 </option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>

@@ -101,10 +101,10 @@
                                                                             @php
                                                                             if(moduleStatusCheck('University'))
                                                                             {
-                                                                                $parentRoutine = App\SmWeekend::studentClassRoutineFromRecordUniversity($record->un_academic_id, $record->un_semester_label_id, $sm_weekend->id);
+                                                                                $parentRoutine = App\AramiscWeekend::studentClassRoutineFromRecordUniversity($record->un_academic_id, $record->un_semester_label_id, $sm_weekend->id);
                                                                             } else {
     
-                                                                                $parentRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                                                $parentRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                                             }
                                                                             @endphp
                                                                             @if ($parentRoutine->count() > $height)
@@ -129,9 +129,9 @@
                                                                     @php
                                                                       if(moduleStatusCheck('University'))
                                                                         {
-                                                                            $parentRoutine = App\SmWeekend::studentClassRoutineFromRecordUniversity($record->un_academic_id, $record->un_semester_label_id, $sm_weekend->id);
+                                                                            $parentRoutine = App\AramiscWeekend::studentClassRoutineFromRecordUniversity($record->un_academic_id, $record->un_semester_label_id, $sm_weekend->id);
                                                                         } else {
-                                                                            $parentRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                                            $parentRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                                         }
                                                                         $i = 0;
                                                                     @endphp

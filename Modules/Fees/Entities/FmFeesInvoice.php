@@ -2,7 +2,7 @@
 
 namespace Modules\Fees\Entities;
 
-use App\SmStudent;
+use App\AramiscStudent;
 use App\Scopes\AcademicSchoolScope;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Fees\Entities\FmFeesInvoiceChield;
@@ -16,6 +16,13 @@ class FmFeesInvoice extends Model
         static::addGlobalScope(new AcademicSchoolScope);
     }
 
+    protected $casts = [
+        'id' => 'integer',
+        'full_name' => 'string',
+        // 'class' => 'string',
+        // 'section' => 'string',
+    ];
+
     protected $fillable = [];
     
     protected static function newFactory()
@@ -25,7 +32,7 @@ class FmFeesInvoice extends Model
 
     public function studentInfo()
     {
-        return $this->belongsTo(SmStudent::class,'student_id','id');
+        return $this->belongsTo(AramiscStudent::class,'student_id','id');
     }
 
     public function invoiceDetails()

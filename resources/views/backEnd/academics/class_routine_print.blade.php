@@ -49,11 +49,11 @@
                 <td style="text-aligh:center">
                     <h3 style="font-size:20px !important; margin-bottom : 0;margin-top: 0px;"
                         class="text-white mb-0">
-                        {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Aramisc School Management ERP' }}
+                        {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Infix School Management ERP' }}
                     </h3>
                     <span style="font-size:11px !important;margin:0px"
                         class="text-white ">
-                        {{ isset(generalSetting()->address) ? generalSetting()->address : 'Aramisc School Address' }}
+                        {{ isset(generalSetting()->address) ? generalSetting()->address : 'Infix School Address' }}
                     </span>
                 </td>
             </tr>
@@ -68,9 +68,9 @@
                     $tr = [];
                 @endphp
                 @foreach ($sm_weekends as $sm_weekend)
-                    @if ($sm_weekend->aramiscClassRoutine->count() > $height)
+                    @if ($sm_weekend->classRoutine->count() > $height)
                         @php
-                            $height = $sm_weekend->aramiscClassRoutine->count();
+                            $height = $sm_weekend->classRoutine->count();
                         @endphp
                     @endif
                     <th style="margin-top: 0px;padding: 2px; padding-left:8px">{{ @$sm_weekend->name }}</th>
@@ -84,7 +84,7 @@
                 @php
                     $i = 0;
                 @endphp
-                @foreach ($sm_weekend->aramiscClassRoutine as $routine)
+                @foreach ($sm_weekend->classRoutine as $routine)
                     @php
                         if (!in_array($routine->id, $used)) {
                             $tr[$i][$sm_weekend->name][$loop->index]['subject'] = $routine->subject ? $routine->subject->subject_name : '';

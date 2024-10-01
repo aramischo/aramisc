@@ -15,7 +15,7 @@ class RoleRequest extends FormRequest
     public function rules()
     {
         return [           
-            'name' => ['required', Rule::unique('aramisc_roles', 'name')->ignore($this->id)],
+            'name' => ['required', Rule::unique('infix_roles', 'name')->ignore($this->id)],
         ];
     }
 

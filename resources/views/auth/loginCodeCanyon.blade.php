@@ -6,7 +6,7 @@ $gs = generalSetting();
 App::setLocale(getUserLanguage());
 $ttl_rtl = userRtlLtl();
 
-$login_background = App\SmBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
+$login_background = App\AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
 
 if (empty($login_background)) {
 $css = 'background: url(' . url('public/backEnd/img/login-bg.png') . ') no-repeat center; background-size: cover; ';

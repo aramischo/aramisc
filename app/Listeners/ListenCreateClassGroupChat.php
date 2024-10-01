@@ -6,12 +6,12 @@ use App\Events\CreateClassGroupChat;
 use App\Models\InvitationType;
 use App\Models\StudentRecord;
 use App\Scopes\StatusAcademicSchoolScope;
-use App\SmAcademicYear;
-use App\SmAssignSubject;
-use App\SmClass;
-use App\SmSection;
-use App\SmStaff;
-use App\SmSubject;
+use App\AramiscAcademicYear;
+use App\AramiscAssignSubject;
+use App\AramiscClass;
+use App\AramiscSection;
+use App\AramiscStaff;
+use App\AramiscSubject;
 use App\User;
 use Modules\Chat\Entities\Group;
 use Modules\Chat\Entities\GroupUser;
@@ -45,7 +45,7 @@ class ListenCreateClassGroupChat
             'academic_id' => $event->assign_subject->academic_id
         ])->first();
 
-        $section = SmSection::find($event->assign_subject->section_id);
+        $section = AramiscSection::find($event->assign_subject->section_id);
         $studentRecords = StudentRecord::with('studentDetail')->where('class_id', $event->assign_subject->class_id)->where('section_id', $event->assign_subject->section_id)->where('school_id', $event->assign_subject->school_id)->get();
        
         if (!$group){
@@ -91,7 +91,7 @@ class ListenCreateClassGroupChat
             'role' => 1
         ])->delete();
 
-        $teachers = SmAssignSubject::where([
+        $teachers = AramiscAssignSubject::where([
             'class_id' => $event->assign_subject->class_id,
             'section_id' => $event->assign_subject->section_id,
             'subject_id' => $event->assign_subject->subject_id,
@@ -101,7 +101,7 @@ class ListenCreateClassGroupChat
 
 
         foreach($teachers as $teacher){
-            $teacher = SmStaff::find($teacher->teacher_id);
+            $teacher = AramiscStaff::find($teacher->teacher_id);
             if($teacher && $teacher = $teacher->staff_user){
                 createGroupUser($group, $teacher->id);
             }
@@ -117,10 +117,10 @@ class ListenCreateClassGroupChat
     }
 
     public function groupName($data, $withTeacherId = true){
-        $class = SmClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($data->class_id);
-        $section = SmSection::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($data->section_id);
-        $subject = SmSubject::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($data->subject_id);
-        $academic_year = SmAcademicYear::find($data->academic_id);
+        $class = AramiscClass::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($data->class_id);
+        $section = AramiscSection::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($data->section_id);
+        $subject = AramiscSubject::withOutGlobalScope(StatusAcademicSchoolScope::class)->find($data->subject_id);
+        $academic_year = AramiscAcademicYear::find($data->academic_id);
 
         return @$class->class_name. '('.@$section->section_name. ')-'.@$subject->subject_name.'-'.@$academic_year->year;
     }

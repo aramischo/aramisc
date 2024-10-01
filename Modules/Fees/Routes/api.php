@@ -34,7 +34,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('fees-invoice-view/{id}/{state}', [FeesController::class, 'feesInvoiceView']);
     Route::post('fees-invoice-delete', [FeesController::class, 'feesInvoiceDelete']);
     Route::get('add-fees-payment/{id}', [FeesController::class, 'addFeesPayment']);
-    Route::post('fees-payment-store', [FeesController::class, 'aramiscFeesPaymentStore']);
+    Route::post('fees-payment-store', [FeesController::class, 'feesPaymentStore']);
     Route::get('single-payment-view/{id}', [FeesController::class, 'singlePaymentView']);
     Route::get('delete-single-fees-transcation/{id}', [FeesController::class, 'deleteSingleFeesTranscation']);
     
@@ -61,10 +61,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('waiver-search', [FeesReportController::class, 'waiverReportSearch']);
 
     // Student
-    Route::get('student-fees-list/{id}', [StudentFeesController::class, 'aramiscStudentFeesList']);
+    Route::get('student-fees-list/{id}', [StudentFeesController::class, 'studentFeesList']);
     Route::get('student-record-fees-list/{id}/{record_id}', [StudentFeesController::class, 'studentRecordFeesList']);
     Route::get('student-fees-payment/{id}', [StudentFeesController::class, 'studentAddFeesPayment']);
-    Route::post('student-fees-payment-store', [StudentFeesController::class, 'aramiscStudentFeesPaymentStore']);
+    Route::post('student-fees-payment-store', [StudentFeesController::class, 'studentFeesPaymentStore']);
 
     //Api Payment SucessCallBack
     Route::get('online-payment-sucess/{type}/{transcationId}', [StudentFeesController::class, 'onlinePaymentSucess']);

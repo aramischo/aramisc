@@ -6,7 +6,7 @@ return [
 
 "staff_directory" => "Directorio del personal",
 
-"staff_aramiscAttendance_report" => "Informe de asistencia al personal",
+"staff_attendance_report" => "Informe de asistencia al personal",
 
 "not_generated" => "No generado",
 
@@ -208,9 +208,9 @@ return [
 
 "upload_document" => "Cargar documento",
 
-"import_aramiscAttendance" => "Asistencia a la importación",
+"import_attendance" => "Asistencia a la importación",
 
-"aramiscAttendance_date" => "Fecha de asistencia",
+"attendance_date" => "Fecha de asistencia",
 
 "late" => "Retraso",
 
@@ -386,7 +386,7 @@ return [
 
 "location" => "Ubicación",
 
-"staff_aramiscAttendance" => "Asistencia a los estudiantes",
+"staff_attendance" => "Asistencia a los estudiantes",
 
 "present" => "Presente",
 
@@ -394,9 +394,9 @@ return [
 
 "visible_to_this_person" => "Visible para esta persona",
 
-"aramiscAttendance" => "Asistencia",
+"attendance" => "Asistencia",
 
-"save_aramiscAttendance" => "Guardar asistencia",
+"save_attendance" => "Guardar asistencia",
 
 "paid" => "Pagada",
 

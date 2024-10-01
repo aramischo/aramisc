@@ -1,4 +1,4 @@
-@php $routine_page_title="All about Aramisc School management system; School management software"; @endphp
+@php $routine_page_title="All about Infix School management system; School management software"; @endphp
 @extends('frontEnd.home.front_master')
 @push('css')
     <link rel="stylesheet" href="{{ asset('public/') }}/frontend/css/new_style.css" />
@@ -169,7 +169,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 mb-30  col-md-6">
-                        <a href="{{ route('aramiscClassRoutinePrint', [$class_id, $section_id]) }}"
+                        <a href="{{ route('classRoutinePrint', [$class_id, $section_id]) }}"
                             class="primary-btn small fix-gr-bg pull-right" target="_blank"><i class="ti-printer"> </i>
                             @lang('common.print')</a>
                     </div>
@@ -186,9 +186,9 @@
                                     $tr = [];
                                 @endphp
                                 @foreach ($sm_weekends as $sm_weekend)
-                                    @if ($sm_weekend->aramiscClassRoutine->count() > $height)
+                                    @if ($sm_weekend->classRoutine->count() > $height)
                                         @php
-                                            $height = $sm_weekend->aramiscClassRoutine->count();
+                                            $height = $sm_weekend->classRoutine->count();
                                         @endphp
                                     @endif
                                     <th style="margin-top: 0px;padding: 2px; padding-left:8px">{{ @$sm_weekend->name }}
@@ -203,7 +203,7 @@
                                 @php
                                     $i = 0;
                                 @endphp
-                                @foreach ($sm_weekend->aramiscClassRoutine as $routine)
+                                @foreach ($sm_weekend->classRoutine as $routine)
                                     @php
                                         if (!in_array($routine->id, $used)) {
                                             $tr[$i][$sm_weekend->name][$loop->index]['subject'] = $routine->subject ? $routine->subject->subject_name : '';

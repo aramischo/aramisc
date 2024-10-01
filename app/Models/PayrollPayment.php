@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\SmAddExpense;
-use App\SmBankStatement;
-use App\SmPaymentMethhod;
+use App\AramiscAddExpense;
+use App\AramiscBankStatement;
+use App\AramiscPaymentMethhod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -17,14 +17,14 @@ class PayrollPayment extends Model
     }
     public function expenseDetail()
     {
-        return $this->belongsTo(SmAddExpense::class, 'payroll_payment_id', 'id');
+        return $this->belongsTo(AramiscAddExpense::class, 'payroll_payment_id', 'id');
     }
     public function bankStatementDetail()
     {
-        return $this->belongsTo(SmBankStatement::class, 'payroll_payment_id', 'id');
+        return $this->belongsTo(AramiscBankStatement::class, 'payroll_payment_id', 'id');
     }
     public function paymentMethod()
     {
-        return $this->belongsTo(SmPaymentMethhod::class, 'payment_mode', 'id')->withDefault();
+        return $this->belongsTo(AramiscPaymentMethhod::class, 'payment_mode', 'id')->withDefault();
     }
 }

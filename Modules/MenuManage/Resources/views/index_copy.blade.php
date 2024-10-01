@@ -153,18 +153,18 @@
                         <div  class="mesonary_role_header"  id="sortable">
     @foreach($all_modules as $key => $module_info)
      @if($check_sidebar !='')
-        @if(auth()->user()->role_id==1 || in_array($module_info->aramisc_module_id,$permission_ids))
+        @if(auth()->user()->role_id==1 || in_array($module_info->infix_module_id,$permission_ids))
             <div class="single_role_blocks">
-                <div class="single_permission" id="{{$module_info->aramisc_module_id}}">
+                <div class="single_permission" id="{{$module_info->infix_module_id}}">
                     <div class="permission_header d-flex align-items-center justify-content-between">
                         <div>
-                            <input type="hidden" name="all_modules_id[]" value="{{$module_info->aramisc_module_id}}">
-                                <input type="checkbox" name="module_id[]" value="{{$module_info->aramisc_module_id}}" id="Main_Module_{{$key}}" class="common-radio permission-checkAll main_module_id_{{$module_info->aramisc_module_id}}" {{ $check_sidebar !='' ? (in_array($module_info->aramisc_module_id,$already_assigned)? 'checked':'') :'checked'}}>
+                            <input type="hidden" name="all_modules_id[]" value="{{$module_info->infix_module_id}}">
+                                <input type="checkbox" name="module_id[]" value="{{$module_info->infix_module_id}}" id="Main_Module_{{$key}}" class="common-radio permission-checkAll main_module_id_{{$module_info->infix_module_id}}" {{ $check_sidebar !='' ? (in_array($module_info->infix_module_id,$already_assigned)? 'checked':'') :'checked'}}>
                                 <label for="Main_Module_{{$key}}">{{__('menumanage::menuManage.'.$module_info->name)}}</label>
                         </div>
-                        <div class="arrow collapsed" data-toggle="collapse" data-target="#Role{{$module_info->aramisc_module_id}}"></div>
+                        <div class="arrow collapsed" data-toggle="collapse" data-target="#Role{{$module_info->infix_module_id}}"></div>
                     </div>
-                    <div id="Role{{$module_info->aramisc_module_id}}" class="collapse">
+                    <div id="Role{{$module_info->infix_module_id}}" class="collapse">
                         <div  class="permission_body">
                             <ul class="submenuSort" >
                                             <?php
@@ -175,28 +175,28 @@
                                                 }
                                             ?>
                                     @foreach($subModule as $row2)
-                                        @if(moduleStatusCheck('Saas') == TRUE && $row2->aramisc_module_id == 547)
+                                        @if(moduleStatusCheck('Saas') == TRUE && $row2->infix_module_id == 547)
                                     @else
 
                                     <li >
 
                                         <div class="submodule">
-                                            <input type="hidden" name="all_modules_id[]" value="{{$row2->aramisc_module_id}}">
-                                            <input id="Sub_Module_{{$row2->aramisc_module_id}}" name="module_id[]" value="{{$row2->aramisc_module_id}}"  class="aramisc_csk common-radio module_id_{{$module_info->aramisc_module_id}} module_link"  type="checkbox" {{  $check_sidebar !='' ? (in_array($row2->aramisc_module_id ,$already_assigned)? 'checked':'') : 'checked'}}>
-                                            <label for="Sub_Module_{{$row2->aramisc_module_id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>
+                                            <input type="hidden" name="all_modules_id[]" value="{{$row2->infix_module_id}}">
+                                            <input id="Sub_Module_{{$row2->infix_module_id}}" name="module_id[]" value="{{$row2->infix_module_id}}"  class="infix_csk common-radio module_id_{{$module_info->infix_module_id}} module_link"  type="checkbox" {{  $check_sidebar !='' ? (in_array($row2->infix_module_id ,$already_assigned)? 'checked':'') : 'checked'}}>
+                                            <label for="Sub_Module_{{$row2->infix_module_id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>
                                             <br>
                                         </div>
 
                                         <ul class="option row3">
                                             <?php
-                                                $childModule= DB::table('sidebar_news')->where('user_id',auth()->user()->id)->where('role_id',auth()->user()->role_id)->where('route','!=','')->where('parent_id',$row2->aramisc_module_id)->orderby('id','ASC')->get();
+                                                $childModule= DB::table('sidebar_news')->where('user_id',auth()->user()->id)->where('role_id',auth()->user()->role_id)->where('route','!=','')->where('parent_id',$row2->infix_module_id)->orderby('id','ASC')->get();
                                             ?>
                                             @foreach($childModule as $row3)
 
                                                 <li >
-                                                    <div class="module_link_option_div" id="{{$row2->aramisc_module_id}}">
-                                                        <input type="hidden" name="all_modules_id[]" value="{{$row3->aramisc_module_id}}">
-                                                        <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->aramisc_module_id}}"  class="aramisc_csk common-radio module_id_{{$module_info->aramisc_module_id}} module_option_{{$module_info->aramisc_module_id}}_{{$row2->aramisc_module_id}} module_link_option"  type="checkbox"   {{ !empty($check_sidebar) ? (in_array($row3->aramisc_module_id ,$already_assigned)? 'checked':'') : 'checked'}}>
+                                                    <div class="module_link_option_div" id="{{$row2->infix_module_id}}">
+                                                        <input type="hidden" name="all_modules_id[]" value="{{$row3->infix_module_id}}">
+                                                        <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->infix_module_id}}"  class="infix_csk common-radio module_id_{{$module_info->infix_module_id}} module_option_{{$module_info->infix_module_id}}_{{$row2->infix_module_id}} module_link_option"  type="checkbox"   {{ !empty($check_sidebar) ? (in_array($row3->infix_module_id ,$already_assigned)? 'checked':'') : 'checked'}}>
                                                         <label class="nowrap" for="Option_{{$row3->id}}">{{__('menumanage::menuManage.'.$row3->name)}}</label>
                                                         <br>
                                                     </div>
@@ -243,21 +243,21 @@
 
                                  <div class="submodule">
                                     <input type="hidden" name="all_modules_id[]" value="{{$row2->id}}">
-                                    <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="aramisc_csk common-radio module_id_{{$module_info->id}} module_link"  type="checkbox" {{  $check_sidebar !='' ? (in_array($row2->id ,$already_assigned)? 'checked':'') : 'checked'}}>
+                                    <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="infix_csk common-radio module_id_{{$module_info->id}} module_link"  type="checkbox" {{  $check_sidebar !='' ? (in_array($row2->id ,$already_assigned)? 'checked':'') : 'checked'}}>
                                     <label for="Sub_Module_{{$row2->id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>
                                     <br>
                                  </div>
 
                                  <ul class="option row3">
                                     <?php
-                                          $childModule= DB::table('aramisc_module_infos')->where('route','!=','')->where('parent_id',$row2->id)->where('active_status', 1)->get();
+                                          $childModule= DB::table('infix_module_infos')->where('route','!=','')->where('parent_id',$row2->id)->where('active_status', 1)->get();
                                     ?>
                                     @foreach($childModule as $row3)
 
                                           <li>
                                              <div class="module_link_option_div" id="{{$row2->id}}">
                                                 <input type="hidden" name="all_modules_id[]" value="{{$row3->id}}">
-                                                <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="aramisc_csk common-radio module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox"   {{ !empty($check_sidebar) ? (in_array($row3->id ,$already_assigned)? 'checked':'') : 'checked'}}>
+                                                <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="infix_csk common-radio module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox"   {{ !empty($check_sidebar) ? (in_array($row3->id ,$already_assigned)? 'checked':'') : 'checked'}}>
                                                 <label class="nowrap" for="Option_{{$row3->id}}">{{$row3->name}}</label>
                                                 <br>
                                              </div>
@@ -310,21 +310,21 @@
 
                                  <div class="submodule">
                                     <input type="hidden" name="all_modules_id[]" value="{{$row2->id}}">
-                                    <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="aramisc_csk common-radio module_id_{{$module_info->id}} module_link"  type="checkbox" {{  $check_sidebar !='' ? (in_array($row2->id ,$already_assigned)? 'checked':'') : 'checked'}}>
+                                    <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="infix_csk common-radio module_id_{{$module_info->id}} module_link"  type="checkbox" {{  $check_sidebar !='' ? (in_array($row2->id ,$already_assigned)? 'checked':'') : 'checked'}}>
                                     <label for="Sub_Module_{{$row2->id}}">{{__('menumanage::menuManage.'.$row2->name)}}</label>
                                     <br>
                                  </div>
 
                                  <ul class="option row3">
                                     <?php
-                                          $childModule= DB::table('aramisc_module_infos')->where('route','!=','')->where('parent_id',$row2->id)->where('active_status', 1)->get();
+                                          $childModule= DB::table('infix_module_infos')->where('route','!=','')->where('parent_id',$row2->id)->where('active_status', 1)->get();
                                     ?>
                                     @foreach($childModule as $row3)
 
                                           <li>
                                              <div class="module_link_option_div" id="{{$row2->id}}">
                                                 <input type="hidden" name="all_modules_id[]" value="{{$row3->id}}">
-                                                <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="aramisc_csk common-radio module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox"   {{ !empty($check_sidebar) ? (in_array($row3->id ,$already_assigned)? 'checked':'') : 'checked'}}>
+                                                <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="infix_csk common-radio module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox"   {{ !empty($check_sidebar) ? (in_array($row3->id ,$already_assigned)? 'checked':'') : 'checked'}}>
                                                 <label class="nowrap" for="Option_{{$row3->id}}">{{$row3->name}}</label>
                                                 <br>
                                              </div>

@@ -99,9 +99,9 @@
                                 @endphp
                                 @foreach($sm_weekends as $key=>$sm_weekend)
                             
-                                    @if( $sm_weekend->aramiscTeacherClassRoutine->count() >$height)
+                                    @if( $sm_weekend->teacherClassRoutine->count() >$height)
                                         @php
-                                            $height =  $sm_weekend->aramiscTeacherClassRoutine->count();
+                                            $height =  $sm_weekend->teacherClassRoutine->count();
                                         @endphp
                                     @endif
     
@@ -124,7 +124,7 @@
                         
                             $i = 0;
                         @endphp
-                            @foreach($sm_weekend->aramiscTeacherClassRoutine as $routine)
+                            @foreach($sm_weekend->teacherClassRoutine as $routine)
                                 @php
                                 if(!in_array($routine->id, $used)){
                                     $tr[$i][$sm_weekend->name][$loop->index]['subject']= $routine->subject ? $routine->subject->subject_name :'';

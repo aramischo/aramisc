@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>@lang('student.student_aramiscAttendance')  </title>
+  <title>@lang('student.student_attendance')  </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1"> 
 </head>
 <style>
- #aramiscAttendance.th,#aramiscAttendance.tr,#aramiscAttendance.td{
+ #attendance.th,#attendance.tr,#attendance.td{
      font-size: 10px !important;
      padding: 0px !important;
      text-align: center !important;
@@ -14,43 +14,43 @@
      vertical-align: middle !important;
      
  }
- #aramiscAttendance th{
+ #attendance th{
      background: #ddd;
      text-align: center;
  }
- #aramiscAttendance{
+ #attendance{
      border: 1px solid var(--border_color);
         border-collapse: collapse;
  }
- #aramiscAttendance tr{
+ #attendance tr{
      border: 1px solid var(--border_color);
         border-collapse: collapse;
  }
- #aramiscAttendance th{
+ #attendance th{
      border: 1px solid var(--border_color);
         border-collapse: collapse;
         text-align: center !important;
         font-size: 11px;
  }
- #aramiscAttendance td{
+ #attendance td{
      border: 1px solid var(--border_color);
         border-collapse: collapse;
         text-align: center;
         font-size: 10px;
  }
- table#aramiscAttendance th {
+ table#attendance th {
     padding: 5px 10px;
 }
 
-table#aramiscAttendance td {
+table#attendance td {
     padding: 5px 10px;
     border-right: 1px solid #d3d3d3;
 }
-table#aramiscAttendance td:first-child {
+table#attendance td:first-child {
     border-left:1px solid #d3d3d3;
 }
 
-table#aramiscAttendance tr {
+table#attendance tr {
     border-bottom: 1px solid  #d3d3d3;
 }
 img.logo-img {
@@ -65,8 +65,8 @@ img.logo-img {
                 <img class="logo-img" src="{{ url('/')}}/{{generalSetting()->logo }}" alt=""> 
             </td>
             <td style="padding-left: 10px"> 
-                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                <h3 style="font-size:22px !important" class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3> 
+                <p style="font-size:18px !important" class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>  
             </td>
             <td style="text-aligh:center"> 
                 @if (moduleStatusCheck('University')) 
@@ -83,8 +83,8 @@ img.logo-img {
             </td>
         </tr>
     </table>
-    <h3 style="text-align:center">@lang('student.student_aramiscAttendance_report')</h3>
-    <table  style="width: 100%; table-layout: fixed" id="aramiscAttendance">
+    <h3 style="text-align:center">@lang('student.student_attendance_report')</h3>
+    <table  style="width: 100%; table-layout: fixed" id="attendance">
         <tr>
             <th>SL</th>
             <th width="12%">@lang('common.name')</th>
@@ -115,9 +115,9 @@ img.logo-img {
             $total_halfday = 0; 
             $count_student=1;
         @endphp
-        @foreach($aramiscAttendances as $values)
+        @foreach($attendances as $values)
         @php 
-            $total_aramiscAttendance = 0; 
+            $total_attendance = 0; 
         @endphp
         @php 
             $count_absent = 0; 
@@ -145,8 +145,8 @@ img.logo-img {
             <td>
                 @php $p = 0; @endphp
                 @foreach($values as $value)
-                    @if($value->aramiscAttendance_type == 'P')
-                        @php $p++; $total_aramiscAttendance++; $total_grand_present++; @endphp
+                    @if($value->attendance_type == 'P')
+                        @php $p++; $total_attendance++; $total_grand_present++; @endphp
                     @endif
                 @endforeach
                 {{$p}}
@@ -154,8 +154,8 @@ img.logo-img {
             <td>
                 @php $l = 0; @endphp
                 @foreach($values as $value)
-                    @if($value->aramiscAttendance_type == 'L')
-                        @php $l++; $total_aramiscAttendance++; $total_late++; @endphp
+                    @if($value->attendance_type == 'L')
+                        @php $l++; $total_attendance++; $total_late++; @endphp
                     @endif
                 @endforeach
                 {{$l}}
@@ -163,8 +163,8 @@ img.logo-img {
             <td>
                 @php $a = 0; @endphp
                 @foreach($values as $value)
-                    @if($value->aramiscAttendance_type == 'A')
-                        @php $a++; $count_absent++; $total_aramiscAttendance++; $total_absent++; @endphp
+                    @if($value->attendance_type == 'A')
+                        @php $a++; $count_absent++; $total_attendance++; $total_absent++; @endphp
                     @endif
                 @endforeach
                 {{$a}}
@@ -172,8 +172,8 @@ img.logo-img {
             <td>
                 @php $f = 0; @endphp
                 @foreach($values as $value)
-                    @if($value->aramiscAttendance_type == 'F')
-                        @php $f++; $total_aramiscAttendance++; $total_halfday++; @endphp
+                    @if($value->attendance_type == 'F')
+                        @php $f++; $total_attendance++; $total_halfday++; @endphp
                     @endif
                 @endforeach
                 {{$f}}
@@ -181,19 +181,19 @@ img.logo-img {
             <td>
                 @php $h = 0; @endphp
                 @foreach($values as $value)
-                    @if($value->aramiscAttendance_type == 'H')
-                        @php $h++; $total_aramiscAttendance++; $total_holiday++; @endphp
+                    @if($value->attendance_type == 'H')
+                        @php $h++; $total_attendance++; $total_holiday++; @endphp
                     @endif
                 @endforeach
                 {{$h}}
             </td>
             <td>  
                 @php
-                    $total_present = $total_aramiscAttendance - $count_absent;
+                    $total_present = $total_attendance - $count_absent;
                     if($count_absent == 0){
                         echo '100%';
                     }else{
-                        $percentage = $total_present / $total_aramiscAttendance * 100;
+                        $percentage = $total_present / $total_attendance * 100;
                         echo number_format((float)$percentage, 2, '.', '').'%';
                     }
                 @endphp
@@ -205,8 +205,8 @@ img.logo-img {
             @endphp
             <td class="{{($i<=18)? 'all':'none'}}">
                 @foreach($values as $value)
-                    @if(strtotime($value->aramiscAttendance_date) == strtotime($date))
-                        {{$value->aramiscAttendance_type}}
+                    @if(strtotime($value->attendance_date) == strtotime($date))
+                        {{$value->attendance_type}}
                     @endif
                 @endforeach
             </td>

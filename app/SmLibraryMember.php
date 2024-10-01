@@ -16,11 +16,11 @@ class SmLibraryMember extends Model
     }
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'member_type', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'member_type', 'id');
     }
-    public function aramiscStudentDetails()
+    public function studentDetails()
     {
-        return $this->belongsTo('App\SmStudent', 'student_staff_id', 'user_id');
+        return $this->belongsTo('App\AramiscStudent', 'student_staff_id', 'user_id');
     }
     public function staffDetails()
     {
@@ -32,7 +32,7 @@ class SmLibraryMember extends Model
     }
     public function memberTypes()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'member_type', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'member_type', 'id');
     }
     public function scopeStatus($query)
     {

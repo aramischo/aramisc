@@ -73,7 +73,7 @@
                         </div>
                         <div id="liveStudentSearch" style="display: none;"></div>
                     </div>
-                    <select name="#" class="nice_Select bgLess mb-0 aramisc_session" id="aramisc_session">
+                    <select name="#" class="nice_Select bgLess mb-0 infix_session" id="infix_session">
                         @foreach (academicYears() as $academic_year)
                             @if (moduleStatusCheck('University'))
                                 <option value="{{ @$academic_year->id }}"
@@ -90,7 +90,7 @@
 
                     {{-- @if (@$styles && Auth::user()->role_id == 1)
                         @if (generalSetting()->style_btn == 1)
-                            <select class="nice_Select bgLess mb-0 aramisc_theme_style" id="aramisc_theme_style">
+                            <select class="nice_Select bgLess mb-0 infix_theme_style" id="infix_theme_style">
                                 <option data-display="@lang('common.select_style')"
                                     value="0">@lang('common.select_style')
                                 </option>

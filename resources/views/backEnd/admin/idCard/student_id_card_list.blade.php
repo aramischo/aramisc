@@ -55,7 +55,7 @@
                                                 <td>
                                                     @php
                                                         $role_id= ($id_card->role_id == 2) ? 2 : 0;
-                                                        $role_names= App\SmStudentIdCard::roleName($id_card->id);
+                                                        $role_names= App\AramiscStudentIdCard::roleName($id_card->id);
                                                     @endphp
                                                     @foreach ($role_names as $key =>$role_name)
                                                         {{$role_name->name}} {{ ($loop->iteration > 1 && !$loop->last) ? ',' :'' }}
@@ -375,7 +375,7 @@
     
                                                                                     <div class="card_text_head hStudentName" style="line-height:1.02; display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom:10px">
                                                                                         <div class="card_text_left">
-                                                                                            {{-- <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 0px; font-size:11px; font-weight:600 ; text-transform: uppercase; color: #2656a6;">aramisc</h3> --}}
+                                                                                            {{-- <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 0px; font-size:11px; font-weight:600 ; text-transform: uppercase; color: #2656a6;">InfixEdu</h3> --}}
                                                                                             @if($id_card->phone_number == 1)
                                                                                                 <div id="hPhoneNumber">
                                                                                                     <h4 style="line-height:1.02; margin-top: 0; margin-bottom: 3px; font-size:10px; font-weight:500">phone : 0123456789</h4>
@@ -469,10 +469,10 @@
                                                                                 {{-- <div class="card_text_head " style="line-height:1.02; display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom:5px">
                                                                                     <div class="card_text_left">
                                                                                         <div id="phoneNumber">
-                                                                                            <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 3px; font-size:10px; font-weight:500">Father Name : aramisc</h3>
+                                                                                            <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 3px; font-size:10px; font-weight:500">Father Name : InfixEdu</h3>
                                                                                         </div>
                                                                                         <div id="vMotherName">
-                                                                                            <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 3px; font-size:10px; font-weight:500">Mother Name : aramisc</h3>
+                                                                                            <h3 style="line-height:1.02; margin-top: 0; margin-bottom: 3px; font-size:10px; font-weight:500">Mother Name : InfixEdu</h3>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="card_text_right">

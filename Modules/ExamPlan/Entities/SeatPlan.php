@@ -3,8 +3,8 @@
 namespace Modules\ExamPlan\Entities;
 
 use App\Models\StudentRecord;
-use App\SmAcademicYear;  
-use App\SmExamType;
+use App\AramiscAcademicYear;  
+use App\AramiscExamType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,9 +24,9 @@ class SeatPlan extends Model
     }
 
     public function examType(){
-        return $this->belongsTo(SmExamType::class,'exam_type_id','id');
+        return $this->belongsTo(AramiscExamType::class,'exam_type_id','id');
     }
     public function academicYear(){
-        return $this->belongsTo(SmAcademicYear::class,'academic_id','id');
+        return $this->belongsTo(AramiscAcademicYear::class,'academic_id','id');
     }
 }

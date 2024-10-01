@@ -3,7 +3,7 @@
 namespace Modules\BehaviourRecords\Entities;
 
 use App\Models\User;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\Models\StudentRecord;
 use Illuminate\Database\Eloquent\Model;
 use Modules\BehaviourRecords\Entities\Incident;
@@ -29,7 +29,7 @@ class AssignIncident extends Model
     }
     public function academicYear()
     {
-        return $this->belongsTo(SmAcademicYear::class, 'academic_id', 'id')->withDefault();
+        return $this->belongsTo(AramiscAcademicYear::class, 'academic_id', 'id')->withDefault();
     }
     public function studentRecord()
     {

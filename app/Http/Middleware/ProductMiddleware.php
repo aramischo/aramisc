@@ -7,7 +7,7 @@ use Session;
 use App\User;
 use App\Envato\Envato;
 use GuzzleHttp\Client;
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;

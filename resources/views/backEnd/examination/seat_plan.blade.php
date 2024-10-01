@@ -211,7 +211,7 @@
                                 <td>
                                     @php 
                                     if($i == 1){ 
-                                        echo App\SmSeatPlan::total_student($seat_plan->class_id, $seat_plan->section_id);
+                                        echo App\AramiscSeatPlan::total_student($seat_plan->class_id, $seat_plan->section_id);
                                     }
                                     @endphp
                                 </td>

@@ -70,4 +70,9 @@ class Conversation extends Model
     {
         return $this->from_id == auth()->id();
     }
+
+    public function replyId()
+    {
+        return $this->belongsTo(Conversation::class, 'reply', 'id');
+    }
 }

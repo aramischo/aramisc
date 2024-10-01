@@ -6,12 +6,12 @@ use App\User;
 use Validator;
 use App\SmClass;
 use App\SmStaff;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\SmWeekend;
 use App\SmClassRoom;
 use App\SmClassTime;
 use App\ApiBaseMethod;
-use App\SmAcademicYear;
+use App\AramiscAcademicYear;
 use App\SmAssignSubject;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ use App\Scopes\StatusAcademicSchoolScope;
 
 class ApiSmClassRoutineController extends Controller
 {
-    public function aramiscClassRoutineSearch(Request $request)
+    public function classRoutineSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -45,7 +45,7 @@ class ApiSmClassRoutineController extends Controller
             $section_id = $request->section;
             $school_id = auth()->user()->school_id;
 
-            $sm_weekends = SmWeekend::with('aramiscClassRoutine')->where('school_id', $school_id)
+            $sm_weekends = SmWeekend::with('classRoutine')->where('school_id', $school_id)
                 ->orderBy('order', 'ASC')
                 ->where('active_status', 1)
                 ->get(['id', 'name', 'order', 'is_weekend']);
@@ -110,7 +110,7 @@ class ApiSmClassRoutineController extends Controller
     //                 }
     //              },
     //     }
-    public function aramiscAddNewClassRoutineStore(Request $request)
+    public function addNewClassRoutineStore(Request $request)
     {
         try {
             //  return  date("H:i", strtotime("04:25 PM"));
@@ -230,7 +230,7 @@ class ApiSmClassRoutineController extends Controller
             ];
         });
 
-        $stds = SmStudent::where('class_id', $class_id)->where('section_id', $section_id)
+        $stds = AramiscStudent::where('class_id', $class_id)->where('section_id', $section_id)
             ->where('academic_id', getAcademicId())->where('school_id', $school_id)->count();
         $rooms = SmClassRoom::where('active_status', 1)->where('capacity', '>=', $stds)
             ->where('school_id', $school_id)
@@ -246,7 +246,7 @@ class ApiSmClassRoutineController extends Controller
     public function studentClassRoutine(Request $request, $user_id, $record_id = null)
     {
         try {
-            $student_detail = SmStudent::withOutGlobalScope(SchoolScope::class)->select('id', 'full_name')
+            $student_detail = AramiscStudent::withOutGlobalScope(SchoolScope::class)->select('id', 'full_name')
                 ->where('user_id', $user_id)
                 ->first();
             $record = StudentRecord::select('class_id','section_id','id')->find($record_id);
@@ -278,7 +278,7 @@ class ApiSmClassRoutineController extends Controller
 
         }
     }
-    public function aramiscTeacherClassRoutine($user_id, $school_id = null)
+    public function teacherClassRoutine($user_id, $school_id = null)
     {
         try {
 
@@ -318,9 +318,9 @@ class ApiSmClassRoutineController extends Controller
     }
     public function saasTeacherClassRoutine($user_id, $school_id)
     {
-        $this->aramiscTeacherClassRoutine($user_id, $school_id);
+        $this->teacherClassRoutine($user_id, $school_id);
     }
-    public function aramiscTeacherClassRoutineReportSearch(Request $request)
+    public function teacherClassRoutineReportSearch(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -333,10 +333,10 @@ class ApiSmClassRoutineController extends Controller
             }
         }
         $teacher_id = $request->teacher_id;
-        $this->aramiscTeacherClassRoutine($teacher_id);
+        $this->teacherClassRoutine($teacher_id);
     }
 
-    public function aramiscClassRoutineReportSearch(Request $request)
+    public function classRoutineReportSearch(Request $request)
     {
         try {
             $input = $request->all();
@@ -387,7 +387,7 @@ class ApiSmClassRoutineController extends Controller
     {
 
 
-        $student_detail = SmStudent::select('id', 'full_name')->where('user_id', $user_id)->where('school_id', $school_id)->first();
+        $student_detail = AramiscStudent::select('id', 'full_name')->where('user_id', $user_id)->where('school_id', $school_id)->first();
         $record = studentRecords(null, $student_detail->id, $school_id)->where('id', $record_id)->first();
         $class_id = $record->class_id;
         $section_id = $record->section_id;

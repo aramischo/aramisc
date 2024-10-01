@@ -3,14 +3,14 @@
 namespace Modules\Fees\Http\Controllers\api;
 
 use App\User;
-use App\SmClass;
-use App\SmSchool;
-use App\SmStudent;
-use App\SmAddIncome;
-use App\SmBankAccount;
-use App\SmPaymentMethhod;
+use App\AramiscClass;
+use App\AramiscSchool;
+use App\AramiscStudent;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
+use App\AramiscPaymentMethhod;
 use App\Models\StudentRecord;
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\Fees\Entities\FmFeesType;
@@ -26,7 +26,7 @@ use Modules\Fees\Http\Requests\StudentAddFeesPaymentRequest;
 
 class StudentFeesController extends Controller
 {
-    public function aramiscStudentFeesList($id)
+    public function studentFeesList($id)
     {
         $student_id = $id;
         $records = StudentRecord::where('is_promote',0)
@@ -81,7 +81,7 @@ class StudentFeesController extends Controller
     public function studentAddFeesPayment($id)
     {
         try{
-            $classes = SmClass::where('school_id',Auth::user()->school_id)
+            $classes = AramiscClass::where('school_id',Auth::user()->school_id)
             ->where('academic_id',getAcademicId())
             ->get();
 
@@ -93,7 +93,7 @@ class StudentFeesController extends Controller
                         ->where('academic_id', getAcademicId())
                         ->get();
 
-            $paymentMethods = SmPaymentMethhod::whereNotIn('method', ["Cash"])
+            $paymentMethods = AramiscPaymentMethhod::whereNotIn('method', ["Cash"])
                                 ->where('school_id',Auth::user()->school_id)
                                 ->get()->map(function ($value){
                                     return [
@@ -101,7 +101,7 @@ class StudentFeesController extends Controller
                                     ];
                                 });
             
-            $bankAccounts = SmBankAccount::where('school_id',Auth::user()->school_id)
+            $bankAccounts = AramiscBankAccount::where('school_id',Auth::user()->school_id)
                             ->where('active_status',1)
                             ->where('academic_id', getAcademicId())
                             ->get()->map(function ($value){
@@ -130,7 +130,7 @@ class StudentFeesController extends Controller
                                 ];
                             });;
 
-            $stripe_info = SmPaymentGatewaySetting::where('gateway_name', 'stripe')
+            $stripe_info = AramiscPaymentGatewaySetting::where('gateway_name', 'stripe')
                             ->where('school_id', Auth::user()->school_id)
                             ->first();
 
@@ -140,7 +140,7 @@ class StudentFeesController extends Controller
         }
     }
 
-    public function aramiscStudentFeesPaymentStore(StudentAddFeesPaymentRequest $request)
+    public function studentFeesPaymentStore(StudentAddFeesPaymentRequest $request)
     {
             if($request->total_paid_amount <= 0){
                 throw ValidationException::withMessages(['paid_amount_error'=>'Paid Amount Can Not Be Blank']);
@@ -149,7 +149,7 @@ class StudentFeesController extends Controller
             $file = fileUpload($request->file('file'), $destination);
 
             $record = StudentRecord::find($request->student_id);
-            $student=SmStudent::with('parents')->find($record->student_id);
+            $student=AramiscStudent::with('parents')->find($record->student_id);
 
             if($request->payment_method == "Wallet"){
                 $user = User::find(Auth::user()->id);
@@ -227,7 +227,7 @@ class StudentFeesController extends Controller
                     $addPayment->academic_id = getAcademicId();
                     $addPayment->save();
         
-                    $school = SmSchool::find($user->school_id);
+                    $school = AramiscSchool::find($user->school_id);
                     $compact['full_name'] = $user->full_name;
                     $compact['method'] = $request->payment_method;
                     $compact['create_date'] = date('Y-m-d');
@@ -241,10 +241,10 @@ class StudentFeesController extends Controller
                 }
 
                 // Income
-                $payment_method = SmPaymentMethhod::where('method', $request->payment_method)->first();
+                $payment_method = AramiscPaymentMethhod::where('method', $request->payment_method)->first();
                 $income_head = generalSetting();
 
-                $add_income = new SmAddIncome();
+                $add_income = new AramiscAddIncome();
                 $add_income->name = 'Fees Collect';
                 $add_income->date = date('Y-m-d');
                 $add_income->amount = $request->total_paid_amount;

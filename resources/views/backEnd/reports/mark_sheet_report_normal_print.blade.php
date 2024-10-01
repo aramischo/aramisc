@@ -565,11 +565,11 @@
                                          alt="{{generalSetting()->school_name}}">
                                 </div>
                                 <div class="company_info">
-                                    <h3>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                    <h5>{{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}}</h5>
+                                    <h3>{{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                    <h5>{{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}}</h5>
                                     <h5>
                                         @lang('common.email')
-                                        : {{isset(generalSetting()->email)?generalSetting()->email:'admin@aramisc.com'}}
+                                        : {{isset(generalSetting()->email)?generalSetting()->email:'admin@infixedu.com'}}
                                         @lang('common.phone')
                                         : {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}
                                     </h5>
@@ -578,7 +578,7 @@
                                 @if(resultPrintStatus('image'))
                                     <div class="profile_thumb profile_100">
                                         <img class="report-admit-img"
-                                             src="{{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                             src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
                                              alt="{{ $student_detail->studentDetail->full_name }}" width="100"
                                              height="100">
                                     </div>
@@ -848,7 +848,7 @@
                 @if(count($remainSubjects) > 0)
                     @foreach($remainSubjects as $reaminSubject)
                         @php
-                            $subject = App\SmSubject::find($reaminSubject);
+                            $subject = App\AramiscSubject::find($reaminSubject);
                         @endphp
                         <tr>
                             <td colspan="1">{{$subject->subject_name}}</td>
@@ -865,8 +865,8 @@
             <table class="table border_table gray_header_table mb_30 max-width-400 ml_auto margin-auto report_table @if(resultPrintStatus('vertical_boarder')) mt_40 @endif">
                 <tbody>
                 <tr>
-                    <td>@lang('exam.aramiscAttendance')</td>
-                    <td>{{@$student_aramiscAttendance}} @lang('exam.of') {{@$total_class_days}}</td>
+                    <td>@lang('exam.attendance')</td>
+                    <td>{{@$student_attendance}} @lang('exam.of') {{@$total_class_days}}</td>
                     <td>@lang('exam.total_mark')</td>
                     <td>{{@$total_mark}}</td>
                 </tr>
@@ -912,7 +912,7 @@
                                 if(in_array($failgpaname->grade_name,$temp_grade)){
                                     echo $failgpaname->grade_name;
                                 }else{
-                                    $grade_details= App\SmResultStore::remarks($total_gpa);
+                                    $grade_details= App\AramiscResultStore::remarks($total_gpa);
                                 }
                             @endphp
                             {{@$grade_details->grade_name}}
@@ -923,7 +923,7 @@
                                 if(in_array($failgpaname->grade_name,$temp_grade)){
                                     echo $failgpaname->description;
                                 }else{
-                                    $grade= App\SmResultStore::remarks($total_gpa);
+                                    $grade= App\AramiscResultStore::remarks($total_gpa);
                                 }
                             @endphp
                             {{@$grade->description}}

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmGeneralSettings;
+use App\AramiscGeneralSettings;
 use App\Traits\UploadTheme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,7 +52,7 @@ class ThemeManageController extends Controller
             }
             $edulia_routes = ['home-slider','expert-teacher','photo-gallery','video-gallery','front-result','front-class-routine','front-exam-routine','front-academic-calendar','news-comment-list','pagebuilder'];
             $default_routes = ['admin-home-page','conpactPage','about-page','news-heading-update','course-heading-update','custom-links','social-media','course-details-heading','class-exam-routine-page','exam-result-page'];
-            $generalSettData = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $generalSettData = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
             $edulia_status = 0;
             $default_status = 0;            
             if($request->theme == 'edulia'){

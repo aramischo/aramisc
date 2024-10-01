@@ -465,8 +465,8 @@
                                                         <img class="logo-img" src="{{ generalSetting()->logo }}" alt="{{generalSetting()->school_name}}">
                                                     </div>
                                                     <div class="col-lg-6 ml-30">
-                                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
                                                         <p class="text-white mb-0">
                                                             @lang('common.email'): <span class="text-lowercase">{{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}}</span>,
                                                             @lang('common.phone'): {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}</p>
@@ -476,7 +476,7 @@
                                                     </div>
                                                 </div>
                                         <div>
-                                            <img class="report-admit-img"  src="{{ file_exists(@$aramiscStudentDetails->studentDetail->student_photo) ? asset($aramiscStudentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($aramiscStudentDetails->studentDetail->student_photo)}}">
+                                            <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->studentDetail->student_photo)}}">
                                         </div>
                                     </div>
                                     <div class="student_marks_table">
@@ -680,7 +680,7 @@
                                                     @if(count($remainSubjects) > 0)
                                                         @foreach($remainSubjects as $reaminSubject)
                                                             @php
-                                                                $subject = App\SmSubject::find($reaminSubject);
+                                                                $subject = App\AramiscSubject::find($reaminSubject);
                                                             @endphp
                                                             <tr>
                                                                 <td style="padding-left: 15px;">{{$subject->subject_name}}</td>
@@ -699,8 +699,8 @@
                                                 <table class="table summeryTable">
                                                     <tbody class="spacing">
                                                         <tr>
-                                                            <td>@lang('student.aramiscAttendance')</td>
-                                                            <td class="nowrap"> {{@$student_aramiscAttendance}} @lang('common.of') {{@$total_class_days}}</td>
+                                                            <td>@lang('student.attendance')</td>
+                                                            <td class="nowrap"> {{@$student_attendance}} @lang('common.of') {{@$total_class_days}}</td>
                                                             <td>@lang('exam.total_mark')</td>
                                                             <td>{{@$total_mark}}</td>
                                                         </tr>
@@ -730,7 +730,7 @@
                                                                     if(in_array($failgpaname->grade_name,$temp_grade)){
                                                                         echo $failgpaname->grade_name;
                                                                     }else{
-                                                                        $grade_details= App\SmResultStore::remarks($total_gpa);
+                                                                        $grade_details= App\AramiscResultStore::remarks($total_gpa);
                                                                     }
                                                                 @endphp
                                                                 <p>
@@ -743,7 +743,7 @@
                                                                         if(in_array($failgpaname->grade_name,$temp_grade)){
                                                                                 echo $failgpaname->description;
                                                                             }else{
-                                                                                $grade= App\SmResultStore::remarks($total_gpa);
+                                                                                $grade= App\AramiscResultStore::remarks($total_gpa);
                                                                             }
                                                                     @endphp
                                                                     <p>{{@$grade->description}}</p>

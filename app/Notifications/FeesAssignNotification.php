@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\SmFeesAssign;
-use App\SmNotification;
+use App\AramiscFeesAssign;
+use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
 use SpondonIt\FCM\FcmMessage;
 use Illuminate\Notifications\Notification;
@@ -20,7 +20,7 @@ class FeesAssignNotification extends Notification
      *
      * @return void
      */
-    public function __construct(SmNotification $sm_notification)
+    public function __construct(AramiscNotification $sm_notification)
     {
         $this->sm_notification = $sm_notification;
     }

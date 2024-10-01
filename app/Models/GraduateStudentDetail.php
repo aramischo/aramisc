@@ -23,6 +23,6 @@ class GraduateStudentDetail extends Model
 
     public function student()
     {
-        return $this->belongsTo('App\Models\SmStudent', 'student_id', 'id');
+        return $this->belongsTo('App\Models\AramiscStudent', 'student_id', 'id');
     }
 }

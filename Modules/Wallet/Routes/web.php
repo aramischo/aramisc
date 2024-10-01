@@ -13,7 +13,7 @@ Route::prefix('wallet')->middleware(['auth', 'subdomain'])->group(function() {
     Route::post('reject-payment', [WalletController::class, 'walletRejectPayment'])->name('wallet.reject-payment')->middleware('userRolePermission:wallet.reject-payment');
     Route::get('wallet-transaction', [WalletController::class, 'walletTransaction'])->name('wallet.wallet-transaction')->middleware('userRolePermission:wallet.wallet-transaction');
     Route::get('wallet-transaction-ajax', [WalletController::class, 'walletTransactionAjax'])->name('wallet.wallet-transaction-ajax');
-    Route::get('wallet-diposit-datatable', [WalletController::class, 'walletDipositDatatable'])->name('wallet.wallet-diposit-datatable')->middleware('userRolePermission:wallet.wallet-diposit-datatable');
+    Route::get('wallet-diposit-datatable', [WalletController::class, 'walletDipositDatatable'])->name('wallet.wallet-diposit-datatable');
 
     Route::get('wallet-refund-request', [WalletController::class, 'walletRefundRequest'])->name('wallet.wallet-refund-request')->middleware('userRolePermission:wallet.wallet-refund-request');
 

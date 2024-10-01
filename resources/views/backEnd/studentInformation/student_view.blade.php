@@ -119,12 +119,12 @@
                         <ul class="nav nav-tabs tabs_scroll_nav mb-10" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link {{ $type == '' && Session::get('studentDocuments') == '' ? 'active' : '' }} "
-                                    href="#aramiscStudentProfile" role="tab" data-toggle="tab">@lang('student.profile')</a>
+                                    href="#studentProfile" role="tab" data-toggle="tab">@lang('student.profile')</a>
                             </li>
     
                             @if (generalSetting()->fees_status == 0)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#aramiscStudentFees" role="tab"
+                                    <a class="nav-link" href="#studentFees" role="tab"
                                         data-toggle="tab">@lang('fees.fees')</a>
                                 </li>
                             @endif
@@ -160,11 +160,11 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Session::get('studentAttendance') == 'active' ? 'active' : '' }} "
-                                    href="#studentAttendance" role="tab" data-toggle="tab">@lang('student.student_aramiscAttendance')</a>
+                                    href="#studentAttendance" role="tab" data-toggle="tab">@lang('student.student_attendance')</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Session::get('subjectAttendance') == 'active' ? 'active' : '' }} "
-                                    href="#subjectAttendance" role="tab" data-toggle="tab">@lang('student.subject_aramiscAttendance')</a>
+                                    href="#subjectAttendance" role="tab" data-toggle="tab">@lang('student.subject_attendance')</a>
                             </li>
                             @if (moduleStatusCheck('BehaviourRecords'))
                                 <li class="nav-item">
@@ -181,7 +181,7 @@
     
                             @if (moduleStatusCheck('University'))
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $type == 'assign_subject' ? 'active' : '' }} " href="#aramiscStudentSubject"
+                                    <a class="nav-link {{ $type == 'assign_subject' ? 'active' : '' }} " href="#studentSubject"
                                         role="tab" data-toggle="tab">@lang('university::un.subject')</a>
                                 </li>
                             @endif
@@ -422,11 +422,11 @@
                             <!-- End Timeline Tab -->
     
                             <!-- Start Attendance Tab -->
-                            @include('backEnd.studentInformation.inc._student_aramiscAttendance_tab')
+                            @include('backEnd.studentInformation.inc._student_attendance_tab')
                             <!-- End Attendance Tab -->
     
                             <!-- Start Attendance Tab -->
-                            @include('backEnd.studentInformation.inc._subject_aramiscAttendance_tab')
+                            @include('backEnd.studentInformation.inc._subject_attendance_tab')
                             <!-- End Attendance Tab -->
     
                             <!-- Start Behaviour Records Tab -->
@@ -447,7 +447,7 @@
                                 </div>
                             @endif
                             @if (moduleStatusCheck('University'))
-                                <div role="tabpanel" class="tab-pane fade {{ $type == 'assign_subject' ? ' active show' : '' }}" id="aramiscStudentSubject">
+                                <div role="tabpanel" class="tab-pane fade {{ $type == 'assign_subject' ? ' active show' : '' }}" id="studentSubject">
                                     @include('backEnd.studentInformation.inc.subject_list')
                                 </div>
                             @endif

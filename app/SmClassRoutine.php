@@ -17,7 +17,7 @@ class SmClassRoutine extends Model
     }
 
     public function section(){
-    	return $this->belongsTo('App\SmSection', 'section_id', 'id');
+    	return $this->belongsTo('App\AramiscSection', 'section_id', 'id');
     }
     
     public static function teacherId($class_id, $section_id, $subject_id){

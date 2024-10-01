@@ -81,7 +81,7 @@ class SmEmailSmsLog extends Model
 
     public function sectionDetails()
     {
-        return $this->belongsTo('App\SmSection', 'un_semester_label_id', 'id')->withDefault();
+        return $this->belongsTo('App\AramiscSection', 'un_semester_label_id', 'id')->withDefault();
     }
 
 

@@ -346,11 +346,11 @@
 
                                                     @if ($value->role_id == 2)
                                                         @php
-                                                            $getMemberDetail = App\SmStudent::find($value->issue_to);
+                                                            $getMemberDetail = App\AramiscStudent::find($value->issue_to);
                                                         @endphp
                                                     @else
                                                         @php
-                                                            $getMemberDetail = App\SmBook::getMemberStaffsDetails($value->issue_to);
+                                                            $getMemberDetail = App\AramiscBook::getMemberStaffsDetails($value->issue_to);
                                                         @endphp
                                                     @endif
 
@@ -376,7 +376,7 @@
                                                                 @lang('inventory.issued')</button>
                                                         @else
                                                             @php
-                                                                $getMemberDetail = App\SmBook::getMemberStaffsDetails($value->issue_to);
+                                                                $getMemberDetail = App\AramiscBook::getMemberStaffsDetails($value->issue_to);
                                                             @endphp
                                                         @endif
     

@@ -502,10 +502,10 @@
                                     <img  src="{{asset('/')}}{{generalSetting()->logo }}" alt="{{generalSetting()->school_name}}">
                                 </div>
                                 <div class="company_info">
-                                    <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                    <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Aramisc School Address'}}</h5>
+                                    <h3>{{isset(generalSetting()->school_name)? generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                    <h5>{{isset(generalSetting()->address)? generalSetting()->address:'Infix School Address'}}</h5>
                                     <h5>
-                                        @lang('common.email'): {{isset(generalSetting()->email)?generalSetting()->email:'admin@aramisc.com'}}
+                                        @lang('common.email'): {{isset(generalSetting()->email)?generalSetting()->email:'admin@infixedu.com'}}
                                         @lang('common.phone'): {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}
                                     </h5>
                                 </div>
@@ -657,7 +657,7 @@
                         <th rowspan="2">@lang('common.subjects')</th>
                         @foreach($assinged_exam_types as $assinged_exam_type)
                             @php
-                                $exam_type = App\SmExamType::examType($assinged_exam_type);
+                                $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                             @endphp
                             <th colspan="{{(@generalSetting()->result_type == 'mark')? 2: 4}}">{{$exam_type->title}}</th>
                         @endforeach
@@ -706,10 +706,10 @@
                                 $totalSubjectFail= 0;
                                 $TotalSum= 0;
                             foreach($assinged_exam_types as $assinged_exam_type){
-                                $mark_parts = App\SmAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
-                                $result = App\SmResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
+                                $mark_parts = App\AramiscAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
+                                $result = App\AramiscResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
                                 if(!empty($result)){
-                                    $final_results = App\SmResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
+                                    $final_results = App\AramiscResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
                                 }
                                 $subject_full_mark=subjectFullMark($assinged_exam_type, $data->subject_id, $class_id, $section_id);
                             if($result->count()>0){
@@ -810,7 +810,7 @@
                         @endphp
                         @foreach($assinged_exam_types as $assinged_exam_type)
                             @php
-                                $exam_type = App\SmExamType::examType($assinged_exam_type);
+                                $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                                 $term_base_gpa=termWiseGpa($assinged_exam_type, $student_id, null, $academic_id);
                                 $with_percent_average_gpa +=$term_base_gpa;
 

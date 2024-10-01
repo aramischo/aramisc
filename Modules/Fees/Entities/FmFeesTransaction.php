@@ -55,7 +55,7 @@ class FmFeesTransaction extends Model
 
     public function feeStudentInfo()
     {
-        return $this->belongsTo('App\SmStudent', 'student_id', 'id');
+        return $this->belongsTo('App\AramiscStudent', 'student_id', 'id');
     }
 
     public function recordDetail()

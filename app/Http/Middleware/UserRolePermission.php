@@ -6,11 +6,11 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\AramiscModuleInfo;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
-use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
+use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
 
 class UserRolePermission
 {

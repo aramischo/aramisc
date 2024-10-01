@@ -2,9 +2,9 @@
 
 namespace Modules\DownloadCenter\Http\Controllers;
 
-use App\SmClass;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscClass;
+use App\AramiscSection;
+use App\AramiscStudent;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -16,7 +16,7 @@ class VideoUploadController extends Controller
     public function videoList()
     {
         try {
-            $student = SmStudent::where('user_id', auth()->user()->id)->with('studentRecord')->first();
+            $student = AramiscStudent::where('user_id', auth()->user()->id)->with('studentRecord')->first();
             if (auth()->user()->role_id == 2) {
                 $videos = VideoUpload::where('class_id', $student->studentRecord->class_id)
                     ->where('section_id', $student->studentRecord->section_id)
@@ -25,7 +25,7 @@ class VideoUploadController extends Controller
             } else {
                 $videos = VideoUpload::with('class', 'section', 'user')->get();
             }
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('downloadcenter::videoUpload.videoList', compact('classes', 'videos'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -133,7 +133,7 @@ class VideoUploadController extends Controller
                 ->when($request->title, function ($q) use ($request) {
                     $q->where('title', 'LIKE', '%' . $request->title . '%');
                 })->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             if ($videos->isEmpty()) {
                 Toastr::error('No data found', 'Failed');
                 return redirect()->back();
@@ -159,8 +159,8 @@ class VideoUploadController extends Controller
     {
         try {
             $data['video'] = VideoUpload::with('class', 'section', 'user')->find($id);
-            $data['classes'] = SmClass::get();
-            $data['sections'] = SmSection::get();
+            $data['classes'] = AramiscClass::get();
+            $data['sections'] = AramiscSection::get();
             return view('downloadcenter::videoUpload.video_edit_modal', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -170,13 +170,13 @@ class VideoUploadController extends Controller
     public function parentVideoList($id)
     {
         try {
-            $student_detail = SmStudent::where('id', $id)->with('studentRecord')->first();
+            $student_detail = AramiscStudent::where('id', $id)->with('studentRecord')->first();
             $records = studentRecords(null, $student_detail->id)->get();
             $videos = VideoUpload::where('class_id', $student_detail->studentRecord->class_id)
                 ->where('section_id', $student_detail->studentRecord->section_id)
                 ->with('class', 'section', 'user')
                 ->get();
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             return view('downloadcenter::videoUpload.parentVideoList', compact('classes', 'videos', 'student_detail', 'records'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

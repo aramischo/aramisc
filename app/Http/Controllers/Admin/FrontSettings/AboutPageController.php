@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmAboutPage;
+use App\AramiscAboutPage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -23,7 +23,7 @@ class AboutPageController extends Controller
     {
 
         try {
-            $about_us = SmAboutPage::first();
+            $about_us = AramiscAboutPage::first();
             return view('backEnd.frontSettings.about_us', compact('about_us'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -35,7 +35,7 @@ class AboutPageController extends Controller
     {
 
         try {
-            $about_us = SmAboutPage::first();
+            $about_us = AramiscAboutPage::first();
             $update = "";
 
             return view('backEnd.frontSettings.about_us', compact('about_us', 'update'));
@@ -49,7 +49,7 @@ class AboutPageController extends Controller
 
         try {
      
-            $about = SmAboutPage::first();
+            $about = AramiscAboutPage::first();
             $destination  = 'public/uploads/about_page/';
 
             if($about){
@@ -57,7 +57,7 @@ class AboutPageController extends Controller
                 $about->image     = fileUpdate($about->image,$request->image,$destination);
                 $about->main_image = fileUpdate($about->main_image,$request->main_image,$destination); 
             }else{
-                $about = new SmAboutPage();
+                $about = new AramiscAboutPage();
                 $about->image     = fileUpload($request->image,$destination);
                 $about->main_image = fileUpload($request->main_image,$destination); 
                 $about->school_id = app('school')->id;

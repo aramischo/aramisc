@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use File;
 use ZipArchive;
-use App\SmBackup;
-use App\SmLanguage;
+use App\AramiscBackup;
+use App\AramiscLanguage;
 use App\Traits\UploadTheme;
 use Illuminate\Http\Request;
 use Nwidart\Modules\Facades\Module;
@@ -81,9 +81,9 @@ class LanguageController extends Controller
     }
     public function importLang(string $lang)
     {
-        $backuplangs = SmBackup::whereNotNull('lang_type')
+        $backuplangs = AramiscBackup::whereNotNull('lang_type')
                         ->where('school_id', auth()->user()->school_id)->get();
-        $language =  SmLanguage::where('language_universal', $lang)->first();                
+        $language =  AramiscLanguage::where('language_universal', $lang)->first();                
         return view('backEnd.systemSettings.language_import',compact('backuplangs', 'language'));
     }
     public function import(ImportLanguageRequestForm $request)
@@ -168,7 +168,7 @@ class LanguageController extends Controller
             Toastr::error(trans('Prohibited in demo mode.'), trans('common.failed'));
             return redirect()->back();
         }
-        $backup = SmBackup::latest()->first();
+        $backup = AramiscBackup::latest()->first();
         if(!$backup) {
             $id = 1;
         }else {
@@ -185,7 +185,7 @@ class LanguageController extends Controller
     }
     private function backupLanguageStore($lang, $file_name)
     {        
-        $store = new SmBackup();
+        $store = new AramiscBackup();
         $store->file_name = $file_name;
         $store->source_link = $file_name;
         $store->active_status = 1;

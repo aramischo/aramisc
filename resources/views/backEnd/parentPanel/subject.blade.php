@@ -81,22 +81,22 @@
                                             @endphp
                 
                                             <tbody>
-                                                @foreach($subjects as $aramiscAssignSubject)
+                                                @foreach($subjects as $assignSubject)
                                                 <tr>
-                                                    <td>{{@$aramiscAssignSubject->subject!=""?@$aramiscAssignSubject->subject->subject_name:""}} - ( {{@$aramiscAssignSubject->subject->subject_code}} )</td>
+                                                    <td>{{@$assignSubject->subject!=""?@$assignSubject->subject->subject_name:""}} - ( {{@$assignSubject->subject->subject_code}} )</td>
                                                     @if(moduleStatusCheck('University'))
-                                                    <td>{{@$aramiscAssignSubject->subject->number_of_hours}}</td>
+                                                    <td>{{@$assignSubject->subject->number_of_hours}}</td>
                                                     @endif
     
-                                                    <td>{{@$aramiscAssignSubject->teacher!=""?@$aramiscAssignSubject->teacher->full_name:""}}</td>
+                                                    <td>{{@$assignSubject->teacher!=""?@$assignSubject->teacher->full_name:""}}</td>
                                                     @if(moduleStatusCheck('University'))
                                                     <td>
-                                                        {{@$aramiscAssignSubject->subject->subject_type}}
+                                                        {{@$assignSubject->subject->subject_type}}
                                                     </td>
                                                     @else
                                                     <td>
-                                                        @if(!empty(@$aramiscAssignSubject->subject))
-                                                        {{@$aramiscAssignSubject->subject->subject_type == "T"? 'Theory': 'Practical'}}
+                                                        @if(!empty(@$assignSubject->subject))
+                                                        {{@$assignSubject->subject->subject_type == "T"? 'Theory': 'Practical'}}
                                                         @endif
                                                     </td>
                                                     @endif

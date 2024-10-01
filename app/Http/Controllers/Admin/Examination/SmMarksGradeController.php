@@ -22,7 +22,7 @@ class SmMarksGradeController extends Controller
     public function index(Request $request)
     {
         try {
-            $marks_grades = SmMarksGrade::orderBy('gpa', 'desc')->get();
+            $marks_grades = SmMarksGrade::orderBy('gpa', 'desc')->where('academic_id', getAcademicId())->get();
             return view('backEnd.examination.marks_grade', compact('marks_grades'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

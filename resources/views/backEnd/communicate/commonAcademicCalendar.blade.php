@@ -117,7 +117,7 @@
                             </div>
                         </div>
 
-                        <div class="aramiscStudyMaterialModal commonModalContent">
+                        <div class="studyMaterialModal commonModalContent">
                             <h4>@lang('communicate.study_material')</h4>
                             <table class="table">
                                 <thead>

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\SmNotification;
+use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -19,7 +19,7 @@ class StudentAttendanceSetNotification extends Notification
      *
      * @return void
      */
-    public function __construct(SmNotification $sm_notification)
+    public function __construct(AramiscNotification $sm_notification)
     {
         $this->sm_notification = $sm_notification;
     }
@@ -34,7 +34,7 @@ class StudentAttendanceSetNotification extends Notification
     {
         $message = new FcmMessage();
         $notification = [
-            'title' => app('translator')->get('student.aramiscAttendance_set_notification'),
+            'title' => app('translator')->get('student.attendance_set_notification'),
             'body' => $this->sm_notification->message,
         ];
         $data = [

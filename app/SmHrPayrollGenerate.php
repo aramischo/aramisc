@@ -46,7 +46,7 @@ class SmHrPayrollGenerate extends Model
 	public static function getPaymentMode($id){
 		
 		try {
-			$getPayrollDetails = SmPaymentMethhod::select('method')
+			$getPayrollDetails = AramiscPaymentMethhod::select('method')
 									->where('id', $id)
 									->first();
 				if(isset($getPayrollDetails)){
@@ -61,7 +61,7 @@ class SmHrPayrollGenerate extends Model
 	}
 
 	public function paymentMethods(){
-		return $this->belongsTo('App\SmPaymentMethhod', 'payment_mode', 'id')->withDefault();
+		return $this->belongsTo('App\AramiscPaymentMethhod', 'payment_mode', 'id')->withDefault();
 	}
 	public function payrollPayments()
 	{

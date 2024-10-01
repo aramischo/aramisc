@@ -181,25 +181,25 @@
 							<h4>Health Care</h4>
 						</div>
 						<ul>
-							<li><a href="#"></a>Aramisc Health Care</a></li><a href="#">
-                            <li><a href="#"></a>Aramisc Children’s Health</a></li>
+							<li><a href="#"></a>Infix Health Care</a></li><a href="#">
+                            <li><a href="#"></a>Infix Children’s Health</a></li>
 							<li><a href="#"></a>Interdisciplinary Research</a></li>
-							<li><a href="#"></a>Aramisc Online</a></li>
-							<li><a href="#"></a>Aramisc Research Centers</a></li>
+							<li><a href="#"></a>Infix Online</a></li>
+							<li><a href="#"></a>Infix Research Centers</a></li>
 						</ul>
 					</aside>
 				</div>
 				<div class="col-lg-3 col-sm-6">
 					<aside class="f_widget ab_widget">
 						<div class="f_title">
-							<h4>About Aramisc</h4>
+							<h4>About Infix</h4>
 						</div>
 						<ul>
-							<li><a href="#"></a>Aramisc Health Care</a></li><a href="#">
-                            <li><a href="#"></a>Aramisc Children’s Health</a></li>
+							<li><a href="#"></a>Infix Health Care</a></li><a href="#">
+                            <li><a href="#"></a>Infix Children’s Health</a></li>
 							<li><a href="#"></a>Interdisciplinary Research</a></li>
-							<li><a href="#"></a>Aramisc Online</a></li>
-							<li><a href="#"></a>Aramisc Research Centers</a></li>
+							<li><a href="#"></a>Infix Online</a></li>
+							<li><a href="#"></a>Infix Research Centers</a></li>
 						</ul>
 					</aside>
 				</div>
@@ -221,7 +221,7 @@
 			<div class="row single-footer-widget">
 				<div class="col-lg-8 col-md-9">
 					<div class="copy_right_text">
-						<p>Copyright © 2018 All rights reserved <a href="#">Aramisc</a>. The Ultimate Education ERP</p>
+						<p>Copyright © 2018 All rights reserved <a href="#">Infix</a>. The Ultimate Education ERP</p>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-3">

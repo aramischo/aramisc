@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\SmEvent;
+use App\AramiscEvent;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -23,7 +23,7 @@ class Event extends Component
      */
     public function render(): View|Closure|string
     {
-        $events = SmEvent::where('school_id', app('school')->id)->take($this->count)->get(['id', 'from_date', 'to_date', 'event_title', 'event_location']);
+        $events = AramiscEvent::where('school_id', app('school')->id)->take($this->count)->get(['id', 'from_date', 'to_date', 'event_title', 'event_location']);
         return view('components.'.activeTheme().'.event', compact('events'));
     }
 }

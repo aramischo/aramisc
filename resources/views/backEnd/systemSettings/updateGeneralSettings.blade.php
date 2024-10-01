@@ -19,7 +19,7 @@
         @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
             {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'admin-dashboard', 'method' => 'GET', 'enctype' => 'multipart/form-data']) }}
         @else
-            @if(userPermission(409))
+            @if(userPermission('update-general-settings-data'))
                 {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'update-general-settings-data', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
             @endif
         @endif
@@ -368,18 +368,18 @@
                     
                         <div class="row mb-30 ">
                             <div class="col-lg-6">
-                                <p class="text-uppercase mb-2">@lang('system_settings.subject_aramiscAttendance_layout')</p>
+                                <p class="text-uppercase mb-2">@lang('system_settings.subject_attendance_layout')</p>
                                 <div class="d-flex radio-btn-flex flex-wrap row-gap-24">
                                     <div class="mr-20">
                                         {{-- <label for=""> --}}
-                                            <input type="radio" name="aramiscAttendance_layout" id="first_layout" value="1" class="common-radio relationButton aramiscAttendance_layout"  {{@$editData->aramiscAttendance_layout == "1"? 'checked': ''}}>
+                                            <input type="radio" name="attendance_layout" id="first_layout" value="1" class="common-radio relationButton attendance_layout"  {{@$editData->attendance_layout == "1"? 'checked': ''}}>
                                             <label for="first_layout">
                                                 <img src="{{asset('public/backEnd/img/first_layout.png')}}" width="200px" height="auto" class="layout_image" for="first_layout" alt="">
                                             </label>
                                             {{-- </label> --}}
                                     </div>
                                     <div class="mr-20">
-                                        <input type="radio" name="aramiscAttendance_layout" id="second_layout" value="0" class="common-radio relationButton aramiscAttendance_layout" {{@$editData->aramiscAttendance_layout == "0"? 'checked': ''}}>
+                                        <input type="radio" name="attendance_layout" id="second_layout" value="0" class="common-radio relationButton attendance_layout" {{@$editData->attendance_layout == "0"? 'checked': ''}}>
                                         <label for="second_layout">
                                             <img src="{{asset('public/backEnd/img/second_layout.png')}}" width="200px" height="auto" class="layout_image" for="second_layout" alt="">
                                         </label>
@@ -610,7 +610,7 @@
                             @if(env('APP_SYNC')==TRUE)
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" > @lang('common.update')</button></span>
                             @else
-                                @if(userPermission(409))
+                                @if(userPermission('update-general-settings-data'))
                                     <button type="submit" class="primary-btn fix-gr-bg submit">
                                         <span class="ti-check"></span>
                                         @lang('common.update')

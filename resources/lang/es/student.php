@@ -4,9 +4,9 @@ return [
 
 "my_profile" => "Mi perfil",
 
-"subject_wise_aramiscAttendance" => "Asunto: Asistencia",
+"subject_wise_attendance" => "Asunto: Asistencia",
 
-"subject_wise_aramiscAttendance_report" => "Informe de asistencia por expertos",
+"subject_wise_attendance_report" => "Informe de asistencia por expertos",
 
 "save_student_category" => "Guardar categoría de estudiante",
 
@@ -30,7 +30,7 @@ return [
 
 "history" => "Historia",
 
-"subject_aramiscAttendance_report" => "Informe de asistencia",
+"subject_attendance_report" => "Informe de asistencia",
 
 "ltl" => "LTL",
 
@@ -226,9 +226,9 @@ return [
 
 "all_student_export" => "Todas las exportaciones de estudiantes",
 
-"aramiscAttendance_already_submitted_as_holiday" => "La Asistencia Ya Se Presentó Como Vacaciones. Puede Editar El Registro",
+"attendance_already_submitted_as_holiday" => "La Asistencia Ya Se Presentó Como Vacaciones. Puede Editar El Registro",
 
-"aramiscAttendance_already_submitted" => "La Asistencia Que Ya Ha Enviado Puede Editar El Registro",
+"attendance_already_submitted" => "La Asistencia Que Ya Ha Enviado Puede Editar El Registro",
 
 "unmark_holiday" => "Vacaciones sin marcar",
 
@@ -238,7 +238,7 @@ return [
 
 "student_group_list" => "Lista de grupos de estudiantes",
 
-"student_aramiscAttendance_report" => "Informe de asistencia a los estudiantes",
+"student_attendance_report" => "Informe de asistencia a los estudiantes",
 
 "january" => "Enero",
 
@@ -348,7 +348,7 @@ return [
 
 "parent_/_guardian_details" => "Detalles padre/guardián",
 
-"aramiscAttendance_result" => "Resultado de asistencia",
+"attendance_result" => "Resultado de asistencia",
 
 "student_profile" => "Perfil del estudiante",
 
@@ -700,7 +700,7 @@ return [
 
 "student_admission" => "Admisión Estudiantil",
 
-"student_aramiscAttendance" => "Asistencia a los estudiantes",
+"student_attendance" => "Asistencia a los estudiantes",
 
 "student_promote" => "Promoción del estudiante",
 
@@ -748,9 +748,9 @@ return [
 
 "visible_to_this_person" => "Visible para esta persona",
 
-"aramiscAttendance" => "Asistencia",
+"attendance" => "Asistencia",
 
-"save_aramiscAttendance" => "Guardar asistencia",
+"save_attendance" => "Guardar asistencia",
 
 "merit_list" => "Lista de méritos",
 
@@ -822,9 +822,9 @@ return [
 
 "upload_document" => "Cargar documento",
 
-"import_aramiscAttendance" => "Asistencia a la importación",
+"import_attendance" => "Asistencia a la importación",
 
-"aramiscAttendance_date" => "Fecha de asistencia",
+"attendance_date" => "Fecha de asistencia",
 
 "late" => "Retraso",
 
@@ -866,11 +866,11 @@ return [
 
 "total_pending_home_work" => "Total pendiente de tarea",
 
-"total_aramiscAttendance_in_current_month" => "Asistencia Total En El Mes Actual",
+"total_attendance_in_current_month" => "Asistencia Total En El Mes Actual",
 
 "pending_home_work" => "Tareas pendientes",
 
-"aramiscAttendance_in_current_month" => "Asistencia En El Mes Actual",
+"attendance_in_current_month" => "Asistencia En El Mes Actual",
 
 "student_report" => "Informe del estudiante",
 

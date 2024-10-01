@@ -108,7 +108,7 @@
                                 @php
                                     $buyerDetails = '';
                                     if($viewData->role_id == 2){
-                                        $buyerDetails = $viewData->aramiscStudentDetails;
+                                        $buyerDetails = $viewData->studentDetails;
                                     }elseif($viewData->role_id == 3){
                                         $buyerDetails = $viewData->parentsDetails;
                                     }else{

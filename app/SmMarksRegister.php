@@ -28,14 +28,14 @@ class SmMarksRegister extends Model
     }
 
     public function studentInfo(){
-        return $this->belongsTo('App\SmStudent', 'student_id', 'id');
+        return $this->belongsTo('App\AramiscStudent', 'student_id', 'id');
     }
 
     public static function subjectDetails($exam, $class, $section, $subject){
     	
         try {
-            $exam_schedule = SmExamSchedule::where('exam_id', $exam)->where('class_id', $class)->where('section_id', $section)->first();
-            return SmExamScheduleSubject::where('exam_schedule_id', $exam_schedule->id)->where('subject_id', $subject)->first();
+            $exam_schedule = AramiscExamSchedule::where('exam_id', $exam)->where('class_id', $class)->where('section_id', $section)->first();
+            return AramiscExamScheduleSubject::where('exam_schedule_id', $exam_schedule->id)->where('subject_id', $subject)->first();
         } catch (\Exception $e) {
             $data=[];
             return $data;
@@ -62,32 +62,32 @@ class SmMarksRegister extends Model
 
     public static function is_absent_check($exam_id, $class_id, $section_id, $subject_id, $student_id, $record_id)
     {
-            $exam = SmExam::where('exam_type_id', $exam_id)
+            $exam = AramiscExam::where('exam_type_id', $exam_id)
                     ->where('class_id', $class_id)
                     ->where('section_id', $section_id)
                     ->where('subject_id', $subject_id)
                     ->first();
 
-            $exam_aramiscAttendance = SmExamAttendance::where('exam_id', $exam->id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
-            if ($exam_aramiscAttendance) {
-                $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->where('student_id', $student_id)->where('student_record_id', $record_id)->first();
-                return $exam_aramiscAttendance_child;
+            $exam_attendance = AramiscExamAttendance::where('exam_id', $exam->id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
+            if ($exam_attendance) {
+                $exam_attendance_child = AramiscExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->where('student_id', $student_id)->where('student_record_id', $record_id)->first();
+                return $exam_attendance_child;
             }
             return null;
     }
 
     public static function un_is_absent_check($exam_id, $request, $subject_id, $student_id, $record_id)
     {
-        $SmExamAttendance = SmExamAttendance::query();
-        $exam_aramiscAttendance = universityFilter($SmExamAttendance, $request)
+        $AramiscExamAttendance = AramiscExamAttendance::query();
+        $exam_attendance = universityFilter($AramiscExamAttendance, $request)
                             ->where('exam_id', $exam_id)
                             ->where('un_subject_id', $subject_id)
                             ->orWhereNull('un_section_id')
                             ->first();
                           
        
-            if ($exam_aramiscAttendance) {
-                return SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)
+            if ($exam_attendance) {
+                return AramiscExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)
                     ->where('student_id', $student_id)
                     ->where('student_record_id', $record_id)
                     ->first();

@@ -22,6 +22,6 @@ Route::group(['middleware' => ['subdomain']], function () {
         Route::post('email-template', 'TemplateSettingsController@emailTemplateUpdate')->name('templatesettings.email-template-update');
 
         Route::get('sms-template', 'TemplateSettingsController@smsTemplate')->name('templatesettings.sms-template')->middleware('userRolePermission:templatesettings.sms-template');
-        Route::post('sms-template-update', 'TemplateSettingsController@smsTemplateUpdate')->name('templatesettings.sms-template-update')->middleware('userRolePermission:sms-template-new-store');
+        Route::post('sms-template-update', 'TemplateSettingsController@smsTemplateUpdate')->name('templatesettings.sms-template-update')->middleware('userRolePermission:templatesettings.sms-template');
     });
 });

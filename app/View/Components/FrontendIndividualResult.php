@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\SmExamType;
+use App\AramiscExamType;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -22,7 +22,7 @@ class FrontendIndividualResult extends Component
      */
     public function render(): View|Closure|string
     {
-        $exam_types = SmExamType::where('school_id', app('school')->id)->get();
+        $exam_types = AramiscExamType::where('school_id', app('school')->id)->get();
         return view('components.' . activeTheme() . '.frontend-individual-result', compact('exam_types'));
     }
 }

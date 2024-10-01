@@ -29,7 +29,7 @@
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'due_fees_login_permission_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
+                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'due_fees_login_permission_search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="white-box filter_card">

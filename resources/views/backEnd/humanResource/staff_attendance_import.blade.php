@@ -8,18 +8,18 @@
     </style>
 @endpush
 @section('title')
-@lang('hr.staff_aramiscAttendance_import')
+@lang('hr.staff_attendance_import')
 @endsection 
 @section('mainContent')
 <section class="sms-breadcrumb mb-20 up_breadcrumb">
     <div class="container-fluid">
         <div class="row justify-content-between">
-            <h1>@lang('hr.staff_aramiscAttendance')</h1>
+            <h1>@lang('hr.staff_attendance')</h1>
             <div class="bc-pages">
                 <a href="{{route('dashboard')}}">@lang('common.dashboard')</a>
                 <a href="#">@lang('hr.human_resource')</a>
-                <a href="#">@lang('hr.staff_aramiscAttendance')</a>
-                <a href="#">@lang('hr.staff_aramiscAttendance_import')</a>
+                <a href="#">@lang('hr.staff_attendance')</a>
+                <a href="#">@lang('hr.staff_attendance_import')</a>
             </div>
         </div>
     </div>
@@ -33,8 +33,8 @@
                 </div>
             </div>
             <div class="offset-lg-3 col-lg-3 text-right mb-20">
-                {{-- <a href="{{url('download-staff-aramiscAttendance-file')}}" > --}}
-                <a href="{{url('/public/backEnd/bulksample/staff_aramiscAttendance.xlsx')}}" >
+                {{-- <a href="{{url('download-staff-attendance-file')}}" > --}}
+                <a href="{{url('/public/backEnd/bulksample/staff_attendance.xlsx')}}" >
                     <button class="primary-btn tr-bg text-uppercase bord-rad">
                         @lang('student.download_sample_file')
                         <span class="pl ti-download"></span>
@@ -42,7 +42,7 @@
                 </a>
             </div>
         </div>
-        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-aramiscAttendance-bulk-store',
+        {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'staff-attendance-bulk-store',
                         'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'student_form']) }}
         <div class="row">
             <div class="col-lg-12">
@@ -75,8 +75,8 @@
                                     <div class="row no-gutters input-right-icon">
                                         <div class="col">
                                             <div class="primary_input">
-                                                <input class="primary_input_field  primary_input_field date form-control form-control read-only-input has-content" id="startDate" type="text" name="aramiscAttendance_date" autocomplete="off" value="{{date('m/d/Y')}}">
-                                                <label for="startDate"> @lang('hr.aramiscAttendance_date') <span class="text-danger"> *</span></label>
+                                                <input class="primary_input_field  primary_input_field date form-control form-control read-only-input has-content" id="startDate" type="text" name="attendance_date" autocomplete="off" value="{{date('m/d/Y')}}">
+                                                <label for="startDate"> @lang('hr.attendance_date') <span class="text-danger"> *</span></label>
                                                 
                                              </div>
                                         </div>
@@ -117,7 +117,7 @@
                             <div class="col-lg-12 text-center">
                                 <button class="primary-btn fix-gr-bg">
                                     <span class="ti-check"></span>
-                                    @lang('hr.import_aramiscAttendance')
+                                    @lang('hr.import_attendance')
                                 </button>
                             </div>
                         </div>

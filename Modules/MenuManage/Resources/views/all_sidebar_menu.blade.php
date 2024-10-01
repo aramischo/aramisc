@@ -158,7 +158,7 @@
                     
                                                                                    <?php 
                     
-                                                                                       $subModule= DB::table('sidebars')->where('parent_id',$module_info->aramisc_module_id)->where('active_status', 1)->get();
+                                                                                       $subModule= DB::table('sidebars')->where('parent_id',$module_info->infix_module_id)->where('active_status', 1)->get();
                                                                                    ?>
                                                                                        @foreach($subModule as $row2)
                     
@@ -208,18 +208,18 @@
                                                           @php 
                                                     
                                                              if (moduleStatusCheck('SaasRolePermission') == TRUE) {
-                                                                 $module_info = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->first();
-                                                                 $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('id', '!=', $key)->get();
+                                                                 $module_info = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->first();
+                                                                 $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('id', '!=', $key)->get();
                                                              } else {
-                                                                 $module_info = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('is_saas',0)->first();
-                                                                 $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('is_saas',0)->get();
+                                                                 $module_info = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('is_saas',0)->first();
+                                                                 $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('is_saas',0)->get();
                                                              }
                     
                                   
                     
                     
                     
-                                                             $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
+                                                             $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
                     
                     
                     
@@ -249,7 +249,7 @@
                     
                                                                                              <?php 
                     
-                                                                                                 $subModule= DB::table('aramisc_module_infos')->where('parent_id',$module_info->id)->where('active_status', 1)->get();
+                                                                                                 $subModule= DB::table('infix_module_infos')->where('parent_id',$module_info->id)->where('active_status', 1)->get();
                                                                                              ?>
                                                                                                  @foreach($subModule as $row2)
                     

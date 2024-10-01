@@ -3,15 +3,15 @@
 namespace Modules\Fees\Http\Controllers;
 
 use App\User;
-use App\SmClass;
-use App\SmSchool;
-use App\SmStudent;
-use App\SmAddIncome;
-use App\SmBankAccount;
-use App\SmPaymentMethhod;
+use App\AramiscClass;
+use App\AramiscSchool;
+use App\AramiscStudent;
+use App\AramiscAddIncome;
+use App\AramiscBankAccount;
+use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,7 @@ use Modules\Fees\Http\Controllers\FeesExtendedController;
 use Modules\ToyyibPay\Http\Controllers\ToyyibPayController;
 class StudentFeesController extends Controller
 {
-    public function aramiscStudentFeesList()
+    public function studentFeesList()
     {
         $user = auth()->user();
         if($user->role_id != 2) {
@@ -51,7 +51,7 @@ class StudentFeesController extends Controller
 
         return view('fees::student.feesInfo',compact('student_id','records'));
     }
-    public function aramiscStudentFeesListParent($id)
+    public function studentFeesListParent($id)
     {
         $student_id = $id;
         if(moduleStatusCheck('University')){
@@ -74,7 +74,7 @@ class StudentFeesController extends Controller
     public function studentAddFeesPayment($id)
     {
         try{
-            $classes = SmClass::where('school_id',Auth::user()->school_id)
+            $classes = AramiscClass::where('school_id',Auth::user()->school_id)
             ->where('academic_id',getAcademicId())
             ->get();
 
@@ -86,7 +86,7 @@ class StudentFeesController extends Controller
                         ->where('academic_id', getAcademicId())
                         ->get();
 
-            $paymentMethods = SmPaymentMethhod::whereNotIn('method', ["Cash"])
+            $paymentMethods = AramiscPaymentMethhod::whereNotIn('method', ["Cash"])
                                 ->where('school_id',Auth::user()->school_id);
 
             if(!moduleStatusCheck('RazorPay')){
@@ -97,7 +97,7 @@ class StudentFeesController extends Controller
             $paymentMethods = $paymentMethods->get();
           
             
-            $bankAccounts = SmBankAccount::where('school_id',Auth::user()->school_id)
+            $bankAccounts = AramiscBankAccount::where('school_id',Auth::user()->school_id)
                             ->where('active_status',1)
                             ->where('academic_id', getAcademicId())
                             ->get();
@@ -108,12 +108,12 @@ class StudentFeesController extends Controller
                             ->where('academic_id', getAcademicId())
                             ->get();
 
-            $stripe_info = SmPaymentGatewaySetting::where('gateway_name', 'Stripe')
+            $stripe_info = AramiscPaymentGatewaySetting::where('gateway_name', 'Stripe')
                             ->where('school_id', Auth::user()->school_id)
                             ->first();
             $razorpay_info = null;
             if(moduleStatusCheck('RazorPay')){
-                $razorpay_info = SmPaymentGatewaySetting::where('gateway_name', 'RazorPay')
+                $razorpay_info = AramiscPaymentGatewaySetting::where('gateway_name', 'RazorPay')
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
             }
@@ -126,7 +126,7 @@ class StudentFeesController extends Controller
 
     }
 
-    public function aramiscStudentFeesPaymentStore(Request $request)
+    public function studentFeesPaymentStore(Request $request)
     {
         if($request->total_paid_amount == null){
             Toastr::warning('Paid Amount Can Not Be Blank', 'Failed');
@@ -148,7 +148,7 @@ class StudentFeesController extends Controller
             $file = fileUpload($request->file('file'), $destination);
 
             $record = StudentRecord::find($request->student_id);
-            $student=SmStudent::with('parents')->find($record->student_id);
+            $student=AramiscStudent::with('parents')->find($record->student_id);
             
             if($request->payment_method == "Wallet"){
                 $user = User::find(Auth::user()->id);
@@ -236,7 +236,7 @@ class StudentFeesController extends Controller
                     $addPayment->academic_id = getAcademicId();
                     $addPayment->save();
         
-                    $school = SmSchool::find($user->school_id);
+                    $school = AramiscSchool::find($user->school_id);
                     $compact['full_name'] = $user->full_name;
                     $compact['method'] = $request->payment_method;
                     $compact['create_date'] = date('Y-m-d');
@@ -250,10 +250,10 @@ class StudentFeesController extends Controller
                 }
 
                 // Income
-                $payment_method = SmPaymentMethhod::where('method', $request->payment_method)->first();
+                $payment_method = AramiscPaymentMethhod::where('method', $request->payment_method)->first();
                 $income_head = generalSetting();
 
-                $add_income = new SmAddIncome();
+                $add_income = new AramiscAddIncome();
                 $add_income->name = 'Fees Collect';
                 $add_income->date = date('Y-m-d');
                 $add_income->amount = $request->total_paid_amount;
@@ -363,7 +363,7 @@ class StudentFeesController extends Controller
                     $extendedController->addFeesAmount($storeTransaction->id, null);
                 }elseif($data['payment_method'] == 'CcAveune'){
                     $ccAvenewPaymentController = new CcAveuneController();
-                    $ccAvenewPaymentController->aramiscStudentFeesPay($data['amount'] , $data['transcationId'], $data['type']);
+                    $ccAvenewPaymentController->studentFeesPay($data['amount'] , $data['transcationId'], $data['type']);
                 }elseif($data['payment_method'] == 'ToyyibPay'){
                     if(moduleStatusCheck('ToyyibPay')){
                         $toyyibPayController = new ToyyibPayController();
@@ -379,7 +379,7 @@ class StudentFeesController extends Controller
                             'invoice_id' => $request->invoice_id
 
                         ];
-                        $data_store = $toyyibPayController->aramiscStudentFeesPay($data);
+                        $data_store = $toyyibPayController->studentFeesPay($data);
                         return redirect($data_store);
                     }else {
                         Toastr::error('ToyyibPay Module Not Active', 'Failed');

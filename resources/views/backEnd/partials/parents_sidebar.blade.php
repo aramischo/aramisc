@@ -186,7 +186,7 @@
         </ul>
     </li>
 @endif
-@if (userPermission('parent_aramiscAttendance') && menuStatus(75))
+@if (userPermission('parent_attendance') && menuStatus(75))
     <li data-position="{{ menuPosition(75) }}" class="sortable_li">
         <a href="javascript:void(0)" class="has-arrow" aria-expanded="false">
 
@@ -195,13 +195,13 @@
             </div>
             <div class="nav_title">
                 <span>
-                    @lang('student.aramiscAttendance')</span>
+                    @lang('student.attendance')</span>
             </div>
         </a>
         <ul class="list-unstyled" id="subMenuParentAttendance">
             @foreach ($childrens as $children)
                 <li>
-                    <a href="{{ route('parent_aramiscAttendance', [$children->id]) }}">{{ $children->full_name }}</a>
+                    <a href="{{ route('parent_attendance', [$children->id]) }}">{{ $children->full_name }}</a>
                 </li>
             @endforeach
         </ul>

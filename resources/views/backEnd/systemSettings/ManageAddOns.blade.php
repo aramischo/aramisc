@@ -160,7 +160,7 @@
                                         <tbody>
                                             <input type="hidden" name="url" id="url" value="{{ URL::to('/') }}">
                                             @php
-                                                $modules = App\AramiscModuleManager::where('is_default', 0)->get();
+                                                $modules = App\InfixModuleManager::where('is_default', 0)->get();
                                                 $count = 1;
                                                 $module_array = [];
                                             @endphp

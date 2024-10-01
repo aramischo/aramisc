@@ -124,8 +124,8 @@
                         <img class="logo-img" src="{{ url('/')}}/{{generalSetting()->logo }}" alt=""> 
                     </th>
                     <th colspan="2"> 
-                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                        <p class="text-white mb-0" style="padding-right:10px !important;"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3> 
+                        <p class="text-white mb-0" style="padding-right:10px !important;"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
                     </th> 
 
                 </tr>  
@@ -135,7 +135,7 @@
                 <tr>
                     <td  style=" padding:10px; vertical-align:top;">
                         
-                        <p class="mb-0" style="padding-right:10px !important; font-size:11px;"> @lang('common.name') : <span class="primary-color fw-500">{{$aramiscStudentDetails->full_name}}</span> </p>
+                        <p class="mb-0" style="padding-right:10px !important; font-size:11px;"> @lang('common.name') : <span class="primary-color fw-500">{{$studentDetails->full_name}}</span> </p>
                         <p class="mb-0" style="padding-right:10px !important; font-size:11px;"> @lang('common.academic_year') : <span class="primary-color fw-500">{{generalSetting()->session_year}}</span> </p>
                         {{-- <p class="mb-0" style="padding-right:10px !important; font-size:11px;"> @lang('exam.exam') : <span class="primary-color fw-500">{{@$exam_name}}</span> </p> --}}
                         <p class="mb-0" style="padding-right:10px !important; font-size:11px;"> @lang('common.class') : <span class="primary-color fw-500">{{@$class->class_name}}</span> </p>

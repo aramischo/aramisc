@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\SmStudent;
+use App\AramiscStudent;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -34,7 +34,7 @@ class AllStudentExport implements FromCollection,WithHeadings
     public function collection()
     {
         $all_student_data = [];
-        $student_infos = SmStudent::where('school_id', Auth::user()->school_id)
+        $student_infos = AramiscStudent::where('school_id', Auth::user()->school_id)
                   
                   
                     ->with('studentRecords')

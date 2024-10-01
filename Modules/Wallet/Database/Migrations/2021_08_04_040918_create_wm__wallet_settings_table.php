@@ -1,7 +1,7 @@
 <?php
 
-use App\SmLanguagePhrase;
-use App\SmPaymentMethhod;
+use App\AramiscLanguagePhrase;
+use App\AramiscPaymentMethhod;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -27,15 +27,15 @@ class CreateWmWalletSettingsTable extends Migration
     // Add New Payment Method In Payment Method Settings
 
         if (moduleStatusCheck('Saas')){
-            $schools = \App\SmSchool::all();
+            $schools = \App\AramiscSchool::all();
         } else{
-            $schools = \App\SmSchool::where('id', 1)->get();
+            $schools = \App\AramiscSchool::where('id', 1)->get();
         }
 
    foreach ($schools as $school){
-       $payment_method = SmPaymentMethhod::where('method', 'Wallet')->where('school_id', $school->id)->first();
+       $payment_method = AramiscPaymentMethhod::where('method', 'Wallet')->where('school_id', $school->id)->first();
        if (!$payment_method){
-           $storePaymentMethod = new SmPaymentMethhod ();
+           $storePaymentMethod = new AramiscPaymentMethhod ();
            $storePaymentMethod->method = 'Wallet';
            $storePaymentMethod->type = 'System';
            $storePaymentMethod->active_status = 1;

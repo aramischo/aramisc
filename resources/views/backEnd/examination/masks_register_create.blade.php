@@ -240,7 +240,7 @@
                                         @endphp
                                         @foreach ($students as $record)
                                             @php
-                                                $absent_check = App\SmMarksRegister::un_is_absent_check($exam_id, $request, $subject_id, $record->student_id, $record->student_record_id);
+                                                $absent_check = App\AramiscMarksRegister::un_is_absent_check($exam_id, $request, $subject_id, $record->student_id, $record->student_record_id);
                                             @endphp
                                             <tr>
                                                 <td>
@@ -256,7 +256,7 @@
                                                     <input type="hidden"
                                                         name="markStore[{{ $record->student_record_id }}][adimission_no]"
                                                         value="{{ $record->studentDetail->admission_no }}">
-                                                    @if (@$absent_check->aramiscAttendance_type != 'P')
+                                                    @if (@$absent_check->attendance_type != 'P')
                                                         <input type="hidden"
                                                             name="markStore[{{ $record->student_record_id }}][absent_students]"
                                                             value="{{ $record->student_record_id }}">
@@ -273,7 +273,7 @@
                                                             <input type="hidden" name="exam_setup_ids[]"
                                                                 value="{{ $part->id }}">
                                                             <?php
-                                                            $search_mark = App\SmMarkStore::un_get_mark_by_part($record->student_id, $request, $part->exam_term_id, $part->un_subject_id, $part->id, $record->id);
+                                                            $search_mark = App\AramiscMarkStore::un_get_mark_by_part($record->student_id, $request, $part->exam_term_id, $part->un_subject_id, $part->id, $record->id);
                                                             ?>
                                                             <input oninput="numberCheckWithDot(this)"
                                                                 class="primary_input_field marks_input" type="text"
@@ -292,7 +292,7 @@
                                                     </td>
                                                 @endforeach
                                                 <?php
-                                                $teacher_remarks = App\SmMarkStore::un_teacher_remarks($record->student_id, $exam_type_id, $request, $subject_id, $record->student_record_id);
+                                                $teacher_remarks = App\AramiscMarkStore::un_teacher_remarks($record->student_id, $exam_type_id, $request, $subject_id, $record->student_record_id);
                                                 ?>
                                                 <td>
                                                     <div class="primary_input">
@@ -303,10 +303,10 @@
                                                             for="">@lang('teacher') @lang('remarks')</label>
                                                     </div>
                                                 </td>
-                                                <?php $is_absent_check = App\SmMarkStore::un_is_absent_check($record->student_id, $part->exam_term_id, $request, $part->subject_id, $record->student_record_id); ?>
+                                                <?php $is_absent_check = App\AramiscMarkStore::un_is_absent_check($record->student_id, $part->exam_term_id, $request, $part->subject_id, $record->student_record_id); ?>
                                                 <td>
                                                     <div class="primary_input">
-                                                        @if (@$absent_check->aramiscAttendance_type == 'P')
+                                                        @if (@$absent_check->attendance_type == 'P')
                                                             <button class="primary-btn small fix-gr-bg"
                                                                 type="button">@lang('exam.present')</button>
                                                         @else
@@ -383,7 +383,7 @@
                                             @endphp
                                             @foreach ($students as $record)
                                                 @php
-                                                    $absent_check = App\SmMarksRegister::is_absent_check($exam_type->id, $class_id, $record->section_id, $subject_id, $record->student_id, $record->id);
+                                                    $absent_check = App\AramiscMarksRegister::is_absent_check($exam_type->id, $class_id, $record->section_id, $subject_id, $record->student_id, $record->id);
                                                 @endphp
                                                 <tr>
                                                     <td>
@@ -404,7 +404,7 @@
                                                         <input type="hidden"
                                                             name="markStore[{{ $record->id }}][adimission_no]"
                                                             value="{{ $record->studentDetail->admission_no }}">
-                                                        @if (@$absent_check->aramiscAttendance_type != 'P' && !isSkip('exam_aramiscAttendance'))
+                                                        @if (@$absent_check->attendance_type != 'P' && !isSkip('exam_attendance'))
                                                             <input type="hidden"
                                                                 name="markStore[{{ $record->id }}][absent_students]"
                                                                 value="{{ $record->id }}">
@@ -423,14 +423,14 @@
                                                                 <input type="hidden" name="exam_setup_ids[]"
                                                                     value="{{ $part->id }}">
                                                                 <?php
-                                                                $search_mark = App\SmMarkStore::get_mark_by_part($record->student_id, $part->exam_term_id, $part->class_id, $part->section_id, $part->subject_id, $part->id, $record->id);
+                                                                $search_mark = App\AramiscMarkStore::get_mark_by_part($record->student_id, $part->exam_term_id, $part->class_id, $part->section_id, $part->subject_id, $part->id, $record->id);
                                                                 ?>
                                                                 <input oninput="numberCheckWithDot(this)"
                                                                     class="primary_input_field marks_input" type="text"
                                                                     step="any" max="{{ @$part->exam_mark }}"
                                                                     name="markStore[{{ $record->id }}][marks][{{ $part->id }}]"
                                                                     value="{{ !empty($search_mark) ? $search_mark : 0 }}"
-                                                                    {{ @($absent_check->aramiscAttendance_type == 'A' || @$absent_check->aramiscAttendance_type == '') && !isSkip('exam_aramiscAttendance') ? 'readonly' : '' }}>
+                                                                    {{ @($absent_check->attendance_type == 'A' || @$absent_check->attendance_type == '') && !isSkip('exam_attendance') ? 'readonly' : '' }}>
 
                                                                 <input class="primary_input_field" type="hidden"
                                                                     name="markStore[{{ $record->id }}][exam_Sids][{{ $entry_form_count++ }}]"
@@ -443,20 +443,20 @@
                                                         </td>
                                                     @endforeach
                                                     <?php
-                                                    $teacher_remarks = App\SmMarkStore::teacher_remarks($record->student_id, $exam_type->id, $record->class_id, $record->section_id, $subject_id, $record->id);
+                                                    $teacher_remarks = App\AramiscMarkStore::teacher_remarks($record->student_id, $exam_type->id, $record->class_id, $record->section_id, $subject_id, $record->id);
                                                     ?>
                                                     <td>
                                                         <div class="primary_input">
                                                             <input class="primary_input_field" type="text"
                                                                 name="markStore[{{ $record->id }}][teacher_remarks]"
                                                                 value="{{ $teacher_remarks }}"
-                                                                {{ @($absent_check->aramiscAttendance_type == 'A' || @$absent_check->aramiscAttendance_type == '') && !isSkip('exam_aramiscAttendance') ? 'readonly' : '' }}>
+                                                                {{ @($absent_check->attendance_type == 'A' || @$absent_check->attendance_type == '') && !isSkip('exam_attendance') ? 'readonly' : '' }}>
                                                         </div>
                                                     </td>
-                                                    <?php $is_absent_check = App\SmMarkStore::is_absent_check($record->student_id, $part->exam_term_id, $part->class_id, $part->section_id, $part->subject_id, $record->id); ?>
+                                                    <?php $is_absent_check = App\AramiscMarkStore::is_absent_check($record->student_id, $part->exam_term_id, $part->class_id, $part->section_id, $part->subject_id, $record->id); ?>
                                                     <td>
                                                         <div class="primary_input">
-                                                            @if (@$absent_check->aramiscAttendance_type == 'P')
+                                                            @if (@$absent_check->attendance_type == 'P')
                                                                 <button class="primary-btn small fix-gr-bg"
                                                                     type="button">@lang('exam.present')</button>
                                                             @else

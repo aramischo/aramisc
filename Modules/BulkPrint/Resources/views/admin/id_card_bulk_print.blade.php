@@ -549,7 +549,7 @@
                                                                     justify-content: space-between;">
 
                                         @php
-                                                                $studentInfos= App\SmStudentIdCard::studentName($staff_student->id);
+                                                                $studentInfos= App\AramiscStudentIdCard::studentName($staff_student->id);
                                                             @endphp
                                                             @foreach ($studentInfos as $studentInfo)
                                                                 <div class="single__child" style="text-align: center; flex: 45px 0 0;">
@@ -630,7 +630,7 @@
                                     </div>
                                 </div>
                                 @php
-                                $studentInfos = App\SmStudentIdCard::studentName($staff_student->id);
+                                $studentInfos = App\AramiscStudentIdCard::studentName($staff_student->id);
                                 @endphp
                                 <div class="child__thumbs"
                                     style="display:flex; align-items: center; margin:  0px 0 0px 0; display: flex;

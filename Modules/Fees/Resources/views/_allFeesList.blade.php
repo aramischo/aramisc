@@ -47,6 +47,7 @@
                                     <tr>
                                         <th>@lang('common.sl')</th>
                                         <th>@lang('common.student')</th>
+                                        <th>@lang('admin.admission_no')</th>
                                         <th>@lang('accounts.amount')</th>
                                         <th>@lang('fees::feesModule.waiver')</th>
                                         <th>@lang('fees.fine')</th>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>@lang('reports.official_transcript') [{{ $aramiscStudentDetails->full_name }}] </title>
+  <title>@lang('reports.official_transcript') [{{ $studentDetails->full_name }}] </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/print/bootstrap.min.css"/>
@@ -64,8 +64,8 @@
         $address =$generalSetting->address;
         $phone =$generalSetting->phone; 
     }
-    $section = App\SmSection::find($aramiscStudentDetails->section_id);
-    $class = App\SmClass::find($aramiscStudentDetails->class_id);
+    $section = App\AramiscSection::find($studentDetails->section_id);
+    $class = App\AramiscClass::find($studentDetails->class_id);
 @endphp
 
 <div class="container">
@@ -75,8 +75,8 @@
                 <img class="logo-img" src="{{ url('/')}}/{{generalSetting()->logo }}" alt="">
             </td>
             <td style="text-align: left; width: 70%">
-                <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
             </td>
         </tr>
     </table>
@@ -91,23 +91,23 @@
                 <table style="width:100%">
                     <tr>
                         <td>
-                            <strong>@lang('student.student_name'):</strong> {{ $aramiscStudentDetails->full_name }} <br>
+                            <strong>@lang('student.student_name'):</strong> {{ $studentDetails->full_name }} <br>
                             <strong>@lang('student.mother_name')
-                                :</strong> {{ @$aramiscStudentDetails->student->parents->mothers_name }}<br>
+                                :</strong> {{ @$studentDetails->student->parents->mothers_name }}<br>
                             <strong>@lang('common.school_name'):</strong> {{ generalSetting()->school_name }}
                             <br>
                         </td>
                         <td>
                             <strong>@lang('student.transcript_no')
-                                :</strong> {{ $aramiscStudentDetails->admission_number }}<br>
+                                :</strong> {{ $studentDetails->admission_number }}<br>
                             <strong>@lang('common.academic_year'): </strong> {{ generalSetting()->academic_Year->year }}
                             <br>
-                            <strong>@lang('student.admission_no'):</strong> {{ $aramiscStudentDetails->admission_number }}<br>
+                            <strong>@lang('student.admission_no'):</strong> {{ $studentDetails->admission_number }}<br>
                         </td>
                         <td>
                             <strong>@lang('common.class'):</strong> {{ $current_class->class_name }}<br>
                             <strong>@lang('common.section') :</strong> {{ $current_section->section_name }}<br>
-                            <strong>@lang('common.date_of_birth'):</strong> {{ $aramiscStudentDetails->date_of_birth != ""? dateConvert($aramiscStudentDetails->date_of_birth):''}}
+                            <strong>@lang('common.date_of_birth'):</strong> {{ $studentDetails->date_of_birth != ""? dateConvert($studentDetails->date_of_birth):''}}
                     
                         </td>
                     </tr>
@@ -120,20 +120,20 @@
             </div>
         </div>
         <div class="row" style="margin-top:10px">
-            @foreach ($promotes as $aramiscStudentDetails)     
+            @foreach ($promotes as $studentDetails)     
                 @php                                         
-                    $student_id = $aramiscStudentDetails->student_id;
-                    $class_id = $aramiscStudentDetails->previous_class_id;
-                    $section_id = $aramiscStudentDetails->previous_section_id;
-                    $year = $aramiscStudentDetails->year;
-                    $current_class = App\SmStudent::where('sm_students.id', $student_id)->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')->first();
-                    $current_section = App\SmStudent::where('sm_students.id', $student_id)->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')->first();
-                    $current_session = App\SmStudent::where('sm_students.id', $student_id)->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')->first();
-                    $exams = App\SmExam::where('active_status', 1)->where('class_id', $class_id)->where('section_id', $section_id)->get();
-                    $exam_types = App\SmExamType::where('active_status', 1)->where('academic_id', getAcademicId())->get();
-                    $classes = App\SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->get();
-                    $exam_setup = App\SmExamSetup::where([['class_id', $class_id], ['section_id', $section_id]])->get();
-                    $subjects = App\SmAssignSubject::where([['class_id', $class_id], ['section_id', $section_id]])->get();
+                    $student_id = $studentDetails->student_id;
+                    $class_id = $studentDetails->previous_class_id;
+                    $section_id = $studentDetails->previous_section_id;
+                    $year = $studentDetails->year;
+                    $current_class = App\AramiscStudent::where('sm_students.id', $student_id)->join('sm_classes', 'sm_classes.id', '=', 'sm_students.class_id')->first();
+                    $current_section = App\AramiscStudent::where('sm_students.id', $student_id)->join('sm_sections', 'sm_sections.id', '=', 'sm_students.section_id')->first();
+                    $current_session = App\AramiscStudent::where('sm_students.id', $student_id)->join('sm_academic_years', 'sm_academic_years.id', '=', 'sm_students.session_id')->first();
+                    $exams = App\AramiscExam::where('active_status', 1)->where('class_id', $class_id)->where('section_id', $section_id)->get();
+                    $exam_types = App\AramiscExamType::where('active_status', 1)->where('academic_id', getAcademicId())->get();
+                    $classes = App\AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->get();
+                    $exam_setup = App\AramiscExamSetup::where([['class_id', $class_id], ['section_id', $section_id]])->get();
+                    $subjects = App\AramiscAssignSubject::where([['class_id', $class_id], ['section_id', $section_id]])->get();
                     $assinged_exam_types = [];
                     foreach ($exams as $exam) {
                         $assinged_exam_types[] = $exam->exam_type_id;
@@ -141,13 +141,13 @@
                     $assinged_exam_types = array_unique($assinged_exam_types);
                     foreach ($assinged_exam_types as $assinged_exam_type) {
                         foreach ($subjects as $subject) {
-                            $is_mark_available = App\SmResultStore::where([['class_id', $class_id], ['section_id', $section_id], ['student_id', $student_id], ['subject_id', $subject->subject_id], ['exam_type_id', $assinged_exam_type]])->first();
+                            $is_mark_available = App\AramiscResultStore::where([['class_id', $class_id], ['section_id', $section_id], ['student_id', $student_id], ['subject_id', $subject->subject_id], ['exam_type_id', $assinged_exam_type]])->first();
                             if ($is_mark_available == "") {
                                 return redirect('session-student')->with('message-danger', 'Ops! Your result is not found! Please check mark register.');
                             }
                         }
                     }
-                    $is_result_available = App\SmResultStore::where([['class_id', $class_id], ['section_id', $section_id], ['student_id', $student_id]])->get();
+                    $is_result_available = App\AramiscResultStore::where([['class_id', $class_id], ['section_id', $section_id], ['student_id', $student_id]])->get();
                 @endphp
                 @if ($is_result_available->count() > 0)  
                     <div class="col-md-6">     
@@ -156,17 +156,17 @@
                                 <td>
                                     <strong>@lang('exam.exam_terms'):</strong> 
                                         @php
-                                            $exam=App\SmExamType::where('id',$is_mark_available->exam_type_id)->first();
+                                            $exam=App\AramiscExamType::where('id',$is_mark_available->exam_type_id)->first();
                                         @endphp
                                         {{ $exam->title }}
                                 </td>
                                 <td>
-                                        <strong>@lang('student.roll'):</strong> {{ $aramiscStudentDetails->previous_roll_number }}
+                                        <strong>@lang('student.roll'):</strong> {{ $studentDetails->previous_roll_number }}
                                 </td>
                                 <td>
                                         <strong>@lang('common.class'):</strong> 
                                         @php
-                                            $class=App\SmClass::where('id',$is_mark_available->class_id)->first();
+                                            $class=App\AramiscClass::where('id',$is_mark_available->class_id)->first();
                                         @endphp
                                         {{ $class->class_name }}
                                 </td>
@@ -184,7 +184,7 @@
                                     <th rowspan="2">@lang('common.subjects')</th>
                                     @foreach($assinged_exam_types as $assinged_exam_type)
                                     @php
-                                        $exam_type = App\SmExamType::examType($assinged_exam_type);
+                                        $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                                     @endphp
                                         <th colspan="2" style="text-align: center;">{{$exam_type->title}}</th>
                                     @endforeach
@@ -214,11 +214,11 @@
                                         $TotalSum= 0;
                                     foreach($assinged_exam_types as $assinged_exam_type){
 
-                                        $mark_parts     =   App\SmAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
+                                        $mark_parts     =   App\AramiscAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
 
-                                        $result         =   App\SmResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
+                                        $result         =   App\AramiscResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
                                         if(!empty($result)){
-                                            $final_results = App\SmResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
+                                            $final_results = App\AramiscResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
                                         }
                                         if($result->count()>0){
                                             ?>
@@ -261,7 +261,7 @@
                                                         echo 'F';
                                                     }else{
                                                         $totalSumSub = $totalSumSub / count($assinged_exam_types);
-                                                        $mark_grade = App\SmMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->first();
+                                                        $mark_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->first();
                                                         echo @$mark_grade->grade_name;
                                                     }
                                                 @endphp
@@ -271,7 +271,7 @@
                                                     if($totalSubjectFail > 0){
                                                         echo 'F';
                                                     }else{
-                                                        $mark_grade = App\SmMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->first();
+                                                        $mark_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->first();
                                                         echo @$mark_grade->gpa;
                                                         $sumation= $sumation + $mark_grade->gpa;
                                                     
@@ -308,7 +308,7 @@
                                                     $sumation= 0;
                                                 }
                                                 if($grade_point_final!= '0.00'){ 
-                                                    $average_grade = App\SmMarksGrade::where([['from', '<=', $grade_point_final], ['up', '>=', $grade_point_final]])->first();
+                                                    $average_grade = App\AramiscMarksGrade::where([['from', '<=', $grade_point_final], ['up', '>=', $grade_point_final]])->first();
                                                     echo @$average_grade->grade_name;
 
                                                 }else{

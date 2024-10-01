@@ -15,6 +15,15 @@ class SmVehicle extends Model
   //     parent::boot();
   //     static::addGlobalScope(new ActiveStatusSchoolScope);
   // } 
+
+  protected $casts = [
+    'id'            => 'integer',
+    'vehicle_model' => 'string',
+    'vehicle_no'    => 'string',
+    'made_year'     => 'integer',
+    'note'          => 'string'
+];
+
     
     public function driver()
     {

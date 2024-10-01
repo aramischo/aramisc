@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Academics;
 
 use App\SmClass;
-use App\SmSection;
+use App\AramiscSection;
 use App\tableList;
 use App\YearCheck;
 use App\ApiBaseMethod;
@@ -29,7 +29,7 @@ class SmClassController extends Controller
     public function index(Request $request)
     {
         try {
-            $sections = SmSection::query();
+            $sections = AramiscSection::query();
             if(moduleStatusCheck('University')){
                 $data = $sections->where('un_academic_id',getAcademicId());
             }else{
@@ -92,7 +92,7 @@ class SmClassController extends Controller
                 $sectionId[] = $sectionByName->section_id;
             }
 
-            $sections = SmSection::where('active_status', '=', 1)->where('created_at', 'LIKE', '%' . $this->date . '%')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+            $sections = AramiscSection::where('active_status', '=', 1)->where('created_at', 'LIKE', '%' . $this->date . '%')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
 
             $classes = SmClass::where('active_status', '=', 1)->orderBy('id', 'desc')->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withCount('records')->get();
             return view('backEnd.academics.class', compact('classById', 'classes', 'sections', 'sectionId'));

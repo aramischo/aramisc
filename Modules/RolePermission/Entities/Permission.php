@@ -3,10 +3,10 @@
 namespace Modules\RolePermission\Entities;
 
 use App\GlobalVariable;
-use App\AramiscModuleManager;
+use App\InfixModuleManager;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Permission extends Model
@@ -18,7 +18,7 @@ class Permission extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(AramiscRole::class, 'assign_permissions', 'permission_id', 'role_id');
+        return $this->belongsToMany(InfixRole::class, 'assign_permissions', 'permission_id', 'role_id');
     }
 
     public function assign()
@@ -68,7 +68,7 @@ class Permission extends Model
     }
     public function scopeWhereNotInDeaActiveModulePermission($query)
     {        
-        $activeModuleList = AramiscModuleManager::where('is_default', 0)
+        $activeModuleList = InfixModuleManager::where('is_default', 0)
         ->whereNull('purchase_code')->pluck('name')->toArray();
           
         $deActiveModules = [];            

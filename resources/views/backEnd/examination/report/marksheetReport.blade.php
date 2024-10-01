@@ -423,8 +423,8 @@
                                         <h3 class="text-white">@lang('common.class') : {{$classInfo->class_name}} ({{$sectionInfo->section_name}})</h3>
                                     </div>
                                     <div class=" col-lg-4 text-left text-lg-right mt-30-md">
-                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Adress'}} </p>
+                                        <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                        <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Adress'}} </p>
                                         <p class="text-white mb-0">
                                             @lang('common.email'): {{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}} ,
                                             @lang('common.phone'): {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}}

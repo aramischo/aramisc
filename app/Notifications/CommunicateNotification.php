@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\SmNotification;
+use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
 use SpondonIt\FCM\FcmMessage;
 use Illuminate\Notifications\Notification;

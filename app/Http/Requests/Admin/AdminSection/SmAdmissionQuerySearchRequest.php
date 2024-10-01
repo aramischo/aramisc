@@ -24,10 +24,10 @@ class SmAdmissionQuerySearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_from' => 'required|date',
-            'date_to' => 'required|date|after:date_from',
-            'source' => 'required',
-            'status' => 'required',
+            'date_from' => 'nullable|date',
+            'date_to' => 'nullable|date|after:date_from',
+            'source' => 'nullable',
+            'status' => 'nullable',
         ];
     }
 }

@@ -59,7 +59,7 @@
                 
             
             @php
-                @$driver_info=App\SmStaff::where('id','=',@$vehicle->driver_id)->first();
+                @$driver_info=App\AramiscStaff::where('id','=',@$vehicle->driver_id)->first();
             @endphp
             <div class="single-meta">
                 <div class="row">

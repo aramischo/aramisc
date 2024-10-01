@@ -170,7 +170,7 @@
                                             <td align="center"
                                         style="font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:14px; font-weight:normal; color:#24252a; line-height:22px; text-align:left; display:block;">
 										@php
-											$body = App\SmsTemplate::emailTempleteToBody(getTempleteDetails('reject_bank_payment_student')->body,$data);
+											$body = App\AramiscTemplate::emailTempleteToBody(getTempleteDetails('reject_bank_payment_student')->body,$data);
 										@endphp
 
 										{!! $body !!}

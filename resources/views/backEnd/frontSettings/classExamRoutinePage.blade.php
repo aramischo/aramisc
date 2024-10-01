@@ -179,18 +179,18 @@
                                             <div class="col-lg-6 d-flex radio-btn-flex">
                                                 <div class="col-lg-6 primary_input sm_mb_20">
                                                     <input type="radio" name="class_routine"
-                                                        id="aramiscClassRoutineShow"
+                                                        id="classRoutineShow"
                                                         class="common-radio" value="show"
                                                         {{ $routine_page->class_routine == 'show' ? 'checked' : '' }}>
-                                                    <label for="aramiscClassRoutineShow">@lang('front_settings.show')</label>
+                                                    <label for="classRoutineShow">@lang('front_settings.show')</label>
                                                 </div>
                                                 <div class="col-lg-6 primary_input sm_mb_20">
                                                     <input type="radio" name="class_routine"
-                                                        id="aramiscClassRoutineHide"
+                                                        id="classRoutineHide"
                                                         class="common-radio" value="hide"
                                                         {{ $routine_page->class_routine == 'hide' ? 'checked' : '' }}>
                                                     <label
-                                                        for="aramiscClassRoutineHide">@lang('front_settings.hide')</label>
+                                                        for="classRoutineHide">@lang('front_settings.hide')</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -201,18 +201,18 @@
                                             <div class="col-lg-6 d-flex radio-btn-flex">
                                                 <div class="col-lg-6 primary_input sm_mb_20">
                                                     <input type="radio" name="exam_routine"
-                                                        id="aramiscExamRoutineShow"
+                                                        id="examRoutineShow"
                                                         class="common-radio" value="show"
                                                         {{ $routine_page->exam_routine == 'show' ? 'checked' : '' }}>
-                                                    <label for="aramiscExamRoutineShow">@lang('front_settings.show')</label>
+                                                    <label for="examRoutineShow">@lang('front_settings.show')</label>
                                                 </div>
                                                 <div class="col-lg-6 primary_input sm_mb_20">
                                                     <input type="radio" name="exam_routine"
-                                                        id="aramiscExamRoutineHide"
+                                                        id="examRoutineHide"
                                                         class="common-radio" value="hide"
                                                         {{ $routine_page->exam_routine == 'hide' ? 'checked' : '' }}>
                                                     <label
-                                                        for="aramiscExamRoutineHide">@lang('front_settings.hide')</label>
+                                                        for="examRoutineHide">@lang('front_settings.hide')</label>
                                                 </div>
                                             </div>
                                         </div>

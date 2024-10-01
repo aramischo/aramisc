@@ -36,17 +36,17 @@
     </style>
 @endpush
 @section('title')
-    @lang('aramiscTeacherEvaluation.teacher_wise_evaluation_report')
+    @lang('teacherEvaluation.teacher_wise_evaluation_report')
 @endsection
 @section('mainContent')
     <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
-                <h1>@lang('aramiscTeacherEvaluation.teacher_wise_evaluation_report')</h1>
+                <h1>@lang('teacherEvaluation.teacher_wise_evaluation_report')</h1>
                 <div class="bc-pages">
-                    <a href="{{ route('dashboard') }}">@lang('aramiscTeacherEvaluation.dashboard')</a>
-                    <a href="#">@lang('aramiscTeacherEvaluation.teacher_evaluation')</a>
-                    <a href="#">@lang('aramiscTeacherEvaluation.teacher_wise_evaluation_report')</a>
+                    <a href="{{ route('dashboard') }}">@lang('teacherEvaluation.dashboard')</a>
+                    <a href="#">@lang('teacherEvaluation.teacher_evaluation')</a>
+                    <a href="#">@lang('teacherEvaluation.teacher_wise_evaluation_report')</a>
                 </div>
             </div>
         </div>
@@ -64,18 +64,18 @@
                                         <div class="row">
                                             <div class="col-lg-4 no-gutters">
                                                 <div class="main-title">
-                                                    <h3 class="mb-15">@lang('aramiscTeacherEvaluation.teacher_wise_evaluation_report') </h3>
+                                                    <h3 class="mb-15">@lang('teacherEvaluation.teacher_wise_evaluation_report') </h3>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6 mt-30-md" id="select_teacher_div">
-                                                <label class="primary_input_label" for="">@lang('aramiscTeacherEvaluation.teacher')
+                                                <label class="primary_input_label" for="">@lang('teacherEvaluation.teacher')
                                                     <span
                                                         class="text-danger"> </span></label>
                                                 <select class="primary_select " id="select_teacher" name="teacher_id">
-                                                    <option data-display="@lang('aramiscTeacherEvaluation.select_teacher')" value="">
-                                                        @lang('aramiscTeacherEvaluation.select_teacher')</option>
+                                                    <option data-display="@lang('teacherEvaluation.select_teacher')" value="">
+                                                        @lang('teacherEvaluation.select_teacher')</option>
                                                     @foreach ($teachers as $teacher)
                                                         <option value="{{ $teacher->id }}"
                                                             {{ old('full_name') != '' ? 'selected' : '' }}>
@@ -91,23 +91,23 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mt-30-md" id="select_submitted_by_div">
-                                                <label class="primary_input_label" for="">@lang('aramiscTeacherEvaluation.submitted_by')
+                                                <label class="primary_input_label" for="">@lang('teacherEvaluation.submitted_by')
                                                     <span
                                                         class="text-danger"> </span></label>
                                                 <select class="primary_select " id="select_submitted_by"
                                                     name="submitted_by">
-                                                    <option data-display="@lang('aramiscTeacherEvaluation.select_submitted_by')" value="">
-                                                        @lang('aramiscTeacherEvaluation.select_submitted_by')</option>
-                                                    <option data-display="@lang('aramiscTeacherEvaluation.parent')" value="3">
-                                                        @lang('aramiscTeacherEvaluation.parent')</option>
-                                                    <option data-display="@lang('aramiscTeacherEvaluation.student')" value="2">
-                                                        @lang('aramiscTeacherEvaluation.student')</option>
+                                                    <option data-display="@lang('teacherEvaluation.select_submitted_by')" value="">
+                                                        @lang('teacherEvaluation.select_submitted_by')</option>
+                                                    <option data-display="@lang('teacherEvaluation.parent')" value="3">
+                                                        @lang('teacherEvaluation.parent')</option>
+                                                    <option data-display="@lang('teacherEvaluation.student')" value="2">
+                                                        @lang('teacherEvaluation.student')</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-12 mt-20 text-right">
                                                 <button type="submit" class="primary-btn small fix-gr-bg">
                                                     <span class="ti-search pr-2"></span>
-                                                    @lang('aramiscTeacherEvaluation.search')
+                                                    @lang('teacherEvaluation.search')
                                                 </button>
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@
                                     <div class="white-box">
                                         <div class="mt-40">
                                             @include(
-                                        'backEnd.aramiscTeacherEvaluation.report._teacher_evaluation_report_common_table',
+                                        'backEnd.teacherEvaluation.report._teacher_evaluation_report_common_table',
                                         [
                                             'approved_evaluation_button_enable' => false,
                                         ]

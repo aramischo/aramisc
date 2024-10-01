@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Communicate;
 
-use App\SmsTemplate;
+use App\AramiscTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -16,10 +16,10 @@ class SmsEmailTemplateController extends Controller
         $this->middleware('PM');
         // User::checkAuth();
 	}
-    public function SmsTemplate()
+    public function AramiscTemplate()
     {
         try {
-            $template = SmsTemplate::first();
+            $template = AramiscTemplate::first();
             return view('backEnd.communicate.sms_template', compact('template'));
         } catch (\Exception $e) {
             Log::info($e->getMessage());
@@ -29,10 +29,10 @@ class SmsEmailTemplateController extends Controller
     }
 
 
-    public function SmsTemplateStore(Request $request, $id)
+    public function AramiscTemplateStore(Request $request, $id)
     {
         try {
-            $data = SmsTemplate::first();
+            $data = AramiscTemplate::first();
             $data->admission_pro = $request->admission_pro;
             $data->student_admit = $request->student_admit;
             $data->login_disable = $request->login_disable;
@@ -41,7 +41,7 @@ class SmsEmailTemplateController extends Controller
             $data->due_fees = $request->due_fees;
             $data->collect_fees = $request->collect_fees;
             $data->stu_promote = $request->stu_promote;
-            $data->aramiscAttendance_sms = $request->aramiscAttendance_sms;
+            $data->attendance_sms = $request->attendance_sms;
             $data->absent = $request->absent;
             $data->late_sms = $request->late_sms;
             $data->er_checkout = $request->er_checkout;
@@ -64,10 +64,10 @@ class SmsEmailTemplateController extends Controller
             return redirect()->back();
         }
     }
-    public function SmsTemplateNew()
+    public function AramiscTemplateNew()
     {
         try {
-            $template = SmsTemplate::first();          
+            $template = AramiscTemplate::first();          
             return view('backEnd.communicate.sms_template_new', compact('template'));
         } catch (\Exception $e) {
             Log::info($e->getMessage());
@@ -76,10 +76,10 @@ class SmsEmailTemplateController extends Controller
         }
     }
 
-    public function SmsTemplateNewStore(Request $request)
+    public function AramiscTemplateNewStore(Request $request)
     {
         try {
-            $template = SmsTemplate::find(1);
+            $template = AramiscTemplate::find(1);
             $template->student_approve_message_sms = $request->student_approve_message_sms;
             $template->student_approve_message_sms_status = $request->student_approve_message_sms_status;
 

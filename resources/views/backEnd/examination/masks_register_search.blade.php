@@ -169,8 +169,8 @@
                                         @foreach($marks_entry_form as $part)
                                             <?php
 
-                                            $search_mark = App\SmMarkStore::get_mark_by_part($student->student->id, $exam_type_id, $class_id, $student->section_id, $subject_id, $part->id, $student->id);
-                                            $is_absent = App\SmMarkStore::get_mark_by_part($student->student->id, $exam_type_id, $class_id, $section_id, $subject_id, $part->id, $student->id);
+                                            $search_mark = App\AramiscMarkStore::get_mark_by_part($student->student->id, $exam_type_id, $class_id, $student->section_id, $subject_id, $part->id, $student->id);
+                                            $is_absent = App\AramiscMarkStore::get_mark_by_part($student->student->id, $exam_type_id, $class_id, $section_id, $subject_id, $part->id, $student->id);
 
                                             ?>
                                             <td>
@@ -181,11 +181,11 @@
                                         @endforeach
                                         <?php
 
-                                        $is_absent_check = App\SmMarksRegister::is_absent_check($part->exam_term_id, $part->class_id, $part->section_id, $part->subject_id,$student->student_id, $student->id);
+                                        $is_absent_check = App\AramiscMarksRegister::is_absent_check($part->exam_term_id, $part->class_id, $part->section_id, $part->subject_id,$student->student_id, $student->id);
                                         ?>
                                         <td>
                                             <div class="primary_input">
-                                                @if(@$is_absent_check->aramiscAttendance_type == 'P')
+                                                @if(@$is_absent_check->attendance_type == 'P')
                                                     <button class="primary-btn small fix-gr-bg" type="button">@lang('exam.present')</button>
                                                 @else
                                                     <button class="primary-btn small bg-danger text-white border-0" type="button">@lang('exam.absent')</button>

@@ -7,7 +7,7 @@ use App\ApiBaseMethod;
 use App\SmBankAccount;
 use App\SmBankStatement;
 use App\SmChartOfAccount;
-use App\SmPaymentMethhod;
+use App\AramiscPaymentMethhod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -28,7 +28,7 @@ class SmAddExpenseController extends Controller
             $add_expenses    = SmAddExpense::with('expenseHead','ACHead','paymentMethod','account')->get();
             $expense_heads   = SmChartOfAccount::where('type', "E")->get(['head','id']);
             $bank_accounts   = SmBankAccount::get();
-            $payment_methods = SmPaymentMethhod::get(['method','id']);
+            $payment_methods = AramiscPaymentMethhod::get(['method','id']);
             return view('backEnd.accounts.add_expense', compact('add_expenses', 'expense_heads', 'bank_accounts', 'payment_methods'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -99,7 +99,7 @@ class SmAddExpenseController extends Controller
             $add_expenses    = SmAddExpense::with('expenseHead','ACHead','paymentMethod','account')->get();
             $expense_heads   = SmChartOfAccount::where('type', "E")->get(['head','id']);
             $bank_accounts   = SmBankAccount::get();
-            $payment_methods = SmPaymentMethhod::get(['method','id']);
+            $payment_methods = AramiscPaymentMethhod::get(['method','id']);
             return view('backEnd.accounts.add_expense', compact('add_expenses', 'add_expense', 'expense_heads', 'bank_accounts', 'payment_methods'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

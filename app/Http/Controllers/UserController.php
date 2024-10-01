@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\SmUserLog;
+use App\AramiscUserLog;
 use App\YearCheck;
 use App\ApiBaseMethod;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class UserController extends Controller
     }
     public function userLog(Request $request){
         try{
-            $user_logs = SmUserLog::where('academic_id', getAcademicId())
+            $user_logs = AramiscUserLog::where('academic_id', getAcademicId())
             ->where('school_id',Auth::user()->school_id)
             ->orderBy('id', 'desc')
             ->get();

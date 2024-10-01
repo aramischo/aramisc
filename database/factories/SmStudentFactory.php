@@ -45,7 +45,7 @@ class SmStudentFactory extends Factory
 
                 'gender_id'               => rand(1,2),
                 'role_id'                 => 2,
-                'email'                   => 'student_'. uniqid() .'@aramisc.com',
+                'email'                   => 'student_'. uniqid() .'@infixedu.com',
                 'mobile'                  => '+8801234567' . $i,
                 'bank_account_no'         => '+8801234567' . $i,
 

@@ -280,8 +280,8 @@
     "select_package" => "Select Package",
     "purchase_date" => "Purchase Date",
     "expaire_date" => "Expaire Date",
-    "aramisc" => "Aramisc",
-    "aramisc_clasified" => "Aramisc Classified",
+    "infix_edu" => "Infix Edu",
+    "infix_clasified" => "Infix Classified",
     "date_|_day" => "Date | Day",
     "purchase_list" => "Purchase List",
     "welcome_to" => "Welcome To",
@@ -521,5 +521,8 @@
     "Days" => "Days",
     "Save" => "Save",
     "no_course_found" => "No Course Found",
-        ]
+    "some_problem_occurred" => "Some Problem Occurred",
+    "please_try_again" => "Please Try Again",
+    
+    ]
 ?>

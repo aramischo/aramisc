@@ -18,12 +18,12 @@ class SmSchool extends Model
 
     public function academicYears()
     {
-        return $this->hasMany(SmAcademicYear::class, 'school_id', 'id');
+        return $this->hasMany(AramiscAcademicYear::class, 'school_id', 'id');
     }
 
     public function sections()
     {
-        return $this->hasMany(SmSection::class, 'school_id');
+        return $this->hasMany(AramiscSection::class, 'school_id');
     }
 
     public function classes()

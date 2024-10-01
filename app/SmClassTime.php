@@ -16,9 +16,9 @@ class SmClassTime extends Model
        // static::addGlobalScope(new AcademicSchoolScope);
     }
     
-    public function aramiscExamSchedules()
+    public function examSchedules()
     {
-        return $this->hasMany(SmExamSchedule::class,'exam_period_id');
+        return $this->hasMany(AramiscExamSchedule::class,'exam_period_id');
     }
 
     public function routineUpdates()

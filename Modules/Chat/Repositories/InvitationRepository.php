@@ -82,7 +82,7 @@ class InvitationRepository
             ->whereIn('id', array_merge($to, $from))
             ->get();
 
-        // ==aramisc==
+        // ==InfixEdu==
 
         if(app('general_settings')->get('chat_open') == 'no') {
             if (app('general_settings')->get('chat_can_teacher_chat_with_parents') == 'no') {
@@ -94,7 +94,7 @@ class InvitationRepository
             }
         }
 
-        // ==End aramisc==
+        // ==End InfixEdu==
 
 
         foreach ($users as $user){

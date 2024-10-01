@@ -104,9 +104,9 @@ return [
 
 "student_admission" => "Admission d'étudiants",
 
-"student_aramiscAttendance" => "Participation des étudiants",
+"student_attendance" => "Participation des étudiants",
 
-"staff_aramiscAttendance" => "Participation des étudiants",
+"staff_attendance" => "Participation des étudiants",
 
 "student_promote" => "Promotion de l'étudiant",
 
@@ -120,7 +120,7 @@ return [
 
 "user_login_permission" => "Droits de connexion utilisateur",
 
-"student_aramiscAttendance_for_parent" => "Fréquentation de l'élève pour le parent",
+"student_attendance_for_parent" => "Fréquentation de l'élève pour le parent",
 
 "student_absent" => "Absent de l'étudiant",
 
@@ -214,11 +214,11 @@ return [
 
 "login_permission_disable_sms" => "Désactivation des autorisations de connexion (SMS)",
 
-"late_aramiscAttendance_sms" => "Participation tardive (SMS)",
+"late_attendance_sms" => "Participation tardive (SMS)",
 
-"aramiscAttendance_sms" => "Participation (SMS)",
+"attendance_sms" => "Participation (SMS)",
 
-"student_absent_aramiscAttendance_sms" => "Participation des étudiants absents (SMS)",
+"student_absent_attendance_sms" => "Participation des étudiants absents (SMS)",
 
 "return_issue_books_sms" => "Livres de sortie de retour (SMS)",
 

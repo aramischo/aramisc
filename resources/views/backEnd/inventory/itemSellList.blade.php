@@ -74,7 +74,7 @@
                                         <td>{{$value->roles->name}}</td>
                                         @if($value->role_id == 2)
                                         @php
-                                        $getBuyerDetails = $value->aramiscStudentDetails;
+                                        $getBuyerDetails = $value->studentDetails;
                                         @endphp
     
     
@@ -119,7 +119,7 @@
                                             <x-drop-down>
                                                     <a class="dropdown-item" href="{{route('view-item-sell', $value->id)}}">@lang('common.view')</a>
                                                     @php
-                                                    $itemPaymentdetails = App\SmInventoryPayment::itemPaymentdetails($value->id);
+                                                    $itemPaymentdetails = App\AramiscInventoryPayment::itemPaymentdetails($value->id);
                                                     @endphp
     
                                                     @if($value->paid_status != 'R')

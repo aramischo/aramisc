@@ -14,7 +14,7 @@
     @else
         <link rel="icon" href="{{asset('public/uploads/settings/favicon.png')}}" type="image/png"/>
     @endif
-    <title>{{@schoolConfig()->school_name ? @schoolConfig()->school_name : 'Aramisc ERP'}} |
+    <title>{{@schoolConfig()->school_name ? @schoolConfig()->school_name : 'Infix Edu ERP'}} |
         @yield('title')
     </title>
 

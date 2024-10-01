@@ -83,7 +83,6 @@
 
 
     $(document).ready(function() {
-        // alert('yes');
         var default_postion = $('#default_position').val();
         document.getElementsByTagName("html")[0].style.visibility = "visible";
         if (default_postion != 0) {
@@ -110,16 +109,16 @@
 
 
     $(document).ready(function() {
-        if ($("input#total-aramiscAttendance").length > 0) {
-            var total_aramiscAttendance = $("input#total-aramiscAttendance").val();
+        if ($("input#total-attendance").length > 0) {
+            var total_attendance = $("input#total-attendance").val();
 
-            var aramiscAttendanceArray = total_aramiscAttendance.split("-");
+            var attendanceArray = total_attendance.split("-");
 
-            $("#total_present").html(aramiscAttendanceArray[0]);
-            $("#total_absent").html(aramiscAttendanceArray[1]);
-            $("#total_late").html(aramiscAttendanceArray[2]);
-            $("#total_halfday").html(aramiscAttendanceArray[3]);
-            $("#total_holiday").html(aramiscAttendanceArray[4]);
+            $("#total_present").html(attendanceArray[0]);
+            $("#total_absent").html(attendanceArray[1]);
+            $("#total_late").html(attendanceArray[2]);
+            $("#total_halfday").html(attendanceArray[3]);
+            $("#total_holiday").html(attendanceArray[4]);
         }
     });
 
@@ -672,7 +671,6 @@
                 $(".sibling_required_error").append(
                     "<div class='alert alert-danger'>No sibling Selected</div>"
                 );
-                // alert('ok');
                 return false;
             } else {
                 $(".sibling_required_error div").remove();
@@ -2136,7 +2134,7 @@
         });
     });
 
-    // Student aramiscAttendance
+    // Student attendance
 
     $("#search_student").on("submit", function() {
         var date = $("#startDate")
@@ -2711,7 +2709,7 @@
     });
 
     // add new class routine
-    aramiscExamRoutineCheck = () => {
+    examRoutineCheck = () => {
         var date = document.getElementById("startDate").value;
         var i = 0;
         if (date == "") {
@@ -2845,7 +2843,7 @@
     };
 
     deleteSubject = (value) => {
-        var aramiscAssignSubject = document.getElementById("assign-subject");
+        var assignSubject = document.getElementById("assign-subject");
         var valuea = "assign-subject-" + value;
         var child = document.getElementById(valuea);
         child.remove();
@@ -4201,7 +4199,7 @@
         if ($(this).is(":checked")) {
             $("input:radio").removeAttr("checked");
         } else {
-            $("input.aramiscAttendanceP[type=radio]").attr("checked", "checked");
+            $("input.attendanceP[type=radio]").attr("checked", "checked");
         }
     });
 
@@ -5937,7 +5935,7 @@
 
     // fees master find type
     $(document).ready(function() {
-        $("#aramisc_class").on("change", function() {
+        $("#infix_class").on("change", function() {
             var url = $("#url").val();
             // console.log($(this).val());
             var formData = {
@@ -6052,7 +6050,7 @@
     // student section select sction for sibling
     // Comment By Amit Saha For Student Admission Sendig Multiple Request
     // $(document).ready(function() {
-    //     $("form#student_form #academic_year, form#aramisc_form #academic_year").on(
+    //     $("form#student_form #academic_year, form#infix_form #academic_year").on(
     //         "change",
     //         function() {
     //             var url = $("#url").val();

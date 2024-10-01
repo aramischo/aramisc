@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api;
 
-use App\SmBankAccount;
-use App\SmPaymentMethhod;
-use App\SmBankPaymentSlip;
-use App\SmGeneralSettings;
+use App\AramiscBankAccount;
+use App\AramiscPaymentMethhod;
+use App\AramiscBankPaymentSlip;
+use App\AramiscGeneralSettings;
 use App\Models\FeesInvoice;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -29,7 +29,7 @@ class DirectFeesApiController extends Controller
         if(moduleStatusCheck('University')){
            $data['feesInstallments'] = UnFeesInstallmentAssign::where('un_academic_id',$student_record->un_academic_id)->where('un_semester_label_id', $student_record->un_semester_label_id)->where('record_id', $student_record->id)->get();
         }
-        elseif(aramiscDirectFees()){
+        elseif(directFees()){
             $data['feesInstallments'] = DirectFeesInstallmentAssign::with('payments','installment')->where('academic_id',$student_record->academic_id)->where('record_id', $student_record->id)->get();
         }
         return response()->json([
@@ -44,12 +44,12 @@ class DirectFeesApiController extends Controller
         $invoice = FeesInvoice::where('school_id', $student_record->school_id)->first();
         $data['prefix'] = @$invoice->prefix; 
         $data['start_form'] = @$invoice->start_form - 1;
-        $data['banks'] = SmBankAccount::withOutGlobalScope(ActiveStatusSchoolScope::class)->where('school_id', $student_record->school_id)->get(['id','bank_name']);
+        $data['banks'] = AramiscBankAccount::withOutGlobalScope(ActiveStatusSchoolScope::class)->where('school_id', $student_record->school_id)->get(['id','bank_name']);
   
         if(moduleStatusCheck('University')){
             $feesInstallments = UnFeesInstallmentAssign::where('un_academic_id',$student_record->un_academic_id)->where('un_semester_label_id', $student_record->un_semester_label_id)->where('record_id', $student_record->id)->get();
         }
-        elseif(aramiscDirectFees()){
+        elseif(directFees()){
             $feesInstallments = DirectFeesInstallmentAssign::with('payments')->where('academic_id',$student_record->academic_id)->where('record_id', $student_record->id)->get();
         }
         $data['total_amount'] = $feesInstallments->sum('amount');
@@ -73,7 +73,7 @@ class DirectFeesApiController extends Controller
             $feesInstallments = UnFeesInstallmentAssign::where('un_academic_id',$student_record->un_academic_id)->where('un_semester_label_id', $student_record->un_semester_label_id)->where('record_id', $student_record->id)->get();
             $installments = UnFeesInstallmentAssign::where('record_id', $record_id)->get();
         }
-        elseif(aramiscDirectFees()){
+        elseif(directFees()){
             $feesInstallments = DirectFeesInstallmentAssign::with('payments')->where('academic_id',$student_record->academic_id)->where('record_id', $student_record->id)->get();
             $installments = DirectFeesInstallmentAssign::where('record_id', $record_id)->get();
         }
@@ -102,7 +102,7 @@ class DirectFeesApiController extends Controller
 
         $fileName = "";
         if ($request->file('slip') != "") {
-            $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+            $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
             $file = $request->file('sli                                   p');
             $fileSize =  filesize($file);
             $fileSizeKb = ($fileSize / 1000000);
@@ -133,9 +133,9 @@ class DirectFeesApiController extends Controller
                 }
     
                 $payment_mode_name=ucwords($request->payment_mode);
-                $payment_method=SmPaymentMethhod::where('method',$payment_mode_name)->first();
+                $payment_method=AramiscPaymentMethhod::where('method',$payment_mode_name)->first();
 
-                $payment = new SmBankPaymentSlip();
+                $payment = new AramiscBankPaymentSlip();
                 $payment->date = $newformat;
                 $payment->amount = $paid_amount;
                 $payment->note = $request->note;
@@ -190,7 +190,7 @@ class DirectFeesApiController extends Controller
                     $payment->child_payment_id = $new_subPayment->id;
 
                 }
-                elseif(aramiscDirectFees()){
+                elseif(directFees()){
                     $payment->class_id = $student_record->class_id;
                     $payment->section_id = $student_record->section_id;
                     $payment->record_id = $student_record->id;

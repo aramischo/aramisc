@@ -3,12 +3,12 @@
 namespace Modules\Wallet\Http\Controllers\api;
 
 use App\User;
-use App\SmBankAccount;
-use App\SmNotification;
-use App\SmPaymentMethhod;
-use App\SmGeneralSettings;
+use App\AramiscBankAccount;
+use App\AramiscNotification;
+use App\AramiscPaymentMethhod;
+use App\AramiscGeneralSettings;
 use Illuminate\Http\Request;
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -25,11 +25,11 @@ class WalletApiController extends Controller
 
             $myBalance = Auth::user()->wallet_balance  ? number_format(Auth::user()->wallet_balance, 2, '.', ''): 0.00;
             $currencySymbol = generalSetting()->currency_symbol;
-            $paymentMethods = SmPaymentMethhod::whereNotIn('method', ["Cash", "Wallet"])
+            $paymentMethods = AramiscPaymentMethhod::whereNotIn('method', ["Cash", "Wallet"])
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $bankAccounts = SmBankAccount::where('active_status', 1)
+            $bankAccounts = AramiscBankAccount::where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
@@ -37,12 +37,12 @@ class WalletApiController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $stripe_info = SmPaymentGatewaySetting::where('gateway_name', 'stripe')
+            $stripe_info = AramiscPaymentGatewaySetting::where('gateway_name', 'stripe')
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
             $razorpay_info = null;
             if (moduleStatusCheck('RazorPay')) {
-                $razorpay_info = SmPaymentGatewaySetting::where('gateway_name', 'RazorPay')
+                $razorpay_info = AramiscPaymentGatewaySetting::where('gateway_name', 'RazorPay')
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
             }
@@ -68,7 +68,7 @@ class WalletApiController extends Controller
             if ($request->payment_method == "Cheque" || $request->payment_method == "Bank") {
                 $uploadFile = "";
                 if ($request->file('file') != "") {
-                    $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                    $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                     $file = $request->file('file');
                     $fileSize = filesize($file);
                     $fileSizeKb = ($fileSize / 1000000);
@@ -181,7 +181,7 @@ class WalletApiController extends Controller
         try {
             $uploadFile = "";
             if ($request->file('refund_file') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('refund_file');
                 $fileSize = filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -225,7 +225,7 @@ class WalletApiController extends Controller
 
     private function sendNotification($user_id, $role_id, $message)
     {
-        $notification = new SmNotification;
+        $notification = new AramiscNotification;
         $notification->user_id = $user_id;
         $notification->role_id = $role_id;
         $notification->date = date('Y-m-d');

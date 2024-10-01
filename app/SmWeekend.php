@@ -3,7 +3,7 @@
 namespace App;
 
 use App\SmStaff;
-use App\SmStudent;
+use App\AramiscStudent;
 use App\Scopes\SchoolScope;
 use App\SmClassRoutineUpdate;
 use Illuminate\Database\Eloquent\Model;
@@ -18,14 +18,14 @@ class SmWeekend extends Model
         parent::boot();
         static::addGlobalScope(new SchoolScope);
     }
-    public function aramiscClassRoutine()
+    public function classRoutine()
     {
         return $this->hasMany('App\SmClassRoutineUpdate', 'day', 'id');
     }
 
     public function studentClassRoutine()
     {
-        $student = SmStudent::where('user_id', auth()->user()->id)->first();         
+        $student = AramiscStudent::where('user_id', auth()->user()->id)->first();         
         return $this->hasMany('App\SmClassRoutineUpdate', 'day', 'id')
         ->where('class_id', $student->class_id)
         ->where('section_id', $student->section_id)
@@ -55,7 +55,7 @@ class SmWeekend extends Model
                                     ->where('school_id', auth()->user()->school_id)->get();
         return  $routine;
     }
-    public function aramiscTeacherClassRoutine()
+    public function teacherClassRoutine()
     {
         $teacher_id = SmStaff::where('user_id', auth()->user()->id)
         ->where(function($q) {
@@ -69,7 +69,7 @@ class SmWeekend extends Model
         ->where('school_id', auth()->user()->school_id);
     }
 
-    public function aramiscTeacherClassRoutineAdmin()
+    public function teacherClassRoutineAdmin()
     {
         return $this->hasMany('App\SmClassRoutineUpdate', 'day', 'id')
         ->where('teacher_id', request()->teacher)
@@ -77,7 +77,7 @@ class SmWeekend extends Model
         ->where('school_id', auth()->user()->school_id);
     }
 
-    public static function aramiscTeacherClassRoutineById($day, $teacher_id)
+    public static function teacherClassRoutineById($day, $teacher_id)
     {
 
         return SmClassRoutineUpdate::where('day', $day)->where('teacher_id', $teacher_id)
@@ -94,7 +94,7 @@ class SmWeekend extends Model
 
     public static function parentClassRoutine($day, $student_id)
     {
-        $student = SmStudent::find($student_id);
+        $student = AramiscStudent::find($student_id);
 
         return SmClassRoutineUpdate::where('day', $day)->where('class_id', $student->class_id)
             ->where('section_id', $student->section_id)

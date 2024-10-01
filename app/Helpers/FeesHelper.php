@@ -1,6 +1,6 @@
 <?php
 
-use App\SmPaymentGatewaySetting;
+use App\AramiscPaymentGatewaySetting;
 
 
 if(!function_exists('service_charge')) {
@@ -18,7 +18,7 @@ if(!function_exists('service_charge')) {
 
 if(!function_exists('serviceCharge')) {
     function serviceCharge(string $gateway) {      
-        $gatewaySettings = SmPaymentGatewaySetting::where('gateway_name', $gateway)->where('school_id', auth()->user()->school_id)->first();
+        $gatewaySettings = AramiscPaymentGatewaySetting::where('gateway_name', $gateway)->where('school_id', auth()->user()->school_id)->first();
        
         $serviceCharge = null;
         if ($gatewaySettings && $gatewaySettings->service_charge) {
@@ -33,7 +33,7 @@ if(!function_exists('serviceCharge')) {
 }
 if(!function_exists('chargeAmount')) {
     function chargeAmount(string $gateway, $amount) {      
-        $gatewaySettings = SmPaymentGatewaySetting::where('gateway_name', $gateway)->where('school_id', auth()->user()->school_id)->first();
+        $gatewaySettings = AramiscPaymentGatewaySetting::where('gateway_name', $gateway)->where('school_id', auth()->user()->school_id)->first();
         $chargeAmount = 0;
         if ($gatewaySettings && $gatewaySettings->service_charge && $amount) {
             if ($gatewaySettings->charge_type == "P") {
@@ -48,7 +48,7 @@ if(!function_exists('chargeAmount')) {
 if(!function_exists('serviceChargeWithTotal')) {
     function serviceChargeWithTotal(string $gateway, $amount = null) {    
         $charge  = 0;
-        $gatewaySettings = SmPaymentGatewaySetting::where('gateway_name', $gateway)->where('school_id', auth()->user()->school_id)->first();
+        $gatewaySettings = AramiscPaymentGatewaySetting::where('gateway_name', $gateway)->where('school_id', auth()->user()->school_id)->first();
         if ($gatewaySettings && $gatewaySettings->service_charge == 1  && $amount) {
             if ($gatewaySettings->charge_type == "P") {
                 $charge = ($gatewaySettings->charge / 100) * $amount;

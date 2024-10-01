@@ -12,6 +12,20 @@ class SmParent extends Model
 {
     use HasFactory;
     protected $casts = [
+        'id'                    => 'integer',
+        'fathers_name'          => 'string',
+        'fathers_mobile'        => 'string',
+        'fathers_occupation'    => 'string',
+        'fathers_photo'         => 'string',
+        'mothers_name'          => 'string',
+        'mothers_mobile'        => 'string',
+        'mothers_occupation'    => 'string',
+        'mothers_photo'         => 'string',
+        'guardians_name'        => 'string',
+        'guardians_mobile'      => 'string',
+        'guardians_email'       => 'string',
+        'guardians_occupation'  => 'string',
+        'guardians_relation'    => 'string',
         'role_id' => 'integer',
         'active_status' => 'integer',
         'user_id' => 'integer',
@@ -33,7 +47,7 @@ class SmParent extends Model
 
     public function childrens()
     {
-        return $this->hasMany('App\SmStudent', 'parent_id', 'id')->where('active_status', 1);
+        return $this->hasMany('App\AramiscStudent', 'parent_id', 'id')->where('active_status', 1);
     }
 
     public static function myChildrens()

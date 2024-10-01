@@ -6,14 +6,14 @@ use App\GlobalVariable;
 use App\User;
 use Carbon\Carbon;
 use App\SmNoticeBoard;
-use App\SmNotification;
+use App\AramiscNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\NoticeRequestForm;
 use App\Traits\NotificationSend;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Modules\Saas\Entities\SmAdministratorNotice;
 
 class SmNoticeController extends Controller
@@ -27,7 +27,7 @@ class SmNoticeController extends Controller
     public function sendMessage(Request $request)
     {
         try {
-            $roles = AramiscRole::when((generalSetting()->with_guardian !=1), function ($query) {
+            $roles = InfixRole::when((generalSetting()->with_guardian !=1), function ($query) {
                 $query->where('id', '!=', 3);
             })->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
@@ -79,7 +79,7 @@ class SmNoticeController extends Controller
                 foreach ($request->role as $key => $role) {
                     $users = User::where('role_id', $role)->where('active_status', 1)->get();
                     foreach ($users as $key => $user) {
-                        $notification = new SmNotification();
+                        $notification = new AramiscNotification();
                         $notification->role_id = $role;
                         $notification->message = "Notice for you";
                         $notification->date = $noticeData->notice_date;
@@ -135,7 +135,7 @@ class SmNoticeController extends Controller
     {
 
         try {
-            $roles = AramiscRole::where(function ($q) {
+            $roles = InfixRole::where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $noticeDataDetails = SmNoticeBoard::find($notice_id);
@@ -176,7 +176,7 @@ class SmNoticeController extends Controller
                 foreach ($request->role as $key => $role) {
                     $users = User::where('role_id', $role)->get();
                     foreach ($users as $key => $user) {
-                        $notification = new SmNotification();
+                        $notification = new AramiscNotification();
                         $notification->role_id = $role;
                         $notification->message = $request->notice_title;
                         $notification->date = $noticeData->notice_date;

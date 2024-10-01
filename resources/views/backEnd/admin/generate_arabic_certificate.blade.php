@@ -30,9 +30,9 @@
 @foreach($students as $student)
 <body id="pdf">
     @php
-        $body = App\SmStudentCertificate::certificateBody($certificate->body, 2,$student->student_id,$certificate->id);
-        $body_two = App\SmStudentCertificate::certificateBody($certificate->body_two, 2,$student->student_id,$certificate->id);
-        $certificateNumber = App\SmStudentCertificate::certificateNumber($certificate->certificate_no,$student->studentDetail->admission_no, @$student->alumni->graduation_date);
+        $body = App\AramiscStudentCertificate::certificateBody($certificate->body, 2,$student->student_id,$certificate->id);
+        $body_two = App\AramiscStudentCertificate::certificateBody($certificate->body_two, 2,$student->student_id,$certificate->id);
+        $certificateNumber = App\AramiscStudentCertificate::certificateNumber($certificate->certificate_no,$student->studentDetail->admission_no, @$student->alumni->graduation_date);
 
     @endphp 
    

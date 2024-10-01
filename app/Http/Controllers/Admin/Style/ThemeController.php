@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Style;
 
-use App\SmStyle;
+use App\AramiscStyle;
 use Carbon\Carbon;
 use App\Models\Color;
 use App\Models\Theme;
@@ -50,7 +50,7 @@ class ThemeController extends Controller
             $theme->title = $request->title;
             $theme->replicate_theme = color_theme()->title ?? null;
             $theme->path_main_style = color_theme()->path_main_style ?? null;
-            $theme->path_aramisc_style = color_theme()->path_aramisc_style ?? null;
+            $theme->path_infix_style = color_theme()->path_infix_style ?? null;
             $theme->color_mode = $request->color_mode ?? 'gradient';
             $theme->box_shadow = $request->box_shadow ?? 0;
             $theme->background_type = $request->background_type ?? 'image';

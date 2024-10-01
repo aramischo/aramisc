@@ -3,9 +3,9 @@
 namespace Modules\BehaviourRecords\Http\Controllers;
 
 use DataTables;
-use App\SmClass;
-use App\SmStudent;
-use App\SmAcademicYear;
+use App\AramiscClass;
+use App\AramiscStudent;
+use App\AramiscAcademicYear;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use Illuminate\Routing\Controller;
@@ -22,16 +22,16 @@ class BehaviourRecordsController extends Controller
     public function assignIncident()
     {
         try {
-            $classes = SmClass::where('active_status', 1)
+            $classes = AramiscClass::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $students = SmStudent::where('academic_id', getAcademicId())
+            $students = AramiscStudent::where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            $sessions = SmAcademicYear::where('active_status', 1)
+            $sessions = AramiscAcademicYear::where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
             $incidents = Incident::get();
@@ -44,8 +44,8 @@ class BehaviourRecordsController extends Controller
     public function assignIncidentSearch(Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $classes = SmClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
-            $sessions = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->withoutGlobalScope(StatusAcademicSchoolScope::class)->get();
+            $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $academic_year = $request->academic_year;
             $class_id = $request->class_id;
             $name = $request->name;
@@ -100,7 +100,7 @@ class BehaviourRecordsController extends Controller
                 });
 
             $student_records = $records->where('is_promote', 0)->whereHas('student')->get(['student_id'])->unique('student_id')->toArray();
-            $all_students =  SmStudent::with('studentRecords', 'studentRecords.class', 'studentRecords.section')->withCount('incidents')->withSum('incidents', 'point')->whereIn('id', $student_records)->with('incidents')
+            $all_students =  AramiscStudent::with('studentRecords', 'studentRecords.class', 'studentRecords.section')->withCount('incidents')->withSum('incidents', 'point')->whereIn('id', $student_records)->with('incidents')
                 ->where('active_status', 1)
                 ->with(array('parents' => function ($query) {
                     $query->select('id', 'fathers_name');
@@ -115,7 +115,7 @@ class BehaviourRecordsController extends Controller
                     $query->where('full_name', 'like', '%' . $request->name . '%');
                 });
 
-            $students = SmStudent::with(['gender', 'studentRecords' => function ($q) use ($request) {
+            $students = AramiscStudent::with(['gender', 'studentRecords' => function ($q) use ($request) {
                 return $q->when(moduleStatusCheck('University') && $request->filled('un_academic_id'), function ($u_query) use ($request) {
                     $u_query->where('un_academic_id', $request->un_academic_id);
                 }, function ($query) use ($request) {
@@ -218,7 +218,7 @@ class BehaviourRecordsController extends Controller
     }
     public function getStudentIncident(Request $request)
     {
-        $student = SmStudent::find($request->studentId);
+        $student = AramiscStudent::find($request->studentId);
         return view('behaviourrecords::assignIncident.assign_incident_list', compact('student'));
     }
 
@@ -295,8 +295,8 @@ class BehaviourRecordsController extends Controller
     public function studentIncidentReport()
     {
         try {
-            $classes = SmClass::get();
-            $sessions = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::get();
+            $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             return view('behaviourrecords::reports.student_incident_report', compact('classes', 'sessions'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -316,8 +316,8 @@ class BehaviourRecordsController extends Controller
         }
 
         try {
-            $classes = SmClass::get();
-            $sessions = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::get();
+            $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $student_records = StudentRecord::with('student', 'student.gender', 'student.incidents', 'class', 'section')
                 ->withCount('incidents')
                 ->withSum('incidents', 'point')
@@ -335,7 +335,7 @@ class BehaviourRecordsController extends Controller
     public function viewStudentAllIncidentModal($id)
     {
         try {
-            $student = SmStudent::find($id);
+            $student = AramiscStudent::find($id);
             if ($student) {
                 $all_incident = $student->incidents->load('incident', 'user', 'academicYear');
             }
@@ -349,8 +349,8 @@ class BehaviourRecordsController extends Controller
     public function studentBehaviourRankReport()
     {
         try {
-            $classes = SmClass::get();
-            $sessions = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::get();
+            $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             return view('behaviourrecords::reports.student_behaviour_rank_report', compact('classes', 'sessions'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -368,8 +368,8 @@ class BehaviourRecordsController extends Controller
         }
 
         try {
-            $classes = SmClass::get();
-            $sessions = SmAcademicYear::where('school_id', Auth::user()->school_id)->get();
+            $classes = AramiscClass::get();
+            $sessions = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->get();
             $student_records = StudentRecord::with('student')
                 ->where('active_status', 1)
                 ->when($request->academic_year, function ($q) use ($request) {
@@ -382,7 +382,7 @@ class BehaviourRecordsController extends Controller
                     $q->where('section_id', $request->section_id);
                 });
             $student_ids = $student_records->pluck('student_id');
-            $students = SmStudent::whereIn('id', $student_ids)
+            $students = AramiscStudent::whereIn('id', $student_ids)
                 ->whereHas('incidents')
                 ->with('gender', 'studentRecords', 'studentRecords.class', 'studentRecords.section')
                 ->withSum('incidents', 'point')
@@ -404,7 +404,7 @@ class BehaviourRecordsController extends Controller
     public function viewBehaviourRankModal($id)
     {
         try {
-            $student = SmStudent::find($id);
+            $student = AramiscStudent::find($id);
             if ($student) {
                 $all_incident = $student->incidents->load('incident', 'user', 'academicYear');
             }
@@ -418,7 +418,7 @@ class BehaviourRecordsController extends Controller
     public function classSectionWiseRankReport()
     {
         try {
-            $classes = SmClass::with('groupclassSections')->withCount('records')->withSum('allIncident', 'point')->orderBy('all_incident_sum_point', 'DESC')->get();
+            $classes = AramiscClass::with('groupclassSections')->withCount('records')->withSum('allIncident', 'point')->orderBy('all_incident_sum_point', 'DESC')->get();
             return view('behaviourrecords::reports.class_section_wise_rank_report', compact('classes'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -428,7 +428,7 @@ class BehaviourRecordsController extends Controller
     public function viewClassSectionWiseModal($id)
     {
         try {
-            $class = SmClass::with('records.studentDetail.incidents.incident', 'records.class', 'records.section')->where('id', $id)->firstOrFail();
+            $class = AramiscClass::with('records.studentDetail.incidents.incident', 'records.class', 'records.section')->where('id', $id)->firstOrFail();
             return view('behaviourrecords::reports.class_section_wise_rank_report_modal', compact('class'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

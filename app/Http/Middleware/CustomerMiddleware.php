@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 use Session;
 
 class CustomerMiddleware
@@ -21,7 +21,7 @@ class CustomerMiddleware
 
        session_start();
         $role_id = session()->get('role_id');
-        $is_saas = AramiscRole::where('id', $role_id)->first('is_saas')->is_saas;
+        $is_saas = InfixRole::where('id', $role_id)->first('is_saas')->is_saas;
         if ($is_saas == 1) {
            
             return redirect('saasStaffDashboard');

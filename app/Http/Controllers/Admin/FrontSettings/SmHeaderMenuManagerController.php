@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\SmNews;
+use App\AramiscNews;
 use App\SmPage;
-use App\SmCourse;
-use App\SmNewsCategory;
-use App\SmCourseCategory;
+use App\AramiscCourse;
+use App\AramiscNewsCategory;
+use App\AramiscCourseCategory;
 use App\SmHeaderMenuManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,10 +21,10 @@ class SmHeaderMenuManagerController extends Controller
             if(activeTheme() != 'edulia'){
                 $pages = SmPage::where('school_id', app('school')->id)->where('is_dynamic', 1)->get();
                 $static_pages = SmPage::where('school_id', app('school')->id)->where('is_dynamic', 0)->get();
-                $courses = SmCourse::where('school_id', app('school')->id)->get();
-                $courseCategories = SmCourseCategory::where('school_id', app('school')->id)->get();
-                $news = SmNews::where('school_id', app('school')->id)->get();
-                $news_categories = SmNewsCategory::where('school_id', app('school')->id)->get();
+                $courses = AramiscCourse::where('school_id', app('school')->id)->get();
+                $courseCategories = AramiscCourseCategory::where('school_id', app('school')->id)->get();
+                $news = AramiscNews::where('school_id', app('school')->id)->get();
+                $news_categories = AramiscNewsCategory::where('school_id', app('school')->id)->get();
                 $menus = SmHeaderMenuManager::with('childs')->where('school_id', app('school')->id)->where('theme', 'default')->where('parent_id', null)->orderBy('position')->get();
                 return view('backEnd.frontSettings.headerMenuManager', compact('pages', 'static_pages', 'courses', 'courseCategories', 'news_categories', 'news', 'menus'));
             }else{
@@ -69,7 +69,7 @@ class SmHeaderMenuManagerController extends Controller
                     }
                 } elseif ($request->type == "dCourse") {
                     foreach ($request->element_id as $data) {
-                        $spage = SmCourse::findOrFail($data);
+                        $spage = AramiscCourse::findOrFail($data);
                         SmHeaderMenuManager::create([
                             'title' => $spage->title,
                             'type' => $request->type,
@@ -81,7 +81,7 @@ class SmHeaderMenuManagerController extends Controller
                     }
                 } elseif ($request->type == "dCourseCategory") {
                     foreach ($request->element_id as $data) {
-                        $spage = SmCourseCategory::findOrFail($data);
+                        $spage = AramiscCourseCategory::findOrFail($data);
                         SmHeaderMenuManager::create([
                             'title' => $spage->category_name,
                             'type' => $request->type,
@@ -93,7 +93,7 @@ class SmHeaderMenuManagerController extends Controller
                     }
                 } elseif ($request->type == "dNews") {
                     foreach ($request->element_id as $data) {
-                        $dNews = SmNews::findOrFail($data);
+                        $dNews = AramiscNews::findOrFail($data);
                         SmHeaderMenuManager::create([
                             'title' => $dNews->news_title,
                             'type' => $request->type,
@@ -105,7 +105,7 @@ class SmHeaderMenuManagerController extends Controller
                     }
                 } elseif ($request->type == "dNewsCategory") {
                     foreach ($request->element_id as $data) {
-                        $dNewsCategory = SmNewsCategory::findOrFail($data);
+                        $dNewsCategory = AramiscNewsCategory::findOrFail($data);
                         SmHeaderMenuManager::create([
                             'title' => $dNewsCategory->category_name,
                             'type' => $request->type,
@@ -258,10 +258,10 @@ class SmHeaderMenuManagerController extends Controller
         if(activeTheme() != 'edulia'){
             $pages = SmPage::where('is_dynamic', 1)->where('school_id', app('school')->id)->get();
             $static_pages = SmPage::where('is_dynamic', 0)->where('school_id', app('school')->id)->get();
-            $courses = SmCourse::where('school_id', app('school')->id)->get();
-            $courseCategories = SmCourseCategory::where('school_id', app('school')->id)->get();
-            $news = SmNews::where('school_id', app('school')->id)->get();
-            $news_categories = SmNewsCategory::where('school_id', app('school')->id)->get();
+            $courses = AramiscCourse::where('school_id', app('school')->id)->get();
+            $courseCategories = AramiscCourseCategory::where('school_id', app('school')->id)->get();
+            $news = AramiscNews::where('school_id', app('school')->id)->get();
+            $news_categories = AramiscNewsCategory::where('school_id', app('school')->id)->get();
             $menus = SmHeaderMenuManager::with('childs')->where('parent_id', null)->where('school_id', app('school')->id)->where('theme', 'default')->orderBy('position')->get();
             return view('backEnd.frontSettings.headerSubmenuList', compact('pages', 'static_pages', 'courses', 'courseCategories', 'news_categories', 'news', 'menus'));
         }else{

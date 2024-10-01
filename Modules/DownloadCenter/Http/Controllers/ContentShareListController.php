@@ -4,8 +4,8 @@ namespace Modules\DownloadCenter\Http\Controllers;
 
 use App\Role;
 use App\User;
-use App\SmStudent;
-use App\SmClassSection;
+use App\AramiscStudent;
+use App\AramiscClassSection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -20,7 +20,7 @@ class ContentShareListController extends Controller
     {
         try {
             if (auth()->user()->role_id == 2) {
-                $student = SmStudent::where('user_id', auth()->user()->id)->with('studentRecord')->first();
+                $student = AramiscStudent::where('user_id', auth()->user()->id)->with('studentRecord')->first();
                 $allSharedContents = ContentShareList::get();
                 $sharedContents = [];
                 foreach ($allSharedContents as $allSharedContent) {
@@ -130,7 +130,7 @@ class ContentShareListController extends Controller
             $contents = Content::whereIn('id', $viewContent->content_ids)->get();
             $roles = ($viewContent->gr_role_ids) ? Role::whereIn('id', $viewContent->gr_role_ids)->get() : null;
             $individuals = ($viewContent->ind_user_ids) ? User::whereIn('id', $viewContent->ind_user_ids)->get() : null;
-            $classSections = ($viewContent->class_id) ? SmClassSection::where('class_id', $viewContent->class_id)
+            $classSections = ($viewContent->class_id) ? AramiscClassSection::where('class_id', $viewContent->class_id)
                 ->when($viewContent->section_ids, function ($q) use ($viewContent) {
                     $q->whereIn('section_id', $viewContent->section_ids);
                 })
@@ -156,7 +156,7 @@ class ContentShareListController extends Controller
     public function parentContentShareList($id)
     {
         try {
-            $student_detail = SmStudent::where('id', $id)->with('studentRecord')->first();
+            $student_detail = AramiscStudent::where('id', $id)->with('studentRecord')->first();
             $records = studentRecords(null, $student_detail->id)->get();
             $allSharedContents = ContentShareList::get();
             $sharedContents = [];

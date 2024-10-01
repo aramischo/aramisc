@@ -2,11 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\Http",
-    "\\app\\Http\\Controllers",
-    "\\app\\Http\\Controllers\\Admin",
-    "\\app\\Http\\Controllers\\Admin\\Academics"
+    "\\app\\Http"
   ],
-  "SelectedNode": "\\app\\Http\\Controllers\\Admin\\Academics\\AcademicController.php",
+  "SelectedNode": "\\app\\AramiscAddIncome.php",
   "PreviewInSolutionExplorer": false
 }

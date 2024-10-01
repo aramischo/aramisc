@@ -8,7 +8,7 @@ if(isset($setting->logo)) { $logo = $setting->logo; } else{ $logo = 'public/uplo
 
 if(isset($setting->favicon)) { $favicon = $setting->favicon; } else{ $favicon = 'public/backEnd/img/favicon.png'; }
 
-$login_background = App\SmBackgroundSetting::where([['is_default',1],['title','Login Background']])->first();
+$login_background = App\AramiscBackgroundSetting::where([['is_default',1],['title','Login Background']])->first();
 
 if(empty($login_background)){
     $css = "";
@@ -20,7 +20,7 @@ if(empty($login_background)){
         $css = "background:".$login_background->color;
     }
 }
-$active_style = App\SmStyle::where('is_active', 1)->first();
+$active_style = App\AramiscStyle::where('is_active', 1)->first();
 
 $ttl_rtl = $setting->ttl_rtl;
 ?>

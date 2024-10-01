@@ -9,7 +9,7 @@ use App\tableList;
 use App\ApiBaseMethod;
 use App\SmLeaveDefine;
 use App\SmLeaveRequest;
-use App\SmNotification;
+use App\AramiscNotification;
 use Illuminate\Http\Request;
 use App\Traits\NotificationSend;
 use Illuminate\Support\Facades\DB;
@@ -87,7 +87,7 @@ class SmLeaveRequestController extends Controller
 
             try {
                 $user = User::where('role_id', 1)->first();
-                $notification = new SmNotification;
+                $notification = new AramiscNotification;
                 $notification->user_id = $user->id;
                 $notification->role_id = $user->role_id;
                 $notification->date = date('Y-m-d');

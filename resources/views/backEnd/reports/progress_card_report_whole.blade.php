@@ -143,18 +143,18 @@
                                                     <img class="logo-img" src="{{ generalSetting()->logo }}" alt="">
                                                 </div>
                                                 <div class="ml-30">
-                                                    <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
-                                                <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
+                                                    <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                                <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
                                                 </div>
                                             </div>
                                             <div>
                                                 {{-- <img class="report-admit-img" src="{{asset('public/uploads/staff/std1.jpg')}}" alt=""> --}}
-                                                <img class="report-admit-img" src="{{asset($aramiscStudentDetails->student_photo)}}" width="100" height="100" alt="">
+                                                <img class="report-admit-img" src="{{asset($studentDetails->student_photo)}}" width="100" height="100" alt="">
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <div>
-                                                <h3>{{  $aramiscStudentDetails->full_name }}</h3>
+                                                <h3>{{  $studentDetails->full_name }}</h3>
                                                 
                                                 <div class="row">
                                                     <div class="col-lg-3">
@@ -162,7 +162,7 @@
                                                             @lang('common.academic_year') : <span class="primary-color fw-500">{{generalSetting()->session_year}}</span>
                                                         </p>
                                                         <p class="mb-0">
-                                                                @lang('student.roll') : <span class="primary-color fw-500">{{$aramiscStudentDetails->roll_no}}</span>
+                                                                @lang('student.roll') : <span class="primary-color fw-500">{{$studentDetails->roll_no}}</span>
                                                             </p>
 
                                                         {{-- <p class="mb-0">
@@ -173,13 +173,13 @@
 
                                                     <div class="col-lg-3">
                                                         <p class="mb-0">
-                                                            @lang('common.class') : <span class="primary-color fw-500">{{ $aramiscStudentDetails->class_name }}</span>
+                                                            @lang('common.class') : <span class="primary-color fw-500">{{ $studentDetails->class_name }}</span>
                                                         </p>
                                                         <p class="mb-0">
-                                                                @lang('student.admission_no') : <span class="primary-color fw-500">{{$aramiscStudentDetails->admission_no}}</span>
+                                                                @lang('student.admission_no') : <span class="primary-color fw-500">{{$studentDetails->admission_no}}</span>
                                                             </p>
                                                         {{-- <p class="mb-0">
-                                                            @lang('common.section') : <span class="primary-color fw-500">{{ $aramiscStudentDetails->section_name }}</span>
+                                                            @lang('common.section') : <span class="primary-color fw-500">{{ $studentDetails->section_name }}</span>
                                                         </p> --}}
 
                                                         
@@ -187,7 +187,7 @@
 
                                                     <div class="col-lg-3">
                                                             <p class="mb-0">
-                                                                    @lang('common.section') : <span class="primary-color fw-500">{{ $aramiscStudentDetails->section_name }}</span>
+                                                                    @lang('common.section') : <span class="primary-color fw-500">{{ $studentDetails->section_name }}</span>
                                                                 </p>
                                                    
                                                         {{-- <p class="mb-0">
@@ -204,7 +204,7 @@
                                                         <th rowspan="2">@lang('common.subjects')</th>
                                                         @foreach($assinged_exam_types as $assinged_exam_type)
                                                         @php
-                                                            $exam_type = App\SmExamType::examType($assinged_exam_type);
+                                                            $exam_type = App\AramiscExamType::examType($assinged_exam_type);
                                                         @endphp
                                                             <th colspan="2" style="text-align: center;">{{$exam_type->title}}</th>
                                                         @endforeach
@@ -236,11 +236,11 @@
                                                             $TotalSum= 0;
                                                         foreach($assinged_exam_types as $assinged_exam_type){
 
-                                                            $mark_parts     =   App\SmAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
+                                                            $mark_parts     =   App\AramiscAssignSubject::getNumberOfPart($data->subject_id, $class_id, $section_id, $assinged_exam_type);
 
-                                                            $result         =   App\SmResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
+                                                            $result         =   App\AramiscResultStore::GetResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
                                                             if(!empty($result)){
-                                                                $final_results = App\SmResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
+                                                                $final_results = App\AramiscResultStore::GetFinalResultBySubjectId($class_id, $section_id, $data->subject_id,$assinged_exam_type ,$student_id);
 
                                                             }
 
@@ -293,7 +293,7 @@
                                                                         }else{
                                                                             $totalSumSub = $totalSumSub / count($assinged_exam_types);
 
-                                                                            $mark_grade = App\SmMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
+                                                                            $mark_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
 
 
                                                                             echo @$mark_grade->grade_name;
@@ -307,7 +307,7 @@
                                                                             echo 'F';
                                                                         }else{
 
-                                                                            $mark_grade = App\SmMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
+                                                                            $mark_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
 
 
                                                                             echo @$mark_grade->gpa;
@@ -335,7 +335,7 @@
                                                                     $total_exam_subject = count($subjects) + count($assinged_exam_types);
                                                                     $average_mark = $total_marks / $total_exam_subject;
 
-                                                                    $average_grade = App\SmMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
+                                                                    $average_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
 
 
                                                                     echo @$average_grade->grade_name;
@@ -354,7 +354,7 @@
                                                                     $total_exam_subject = count($subjects) + count($assinged_exam_types);
                                                                     $average_mark = $total_marks / $total_exam_subject;
 
-                                                                    $average_grade = App\SmMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
+                                                                    $average_grade = App\AramiscMarksGrade::where([['percent_from', '<=', $totalSumSub], ['percent_upto', '>=', $totalSumSub]])->where('academic_id', getAcademicId())->first();
                                                                     echo @$average_grade->gpa;
                                                                 }
                                                             @endphp

@@ -2,9 +2,9 @@
 
 namespace App\Traits;
 
-use App\SmParent;
-use App\SmStaff;
-use App\SmStudent;
+use App\AramiscParent;
+use App\AramiscStaff;
+use App\AramiscStudent;
 use Modules\Chat\Entities\BlockUser;
 use Modules\Chat\Entities\Conversation;
 use Modules\Chat\Entities\Group;
@@ -19,10 +19,10 @@ trait UserChatMethods{
             if ($this->role_id){
                 // return $this->getProfileAttribute();
                 if($this->role_id == 2){
-                    $student = SmStudent::whereUserId($this->id)->first();
+                    $student = AramiscStudent::whereUserId($this->id)->first();
                     return $student->student_photo ?? 'public/chat/images/spondon-icon.png';
                 }elseif($this->role_id == 3){
-                    $parent = SmParent::whereUserId($this->id)->first();
+                    $parent = AramiscParent::whereUserId($this->id)->first();
                     return $parent->guardians_photo ?? 'public/chat/images/spondon-icon.png';
                 }else{
                     $staff = $this->staff;

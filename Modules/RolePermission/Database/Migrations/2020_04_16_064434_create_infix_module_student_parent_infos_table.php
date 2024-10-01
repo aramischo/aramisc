@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
+use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
 
-class CreateAramiscModuleStudentParentInfosTable extends Migration
+class CreateInfixModuleStudentParentInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('aramisc_module_student_parent_infos', function (Blueprint $table) {
+        Schema::create('infix_module_student_parent_infos', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('module_id')->nullable();
@@ -43,7 +43,7 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
         });
 
         // DB::statement('SET foreign_key_checks=0');
-        // DB::table('aramisc_module_student_parent_infos')->truncate();
+        // DB::table('infix_module_student_parent_infos')->truncate();
         // DB::statement('SET foreign_key_checks=1');
 
        //`id`, `module_id`, `parent_id`, `type`, `user_type`, `name`, `route`, `lang_name`, `icon_class`, `active_status`, `created_by`, `updated_by`, `school_id`, `created_at`, `updated_at`
@@ -60,7 +60,7 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
         [6, 1, 1, '3', 1, 'Teachers','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [7, 1, 1, '3', 1, 'Issued books','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [8, 1, 1, '3', 1, 'Pending homeworks','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
-        [9, 1, 1, '3', 1, 'aramiscAttendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [9, 1, 1, '3', 1, 'attendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [10, 1, 1, '3', 1, 'Calendar','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
        // -- student Profile
@@ -101,7 +101,7 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
         [34, 6, 33, '3', 1, 'Download','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
         //-- Student Attendance
-        [35, 7, 0, '1', 1, 'Attendance','student-my-aramiscAttendance','aramiscAttendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22' ],
+        [35, 7, 0, '1', 1, 'Attendance','student-my-attendance','attendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22' ],
 
         //-- Student Examination
         [36, 8, 0, '1', 1, 'Examination','','examinations','flaticon-test', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -191,7 +191,7 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
         [61, 1, 56, '3', 2, 'Teachers','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [62, 1, 56, '3', 2, 'Issued books','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [63, 1, 56, '3', 2, 'Pending homeworks','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
-        [64, 1, 56, '3', 2, 'aramiscAttendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [64, 1, 56, '3', 2, 'attendance in current month','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         [65, 1, 56, '3', 2, 'Calendar','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
         //-- Parent Profile
         [66, 2, 0, '1', 2, 'My Children','my-children','my_children','flaticon-reading', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -216,7 +216,7 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
         [74, 5, 73, '3', 2, 'View','','','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
        // -- Parent Attendance
-        [75, 6, 0, '1', 2, 'Attendance ','parent-aramiscAttendance','aramiscAttendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
+        [75, 6, 0, '1', 2, 'Attendance ','parent-attendance','attendance','flaticon-authentication', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
 
        // -- Parent Exam
         [76, 7, 0, '1', 2, 'Exam ','','exam','flaticon-test', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
@@ -313,7 +313,7 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
        ];
 
        foreach($datas as $data){
-            $new = new AramiscModuleStudentParentInfo();
+            $new = new InfixModuleStudentParentInfo();
             $new->id = $data[0];
             $new->module_id = $data[1];
             $new->parent_id = $data[2];
@@ -339,6 +339,6 @@ class CreateAramiscModuleStudentParentInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aramisc_module_student_parent_infos');
+        Schema::dropIfExists('infix_module_student_parent_infos');
     }
 }

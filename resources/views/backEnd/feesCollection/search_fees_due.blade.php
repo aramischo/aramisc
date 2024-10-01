@@ -225,7 +225,7 @@
                                         </tr>
                                     </tfoot>
                                 </table>
-                                @elseif(aramiscDirectFees())
+                                @elseif(directFees())
                                 @php
                                     $totalAmount = 0;
                                     $totalDiscount = 0;
@@ -348,7 +348,7 @@
                                                 </td>
                                                 <td>
                                                     @php
-                                                        $amount = App\SmFeesAssign::discountSum($fees_due->student_id, $fees_due->feesGroupMaster->feesTypes->id, 'amount', $fees_due->recordDetail->id);
+                                                        $amount = App\AramiscFeesAssign::discountSum($fees_due->student_id, $fees_due->feesGroupMaster->feesTypes->id, 'amount', $fees_due->recordDetail->id);
                                                         echo $amount;
                                                     @endphp
                                                 </td>
@@ -364,7 +364,7 @@
                                                 </td>
                                                 <td>
                                                     @php
-                                                        $fine = App\SmFeesAssign::discountSum($fees_due->student_id, $fees_due->feesGroupMaster->feesTypes->id, 'fine', $fees_due->recordDetail->id);
+                                                        $fine = App\AramiscFeesAssign::discountSum($fees_due->student_id, $fees_due->feesGroupMaster->feesTypes->id, 'fine', $fees_due->recordDetail->id);
                                                         echo $fine;
                                                     @endphp
                                                 </td>

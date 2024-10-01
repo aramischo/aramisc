@@ -6,12 +6,12 @@ use DataTables;
 use App\SmClass;
 use App\SmStaff;
 use App\SmParent;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmSubject;
 use Carbon\Carbon;
 use App\SmOnlineExam;
-use App\SmNotification;
+use App\AramiscNotification;
 use App\SmQuestionBank;
 use App\SmAssignSubject;
 use App\SmOnlineExamMark;
@@ -19,7 +19,7 @@ use App\SmGeneralSettings;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\SmOnlineExamQuestion;
-use App\SmStudentTakeOnlineExam;
+use App\AramiscStudentTakeOnlineExam;
 use App\Traits\NotificationSend;
 use Illuminate\Support\Facades\DB;
 use App\SmOnlineExamQuestionAssign;
@@ -30,10 +30,10 @@ use App\SmOnlineExamQuestionMuOption;
 use Illuminate\Support\Facades\Schema;
 use App\OnlineExamStudentAnswerMarking;
 use Illuminate\Support\Facades\Validator;
-use Modules\OnlineExam\Entities\AramiscOnlineExam;
+use Modules\OnlineExam\Entities\InfixOnlineExam;
 use App\Http\Requests\Admin\OnlineExam\SmOnlineExamRequest;
-use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
-use App\Http\Controllers\Admin\StudentInfo\SmStudentReportController;
+use Modules\OnlineExam\Entities\InfixStudentTakeOnlineExam;
+use App\Http\Controllers\Admin\StudentInfo\AramiscStudentReportController;
 
 class SmOnlineExamController extends Controller
 {
@@ -71,7 +71,7 @@ class SmOnlineExamController extends Controller
                 $classes = SmClass::get();
                 $online_exams = SmOnlineExam::with('class', 'section', 'subject')->where('status', '!=', 2)->get();
             }
-            $sections = SmSection::get();
+            $sections = AramiscSection::get();
             $subjects = SmSubject::get();
             $present_date_time = date("Y-m-d H:i:s");
             $present_time = date("H:i:s");
@@ -429,7 +429,7 @@ class SmOnlineExamController extends Controller
                 ->pluck('student_id')
                 ->unique();
 
-            $students = SmStudent::whereIn('id', $student_ids)
+            $students = AramiscStudent::whereIn('id', $student_ids)
                 ->where('class_id', $class_id)
                 ->where('section_id', $section_id)
                 ->where('academic_id', getAcademicId())
@@ -437,7 +437,7 @@ class SmOnlineExamController extends Controller
                 ->get();
 
             foreach ($students as $student) {
-                $notification = new SmNotification;
+                $notification = new AramiscNotification;
                 $notification->user_id = $student->user_id;
                 $notification->role_id = 2;
                 $notification->date = date('Y-m-d');
@@ -448,7 +448,7 @@ class SmOnlineExamController extends Controller
                 $notification->save();
 
                 $parent = SmParent::find($student->parent_id);
-                $notidication = new SmNotification();
+                $notidication = new AramiscNotification();
                 $notidication->role_id = 3;
                 $notidication->message = "New online exam published for your child";
                 $notidication->date = date('Y-m-d');
@@ -608,7 +608,7 @@ class SmOnlineExamController extends Controller
             ->get();
             $student_ids = $studentRecords->pluck('student_id')->toArray();
             $present_students = [];
-            $take_exam = SmStudentTakeOnlineExam::whereIn('student_id', $student_ids)
+            $take_exam = AramiscStudentTakeOnlineExam::whereIn('student_id', $student_ids)
                 ->where('online_exam_id', $online_exam_question->id)
                 ->get();
             if ($take_exam != "") {
@@ -668,9 +668,9 @@ class SmOnlineExamController extends Controller
                 ->get();
             $student_ids = $studentRecords->pluck('student_id')->toArray();
             $present_students = [];
-            $students = SmStudent::whereIn('id', $studentRecords->pluck('student_id')->toArray())->get();
+            $students = AramiscStudent::whereIn('id', $studentRecords->pluck('student_id')->toArray())->get();
             foreach ($students as $student) {
-                $take_exam = SmStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
+                $take_exam = AramiscStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
                 if ($take_exam != "") {
                     $present_students[] = $student->id;
                 }
@@ -726,7 +726,7 @@ class SmOnlineExamController extends Controller
     {
         $online_exam_info = SmOnlineExam::find($exam_id);
         try {
-            $online_take_exam_mark = SmStudentTakeOnlineExam::where('online_exam_id', $exam_id)
+            $online_take_exam_mark = AramiscStudentTakeOnlineExam::where('online_exam_id', $exam_id)
                 ->where('student_id', $s_id)
                 ->when(moduleStatusCheck('University'), function ($query) {
                     return $query->where('un_academic_id', getAcademicId());
@@ -742,7 +742,7 @@ class SmOnlineExamController extends Controller
                 $total_mark += $marks;
             }
             if ($online_exam_info->auto_mark == 1) {
-                $take_online_exam = SmStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)
+                $take_online_exam = AramiscStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)
                 ->when(moduleStatusCheck('University'), function ($query) {
                     return $query->where('un_academic_id', getAcademicId());
                 })
@@ -753,7 +753,7 @@ class SmOnlineExamController extends Controller
                 ->first();
                 return view('backEnd.examination.online_answer_auto_marking', compact('take_online_exam', 'online_exam_info', 's_id', 'online_take_exam_mark', 'assign_questions', 'total_mark'));
             } else {
-                $take_online_exam = SmStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)
+                $take_online_exam = AramiscStudentTakeOnlineExam::where('online_exam_id', $exam_id)->where('student_id', $s_id)
                 ->when(moduleStatusCheck('University'), function ($query) {
                     return $query->where('un_academic_id', getAcademicId());
                 })
@@ -866,13 +866,13 @@ class SmOnlineExamController extends Controller
             }
             $total_obtain_marks = OnlineExamStudentAnswerMarking::where('online_exam_id', $request->online_exam_id)
                 ->where('student_id', $request->student_id)->sum('obtain_marks');
-            $online_take_exam_mark = SmStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)->where('student_id', $request->student_id)->where('academic_id', getAcademicId())->first();
+            $online_take_exam_mark = AramiscStudentTakeOnlineExam::where('online_exam_id', $request->online_exam_id)->where('student_id', $request->student_id)->where('academic_id', getAcademicId())->first();
             $online_take_exam_mark->total_marks = $total_obtain_marks;
             $online_take_exam_mark->status = 2;
             $online_take_exam_mark->save();
             $wrong = OnlineExamStudentAnswerMarking::where('user_answer', '=', '')->delete();
 
-            $studentInfo = SmStudent::find($request->student_id);
+            $studentInfo = AramiscStudent::find($request->student_id);
             $data['class'] = $studentInfo->studentRecord->class->class_name;
             $data['section'] = $studentInfo->studentRecord->section->section_name;
             $data['subject'] = $exam_info->subject->subject_name;
@@ -892,7 +892,7 @@ class SmOnlineExamController extends Controller
     {
         try {
             if (moduleStatusCheck('OnlineExam') == TRUE) {
-                $exams = AramiscOnlineExam::where('active_status', 1)
+                $exams = InfixOnlineExam::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->get();
@@ -915,19 +915,19 @@ class SmOnlineExamController extends Controller
         try {
             date_default_timezone_set($this->timeZone);
             $present_date_time = date("Y-m-d H:i:s");
-            $student_ids = SmStudentReportController::SemesterLabelSectionStudent($request);
-            $students = SmStudent::whereIn('id', $student_ids)->where('school_id', Auth::user()->school_id)->get();
+            $student_ids = AramiscStudentReportController::SemesterLabelSectionStudent($request);
+            $students = AramiscStudent::whereIn('id', $student_ids)->where('school_id', Auth::user()->school_id)->get();
             if ($students->count() == 0) {
                 Toastr::error('No Result Found', 'Failed');
                 return redirect('online-exam-report');
             }
             
             if (moduleStatusCheck('OnlineExam') == TRUE) {
-                $online_exam_question = AramiscOnlineExam::find($request->exam);
-                $online_exam = AramiscOnlineExam::where('class_id', $request->class)->where('section_id', $request->section)->where('id', $request->exam)->where('end_date_time', '<', $present_date_time)->where('status', 1)->first();
+                $online_exam_question = InfixOnlineExam::find($request->exam);
+                $online_exam = InfixOnlineExam::where('class_id', $request->class)->where('section_id', $request->section)->where('id', $request->exam)->where('end_date_time', '<', $present_date_time)->where('status', 1)->first();
                 $present_students = [];
                 foreach ($students as $student) {
-                    $take_exam = AramiscStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
+                    $take_exam = InfixStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
                     if ($take_exam != "") {
                         $present_students[] = $student->id;
                     }
@@ -936,14 +936,14 @@ class SmOnlineExamController extends Controller
                 foreach ($online_exam_question->assignQuestions as $assignQuestion) {
                     $total_marks = $total_marks + $assignQuestion->questionBank->marks;
                 }
-                $exams = AramiscOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $exams = InfixOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             } else {
                 $online_exam_question = SmOnlineExam::find($request->exam);
                 $online_exam = SmOnlineExam::where('un_semester_label_id', $request->un_semester_label_id)->where('un_section_id', $request->un_section_id)->where('id', $request->exam)
                 ->where('end_date_time', '<', $present_date_time)->where('status', 1)->first();
                 $present_students = [];
                 foreach ($students as $student) {
-                    $take_exam = SmStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
+                    $take_exam = AramiscStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
                     if ($take_exam != "") {
                         $present_students[] = $student->id;
                     }
@@ -976,18 +976,18 @@ class SmOnlineExamController extends Controller
             try {
                 date_default_timezone_set("Asia/Dhaka");
                 $present_date_time = date("Y-m-d H:i:s");
-                $student_ids = SmStudentReportController::classSectionStudent($request);
-                $students = SmStudent::whereIn('id', $student_ids)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $student_ids = AramiscStudentReportController::classSectionStudent($request);
+                $students = AramiscStudent::whereIn('id', $student_ids)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 if ($students->count() == 0 && $online_exam == "") {
                     Toastr::error('No Result Found', 'Failed');
                     return redirect('online-exam-report');
                 }
                 if (moduleStatusCheck('OnlineExam') == TRUE) {
-                    $online_exam_question = AramiscOnlineExam::find($request->exam);
-                    $online_exam = AramiscOnlineExam::where('class_id', $request->class)->where('section_id', $request->section)->where('id', $request->exam)->where('end_date_time', '<', $present_date_time)->where('status', 1)->first();
+                    $online_exam_question = InfixOnlineExam::find($request->exam);
+                    $online_exam = InfixOnlineExam::where('class_id', $request->class)->where('section_id', $request->section)->where('id', $request->exam)->where('end_date_time', '<', $present_date_time)->where('status', 1)->first();
                     $present_students = [];
                     foreach ($students as $student) {
-                        $take_exam = AramiscStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
+                        $take_exam = InfixStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
                         if ($take_exam != "") {
                             $present_students[] = $student->id;
                         }
@@ -996,13 +996,13 @@ class SmOnlineExamController extends Controller
                     foreach ($online_exam_question->assignQuestions as $assignQuestion) {
                         $total_marks = $total_marks + $assignQuestion->questionBank->marks;
                     }
-                    $exams = AramiscOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                    $exams = InfixOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
                 } else {
                     $online_exam_question = SmOnlineExam::find($request->exam);
                     $online_exam = SmOnlineExam::where('class_id', $request->class)->where('section_id', $request->section)->where('id', $request->exam)->where('end_date_time', '<', $present_date_time)->where('status', 1)->first();
                     $present_students = [];
                     foreach ($students as $student) {
-                        $take_exam = SmStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
+                        $take_exam = AramiscStudentTakeOnlineExam::where('student_id', $student->id)->where('online_exam_id', $online_exam_question->id)->first();
                         if ($take_exam != "") {
                             $present_students[] = $student->id;
                         }
@@ -1023,7 +1023,7 @@ class SmOnlineExamController extends Controller
                 $section_id = $request->section;
                 $exam_id = $request->exam;
                 $clas = SmClass::find($request->class);
-                $sec = SmSection::find($request->section);
+                $sec = AramiscSection::find($request->section);
                 return view('backEnd.reports.online_exam_report', compact('online_exam_question', 'students', 'present_students', 'total_marks', 'exams', 'classes', 'class_id', 'exam_id', 'section_id', 'clas', 'sec'));
             } catch (\Exception $e) {
                 Toastr::error('Operation Failed', 'Failed');

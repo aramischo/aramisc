@@ -27,19 +27,19 @@ class SmsTemplate extends Model
             $body = str_replace('[password]', '123456', $body);
         } else {
             $body = str_replace('[name]', @$user->full_name, $body);
-            $body = str_replace('[aramiscAttendance_date]', @$data['aramiscAttendance_date'], $body);
+            $body = str_replace('[attendance_date]', @$data['attendance_date'], $body);
             $body = str_replace('[password]', '123456', $body);
         }
 
         $body = str_replace('[name]', @$data['name'], $body);
 
         if (@$data['slug'] == 'student') {
-            $student_info = SmStudent::find(@$data['id']);
+            $student_info = AramiscStudent::find(@$data['id']);
             $body = str_replace('[student_name]', gv($data, 'student_name', @$student_info->full_name), $body);
             $body = str_replace('[user_name]', @$user->username . '/' . @$user->email, $body);
         } elseif (@$data['slug'] == 'parent') {
             $parent_info = SmParent::find(@$data['id']);
-            $student_info = SmStudent::where('parent_id', @$parent_info->id)->first();
+            $student_info = AramiscStudent::where('parent_id', @$parent_info->id)->first();
             $body = str_replace('[parent_name]', gv($data, 'parent_name', @$parent_info->guardians_name), $body);
             $body = str_replace('[student_name]', gv($data, 'student_name', @$student_info->full_name), $body);
             $body = str_replace('[user_name]', @$user->username, $body);
@@ -61,7 +61,7 @@ class SmsTemplate extends Model
 
         $body = str_replace('[school_name]', gv($data, 'school_name', @generalSetting()->school_name), $body);
 
-        $body = str_replace('[aramiscAttendance_date]', @$data['aramiscAttendance_date'], $body);
+        $body = str_replace('[attendance_date]', @$data['attendance_date'], $body);
 
         $body = str_replace('[exam_date]', @$data['exam_date'], $body);
         $body = str_replace('[exam_time]', @$data['exam_time'], $body);
@@ -144,7 +144,7 @@ class SmsTemplate extends Model
         $body = str_replace('[description]', @$data['description'], $body);
 
         if (@$data['slug'] == 'student') {
-            $student_info = SmStudent::find(@$data['id']);
+            $student_info = AramiscStudent::find(@$data['id']);
             $parent_info = SmParent::find(@$student_info->parent_id);
 
             $body = str_replace('[student_name]', @$student_info->full_name, $body);
@@ -153,7 +153,7 @@ class SmsTemplate extends Model
             $body = str_replace('[admission_number]', @$student_info->admission_no, $body);
         } elseif (@$data['slug'] == 'parent') {
             $parent_info = SmParent::find(@$data['id']);
-            $student_info = SmStudent::where('parent_id', @$parent_info->id)->first();
+            $student_info = AramiscStudent::where('parent_id', @$parent_info->id)->first();
 
             $body = str_replace('[name]', @$parent_info->guardians_name, $body);
             $body = str_replace('[parent_name]', @$parent_info->guardians_name, $body);

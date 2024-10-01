@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\SmNotification;
+use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
 use SpondonIt\FCM\FcmMessage;
 use Illuminate\Notifications\Notification;
@@ -19,7 +19,7 @@ class StudentHomeworkSubmitNotification extends Notification
      *
      * @return void
      */
-    public function __construct(SmNotification $sm_notification)
+    public function __construct(AramiscNotification $sm_notification)
     {
         $this->sm_notification = $sm_notification;
     }

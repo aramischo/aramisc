@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\FeesCollection;
 
-use App\SmClass;
-use App\SmStudent;
+use App\AramiscClass;
+use App\AramiscStudent;
 use App\ApiBaseMethod;
-use App\SmFeesPayment;
+use App\AramiscFeesPayment;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
 use App\Http\Controllers\Controller;
@@ -22,7 +22,7 @@ class SmCollectionReportController extends Controller
     public function transactionReport(Request $request)
     {
         try {
-            $classes = SmClass::get();
+            $classes = AramiscClass::get();
             
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse(null, null);
@@ -59,8 +59,8 @@ class SmCollectionReportController extends Controller
                             })
                             ->where('paid_amount', '>', 0)
                             ->get();
-            }elseif(aramiscDirectFees()){
-                $classes = SmClass::get();
+            }elseif(directFees()){
+                $classes = AramiscClass::get();
                 $allStudent = StudentRecord::when($request->class, function ($q) use ($request) {
                     $q->where('class_id', $request->class);
                 })
@@ -79,13 +79,13 @@ class SmCollectionReportController extends Controller
                             ->where('school_id',auth()->user()->school_id)
                             ->get();
             }else{
-                $classes = SmClass::get();
+                $classes = AramiscClass::get();
                 if($request->date_range ){
                     if($request->class){
                         $students=StudentRecord::where('class_id',$request->class)
                                             ->get();
     
-                        $fees_payments = SmFeesPayment::where('active_status',1)
+                        $fees_payments = AramiscFeesPayment::where('active_status',1)
                                         ->whereIn('student_id', $students->pluck('student_id'))
                                         ->where('payment_date', '>=', $date_from)
                                         ->where('payment_date', '<=', $date_to)
@@ -93,7 +93,7 @@ class SmCollectionReportController extends Controller
                                         ->get();
                         $fees_payments = $fees_payments->groupBy('student_id');
                     }else{
-                        $fees_payments = SmFeesPayment::where('active_status',1)
+                        $fees_payments = AramiscFeesPayment::where('active_status',1)
                                     ->where('payment_date', '>=', $date_from)
                                     ->where('payment_date', '<=', $date_to)
                                     ->where('school_id',Auth::user()->school_id)
@@ -109,7 +109,7 @@ class SmCollectionReportController extends Controller
                             ->where('academic_id', getAcademicId())
                             ->get();
     
-                    $fees_payments = SmFeesPayment::where('active_status',1)
+                    $fees_payments = AramiscFeesPayment::where('active_status',1)
                                     ->whereIn('student_id', $students->pluck('student_id'))
                                     ->where('payment_date', '>=', $date_from)
                                     ->where('payment_date', '<=', $date_to)
@@ -124,7 +124,7 @@ class SmCollectionReportController extends Controller
                 // $data = $this->unCommonRepository->oldValueSelected($request);
                 return view('backEnd.feesCollection.transaction_report', compact('fees_payments', 'date_to', 'date_from'));
             }
-            elseif(aramiscDirectFees()){
+            elseif(directFees()){
                 // $data = $this->unCommonRepository->oldValueSelected($request);
                 return view('backEnd.feesCollection.transaction_report', compact('fees_payments', 'date_to', 'date_from','classes'));
             }

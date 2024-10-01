@@ -3,7 +3,7 @@
 namespace Modules\ExamPlan\Entities;
 
 use App\Models\StudentRecord;
-use App\SmExamType;
+use App\AramiscExamType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -19,6 +19,6 @@ class AdmitCard extends Model
     }
 
     public function examType(){
-        return $this->belongsTo(SmExamType::class,'exam_type_id','id');
+        return $this->belongsTo(AramiscExamType::class,'exam_type_id','id');
     }
 }

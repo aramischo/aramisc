@@ -21,7 +21,7 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'behaviour_records.setting_update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
+                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'behaviour_records.setting_update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
                             <input type="hidden" name="type" value="comment">
                             <div class="white-box">
                                 <div class="main-title">
@@ -73,7 +73,7 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'behaviour_records.setting_update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
+                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'behaviour_records.setting_update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
                             <input type="hidden" name="type" value="view">
                             <div class="white-box">
                                 <div class="main-title">

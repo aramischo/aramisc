@@ -176,7 +176,7 @@
                 </div>
             </div>
             @php
-             $student_detail = App\SmStudent::where('user_id', Auth::user()->id)->first();
+             $student_detail = App\AramiscStudent::where('user_id', Auth::user()->id)->first();
              $student_result = $student_detail->homeworks->where('homework_id', $homeworkDetails->id)->first();
             @endphp
             <div class="single-meta">

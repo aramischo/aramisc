@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\SmDesignation;
+use App\AramiscDesignation;
 use Illuminate\Support\Facades\Auth;
 
 class UniqueStaff implements Rule
@@ -19,7 +19,7 @@ class UniqueStaff implements Rule
 
     public function passes($attribute, $value)
     {
-        $isExist = SmDesignation::where('school_id', Auth::user()->school_id)->where('title', $this->title)->where('id', '!=', $this->id)->first();
+        $isExist = AramiscDesignation::where('school_id', Auth::user()->school_id)->where('title', $this->title)->where('id', '!=', $this->id)->first();
         if ($isExist) {
             return false;
         }

@@ -1,51 +1,51 @@
 <?php
 
 use App\User;
-use App\SmExam;
-use App\SmStaff;
-use App\SmStyle;
-use App\SmParent;
-use App\SmSchool;
-use App\SmStudent;
-use App\SmSubject;
-use App\SmExamType;
-use App\SmLanguage;
-use App\SmAddIncome;
-use App\SmExamSetup;
-use App\SmMarkStore;
-use App\SmsTemplate;
+use App\AramiscExam;
+use App\AramiscStaff;
+use App\AramiscStyle;
+use App\AramiscParent;
+use App\AramiscSchool;
+use App\AramiscStudent;
+use App\AramiscSubject;
+use App\AramiscExamType;
+use App\AramiscLanguage;
+use App\AramiscAddIncome;
+use App\AramiscExamSetup;
+use App\AramiscMarkStore;
+use App\AramiscTemplate;
 use Clickatell\Rest;
-use App\SmDateFormat;
-use App\SmFeesMaster;
-use App\SmMarksGrade;
-use App\SmSmsGateway;
+use App\AramiscDateFormat;
+use App\AramiscFeesMaster;
+use App\AramiscMarksGrade;
+use App\AramiscSmsGateway;
 use App\Jobs\EmailJob;
-use App\SmFeesPayment;
-use App\SmResultStore;
+use App\AramiscFeesPayment;
+use App\AramiscResultStore;
 use GuzzleHttp\Client;
-use App\SmAcademicYear;
-use App\SmClassTeacher;
-use App\SmEmailSetting;
-use App\SmExamSchedule;
-use App\SmNotification;
-use App\SmAssignSubject;
-use App\SmExamAttendance;
-use App\SmPaymentMethhod;
-use App\SmGeneralSettings;
-use App\AramiscModuleManager;
+use App\AramiscAcademicYear;
+use App\AramiscClassTeacher;
+use App\AramiscEmailSetting;
+use App\AramiscExamSchedule;
+use App\AramiscNotification;
+use App\AramiscAssignSubject;
+use App\AramiscExamAttendance;
+use App\AramiscPaymentMethhod;
+use App\AramiscGeneralSettings;
+use App\InfixModuleManager;
 use App\Models\FeesInvoice;
-use App\SmFeesCarryForward;
+use App\AramiscFeesCarryForward;
 use Illuminate\Support\Str;
 use App\CustomResultSetting;
-use App\SmHeaderMenuManager;
-use App\SmSubjectAttendance;
+use App\AramiscHeaderMenuManager;
+use App\AramiscSubjectAttendance;
 use App\Models\StudentRecord;
-use App\SmExamAttendanceChild;
+use App\AramiscExamAttendanceChild;
 use Illuminate\Support\Carbon;
-use App\Models\SmExamSignature;
-use App\SmClassOptionalSubject;
+use App\Models\AramiscExamSignature;
+use App\AramiscClassOptionalSubject;
 use App\Models\CustomSmsSetting;
-use App\SmOptionalSubjectAssign;
+use App\AramiscOptionalSubjectAssign;
 use App\Models\ExamMeritPosition;
 use App\Models\DirectFeesReminder;
 use Illuminate\Support\Facades\DB;
@@ -60,7 +60,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
-use App\Models\SmNotificationSetting;
+use App\Models\AramiscNotificationSetting;
 use Illuminate\Support\Facades\Cache;
 use Modules\Fees\Entities\FmFeesType;
 use AfricasTalking\SDK\AfricasTalking;
@@ -70,13 +70,13 @@ use Larabuild\Pagebuilder\Models\Page;
 use Illuminate\Support\Facades\Storage;
 use Modules\Lms\Entities\CourseSetting;
 use App\Models\FeesCarryForwardSettings;
-use App\Models\SmStudentRegistrationField;
+use App\Models\AramiscStudentRegistrationField;
 use App\Models\DirectFeesInstallmentAssign;
 use Modules\MenuManage\Entities\MenuManage;
 use Modules\University\Entities\UnAcademicYear;
 use Modules\Fees\Entities\FmFeesInvoiceSettings;
 use Modules\University\Entities\UnFeesInstallmentAssign;
-use Modules\ParentRegistration\Entities\SmStudentRegistration;
+use Modules\ParentRegistration\Entities\AramiscStudentRegistration;
 
 function sendEmailBio($data, $to_name, $to_email, $email_sms_title)
 {
@@ -103,7 +103,7 @@ if (!function_exists('activeSmsGateway')) {
     function activeSmsGateway()
     {
         $school_id = Auth::check() && saasSettings('sms_settings') ? Auth::user()->school_id : 1;
-        $activeSmsGateway = SmSmsGateway::where('school_id', $school_id)->where('active_status', '=', 1)->first();
+        $activeSmsGateway = AramiscSmsGateway::where('school_id', $school_id)->where('active_status', '=', 1)->first();
 
         return $activeSmsGateway;
     }
@@ -132,7 +132,7 @@ function showFileName($data)
 
 function sendSMSApi($to_mobile, $sms, $id)
 {
-    $activeSmsGateway = SmSmsGateway::find($id);
+    $activeSmsGateway = AramiscSmsGateway::find($id);
     if ($activeSmsGateway->gateway_name == 'Twilio') {
         if (!$activeSmsGateway->twilio_account_sid || $activeSmsGateway->twilio_authentication_token) {
             return;
@@ -216,7 +216,7 @@ function sendSMSApi($to_mobile, $sms, $id)
 
 function sendSMSBio($to_mobile, $sms)
 {
-    $activeSmsGateway = SmSmsGateway::where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)->first();
+    $activeSmsGateway = AramiscSmsGateway::where('school_id', Auth::user()->school_id)->where('active_status', '=', 1)->first();
     if ($activeSmsGateway->gateway_name == 'Twilio') {
 
         config(['TWILIO.SID' => $activeSmsGateway->twilio_account_sid]);
@@ -314,7 +314,7 @@ function sendSMSBio($to_mobile, $sms)
 
 function getValueByString($student_id, $string, $extra = null)
 {
-    $student = SmStudent::find($student_id);
+    $student = AramiscStudent::find($student_id);
     if ($extra != null) {
         return $student->$string->$extra;
     } else {
@@ -324,8 +324,8 @@ function getValueByString($student_id, $string, $extra = null)
 
 function getParentName($student_id, $string, $extra = null)
 {
-    $student = SmStudent::find($student_id);
-    $parent = SmParent::where('id', $student->parent_id)->first();
+    $student = AramiscStudent::find($student_id);
+    $parent = AramiscParent::where('id', $student->parent_id)->first();
     if ($extra != null) {
         return $student->$parent->$extra;
     } else {
@@ -450,7 +450,7 @@ if (!function_exists('moduleStatusCheck')) {
 
             if (empty($all_module)) {
                 $all_module = [];
-                $modules = AramiscModuleManager::select('name')->get();
+                $modules = InfixModuleManager::select('name')->get();
                 foreach ($modules as $m) {
                     $all_module[] = $m->name;
                 }
@@ -468,7 +468,7 @@ if (!function_exists('moduleStatusCheck')) {
             }
 
             $is_verify = Cache::rememberForever('module_' . $module, function () use ($module) {
-                return AramiscModuleManager::where('name', $module)->first();
+                return InfixModuleManager::where('name', $module)->first();
             });
 
             if (!$is_verify || !$is_verify->purchase_code) {
@@ -493,8 +493,8 @@ if (!function_exists('dateConvert')) {
         try {
             $system_date_format = session()->get('system_date_format');
             if (empty($system_date_format)) {
-                $date_format_id = SmGeneralSettings::where('id', 1)->first(['date_format_id'])->date_format_id;
-                $system_date_format = SmDateFormat::where('id', $date_format_id)->first(['format'])->format;
+                $date_format_id = AramiscGeneralSettings::where('id', 1)->first(['date_format_id'])->date_format_id;
+                $system_date_format = AramiscDateFormat::where('id', $date_format_id)->first(['format'])->format;
                 session()->put('system_date_format', $system_date_format);
             }
 
@@ -512,8 +512,8 @@ if (!function_exists('dateTimeConvert')) {
         try {
             $system_date_format = session()->get('system_date_format') . ' g:i A';
             if (empty($system_date_format)) {
-                $date_format_id = SmGeneralSettings::where('id', 1)->first(['date_format_id'])->date_format_id;
-                $system_date_format = SmDateFormat::where('id', $date_format_id)->first(['format'])->format . ' g:i A';
+                $date_format_id = AramiscGeneralSettings::where('id', 1)->first(['date_format_id'])->date_format_id;
+                $system_date_format = AramiscDateFormat::where('id', $date_format_id)->first(['format'])->format . ' g:i A';
                 session()->put('system_date_format', $system_date_format);
             }
             return \Carbon\Carbon::parse($input_date_time)->format($system_date_format);
@@ -538,7 +538,7 @@ if (!function_exists('getAcademicId')) {
             } else {
                 $session_id = generalSetting()->session_id;
                 if (!$session_id) {
-                    $session_id = SmAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first()->id;
+                    $session_id = AramiscAcademicYear::where('school_id', Auth::user()->school_id)->where('active_status', 1)->first()->id;
                 }
             }
 
@@ -553,7 +553,7 @@ if (!function_exists('timeZone')) {
     {
         $time_zone_setup = session()->get('time_zone_setup');
         if (is_null($time_zone_setup)) {
-            $time_zone = SmGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
+            $time_zone = AramiscGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
                 ->where('school_id', 1)->first('time_zone');
             session()->put('time_zone_setup', $time_zone);
             $time_zone_setup = session()->get('time_zone_setup');
@@ -566,7 +566,7 @@ if (!function_exists('schoolTimeZone')) {
     {
         $time_zone_setup = session()->get('time_zone_setup');
         if (is_null($time_zone_setup)) {
-            $time_zone = SmGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
+            $time_zone = AramiscGeneralSettings::join('sm_time_zones', 'sm_time_zones.id', '=', 'sm_general_settings.time_zone_id')
                 ->where('school_id', Auth::user()->school_id)->first('time_zone');
             session()->put('time_zone_setup', $time_zone);
             $time_zone_setup = session()->get('time_zone_setup');
@@ -608,7 +608,7 @@ if (!function_exists('checkAdmin')) {
 if (!function_exists('getTempleteDetails')) {
     function getTempleteDetails($purpose, $type = null)
     {
-        $data = SmsTemplate::query();
+        $data = AramiscTemplate::query();
         $data = $data->where('purpose', $purpose)->where('status', 1);
         if ($type) {
             $data->where('type', $type);
@@ -625,7 +625,7 @@ if (!function_exists('getTempleteDetails')) {
 
 if (!function_exists('send_mail')) {
     function send_mail($reciver_email, $receiver_name, $purpose, $data = [])
-    {   
+    {
         if (!$reciver_email) {
             return;
         }
@@ -636,7 +636,7 @@ if (!function_exists('send_mail')) {
 
         $school_id = Auth::check() && saasSettings('email_settings') ? Auth::user()->school_id : 1;
 
-        $setting = SmEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
+        $setting = AramiscEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
 
         if (!$setting) {
             return;
@@ -649,7 +649,7 @@ if (!function_exists('send_mail')) {
 
         $subject = getTempleteDetails($purpose, 'email')->subject;
 
-        $body = SmsTemplate::emailTempleteToBody(getTempleteDetails($purpose, 'email')->body, $data);
+        $body = AramiscTemplate::emailTempleteToBody(getTempleteDetails($purpose, 'email')->body, $data);
         $view = view('backEnd.email.emailBody', compact('body'));
 
         try {
@@ -664,7 +664,7 @@ if (!function_exists('send_mail')) {
                         ->first();
 
                     if ($config) {
-                        Config::set('mail.mailers.smtp.transport', 'smtp');
+                        Config::set('mail.default', 'smtp');
                         Config::set('mail.from.from', $config->mail_username);
                         Config::set('mail.from.name', $config->from_name);
                         Config::set('mail.mailers.smtp.host', $config->mail_host);
@@ -700,7 +700,7 @@ if (!function_exists('send_mail_without_template')) {
 
         $school_id = Auth::check() && saasSettings('email_settings') ? Auth::user()->school_id : 1;
 
-        $setting = SmEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
+        $setting = AramiscEmailSetting::where('school_id', $school_id)->where('active_status', 1)->first();
 
         if (!$setting) {
             return;
@@ -850,7 +850,7 @@ if (!function_exists('termResult')) {
     function termResult($exam_id, $class_id, $section_id, $student_id, $subject_count)
     {
         try {
-            $assigned_subject = SmAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
+            $assigned_subject = AramiscAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
             $mark_store = DB::table('sm_mark_stores')->where([['class_id', $class_id], ['section_id', $section_id], ['exam_term_id', $exam_id], ['student_id', $student_id]])->first();
             $subject_marks = [];
             $subject_gpas = [];
@@ -878,11 +878,11 @@ if (!function_exists('getFinalResult')) {
     function getFinalResult($exam_id, $class_id, $section_id, $student_id, $percentage)
     {
         try {
-            $system_setting = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $system_setting = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
             $system_setting = $system_setting->session_id;
             $custom_result_setup = CustomResultSetting::where('academic_year', $system_setting)->first();
 
-            $assigned_subject = SmAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
+            $assigned_subject = AramiscAssignSubject::where('class_id', $class_id)->where('section_id', $section_id)->get();
 
             $all_subjects_gpa = [];
             foreach ($assigned_subject as $subject) {
@@ -947,7 +947,7 @@ if (!function_exists('getNumberOfPart')) {
     function getNumberOfPart($subject_id, $class_id, $section_id, $exam_term_id)
     {
         try {
-            $results = SmExamSetup::where([
+            $results = AramiscExamSetup::where([
                 ['class_id', $class_id],
                 ['subject_id', $subject_id],
                 ['section_id', $section_id],
@@ -966,7 +966,7 @@ if (!function_exists('GetResultBySubjectId')) {
     {
 
         try {
-            $data = SmMarkStore::where([
+            $data = AramiscMarkStore::where([
                 ['class_id', $class_id],
                 ['section_id', $section_id],
                 ['exam_term_id', $exam_id],
@@ -986,7 +986,7 @@ if (!function_exists('GetFinalResultBySubjectId')) {
     {
 
         try {
-            $data = SmResultStore::where([
+            $data = AramiscResultStore::where([
                 ['class_id', $class_id],
                 ['section_id', $section_id],
                 ['exam_type_id', $exam_id],
@@ -1005,7 +1005,7 @@ if (!function_exists('GetFinalResultBySubjectId')) {
 if (!function_exists('markGpa')) {
     function markGpa($marks)
     {
-        $mark = SmMarksGrade::where([
+        $mark = AramiscMarksGrade::where([
             ['percent_from', '<=', floor($marks)],
             ['percent_upto', '>=', floor($marks)]
         ])
@@ -1013,8 +1013,8 @@ if (!function_exists('markGpa')) {
         if ($mark) {
             return $mark;
         } else {
-            $fail_grade = SmMarksGrade::min('gpa');
-            $mark = SmMarksGrade::where('gpa', $fail_grade)->first();
+            $fail_grade = AramiscMarksGrade::min('gpa');
+            $mark = AramiscMarksGrade::where('gpa', $fail_grade)->first();
             return $mark;
         }
     }
@@ -1022,16 +1022,16 @@ if (!function_exists('markGpa')) {
 if (!function_exists('getGrade')) {
     function getGrade($grade)
     {
-        $mark = SmMarksGrade::where('from', '<=', $grade)->where('up', '>=', $grade)->where('academic_id', getAcademicId())->first();
+        $mark = AramiscMarksGrade::where('from', '<=', $grade)->where('up', '>=', $grade)->where('academic_id', getAcademicId())->first();
         if ($mark) {
             return $mark;
         } else {
-            $fail_grade = SmMarksGrade::where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $mark = SmMarksGrade::where('active_status', 1)
+            $mark = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->where('gpa', $fail_grade)
@@ -1045,16 +1045,16 @@ if (!function_exists('getGrade')) {
 if (!function_exists('getGradeUpdate')) {
     function getGradeUpdate($grade)
     {
-        $mark = SmMarksGrade::where('from', '<=', $grade)->where('up', '>=', $grade)->where('academic_id', getAcademicId())->first();
+        $mark = AramiscMarksGrade::where('from', '<=', $grade)->where('up', '>=', $grade)->where('academic_id', getAcademicId())->first();
         if ($mark) {
             return $mark;
         } else {
-            $fail_grade = SmMarksGrade::where('active_status', 1)
+            $fail_grade = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->min('gpa');
 
-            $mark = SmMarksGrade::where('active_status', 1)
+            $mark = AramiscMarksGrade::where('active_status', 1)
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->where('gpa', $fail_grade)
@@ -1069,7 +1069,7 @@ if (!function_exists('is_optional_subject')) {
     function is_optional_subject($student_id, $subject_id)
     {
         try {
-            $result = SmOptionalSubjectAssign::where('student_id', $student_id)->where('subject_id', $subject_id)->first();
+            $result = AramiscOptionalSubjectAssign::where('student_id', $student_id)->where('subject_id', $subject_id)->first();
             if ($result) {
                 return true;
             } else {
@@ -1085,7 +1085,7 @@ if (!function_exists('getMarksOfPart')) {
     function getMarksOfPart($student_id, $subject_id, $class_id, $section_id, $exam_term_id)
     {
         try {
-            $results = SmMarkStore::where([
+            $results = AramiscMarkStore::where([
                 ['student_id', $student_id],
                 ['class_id', $class_id],
                 ['subject_id', $subject_id],
@@ -1103,12 +1103,12 @@ if (!function_exists('getMarksOfPart')) {
 if (!function_exists('getExamResult')) {
     function getExamResult($exam_id, $student)
     {
-        $eligible_subjects = SmAssignSubject::where('class_id', $student->class_id)->where('section_id', $student->section_id)->where('academic_id', getAcademicId())
+        $eligible_subjects = AramiscAssignSubject::where('class_id', $student->class_id)->where('section_id', $student->section_id)->where('academic_id', getAcademicId())
             ->where('school_id', Auth::user()->school_id)->get();
 
         foreach ($eligible_subjects as $subject) {
 
-            $getMark = SmResultStore::where([
+            $getMark = AramiscResultStore::where([
                 ['exam_type_id', $exam_id],
                 ['class_id', $student->class_id],
                 ['section_id', $student->section_id],
@@ -1120,7 +1120,7 @@ if (!function_exists('getExamResult')) {
                 return false;
             }
 
-            $result = SmResultStore::where([
+            $result = AramiscResultStore::where([
                 ['exam_type_id', $exam_id],
                 ['class_id', $student->class_id],
                 ['section_id', $student->section_id],
@@ -1139,13 +1139,13 @@ if (!function_exists('teacherAssignedClass')) {
             $class_id = [];
             $role_id = Auth::user()->role_id;
             if ($role_id == 4) {
-                $classes = SmClassTeacher::where('teacher_id', Auth::user()->id)->get(['id']);
+                $classes = AramiscClassTeacher::where('teacher_id', Auth::user()->id)->get(['id']);
                 foreach ($classes as $class) {
                     $class_id[] = $class->module_id;
                 }
             } else {
 
-                $general_setting = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+                $general_setting = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
                 return @$general_setting->school_name;
             }
         } catch (\Exception $e) {
@@ -1161,16 +1161,16 @@ if (!function_exists('getValueByStringTestRegistration')) {
             return '123456';
         } elseif ($str == 'school_name') {
             if (moduleStatusCheck('Saas') == true) {
-                $student_info = SmStudentRegistration::find(@$data['id']);
+                $student_info = AramiscStudentRegistration::find(@$data['id']);
                 return @$student_info->school->school_name;
             } else {
-                $general_setting = SmGeneralSettings::find(1);
+                $general_setting = AramiscGeneralSettings::find(1);
                 return @$general_setting->school_name;
             }
         }
 
         if ($data['slug'] == 'student') {
-            $student_info = SmStudentRegistration::find(@$data['id']);
+            $student_info = AramiscStudentRegistration::find(@$data['id']);
             if ($str == 'name') {
                 return @$student_info->first_name . ' ' . @$student_info->last_name;
             } elseif ($str == 'guardian_name') {
@@ -1181,7 +1181,7 @@ if (!function_exists('getValueByStringTestRegistration')) {
                 return @$student_info->section->section_name;
             }
         } elseif ($data['slug'] == 'parent') {
-            $parent_info = SmStudentRegistration::find(@$data['id']);
+            $parent_info = AramiscStudentRegistration::find(@$data['id']);
             if ($str == 'name') {
                 return @$parent_info->guardian_name;
             } elseif ($str == 'student_name') {
@@ -1195,7 +1195,7 @@ if (!function_exists('getValueByStringTestReset')) {
     {
         if ($str == 'school_name') {
 
-            $general_setting = SmGeneralSettings::where('school_id', auth()->user()->school_id)->first();
+            $general_setting = AramiscGeneralSettings::where('school_id', auth()->user()->school_id)->first();
             return @$general_setting->school_name;
         } elseif ($str == 'name') {
             $user = User::where('email', $data['email'])->first();
@@ -1208,21 +1208,21 @@ if (!function_exists('subjectPosition')) {
     function subjectPosition($subject_id, $class_id, $custom_result)
     {
 
-        $students = SmStudent::where('class_id', $class_id)->get();
+        $students = AramiscStudent::where('class_id', $class_id)->get();
 
         $subject_mark_array = [];
         foreach ($students as $student) {
             $subject_marks = 0;
 
-            $first_exam_mark = SmMarkStore::where('student_id', $student->id)->where('class_id', $class_id)->where('subject_id', $subject_id)->where('exam_term_id', $custom_result->exam_term_id1)->sum('total_marks');
+            $first_exam_mark = AramiscMarkStore::where('student_id', $student->id)->where('class_id', $class_id)->where('subject_id', $subject_id)->where('exam_term_id', $custom_result->exam_term_id1)->sum('total_marks');
 
             $subject_marks = $subject_marks + $first_exam_mark / 100 * $custom_result->percentage1;
 
-            $second_exam_mark = SmMarkStore::where('student_id', $student->id)->where('class_id', $class_id)->where('subject_id', $subject_id)->where('exam_term_id', $custom_result->exam_term_id2)->sum('total_marks');
+            $second_exam_mark = AramiscMarkStore::where('student_id', $student->id)->where('class_id', $class_id)->where('subject_id', $subject_id)->where('exam_term_id', $custom_result->exam_term_id2)->sum('total_marks');
 
             $subject_marks = $subject_marks + $second_exam_mark / 100 * $custom_result->percentage2;
 
-            $third_exam_mark = SmMarkStore::where('student_id', $student->id)->where('class_id', $class_id)->where('subject_id', $subject_id)->where('exam_term_id', $custom_result->exam_term_id3)->sum('total_marks');
+            $third_exam_mark = AramiscMarkStore::where('student_id', $student->id)->where('class_id', $class_id)->where('subject_id', $subject_id)->where('exam_term_id', $custom_result->exam_term_id3)->sum('total_marks');
 
             $subject_marks = $subject_marks + $third_exam_mark / 100 * $custom_result->percentage3;
 
@@ -1249,21 +1249,21 @@ if (!function_exists('getValueByStringDuesFees')) {
             return @$student_detail->full_name;
         } elseif ($str == 'parent_name') {
 
-            $parent_info = SmParent::find($student_detail->parent_id);
+            $parent_info = AramiscParent::find($student_detail->parent_id);
             return @$parent_info->fathers_name;
         } elseif ($str == 'due_amount') {
 
             return @$fees_info['dues_fees'];
         } elseif ($str == 'due_date') {
 
-            $fees_master = SmFeesMaster::find($fees_info['fees_master']);
+            $fees_master = AramiscFeesMaster::find($fees_info['fees_master']);
             return @$fees_master->date;
         } elseif ($str == 'school_name') {
 
             return @Auth::user()->school->school_name;
         } elseif ($str == 'fees_name') {
 
-            $fees_master = SmFeesMaster::find($fees_info['fees_master']);
+            $fees_master = AramiscFeesMaster::find($fees_info['fees_master']);
             return $fees_master->feesTypes->name;
         }
     }
@@ -1274,7 +1274,7 @@ if (!function_exists('assignedRoutineSubject')) {
     {
 
         try {
-            return SmExamSchedule::where('class_id', $class_id)->where('section_id', $section_id)->where('exam_term_id', $exam_id)->where('subject_id', $subject_id)->first();
+            return AramiscExamSchedule::where('class_id', $class_id)->where('section_id', $section_id)->where('exam_term_id', $exam_id)->where('subject_id', $subject_id)->first();
         } catch (\Exception $e) {
             $data = [];
             return $data;
@@ -1287,7 +1287,7 @@ if (!function_exists('assignedRoutine')) {
     function assignedRoutine($class_id, $section_id, $exam_id, $subject_id, $exam_period_id)
     {
         try {
-            return SmExamSchedule::where('class_id', $class_id)->where('section_id', $section_id)->where('exam_term_id', $exam_id)->where('subject_id', $subject_id)
+            return AramiscExamSchedule::where('class_id', $class_id)->where('section_id', $section_id)->where('exam_term_id', $exam_id)->where('subject_id', $subject_id)
                 ->where('exam_period_id', $exam_period_id)->first();
         } catch (\Exception $e) {
             $data = [];
@@ -1301,9 +1301,9 @@ if (!function_exists('is_absent_check')) {
     function is_absent_check($exam_id, $class_id, $section_id, $subject_id, $student_id)
     {
         try {
-            $exam_aramiscAttendance = SmExamAttendance::where('exam_id', $exam_id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
-            $exam_aramiscAttendance_child = SmExamAttendanceChild::where('exam_aramiscAttendance_id', $exam_aramiscAttendance->id)->where('student_id', $student_id)->first();
-            return $exam_aramiscAttendance_child;
+            $exam_attendance = AramiscExamAttendance::where('exam_id', $exam_id)->where('class_id', $class_id)->where('section_id', $section_id)->where('subject_id', $subject_id)->first();
+            $exam_attendance_child = AramiscExamAttendanceChild::where('exam_attendance_id', $exam_attendance->id)->where('student_id', $student_id)->first();
+            return $exam_attendance_child;
         } catch (\Exception $e) {
             $data = [];
             return $data;
@@ -1311,11 +1311,11 @@ if (!function_exists('is_absent_check')) {
     }
 }
 
-if (!function_exists('aramiscFeesPayment')) {
-    function aramiscFeesPayment($type_id, $student_id)
+if (!function_exists('feesPayment')) {
+    function feesPayment($type_id, $student_id)
     {
         try {
-            return SmFeesPayment::where('active_status', 1)->where('fees_type_id', $type_id)->where('student_id', $student_id)->get();
+            return AramiscFeesPayment::where('active_status', 1)->where('fees_type_id', $type_id)->where('student_id', $student_id)->get();
         } catch (\Exception $e) {
             $data = [];
             return $data;
@@ -1330,12 +1330,12 @@ if (!function_exists('generalSetting')) {
             return session()->get('generalSetting');
         } else {
             if (app()->bound('school')) {
-                $generalSetting = SmGeneralSettings::where('school_id', app('school')->id)->first();
+                $generalSetting = AramiscGeneralSettings::where('school_id', app('school')->id)->first();
             } elseif (request('school_id')) {
-                $generalSetting =  SmGeneralSettings::where('school_id', request('school_id'))->first();
+                $generalSetting =  AramiscGeneralSettings::where('school_id', request('school_id'))->first();
             } else {
-                // $generalSetting = Auth::check() ? SmGeneralSettings::where('school_id', Auth::user()->school_id)->first() : SmGeneralSettings::where('school_id',app('school')->id)->first();
-                $generalSetting = Auth::check() ? SmGeneralSettings::where('school_id', Auth::user()->school_id)->first() : SmGeneralSettings::where('school_id', 1)->first();
+                // $generalSetting = Auth::check() ? AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first() : AramiscGeneralSettings::where('school_id',app('school')->id)->first();
+                $generalSetting = Auth::check() ? AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first() : AramiscGeneralSettings::where('school_id', 1)->first();
             }
         }
 
@@ -1352,7 +1352,7 @@ if (!function_exists('systemDateFormat')) {
         if (session()->has('system_date_format')) {
             return session()->get('system_date_format');
         } else {
-            $system_date_format = SmDateFormat::find(DB::table('sm_general_settings')->first()->date_format_id);
+            $system_date_format = AramiscDateFormat::find(DB::table('sm_general_settings')->first()->date_format_id);
             session()->put('system_date_foramt', $system_date_format);
 
             return session()->get('system_date_foramt');
@@ -1365,7 +1365,7 @@ if (!function_exists('emailTemplate')) {
         if (session()->has('email_template')) {
             return session()->get('email_template');
         } else {
-            $email_template = SmsTemplate::where('school_id', Auth::user()->school_id)->first();
+            $email_template = AramiscTemplate::where('school_id', Auth::user()->school_id)->first();
             session()->put('email_template', $email_template);
 
             return session()->get('email_template');
@@ -1387,7 +1387,7 @@ if (!function_exists('allStyles')) {
         if (session()->has('all_styles')) {
             return session()->get('all_styles');
         } else {
-            $all_styles = SmStyle::where('school_id', 1)->where('active_status', 1)->get();
+            $all_styles = AramiscStyle::where('school_id', 1)->where('active_status', 1)->get();
             session()->put('all_styles', $all_styles);
 
             return session()->get('all_styles');
@@ -1455,7 +1455,7 @@ if (!function_exists('selectedLanguage')) {
         if (session()->has('selected_language')) {
             return session()->get('selected_language');
         } else {
-            $selected_language = Auth::check() ? SmGeneralSettings::where('school_id', Auth::user()->school_id)->first() :
+            $selected_language = Auth::check() ? AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first() :
                 DB::table('sm_general_settings')->where('school_id', 1)->first();
             session()->put('selected_language', $selected_language);
 
@@ -1477,7 +1477,7 @@ if (!function_exists('getSession')) {
         if (session()->has('session')) {
             return session()->get('session');
         } else {
-            $selected_language = Auth::check() ? SmGeneralSettings::where('school_id', Auth::user()->school_id)->first() :
+            $selected_language = Auth::check() ? AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first() :
                 DB::table('sm_general_settings')->where('school_id', 1)->first();
             $session = DB::table('sm_academic_years')->where('id', $selected_language->session_id)->first();
             session()->put('session', $session);
@@ -1494,7 +1494,7 @@ if (!function_exists('systemLanguage')) {
         if (session()->has('systemLanguage')) {
             return session()->get('systemLanguage');
         } else {
-            $systemLanguage = SmLanguage::where('school_id', auth()->user()->school_id)->get();
+            $systemLanguage = AramiscLanguage::where('school_id', auth()->user()->school_id)->get();
             session()->put('systemLanguage', $systemLanguage);
             return session()->get('systemLanguage');
         }
@@ -1517,7 +1517,7 @@ if (!function_exists('academicYears')) {
             if (session()->has('academic_years')) {
                 return session()->get('academic_years');
             } else {
-                $academic_years = Auth::check() ? SmAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
+                $academic_years = Auth::check() ? AramiscAcademicYear::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get() : '';
                 session()->put('academic_years', $academic_years);
                 return session()->get('academic_years');
             }
@@ -1529,7 +1529,7 @@ if (!function_exists('subjectFullMark')) {
     function subjectFullMark($examtype, $subject, $class_id = null, $section_id = null)
     {
         try {
-            $full_mark = SmExam::withOutGlobalScopes();
+            $full_mark = AramiscExam::withOutGlobalScopes();
             $full_mark->where('school_id', Auth::user()->school_id)
                 ->where('exam_type_id', $examtype);
             if (moduleStatusCheck('University')) {
@@ -1602,13 +1602,13 @@ if (!function_exists('termWiseFullMark')) {
         try {
             $average_gpa = 0;
             foreach ($type_ids as $type_id) {
-                $total_gpa = SmResultStore::where('student_record_id', $student_id)
+                $total_gpa = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->sum('total_gpa_point');
 
-                $total_subject = SmResultStore::where('student_record_id', $student_id)
+                $total_subject = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
@@ -1640,13 +1640,13 @@ if (!function_exists('termWiseGpa')) {
         try {
             $average_gpa = 0;
             if ($with_optional_subject_mark == null) {
-                $total_gpa = SmResultStore::select('total_gpa_point')->where('student_record_id', $student_id)
+                $total_gpa = AramiscResultStore::select('total_gpa_point')->where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->sum('total_gpa_point');
 
-                $total_subject = SmResultStore::select('subject_id')->where('student_record_id', $student_id)
+                $total_subject = AramiscResultStore::select('subject_id')->where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
@@ -1687,13 +1687,13 @@ if (!function_exists('termWiseTotalMark')) {
         try {
             if ($optional_subject == null) {
                 $average_gpa = 0;
-                $total_gpa = SmResultStore::where('student_record_id', $student_id)
+                $total_gpa = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->sum('total_gpa_point');
 
-                $total_subject = SmResultStore::where('student_record_id', $student_id)
+                $total_subject = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
@@ -1710,38 +1710,38 @@ if (!function_exists('termWiseTotalMark')) {
                 $optional_subject_extra_gpa = 0;
 
                 $class_id = StudentRecord::find($student_id)->class_id;
-                $optional_subject_above = SmClassOptionalSubject::where('class_id', $class_id)
+                $optional_subject_above = AramiscClassOptionalSubject::where('class_id', $class_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->where('academic_id', $academic_id)
                     ->first('gpa_above')->gpa_above;
 
-                $subject_ids = SmResultStore::where('student_record_id', $student_id)
+                $subject_ids = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->get('subject_id');
 
-                $optional_subject_id = SmOptionalSubjectAssign::whereIn('subject_id', $subject_ids)
+                $optional_subject_id = AramiscOptionalSubjectAssign::whereIn('subject_id', $subject_ids)
                     ->where('student_id', $student_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->first('subject_id')->subject_id;
 
-                $without_optional_subject_gpa = SmResultStore::where('student_record_id', $student_id)
+                $without_optional_subject_gpa = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('subject_id', '!=', $optional_subject_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->sum('total_gpa_point');
 
-                $optional_subject_gpa = SmResultStore::where('student_record_id', $student_id)
+                $optional_subject_gpa = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('subject_id', $optional_subject_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->sum('total_gpa_point');
 
-                $maxgpa = SmMarksGrade::withOutGlobalScopes()->where('academic_id', $academic_id)
+                $maxgpa = AramiscMarksGrade::withOutGlobalScopes()->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->max('gpa');
 
@@ -1773,20 +1773,20 @@ if (!function_exists('optionalSubjectFullMark')) {
             $academic_id = getAcademicId();
         }
         try {
-            $subject_ids = SmResultStore::where('student_record_id', $student_id)
+            $subject_ids = AramiscResultStore::where('student_record_id', $student_id)
                 ->where('exam_type_id', $type_id)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get('subject_id');
 
-            $additional_subject_id = SmOptionalSubjectAssign::whereIn('subject_id', $subject_ids)
+            $additional_subject_id = AramiscOptionalSubjectAssign::whereIn('subject_id', $subject_ids)
                 ->where('record_id', $student_id)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->first('subject_id')->subject_id;
 
             if ($purpose == "optional_sub_gpa") {
-                $total_mark = SmResultStore::where('student_record_id', $student_id)
+                $total_mark = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('subject_id', $additional_subject_id)
                     ->where('academic_id', $academic_id)
@@ -1795,14 +1795,14 @@ if (!function_exists('optionalSubjectFullMark')) {
 
                 return $total_mark;
             } elseif ($purpose == "with_optional_sub_gpa") {
-                $total_mark = SmResultStore::where('student_record_id', $student_id)
+                $total_mark = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('subject_id', $additional_subject_id)
                     ->where('academic_id', $academic_id)
                     ->where('school_id', Auth::user()->school_id)
                     ->sum('total_gpa_point');
 
-                $exam_type_id = SmResultStore::where('student_record_id', $student_id)
+                $exam_type_id = AramiscResultStore::where('student_record_id', $student_id)
                     ->where('exam_type_id', $type_id)
                     ->where('subject_id', $additional_subject_id)
                     ->where('academic_id', $academic_id)
@@ -1825,26 +1825,26 @@ if (!function_exists('termWiseAddOptionalMark')) {
             $academic_id = getAcademicId();
         }
         try {
-            $subject_ids = SmResultStore::where('student_record_id', $student_id)
+            $subject_ids = AramiscResultStore::where('student_record_id', $student_id)
                 ->where('exam_type_id', $type_id)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->get('subject_id');
 
-            $additional_subject_id = SmOptionalSubjectAssign::whereIn('subject_id', $subject_ids)
+            $additional_subject_id = AramiscOptionalSubjectAssign::whereIn('subject_id', $subject_ids)
                 ->where('record_id', $student_id)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->first('subject_id')->subject_id;
 
-            $additional_subject_mark = SmResultStore::where('student_record_id', $student_id)
+            $additional_subject_mark = AramiscResultStore::where('student_record_id', $student_id)
                 ->where('exam_type_id', $type_id)
                 ->where('subject_id', $additional_subject_id)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->sum('total_gpa_point');
 
-            $additional_single_subject_mark = SmResultStore::where('student_record_id', $student_id)
+            $additional_single_subject_mark = AramiscResultStore::where('student_record_id', $student_id)
                 ->where('exam_type_id', $type_id)
                 ->where('subject_id', $additional_subject_id)
                 ->where('academic_id', $academic_id)
@@ -1854,14 +1854,14 @@ if (!function_exists('termWiseAddOptionalMark')) {
             $additional_mark_reduction = $additional_single_subject_mark - $above_gpa;
             if ($additional_mark_reduction > 0) {
             }
-            $all_subject_mark = SmResultStore::where('student_record_id', $student_id)
+            $all_subject_mark = AramiscResultStore::where('student_record_id', $student_id)
                 ->where('exam_type_id', $type_id)
                 ->where('subject_id', '!=', $additional_subject_id)
                 ->where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->sum('total_gpa_point');
 
-            $without_additional_total_subject = SmResultStore::where('student_record_id', $student_id)
+            $without_additional_total_subject = AramiscResultStore::where('student_record_id', $student_id)
                 ->where('exam_type_id', $type_id)
                 ->where('subject_id', '!=', $additional_subject_id)
                 ->where('academic_id', $academic_id)
@@ -1891,7 +1891,7 @@ if (!function_exists('gradeName')) {
             $academic_id = getAcademicId();
         }
         try {
-            $grade_name = SmMarksGrade::where('academic_id', $academic_id)
+            $grade_name = AramiscMarksGrade::where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->where('from', '<=', $total_gpa)
                 ->where('up', '>=', $total_gpa)
@@ -1910,7 +1910,7 @@ if (!function_exists('remarks')) {
             $academic_id = getAcademicId();
         }
         try {
-            $description = SmMarksGrade::where('academic_id', $academic_id)
+            $description = AramiscMarksGrade::where('academic_id', $academic_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->where('from', '<=', $total_gpa)
                 ->where('up', '>=', $total_gpa)
@@ -1926,7 +1926,7 @@ if (!function_exists('subjectHighestMark')) {
     function subjectHighestMark($exam_id, $subject_id, $class_id, $section_id)
     {
         try {
-            $highest_mark = SmResultStore::where([['class_id', $class_id], ['exam_type_id', $exam_id], ['section_id', $section_id]])
+            $highest_mark = AramiscResultStore::where([['class_id', $class_id], ['exam_type_id', $exam_id], ['section_id', $section_id]])
                 ->where('subject_id', $subject_id)
                 ->where('school_id', Auth::user()->school_id)
                 ->where('academic_id', getAcademicId())
@@ -2013,16 +2013,16 @@ if (!function_exists('customFieldValue')) {
     {
         $custom_field_values = [];
         if ($formName == "student_registration") {
-            $custom_field_data = SmStudent::withOutGlobalScopes()->where('id', $student_id)->first();
+            $custom_field_data = AramiscStudent::withOutGlobalScopes()->where('id', $student_id)->first();
             if (is_null($custom_field_data) && moduleStatusCheck('ParentRegistration')) {
-                $custom_field_data = Modules\ParentRegistration\Entities\SmStudentRegistration::find($student_id);
+                $custom_field_data = Modules\ParentRegistration\Entities\AramiscStudentRegistration::find($student_id);
             }
             @$value = $custom_field_data->custom_field;
         } elseif ($formName == "staff_registration") {
-            $custom_field_data = SmStaff::withOutGlobalScopes()->where('id', $student_id)->first();
+            $custom_field_data = AramiscStaff::withOutGlobalScopes()->where('id', $student_id)->first();
             $value = $custom_field_data->custom_field;
         } elseif ($formName == "school_registration") {
-            $custom_field_data = SmSchool::withOutGlobalScopes()->where('id', $student_id)->first();
+            $custom_field_data = AramiscSchool::withOutGlobalScopes()->where('id', $student_id)->first();
             $value = $custom_field_data->custom_field;
         } else {
             $value = null;
@@ -2041,7 +2041,7 @@ if (!function_exists('customFieldValue')) {
 if (!function_exists('paymentMethodName')) {
     function paymentMethodName($payment_method_id)
     {
-        $paymentMethodName = SmPaymentMethhod::where('id', $payment_method_id)
+        $paymentMethodName = AramiscPaymentMethhod::where('id', $payment_method_id)
             ->where('school_id', Auth::user()->school_id)
             ->first('method')->method;
         if ($paymentMethodName == "Bank") {
@@ -2073,7 +2073,7 @@ if (!function_exists('menuPosition')) {
         }
 
         if ($is_have) {
-            $sidebar = app('sidebar_news')->where('active_status', 1)->where('aramisc_module_id', $id)->first();
+            $sidebar = app('sidebar_news')->where('active_status', 1)->where('infix_module_id', $id)->first();
 
             return $sidebar ? $sidebar->parent_position_no : $id;
         } else {
@@ -2087,7 +2087,7 @@ if (!function_exists('menuStatus')) {
     {
         $is_have = count(app('sidebar_news')) > 0;
         if (($is_have)) {
-            $is_have_id = app('sidebar_news')->where('aramisc_module_id', $id)->first();
+            $is_have_id = app('sidebar_news')->where('infix_module_id', $id)->first();
             if ($is_have_id) {
                 return $is_have_id->active_status == 1 ? true : false;
             } else {
@@ -2233,13 +2233,13 @@ if (!function_exists('send_sms')) {
 
         $school_id = Auth::check() && saasSettings('sms_settings') ? Auth::user()->school_id : 1;
 
-        $activeSmsGateway = SmSmsGateway::where('school_id', $school_id)->where('active_status', 1)->first();
+        $activeSmsGateway = AramiscSmsGateway::where('school_id', $school_id)->where('active_status', 1)->first();
         if (!$activeSmsGateway) {
             return;
         }
 
         if ($purpose != "test_sms") {
-            $body = SmsTemplate::smsTempleteToBody($templete->body, $data);
+            $body = AramiscTemplate::smsTempleteToBody($templete->body, $data);
         } else {
             $body = "It is a Test Sms From " . $activeSmsGateway->gateway_name . " -" . generalSetting()->school_name;
         }
@@ -2385,10 +2385,10 @@ function spn_nav_item_open($data, $default_class = 'active')
 if (!function_exists('addIncome')) {
     function addIncome($payment_method, $name, $amount, $fees_colection_id, $user_id, $request = null)
     {
-        $payment_method = SmPaymentMethhod::where('method', $payment_method)->first();
+        $payment_method = AramiscPaymentMethhod::where('method', $payment_method)->first();
         $income_head = generalSetting();
 
-        $add_income = new SmAddIncome();
+        $add_income = new AramiscAddIncome();
         $add_income->name = $name;
         $add_income->date = date('Y-m-d');
         $add_income->amount = $amount;
@@ -2419,7 +2419,7 @@ if (!function_exists('addIncome')) {
 if (!function_exists('sendNotification')) {
     function sendNotification($message, $url = null, $user_id = null, $role_id = null)
     {
-        $notification = new SmNotification;
+        $notification = new AramiscNotification;
         $notification->date = date('Y-m-d');
         $notification->message = $message;
         $notification->url = $url;
@@ -2491,7 +2491,7 @@ if (!function_exists('getStudentRegistrationFields')) {
             $school_id = auth()->user()->school_id;
         }
         return Cache::rememberForever('student_field_' . $school_id, function () use ($school_id) {
-            return SmStudentRegistrationField::where('school_id', $school_id)->get()->filter(function ($field) {
+            return AramiscStudentRegistrationField::where('school_id', $school_id)->get()->filter(function ($field) {
                 return !$field->admin_section || isMenuAllowToShow($field->admin_section);
             });
         });
@@ -2606,7 +2606,7 @@ if (!function_exists('labelWiseStudentResult')) {
         //     ];
         // }
         // $assingSubjects = $studentRecord->unStudentSubjects->pluck('un_subject_id')->toArray();
-        $marks = SmMarkStore::withOutGlobalScope(AcademicSchoolScope::class)->where('student_record_id', $studentRecord->id)
+        $marks = AramiscMarkStore::withOutGlobalScope(AcademicSchoolScope::class)->where('student_record_id', $studentRecord->id)
             ->where('un_semester_label_id', $studentRecord->un_semester_label_id)
             ->where('un_academic_id', $studentRecord->un_academic_id)
             // ->where('un_subject_id', $subject_id)
@@ -2688,8 +2688,8 @@ const PERMITTED_MODULE = [
 ];
 
 
-if (!function_exists('aramiscDirectFees')) {
-    function aramiscDirectFees()
+if (!function_exists('directFees')) {
+    function directFees()
     {
         if (generalSetting()->direct_fees_assign) {
             return true;
@@ -2796,8 +2796,8 @@ if (!function_exists('fees_payment_status')) {
     }
 }
 
-if (!function_exists('aramiscFeesPaymentStatus')) {
-    function aramiscFeesPaymentStatus($installment_id)
+if (!function_exists('feesPaymentStatus')) {
+    function feesPaymentStatus($installment_id)
     {
         if (moduleStatusCheck('University')) {
             $feesInstallment = UnFeesInstallmentAssign::find($installment_id);
@@ -2923,14 +2923,14 @@ if (!function_exists('singleSubjectMark')) {
             $full_mark = 100;
 
             if (moduleStatusCheck('University')) {
-                $sm_mark = SmResultStore::where('student_record_id', $record_id)->where('un_subject_id', $subject_id)->where('exam_type_id', $exam_id)->first();
+                $sm_mark = AramiscResultStore::where('student_record_id', $record_id)->where('un_subject_id', $subject_id)->where('exam_type_id', $exam_id)->first();
                 if ($sm_mark) {
-                    $full_mark = SmExam::where('exam_type_id', $exam_id)->where('un_subject_id', $subject_id)->where('un_semester_label_id', $sm_mark->un_semester_label_id)->where('un_section_id', $sm_mark->un_section_id)->first('exam_mark');
+                    $full_mark = AramiscExam::where('exam_type_id', $exam_id)->where('un_subject_id', $subject_id)->where('un_semester_label_id', $sm_mark->un_semester_label_id)->where('un_section_id', $sm_mark->un_section_id)->first('exam_mark');
                 }
             } else {
-                $sm_mark = SmResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam_id)->first();
+                $sm_mark = AramiscResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam_id)->first();
                 if ($sm_mark) {
-                    $full_mark = SmExam::where('exam_type_id', $exam_id)->where('subject_id', $subject_id)->where('class_id', $sm_mark->class_id)->where('section_id', $sm_mark->section_id)->first('exam_mark');
+                    $full_mark = AramiscExam::where('exam_type_id', $exam_id)->where('subject_id', $subject_id)->where('class_id', $sm_mark->class_id)->where('section_id', $sm_mark->section_id)->first('exam_mark');
                 }
             }
 
@@ -2960,7 +2960,7 @@ if (!function_exists('subjectAverageMark')) {
 
             if ($result_setting) {
                 foreach ($result_setting as $exam) {
-                    $mark = SmResultStore::query();
+                    $mark = AramiscResultStore::query();
                     $mark->where('student_record_id', $record_id)->where('exam_type_id', $exam->exam_type_id);
                     if (moduleStatusCheck('University')) {
                         $mark = $mark->where('un_subject_id', $subject_id);
@@ -2970,7 +2970,7 @@ if (!function_exists('subjectAverageMark')) {
                     $mark = $mark->first();
 
                     if ($mark) {
-                        $full_mark = SmExam::query();
+                        $full_mark = AramiscExam::query();
                         $full_mark->where('exam_type_id', $mark->exam_type_id);
                         if (moduleStatusCheck('University')) {
                             $full_mark = $full_mark->where('un_subject_id', $subject_id)
@@ -2987,7 +2987,7 @@ if (!function_exists('subjectAverageMark')) {
                 }
             } else {
                 foreach (examTypes() as $exam) {
-                    $mark = SmResultStore::query();
+                    $mark = AramiscResultStore::query();
                     $mark->where('student_record_id', $record_id)->where('exam_type_id', $exam->id);
                     if (moduleStatusCheck('University')) {
                         $mark = $mark->where('un_subject_id', $subject_id);
@@ -2997,7 +2997,7 @@ if (!function_exists('subjectAverageMark')) {
                     $mark = $mark->first();
 
                     if ($mark) {
-                        $full_mark = SmExam::query();
+                        $full_mark = AramiscExam::query();
                         $full_mark->where('exam_type_id', $mark->exam_type_id);
                         if (moduleStatusCheck('University')) {
                             $full_mark = $full_mark->where('un_subject_id', $subject_id)
@@ -3032,9 +3032,9 @@ if (!function_exists('allSubjectAverageMark')) {
             $grade = "";
             if (!is_null($exam_rules))
                 foreach ($exam_rules as $exam) {
-                    $mark = SmResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam->exam_type_id)->first();
+                    $mark = AramiscResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam->exam_type_id)->first();
                     if ($mark) {
-                        $full_mark = SmExam::where('exam_type_id', $mark->exam_type_id)->where('subject_id', $subject_id)->where('class_id', $mark->class_id)->where('section_id', $mark->section_id)->first('exam_mark');
+                        $full_mark = AramiscExam::where('exam_type_id', $mark->exam_type_id)->where('subject_id', $subject_id)->where('class_id', $mark->class_id)->where('section_id', $mark->section_id)->first('exam_mark');
                         $total_mark += ((($mark->total_marks * 100) / $full_mark->exam_mark) * ($exam->exam_percentage / 100));
                     }
                 }
@@ -3056,7 +3056,7 @@ if (!function_exists('allSubjectAverageMark')) {
                 if ($exam_rule) {
                     $exam_rule = CustomResultSetting::find($exam_rule_id);
                     if ($exam_rule) {
-                        $result = SmResultStore::where('student_record_id', $record_id)
+                        $result = AramiscResultStore::where('student_record_id', $record_id)
                             ->where('exam_type_id', $exam_rule->exam_type_id)
                             ->where('academic_id', getAcademicId())->get();
                         if ($result->count()) {
@@ -3065,7 +3065,7 @@ if (!function_exists('allSubjectAverageMark')) {
                         }
                     }
                 } else {
-                    $result = SmResultStore::where('student_record_id', $record_id)
+                    $result = AramiscResultStore::where('student_record_id', $record_id)
                         ->where('exam_type_id', $exam_rule_id)
                         ->where('academic_id', getAcademicId())->get();
                     if ($result->count()) {
@@ -3100,11 +3100,11 @@ if (!function_exists('allSubjectAverageMark')) {
                     foreach ($all_subject_ids as $subject_id) {
                         foreach ($exam_rules as $exam) {
                             if (moduleStatusCheck('University')) {
-                                $mark = SmResultStore::where('student_record_id', $record_id)->where('un_subject_id', $subject_id)->where('exam_type_id', $exam->exam_type_id)->first();
-                                $full_mark = SmExam::where('exam_type_id', $mark->exam_type_id)->where('un_subject_id', $subject_id)->where('class_id', $mark->class_id)->where('un_section_id', $mark->un_section_id)->first('exam_mark');
+                                $mark = AramiscResultStore::where('student_record_id', $record_id)->where('un_subject_id', $subject_id)->where('exam_type_id', $exam->exam_type_id)->first();
+                                $full_mark = AramiscExam::where('exam_type_id', $mark->exam_type_id)->where('un_subject_id', $subject_id)->where('class_id', $mark->class_id)->where('un_section_id', $mark->un_section_id)->first('exam_mark');
                             } else {
-                                $mark = SmResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam->exam_type_id)->first();
-                                $full_mark = SmExam::where('exam_type_id', $mark->exam_type_id)->where('subject_id', $subject_id)->where('class_id', $mark->class_id)->where('section_id', $mark->section_id)->first('exam_mark');
+                                $mark = AramiscResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam->exam_type_id)->first();
+                                $full_mark = AramiscExam::where('exam_type_id', $mark->exam_type_id)->where('subject_id', $subject_id)->where('class_id', $mark->class_id)->where('section_id', $mark->section_id)->first('exam_mark');
                             }
 
                             if ($mark) {
@@ -3116,16 +3116,16 @@ if (!function_exists('allSubjectAverageMark')) {
                     foreach ($all_subject_ids as $subject_id) {
                         foreach (examTypes() as $exam) {
                             if (moduleStatusCheck('University')) {
-                                $mark = SmResultStore::where('student_record_id', $record_id)->where('un_subject_id', $subject_id)->where('exam_type_id', $exam->id)->first();
+                                $mark = AramiscResultStore::where('student_record_id', $record_id)->where('un_subject_id', $subject_id)->where('exam_type_id', $exam->id)->first();
                             } else {
-                                $mark = SmResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam->id)->first();
+                                $mark = AramiscResultStore::where('student_record_id', $record_id)->where('subject_id', $subject_id)->where('exam_type_id', $exam->id)->first();
                             }
 
                             if ($mark) {
                                 if (moduleStatusCheck('University')) {
-                                    $full_mark = SmExam::where('exam_type_id', $mark->id)->where('un_subject_id', $subject_id)->where('un_semester_label_id', $mark->un_semester_label_id)->where('un_section_id', $mark->un_section_id)->first('exam_mark');
+                                    $full_mark = AramiscExam::where('exam_type_id', $mark->id)->where('un_subject_id', $subject_id)->where('un_semester_label_id', $mark->un_semester_label_id)->where('un_section_id', $mark->un_section_id)->first('exam_mark');
                                 } else {
-                                    $full_mark = SmExam::where('exam_type_id', $mark->id)->where('subject_id', $subject_id)->where('class_id', $mark->class_id)->where('section_id', $mark->section_id)->first('exam_mark');
+                                    $full_mark = AramiscExam::where('exam_type_id', $mark->id)->where('subject_id', $subject_id)->where('class_id', $mark->class_id)->where('section_id', $mark->section_id)->first('exam_mark');
                                 }
 
                                 $total_avg += $mark->total_marks;
@@ -3148,7 +3148,7 @@ if (!function_exists('allSubjectAverageMark')) {
         {
             try {
                 $pass_mark = 0;
-                $subjects = SmSubject::whereIn('id', $all_subject_ids)->get();
+                $subjects = AramiscSubject::whereIn('id', $all_subject_ids)->get();
                 if (count($subjects)) {
 
                     $pass_mark = $subjects->sum('pass_mark') / count($subjects);
@@ -3184,23 +3184,23 @@ if (!function_exists('SaasSchool')) {
             if (isset($module_status['Saas']) && $module_status['Saas']) {
 
                 if ($domain) {
-                    $school = \App\SmSchool::where(['domain' => $domain, 'active_status' => 1])->firstOrFail();
+                    $school = \App\AramiscSchool::where(['domain' => $domain, 'active_status' => 1])->firstOrFail();
                     $request->route()->forgetParameter('subdomain');
                 } else if ($host == $short_url) {
-                    $school = \App\SmSchool::findOrFail(1);
+                    $school = \App\AramiscSchool::findOrFail(1);
                 } else if ($host != $short_url and config('app.allow_custom_domain')) {
-                    $school = \App\SmSchool::where(['custom_domain' => $host, 'active_status' => 1])->firstOrFail();
+                    $school = \App\AramiscSchool::where(['custom_domain' => $host, 'active_status' => 1])->firstOrFail();
                 } elseif (Auth::check()) {
-                    $school = \App\SmSchool::findOrFail(Auth::user()->school_id);
+                    $school = \App\AramiscSchool::findOrFail(Auth::user()->school_id);
                 } else {
-                    $school = \App\SmSchool::where(['domain' => $domain, 'active_status' => 1])->firstOrFail();
+                    $school = \App\AramiscSchool::where(['domain' => $domain, 'active_status' => 1])->firstOrFail();
                     $request->route()->forgetParameter('subdomain');
                 }
             }
         }
 
         if (!$school) {
-            $school = Auth::check() ? auth()->user()->school : \App\SmSchool::findOrFail(1);
+            $school = Auth::check() ? auth()->user()->school : \App\AramiscSchool::findOrFail(1);
         }
         if (app()->bound('school')) {
             return app('school');
@@ -3258,7 +3258,7 @@ if (!function_exists('examTypes')) {
     function examTypes()
     {
         try {
-            return SmExamType::where('school_id', auth()->user()->school_id)
+            return AramiscExamType::where('school_id', auth()->user()->school_id)
                 ->where('academic_id', getAcademicId())
                 ->where('active_status', 1)
                 ->get();
@@ -3288,7 +3288,7 @@ if (!function_exists('send_custom_sms')) {
     {
         if (!$active_gateway) {
             $school_id = Auth::check() && saasSettings('sms_settings') ? Auth::user()->school_id : 1;
-            $active_gateway = SmSmsGateway::where('active_status', 1)->where('school_id', $school_id)->first();
+            $active_gateway = AramiscSmsGateway::where('active_status', 1)->where('school_id', $school_id)->first();
         }
         if (!$active_gateway) {
             return;
@@ -3474,7 +3474,7 @@ if (!function_exists('getStudentAllExamMeritPosition')) {
 if (!function_exists('gpaResult')) {
     function gpaResult($gpa)
     {
-        $mark = SmMarksGrade::where('gpa', floor($gpa))->first();
+        $mark = AramiscMarksGrade::where('gpa', floor($gpa))->first();
         if ($mark) {
             return $mark;
         } else {
@@ -3487,7 +3487,7 @@ if (!function_exists('gpaResult')) {
 if (!function_exists('getGlobalExamBySecClsSub')) {
     function getGlobalExamBySecClsSub($section_id, $class_id, $subject_id)
     {
-        $globalExams = SmExam::withoutGlobalScope(AcademicSchoolScope::class)
+        $globalExams = AramiscExam::withoutGlobalScope(AcademicSchoolScope::class)
             ->withoutGlobalScope(GlobalAcademicScope::class)
             ->where('class_id', $class_id)
             ->where('subject_id', $subject_id)
@@ -3515,14 +3515,14 @@ if (!function_exists('db_engine')) {
 if (!function_exists('examReportSignatures')) {
     function examReportSignatures()
     {
-        return SmExamSignature::where('active_status', 1)->get(['title', 'signature']);
+        return AramiscExamSignature::where('active_status', 1)->get(['title', 'signature']);
     }
 }
 
 if (!function_exists('send_notification')) {
     function send_notification($event, $user_id, $data)
     {
-        $notification = SmNotificationSetting::where('event', $event)->where('school_id', auth()->user()->school_id)->first();
+        $notification = AramiscNotificationSetting::where('event', $event)->where('school_id', auth()->user()->school_id)->first();
         $user = User::find($user_id);
         $all_recivers = $notification->recipient;
         $reciver = "";
@@ -3572,7 +3572,7 @@ if (!function_exists('send_notification')) {
             if (in_array('Web', $active_dest)) {
                 $web_body = short_code_messege($notification->template[$reciver]['Web'], $data);
 
-                $notification = new SmNotification;
+                $notification = new AramiscNotification;
                 $notification->user_id = $user->id;
                 $notification->role_id = $user->role_id;
                 $notification->school_id = $user->school_id;
@@ -3589,7 +3589,7 @@ if (!function_exists('send_notification')) {
 
 
 
-        return SmExamSignature::where('active_status', 1)->get(['title', 'signature']);
+        return AramiscExamSignature::where('active_status', 1)->get(['title', 'signature']);
     }
 }
 
@@ -3608,7 +3608,7 @@ if (!function_exists('short_code_messege')) {
 if (!function_exists('feesCarryForward')) {
     function feesCarryForward($studentRecordId, $feesType, $payableAmount, $sub_total)
     {
-        $carryForward = SmFeesCarryForward::where('student_id', $studentRecordId)->first();
+        $carryForward = AramiscFeesCarryForward::where('student_id', $studentRecordId)->first();
         if (!$carryForward) {
             return;
         }
@@ -3634,7 +3634,7 @@ if (!function_exists('feesCarryForward')) {
                 $data['sub_total'] = array_merge($sub_total, [(int)$dueBalance]);
                 $data['type'] = 'due';
 
-                $updateCarry = SmFeesCarryForward::where('student_id', $studentRecordId)->first();
+                $updateCarry = AramiscFeesCarryForward::where('student_id', $studentRecordId)->first();
                 $updateCarry->balance = NULL;
                 $updateCarry->balance_type = 'add';
                 $updateCarry->update();
@@ -3644,7 +3644,7 @@ if (!function_exists('feesCarryForward')) {
                 if ($totalPayableAmount <= $carryForward->balance) {
                     $addBalance = $carryForward->balance - $totalPayableAmount;
 
-                    $updateCarry = SmFeesCarryForward::where('student_id', $studentRecordId)->first();
+                    $updateCarry = AramiscFeesCarryForward::where('student_id', $studentRecordId)->first();
                     $updateCarry->balance = $addBalance;
                     $updateCarry->balance_type = 'add';
                     $updateCarry->update();
@@ -3673,7 +3673,7 @@ if (!function_exists('feesCarryForward')) {
                             }
                         }
                     }
-                    $updateCarry = SmFeesCarryForward::where('student_id', $studentRecordId)->first();
+                    $updateCarry = AramiscFeesCarryForward::where('student_id', $studentRecordId)->first();
                     $updateCarry->balance = NULL;
                     $updateCarry->balance_type = 'add';
                     $updateCarry->update();
@@ -3713,7 +3713,7 @@ if (!function_exists('carryForwardLog')) {
 if (!function_exists('averagePassingMark')) {
     function averagePassingMark($exam_type_id)
     {
-        $examType = SmExamType::find($exam_type_id);
+        $examType = AramiscExamType::find($exam_type_id);
         if ($examType && $examType->is_average == 1) {
             return $examType->average_mark;
         }
@@ -3805,7 +3805,7 @@ if (!function_exists('generateRandomString')) {
 if (!function_exists('getSubjectAttendance')) {
     function getSubjectAttendance($record)
     {
-        $subjectAttendance = SmSubjectAttendance::with('student')
+        $subjectAttendance = AramiscSubjectAttendance::with('student')
             ->whereIn('academic_id', $record->pluck('academic_id'))
             ->whereIn('student_record_id', $record->pluck('id'))
             ->whereIn('school_id', $record->pluck('school_id'))
@@ -4081,9 +4081,9 @@ if (!function_exists('getProfileImage')) {
     {
         $user = User::find($user_id);
         $role_id = $user->role_id;
-        $student = SmStudent::where('user_id', $user_id)->first();
-        $parent = SmParent::where('user_id', $user_id)->first();
-        $staff = SmStaff::where('user_id', $user_id)->first();
+        $student = AramiscStudent::where('user_id', $user_id)->first();
+        $parent = AramiscParent::where('user_id', $user_id)->first();
+        $staff = AramiscStaff::where('user_id', $user_id)->first();
         if ($role_id == 2) {
             $profile = $student->student_photo ? $student->student_photo : 'public/backEnd/assets/img/avatar.png';
         } elseif ($role_id == 3) {
@@ -4134,6 +4134,8 @@ if (!function_exists('envu')) {
             return false;
         }
 
+        // write only if there is change in content
+
         $env = file_get_contents(base_path() . '/.env');
         $env = explode("\n", $env);
         foreach ((array) $data as $key => $value) {
@@ -4165,7 +4167,7 @@ if (!function_exists('lastOneMonthDates')) {
 if (!function_exists('insertMenuManage')) {
     function insertMenuManage($menu)
     {
-        $menuData = SmHeaderMenuManager::create($menu);
+        $menuData = AramiscHeaderMenuManager::create($menu);
         if (gv($menu, 'childs')) {
             foreach (gv($menu, 'childs') as $child) {
                 $child['parent_id'] = $menuData->id;
@@ -4180,8 +4182,6 @@ if (!function_exists('asset_path')) {
         return 'public/' . $path;
     }
 }
-
-
 if (!function_exists('isTestMode')) {
     function isTestMode()
     {
@@ -4192,41 +4192,6 @@ if (!function_exists('isTestMode')) {
         }
     }
 }
-
-
-if (!function_exists('envu')) {
-    function envu($data = array())
-    {
-        foreach ($data as $key => $value) {
-            if (env($key) === $value) {
-                unset($data[$key]);
-            }
-        }
-
-        if (!count($data)) {
-            return false;
-        }
-
-        // write only if there is change in content
-
-        $env = file_get_contents(base_path() . '/.env');
-        $env = explode("\n", $env);
-        foreach ((array) $data as $key => $value) {
-            foreach ($env as $env_key => $env_value) {
-                $entry = explode("=", $env_value, 2);
-                if ($entry[0] === $key) {
-                    $env[$env_key] = $key . "=" . (is_string($value) ? '"' . $value . '"' : $value);
-                } else {
-                    $env[$env_key] = $env_value;
-                }
-            }
-        }
-        $env = implode("\n", $env);
-        file_put_contents(base_path() . '/.env', $env);
-        return true;
-    }
-}
-
 if (!function_exists('isConnected')) {
     function isConnected()
     {
@@ -4342,7 +4307,7 @@ if (!function_exists('verifyUrl')) {
         return $url;
     }
 }
-
+/*
 function moduleVerify($file, $type = null)
 {
 
@@ -4364,4 +4329,4 @@ function moduleVerify($file, $type = null)
     }
 
     return $repo->installModule($params);
-}
+}*/

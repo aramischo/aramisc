@@ -30,10 +30,10 @@ class CheckMaintenanceMode
     
     public function handle(Request $request, Closure $next): Response
     {
-        //$c = Storage::exists('.app_installed') ? Storage::get('.app_installed') : false;
-        //if (!$c) {
-        //    return $next($request);
-        //}
+        $c = Storage::exists('.app_installed') ? Storage::get('.app_installed') : false;
+        if (!$c) {
+            return $next($request);
+        }
         if(auth()->user() && auth()->user()->is_administrator =="yes"){
             return $next($request);
         }

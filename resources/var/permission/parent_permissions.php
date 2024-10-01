@@ -182,15 +182,15 @@
         'type' => 3,
         'old_id' => 63,
       ),
-      'parent-dashboard-aramiscAttendance-in-current-month' => 
+      'parent-dashboard-attendance-in-current-month' => 
       array (
         'module' => NULL,
         'sidebar_menu' => NULL,
-        'name' => 'aramiscAttendance in current month',
+        'name' => 'attendance in current month',
         'lang_name' => NULL,
         'icon' => NULL,
         'svg' => NULL,
-        'route' => 'parent-dashboard-aramiscAttendance-in-current-month',
+        'route' => 'parent-dashboard-attendance-in-current-month',
         'parent_route' => 'parent-dashboard',
         'is_admin' => 0,
        'is_teacher' => 0,
@@ -530,15 +530,15 @@
       ),
     ),
   ),
-  'parent_aramiscAttendance' => 
+  'parent_attendance' => 
   array (
     'module' => NULL,
     'sidebar_menu' => NULL,
     'name' => 'Attendance ',
-    'lang_name' => 'student.student_aramiscAttendance',
+    'lang_name' => 'student.student_attendance',
     'icon' => 'flaticon-authentication',
     'svg' => NULL,
-    'route' => 'parent_aramiscAttendance',
+    'route' => 'parent_attendance',
     'parent_route' => NULL,
     'is_admin' => 0,
     'is_teacher' => 0,

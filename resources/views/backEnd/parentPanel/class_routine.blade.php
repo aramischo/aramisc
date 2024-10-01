@@ -70,11 +70,11 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-6 pull-right">
                                                 @if (moduleStatusCheck('University'))
-                                                    <a href="{{ route('university.academics.aramiscClassRoutinePrint', [$record->un_semester_label_id, $record->un_section_id]) }}"
+                                                    <a href="{{ route('university.academics.classRoutinePrint', [$record->un_semester_label_id, $record->un_section_id]) }}"
                                                         class="primary-btn small fix-gr-bg pull-right" target="_blank"><i
                                                             class="ti-printer"> </i> Print</a>
                                                 @else
-                                                    <a href="{{ route('aramiscClassRoutinePrint', [$record->class_id, $record->section_id]) }}"
+                                                    <a href="{{ route('classRoutinePrint', [$record->class_id, $record->section_id]) }}"
                                                         class="primary-btn small fix-gr-bg pull-right" target="_blank"><i
                                                             class="ti-printer"> </i> @lang('common.print')</a>
                                                 @endif
@@ -94,9 +94,9 @@
                                                                 @foreach ($sm_weekends as $sm_weekend)
                                                                     @php
                                                                         if (moduleStatusCheck('University')) {
-                                                                            $studentClassRoutine = App\SmWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
+                                                                            $studentClassRoutine = App\AramiscWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
                                                                         } else {
-                                                                            $studentClassRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                                            $studentClassRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                                         }
                                                                     @endphp
                                                                     @if ($studentClassRoutine->count() > $height)
@@ -119,9 +119,9 @@
                                                                 @php
                                                                     $i = 0;
                                                                     if (moduleStatusCheck('University')) {
-                                                                        $studentClassRoutine = App\SmWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
+                                                                        $studentClassRoutine = App\AramiscWeekend::universityStudentClassRoutine($record->un_semester_label_id, $record->un_section_id, $sm_weekend->id);
                                                                     } else {
-                                                                        $studentClassRoutine = App\SmWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
+                                                                        $studentClassRoutine = App\AramiscWeekend::studentClassRoutineFromRecord($record->class_id, $record->section_id, $sm_weekend->id);
                                                                     }
                                                                 @endphp
                                                                 @foreach ($studentClassRoutine as $routine)

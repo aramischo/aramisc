@@ -3,7 +3,7 @@
 namespace Modules\Fees\Http\Controllers;
 
 use DataTables;
-use App\SmClass;
+use App\AramiscClass;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -126,7 +126,7 @@ class FeesReportController extends Controller
 
     private function allClass()
     {
-            $data['classes'] = SmClass::where('school_id', auth()->user()->school_id)
+            $data['classes'] = AramiscClass::where('school_id', auth()->user()->school_id)
                         ->where('academic_id', getAcademicId())
                         ->get();
             return $data;
@@ -135,7 +135,7 @@ class FeesReportController extends Controller
     private function feesSearch($request)
     {
         $data = [];
-        $data['classes'] = SmClass::where('school_id', auth()->user()->school_id)
+        $data['classes'] = AramiscClass::where('school_id', auth()->user()->school_id)
                     ->where('academic_id', getAcademicId())
                     ->get();
         if ($request->date_range) {

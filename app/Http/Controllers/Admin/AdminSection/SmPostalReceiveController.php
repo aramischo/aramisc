@@ -29,11 +29,13 @@ class SmPostalReceiveController extends Controller
 
     public function store(Request $request)
     {
-        $fileExtenSion = $request->file->getClientOriginalExtension();
-        $supportedExtensions = ["pdf", "doc", "docx", "jpg", "jpeg", "png", "txt"];
-        if(!in_array($fileExtenSion, $supportedExtensions)){
-            Toastr::error('Unsupported File', 'Failed');
-            return redirect()->back();
+        if ($request->hasFile('file')) {
+            $fileExtension = $request->file('file')->getClientOriginalExtension();
+            $supportedExtensions = ["pdf", "doc", "docx", "jpg", "jpeg", "png", "txt"];
+            if (!in_array($fileExtension, $supportedExtensions)) {
+                Toastr::error('Unsupported File', 'Failed');
+                return redirect()->back();
+            }
         }
         try{
             $destination =  'public/uploads/postal/';

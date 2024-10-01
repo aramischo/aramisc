@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\SmSchool;
+use App\AramiscSchool;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,12 +40,12 @@ class PaymentReminder extends Command
      */
     public function handle()
     {
-        $schools = SmSchool::all();
+        $schools = AramiscSchool::all();
         if(moduleStatusCheck('University')){
             foreach($schools as $school){
                 paymentRemainder($school->id);
             }
-        }elseif(aramiscDirectFees()){
+        }elseif(directFees()){
             foreach($schools as $school){
                 smPaymentRemainder($school->id);
             }

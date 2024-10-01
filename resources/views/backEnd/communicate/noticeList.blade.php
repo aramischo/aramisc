@@ -92,7 +92,7 @@
                                                         @if (isset($roleData))
                                                             @foreach ($roleData as $role)
                                                                 @php
-                                                                    $name = \Modules\RolePermission\Entities\AramiscRole::select('name')
+                                                                    $name = \Modules\RolePermission\Entities\InfixRole::select('name')
                                                                         ->where('id', $role)
                                                                         ->first();
                                                                 @endphp

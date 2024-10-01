@@ -63,15 +63,13 @@
 
                                 <input type="hidden" name="id" value="{{ $editData->id }}">
                             @else
-                                @if (userPermission('absent_time_setup'))
-                                    {{ Form::open([
-                                        'class' => 'form-horizontal',
-                                        'files' => true,
-                                        'route' => 'absent_time_setup',
-                                        'method' => 'POST',
-                                        'enctype' => 'multipart/form-data',
-                                    ]) }}
-                                @endif
+                                {{ Form::open([
+                                    'class' => 'form-horizontal',
+                                    'files' => true,
+                                    'route' => 'absent_time_setup',
+                                    'method' => 'POST',
+                                    'enctype' => 'multipart/form-data',
+                                ]) }}
                             @endif
                             <input type="hidden" name="url" id="url" value="{{ URL::to('/') }}">
                             <div class="white-box">

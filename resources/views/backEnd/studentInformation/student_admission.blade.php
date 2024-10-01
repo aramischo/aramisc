@@ -2255,7 +2255,7 @@
                                             <div class="row pt-4 row-gap-24">
                                                 <div class="col-lg-12">
                                                     <div class="form-section">
-                                                        <div class="row">
+                                                        <div class="">
                                                             @if (count($custom_fields) && is_show('custom_field') && isMenuAllowToShow('custom_field'))
                                                                 {{-- Custom Filed Start --}}
                                                                 <div class="row mt-40">

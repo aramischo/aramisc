@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\api;
 
-use App\SmStudent;
-use App\SmAcademicYear;
+use App\AramiscStudent;
+use App\AramiscAcademicYear;
 use App\Scopes\SchoolScope;
 use Illuminate\Http\Request;
 use App\Models\StudentRecord;
@@ -15,7 +15,7 @@ class ApiStudentRecordController extends Controller
     public function getRecord($student_id)
     {
     
-        $records = StudentRecord::where('student_id',$student_id)->where('academic_id', SmAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get()->map(function ($record) {
+        $records = StudentRecord::where('student_id',$student_id)->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get()->map(function ($record) {
             return[
                 'id'=>$record->id,
                 'student_id'=>$record->student_id,
@@ -38,8 +38,8 @@ class ApiStudentRecordController extends Controller
     public function getRecordSaas($school_id, $record_id)
     {
         $record = StudentRecord::find($record_id);
-        $student_id = SmStudent::withOutGlobalScope(SchoolScope::class)->where('id',$record->student_id)->value('id');
-        $records = StudentRecord::where('school_id',$school_id)->where('student_id',$student_id)->where('academic_id', SmAcademicYear::API_ACADEMIC_YEAR($school_id))->get()->map(function ($record) {
+        $student_id = AramiscStudent::withOutGlobalScope(SchoolScope::class)->where('id',$record->student_id)->value('id');
+        $records = StudentRecord::where('school_id',$school_id)->where('student_id',$student_id)->where('academic_id', AramiscAcademicYear::API_ACADEMIC_YEAR($school_id))->get()->map(function ($record) {
             return[
                 'id'=>$record->id,
                 'student_id'=>$record->student_id,

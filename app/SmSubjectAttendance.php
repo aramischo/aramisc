@@ -11,9 +11,15 @@ class SmSubjectAttendance extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'subject_id' => 'integer',
+        'attendance_type' => 'string',
+        'attendance_date' => 'string',
+    ];
+
     public function student()
     {
-        return $this->belongsTo('App\SmStudent', 'student_id', 'id');
+        return $this->belongsTo('App\AramiscStudent', 'student_id', 'id');
     }
 
     public function recordDetail(){
@@ -26,10 +32,10 @@ class SmSubjectAttendance extends Model
 
     public static function getAbsentSubjectList($recored_id, $schoolId){
         $subjectLists = [];
-        $subjects = SmSubjectAttendance::where('aramiscAttendance_type','A')
+        $subjects = SmSubjectAttendance::where('attendance_type','A')
                     ->where('student_record_id', $recored_id)
                     ->where('school_id', $schoolId)
-                    ->where('aramiscAttendance_date', date('Y-m-d'))
+                    ->where('attendance_date', date('Y-m-d'))
                     ->where('notify', 0)
                     ->get();
         foreach($subjects as $subject){

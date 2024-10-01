@@ -42,7 +42,6 @@ return [
     'resend_code' => 'Resend Code',
     'two_factor_otp' => 'Two Factor OTP',
     'student_registration' => 'Student Registration',
-    'sign_in' => 'Sign in',
 
 
 ];

@@ -16,7 +16,7 @@ class SmAssignVehicle extends Model
     // }
     use HasFactory;
     public function route(){
-    	return $this->belongsTo('App\SmRoute', 'route_id', 'id');
+    	return $this->belongsTo('App\AramiscRoute', 'route_id', 'id');
     }
     public function vehicle(){
     	return $this->belongsTo('App\SmVehicle', 'vehicle_id', 'id');

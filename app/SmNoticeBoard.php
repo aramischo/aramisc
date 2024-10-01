@@ -5,11 +5,22 @@ namespace App;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class SmNoticeBoard extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'id'                => 'integer',
+        'notice_title'      => 'string',
+        'notice_message'    => 'string',
+        'notice_date'       => 'string',
+        'publish_on'       => 'string',
+    ];
+
+
+    
     protected static function boot()
     {
         parent::boot();
@@ -24,7 +35,7 @@ class SmNoticeBoard extends Model
     public static function getRoleName($role_id)
     {
         try {
-            $getRoleName = AramiscRole::select('name')
+            $getRoleName = InfixRole::select('name')
                 ->where('id', $role_id)
                 ->first();
 

@@ -6,7 +6,7 @@
     <input type="hidden" name="section_id" value="{{ $section_id }}">
         <div>
             <div class="table-responsive tableheight">
-                <table class="table" id="aramiscClassRoutineTable">
+                <table class="table" id="classRoutineTable">
                    
                     <thead>
                         <tr>
@@ -24,7 +24,7 @@
                     <input type="hidden" id="row_count" value="{{ $class_routines->count() + 1 }}">
                         @foreach ( $class_routines as $routine)
 
-                            @includeIf('backEnd.academics.aramiscClassRoutine.row', ['row' => $loop->index])
+                            @includeIf('backEnd.academics.classRoutine.row', ['row' => $loop->index])
                         @endforeach
                        
 
@@ -34,7 +34,7 @@
 
         </div>
         <div class="col-lg-12 mt-20 text-center">
-            <button class="primary-btn fix-gr-bg" type="submit" id="aramiscClassRoutineSubmitButton">
+            <button class="primary-btn fix-gr-bg" type="submit" id="classRoutineSubmitButton">
              <span class="ti-check"></span>
              @lang('common.save')
             </button>

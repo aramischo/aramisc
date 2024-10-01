@@ -2,8 +2,8 @@
 namespace App\PaymentGateway;
 
 use App\User;
-use App\SmStudent;
-use App\SmPaymentGatewaySetting;
+use App\AramiscStudent;
+use App\AramiscPaymentGatewaySetting;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Cache;
@@ -17,7 +17,7 @@ class MercadoPagoPayment{
     public function handle($data)
     {
         try{
-            $mercadoPagoDetails = SmPaymentGatewaySetting::where('gateway_name', '=', 'MercadoPago')
+            $mercadoPagoDetails = AramiscPaymentGatewaySetting::where('gateway_name', '=', 'MercadoPago')
                                 ->where('school_id',auth()->user()->school_id)
                                 ->select('mercado_pago_public_key', 'mercado_pago_acces_token')
                                 ->first();
@@ -83,7 +83,7 @@ class MercadoPagoPayment{
                 $transcationInfo = FmFeesTransaction::find($paymentResponse['trxID']);
                 $extendedController = new FeesExtendedController();
                 $extendedController->addFeesAmount($paymentResponse['trxID'], $paymentResponse['amount']);
-                $student = SmStudent::with('parents')->find($transcationInfo->student_id);
+                $student = AramiscStudent::with('parents')->find($transcationInfo->student_id);
 
                 sendNotification("Mercado Payment Done", null, 1, 1);
                 sendNotification("Mercado Payment Done", null, $student->user_id, 2);

@@ -617,7 +617,7 @@
                                                         </div>
                                                         <div class="col-lg-12 mt-30" id="selectSectionsDiv">
                                                             <label for="checkbox"
-                                                                class="mb-2">@lang('common.section')</label>
+                                                                class="mb-2">@lang('common.section') <span class="text-danger">*</span></label>
                                                             <select multiple
                                                                 class="multypol_check_select active position-relative"
                                                                 id="selectMultiSections" name="section_ids[]"

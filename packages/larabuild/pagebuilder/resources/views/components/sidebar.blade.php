@@ -86,6 +86,13 @@
                 title="{{ __('pagebuilder::pagebuilder.go_back') }}" class="icon-arrow-left"></i></a>
         <a target="_blank" href="{{URL($page->slug??'/').'?preview=yes'}}"> <i class="icon-monitor"></i>
             {{__('pagebuilder::pagebuilder.preview')}}</a>
+            @if(request()->segment(1) == 'header' || request()->segment(1) == 'footer')
+                <a href="{{ route('pagebuilder.frontend.reset', $page->slug) }}">
+                    <i class="icon-reset"></i>
+                    {{ __('Reset') }}
+                </a>
+            @endif
+        
         <button class="pb-btn savePageData">{{__('pagebuilder::pagebuilder.save')}}<i
                 class="icon-loader"></i></button>
     </div>

@@ -14,7 +14,7 @@ class SmFormDownloadController extends Controller
     {
         try {
             $froms = SmFormDownload::where('school_id', app('school')->id)->get();
-            return view('backend.frontSettings.form_download.form_download', compact('froms'));
+            return view('backEnd.frontSettings.form_download.form_download', compact('froms'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -61,7 +61,7 @@ class SmFormDownloadController extends Controller
         try {
             $froms = SmFormDownload::where('school_id', app('school')->id)->get();
             $add_form_download = SmFormDownload::where('id', $id)->where('school_id', app('school')->id)->first();
-            return view('backend.frontSettings.form_download.form_download', compact('froms', 'add_form_download'));
+            return view('backEnd.frontSettings.form_download.form_download', compact('froms', 'add_form_download'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();

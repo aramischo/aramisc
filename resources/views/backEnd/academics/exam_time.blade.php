@@ -194,13 +194,13 @@
                                                 <a class="dropdown-item" href="{{route('examTimeEdit',$class_time->id)}}">@lang('common.edit')</a>
                                                 @endif
                                                  @if(userPermission(574))
-                                                <a class="dropdown-item" data-toggle="modal" data-target="#aramiscDeleteClassTime{{@$class_time->id}}"  href="#">@lang('common.delete')</a>
+                                                <a class="dropdown-item" data-toggle="modal" data-target="#deleteClassTime{{@$class_time->id}}"  href="#">@lang('common.delete')</a>
                                            @endif
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                <div class="modal fade admin-query" id="aramiscDeleteClassTime{{@$class_time->id}}" >
+                                <div class="modal fade admin-query" id="deleteClassTime{{@$class_time->id}}" >
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">

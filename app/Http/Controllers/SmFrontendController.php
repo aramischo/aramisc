@@ -3,35 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\SmExam;
-use App\SmNews;
+use App\AramiscExam;
+use App\AramiscNews;
 use App\SmPage;
 use App\SmClass;
-use App\SmEvent;
+use App\AramiscEvent;
 use App\SmStaff;
-use App\SmCourse;
+use App\AramiscCourse;
 use App\SmSchool;
-use App\SmSection;
-use App\SmStudent;
+use App\AramiscSection;
+use App\AramiscStudent;
 use App\SmSubject;
 use App\SmWeekend;
 use App\YearCheck;
-use App\SmExamType;
-use App\SmNewsPage;
+use App\AramiscExamType;
+use App\AramiscNewsPage;
 use App\SmAboutPage;
-use App\SmCoursePage;
+use App\AramiscCoursePage;
 use App\SmMarksGrade;
 use App\ApiBaseMethod;
 use App\SmContactPage;
 use App\SmNoticeBoard;
 use App\SmResultStore;
 use App\SmTestimonial;
-use App\SmExamSchedule;
-use App\SmNewsCategory;
+use App\AramiscExamSchedule;
+use App\AramiscNewsCategory;
 use App\SmAssignSubject;
 use App\SmMarksRegister;
 use App\SmContactMessage;
-use App\SmCourseCategory;
+use App\AramiscCourseCategory;
 use App\SmGeneralSettings;
 use App\SmHomePageSetting;
 use App\SmSocialMediaIcon;
@@ -54,7 +54,7 @@ use Larabuild\Pagebuilder\Models\Page;
 use Illuminate\Support\Facades\Redirect;
 use Modules\Saas\Entities\SmPackagePlan;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\AramiscPermissionAssign;
+use Modules\RolePermission\Entities\InfixPermissionAssign;
 use App\Http\Requests\Admin\FrontSettings\ExamResultSearch;
 use Larabuild\Pagebuilder\Http\Controllers\PageBuilderController;
 
@@ -93,16 +93,16 @@ class SmFrontendController extends Controller
             ];
 
             $home_data = [
-                'exams' => SmExam::where('school_id', app('school')->id)->get(),
-                'news' => SmNews::where('school_id', app('school')->id)->orderBy('order', 'asc')->limit(3)->get(),
+                'exams' => AramiscExam::where('school_id', app('school')->id)->get(),
+                'news' => AramiscNews::where('school_id', app('school')->id)->orderBy('order', 'asc')->limit(3)->get(),
                 'testimonial' => SmTestimonial::where('school_id', app('school')->id)->get(),
-                'academics' => SmCourse::where('school_id', app('school')->id)->orderBy('id', 'asc')->limit(3)->get(),
-                'exam_types' => SmExamType::where('school_id', app('school')->id)->get(),
-                'events' => SmEvent::where('school_id', app('school')->id)->get(),
+                'academics' => AramiscCourse::where('school_id', app('school')->id)->orderBy('id', 'asc')->limit(3)->get(),
+                'exam_types' => AramiscExamType::where('school_id', app('school')->id)->get(),
+                'events' => AramiscEvent::where('school_id', app('school')->id)->get(),
                 'notice_board' => SmNoticeBoard::where('school_id', app('school')->id)->where('is_published', 1)->orderBy('created_at', 'DESC')->take(3)->get(),
                 'classes' => SmClass::where('school_id', app('school')->id)->where('active_status', 1)->get(),
                 'subjects' => SmSubject::where('school_id', app('school')->id)->where('active_status', 1)->get(),
-                'section' => SmSection::where('school_id', app('school')->id)->where('active_status', 1)->get(),
+                'section' => AramiscSection::where('school_id', app('school')->id)->where('active_status', 1)->get(),
                 'homePage' => SmHomePageSetting::where('school_id', app('school')->id)->first(),
             ];
 
@@ -137,20 +137,20 @@ class SmFrontendController extends Controller
     public function about()
     {
         try {
-            $exams = SmExam::where('school_id', app('school')->id)->get();
-            $exams_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exams = AramiscExam::where('school_id', app('school')->id)->get();
+            $exams_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $classes = SmClass::where('active_status', 1)->where('school_id', app('school')->id)->get();
             $subjects = SmSubject::where('active_status', 1)->where('school_id', app('school')->id)->get();
-            $sections = SmSection::where('active_status', 1)->where('school_id', app('school')->id)->get();
+            $sections = AramiscSection::where('active_status', 1)->where('school_id', app('school')->id)->get();
             $about = SmAboutPage::where('school_id', app('school')->id)->first();
             $testimonial = SmTestimonial::where('school_id', app('school')->id)->get();
-            $totalStudents = SmStudent::where('active_status', 1)->where('school_id', app('school')->id)->get();
+            $totalStudents = AramiscStudent::where('active_status', 1)->where('school_id', app('school')->id)->get();
             $totalTeachers = SmStaff::where('active_status', 1)
                 ->where(function ($q) {
                     $q->where('role_id', 4)->orWhere('previous_role_id', 4);
                 })->where('school_id', app('school')->id)->get();
-            $history = SmNews::with('category')->histories()->limit(3)->where('school_id', app('school')->id)->get();
-            $mission = SmNews::with('category')->missions()->limit(3)->where('school_id', app('school')->id)->get();
+            $history = AramiscNews::with('category')->histories()->limit(3)->where('school_id', app('school')->id)->get();
+            $mission = AramiscNews::with('category')->missions()->limit(3)->where('school_id', app('school')->id)->get();
 
             return view('frontEnd.home.light_about', compact('exams', 'classes', 'subjects', 'exams_types', 'sections', 'about', 'testimonial', 'totalStudents', 'totalTeachers', 'history', 'mission'));
         } catch (\Exception $e) {
@@ -162,11 +162,11 @@ class SmFrontendController extends Controller
     public function news()
     {
         try {
-            $exams = SmExam::where('school_id', app('school')->id)->get();
-            $exams_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exams = AramiscExam::where('school_id', app('school')->id)->get();
+            $exams_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $classes = SmClass::where('school_id', app('school')->id)->where('active_status', 1)->get();
             $subjects = SmSubject::where('school_id', app('school')->id)->where('active_status', 1)->get();
-            $sections = SmSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
+            $sections = AramiscSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
             return view('frontEnd.home.light_news', compact('exams', 'classes', 'subjects', 'exams_types', 'sections'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -177,11 +177,11 @@ class SmFrontendController extends Controller
     public function contact()
     {
         try {
-            $exams = SmExam::where('school_id', app('school')->id)->get();
-            $exams_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exams = AramiscExam::where('school_id', app('school')->id)->get();
+            $exams_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $classes = SmClass::where('school_id', app('school')->id)->where('active_status', 1)->get();
             $subjects = SmSubject::where('school_id', app('school')->id)->where('active_status', 1)->get();
-            $sections = SmSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
+            $sections = AramiscSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
 
             $contact_info = SmContactPage::where('school_id', app('school')->id)->first();
             return view('frontEnd.home.light_contact', compact('exams', 'classes', 'subjects', 'exams_types', 'sections', 'contact_info'));
@@ -194,11 +194,11 @@ class SmFrontendController extends Controller
     public function institutionPrivacyPolicy()
     {
         try {
-            $exams = SmExam::where('school_id', app('school')->id)->get();
-            $exams_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exams = AramiscExam::where('school_id', app('school')->id)->get();
+            $exams_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $classes = SmClass::where('school_id', app('school')->id)->where('active_status', 1)->get();
             $subjects = SmSubject::where('school_id', app('school')->id)->where('active_status', 1)->get();
-            $sections = SmSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
+            $sections = AramiscSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
 
             $contact_info = SmContactPage::where('school_id', app('school')->id)->first();
             return view('frontEnd.home.institutionPrivacyPolicy', compact('exams', 'classes', 'subjects', 'exams_types', 'sections', 'contact_info'));
@@ -234,11 +234,11 @@ class SmFrontendController extends Controller
     public function institutionTermServices()
     {
         try {
-            $exams = SmExam::where('school_id', app('school')->id)->get();
-            $exams_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exams = AramiscExam::where('school_id', app('school')->id)->get();
+            $exams_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $classes = SmClass::where('school_id', app('school')->id)->where('active_status', 1)->get();
             $subjects = SmSubject::where('school_id', app('school')->id)->where('active_status', 1)->get();
-            $sections = SmSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
+            $sections = AramiscSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
 
             $contact_info = SmContactPage::where('school_id', app('school')->id)->first();
             return view('frontEnd.home.institutionTermServices', compact('exams', 'classes', 'subjects', 'exams_types', 'sections', 'contact_info'));
@@ -250,8 +250,8 @@ class SmFrontendController extends Controller
 
     public function newsDetails($id)
     {
-        $news = SmNews::where('school_id', app('school')->id)->findOrFail($id);
-        $otherNews = SmNews::where('school_id', app('school')->id)->orderBy('id', 'asc')->whereNotIn('id', [$id])->limit(3)->get();
+        $news = AramiscNews::where('school_id', app('school')->id)->findOrFail($id);
+        $otherNews = AramiscNews::where('school_id', app('school')->id)->orderBy('id', 'asc')->whereNotIn('id', [$id])->limit(3)->get();
         $notice_board = SmNoticeBoard::where('school_id', app('school')->id)->where('is_published', 1)->orderBy('created_at', 'DESC')->take(3)->get();
 
         return view('frontEnd.home.light_news_details', compact('news', 'notice_board', 'otherNews'));
@@ -260,8 +260,8 @@ class SmFrontendController extends Controller
     public function newsPage()
     {
         try {
-            $news = SmNews::where('school_id', app('school')->id)->paginate(8);
-            $newsPage = SmNewsPage::where('school_id', app('school')->id)->first();
+            $news = AramiscNews::where('school_id', app('school')->id)->paginate(8);
+            $newsPage = AramiscNewsPage::where('school_id', app('school')->id)->first();
             return view('frontEnd.home.light_news', compact('news', 'newsPage'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -272,10 +272,10 @@ class SmFrontendController extends Controller
     public function loadMorenews(Request $request)
     {
         try {
-            $count = SmNews::count();
+            $count = AramiscNews::count();
             $skip = $request->skip;
             $limit = $count - $skip;
-            $due_news = SmNews::skip($skip)->where('school_id', app('school')->id)->take(4)->get();
+            $due_news = AramiscNews::skip($skip)->where('school_id', app('school')->id)->take(4)->get();
             return view('frontEnd.home.loadMoreNews', compact('due_news', 'skip', 'count'));
         } catch (\Exception $e) {
             return response('error');
@@ -329,7 +329,7 @@ class SmFrontendController extends Controller
     {
         try {
             $contact_messages = SmContactMessage::where('school_id', app('school')->id)->orderBy('id', 'desc')->get();
-            $module_links = AramiscPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->pluck('module_id')->toArray();
+            $module_links = InfixPermissionAssign::where('role_id', Auth::user()->role_id)->where('school_id', Auth::user()->school_id)->pluck('module_id')->toArray();
             return view('frontEnd.contact_message', compact('contact_messages', 'module_links'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -415,14 +415,14 @@ class SmFrontendController extends Controller
     public function course()
     {
         try {
-            $exams = SmExam::where('school_id', app('school')->id)->get();
-            $course = SmCourse::where('school_id', app('school')->id)->paginate(3);
-            $news = SmNews::where('school_id', app('school')->id)->orderBy('order', 'asc')->limit(4)->get();
-            $exams_types = SmExamType::where('school_id', app('school')->id)->get();
-            $coursePage = SmCoursePage::where('school_id', app('school')->id)->first();
+            $exams = AramiscExam::where('school_id', app('school')->id)->get();
+            $course = AramiscCourse::where('school_id', app('school')->id)->paginate(3);
+            $news = AramiscNews::where('school_id', app('school')->id)->orderBy('order', 'asc')->limit(4)->get();
+            $exams_types = AramiscExamType::where('school_id', app('school')->id)->get();
+            $coursePage = AramiscCoursePage::where('school_id', app('school')->id)->first();
             $classes = SmClass::where('school_id', app('school')->id)->where('active_status', 1)->get();
             $subjects = SmSubject::where('school_id', app('school')->id)->where('active_status', 1)->get();
-            $sections = SmSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
+            $sections = AramiscSection::where('school_id', app('school')->id)->where('active_status', 1)->get();
             return view('frontEnd.home.light_course', compact('exams', 'classes', 'coursePage', 'subjects', 'exams_types', 'sections', 'course', 'news'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -433,9 +433,9 @@ class SmFrontendController extends Controller
     public function courseDetails($id)
     {
         try {
-            $course = SmCourse::where('school_id', app('school')->id)->find($id);
-            $course_details = SmCoursePage::where('school_id', app('school')->id)->where('is_parent', 0)->first();
-            $courses = SmCourse::where('school_id', app('school')->id)->orderBy('id', 'asc')->whereNotIn('id', [$id])->limit(3)->get();
+            $course = AramiscCourse::where('school_id', app('school')->id)->find($id);
+            $course_details = AramiscCoursePage::where('school_id', app('school')->id)->where('is_parent', 0)->first();
+            $courses = AramiscCourse::where('school_id', app('school')->id)->orderBy('id', 'asc')->whereNotIn('id', [$id])->limit(3)->get();
             return view('frontEnd.home.light_course_details', compact('course', 'courses', 'course_details'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -446,10 +446,10 @@ class SmFrontendController extends Controller
     public function loadMoreCourse(Request $request)
     {
         try {
-            $count = SmCourse::count();
+            $count = AramiscCourse::count();
             $skip = $request->skip;
             $limit = $count - $skip;
-            $due_courses = SmCourse::skip($skip)->where('school_id', app('school')->id)->take(3)->get();
+            $due_courses = AramiscCourse::skip($skip)->where('school_id', app('school')->id)->take(3)->get();
             return view('frontEnd.home.loadMorePage', compact('due_courses', 'skip', 'count'));
         } catch (\Exception $e) {
             return response('error');
@@ -511,7 +511,7 @@ class SmFrontendController extends Controller
     public function examResult()
     {
         try {
-            $exam_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exam_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $page = FrontendExamResult::where('school_id', app('school')->id)->first();
 
             return view('frontEnd.home.examResult', compact('exam_types', 'page'));
@@ -524,13 +524,13 @@ class SmFrontendController extends Controller
     public function examResultSearch(ExamResultSearch $request)
     {
         try {
-            $exam_types = SmExamType::where('school_id', app('school')->id)->get();
+            $exam_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $page = FrontendExamResult::where('school_id', app('school')->id)->first();
             $school_id = app('school')->id;
-            $student = SmStudent::where('admission_no', $request->admission_number)->where('school_id', $school_id)->first();
+            $student = AramiscStudent::where('admission_no', $request->admission_number)->where('school_id', $school_id)->first();
             if ($student) {
 
-                $student_detail = $aramiscStudentDetails = StudentRecord::where('student_id', $student->id)
+                $student_detail = $studentDetails = StudentRecord::where('student_id', $student->id)
                     ->where('academic_id', getAcademicId())
                     ->where('is_promote', 0)
                     ->where('school_id', $school_id)
@@ -553,7 +553,7 @@ class SmFrontendController extends Controller
                     ->where('gpa', $failgpa)
                     ->first();
 
-                $exams = SmExamType::where('active_status', 1)
+                $exams = AramiscExamType::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->get();
@@ -563,7 +563,7 @@ class SmFrontendController extends Controller
                     ->where('school_id', $school_id)
                     ->get();
 
-                $examSubjects = SmExam::where([['exam_type_id',  $exam_type_id], ['section_id', $section_id], ['class_id', $class_id]])
+                $examSubjects = AramiscExam::where([['exam_type_id',  $exam_type_id], ['section_id', $section_id], ['class_id', $class_id]])
                     ->where('school_id', $school_id)
                     ->where('academic_id', getAcademicId())
                     ->get();
@@ -572,7 +572,7 @@ class SmFrontendController extends Controller
                     $examSubjectIds[] = $examSubject->subject_id;
                 }
 
-                $subjects = $aramiscStudentDetails->class->subjects->where('section_id', $section_id)
+                $subjects = $studentDetails->class->subjects->where('section_id', $section_id)
                     ->whereIn('subject_id', $examSubjectIds)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id);
@@ -628,7 +628,7 @@ class SmFrontendController extends Controller
                     ->where('school_id', $school_id)
                     ->get();
 
-                $exams = SmExamType::where('active_status', 1)
+                $exams = AramiscExamType::where('active_status', 1)
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', $school_id)
                     ->get();
@@ -644,13 +644,13 @@ class SmFrontendController extends Controller
                     ->get();
 
                 $class = SmClass::find($class_id);
-                $section = SmSection::find($section_id);
-                $exam_detail = SmExam::find($request->exam);
+                $section = AramiscSection::find($section_id);
+                $exam_detail = AramiscExam::find($request->exam);
 
                 return view('frontEnd.home.examResult', compact(
                     'optional_subject',
                     'classes',
-                    'aramiscStudentDetails',
+                    'studentDetails',
                     'exams',
                     'classes',
                     'marks_register',
@@ -687,8 +687,8 @@ class SmFrontendController extends Controller
     {
         try {
             $classes = SmClass::get();
-            $sections = SmSection::get();
-            $exam_types = SmExamType::where('school_id', app('school')->id)->get();
+            $sections = AramiscSection::get();
+            $exam_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $routine_page = SmClassExamRoutinePage::where('school_id', app('school')->id)->first();
             return view('frontEnd.home.classExamRoutine', compact('routine_page', 'exam_types', 'classes', 'sections'));
         } catch (\Exception $e) {
@@ -716,26 +716,26 @@ class SmFrontendController extends Controller
 
         try {
             $classes = SmClass::get();
-            $sections = SmSection::get();
-            $exam_types = SmExamType::where('school_id', app('school')->id)->get();
+            $sections = AramiscSection::get();
+            $exam_types = AramiscExamType::where('school_id', app('school')->id)->get();
             $routine_page = SmClassExamRoutinePage::where('school_id', app('school')->id)->first();
             $header_class = SmClass::where('id', $request->class)->first();
-            $header_section = SmSection::where('id', $request->section)->first();
+            $header_section = AramiscSection::where('id', $request->section)->first();
             $class_id = $request->class ? $request->class : 0;
             $section_id = $request->section ? $request->section : 0;
             $exam_type_id = $request->exam ? $request->exam : 0;
 
-            $sm_weekends = ($request->type == 'class') ? SmWeekend::with(['aramiscClassRoutine' => function ($q) use ($class_id, $section_id) {
+            $sm_weekends = ($request->type == 'class') ? SmWeekend::with(['classRoutine' => function ($q) use ($class_id, $section_id) {
                 return $q->where('class_id', $class_id)
                     ->where('section_id', $section_id)
                     ->orderBy('start_time', 'asc');
-            }, 'aramiscClassRoutine.subject'])
+            }, 'classRoutine.subject'])
                 ->where('school_id', app('school')->id)
                 ->orderBy('order', 'ASC')
                 ->where('active_status', 1)
                 ->get() : null;
 
-            $exam_schedules = ($request->type == 'exam') ? SmExamSchedule::where('school_id', app('school')->id)
+            $exam_schedules = ($request->type == 'exam') ? AramiscExamSchedule::where('school_id', app('school')->id)
                 ->when($request->exam, function ($query) use ($request) {
                     $query->where('exam_term_id', $request->exam);
                 })

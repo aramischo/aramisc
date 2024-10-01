@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\Academics\SmExamTimeRequest;
+use App\Http\Requests\Admin\Academics\AramiscExamTimeRequest;
 use App\Http\Requests\Admin\Academics\SmClassTimeRequest;
 
 class SmClassTimeController extends Controller
@@ -207,7 +207,7 @@ class SmClassTimeController extends Controller
     }
 
 
-    public function examtimeSave(SmExamTimeRequest $request)
+    public function examtimeSave(AramiscExamTimeRequest $request)
     {
       
         // if ($validator->fails()) {
@@ -267,7 +267,7 @@ class SmClassTimeController extends Controller
         }
     }
 
-    public function examTimeUpdate(SmExamTimeRequest $request, $id)
+    public function examTimeUpdate(AramiscExamTimeRequest $request, $id)
     {
 
 

@@ -15,7 +15,7 @@ class SmInventoryPayment extends Model
     }
     
     public function paymentMethods(){
-    	return $this->belongsTo('App\SmPaymentMethhod', 'payment_method', 'id');
+    	return $this->belongsTo('App\AramiscPaymentMethhod', 'payment_method', 'id');
     }
 
    

@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="icon" href="{{asset('public/backEnd/')}}/img/favicon.png" type="image/png"/>
-    <title>{{__('Aramisc ERP | Verification for pro User')}}</title>
+    <title>{{__('Infix Edu ERP | Verification for pro User')}}</title>
     <meta name="_token" content="{!! csrf_token() !!}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/jquery-ui.css"/>
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/js/select2/select2.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css"/>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/aramisc.css"/>
+    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/infix.css"/>
     <style>
         h2,h5{color: whitesmoke}
         .card-body {

@@ -3,27 +3,27 @@
 namespace App\Http\Controllers\teacher;
 
 use App\Role;
-use App\SmClass;
-use App\SmGeneralSettings;
-use App\SmStaff;
-use App\SmStudent;
-use App\SmWeekend;
+use App\AramiscClass;
+use App\AramiscGeneralSettings;
+use App\AramiscStaff;
+use App\AramiscStudent;
+use App\AramiscWeekend;
 use App\YearCheck;
-use App\SmHomework;
-use App\SmClassTime;
+use App\AramiscHomework;
+use App\AramiscClassTime;
 use App\ApiBaseMethod;
-use App\SmLeaveRequest;
-use App\SmNotification;
-use App\SmAssignSubject;
-use App\SmStaffAttendence;
+use App\AramiscLeaveRequest;
+use App\AramiscNotification;
+use App\AramiscAssignSubject;
+use App\AramiscStaffAttendence;
 use Illuminate\Http\Request;
-use App\SmTeacherUploadContent;
+use App\AramiscTeacherUploadContent;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\AramiscRole;
+use Modules\RolePermission\Entities\InfixRole;
 
 class TeacherApiController extends Controller
 {
@@ -39,11 +39,11 @@ class TeacherApiController extends Controller
         try {
             $user = Auth::user();
 
-            $class_times = SmClassTime::all();
+            $class_times = AramiscClassTime::all();
             $teacher_id = $user->staff->id;
 
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->get();
-            $teachers = SmStaff::select('id', 'full_name')->where('active_status', 1)->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $teachers = AramiscStaff::select('id', 'full_name')->where('active_status', 1)->get();
 
             return view('backEnd.teacherPanel.view_class_routine', compact('class_times', 'teacher_id', 'sm_weekends', 'teachers'));
         } catch (\Exception $e) {
@@ -117,11 +117,11 @@ class TeacherApiController extends Controller
                 ->where('user_id', '=', $id)
                 ->first();
             $teacher_id = $teacher->id;
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->get();
-            $class_times = SmClassTime::where('type', 'class')->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $class_times = AramiscClassTime::where('type', 'class')->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $weekenD = SmWeekend::all();
+                $weekenD = AramiscWeekend::all();
                 foreach ($weekenD as $row) {
                     $data[$row->name] = DB::table('sm_class_routine_updates')
                         ->select('class_id', 'class_name', 'section_id', 'section_name', 'sm_class_times.period', 'sm_class_times.start_time', 'sm_class_times.end_time', 'sm_subjects.subject_name', 'sm_class_rooms.room_no')
@@ -150,11 +150,11 @@ class TeacherApiController extends Controller
                 ->where('user_id', '=', $id)
                 ->first();
             $teacher_id = $teacher->id;
-            $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->get();
-            $class_times = SmClassTime::where('type', 'class')->get();
+            $sm_weekends = AramiscWeekend::orderBy('order', 'ASC')->where('active_status', 1)->get();
+            $class_times = AramiscClassTime::where('type', 'class')->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                $weekenD = SmWeekend::all();
+                $weekenD = AramiscWeekend::all();
                 foreach ($weekenD as $row) {
                     $data[$row->name] = DB::table('sm_class_routine_updates')
                         ->select('sm_class_times.period', 'sm_class_times.start_time', 'sm_class_times.end_time', 'sm_subjects.subject_name', 'sm_class_rooms.room_no')
@@ -216,7 +216,7 @@ class TeacherApiController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscTeacherClassList(Request $request)
+    public function teacherClassList(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -349,7 +349,7 @@ class TeacherApiController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscAddHomework(Request $request)
+    public function addHomework(Request $request)
     {
         
         $request->validate([
@@ -371,7 +371,7 @@ class TeacherApiController extends Controller
                 $file->move('public/uploads/homework/', $fileName);
                 $fileName = 'public/uploads/homework/' . $fileName;
             }
-            $homeworks = new SmHomework;
+            $homeworks = new AramiscHomework;
             $homeworks->class_id = $request->class;
             $homeworks->section_id = $request->section;
             $homeworks->subject_id = $request->subject;
@@ -395,35 +395,35 @@ class TeacherApiController extends Controller
             return redirect()->back();
         }
     }
-    public function aramiscHomeworkList2(Request $request, $id)
+    public function homeworkList2(Request $request, $id)
     {
         try {
             $teacher = DB::table('sm_staffs')
                 ->where('user_id', '=', $id)
                 ->first();
             $teacher_id = $teacher->id;
-            $aramiscHomeworkLists = SmHomework::where('sm_homeworks.created_by', '=', $teacher_id)
+            $homeworkLists = AramiscHomework::where('sm_homeworks.created_by', '=', $teacher_id)
                 ->join('sm_classes', 'sm_homeworks.class_id', '=', 'sm_classes.id')
                 ->join('sm_sections', 'sm_homeworks.section_id', '=', 'sm_sections.id')
                 ->join('sm_subjects', 'sm_homeworks.subject_id', '=', 'sm_subjects.id')
                 ->select('homework_date', 'submission_date', 'evaluation_date', 'file', 'sm_homeworks.marks', 'description', 'subject_name', 'class_name', 'section_name')
                 ->get();
-            $classes = SmClass::where('active_status', '=', '1')->get();
+            $classes = AramiscClass::where('active_status', '=', '1')->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 $data = [];
-                return ApiBaseMethod::sendResponse($aramiscHomeworkLists, null);
+                return ApiBaseMethod::sendResponse($homeworkLists, null);
             }
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function aramiscHomeworkList(Request $request, $id)
+    public function homeworkList(Request $request, $id)
     {
         try {
-            $teacher = SmStaff::where('user_id', '=', $id)->first();
+            $teacher = AramiscStaff::where('user_id', '=', $id)->first();
             $teacher_id = $teacher->id;
-            $subject_list = SmAssignSubject::where('teacher_id', '=', $teacher_id)->get();
+            $subject_list = AramiscAssignSubject::where('teacher_id', '=', $teacher_id)->get();
             $i = 0;
             foreach ($subject_list as $subject) {
                 $homework_subject_list[$subject->subject->subject_name] = $subject->subject->subject_name;
@@ -484,7 +484,7 @@ class TeacherApiController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         try {
-            $teacher = SmStaff::where('user_id', $id)->first();
+            $teacher = AramiscStaff::where('user_id', $id)->first();
             $year = $request->year;
             $month = $request->month;
             if ($month < 10) {
@@ -498,13 +498,13 @@ class TeacherApiController extends Controller
             $previousMonthDetails['date'] = $previous_date;
             $previousMonthDetails['day'] = $days2;
             $previousMonthDetails['week_name'] = date('D', strtotime($previous_date));
-            $aramiscAttendances = SmStaffAttendence::where('student_id', $teacher->id)
-                ->where('aramiscAttendance_date', 'like', '%' . $request->year . '-' . $month . '%')
-                ->select('aramiscAttendance_type', 'aramiscAttendance_date')
+            $attendances = AramiscStaffAttendence::where('student_id', $teacher->id)
+                ->where('attendance_date', 'like', '%' . $request->year . '-' . $month . '%')
+                ->select('attendance_type', 'attendance_date')
                 ->get();
 
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
-                $data['aramiscAttendances'] = $aramiscAttendances;
+                $data['attendances'] = $attendances;
                 $data['previousMonthDetails'] = $previousMonthDetails;
                 $data['days'] = $days;
                 $data['year'] = $year;
@@ -514,13 +514,13 @@ class TeacherApiController extends Controller
                 return ApiBaseMethod::sendResponse($data, null);
             }
             //Test
-            //return view('backEnd.studentPanel.student_aramiscAttendance', compact('aramiscAttendances', 'days', 'year', 'month', 'current_day'));
+            //return view('backEnd.studentPanel.student_attendance', compact('attendances', 'days', 'year', 'month', 'current_day'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }
-    public function aramiscApplyLeave(Request $request)
+    public function applyLeave(Request $request)
     {
         $input = $request->all();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -542,7 +542,7 @@ class TeacherApiController extends Controller
         try {
             $fileName = "";
             if ($request->file('attach_file') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -556,7 +556,7 @@ class TeacherApiController extends Controller
                 $fileName = 'public/uploads/leave_request/' . $fileName;
             }
 
-            $apply_leave = new SmLeaveRequest();
+            $apply_leave = new AramiscLeaveRequest();
             $apply_leave->staff_id = $request->input('teacher_id');
             $apply_leave->role_id = 4;
             $apply_leave->apply_date = date('Y-m-d');
@@ -583,13 +583,13 @@ class TeacherApiController extends Controller
     }
 
 
-    public function aramiscStaffLeaveList(Request $request, $id)
+    public function staffLeaveList(Request $request, $id)
     {
         try {
-            $teacher = SmStaff::where('user_id', '=', $id)->first();
+            $teacher = AramiscStaff::where('user_id', '=', $id)->first();
             $teacher_id = $teacher->id;
 
-            $leave_list = SmLeaveRequest::where('staff_id', '=', $teacher_id)
+            $leave_list = AramiscLeaveRequest::where('staff_id', '=', $teacher_id)
                 ->join('sm_leave_defines', 'sm_leave_defines.id', '=', 'sm_leave_requests.leave_define_id')
                 ->join('sm_leave_types', 'sm_leave_types.id', '=', 'sm_leave_defines.type_id')
                 ->get();
@@ -606,7 +606,7 @@ class TeacherApiController extends Controller
         }
     }
 
-    public function aramiscLeaveTypeList(Request $request)
+    public function leaveTypeList(Request $request)
     {
 
         try {
@@ -627,7 +627,7 @@ class TeacherApiController extends Controller
         }
     }
 
-    public function aramiscUploadContent(Request $request)
+    public function uploadContent(Request $request)
     {
         $input = $request->all();
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
@@ -656,7 +656,7 @@ class TeacherApiController extends Controller
         try {
             $fileName = "";
             if ($request->file('attach_file') != "") {
-                $maxFileSize = SmGeneralSettings::first('file_size')->file_size;
+                $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
                 $fileSize =  filesize($file);
                 $fileSizeKb = ($fileSize / 1000000);
@@ -670,29 +670,29 @@ class TeacherApiController extends Controller
                 $fileName = 'public/uploads/upload_contents/' . $fileName;
             }
 
-            $aramiscUploadContents = new SmTeacherUploadContent();
-            $aramiscUploadContents->content_title = $request->input('content_title');
-            $aramiscUploadContents->content_type = $request->input('content_type');
+            $uploadContents = new AramiscTeacherUploadContent();
+            $uploadContents->content_title = $request->input('content_title');
+            $uploadContents->content_type = $request->input('content_type');
 
 
 
             if ($request->input('available_for') == 'admin') {
-                $aramiscUploadContents->available_for_admin = 1;
+                $uploadContents->available_for_admin = 1;
             } elseif ($request->input('available_for') == 'student') {
                 if (!empty($request->input('all_classes'))) {
-                    $aramiscUploadContents->available_for_all_classes = 1;
+                    $uploadContents->available_for_all_classes = 1;
                 } else {
-                    $aramiscUploadContents->class = $request->input('class');
-                    $aramiscUploadContents->section = $request->input('section');
+                    $uploadContents->class = $request->input('class');
+                    $uploadContents->section = $request->input('section');
                 }
             }
 
-            $aramiscUploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
-            $aramiscUploadContents->description = $request->input('description');
-            $aramiscUploadContents->upload_file = $fileName;
-            $aramiscUploadContents->created_by = $request->input('created_by');
-            $aramiscUploadContents->academic_id = getAcademicId();
-            $results = $aramiscUploadContents->save();
+            $uploadContents->upload_date = date('Y-m-d', strtotime($request->input('upload_date')));
+            $uploadContents->description = $request->input('description');
+            $uploadContents->upload_file = $fileName;
+            $uploadContents->created_by = $request->input('created_by');
+            $uploadContents->academic_id = getAcademicId();
+            $results = $uploadContents->save();
 
 
             if ($request->input('content_type') == 'as') {
@@ -708,14 +708,14 @@ class TeacherApiController extends Controller
 
             // foreach ($request->input('available_for') as $value) {
             if ($request->input('available_for') == 'admin') {
-                $roles = AramiscRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
+                $roles = InfixRole::where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 9)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
 
                 foreach ($roles as $role) {
-                    $staffs = SmStaff::where('role_id', $role->id)->get();
+                    $staffs = AramiscStaff::where('role_id', $role->id)->get();
                     foreach ($staffs as $staff) {
-                        $notification = new SmNotification;
+                        $notification = new AramiscNotification;
                         $notification->user_id = $staff->user_id;
                         $notification->role_id = $role->id;
                         $notification->date = date('Y-m-d');
@@ -728,9 +728,9 @@ class TeacherApiController extends Controller
             }
             if ($request->input('available_for') == 'student') {
                 if (!empty($request->input('all_classes'))) {
-                    $students = SmStudent::select('id')->get();
+                    $students = AramiscStudent::select('id')->get();
                     foreach ($students as $student) {
-                        $notification = new SmNotification;
+                        $notification = new AramiscNotification;
                         $notification->user_id = $student->user_id;
                         $notification->role_id = 2;
                         $notification->date = date('Y-m-d');
@@ -740,9 +740,9 @@ class TeacherApiController extends Controller
                         $notification->save();
                     }
                 } else {
-                    $students = SmStudent::select('id')->where('class_id', $request->input('class'))->where('section_id', $request->input('section'))->get();
+                    $students = AramiscStudent::select('id')->where('class_id', $request->input('class'))->where('section_id', $request->input('section'))->get();
                     foreach ($students as $student) {
-                        $notification = new SmNotification;
+                        $notification = new AramiscNotification;
                         $notification->user_id = $student->user_id;
                         $notification->role_id = 2;
                         $notification->date = date('Y-m-d');
