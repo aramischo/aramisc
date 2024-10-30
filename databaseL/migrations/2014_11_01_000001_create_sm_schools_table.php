@@ -14,7 +14,7 @@ class CreateAramiscSchoolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sm_schools', function (Blueprint $table) {
+        Schema::create('aramisc_schools', function (Blueprint $table) {
             $table->increments('id');
             $table->string('school_name', 200)->nullable();
             $table->tinyInteger('created_by')->default(1);
@@ -36,14 +36,14 @@ class CreateAramiscSchoolsTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('sm_schools')->insert([
+        DB::table('aramisc_schools')->insert([
             [
-                'school_name' => 'InfixEdu',
+                'school_name' => 'AramiscEdu',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'active_status' => 1,
                 'is_enabled' => "yes",
-                'email'=>'admin@infixedu.com',
+                'email'=>'admin@aramiscdu.com',
                 'starting_date'=>date('Y-m-d')
             ],
         ]);
@@ -64,6 +64,6 @@ class CreateAramiscSchoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sm_schools');
+        Schema::dropIfExists('aramisc_schools');
     }
 }

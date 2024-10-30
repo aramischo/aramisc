@@ -65,7 +65,7 @@ class AramiscStudentAdmissionController extends Controller
     private $User;
     private $AramiscGeneralSettings;
     private $AramiscUserLog;
-    private $InfixModuleManager;
+    private $AramiscModuleManager;
     private $URL;
 
     public function __construct()

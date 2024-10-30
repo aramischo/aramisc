@@ -40,7 +40,7 @@ return new class extends Migration
             $table->foreign('gender_id')->references('id')->on('sm_base_setups')->onDelete('set null');
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
         });
 
         // Content For Demo Data Start
@@ -48,9 +48,9 @@ return new class extends Migration
         $religion = AramiscBaseSetup::where('base_group_id', '=', '2')->where('base_setup_name', 'Islam')->first();
         $gender = AramiscBaseSetup::where('base_group_id', '=', '1')->where('base_setup_name', 'Male')->first();
         $datas = [
-            ['Abdur Rahman', 'Doctro', date("Y-m-d", strtotime('1990-12-12')), "abdurrahman@infixedu.com", '+881235854', $bloodgroup->id, $religion->id, $gender->id],
-            [' Md Rahim ', 'Farmer', date("Y-m-d", strtotime('1993-08-05')), "rahim@infixedu.com", '+8855525412', $bloodgroup->id, $religion->id, $gender->id],
-            ['Md Malek', 'Engineer', date("Y-m-d", strtotime('1990-12-12')), "malek@infixedu.com", '+8852526698', $bloodgroup->id, $religion->id, $gender->id],
+            ['Abdur Rahman', 'Doctro', date("Y-m-d", strtotime('1990-12-12')), "abdurrahman@aramiscdu.com", '+881235854', $bloodgroup->id, $religion->id, $gender->id],
+            [' Md Rahim ', 'Farmer', date("Y-m-d", strtotime('1993-08-05')), "rahim@aramiscdu.com", '+8855525412', $bloodgroup->id, $religion->id, $gender->id],
+            ['Md Malek', 'Engineer', date("Y-m-d", strtotime('1990-12-12')), "malek@aramiscdu.com", '+8852526698', $bloodgroup->id, $religion->id, $gender->id],
         ];
 
         foreach($datas as $key => $data){

@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\InfixModuleInfo;
-use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
 
 class AddIsAlumniToPermissionsTable extends Migration
 {

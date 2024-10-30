@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\AdminSection\SmAdminSetupRequest;
+use App\Http\Requests\Admin\AdminSection\AramiscAdminSetupRequest;
 
 class AramiscSetupAdminController extends Controller
 {
@@ -29,7 +29,7 @@ class AramiscSetupAdminController extends Controller
         }
     }
 
-    public function store(SmAdminSetupRequest $request)
+    public function store(AramiscAdminSetupRequest $request)
     {
         try{
             $setup = new AramiscSetupAdmin();
@@ -65,7 +65,7 @@ class AramiscSetupAdminController extends Controller
         }
     }
 
-    public function update(SmAdminSetupRequest $request, $id)
+    public function update(AramiscAdminSetupRequest $request, $id)
     {
         try{
             $setup = AramiscSetupAdmin::find($id);

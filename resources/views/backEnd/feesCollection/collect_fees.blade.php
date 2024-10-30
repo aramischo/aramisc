@@ -34,7 +34,7 @@
                                 @if(moduleStatusCheck('University'))
                                 @includeIf('university::common.session_faculty_depart_academic_semester_level',  ['hide'=>['USUB'],'required'=> ['US','UF','UD','UA','USN','US','USL']])
                                 @else
-                                <div class="col-lg-3 mt-30-md infix_up_mt">
+                                <div class="col-lg-3 mt-30-md aramisc_up_mt">
                                     <select class="primary_select form-control {{ $errors->has('class') ? ' is-invalid' : '' }}" id="select_class" name="class">
                                         <option data-display="@lang('common.select_class')" value="">@lang('common.select_class')* </option>
                                         @foreach($classes as $class)
@@ -47,7 +47,7 @@
                                     </span>
                                     @endif
                                 </div>
-                                <div class="col-lg-3 mt-30-md infix_up_mt" id="select_section_div">
+                                <div class="col-lg-3 mt-30-md aramisc_up_mt" id="select_section_div">
                                     <select class="primary_select form-control{{ $errors->has('current_section') ? ' is-invalid' : '' }}" id="select_section" name="section">
                                         <option data-display="@lang('common.select_section')" value="">@lang('common.select_section')</option>
                                     </select>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
     
-                                <div class="col-lg-6 mt-30-md infix_up_mt">
+                                <div class="col-lg-6 mt-30-md aramisc_up_mt">
                                     <div class="primary_input">
                                 
                                         <input class="primary_input_field form-control" type="text" name="keyword" placeholder="@lang('fees.search_by_name'), @lang('student.admission'), @lang('student.roll'), @lang('student.national_id'), @lang('student.local_id_number')">

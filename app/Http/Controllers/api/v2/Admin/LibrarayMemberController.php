@@ -22,7 +22,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Support\Facades\Validator;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Http\Resources\v2\Admin\LibraryMemberListResource;
 use App\Http\Controllers\Admin\StudentInfo\AramiscStudentReportController;
 
@@ -30,7 +30,7 @@ class LibrarayMemberController extends Controller
 {
     public function roleItems()
     {
-        $data = InfixRole::where('school_id', auth()->user()->school_id)->orWhere('type', 'System')->select('id', 'name')->get();
+        $data = AramiscRole::where('school_id', auth()->user()->school_id)->orWhere('type', 'System')->select('id', 'name')->get();
 
         if (!$data) {
             $response = [

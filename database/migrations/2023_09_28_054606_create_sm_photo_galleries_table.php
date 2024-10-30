@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('is_publish')->default(true);
             $table->integer('position')->default(0);
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
 

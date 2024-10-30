@@ -41,7 +41,7 @@ class CreateAramiscBooksTable extends Migration
             $table->integer('updated_by')->nullable()->default(1)->unsigned();
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             
             $table->integer('academic_id')->nullable()->default(1)->unsigned();
             $table->foreign('academic_id')->references('id')->on('sm_academic_years')->onDelete('cascade');
@@ -66,8 +66,8 @@ class CreateAramiscBooksTable extends Migration
         //     $store->book_title = $book;
         //     $store->book_number = 'B-'.$i;
         //     $store->isbn_no = 'ISBN-0'.$i; 
-        //     $store->publisher_name = 'Infix';
-        //     $store->author_name = 'Author Infix'; 
+        //     $store->publisher_name = 'Aramisc';
+        //     $store->author_name = 'Author Aramisc'; 
         //     $store->subject = 1+ $i%5;
         //     $store->rack_number = $i;
         //     $store->quantity =200+ $i;

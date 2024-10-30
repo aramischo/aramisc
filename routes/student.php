@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
+use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
 
 Route::group(['middleware' => ['XSS', 'subdomain']], function () {
 

@@ -1,7 +1,7 @@
 <?php
 
 use App\AramiscSchool;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\Models\DirectFeesSetting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,7 +22,7 @@ class CreateDirectFeesSettingsTable extends Migration
             $table->integer('end_day')->nullable();
             $table->unsignedInteger('academic_id')->nullable();
             $table->unsignedInteger('school_id')->nullable();
-            $table->foreign('school_id')->on('sm_schools')->references('id')->cascadeOnDelete();
+            $table->foreign('school_id')->on('aramisc_schools')->references('id')->cascadeOnDelete();
             $table->timestamps();
         });
         try {
@@ -43,9 +43,9 @@ class CreateDirectFeesSettingsTable extends Migration
                     }
                 });
             }
-            $check = InfixModuleManager::where('name', $module_name)->first();
+            $check = AramiscModuleManager::where('name', $module_name)->first();
             if (!$check) {
-                $s = new InfixModuleManager();
+                $s = new AramiscModuleManager();
                 $s->name = $module_name;
                 $s->email = 'support@spondonit.com';
                 $s->notes = "Manage Your University Using This Module";

@@ -139,11 +139,11 @@
 	@foreach($all_modules as $key => $row)
     @php
         if (moduleStatusCheck('SaasRolePermission') == TRUE) {
-            $module_info = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('active_status', 1)->first();
-            $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
+            $module_info = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('active_status', 1)->first();
+            $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
         } else {
-            $module_info = Modules\RolePermission\Entities\InfixModuleInfo::where('parent_id',0)->where('module_id', $key)->where('is_saas',0)->where('active_status', 1)->first();
-            $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('is_saas',0)->where('active_status', 1)->get();
+            $module_info = Modules\RolePermission\Entities\AramiscModuleInfo::where('parent_id',0)->where('module_id', $key)->where('is_saas',0)->where('active_status', 1)->first();
+            $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('is_saas',0)->where('active_status', 1)->get();
         }
         $check_all = 1;
         foreach($all_group_modules as $all_group_module){
@@ -154,7 +154,7 @@
                 $check_all = 0;
             }
         }
-        $all_group_modules = Modules\RolePermission\Entities\InfixModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
+        $all_group_modules = Modules\RolePermission\Entities\AramiscModuleInfo::where('module_id', $key)->where('id', '!=', $key)->where('active_status', 1)->get();
         $check_all = 0;
         foreach($all_group_modules as $all_group_module){
             if(!in_array($all_group_module->id, $already_assigned)){
@@ -175,25 +175,25 @@
                 <div  class="permission_body">
                     <ul>
                             <?php 
-                                $subModule= DB::table('infix_module_infos')->where('parent_id',$module_info->id)->where('active_status', 1)->get();
+                                $subModule= DB::table('aramisc_module_infos')->where('parent_id',$module_info->id)->where('active_status', 1)->get();
                             ?>
                             @foreach($subModule as $row2)
                             @if(moduleStatusCheck('Saas') == TRUE && $row2->id == 547)
                             @else
                         <li>
                             <div class="submodule mb-2">
-                                <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="infix_csk common-radio module_id_{{$module_info->id}} module_link"  type="checkbox" {{in_array($row2->id ,$already_assigned)? 'checked':''}}>
+                                <input id="Sub_Module_{{$row2->id}}" name="module_id[]" value="{{$row2->id}}"  class="aramisc_csk common-radio module_id_{{$module_info->id}} module_link"  type="checkbox" {{in_array($row2->id ,$already_assigned)? 'checked':''}}>
                                 <label for="Sub_Module_{{$row2->id}}">{{$row2->name}}</label>
                                 <br>
                             </div>
                             <ul class="option">
                                 <?php 
-                                    $childModule= DB::table('infix_module_infos')->where('parent_id',$row2->id)->where('active_status', 1)->get();
+                                    $childModule= DB::table('aramisc_module_infos')->where('parent_id',$row2->id)->where('active_status', 1)->get();
                                 ?>
                                 @foreach($childModule as $row3)
                                     <li>
                                         <div class="module_link_option_div" id="{{$row2->id}}">
-                                            <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="infix_csk common-radio module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox" {{in_array($row3->id ,$already_assigned)? 'checked':''}}>
+                                            <input id="Option_{{$row3->id}}" name="module_id[]" value="{{$row3->id}}"  class="aramisc_csk common-radio module_id_{{$module_info->id}} module_option_{{$module_info->id}}_{{$row2->id}} module_link_option"  type="checkbox" {{in_array($row3->id ,$already_assigned)? 'checked':''}}>
                                             <label class="nowrap" for="Option_{{$row3->id}}">{{$row3->name}}</label>
                                             <br>
                                         </div>

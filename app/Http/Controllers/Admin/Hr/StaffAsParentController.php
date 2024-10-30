@@ -11,7 +11,7 @@ use App\AramiscLanguage;
 use App\AramiscTemplate;
 use App\AramiscDateFormat;
 use App\AramiscAcademicYear;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -185,7 +185,7 @@ class StaffAsParentController extends Controller
             // System academic session id in session
 
             $all_modules = [];
-            $modules = InfixModuleManager::select('name')->get();
+            $modules = AramiscModuleManager::select('name')->get();
             foreach ($modules as $module) {
                 $all_modules[] = $module->name;
             }

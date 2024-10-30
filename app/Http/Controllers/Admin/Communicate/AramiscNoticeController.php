@@ -13,8 +13,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\NoticeRequestForm;
 use App\Traits\NotificationSend;
-use Modules\RolePermission\Entities\InfixRole;
-use Modules\Saas\Entities\SmAdministratorNotice;
+use Modules\RolePermission\Entities\AramiscRole;
+use Modules\Saas\Entities\AramiscAdministratorNotice;
 
 class AramiscNoticeController extends Controller
 {
@@ -27,7 +27,7 @@ class AramiscNoticeController extends Controller
     public function sendMessage(Request $request)
     {
         try {
-            $roles = InfixRole::when((generalSetting()->with_guardian !=1), function ($query) {
+            $roles = AramiscRole::when((generalSetting()->with_guardian !=1), function ($query) {
                 $query->where('id', '!=', 3);
             })->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
@@ -120,7 +120,7 @@ class AramiscNoticeController extends Controller
     public function administratorNotice(Request $request)
     {
         try {
-            $allNotices = SmAdministratorNotice::where('inform_to', Auth::user()->school_id)
+            $allNotices = AramiscAdministratorNotice::where('inform_to', Auth::user()->school_id)
                         ->where('active_status', 1)
                         ->get();
           
@@ -135,7 +135,7 @@ class AramiscNoticeController extends Controller
     {
 
         try {
-            $roles = InfixRole::where(function ($q) {
+            $roles = AramiscRole::where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $noticeDataDetails = AramiscNoticeBoard::find($notice_id);

@@ -23,7 +23,7 @@ class AramiscNewsPageFactory extends Factory
     public function definition()
     {
         return [
-            'title' => 'News Infix',
+            'title' => 'News Aramisc',
             'description' => 'Lisus consequat sapien metus dis urna, facilisi. Nonummy rutrum eu lacinia platea a, ipsum parturient, orci tristique. Nisi diam natoque.',
             'image' => 'public/uploads/about_page/about.jpg',
             'button_text' => 'Learn More News ',

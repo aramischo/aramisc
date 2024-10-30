@@ -18,7 +18,7 @@ Route::any('login', 'SmApiController@mobileLogin');
 Route::get('user-permission/{role_id}/{school_id}/{is_saas}', 'SmApiController@userPermission');
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::post('auth/logout', 'api\SmAdminController@logout');
+    Route::post('auth/logout', 'api\AramiscAdminController@logout');
 });
 
 Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api.'], function () {
@@ -1028,10 +1028,10 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     Route::any('search-student', 'api\ApiAramiscStudentController@searchStudent');
     Route::any('school/{school_id}/search-student', 'api\ApiAramiscStudentController@saas_searchStudent');
-    // https://infixedu.com/api/search-student?class=2
-    // https://infixedu.com/api/search-student?section=1&class=2
-    // https://infixedu.com/api/search-student?name=Conner Stamm
-    // https://infixedu.com/api/search-student?roll_no=28229
+    // https://aramiscdu.com/api/search-student?class=2
+    // https://aramiscdu.com/api/search-student?section=1&class=2
+    // https://aramiscdu.com/api/search-student?name=Conner Stamm
+    // https://aramiscdu.com/api/search-student?roll_no=28229
     Route::get('my-routine/{user_id}', 'api\ApiAramiscClassRoutineController@teacherClassRoutine');
     Route::get('school/{school_id}/my-routine/{id}', 'api\ApiAramiscClassRoutineController@sassTeacherClassRoutine');
     Route::get('section-routine/{user_id}/{class}/{section}', 'api\ApiAramiscClassRoutineController@sectionRoutine');
@@ -1093,7 +1093,7 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
 
     Route::get('group-token', 'SmApiController@groupToken');
     Route::get('school/{school_id}/group-token', 'SmApiController@saas_groupToken');
-    //infixedu.com/android/api/group-token?id=2&body=Notification body&title=Notification title
+    //aramiscdu.com/android/api/group-token?id=2&body=Notification body&title=Notification title
     // Route::get('notification-api', 'SmSystemSettingController@notificationApi');
 
     Route::get('flutter-group-token', 'SmApiController@flutterGroupToken');

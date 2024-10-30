@@ -34,11 +34,11 @@ class CreateAramiscNewsPagesTable extends Migration
         $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
 
         $table->integer('school_id')->nullable()->default(1)->unsigned();
-        $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+        $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
     });
     DB::table('sm_news_pages')->insert([
         [
-            'title' => 'News Infix',
+            'title' => 'News Aramisc',
             'description' => 'Lisus consequat sapien metus dis urna, facilisi. Nonummy rutrum eu lacinia platea a, ipsum parturient, orci tristique. Nisi diam natoque.',
             'image' => 'public/uploads/about_page/about.jpg',
             'button_text' => 'Learn More News ',

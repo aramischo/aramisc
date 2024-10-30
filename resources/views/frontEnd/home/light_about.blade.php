@@ -1,4 +1,4 @@
-@php $page_title="All about Infix School management system; School management software"; @endphp
+@php $page_title="All about Aramisc School management system; School management software"; @endphp
 @extends('frontEnd.home.front_master')
 @push('css')
     <link rel="stylesheet" href="{{asset('public/')}}/frontend/css/new_style.css"/>

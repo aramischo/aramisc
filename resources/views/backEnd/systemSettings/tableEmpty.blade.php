@@ -74,7 +74,7 @@
                                             'countries', 'sm_about_pages', 'sm_contact_pages', 'sm_testimonials', 'sm_home_page_settings', 'sm_courses',
                                             'sm_academic_years', 'sm_payment_gateway_settings', 'sm_sms_gateways', 'sm_payment_methhods',
                                             'sm_background_settings', 'sm_dashboard_settings', 'sm_setup_admins', 'sm_custom_links', 'sm_weekends',
-                                            'sm_schools', 'sm_marks_grades','sm_styles','sm_news_categories','sm_events','sm_module_permission_assigns', 'sm_module_permissions', 'sm_time_zones'];
+                                            'aramisc_schools', 'sm_marks_grades','sm_styles','sm_news_categories','sm_events','sm_module_permission_assigns', 'sm_module_permissions', 'sm_time_zones'];
 
                                         if(!in_array(@$table_list[@$count], @$notdeleteable)){
                                         ?>

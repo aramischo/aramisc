@@ -2,7 +2,7 @@
 
 use App\AramiscPage;
 use App\AramiscTemplate;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\AramiscHeaderMenuManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

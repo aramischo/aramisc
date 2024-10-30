@@ -24,7 +24,7 @@ class CreateStudentRecordTemporariesTable extends Migration
             $table->integer('user_id')->nullable();
             
             $table->integer('school_id')->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->integer('active_status')->nullable()->default(1);
             $table->timestamps();
         });

@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\v2\ExamResource;
 use App\Scopes\StatusAcademicSchoolScope;
 use App\Http\Resources\v2\ExamRoutineResource;
-use Modules\OnlineExam\Entities\InfixOnlineExam;
+use Modules\OnlineExam\Entities\AramiscOnlineExam;
 use App\Http\Resources\v2\OnlineExamResultResource;
 use App\Http\Resources\v2\StudentOnlineExamResource;
 
@@ -220,7 +220,7 @@ class ExamController extends Controller
 
         if (moduleStatusCheck('OnlineExam') == true) {
             if (moduleStatusCheck('University')) {
-                $online_exam = InfixOnlineExam::selectRaw("*, $student_id as student_id")
+                $online_exam = AramiscOnlineExam::selectRaw("*, $student_id as student_id")
                     ->where('active_status', 1)
                     ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
                     ->where('status', 1)
@@ -230,7 +230,7 @@ class ExamController extends Controller
                     ->where('school_id', auth()->user()->school_id)
                     ->get();
             }
-            $online_exam =  InfixOnlineExam::selectRaw("*, $student_id as student_id")
+            $online_exam =  AramiscOnlineExam::selectRaw("*, $student_id as student_id")
                 ->with('studentSubmitExamWithStatus')
                 ->where('active_status', 1)
                 ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())

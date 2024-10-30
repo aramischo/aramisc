@@ -663,8 +663,8 @@
                                                                 <img class="logo-img" src="{{ generalSetting()->logo }}" alt="{{generalSetting()->school_name }}">
                                                             </div>
                                                             <div class="col-xl-8  col-sm-8 text-center">
-                                                                <h3 class="text-white" style="font-size: 30px;margin-bottom: 0px;"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
-                                                                <p class="text-white mb-0" style="font-size: 16px;">  {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
+                                                                <h3 class="text-white" style="font-size: 30px;margin-bottom: 0px;"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
+                                                                <p class="text-white mb-0" style="font-size: 16px;">  {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
                                                                 <p class="text-white mb-0" style="font-size: 16px;">
                                                                     @lang('common.email'): <span class="text-lowercase">{{isset(generalSetting()->email)?generalSetting()->email:'admin@demo.com'}}</span>,
                                                                     @lang('common.phone'): {{isset(generalSetting()->phone)?generalSetting()->phone:'+8801841412141'}} </p>

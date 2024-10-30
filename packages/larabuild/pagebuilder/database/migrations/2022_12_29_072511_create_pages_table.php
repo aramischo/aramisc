@@ -13,7 +13,7 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('pagebuilder.db_prefix','infixedu__') . 'pages', function (Blueprint $table) {
+        Schema::create(config('pagebuilder.db_prefix','aramiscdu__') . 'pages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->fullText();
             $table->string('title');
@@ -27,7 +27,7 @@ class CreatePagesTable extends Migration
             $table->integer('updated_by')->nullable();
             $table->integer('published_by')->nullable();
             $table->integer('school_id')->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

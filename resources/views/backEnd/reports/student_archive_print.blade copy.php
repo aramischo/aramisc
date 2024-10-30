@@ -75,8 +75,8 @@
                 <img class="logo-img" src="{{ url('/')}}/{{generalSetting()->logo }}" alt="">
             </td>
             <td style="text-align: left; width: 70%">
-                <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
-                <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Infix School Address'}} </p>
+                <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
+                <p class="text-white mb-0"> {{isset(generalSetting()->address)?generalSetting()->address:'Aramisc School Address'}} </p>
             </td>
         </tr>
     </table>

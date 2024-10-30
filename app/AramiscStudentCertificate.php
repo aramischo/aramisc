@@ -24,7 +24,7 @@ class AramiscStudentCertificate extends Model
 
     public function roleName()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole','role','id');
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole','role','id');
     }
 
     public static function certificateBody($body, $role, $student_id, $cer_id=null)

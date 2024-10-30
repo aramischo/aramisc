@@ -32,11 +32,11 @@ class CreateAramiscAboutPagesTable extends Migration
             $table->integer('updated_by')->nullable()->default(1)->unsigned();
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
         });
         DB::table('sm_about_pages')->insert([
             [
-                'title' => 'About Infix',
+                'title' => 'About Aramisc',
                 'description' => 'Lisus consequat sapien metus dis urna, facilisi. Nonummy rutrum eu lacinia platea a, ipsum parturient, orci tristique. Nisi diam natoque.',
                 'image' => 'public/uploads/about_page/about.jpg',
                 'button_text' => 'Learn More About Us',

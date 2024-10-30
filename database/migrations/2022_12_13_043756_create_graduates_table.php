@@ -24,7 +24,7 @@ class CreateGraduatesTable extends Migration
             $table->integer('graduation_date')->nullable();
             $table->integer('un_session_id')->nullable()->default(1)->unsigned();
             $table->integer('school_id')->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->integer('session_id')->nullable()->unsigned();
             $table->foreign('session_id')->references('id')->on('sm_sessions')->onDelete('cascade');
             $table->integer('class_id')->nullable()->unsigned();

@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/js/select2/select2.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css"/>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/infix.css"/>
+    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/aramisc.css"/>
     <style type="text/css">
       p{
         padding: 0;

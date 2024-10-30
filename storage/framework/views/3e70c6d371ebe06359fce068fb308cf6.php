@@ -73,7 +73,7 @@
                         </div>
                         <div id="liveStudentSearch" style="display: none;"></div>
                     </div>
-                    <select name="#" class="nice_Select bgLess mb-0 infix_session" id="infix_session">
+                    <select name="#" class="nice_Select bgLess mb-0 aramisc_session" id="aramisc_session">
                         <?php $__currentLoopData = academicYears(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $academic_year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if(moduleStatusCheck('University')): ?>
                                 <option value="<?php echo e(@$academic_year->id); ?>"

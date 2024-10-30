@@ -20,7 +20,7 @@ class CreateIncidentsTable extends Migration
             $table->text('description')->nullable();
 
             $table->integer('school_id')->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             
             $table->timestamps();
         });

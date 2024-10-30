@@ -33,7 +33,7 @@
 <?php endif; ?>
 <?php if(config('app.app_sync')): ?>
     <a target="_blank" href="https://aorasoft.com" class="float_button"> <i class="ti-shopping-cart-full"></i>
-        <h3>Purchase InfixEdu</h3>
+        <h3>Purchase AramiscEdu</h3>
     </a>
 <?php endif; ?>
 <div class="has-modal modal fade" id="showDetaildModal">

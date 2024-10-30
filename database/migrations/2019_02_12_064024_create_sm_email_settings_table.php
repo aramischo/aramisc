@@ -28,7 +28,7 @@ class CreateAramiscEmailSettingsTable extends Migration
             $table->string('mail_encryption')->nullable();
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             
             $table->integer('academic_id')->nullable()->unsigned();
             $table->foreign('academic_id')->references('id')->on('sm_academic_years')->onDelete('cascade');
@@ -41,7 +41,7 @@ class CreateAramiscEmailSettingsTable extends Migration
             [
                 'email_engine_type' => 'smtp',
                 'from_name'=>'System Admin',
-                'from_email'=>'admin@infixedu.com',
+                'from_email'=>'admin@aramiscdu.com',
                 'mail_driver'=>'smtp',
                 'mail_host'=>'smtp.gmail.com',
                 'mail_port'=>'587',
@@ -57,7 +57,7 @@ class CreateAramiscEmailSettingsTable extends Migration
             [
                 'email_engine_type' => 'php',
                 'from_name'=>'System Admin',
-                'from_email'=>'admin@infixedu.com',
+                'from_email'=>'admin@aramiscdu.com',
                 'mail_driver'=>'php',
                 'mail_host'=>'',
                 'mail_port'=>'',

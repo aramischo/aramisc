@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('publish_date')->nullable();
             $table->string('calendar_file')->nullable();
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

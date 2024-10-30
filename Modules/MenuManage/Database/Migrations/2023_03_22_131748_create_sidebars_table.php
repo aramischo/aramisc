@@ -6,7 +6,7 @@ use Modules\MenuManage\Entities\Sidebar;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 
 class CreateSidebarsTable extends Migration
 {
@@ -33,7 +33,7 @@ class CreateSidebarsTable extends Migration
             $table->integer('role_id')->nullable();
             $table->tinyInteger('active_status')->default(1); 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
        
         });

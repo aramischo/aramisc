@@ -28,7 +28,7 @@ class CreateAramiscCustomTemporaryResultsTable extends Migration
             $table->string('final_grade', 200)->nullable(); 
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('restrict');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('restrict');
 
             $table->integer('academic_id')->nullable()->default(1)->unsigned();
             $table->foreign('academic_id')->references('id')->on('sm_academic_years')->onDelete('cascade');

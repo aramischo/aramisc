@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/css/croppie.css')); ?>" />
  <?php if(userRtlLtl() ==1): ?>
 <link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/css/rtl/style.css')); ?>" />
-<link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/css/rtl/infix.css')); ?>" />
+<link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/css/rtl/aramisc.css')); ?>" />
 <?php else: ?>
 <link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/css/backend_static_style.css')); ?>" />
-<link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/css/infix.css')); ?>" />
+<link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/css/aramisc.css')); ?>" />
 <?php endif; ?>
 
 <link rel="stylesheet" href="<?php echo e(asset('public/backEnd/assets/vendors/vendors_static_style.css')); ?>" />

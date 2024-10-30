@@ -348,9 +348,9 @@ return [
 
 "expaire_date" => "Fecha de caducidad",
 
-"infix_edu" => "Infix Edu",
+"aramisc_edu" => "Aramisc Edu",
 
-"infix_clasified" => "Infix clasificado",
+"aramisc_clasified" => "Aramisc clasificado",
 
 "date_|_day" => "Fecha | Día",
 

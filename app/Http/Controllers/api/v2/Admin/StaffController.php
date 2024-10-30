@@ -6,14 +6,14 @@ use App\AramiscStaff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Scopes\ActiveStatusSchoolScope;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Http\Resources\v2\Admin\IndividualStaffDetailsResource;
 
 class StaffController extends Controller
 {
     public function role()
     {
-        $data['roles'] = InfixRole::/* where('school_id', auth()->user()->school_id)
+        $data['roles'] = AramiscRole::/* where('school_id', auth()->user()->school_id)
             -> */when((generalSetting()->with_guardian != 1), function ($query) {
             $query->whereNot('id', 3);
         })

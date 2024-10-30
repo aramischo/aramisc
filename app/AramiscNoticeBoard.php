@@ -5,7 +5,7 @@ namespace App;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class AramiscNoticeBoard extends Model
 {
@@ -36,7 +36,7 @@ class AramiscNoticeBoard extends Model
     public static function getRoleName($role_id)
     {
         try {
-            $getRoleName = InfixRole::select('name')
+            $getRoleName = AramiscRole::select('name')
                 ->where('id', $role_id)
                 ->first();
 

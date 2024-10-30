@@ -25,7 +25,7 @@ class CreateAramiscBaseGroupsTable extends Migration
             $table->integer('updated_by')->nullable()->default(1)->unsigned();
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
         });
 
         DB::table('sm_base_groups')->insert([

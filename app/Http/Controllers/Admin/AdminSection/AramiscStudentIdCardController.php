@@ -16,7 +16,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use App\Http\Requests\Admin\AdminSection\AramiscStudentIdCardRequest;
 
 class AramiscStudentIdCardController extends Controller
@@ -41,7 +41,7 @@ class AramiscStudentIdCardController extends Controller
     {
         try{
             $id_cards = AramiscStudentIdCard::where('active_status', 1)->where('school_id', Auth::user()->school_id)->get();
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             return view('backEnd.admin.idCard.student_id_card', compact('id_cards','roles'));
@@ -118,7 +118,7 @@ class AramiscStudentIdCardController extends Controller
     {
         try {
             $id_cards = AramiscStudentIdCard::get();
-            $roles = InfixRole::select('*')->where('id', '!=', 1)->where(function ($q) {
+            $roles = AramiscRole::select('*')->where('id', '!=', 1)->where(function ($q) {
                 $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
             })->get();
             $id_card = AramiscStudentIdCard::find($id);

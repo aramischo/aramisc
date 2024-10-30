@@ -9,7 +9,7 @@ return [
 
     'debug' => env('APP_DEBUG', true),
 
-    'name' => env('APP_NAME', 'Infix Edu'),
+    'name' => env('APP_NAME', 'Aramisc Edu'),
 
     'force_https'=> env('FORCE_HTTPS',false),
 

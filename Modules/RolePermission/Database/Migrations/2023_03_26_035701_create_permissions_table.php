@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\RolePermission\Entities\Permission;
-use Modules\RolePermission\Entities\InfixModuleInfo;
-use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
 
 class CreatePermissionsTable extends Migration
 {
@@ -46,7 +46,7 @@ class CreatePermissionsTable extends Migration
             $table->string('alternate_module')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('school_id')->nullable()->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
      

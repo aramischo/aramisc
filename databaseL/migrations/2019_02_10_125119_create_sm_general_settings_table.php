@@ -67,7 +67,7 @@ class CreateAramiscGeneralSettingsTable extends Migration
             $table->integer('ss_page_load')->nullable()->default(3);
             $table->boolean('sub_topic_enable')->default(true);
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->string('software_version', 100)->nullable();
             $table->string('email_driver')->default('php');
 
@@ -78,7 +78,7 @@ class CreateAramiscGeneralSettingsTable extends Migration
             $table->integer('Chat')->default(1)->nullable();
             $table->integer('FeesCollection')->default(0)->nullable();
             $table->integer('income_head_id')->default(0)->nullable();
-            $table->integer('InfixBiometrics')->default(0)->nullable();
+            $table->integer('AramiscBiometrics')->default(0)->nullable();
             $table->integer('ResultReports')->default(0)->nullable();
             $table->integer('TemplateSettings')->default(1)->nullable();
             $table->integer('MenuManage')->default(1)->nullable();
@@ -147,8 +147,8 @@ class CreateAramiscGeneralSettingsTable extends Migration
                 'address' => '89/2 Panthapath, Dhaka 1215, Bangladesh',
                 'currency' => 'USD',
                 'currency_symbol' => '$',
-                'school_name' => 'Infix Edu',
-                'site_title' => 'Infix Education software',
+                'school_name' => 'Aramisc Edu',
+                'site_title' => 'Aramisc Education software',
                 'session_id' => 1,
                 'week_start_id' => 3,
                 'time_zone_id' => 51,

@@ -20,7 +20,7 @@ class CreateThemesTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('path_main_style', 255)->nullable();
-            $table->string('path_infix_style', 255)->nullable();
+            $table->string('path_aramisc_style', 255)->nullable();
             $table->string('replicate_theme', 255)->nullable();
             $table->string('color_mode')->default('gradient');
             $table->boolean('box_shadow')->nullable()->default(true);
@@ -31,7 +31,7 @@ class CreateThemesTable extends Migration
             $table->boolean('is_system')->default(false);
             $table->integer('created_by')->nullable();
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -46,7 +46,7 @@ class CreateThemesTable extends Migration
                     'school_id'=>$school->id
                 ]);
                 $theme->path_main_style = 'style.css';
-                $theme->path_infix_style = 'infix.css';
+                $theme->path_aramisc_style = 'aramisc.css';
                 $theme->is_default = $key == 0 ? 1: 0;
                 $theme->color_mode = "gradient";
                 $theme->background_type = "color";

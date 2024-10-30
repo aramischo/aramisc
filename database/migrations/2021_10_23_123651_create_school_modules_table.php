@@ -22,7 +22,7 @@ class CreateSchoolModulesTable extends Migration
             $table->tinyInteger('active_status')->default(1);
             $table->integer('updated_by')->nullable();
             $table->integer('school_id')->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
 

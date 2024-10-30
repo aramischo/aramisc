@@ -24,10 +24,10 @@ class CreateAramiscUserLogsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('role_id')->nullable()->unsigned();
-            $table->foreign('role_id')->references('id')->on('infix_roles')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('aramisc_roles')->onDelete('cascade');
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade'); 
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade'); 
             
             $table->integer('academic_id')->nullable()->default(1)->unsigned();
             $table->foreign('academic_id')->references('id')->on('sm_academic_years')->onDelete('cascade');

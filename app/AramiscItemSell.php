@@ -16,7 +16,7 @@ class AramiscItemSell extends Model
     // Spécifiez le nom de la table explicitement
     protected $table = 'sm_item_sells';
     public function roles(){
-    	return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
+    	return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id');
     }
 
     public function staffDetails(){

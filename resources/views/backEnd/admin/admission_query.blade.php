@@ -22,7 +22,7 @@
             {{-- <div class="row align-items-center">
                 
             </div> --}}
-            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'admission-query-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
+            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'admission-query-search', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="white-box">

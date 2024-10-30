@@ -17,7 +17,7 @@ use Modules\Zoom\Entities\ZoomMeeting;
 use Modules\Zoom\Entities\ZoomSetting;
 use Modules\Zoom\Entities\VirtualClass;
 use Modules\Lms\Entities\LessonComplete;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 use Modules\Zoom\Http\Requests\VirtualClassRequest;
 use App\Http\Resources\v2\Class\Student\Zoom\ClassResource;
 use App\Http\Resources\v2\Class\Student\Zoom\MeetingResource;
@@ -107,7 +107,7 @@ class ZoomController extends Controller
         $user_info = User::find($user_id);
         return 'success';
         $data['default_settings'] =  ZoomSetting::first()->makeHidden('api_key', 'secret_key', 'created_at', 'updated_at');
-        $data['roles'] = InfixRole::where(function ($q) use ($user_info) {
+        $data['roles'] = AramiscRole::where(function ($q) use ($user_info) {
             $q->where('school_id',  $user_info->school_id)->orWhere('type', 'System');
         })->whereNotIn('id', [1, 2])->get();
 

@@ -21,7 +21,7 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-setting-update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
+                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-setting-update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
                             <input type="hidden" name="type" value="evaluation">
                             <div class="white-box">
                                 <div class="main-title">
@@ -100,7 +100,7 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-setting-update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'infix_form']) }}
+                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-setting-update', 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
                             <input type="hidden" name="type" value="submission">
                             <div class="white-box">
                                 <div class="main-title">

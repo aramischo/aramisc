@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use App\Models\AramiscStudentRegistrationField;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 
 class CreateAramiscStudentRegistrationFieldsTable extends Migration
 {
@@ -37,7 +37,7 @@ class CreateAramiscStudentRegistrationFieldsTable extends Migration
             $table->integer('updated_by')->nullable()->default(1)->unsigned();
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
 
             $table->integer('academic_id')->nullable()->unsigned();
             $table->foreign('academic_id')->references('id')->on('sm_academic_years')->onDelete('set null');
@@ -300,7 +300,7 @@ class CreateAramiscStudentRegistrationFieldsTable extends Migration
             Log::info($e);
         }
 
-            $new = new InfixModuleInfo();
+            $new = new AramiscModuleInfo();
             $new->id = 951;
             $new->module_id = 3;
             $new->parent_id = 61;

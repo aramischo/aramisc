@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\RolePermission\Entities\InfixModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
 use Modules\RolePermission\Entities\Permission;
 
 class CreatePermissionSectionsTable extends Migration
@@ -22,7 +22,7 @@ class CreatePermissionSectionsTable extends Migration
             $table->integer('position')->default(9999);
             $table->integer('user_id')->default(1);
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->tinyInteger('saas')->default(0);
             $table->timestamps();
         });

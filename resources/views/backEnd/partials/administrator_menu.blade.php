@@ -42,13 +42,13 @@
     </li>
     
     <li>
-    <a href="#subMenuInfixInvoice" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+    <a href="#subMenuAramiscInvoice" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <span class="flaticon-accounting"></span> Invoice </a>
-    <ul class="collapse list-unstyled" id="subMenuInfixInvoice">
-        <li><a href="{{url('infix/invoice-create')}}">Invoice Create</a></li>
-        <li><a href="{{url('infix/invoice-list')}}">Invoice list</a></li>
-        <li><a href="{{url('infix/invoice-category')}}">Invoice Category</a></li>
-        <li><a href="{{url('infix/invoice-setting')}}">Invoice Setting</a></li>
+    <ul class="collapse list-unstyled" id="subMenuAramiscInvoice">
+        <li><a href="{{url('aramisc/invoice-create')}}">Invoice Create</a></li>
+        <li><a href="{{url('aramisc/invoice-list')}}">Invoice list</a></li>
+        <li><a href="{{url('aramisc/invoice-category')}}">Invoice Category</a></li>
+        <li><a href="{{url('aramisc/invoice-setting')}}">Invoice Setting</a></li>
     
     </ul>
     </li> --}}
@@ -69,9 +69,9 @@
     </li>
     
     <li>
-    <a href="#subMenuInfixInvoice" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+    <a href="#subMenuAramiscInvoice" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <span class="flaticon-accounting"></span> Reports </a>
-    <ul class="collapse list-unstyled" id="subMenuInfixInvoice">
+    <ul class="collapse list-unstyled" id="subMenuAramiscInvoice">
         <li><a href="{{route('administrator/student-list')}}">@lang('common.student_list')</a></li>
         <li><a href="{{route('administrator/income-expense')}}">@lang('accounts.date_to')/@lang('accounts.expense')</a></li>
         <li><a href="{{route('administrator/teacher-list')}}">@lang('common.teacher_list')</a></li>

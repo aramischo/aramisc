@@ -36,7 +36,7 @@ class CreateAramiscPaymentGatewaySettingsTable extends Migration
             $table->integer('updated_by')->nullable()->default(1)->unsigned();
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
 
             $table->boolean('service_charge')->nullable()->default(false);
             $table->string('charge_type',2)->nullable()->comment('P=percentage, F=Flat');

@@ -18,7 +18,7 @@ class AramiscLibraryMember extends Model
      protected $table = 'sm_library_members';
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'member_type', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'member_type', 'id');
     }
     public function studentDetails()
     {
@@ -34,7 +34,7 @@ class AramiscLibraryMember extends Model
     }
     public function memberTypes()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'member_type', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'member_type', 'id');
     }
     public function scopeStatus($query)
     {

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
         });
 
         DB::table('home_sliders')->insert([

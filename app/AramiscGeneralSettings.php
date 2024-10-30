@@ -57,7 +57,7 @@ class AramiscGeneralSettings extends Model
         'Chat' => 'integer',
         'FeesCollection' => 'integer',
         'income_head_id' => 'integer',
-        'InfixBiometrics' => 'integer',
+        'AramiscBiometrics' => 'integer',
         'ResultReports' => 'integer',
         'TemplateSettings' => 'integer',
         'MenuManage' => 'integer',
@@ -397,7 +397,7 @@ class AramiscGeneralSettings extends Model
                    
 
                     if ($modulestatus == FALSE) {
-                        $is_verify = InfixModuleManager::where('name', $name)->first();
+                        $is_verify = AramiscModuleManager::where('name', $name)->first();
                        
                         if (!empty($is_verify->purchase_code)) {
                             return TRUE;

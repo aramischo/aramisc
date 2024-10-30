@@ -14,7 +14,7 @@ use App\AramiscGeneralSettings;
 use App\AramiscHumanDepartment;
 use App\AramiscStudentDocument;
 use App\AramiscStudentTimeline;
-use App\InfixModuleManager;
+use App\AramiscModuleManager;
 use App\AramiscHrPayrollGenerate;
 use App\Traits\CustomFields;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Admin\Hr\staffRequest;
 use App\AramiscLeaveDefine;
 use Illuminate\Validation\ValidationException;
-use Modules\RolePermission\Entities\InfixRole;
+use Modules\RolePermission\Entities\AramiscRole;
 
 class AramiscStaffController extends Controller
 {
@@ -49,7 +49,7 @@ class AramiscStaffController extends Controller
         $this->User = json_encode(User::find(1));
         $this->AramiscGeneralSettings = json_encode(generalSetting());
         $this->AramiscUserLog = json_encode(AramiscUserLog::find(1));
-        $this->InfixModuleManager = json_encode(InfixModuleManager::find(1));
+        $this->AramiscModuleManager = json_encode(AramiscModuleManager::find(1));
         $this->URL = url('/');
     }
 
@@ -57,7 +57,7 @@ class AramiscStaffController extends Controller
     {
         try {
 
-            $roles = InfixRole::query();
+            $roles = AramiscRole::query();
             $roles->whereNotIn('id', [2, 3]);
             if (Auth::user()->role_id != 1) {
                 $roles->whereNotIn('id', [1]);
@@ -128,7 +128,7 @@ class AramiscStaffController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->max('staff_no');
 
-            $roles = InfixRole::where('is_saas', 0)->where('active_status', '=', 1)
+            $roles = AramiscRole::where('is_saas', 0)->where('active_status', '=', 1)
                 ->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })
@@ -389,7 +389,7 @@ class AramiscStaffController extends Controller
       
             $max_staff_no = AramiscStaff::withOutGlobalScopes()->where('is_saas', 0)->where('school_id', Auth::user()->school_id)->max('staff_no');
 
-            $roles = InfixRole::where('active_status', '=', 1)
+            $roles = AramiscRole::where('active_status', '=', 1)
                 ->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })
@@ -737,7 +737,7 @@ class AramiscStaffController extends Controller
     {
 
         try {
-            $roles = InfixRole::where('is_saas', 0)
+            $roles = AramiscRole::where('is_saas', 0)
                 ->where('active_status', '=', '1')
                 ->select('id', 'name', 'type')
                 ->where('id', '!=', 2)
@@ -825,11 +825,11 @@ class AramiscStaffController extends Controller
             $all_staffs = $staff->where('school_id', Auth::user()->school_id)->get();
 
             if (Auth::user()->role_id != 1) {
-                $roles = InfixRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 5)->where(function ($q) {
+                $roles = AramiscRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 1)->where('id', '!=', 2)->where('id', '!=', 3)->where('id', '!=', 5)->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })->get();
             } else {
-                $roles = InfixRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
+                $roles = AramiscRole::where('is_saas', 0)->where('active_status', '=', '1')->where('id', '!=', 2)->where('id', '!=', 3)->where(function ($q) {
                     $q->where('school_id', Auth::user()->school_id)->orWhere('type', 'System');
                 })->get();
             }

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SchoolModule extends Model
 {
     use HasFactory;
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'aramisc_schools';
 
     protected $casts = [
         'modules' => 'array',

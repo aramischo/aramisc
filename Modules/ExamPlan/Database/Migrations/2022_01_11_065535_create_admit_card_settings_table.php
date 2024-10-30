@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\ExamPlan\Entities\AdmitCardSetting;
-use Modules\RolePermission\Entities\InfixModuleInfo;
-use Modules\RolePermission\Entities\InfixModuleStudentParentInfo;
-use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\AramiscModuleInfo;
+use Modules\RolePermission\Entities\AramiscModuleStudentParentInfo;
+use Modules\RolePermission\Entities\AramiscPermissionAssign;
 
 class CreateAdmitCardSettingsTable extends Migration
 {
@@ -83,7 +83,7 @@ class CreateAdmitCardSettingsTable extends Migration
                 $setting->save();
             }           
     
-            $leadInfixModuleIds = [
+            $leadAramiscModuleIds = [
                 [3100, 50, 0, '1', 0,'ExamPlan','examplan','examplan','',1, 1, 1, 1, '2021-10-18 02:21:21', '2021-10-18 04:24:22'],
     
                 [3101, 50, 3100, '2', 0,'Admit Card','','','', 1, 1, 1, 1, '2021-10-18 02:21:21', '2021-10-18 04:24:22'],
@@ -95,12 +95,12 @@ class CreateAdmitCardSettingsTable extends Migration
                 [3106, 50, 3105, '3', 0,'Seat Plan Setting','','','', 1, 1, 1, 1, '2021-10-18 02:21:21', '2021-10-18 04:24:22'],
                 [3107, 50, 3105, '3', 0,'Generate','','','', 1, 1, 1, 1, '2021-10-18 02:21:21', '2021-10-18 04:24:22']
             ];
-            foreach ($leadInfixModuleIds as $key=>$data) {                   
-                $check_exit=InfixModuleInfo::find($data[0]);
+            foreach ($leadAramiscModuleIds as $key=>$data) {                   
+                $check_exit=AramiscModuleInfo::find($data[0]);
                 if($check_exit){
                     continue;
                 }
-                $examPlan = new InfixModuleInfo;
+                $examPlan = new AramiscModuleInfo;
                 $examPlan->id = $data[0];
                 $examPlan->module_id = $data[1];
                 $examPlan->parent_id = $data[2];
@@ -121,10 +121,10 @@ class CreateAdmitCardSettingsTable extends Migration
 
             $admins=[3100, 3101, 3102, 3103, 3104, 3105, 3106 , 3107];
             foreach ($admins as $key => $value) {
-                $admins_check=InfixPermissionAssign::where('module_id',$value)->where('role_id',5)->first();              
-                    $permission = new InfixPermissionAssign();
+                $admins_check=AramiscPermissionAssign::where('module_id',$value)->where('role_id',5)->first();              
+                    $permission = new AramiscPermissionAssign();
                     $permission->module_id = (int)$value;
-                    $permission ->module_info = InfixModuleInfo::find($value) ? InfixModuleInfo::find($value)->name : '' ;
+                    $permission ->module_info = AramiscModuleInfo::find($value) ? AramiscModuleInfo::find($value)->name : '' ;
                     $permission->role_id = 5;
     
                     if($admins_check){
@@ -132,18 +132,18 @@ class CreateAdmitCardSettingsTable extends Migration
                     }
                     $permission->save();
             }
-            $infix_module_student_parent_infos = [
+            $aramisc_module_student_parent_infos = [
                 [2500, 50, 0, '1', 'ExamPlan','','ExamPlan','flaticon-test',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
                 [2501, 50, 2500, '2', 'Admit Card','admit/card','Admit Card','chat_box','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
                 [2502, 50, 0, '1', 'ExamPlan','','ExamPlan','flaticon-test',1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22'],
                 [2503, 50, 2502, '2','Admit Card','admit/card','Admit Card','chat_box','', 1, 1, 1, 1, '2019-07-25 02:21:21', '2019-07-25 04:24:22']
             ];
-            foreach ($infix_module_student_parent_infos as $key=>$value) {                   
-                $check_exit=InfixModuleStudentParentInfo::find($value[0]);
+            foreach ($aramisc_module_student_parent_infos as $key=>$value) {                   
+                $check_exit=AramiscModuleStudentParentInfo::find($value[0]);
                 if($check_exit){
                     continue;
                 }
-                $examPlan = new InfixModuleStudentParentInfo;
+                $examPlan = new AramiscModuleStudentParentInfo;
                 $examPlan->id = $value[0];
                 $examPlan->module_id = $value[1];
                 $examPlan->parent_id = $value[2];

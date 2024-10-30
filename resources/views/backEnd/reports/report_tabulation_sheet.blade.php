@@ -119,7 +119,7 @@ Tabulation Report
                                                 <img class="logo-img" src="{{ generalSetting()->logo }}" alt="">
                                             </div>
                                             <div class="ml-30">
-                                                <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Infix School Management ERP'}} </h3>
+                                                <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Aramisc School Management ERP'}} </h3>
 
                                                 <p class="text-white mb-0">House 25, Road 27, Block B, 54th Floor, New York, United States of America</p>
                                             </div>

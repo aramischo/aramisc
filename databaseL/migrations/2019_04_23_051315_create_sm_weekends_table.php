@@ -22,7 +22,7 @@ class CreateAramiscWeekendsTable extends Migration
             $table->integer('active_status')->default(1);
 
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->string('created_at')->nullable();
             $table->string('updated_at')->nullable();
             $table->integer('academic_id')->nullable()->unsigned();

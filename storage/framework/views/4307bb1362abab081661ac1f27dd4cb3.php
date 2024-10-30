@@ -14,7 +14,7 @@
     <?php else: ?>
         <link rel="icon" href="<?php echo e(asset('public/uploads/settings/favicon.png')); ?>" type="image/png"/>
     <?php endif; ?>
-    <title><?php echo e(@schoolConfig()->school_name ? @schoolConfig()->school_name : 'Infix Edu ERP'); ?> |
+    <title><?php echo e(@schoolConfig()->school_name ? @schoolConfig()->school_name : 'Aramisc Edu ERP'); ?> |
         <?php echo $__env->yieldContent('title'); ?>
     </title>
 

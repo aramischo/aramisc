@@ -61,8 +61,8 @@
                 @endif
             @endif
 
-            @if (moduleStatusCheck('InfixBiometrics') == true && auth()->user()->role_id == 1)
-                @include('infixbiometrics::menu.InfixBiometrics')
+            @if (moduleStatusCheck('AramiscBiometrics') == true && auth()->user()->role_id == 1)
+                @include('aramiscbiometrics::menu.AramiscBiometrics')
             @endif
 
             {{-- Parent Registration Menu --}}

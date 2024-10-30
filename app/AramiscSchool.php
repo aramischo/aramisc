@@ -11,7 +11,7 @@ class AramiscSchool extends Model
 {
     use HasFactory;
     // Spécifiez le nom de la table explicitement
-    protected $table = 'sm_schools';
+    protected $table = 'aramisc_schools';
     protected $guarded = ['id'];
     public function subscription()
     {

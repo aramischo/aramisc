@@ -22,7 +22,7 @@ class CreateAramiscHomePageSettingsTable extends Migration
             $table->string('link_url',255)->nullable();
             $table->string('image',255)->nullable();
             $table->integer('school_id')->nullable()->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -31,7 +31,7 @@ class CreateAramiscHomePageSettingsTable extends Migration
         $s->long_title = 'Aramisc';
         $s->short_description = 'Managing various administrative tasks in one place is now quite easy and time savior with this Aramisc and Give your valued time to your institute that will increase next generation productivity for our society.';
         $s->link_label = 'Learn More About Us';
-        $s->link_url = 'http://infixedu.com/about';
+        $s->link_url = 'http://aramiscdu.com/about';
         $s->image = 'public/backEnd/img/client/home-banner1.jpg';
         $s->save();
     } 

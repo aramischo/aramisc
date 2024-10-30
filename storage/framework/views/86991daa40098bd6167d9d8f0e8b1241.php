@@ -37,7 +37,7 @@
                         <img src="<?php echo e(asset($course->image)); ?>" alt="<?php echo e($course->courseCategory->category_name); ?>">
                     </div>
                     <span
-                        class="course_item_img_status <?php echo e($color); ?>"><?php echo e($course->courseCategory->category_name ?? 'InfixEdu'); ?>
+                        class="course_item_img_status <?php echo e($color); ?>"><?php echo e($course->courseCategory->category_name ?? 'AramiscEdu'); ?>
 
                     </span>
                 </div>

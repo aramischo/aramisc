@@ -452,7 +452,7 @@ return array(
     'Subject Mark Sheet' => 'Subject Mark Sheet',
     'Final Mark Sheet' => 'Final Mark Sheet',
     'Student Final Mark Sheet' => 'Student Final Mark Sheet',
-    'InfixBiometrics' => 'InfixBiometrics',
+    'AramiscBiometrics' => 'AramiscBiometrics',
     'Biometrics settings' => 'Biometrics settings',
     'Get Attendance' => 'Get Attendance',
     'Import Attendance' => 'Import Attendance',

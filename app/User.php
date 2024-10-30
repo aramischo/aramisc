@@ -14,7 +14,7 @@ use Modules\TwoFactorAuth\Entities\TwoFactorSetting;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Modules\RolePermission\Entities\InfixPermissionAssign;
+use Modules\RolePermission\Entities\AramiscPermissionAssign;
 
 class User extends Authenticatable
 {
@@ -139,7 +139,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsTo('Modules\RolePermission\Entities\InfixRole', 'role_id', 'id');
+        return $this->belongsTo('Modules\RolePermission\Entities\AramiscRole', 'role_id', 'id');
     }
 
     /**
@@ -188,7 +188,7 @@ class User extends Authenticatable
     {
         return true;
         // $time_limit = 101;
-        // $is_data = InfixModuleManager::where('name', $name)->where('purchase_code', '!=', '')->first();
+        // $is_data = AramiscModuleManager::where('name', $name)->where('purchase_code', '!=', '')->first();
         // if (!empty($is_data) && $is_data->email != null && $is_data->purchase_code != null) {
         //     $code = @$is_data->purchase_code;
         //     $email = @$is_data->email;
@@ -254,7 +254,7 @@ class User extends Authenticatable
 
     public function permissions()
     {
-        return $this->hasMany(InfixPermissionAssign::class, 'role_id', 'id');
+        return $this->hasMany(AramiscPermissionAssign::class, 'role_id', 'id');
     }
 
     public function allNotifications()

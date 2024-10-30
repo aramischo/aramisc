@@ -27,7 +27,7 @@ class CreateTwoFactorSettingsTable extends Migration
             $table->tinyInteger('for_admin')->default(1);
             $table->float('expired_time')->default(300);
             $table->integer('school_id')->default(1)->unsigned();
-            $table->foreign('school_id')->references('id')->on('sm_schools')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('aramisc_schools')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -113,7 +113,7 @@ class CreateTwoFactorSettingsTable extends Migration
                                                 <div class="txtTinyMce-wrapper" style="line-height:1.2;font-size:12px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#262b30;">
                                                     <p style="margin:0;font-size:12px;line-height:1.2;text-align:center;margin-top:0;margin-bottom:0;">
                                                         <span style="font-size:14px;color:rgb(255,255,255);font-family:Arial;">
-                                                            © 2020 Infix Education software|&nbsp;
+                                                            © 2020 Aramisc Education software|&nbsp;
                                                         </span>
                                                         <span style="background-color:transparent;text-align:left;">
                                                             <font color="#ffffff">
