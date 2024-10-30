@@ -1,0 +1,21 @@
+<?php
+
+namespace App;
+
+use App\Scopes\AcademicSchoolScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class AramiscPostalReceive extends Model
+{
+    protected static function boot()
+    {
+        parent::boot();
+  
+        static::addGlobalScope(new AcademicSchoolScope);
+    }
+    //
+    use HasFactory;
+    // Spécifiez le nom de la table explicitement
+    protected $table = 'sm_postal_receives';
+}
