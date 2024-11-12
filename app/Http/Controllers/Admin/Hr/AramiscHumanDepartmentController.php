@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\Hr\SmDepartmentRequest;
+use App\Http\Requests\Admin\Hr\AramiscDepartmentRequest;
 
 class AramiscHumanDepartmentController extends Controller
 {
@@ -34,7 +34,7 @@ class AramiscHumanDepartmentController extends Controller
             return redirect()->back();
         }
     }
-    public function store(SmDepartmentRequest $request)
+    public function store(AramiscDepartmentRequest $request)
     {
    
 
@@ -86,7 +86,7 @@ class AramiscHumanDepartmentController extends Controller
             return redirect()->back();
         }
     }
-    public function update(SmDepartmentRequest $request, $id)
+    public function update(AramiscDepartmentRequest $request, $id)
     {
 
 

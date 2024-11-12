@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin\Hr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SmDepartmentRequest extends FormRequest
+class AramiscDepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
