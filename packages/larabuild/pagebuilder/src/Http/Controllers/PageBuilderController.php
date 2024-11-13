@@ -387,19 +387,19 @@ class PageBuilderController extends Controller {
     
                 if ($file_data['slug'] == $slug) {
                    
-                    $check = DB::table(config('pagebuilder.db_prefix', 'aramiscdu__') . 'pages')
+                    $check = DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')
                         ->where('school_id', Auth::user()->school_id)
                         ->where('slug', $slug)
                         ->first();
                     
                     if ($check) {
-                        DB::table(config('pagebuilder.db_prefix', 'aramiscdu__') . 'pages')
+                        DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')
                             ->where('school_id', Auth::user()->school_id)
                             ->where('slug', $slug)
                             ->delete();
                     }
     
-                    DB::table(config('pagebuilder.db_prefix', 'aramiscdu__') . 'pages')->insert([
+                    DB::table(config('pagebuilder.db_prefix', 'aramisc__') . 'pages')->insert([
                         'name' => $file_data['name'],
                         'title' => $file_data['title'],
                         'description' => $file_data['description'],
