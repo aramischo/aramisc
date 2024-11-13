@@ -16,7 +16,7 @@ class AramiscStudentCategory extends Model
     }
 
    // Spécifiez le nom de la table explicitement
-   protected $table = 'saramisc_student_categories';
+   protected $table = 'aramisc_student_categories';
     public function students()
     {
         return $this->hasMany(AramiscStudent::class, 'student_category_id', 'id');
