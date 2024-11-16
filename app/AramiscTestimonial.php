@@ -9,5 +9,5 @@ class AramiscTestimonial extends Model
 {
     use HasFactory;
     // Spécifiez le nom de la table explicitement
-    protected $table = 'aramisc_Testimonials';
+    protected $table = 'aramisc_testimonials';
 }
