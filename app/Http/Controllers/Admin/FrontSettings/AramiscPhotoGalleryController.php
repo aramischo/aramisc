@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin\FrontSettings;
 
 use Illuminate\Http\Request;
-use App\Models\SmPhotoGallery;
+use App\Models\AramiscPhotoGallery;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 
-class SmPhotoGalleryController extends Controller
+class AramiscPhotoGalleryController extends Controller
 {
 
     public function index()
     {
         try {
-            $photoGalleries = SmPhotoGallery::where('parent_id', '=', null)->where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
+            $photoGalleries = AramiscPhotoGallery::where('parent_id', '=', null)->where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
             return view('backEnd.frontSettings.photo_gallery.photo_gallery', compact('photoGalleries'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -36,7 +36,7 @@ class SmPhotoGalleryController extends Controller
         try {
             $destination =  'public/uploads/theme/edulia/photo_gallery/';
             $feature_image = fileUpload($request->feature_image, $destination);
-            $mainGallery = new SmPhotoGallery();
+            $mainGallery = new AramiscPhotoGallery();
             $mainGallery->name = $request->name;
             $mainGallery->description = $request->description;
             $mainGallery->feature_image = $feature_image;
@@ -45,7 +45,7 @@ class SmPhotoGalleryController extends Controller
             if ($result && $request->gallery_image) {
                 foreach ($request->gallery_image as $gImage) {
                     $galleryImage = fileUpload(gv($gImage, 'image'), $destination);
-                    $photoGallery = new SmPhotoGallery();
+                    $photoGallery = new AramiscPhotoGallery();
                     $photoGallery->parent_id = $mainGallery->id;
                     $photoGallery->gallery_image = $galleryImage;
                     $photoGallery->school_id = app('school')->id;
@@ -62,9 +62,9 @@ class SmPhotoGalleryController extends Controller
     public function edit($id)
     {
         try {
-            $photoGalleries = SmPhotoGallery::where('parent_id', '=', null)->where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
-            $add_photo_galleries = SmPhotoGallery::where('parent_id', '!=', null)->where('parent_id', $id)->where('school_id', app('school')->id)->get();
-            $add_photo_gallery = SmPhotoGallery::find($id);
+            $photoGalleries = AramiscPhotoGallery::where('parent_id', '=', null)->where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
+            $add_photo_galleries = AramiscPhotoGallery::where('parent_id', '!=', null)->where('parent_id', $id)->where('school_id', app('school')->id)->get();
+            $add_photo_gallery = AramiscPhotoGallery::find($id);
             return view('backEnd.frontSettings.photo_gallery.photo_gallery', compact('photoGalleries', 'add_photo_gallery', 'add_photo_galleries'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -92,22 +92,22 @@ class SmPhotoGalleryController extends Controller
         }
         try {
             $destination =  'public/uploads/theme/edulia/photo_gallery/';
-            $mainGallery = SmPhotoGallery::find($request->id);
+            $mainGallery = AramiscPhotoGallery::find($request->id);
             $mainGallery->name = $request->name;
             $mainGallery->description = $request->description;
             $mainGallery->feature_image = fileUpdate($mainGallery->feature_image, $request->feature_image, $destination);
             $mainGallery->school_id = app('school')->id;
             $result = $mainGallery->save();
-            $deleteNonRequestGalleryImage = SmPhotoGallery::where('parent_id', $mainGallery->id)
+            $deleteNonRequestGalleryImage = AramiscPhotoGallery::where('parent_id', $mainGallery->id)
                 ->when($request->gallery_image, function ($q) use ($request) {
                     $q->whereNotIn('id', array_keys($request->gallery_image));
                 })
                 ->delete();
             if ($result && $request->gallery_image) {
                 foreach ($request->gallery_image as $key => $gImage) {
-                    $photoGalleryId = SmPhotoGallery::where('parent_id', $mainGallery->id)->where('id', $key)->first();
+                    $photoGalleryId = AramiscPhotoGallery::where('parent_id', $mainGallery->id)->where('id', $key)->first();
                     if ($photoGalleryId != null) {
-                        $photoGallery = SmPhotoGallery::find($key);
+                        $photoGallery = AramiscPhotoGallery::find($key);
                         $updatePhotoGalleryImage = !is_string($gImage['image']) ? fileUpdate($photoGallery->gallery_image, $gImage['image'], $destination) : $photoGallery->gallery_image;
                         $photoGallery->parent_id = $mainGallery->id;
                         $photoGallery->gallery_image = $updatePhotoGalleryImage;
@@ -115,7 +115,7 @@ class SmPhotoGalleryController extends Controller
                         $photoGallery->save();
                     }
                     if ($photoGalleryId == null) {
-                        $photoGallery = new SmPhotoGallery();
+                        $photoGallery = new AramiscPhotoGallery();
                         $photoGallery->parent_id = $mainGallery->id;
                         $photoGallery->gallery_image = fileUpload($gImage['image'], $destination);
                         $photoGallery->school_id = app('school')->id;
@@ -133,7 +133,7 @@ class SmPhotoGalleryController extends Controller
     public function deleteModal($id)
     {
         try {
-            $photoGallery = SmPhotoGallery::find($id);
+            $photoGallery = AramiscPhotoGallery::find($id);
             return view('backEnd.frontSettings.photo_gallery.photo_gallery_delete_modal', compact('photoGallery'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -143,8 +143,8 @@ class SmPhotoGalleryController extends Controller
     public function delete($id)
     {
         try {
-            $photoGallery = SmPhotoGallery::find($id);
-            $galleryImages = SmPhotoGallery::where('parent_id', $photoGallery->id)->get();
+            $photoGallery = AramiscPhotoGallery::find($id);
+            $galleryImages = AramiscPhotoGallery::where('parent_id', $photoGallery->id)->get();
             foreach($galleryImages as $img){
                 if($img && file_exists($img->gallery_image)){
                     unlink($img->gallery_image);
@@ -165,7 +165,7 @@ class SmPhotoGalleryController extends Controller
     public function viewModal($id)
     {
         try {
-            $photoGalleries = SmPhotoGallery::where('parent_id', '!=', null)->where('parent_id', $id)->where('school_id', app('school')->id)->get();
+            $photoGalleries = AramiscPhotoGallery::where('parent_id', '!=', null)->where('parent_id', $id)->where('school_id', app('school')->id)->get();
             return view('backEnd.frontSettings.photo_gallery.photo_gallery_view_modal', compact('photoGalleries'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -175,8 +175,8 @@ class SmPhotoGalleryController extends Controller
     public function photoGalleryImageDelete($id)
     {
         try {
-            $galleryImage = SmPhotoGallery::find($id);
-            $photoGalleries = SmPhotoGallery::where('parent_id', '!=', null)->where('parent_id', $galleryImage->parent_id)->where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
+            $galleryImage = AramiscPhotoGallery::find($id);
+            $photoGalleries = AramiscPhotoGallery::where('parent_id', '!=', null)->where('parent_id', $galleryImage->parent_id)->where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
             $html = view('backEnd.frontSettings.photo_gallery.photo_gallery_view_modal', compact('photoGalleries'))->render();
             if($galleryImage && file_exists($galleryImage->gallery_image)){
                 unlink($galleryImage->gallery_image);

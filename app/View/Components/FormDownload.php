@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\Models\SmFormDownload;
+use App\Models\AramiscFormDownload;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -22,7 +22,7 @@ class FormDownload extends Component
      */
     public function render(): View|Closure|string
     {
-        $data['formDownloads'] = SmFormDownload::where('school_id', app('school')->id)->where('show_public', 1)->get();
+        $data['formDownloads'] = AramiscFormDownload::where('school_id', app('school')->id)->where('show_public', 1)->get();
         return view('components.' . activeTheme() . '.form-download', $data);
     }
 }

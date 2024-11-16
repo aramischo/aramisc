@@ -18,7 +18,7 @@ use App\AramiscMarksGrade;
 use App\AramiscExamSetting;
 use App\AramiscNoticeBoard;
 use App\AramiscResultStore;
-use App\Models\SmDonor;
+use App\Models\AramiscDonor;
 use App\AramiscNewsCategory;
 use App\AramiscAssignSubject;
 use App\AramiscMarksRegister;
@@ -28,7 +28,7 @@ use Illuminate\Http\Request;
 use App\Models\AramiscCustomField;
 use App\Models\AramiscNewsComment;
 use App\Models\StudentRecord;
-use App\Models\SmPhotoGallery;
+use App\Models\AramiscPhotoGallery;
 use App\AramiscClassOptionalSubject;
 use App\AramiscOptionalSubjectAssign;
 use App\Models\FrontendExamResult;
@@ -98,8 +98,8 @@ class FrontendController extends Controller
     public function singleGalleryDetails($gallery_id)
     {
         try {
-            $data['gallery_feature'] = SmPhotoGallery::where('school_id', app('school')->id)->where('parent_id', '=', null)->findOrFail($gallery_id);
-            $data['galleries'] = SmPhotoGallery::where('school_id', app('school')->id)->where('parent_id', '!=', null)->where('parent_id', $gallery_id)->get();
+            $data['gallery_feature'] = AramiscPhotoGallery::where('school_id', app('school')->id)->where('parent_id', '=', null)->findOrFail($gallery_id);
+            $data['galleries'] = AramiscPhotoGallery::where('school_id', app('school')->id)->where('parent_id', '!=', null)->where('parent_id', $gallery_id)->get();
             return view('frontEnd.theme.' . activeTheme() . '.photoGallery.single_photo_gallery', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -479,7 +479,7 @@ class FrontendController extends Controller
     public function donorDetails($id)
     {
         try {
-            $data['donorDetails'] = SmDonor::where('id', $id)->where('school_id', app('school')->id)->where('show_public', 1)->first();
+            $data['donorDetails'] = AramiscDonor::where('id', $id)->where('school_id', app('school')->id)->where('show_public', 1)->first();
             $data['custom_filed_values'] = json_decode($data['donorDetails']->custom_field);
             return view('frontEnd.theme.' . activeTheme() . '.donor.donor_details', $data);
         } catch (\Exception $e) {

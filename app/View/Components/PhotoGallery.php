@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\Models\SmPhotoGallery;
+use App\Models\AramiscPhotoGallery;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -26,7 +26,7 @@ class PhotoGallery extends Component
      */
     public function render(): View|Closure|string
     {
-        $photoGalleries = SmPhotoGallery::where('parent_id', '=', null)
+        $photoGalleries = AramiscPhotoGallery::where('parent_id', '=', null)
                         ->where('school_id', app('school')->id)
                         ->take($this->count)
                         ->orderBy('position')

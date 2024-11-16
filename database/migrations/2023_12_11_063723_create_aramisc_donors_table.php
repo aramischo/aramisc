@@ -1,7 +1,7 @@
 <?php
 
 use App\AramiscBaseSetup;
-use App\Models\SmDonor;
+use App\Models\AramiscDonor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -55,7 +55,7 @@ return new class extends Migration
 
         foreach($datas as $key => $data){
             $key++;
-            $storeData = new SmDonor();
+            $storeData = new AramiscDonor();
             $storeData->full_name = $data[0];
             $storeData->profession = $data[1];
             $storeData->date_of_birth = $data[2];
