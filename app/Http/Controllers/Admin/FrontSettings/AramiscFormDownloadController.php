@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin\FrontSettings;
 
 use Illuminate\Http\Request;
-use App\Models\SmFormDownload;
+use App\Models\AramiscFormDownload;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 
-class SmFormDownloadController extends Controller
+class AramiscFormDownloadController extends Controller
 {
     public function index()
     {
         try {
-            $froms = SmFormDownload::where('school_id', app('school')->id)->get();
+            $froms = AramiscFormDownload::where('school_id', app('school')->id)->get();
             return view('backEnd.frontSettings.form_download.form_download', compact('froms'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -36,7 +36,7 @@ class SmFormDownloadController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         try {
-            $formDownload = new SmFormDownload();
+            $formDownload = new AramiscFormDownload();
             $formDownload->title = $request->title;
             $formDownload->short_description = $request->short_description;
             $formDownload->publish_date = formatedDate($request->publish_date);
@@ -59,8 +59,8 @@ class SmFormDownloadController extends Controller
     public function edit($id)
     {
         try {
-            $froms = SmFormDownload::where('school_id', app('school')->id)->get();
-            $add_form_download = SmFormDownload::where('id', $id)->where('school_id', app('school')->id)->first();
+            $froms = AramiscFormDownload::where('school_id', app('school')->id)->get();
+            $add_form_download = AramiscFormDownload::where('id', $id)->where('school_id', app('school')->id)->first();
             return view('backEnd.frontSettings.form_download.form_download', compact('froms', 'add_form_download'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -83,7 +83,7 @@ class SmFormDownloadController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         try {
-            $formDownload = SmFormDownload::find($request->id);
+            $formDownload = AramiscFormDownload::find($request->id);
             $formDownload->title = $request->title;
             $formDownload->short_description = $request->short_description;
             $formDownload->publish_date = formatedDate($request->publish_date);
@@ -106,7 +106,7 @@ class SmFormDownloadController extends Controller
     public function deleteModal($id)
     {
         try {
-            $formDownload = SmFormDownload::find($id);
+            $formDownload = AramiscFormDownload::find($id);
             return view('backEnd.frontSettings.form_download.form_download_delete_modal', compact('formDownload'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -116,7 +116,7 @@ class SmFormDownloadController extends Controller
     public function delete($id)
     {
         try {
-            $formDownload = SmFormDownload::find($id);
+            $formDownload = AramiscFormDownload::find($id);
             $formDownload->delete();
             Toastr::success('Deleted successfully', 'Success');
             return redirect()->back();

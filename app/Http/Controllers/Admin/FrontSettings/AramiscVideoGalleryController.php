@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\FrontSettings;
 
 use Illuminate\Http\Request;
-use App\Models\SmVideoGallery;
+use App\Models\AramiscVideoGallery;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 
-class SmVideoGalleryController extends Controller
+class AramiscVideoGalleryController extends Controller
 {
     public function __construct()
     {
@@ -17,7 +17,7 @@ class SmVideoGalleryController extends Controller
     public function index()
     {
         try {
-            $videoGalleries = SmVideoGallery::where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
+            $videoGalleries = AramiscVideoGallery::where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
             return view('backEnd.frontSettings.video_gallery.video_gallery', compact('videoGalleries'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -40,7 +40,7 @@ class SmVideoGalleryController extends Controller
             return redirect()->back();
         }
         try {
-            $videoGallery = new SmVideoGallery();
+            $videoGallery = new AramiscVideoGallery();
             $videoGallery->name = $request->name;
             $videoGallery->description = $request->description;
             $videoGallery->video_link = $request->video_link;
@@ -56,8 +56,8 @@ class SmVideoGalleryController extends Controller
     public function edit($id)
     {
         try {
-            $videoGalleries = SmVideoGallery::where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
-            $add_video_gallery = SmVideoGallery::find($id);
+            $videoGalleries = AramiscVideoGallery::where('school_id', app('school')->id)->orderBy('position', 'asc')->get();
+            $add_video_gallery = AramiscVideoGallery::find($id);
             return view('backEnd.frontSettings.video_gallery.video_gallery', compact('videoGalleries', 'add_video_gallery'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -80,7 +80,7 @@ class SmVideoGalleryController extends Controller
             return redirect()->back();
         }
         try {
-            $videoGallery = SmVideoGallery::find($request->id);
+            $videoGallery = AramiscVideoGallery::find($request->id);
             $videoGallery->name = $request->name;
             $videoGallery->description = $request->description;
             $videoGallery->video_link = $request->video_link;
@@ -96,7 +96,7 @@ class SmVideoGalleryController extends Controller
     public function deleteModal($id)
     {
         try {
-            $videoGallery = SmVideoGallery::find($id);
+            $videoGallery = AramiscVideoGallery::find($id);
             return view('backEnd.frontSettings.video_gallery.video_gallery_delete_modal', compact('videoGallery'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -106,7 +106,7 @@ class SmVideoGalleryController extends Controller
     public function delete($id)
     {
         try {
-            $videoGallery = SmVideoGallery::where('id', $id)->first();
+            $videoGallery = AramiscVideoGallery::where('id', $id)->first();
             $videoGallery->delete();
 
             Toastr::success('Deleted successfully', 'Success');
@@ -119,7 +119,7 @@ class SmVideoGalleryController extends Controller
     public function viewModal($id)
     {
         try {
-            $videoGallery = SmVideoGallery::find($id);
+            $videoGallery = AramiscVideoGallery::find($id);
             return view('backEnd.frontSettings.video_gallery.video_gallery_view_modal', compact('videoGallery'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

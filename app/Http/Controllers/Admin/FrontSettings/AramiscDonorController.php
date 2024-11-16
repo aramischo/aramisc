@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\FrontSettings;
 
 use App\AramiscBaseSetup;
-use App\Models\SmDonor;
+use App\Models\AramiscDonor;
 use App\Traits\CustomFields;
 use Illuminate\Http\Request;
 use App\Models\AramiscCustomField;
@@ -12,7 +12,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class SmDonorController extends Controller
+class AramiscDonorController extends Controller
 {
     use CustomFields;
     public function __construct()
@@ -26,7 +26,7 @@ class SmDonorController extends Controller
             $data['religions'] = AramiscBaseSetup::where('base_group_id', '=', '2')->get(['id', 'base_setup_name']);
             $data['blood_groups'] = AramiscBaseSetup::where('base_group_id', '=', '3')->get(['id', 'base_setup_name']);
             $data['genders'] = AramiscBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
-            $data['donors'] = SmDonor::where('school_id', app('school')->id)->get();
+            $data['donors'] = AramiscDonor::where('school_id', app('school')->id)->get();
 
             return view('backEnd.frontSettings.donor.donor', $data);
         } catch (\Exception $e) {
@@ -46,7 +46,7 @@ class SmDonorController extends Controller
         try {
             $destination =  'public/uploads/theme/edulia/donor/';
             $image = fileUpload($request->photo, $destination);
-            $donor = new SmDonor();
+            $donor = new AramiscDonor();
             $donor->full_name = $request->name;
             $donor->profession = $request->profession;
             $donor->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
@@ -83,8 +83,8 @@ class SmDonorController extends Controller
     public function edit($id)
     {
         try {
-            $data['donors'] = SmDonor::where('school_id', app('school')->id)->get();
-            $data['add_donor'] = SmDonor::find($id);
+            $data['donors'] = AramiscDonor::where('school_id', app('school')->id)->get();
+            $data['add_donor'] = AramiscDonor::find($id);
             $data['religions'] = AramiscBaseSetup::where('base_group_id', '=', '2')->get(['id', 'base_setup_name']);
             $data['blood_groups'] = AramiscBaseSetup::where('base_group_id', '=', '3')->get(['id', 'base_setup_name']);
             $data['genders'] = AramiscBaseSetup::where('base_group_id', '=', '1')->get(['id', 'base_setup_name']);
@@ -99,7 +99,7 @@ class SmDonorController extends Controller
     }
     public function update(Request $request)
     {
-        $add_donor = SmDonor::find($request->id);
+        $add_donor = AramiscDonor::find($request->id);
         $input = $request->all();
         $validator = Validator::make($input, [
             'name' => "required",
@@ -117,7 +117,7 @@ class SmDonorController extends Controller
         }
         try {
             $destination =  'public/uploads/theme/edulia/donor/';
-            $donor = SmDonor::find($request->id);
+            $donor = AramiscDonor::find($request->id);
             $donor->full_name = $request->name;
             $donor->profession = $request->profession;
             $donor->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
@@ -165,7 +165,7 @@ class SmDonorController extends Controller
     public function deleteModal($id)
     {
         try {
-            $donor = SmDonor::find($id);
+            $donor = AramiscDonor::find($id);
             return view('backEnd.frontSettings.donor.donor_delete_modal', compact('donor'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -175,7 +175,7 @@ class SmDonorController extends Controller
     public function delete($id)
     {
         try {
-            $donor = SmDonor::find($id);
+            $donor = AramiscDonor::find($id);
             if($donor && file_exists($donor->photo)){
                 unlink($donor->photo);
             }

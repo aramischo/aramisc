@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Closure;
-use App\Models\SmDonor;
+use App\Models\AramiscDonor;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -22,7 +22,7 @@ class Donor extends Component
      */
     public function render(): View|Closure|string
     {
-        $data['donors'] = SmDonor::where('school_id', app('school')->id)->where('show_public', 1)->get();
+        $data['donors'] = AramiscDonor::where('school_id', app('school')->id)->where('show_public', 1)->get();
         return view('components.' . activeTheme() . '.donor', $data);
     }
 }

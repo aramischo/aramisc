@@ -57,7 +57,7 @@ use Database\Seeders\Academics\AramiscAssignSubjectsTableSeeder;
 use Database\Seeders\Admin\AramiscStudentCertificateTableSeeder;
 use Database\Seeders\Communicate\AramiscEmailSmsLogsTableSeeder;
 use Database\Seeders\Dormitory\AramiscDormitoryListsTableSeeder;
-use Database\Seeders\FrontendCMS\SmPhotoGalleryTableSeeder;
+use Database\Seeders\FrontendCMS\AramiscPhotoGalleryTableSeeder;
 use Database\Seeders\Inventory\AramiscItemCategoriesTableSeeder;
 use Database\Seeders\Transport\AramiscAssignVehiclesTableSeeder;
 use Modules\Fees\Database\Seeders\FmFeesInvoiceTableSeeder;
@@ -112,7 +112,7 @@ class DatabaseSeeder extends Seeder
             $this->callWith(StaffsTableSeeder::class, array_merge($params, ['count' => 5]));
             $this->callWith(AramiscBackgroundSettingsTableSeeder::class, array_merge($params, ['count' => 2]));
             $this->callWith(AramiscFrontendPermissionTableSeeder::class, array_merge($params, ['count' => 2]));
-            $this->callWith(SmPhotoGalleryTableSeeder::class, array_merge($params, ['count' => 4]));
+            $this->callWith(AramiscPhotoGalleryTableSeeder::class, array_merge($params, ['count' => 4]));
             $this->callWith(SpeechSliderTableSeeder::class, array_merge($params, ['count' => 3]));
             $this->callWith(AramiscEventTableSeeder::class, array_merge($params, ['count' => 4]));
             $this->callWith(AramiscCourseTableSeeder::class, array_merge($params, ['count' => 2]));

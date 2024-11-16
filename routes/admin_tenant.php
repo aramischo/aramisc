@@ -2055,22 +2055,22 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('/expert-teacher-delete/{id}', 'Admin\FrontSettings\AramiscExpertTeacherController@delete')->name('expert-teacher-delete')->middleware('userRolePermission:expert-teacher-delete');
 
     //for photo-gallery
-    Route::get('/photo-gallery', 'Admin\FrontSettings\SmPhotoGalleryController@index')->name('photo-gallery')->middleware('userRolePermission:photo-gallery');
-    Route::post('/photo-gallery-store', 'Admin\FrontSettings\SmPhotoGalleryController@store')->name('photo-gallery-store')->middleware('userRolePermission:photo-gallery-store');
-    Route::get('/photo-gallery-edit/{id}', 'Admin\FrontSettings\SmPhotoGalleryController@edit')->name('photo-gallery-edit')->middleware('userRolePermission:photo-gallery-edit');
-    Route::post('/photo-gallery-update', 'Admin\FrontSettings\SmPhotoGalleryController@update')->name('photo-gallery-update')->middleware('userRolePermission:photo-gallery-update');
-    Route::get('/photo-gallery-delete-modal/{id}', 'Admin\FrontSettings\SmPhotoGalleryController@deleteModal')->name('photo-gallery-delete-modal')->middleware('userRolePermission:photo-gallery-delete-modal');
-    Route::get('/photo-gallery-delete/{id}', 'Admin\FrontSettings\SmPhotoGalleryController@delete')->name('photo-gallery-delete')->middleware('userRolePermission:photo-gallery-delete');
-    Route::get('/photo-gallery-view-modal/{id}', 'Admin\FrontSettings\SmPhotoGalleryController@viewModal')->name('photo-gallery-view-modal')->middleware('userRolePermission:photo-gallery-view-modal');
+    Route::get('/photo-gallery', 'Admin\FrontSettings\AramiscPhotoGalleryController@index')->name('photo-gallery')->middleware('userRolePermission:photo-gallery');
+    Route::post('/photo-gallery-store', 'Admin\FrontSettings\AramiscPhotoGalleryController@store')->name('photo-gallery-store')->middleware('userRolePermission:photo-gallery-store');
+    Route::get('/photo-gallery-edit/{id}', 'Admin\FrontSettings\AramiscPhotoGalleryController@edit')->name('photo-gallery-edit')->middleware('userRolePermission:photo-gallery-edit');
+    Route::post('/photo-gallery-update', 'Admin\FrontSettings\AramiscPhotoGalleryController@update')->name('photo-gallery-update')->middleware('userRolePermission:photo-gallery-update');
+    Route::get('/photo-gallery-delete-modal/{id}', 'Admin\FrontSettings\AramiscPhotoGalleryController@deleteModal')->name('photo-gallery-delete-modal')->middleware('userRolePermission:photo-gallery-delete-modal');
+    Route::get('/photo-gallery-delete/{id}', 'Admin\FrontSettings\AramiscPhotoGalleryController@delete')->name('photo-gallery-delete')->middleware('userRolePermission:photo-gallery-delete');
+    Route::get('/photo-gallery-view-modal/{id}', 'Admin\FrontSettings\AramiscPhotoGalleryController@viewModal')->name('photo-gallery-view-modal')->middleware('userRolePermission:photo-gallery-view-modal');
 
     //for video-gallery
-    Route::get('/video-gallery', 'Admin\FrontSettings\SmVideoGalleryController@index')->name('video-gallery')->middleware('userRolePermission:video-gallery');
-    Route::post('/video-gallery-store', 'Admin\FrontSettings\SmVideoGalleryController@store')->name('video-gallery-store')->middleware('userRolePermission:video-gallery-store');
-    Route::get('/video-gallery-edit/{id}', 'Admin\FrontSettings\SmVideoGalleryController@edit')->name('video-gallery-edit')->middleware('userRolePermission:video-gallery-edit');
-    Route::post('/video-gallery-update', 'Admin\FrontSettings\SmVideoGalleryController@update')->name('video-gallery-update')->middleware('userRolePermission:video-gallery-update');
-    Route::get('/video-gallery-delete-modal/{id}', 'Admin\FrontSettings\SmVideoGalleryController@deleteModal')->name('video-gallery-delete-modal')->middleware('userRolePermission:video-gallery-delete-modal');
-    Route::get('/video-gallery-delete/{id}', 'Admin\FrontSettings\SmVideoGalleryController@delete')->name('video-gallery-delete')->middleware('userRolePermission:video-gallery-delete');
-    Route::get('/video-gallery-view-modal/{id}', 'Admin\FrontSettings\SmVideoGalleryController@viewModal')->name('video-gallery-view-modal')->middleware('userRolePermission:video-gallery-view-modal');
+    Route::get('/video-gallery', 'Admin\FrontSettings\AramiscVideoGalleryController@index')->name('video-gallery')->middleware('userRolePermission:video-gallery');
+    Route::post('/video-gallery-store', 'Admin\FrontSettings\AramiscVideoGalleryController@store')->name('video-gallery-store')->middleware('userRolePermission:video-gallery-store');
+    Route::get('/video-gallery-edit/{id}', 'Admin\FrontSettings\AramiscVideoGalleryController@edit')->name('video-gallery-edit')->middleware('userRolePermission:video-gallery-edit');
+    Route::post('/video-gallery-update', 'Admin\FrontSettings\AramiscVideoGalleryController@update')->name('video-gallery-update')->middleware('userRolePermission:video-gallery-update');
+    Route::get('/video-gallery-delete-modal/{id}', 'Admin\FrontSettings\AramiscVideoGalleryController@deleteModal')->name('video-gallery-delete-modal')->middleware('userRolePermission:video-gallery-delete-modal');
+    Route::get('/video-gallery-delete/{id}', 'Admin\FrontSettings\AramiscVideoGalleryController@delete')->name('video-gallery-delete')->middleware('userRolePermission:video-gallery-delete');
+    Route::get('/video-gallery-view-modal/{id}', 'Admin\FrontSettings\AramiscVideoGalleryController@viewModal')->name('video-gallery-view-modal')->middleware('userRolePermission:video-gallery-view-modal');
 
     //for front-result
     Route::get('/front-result', 'Admin\FrontSettings\SmFrontResultController@index')->name('front-result')->middleware('userRolePermission:front-result');
@@ -2113,20 +2113,20 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('/speech-slider-delete/{id}', 'Admin\FrontSettings\SpeechSliderController@delete')->name('speech-slider-delete')->middleware('userRolePermission:speech-slider-delete');
 
     //for donor
-    Route::get('/donor', 'Admin\FrontSettings\SmDonorController@index')->name('donor')->middleware('userRolePermission:donor');
-    Route::post('/donor-store', 'Admin\FrontSettings\SmDonorController@store')->name('donor-store')->middleware('userRolePermission:donor-store');
-    Route::get('/donor-edit/{id}', 'Admin\FrontSettings\SmDonorController@edit')->name('donor-edit')->middleware('userRolePermission:donor-edit');
-    Route::post('/donor-update', 'Admin\FrontSettings\SmDonorController@update')->name('donor-update')->middleware('userRolePermission:donor-update');
-    Route::get('/donor-delete-modal/{id}', 'Admin\FrontSettings\SmDonorController@deleteModal')->name('donor-delete-modal')->middleware('userRolePermission:donor-delete-modal');
-    Route::get('/donor-delete/{id}', 'Admin\FrontSettings\SmDonorController@delete')->name('donor-delete')->middleware('userRolePermission:donor-delete');
+    Route::get('/donor', 'Admin\FrontSettings\AramiscDonorController@index')->name('donor')->middleware('userRolePermission:donor');
+    Route::post('/donor-store', 'Admin\FrontSettings\AramiscDonorController@store')->name('donor-store')->middleware('userRolePermission:donor-store');
+    Route::get('/donor-edit/{id}', 'Admin\FrontSettings\AramiscDonorController@edit')->name('donor-edit')->middleware('userRolePermission:donor-edit');
+    Route::post('/donor-update', 'Admin\FrontSettings\AramiscDonorController@update')->name('donor-update')->middleware('userRolePermission:donor-update');
+    Route::get('/donor-delete-modal/{id}', 'Admin\FrontSettings\AramiscDonorController@deleteModal')->name('donor-delete-modal')->middleware('userRolePermission:donor-delete-modal');
+    Route::get('/donor-delete/{id}', 'Admin\FrontSettings\AramiscDonorController@delete')->name('donor-delete')->middleware('userRolePermission:donor-delete');
 
     //for form download
-    Route::get('/form-download', 'Admin\FrontSettings\SmFormDownloadController@index')->name('form-download')->middleware('userRolePermission:form-download');
-    Route::post('/form-download-store', 'Admin\FrontSettings\SmFormDownloadController@store')->name('form-download-store')->middleware('userRolePermission:form-download-store');
-    Route::get('/form-download-edit/{id}', 'Admin\FrontSettings\SmFormDownloadController@edit')->name('form-download-edit')->middleware('userRolePermission:form-download-edit');
-    Route::post('/form-download-update', 'Admin\FrontSettings\SmFormDownloadController@update')->name('form-download-update')->middleware('userRolePermission:form-download-update');
-    Route::get('/form-download-delete-modal/{id}', 'Admin\FrontSettings\SmFormDownloadController@deleteModal')->name('form-download-delete-modal')->middleware('userRolePermission:form-download-delete-modal');
-    Route::get('/form-download-delete/{id}', 'Admin\FrontSettings\SmFormDownloadController@delete')->name('form-download-delete')->middleware('userRolePermission:form-download-delete');
+    Route::get('/form-download', 'Admin\FrontSettings\AramiscFormDownloadController@index')->name('form-download')->middleware('userRolePermission:form-download');
+    Route::post('/form-download-store', 'Admin\FrontSettings\AramiscFormDownloadController@store')->name('form-download-store')->middleware('userRolePermission:form-download-store');
+    Route::get('/form-download-edit/{id}', 'Admin\FrontSettings\AramiscFormDownloadController@edit')->name('form-download-edit')->middleware('userRolePermission:form-download-edit');
+    Route::post('/form-download-update', 'Admin\FrontSettings\AramiscFormDownloadController@update')->name('form-download-update')->middleware('userRolePermission:form-download-update');
+    Route::get('/form-download-delete-modal/{id}', 'Admin\FrontSettings\AramiscFormDownloadController@deleteModal')->name('form-download-delete-modal')->middleware('userRolePermission:form-download-delete-modal');
+    Route::get('/form-download-delete/{id}', 'Admin\FrontSettings\AramiscFormDownloadController@delete')->name('form-download-delete')->middleware('userRolePermission:form-download-delete');
 
     // Contact us
     Route::get('contact-page', 'Admin\FrontSettings\AramiscContactUsController@index')->name('conpactPage')->middleware('userRolePermission:conpactPage');
