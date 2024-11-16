@@ -158,7 +158,7 @@
                     </div>
                 </div>
             </div>
-                <div class="row mt-40 full_wide_table">
+            <div class="row mt-40 full_wide_table">
                     <div class="col-lg-12">
                         <div class="white-box">
                             <div class="row">
@@ -185,12 +185,11 @@
                                     </thead>
         
                                     <tbody>
-                                
+
                                     </tbody>
                                 </table>
                             </x-table>
                         </div>
-                    </div>
                     </div>
                 </div>
         </div>
@@ -219,7 +218,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 
