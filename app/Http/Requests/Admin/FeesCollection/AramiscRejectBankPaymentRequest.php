@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\FeesCollection;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SmRejectBankPaymentRequest extends FormRequest
+class AramiscRejectBankPaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\api\SmBaseController as SmBaseController;
+use App\Http\Controllers\api\AramiscBaseController as AramiscBaseController;
 
-class AramiscAdminController extends SmBaseController
+class AramiscAdminController extends AramiscBaseController
 {
 
     //api login

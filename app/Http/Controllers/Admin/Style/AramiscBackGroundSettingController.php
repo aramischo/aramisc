@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Style;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Style\SmBackGroundSettingRequest;
+use App\Http\Requests\Admin\Style\AramiscBackGroundSettingRequest;
 use App\AramiscBackgroundSetting;
 use App\AramiscSchool;
 use App\AramiscStyle;
@@ -11,7 +11,7 @@ use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 
-class SmBackGroundSettingController extends Controller
+class AramiscBackGroundSettingController extends Controller
 {
     public function __construct()
     {
@@ -29,7 +29,7 @@ class SmBackGroundSettingController extends Controller
         }
     }
 
-    public function store(SmBackGroundSettingRequest $request)
+    public function store(AramiscBackGroundSettingRequest $request)
     {
 
         try {
@@ -104,7 +104,7 @@ class SmBackGroundSettingController extends Controller
         }
     }
 
-    public function update(SmBackGroundSettingRequest $request)
+    public function update(AramiscBackGroundSettingRequest $request)
     {
 
         try {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\FrontSettings;
 
-use App\Models\SpeechSlider;
+use App\Models\AramiscSpeechSlider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -17,7 +17,7 @@ class SpeechSliderController extends Controller
     public function index()
     {
         try {
-            $speechSliders = SpeechSlider::where('school_id', app('school')->id)->get();
+            $speechSliders = AramiscSpeechSlider::where('school_id', app('school')->id)->get();
             return view('backEnd.frontSettings.speech_slider.speech_slider', compact('speechSliders'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -56,8 +56,8 @@ class SpeechSliderController extends Controller
     public function edit($id)
     {
         try {
-            $speechSliders = SpeechSlider::where('school_id', app('school')->id)->get();
-            $add_speech_slider = SpeechSlider::find($id);
+            $speechSliders = AramiscSpeechSlider::where('school_id', app('school')->id)->get();
+            $add_speech_slider = AramiscSpeechSlider::find($id);
             return view('backEnd.frontSettings.speech_slider.speech_slider', compact('speechSliders', 'add_speech_slider'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -85,7 +85,7 @@ class SpeechSliderController extends Controller
         }
         try {
             $destination =  'public/uploads/theme/edulia/speech_slider/';
-            $speechSlider = SpeechSlider::find($request->id);
+            $speechSlider = AramiscSpeechSlider::find($request->id);
             $speechSlider->name = $request->name;
             $speechSlider->designation = $request->designation;
             $speechSlider->speech = $request->speech;
@@ -102,7 +102,7 @@ class SpeechSliderController extends Controller
     public function deleteModal($id)
     {
         try {
-            $speechSlider = SpeechSlider::find($id);
+            $speechSlider = AramiscSpeechSlider::find($id);
             return view('backEnd.frontSettings.speech_slider.speech_slider_delete_modal', compact('speechSlider'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
@@ -112,7 +112,7 @@ class SpeechSliderController extends Controller
     public function delete($id)
     {
         try {
-            $speechSlider = SpeechSlider::where('id', $id)->first();
+            $speechSlider = AramiscSpeechSlider::where('id', $id)->first();
             $speechSlider->delete();
             Toastr::success('Deleted successfully', 'Success');
             return redirect()->back();

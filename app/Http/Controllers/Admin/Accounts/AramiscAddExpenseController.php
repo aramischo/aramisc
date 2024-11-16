@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\Accounts\SmExpenseRequest;
+use App\Http\Requests\Admin\Accounts\AramiscExpenseRequest;
 
 class AramiscAddExpenseController extends Controller
 {
@@ -36,7 +36,7 @@ class AramiscAddExpenseController extends Controller
         }
     }
 
-    public function store(SmExpenseRequest $request)
+    public function store(AramiscExpenseRequest $request)
     {
         try {
             $destination='public/uploads/addExpense/';
@@ -107,7 +107,7 @@ class AramiscAddExpenseController extends Controller
         }
     }
 
-    public function update(SmExpenseRequest $request, $id)
+    public function update(AramiscExpenseRequest $request, $id)
     {
         try {
             $destination =  'public/uploads/addExpense/';

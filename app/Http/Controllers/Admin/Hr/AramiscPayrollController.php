@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Modules\RolePermission\Entities\AramiscRole;
 
-class AramiscSmPayrollController extends Controller
+class AramiscPayrollController extends Controller
 {
     use NotificationSend;
     public function __construct()

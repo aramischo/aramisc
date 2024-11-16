@@ -3,11 +3,11 @@
 namespace App\View\Components;
 
 use Closure;
-use App\Models\SpeechSlider;
+use App\Models\AramiscSpeechSlider;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
-class AramiscSpeechSlider extends Component
+class SpeechSlider extends Component
 {
     public $count;
     /**
@@ -23,7 +23,7 @@ class AramiscSpeechSlider extends Component
      */
     public function render(): View|Closure|string
     {
-        $speechSliders = SpeechSlider::where('school_id', app('school')->id)->take($this->count)->get();
-        return view('components.'.activeTheme().'.sm-speech-slider', compact('speechSliders'));
+        $speechSliders = AramiscSpeechSlider::where('school_id', app('school')->id)->take($this->count)->get();
+        return view('components.'.activeTheme().'.speech-slider', compact('speechSliders'));
     }
 }

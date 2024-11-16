@@ -31,7 +31,7 @@ use App\Http\Requests\Admin\Examination\ProgressCardReportRequest;
 use App\Http\Controllers\Admin\StudentInfo\AramiscStudentReportController;
 use App\Http\Requests\Admin\Examination\TabulationSheetReportRequest;
 
-class SmReportController extends Controller
+class AramiscReportController extends Controller
 {
     public function __construct()
     {

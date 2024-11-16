@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\FrontSettings;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SmFooterWidgetRequest extends FormRequest
+class AramiscFooterWidgetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

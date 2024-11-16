@@ -47,12 +47,12 @@ class PageBuilderController extends Controller {
 
         if (file_exists(resource_path($this->theme_pb_path)))
             $componentDirectories = array_diff(scandir(resource_path($this->theme_pb_path)), array('..', '.'));
+
             foreach ($componentDirectories as $directory) {
                 if( 'header-content' != $directory && 'footer-content' != $directory && 'footer-widget' != $directory && 'footer-copyright' != $directory){
                     if (file_exists(resource_path( $this->theme_pb_path.'/'. $directory . '/settings.php'))) {
                         $currentSettings = include resource_path( $this->theme_pb_path.'/'. $directory . '/settings.php');
-                        
-                    
+
                         if (!empty($currentSettings['id']) && $directory == $currentSettings['id']) {
         
                             setCurrentDirectory($currentSettings['id']);

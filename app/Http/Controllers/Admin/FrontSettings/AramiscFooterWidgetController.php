@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 
-class SmFooterWidgetController extends Controller
+class AramiscFooterWidgetController extends Controller
 {
     public function __construct()
     {

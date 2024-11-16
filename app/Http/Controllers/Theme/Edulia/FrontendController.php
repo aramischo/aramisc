@@ -23,7 +23,7 @@ use App\AramiscNewsCategory;
 use App\AramiscAssignSubject;
 use App\AramiscMarksRegister;
 use App\AramiscCourseCategory;
-use App\Models\SpeechSlider;
+use App\Models\AramiscSpeechSlider;
 use Illuminate\Http\Request;
 use App\Models\AramiscCustomField;
 use App\Models\AramiscNewsComment;
@@ -348,7 +348,7 @@ class FrontendController extends Controller
     public function singleSpeechSlider($id)
     {
         try {
-            $data['singleSpeechSlider'] = SpeechSlider::where('school_id', app('school')->id)->findOrFail($id);
+            $data['singleSpeechSlider'] = AramiscSpeechSlider::where('school_id', app('school')->id)->findOrFail($id);
             return view('frontEnd.theme.' . activeTheme() . '.speechSlider.single_speech_slider', $data);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

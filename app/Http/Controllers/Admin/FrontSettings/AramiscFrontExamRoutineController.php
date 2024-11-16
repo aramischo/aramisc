@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 
-class SmFrontExamRoutineController extends Controller
+class AramiscFrontExamRoutineController extends Controller
 {
     public function __construct()
     {

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
 
 
-class SmBaseController extends Controller
+class AramiscBaseController extends Controller
 {
     /**
      * success response method.

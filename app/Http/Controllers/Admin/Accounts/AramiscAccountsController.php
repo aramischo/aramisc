@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\Accounts\SmProfitLossRequest;
+use App\Http\Requests\Admin\Accounts\AramiscProfitLossRequest;
 use App\Http\Requests\Admin\Accounts\SmFundTransferRequest;
 
 class AramiscAccountsController extends Controller
@@ -195,7 +195,7 @@ class AramiscAccountsController extends Controller
         }
     }
 
-    public function searchProfitByDate(SmProfitLossRequest $request)
+    public function searchProfitByDate(AramiscProfitLossRequest $request)
     {
         try {
             date_default_timezone_set("Asia/Dhaka");

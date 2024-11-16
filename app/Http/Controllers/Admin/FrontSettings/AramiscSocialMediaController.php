@@ -10,7 +10,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\FrontSettings\SocialMediaRequest;
 
-class SmSocialMediaController extends Controller
+class AramiscSocialMediaController extends Controller
 {
     
     public function __construct()

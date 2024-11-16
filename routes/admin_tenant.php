@@ -472,9 +472,9 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('balance-fees-search', ['as' => 'balance_fees_search', 'uses' => 'Admin\FeesCollection\AramiscFeesReportController@balanceFeesReport']);
 
         // Transaction Report
-        Route::get('transaction-report', ['as' => 'transaction_report', 'uses' => 'Admin\FeesCollection\SmCollectionReportController@transactionReport'])->middleware('userRolePermission:transaction_report');
-        Route::post('transaction-report-search', ['as' => 'transaction_report_searches', 'uses' => 'Admin\FeesCollection\SmCollectionReportController@transactionReportSearch']);
-        Route::get('transaction-report-search', ['as' => 'transaction_report_search', 'uses' => 'Admin\FeesCollection\SmCollectionReportController@transactionReport']);
+        Route::get('transaction-report', ['as' => 'transaction_report', 'uses' => 'Admin\FeesCollection\AramiscCollectionReportController@transactionReport'])->middleware('userRolePermission:transaction_report');
+        Route::post('transaction-report-search', ['as' => 'transaction_report_searches', 'uses' => 'Admin\FeesCollection\AramiscCollectionReportController@transactionReportSearch']);
+        Route::get('transaction-report-search', ['as' => 'transaction_report_search', 'uses' => 'Admin\FeesCollection\AramiscCollectionReportController@transactionReport']);
 
 
         //Fine Report
@@ -702,8 +702,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('assign-vehicle-delete', 'Admin\Transport\AramiscAssignVehicleController@delete')->name('assign-vehicle-delete')->middleware('userRolePermission:assign-vehicle-index');
 
         // student transport report
-        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\SmTransportController@studentTransportReport'])->middleware('userRolePermission:student_transport_report');
-        Route::post('student-transport-report', ['as' => 'student_transport_report_store', 'uses' => 'Admin\Transport\SmTransportController@studentTransportReportSearch']);
+        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\AramiscTransportController@studentTransportReport'])->middleware('userRolePermission:student_transport_report');
+        Route::post('student-transport-report', ['as' => 'student_transport_report_store', 'uses' => 'Admin\Transport\AramiscTransportController@studentTransportReportSearch']);
 
         // Route transport
         // Route::resource('transport-route', 'Admin\Transport\AramiscRouteController')->middleware('userRolePermission:349');
@@ -1346,7 +1346,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('student-login-search', ['as' => 'student_login_search', 'uses' => 'Admin\StudentInfo\AramiscStudentReportController@studentLoginReport']);
 
         // student & parent reset password
-        Route::post('reset-student-password', 'Admin\RolePermission\SmResetPasswordController@resetStudentPassword')->name('reset-student-password');
+        Route::post('reset-student-password', 'Admin\RolePermission\AramiscResetPasswordController@resetStudentPassword')->name('reset-student-password');
 
 
         // Disabled Student
@@ -1367,9 +1367,9 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         // Tabulation Sheet Report
-        Route::get('tabulation-sheet-report', ['as' => 'tabulation_sheet_report', 'uses' => 'Admin\Report\SmReportController@tabulationSheetReport'])->middleware('userRolePermission:tabulation_sheet_report');
-        Route::post('tabulation-sheet-report', ['as' => 'tabulation_sheet_report_search', 'uses' => 'Admin\Report\SmReportController@tabulationSheetReportSearch']);
-        Route::post('tabulation-sheet/print', 'Admin\Report\SmReportController@tabulationSheetReportPrint')->name('tabulation-sheet/print');
+        Route::get('tabulation-sheet-report', ['as' => 'tabulation_sheet_report', 'uses' => 'Admin\Report\AramiscReportController@tabulationSheetReport'])->middleware('userRolePermission:tabulation_sheet_report');
+        Route::post('tabulation-sheet-report', ['as' => 'tabulation_sheet_report_search', 'uses' => 'Admin\Report\AramiscReportController@tabulationSheetReportSearch']);
+        Route::post('tabulation-sheet/print', 'Admin\Report\AramiscReportController@tabulationSheetReportPrint')->name('tabulation-sheet/print');
 
         Route::get('optional-subject-setup/delete/{id}', 'Admin\SystemSettings\AramiscOptionalSubjectAssignController@optionalSetupDelete')->name('delete_optional_subject')->middleware('userRolePermission:delete_optional_subject');
         Route::get('optional-subject-setup/edit/{id}', 'Admin\SystemSettings\AramiscOptionalSubjectAssignController@optionalSetupEdit')->name('class_optional_edit')->middleware('userRolePermission:class_optional_edit');
@@ -1377,13 +1377,13 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('optional-subject-setup', 'Admin\SystemSettings\AramiscOptionalSubjectAssignController@optionalSetupStore')->name('optional_subject_setup_post')->middleware('userRolePermission:optional_subject_setup_post');
 
         // progress card report
-        Route::get('progress-card-report', ['as' => 'progress_card_report', 'uses' => 'Admin\Report\SmReportController@progressCardReport'])->middleware('userRolePermission:progress_card_report');
-        Route::post('progress-card-report', ['as' => 'progress_card_report_search', 'uses' => 'Admin\Report\SmReportController@progressCardReportSearch']);
+        Route::get('progress-card-report', ['as' => 'progress_card_report', 'uses' => 'Admin\Report\AramiscReportController@progressCardReport'])->middleware('userRolePermission:progress_card_report');
+        Route::post('progress-card-report', ['as' => 'progress_card_report_search', 'uses' => 'Admin\Report\AramiscReportController@progressCardReportSearch']);
 
-        Route::get('custom-progress-card-report-percent', ['as' => 'custom_progress_card_report_percent', 'uses' => 'Admin\Report\SmReportController@customProgressCardReport']);
+        Route::get('custom-progress-card-report-percent', ['as' => 'custom_progress_card_report_percent', 'uses' => 'Admin\Report\AramiscReportController@customProgressCardReport']);
 
 
-        Route::post('progress-card/print', 'Admin\Report\SmReportController@progressCardPrint')->name('progress-card/print');
+        Route::post('progress-card/print', 'Admin\Report\AramiscReportController@progressCardPrint')->name('progress-card/print');
 
 
         // staff directory
@@ -1483,25 +1483,25 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('staff-attendance-bulk-store', 'Admin\Hr\AramiscStaffAttendanceController@staffAttendanceBulkStore')->name('staff-attendance-bulk-store');
 
         //payroll
-        Route::get('payroll', ['as' => 'payroll', 'uses' => 'Admin\Hr\AramiscSmPayrollController@index'])->middleware('userRolePermission:payroll');
+        Route::get('payroll', ['as' => 'payroll', 'uses' => 'Admin\Hr\AramiscPayrollController@index'])->middleware('userRolePermission:payroll');
 
-        // Route::post('payroll', ['as' => 'payroll', 'uses' => 'Admin\Hr\AramiscSmPayrollController@searchStaffPayr'])->middleware('userRolePermission:payroll');
+        // Route::post('payroll', ['as' => 'payroll', 'uses' => 'Admin\Hr\AramiscPayrollController@searchStaffPayr'])->middleware('userRolePermission:payroll');
 
-        Route::get('generate-Payroll/{id}/{month}/{year}', 'Admin\Hr\AramiscSmPayrollController@generatePayroll')->name('generate-Payroll')->middleware('userRolePermission:generate-Payroll');
-        Route::post('save-payroll-data', ['as' => 'savePayrollData', 'uses' => 'Admin\Hr\AramiscSmPayrollController@savePayrollData'])->middleware('userRolePermission:savePayrollData');
+        Route::get('generate-Payroll/{id}/{month}/{year}', 'Admin\Hr\AramiscPayrollController@generatePayroll')->name('generate-Payroll')->middleware('userRolePermission:generate-Payroll');
+        Route::post('save-payroll-data', ['as' => 'savePayrollData', 'uses' => 'Admin\Hr\AramiscPayrollController@savePayrollData'])->middleware('userRolePermission:savePayrollData');
 
-        Route::get('pay-payroll/{id}/{role_id}', 'Admin\Hr\AramiscSmPayrollController@paymentPayroll')->name('pay-payroll')->middleware('userRolePermission:pay-payroll');
-        Route::post('savePayrollPaymentData', ['as' => 'savePayrollPaymentData', 'uses' => 'Admin\Hr\AramiscSmPayrollController@savePayrollPaymentData']);
-        Route::get('view-payslip/{id}', 'Admin\Hr\AramiscSmPayrollController@viewPayslip')->name('view-payslip')->middleware('userRolePermission:view-payslip');
-        Route::get('print-payslip/{id}', 'Admin\Hr\AramiscSmPayrollController@printPayslip')->name('print-payslip');
-        Route::get('view-payroll-payment/{id}', 'Admin\Hr\AramiscSmPayrollController@viewPayrollPayment')->name('view-payroll-payment');
-        Route::post('delete-payroll-payment', 'Admin\Hr\AramiscSmPayrollController@deletePayrollPayment')->name('delete-payroll-payment');
-        Route::get('print-payroll-payment/{id}', 'Admin\Hr\AramiscSmPayrollController@printPayrollPayment')->name('print-payroll-payment');
+        Route::get('pay-payroll/{id}/{role_id}', 'Admin\Hr\AramiscPayrollController@paymentPayroll')->name('pay-payroll')->middleware('userRolePermission:pay-payroll');
+        Route::post('savePayrollPaymentData', ['as' => 'savePayrollPaymentData', 'uses' => 'Admin\Hr\AramiscPayrollController@savePayrollPaymentData']);
+        Route::get('view-payslip/{id}', 'Admin\Hr\AramiscPayrollController@viewPayslip')->name('view-payslip')->middleware('userRolePermission:view-payslip');
+        Route::get('print-payslip/{id}', 'Admin\Hr\AramiscPayrollController@printPayslip')->name('print-payslip');
+        Route::get('view-payroll-payment/{id}', 'Admin\Hr\AramiscPayrollController@viewPayrollPayment')->name('view-payroll-payment');
+        Route::post('delete-payroll-payment', 'Admin\Hr\AramiscPayrollController@deletePayrollPayment')->name('delete-payroll-payment');
+        Route::get('print-payroll-payment/{id}', 'Admin\Hr\AramiscPayrollController@printPayrollPayment')->name('print-payroll-payment');
 
         //payroll Report
-        Route::get('payroll-report', 'Admin\Hr\AramiscSmPayrollController@payrollReport')->name('payroll-report')->middleware('userRolePermission:payroll-report');
-        // Route::post('search-payroll-report', ['as' => 'searchPayrollReport', 'uses' => 'Admin\Hr\AramiscSmPayrollController@searchPayrollReport']);
-        Route::post('payroll-report', 'Admin\Hr\AramiscSmPayrollController@searchPayrollReport')->name('searchPayrollReport');
+        Route::get('payroll-report', 'Admin\Hr\AramiscPayrollController@payrollReport')->name('payroll-report')->middleware('userRolePermission:payroll-report');
+        // Route::post('search-payroll-report', ['as' => 'searchPayrollReport', 'uses' => 'Admin\Hr\AramiscPayrollController@searchPayrollReport']);
+        Route::post('payroll-report', 'Admin\Hr\AramiscPayrollController@searchPayrollReport')->name('searchPayrollReport');
 
         //Homework
         Route::get('homework-list', ['as' => 'homework-list', 'uses' => 'Admin\Homework\AramiscHomeworkController@homeworkList'])->middleware('userRolePermission:homework-list');
@@ -1779,20 +1779,20 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('translation-term-update', 'Admin\SystemSettings\AramiscSystemSettingController@translationTermUpdate')->name('translation-term-update');
 
         //currency
-        Route::get('manage-currency', 'Admin\GeneralSettings\SmManageCurrencyController@manageCurrency')->name('manage-currency')->middleware('userRolePermission:manage-currency');
+        Route::get('manage-currency', 'Admin\GeneralSettings\AramiscManageCurrencyController@manageCurrency')->name('manage-currency')->middleware('userRolePermission:manage-currency');
 
-        Route::get('create-currency', 'Admin\GeneralSettings\SmManageCurrencyController@create')->name('create-currency')->middleware('userRolePermission:manage-currency');
+        Route::get('create-currency', 'Admin\GeneralSettings\AramiscManageCurrencyController@create')->name('create-currency')->middleware('userRolePermission:manage-currency');
 
-        Route::post('currency-store', 'Admin\GeneralSettings\SmManageCurrencyController@storeCurrency')->name('currency-store')->middleware('userRolePermission:currency-store');
+        Route::post('currency-store', 'Admin\GeneralSettings\AramiscManageCurrencyController@storeCurrency')->name('currency-store')->middleware('userRolePermission:currency-store');
 
-        Route::post('currency-update', 'Admin\GeneralSettings\SmManageCurrencyController@storeCurrencyUpdate')->name('currency-update')->middleware('userRolePermission:currency_edit');
-        Route::get('manage-currency/edit/{id}', 'Admin\GeneralSettings\SmManageCurrencyController@manageCurrencyEdit')->name('currency_edit')->middleware('userRolePermission:currency_edit');
+        Route::post('currency-update', 'Admin\GeneralSettings\AramiscManageCurrencyController@storeCurrencyUpdate')->name('currency-update')->middleware('userRolePermission:currency_edit');
+        Route::get('manage-currency/edit/{id}', 'Admin\GeneralSettings\AramiscManageCurrencyController@manageCurrencyEdit')->name('currency_edit')->middleware('userRolePermission:currency_edit');
 
-        Route::get('manage-currency/delete/{id}', 'Admin\GeneralSettings\SmManageCurrencyController@manageCurrencyDelete')->name('currency_delete')->middleware('userRolePermission:currency_delete');
+        Route::get('manage-currency/delete/{id}', 'Admin\GeneralSettings\AramiscManageCurrencyController@manageCurrencyDelete')->name('currency_delete')->middleware('userRolePermission:currency_delete');
 
-        Route::get('manage-currency/active/{id}', 'Admin\GeneralSettings\SmManageCurrencyController@manageCurrencyActive')->name('currency_active')->middleware('userRolePermission:currency_active');
+        Route::get('manage-currency/active/{id}', 'Admin\GeneralSettings\AramiscManageCurrencyController@manageCurrencyActive')->name('currency_active')->middleware('userRolePermission:currency_active');
 
-        Route::get('system-destroyed-by-authorized', 'Admin\GeneralSettings\SmManageCurrencyController@systemDestroyedByAuthorized')->name('systemDestroyedByAuthorized');
+        Route::get('system-destroyed-by-authorized', 'Admin\GeneralSettings\AramiscManageCurrencyController@systemDestroyedByAuthorized')->name('systemDestroyedByAuthorized');
 
 
         //Backup Setting
@@ -1945,15 +1945,15 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::post('maintenance_mode', 'Admin\SystemSettings\UtilityController@updateMaintenance')->name('updateMaintenance');
 
     // background setting
-    Route::get('background-setting', 'Admin\Style\SmBackGroundSettingController@index')->name('background-setting')->middleware('userRolePermission:background-setting');
-    Route::post('background-settings-update', 'Admin\Style\SmBackGroundSettingController@update')->name('background-settings-update');
-    Route::post('background-settings-store', 'Admin\Style\SmBackGroundSettingController@store')->name('background-settings-store')->middleware('userRolePermission:background-settings-store');
-    Route::get('background-setting-delete/{id}', 'Admin\Style\SmBackGroundSettingController@delete')->name('background-setting-delete')->middleware('userRolePermission:background-setting-delete');
-    Route::get('background_setting-status/{id}', 'Admin\Style\SmBackGroundSettingController@status')->name('background_setting-status')->middleware('userRolePermission:background_setting-status');
+    Route::get('background-setting', 'Admin\Style\AramiscBackGroundSettingController@index')->name('background-setting')->middleware('userRolePermission:background-setting');
+    Route::post('background-settings-update', 'Admin\Style\AramiscBackGroundSettingController@update')->name('background-settings-update');
+    Route::post('background-settings-store', 'Admin\Style\AramiscBackGroundSettingController@store')->name('background-settings-store')->middleware('userRolePermission:background-settings-store');
+    Route::get('background-setting-delete/{id}', 'Admin\Style\AramiscBackGroundSettingController@delete')->name('background-setting-delete')->middleware('userRolePermission:background-setting-delete');
+    Route::get('background_setting-status/{id}', 'Admin\Style\AramiscBackGroundSettingController@status')->name('background_setting-status')->middleware('userRolePermission:background_setting-status');
 
     //color theme change
     Route::get('color-style', 'Admin\Style\ThemeController@index')->name('color-style')->middleware('userRolePermission:color-style');
-    Route::get('make-default-theme/{id}', 'Admin\Style\SmBackGroundSettingController@colorThemeSet')->name('make-default-theme')->middleware('userRolePermission:make-default-theme');
+    Route::get('make-default-theme/{id}', 'Admin\Style\AramiscBackGroundSettingController@colorThemeSet')->name('make-default-theme')->middleware('userRolePermission:make-default-theme');
 
     Route::get('theme-create', 'Admin\Style\ThemeController@create')->name('theme-create')->middleware('userRolePermission:theme-create');
     Route::post('theme-create-store', 'Admin\Style\ThemeController@store')->name('theme-store')->middleware('userRolePermission:theme-store');
@@ -2073,28 +2073,28 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::get('/video-gallery-view-modal/{id}', 'Admin\FrontSettings\AramiscVideoGalleryController@viewModal')->name('video-gallery-view-modal')->middleware('userRolePermission:video-gallery-view-modal');
 
     //for front-result
-    Route::get('/front-result', 'Admin\FrontSettings\SmFrontResultController@index')->name('front-result')->middleware('userRolePermission:front-result');
-    Route::post('/front-result-store', 'Admin\FrontSettings\SmFrontResultController@store')->name('front-result-store')->middleware('userRolePermission:front-result-store');
-    Route::get('/front-result-edit/{id}', 'Admin\FrontSettings\SmFrontResultController@edit')->name('front-result-edit')->middleware('userRolePermission:front-result-edit');
-    Route::post('/front-result-update', 'Admin\FrontSettings\SmFrontResultController@update')->name('front-result-update')->middleware('userRolePermission:front-result-update');
-    Route::get('/front-result-delete-modal/{id}', 'Admin\FrontSettings\SmFrontResultController@deleteModal')->name('front-result-delete-modal')->middleware('userRolePermission:front-result-delete-modal');
-    Route::get('/front-result-delete/{id}', 'Admin\FrontSettings\SmFrontResultController@delete')->name('front-result-delete')->middleware('userRolePermission:front-result-delete');
+    Route::get('/front-result', 'Admin\FrontSettings\AramiscFrontResultController@index')->name('front-result')->middleware('userRolePermission:front-result');
+    Route::post('/front-result-store', 'Admin\FrontSettings\AramiscFrontResultController@store')->name('front-result-store')->middleware('userRolePermission:front-result-store');
+    Route::get('/front-result-edit/{id}', 'Admin\FrontSettings\AramiscFrontResultController@edit')->name('front-result-edit')->middleware('userRolePermission:front-result-edit');
+    Route::post('/front-result-update', 'Admin\FrontSettings\AramiscFrontResultController@update')->name('front-result-update')->middleware('userRolePermission:front-result-update');
+    Route::get('/front-result-delete-modal/{id}', 'Admin\FrontSettings\AramiscFrontResultController@deleteModal')->name('front-result-delete-modal')->middleware('userRolePermission:front-result-delete-modal');
+    Route::get('/front-result-delete/{id}', 'Admin\FrontSettings\AramiscFrontResultController@delete')->name('front-result-delete')->middleware('userRolePermission:front-result-delete');
 
     //for front-class-routine
-    Route::get('/front-class-routine', 'Admin\FrontSettings\SmFrontClassRoutineController@index')->name('front-class-routine')->middleware('userRolePermission:front-class-routine');
-    Route::post('/front-class-routine-store', 'Admin\FrontSettings\SmFrontClassRoutineController@store')->name('front-class-routine-store')->middleware('userRolePermission:front-class-routine-store');
-    Route::get('/front-class-routine-edit/{id}', 'Admin\FrontSettings\SmFrontClassRoutineController@edit')->name('front-class-routine-edit')->middleware('userRolePermission:front-class-routine-edit');
-    Route::post('/front-class-routine-update', 'Admin\FrontSettings\SmFrontClassRoutineController@update')->name('front-class-routine-update')->middleware('userRolePermission:front-class-routine-update');
-    Route::get('/front-class-routine-delete-modal/{id}', 'Admin\FrontSettings\SmFrontClassRoutineController@deleteModal')->name('front-class-routine-delete-modal')->middleware('userRolePermission:front-class-routine-delete-modal');
-    Route::get('/front-class-routine-delete/{id}', 'Admin\FrontSettings\SmFrontClassRoutineController@delete')->name('front-class-routine-delete')->middleware('userRolePermission:front-class-routine-delete');
+    Route::get('/front-class-routine', 'Admin\FrontSettings\AramiscFrontClassRoutineController@index')->name('front-class-routine')->middleware('userRolePermission:front-class-routine');
+    Route::post('/front-class-routine-store', 'Admin\FrontSettings\AramiscFrontClassRoutineController@store')->name('front-class-routine-store')->middleware('userRolePermission:front-class-routine-store');
+    Route::get('/front-class-routine-edit/{id}', 'Admin\FrontSettings\AramiscFrontClassRoutineController@edit')->name('front-class-routine-edit')->middleware('userRolePermission:front-class-routine-edit');
+    Route::post('/front-class-routine-update', 'Admin\FrontSettings\AramiscFrontClassRoutineController@update')->name('front-class-routine-update')->middleware('userRolePermission:front-class-routine-update');
+    Route::get('/front-class-routine-delete-modal/{id}', 'Admin\FrontSettings\AramiscFrontClassRoutineController@deleteModal')->name('front-class-routine-delete-modal')->middleware('userRolePermission:front-class-routine-delete-modal');
+    Route::get('/front-class-routine-delete/{id}', 'Admin\FrontSettings\AramiscFrontClassRoutineController@delete')->name('front-class-routine-delete')->middleware('userRolePermission:front-class-routine-delete');
 
     //for front-exam-routine
-    Route::get('/front-exam-routine', 'Admin\FrontSettings\SmFrontExamRoutineController@index')->name('front-exam-routine')->middleware('userRolePermission:front-exam-routine');
-    Route::post('/front-exam-routine-store', 'Admin\FrontSettings\SmFrontExamRoutineController@store')->name('front-exam-routine-store')->middleware('userRolePermission:front-exam-routine-store');
-    Route::get('/front-exam-routine-edit/{id}', 'Admin\FrontSettings\SmFrontExamRoutineController@edit')->name('front-exam-routine-edit')->middleware('userRolePermission:front-exam-routine-edit');
-    Route::post('/front-exam-routine-update', 'Admin\FrontSettings\SmFrontExamRoutineController@update')->name('front-exam-routine-update')->middleware('userRolePermission:front-exam-routine-update');
-    Route::get('/front-exam-routine-delete-modal/{id}', 'Admin\FrontSettings\SmFrontExamRoutineController@deleteModal')->name('front-exam-routine-delete-modal')->middleware('userRolePermission:front-exam-routine-delete-modal');
-    Route::get('/front-exam-routine-delete/{id}', 'Admin\FrontSettings\SmFrontExamRoutineController@delete')->name('front-exam-routine-delete')->middleware('userRolePermission:front-exam-routine-delete');
+    Route::get('/front-exam-routine', 'Admin\FrontSettings\AramiscFrontExamRoutineController@index')->name('front-exam-routine')->middleware('userRolePermission:front-exam-routine');
+    Route::post('/front-exam-routine-store', 'Admin\FrontSettings\AramiscFrontExamRoutineController@store')->name('front-exam-routine-store')->middleware('userRolePermission:front-exam-routine-store');
+    Route::get('/front-exam-routine-edit/{id}', 'Admin\FrontSettings\AramiscFrontExamRoutineController@edit')->name('front-exam-routine-edit')->middleware('userRolePermission:front-exam-routine-edit');
+    Route::post('/front-exam-routine-update', 'Admin\FrontSettings\AramiscFrontExamRoutineController@update')->name('front-exam-routine-update')->middleware('userRolePermission:front-exam-routine-update');
+    Route::get('/front-exam-routine-delete-modal/{id}', 'Admin\FrontSettings\AramiscFrontExamRoutineController@deleteModal')->name('front-exam-routine-delete-modal')->middleware('userRolePermission:front-exam-routine-delete-modal');
+    Route::get('/front-exam-routine-delete/{id}', 'Admin\FrontSettings\AramiscFrontExamRoutineController@delete')->name('front-exam-routine-delete')->middleware('userRolePermission:front-exam-routine-delete');
 
     //for front-academic-calendar
     Route::get('/front-academic-calendar', 'Admin\FrontSettings\AramiscAcademicCalendarController@index')->name('front-academic-calendar')->middleware('userRolePermission:front-academic-calendar');
@@ -2139,11 +2139,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
     //Social Media
-    Route::get('social-media', 'Admin\FrontSettings\SmSocialMediaController@index')->name('social-media')->middleware('userRolePermission:social-media');
-    Route::post('social-media-store', 'Admin\FrontSettings\SmSocialMediaController@store')->name('social-media-store');
-    Route::get('social-media-edit/{id}', 'Admin\FrontSettings\SmSocialMediaController@edit')->name('social-media-edit');
-    Route::post('social-media-update', 'Admin\FrontSettings\SmSocialMediaController@update')->name('social-media-update');
-    Route::get('social-media-delete/{id}', 'Admin\FrontSettings\SmSocialMediaController@delete')->name('social-media-delete');
+    Route::get('social-media', 'Admin\FrontSettings\AramiscSocialMediaController@index')->name('social-media')->middleware('userRolePermission:social-media');
+    Route::post('social-media-store', 'Admin\FrontSettings\AramiscSocialMediaController@store')->name('social-media-store');
+    Route::get('social-media-edit/{id}', 'Admin\FrontSettings\AramiscSocialMediaController@edit')->name('social-media-edit');
+    Route::post('social-media-update', 'Admin\FrontSettings\AramiscSocialMediaController@update')->name('social-media-update');
+    Route::get('social-media-delete/{id}', 'Admin\FrontSettings\AramiscSocialMediaController@delete')->name('social-media-delete');
 
     //page
     Route::get('page-list', 'Admin\FrontSettings\AramiscPageController@index')->name('page-list')->middleware('userRolePermission:page-list');
@@ -2158,8 +2158,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
     Route::post('about-page/update', 'Admin\FrontSettings\AboutPageController@update')->name('about-page/update');
 
     //footer widget
-    Route::get('custom-links', 'Admin\FrontSettings\SmFooterWidgetController@index')->name('custom-links')->middleware('userRolePermission:custom-links');
-    Route::post('custom-links-update', 'Admin\FrontSettings\SmFooterWidgetController@update')->name('custom-links-update')->middleware('userRolePermission:custom-links');
+    Route::get('custom-links', 'Admin\FrontSettings\AramiscFooterWidgetController@index')->name('custom-links')->middleware('userRolePermission:custom-links');
+    Route::post('custom-links-update', 'Admin\FrontSettings\AramiscFooterWidgetController@update')->name('custom-links-update')->middleware('userRolePermission:custom-links');
     //student class assign -abunayem
     Route::get('student/{id}/assign-class', 'Admin\StudentInfo\AramiscStudentAdmissionController@assignClass')->name('student.assign-class');
 

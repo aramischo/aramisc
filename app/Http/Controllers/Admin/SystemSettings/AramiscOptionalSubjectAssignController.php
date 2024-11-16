@@ -18,7 +18,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Admin\Academics\AssignOptionalSubjectSearch;
-use App\Http\Requests\Admin\GeneralSettings\SmOptionalSetupStoreRequest;
+use App\Http\Requests\Admin\GeneralSettings\AramiscOptionalSetupStoreRequest;
 
 class AramiscOptionalSubjectAssignController extends Controller
 {
@@ -151,7 +151,7 @@ class AramiscOptionalSubjectAssignController extends Controller
             return redirect()->back();
         }
     }
-    public function optionalSetupStore(SmOptionalSetupStoreRequest $request)
+    public function optionalSetupStore(AramiscOptionalSetupStoreRequest $request)
     {
 
         try {
