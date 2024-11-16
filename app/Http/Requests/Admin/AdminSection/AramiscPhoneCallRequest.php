@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\AdminSection;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SmPhoneCallRequest extends FormRequest
+class AramiscPhoneCallRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\University\Entities\UnFeesInstallmentAssign;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
 
-class SmCollectionReportController extends Controller
+class AramiscCollectionReportController extends Controller
 {
  
     public function transactionReport(Request $request)

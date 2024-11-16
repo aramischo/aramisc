@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Style;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SmBackGroundSettingRequest extends FormRequest
+class AramiscBackGroundSettingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

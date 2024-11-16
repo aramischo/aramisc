@@ -3,6 +3,7 @@
 namespace Larabuild\Pagebuilder;
 
 use Exception;
+use Illuminate\Support\Facades\Session;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
     /**
@@ -27,6 +28,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
      * @return void
      */
     public function boot() {
+
+        if (app()->bound('school')) {
+            return app('school');
+        } else {
+            $school = \App\AramiscSchool::findOrFail(1);
+            app()->forgetInstance('school');
+            app()->instance('school', $school);
+        }
+
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'pagebuilder');

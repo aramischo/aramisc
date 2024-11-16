@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
 
-class SmResetPasswordController extends Controller
+class AramiscResetPasswordController extends Controller
 {
     public function __construct()
     {

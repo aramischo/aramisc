@@ -11,7 +11,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\GeneralSettings\AramiscCurrencyRequest;
 
-class SmManageCurrencyController extends Controller
+class AramiscManageCurrencyController extends Controller
 {
     public function __construct()
     {

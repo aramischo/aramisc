@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\GeneralSettings;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SmOptionalSetupStoreRequest extends FormRequest
+class AramiscOptionalSetupStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

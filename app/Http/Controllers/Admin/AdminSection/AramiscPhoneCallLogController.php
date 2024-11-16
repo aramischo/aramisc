@@ -11,7 +11,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\Admin\AdminSection\SmPhoneCallRequest;
+use App\Http\Requests\Admin\AdminSection\AramiscPhoneCallRequest;
 
 class AramiscPhoneCallLogController extends Controller
 {
@@ -30,7 +30,7 @@ class AramiscPhoneCallLogController extends Controller
         }
     }
 
-    public function store(SmPhoneCallRequest $request)
+    public function store(AramiscPhoneCallRequest $request)
     {
         try{
             $phone_call_log = new AramiscPhoneCallLog();
@@ -69,7 +69,7 @@ class AramiscPhoneCallLogController extends Controller
         }
     }
 
-    public function update(SmPhoneCallRequest $request, $id)
+    public function update(AramiscPhoneCallRequest $request, $id)
     {
         try{
             $phone_call_log = AramiscPhoneCallLog::find($request->id);

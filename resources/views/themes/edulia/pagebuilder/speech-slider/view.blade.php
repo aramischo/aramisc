@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <x-sm-speech-slider :count="pagesetting('speech_slider_count')"> </x-sm-speech-slider>
+        <x-speech-slider :count="pagesetting('speech_slider_count')"> </x-speech-slider>
     </div>
 </section>
 

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Admin\StudentInfo\AramiscStudentReportController;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
 
-class SmTransportController extends Controller
+class AramiscTransportController extends Controller
 {
     public function __construct()
     {

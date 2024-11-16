@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DirectFeesInstallmentAssign;
 use Modules\University\Entities\UnFeesInstallmentAssign;
-use App\Http\Requests\Admin\Accounts\SmFineReportSearchRequest;
+use App\Http\Requests\Admin\Accounts\AramiscFineReportSearchRequest;
 use App\Models\DirectFeesReminder;
 use App\Models\DirectFeesSetting;
 use App\Models\DireFeesInstallmentChildPayment;
@@ -977,7 +977,7 @@ class AramiscFeesController extends Controller
         }
     }
 
-    public function fineReportSearch(SmFineReportSearchRequest $request){
+    public function fineReportSearch(AramiscFineReportSearchRequest $request){
         if (moduleStatusCheck('University')) {
             return $this->universityFineReportSearch($request);
         } else {

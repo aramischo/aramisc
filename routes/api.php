@@ -757,7 +757,7 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     Route::get('student-transport-report', ['as' => 'student_transport_report', 'uses' => 'AramiscApiController@studentTransportReportApi']);
     Route::get('school/{school_id}/student-transport-report', ['as' => 'saas_student_transport_report', 'uses' => 'AramiscApiController@saas_studentTransportReportApi']);
 
-    //Route::get('student-transport-reportApi', ['as' => 'student_transport_report', 'uses' => 'SmTransportController@studentTransportReportApi']);
+    //Route::get('student-transport-reportApi', ['as' => 'student_transport_report', 'uses' => 'AramiscTransportController@studentTransportReportApi']);
 
 
     Route::post('student-transport-report', ['as' => 'student_transport_report_post', 'uses' => 'AramiscApiController@studentTransportReportSearch']);

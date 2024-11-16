@@ -32,7 +32,7 @@ use App\Notifications\FeesApprovedNotification;
 use Modules\University\Entities\UnFeesInstallmentAssign;
 use Modules\University\Entities\UnFeesInstallAssignChildPayment;
 use App\Http\Requests\Admin\FeesCollection\AramiscFeesBankPaymentRequest;
-use App\Http\Requests\Admin\FeesCollection\SmRejectBankPaymentRequest;
+use App\Http\Requests\Admin\FeesCollection\AramiscRejectBankPaymentRequest;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
 
 class AramiscFeesBankPaymentController extends Controller
@@ -77,7 +77,7 @@ class AramiscFeesBankPaymentController extends Controller
         }
     }
 
-    public function rejectFeesPayment(SmRejectBankPaymentRequest $request){
+    public function rejectFeesPayment(AramiscRejectBankPaymentRequest $request){
 
         try{
             $bank_payment = AramiscBankPaymentSlip::find($request->id);        
