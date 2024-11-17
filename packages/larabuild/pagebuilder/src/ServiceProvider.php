@@ -29,14 +29,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
      */
     public function boot() {
 
-        if (app()->bound('school')) {
-            return app('school');
-        } else {
-            $school = \App\AramiscSchool::findOrFail(1);
-            app()->forgetInstance('school');
-            app()->instance('school', $school);
-        }
-
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'pagebuilder');
@@ -68,5 +60,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
                 throw new Exception("No pagebuilder config found, please run: php artisan vendor:publish --provider=\"Larabuild\Pagebuilder\ServiceProvider\" --tag=config");
             }
         }
+
+        // get Default School
+        if (app()->bound('school')) {
+            return app('school');
+        } else {
+            $school = \App\AramiscSchool::findOrFail(1);
+            app()->forgetInstance('school');
+            app()->instance('school', $school);
+        }
+
     }
 }
