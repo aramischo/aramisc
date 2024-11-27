@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\v2\ExamResource;
 use App\Scopes\StatusAcademicSchoolScope;
 use App\Http\Resources\v2\ExamRoutineResource;
-use Modules\OnlineExam\Entities\AramiscOnlineExam;
+use Modules\OnlineExam\Entities\OnlineExam;
 use App\Http\Resources\v2\OnlineExamResultResource;
 use App\Http\Resources\v2\StudentOnlineExamResource;
 

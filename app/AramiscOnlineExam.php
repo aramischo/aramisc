@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
+use Modules\OnlineExam\Entities\StudentTakeOnlineExam;
 
 class AramiscOnlineExam extends Model
 {

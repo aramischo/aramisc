@@ -30,7 +30,7 @@ use App\AramiscOnlineExamQuestionMuOption;
 use Illuminate\Support\Facades\Schema;
 use App\OnlineExamStudentAnswerMarking;
 use Illuminate\Support\Facades\Validator;
-use Modules\OnlineExam\Entities\AramiscOnlineExam ; // as AramiscOnlineExamEntity Use alias for the entity
+use Modules\OnlineExam\Entities\OnlineExam ; // as AramiscOnlineExamEntity Use alias for the entity
 use App\Http\Requests\Admin\OnlineExam\AramiscOnlineExamRequest;
 use App\Http\Controllers\Admin\StudentInfo\AramiscStudentReportController;
 

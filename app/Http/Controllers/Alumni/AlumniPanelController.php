@@ -28,7 +28,7 @@ use App\AramiscWeekend;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Modules\OnlineExam\Entities\AramiscOnlineExam;
+use Modules\OnlineExam\Entities\OnlineExam;
 use Modules\RolePermission\Entities\AramiscRole;
 
 class AlumniPanelController extends Controller 
