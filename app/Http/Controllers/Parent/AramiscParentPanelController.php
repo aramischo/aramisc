@@ -75,10 +75,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\AramiscStudentRegistrationField;
 use Modules\RolePermission\Entities\AramiscRole;
 use Modules\Wallet\Entities\WalletTransaction;
-use Modules\OnlineExam\Entities\AramiscOnlineExam;
+use Modules\OnlineExam\Entities\OnlineExam;
 use Modules\BehaviourRecords\Entities\AssignIncident;
 use App\Http\Controllers\AramiscAcademicCalendarController;
-use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
+use Modules\OnlineExam\Entities\StudentTakeOnlineExam;
 use Modules\BehaviourRecords\Entities\BehaviourRecordSetting;
 use App\Http\Requests\Admin\StudentInfo\AramiscStudentAdmissionRequest;
 

@@ -20,10 +20,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, UserChatMethods, HasFactory;
 
-    public static $email = "info@spondonit.com";  //23876323 //22014245 //23876323
+    public static $email = "contact@aramisc.com";  //23876323 //22014245 //23876323
     public static $item = "23876323";  //23876323 //22014245 //23876323
-    public static $api = "https://sp.uxseven.com/api/system-details";
-    public static $apiModule = "https://sp.uxseven.com/api/module/";
+    public static $api = "https://aramisc.com/api/system-details";
+    public static $apiModule = "https://aramisc.com/api/module/";
 
 
 

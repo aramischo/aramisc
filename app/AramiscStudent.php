@@ -11,17 +11,17 @@ use Illuminate\Database\Eloquent\Model;
 use App\Scopes\StatusAcademicSchoolScope;
 use Modules\University\Entities\UnSubject;
 use Modules\Fees\Entities\FmFeesTransaction;
-use Modules\OnlineExam\Entities\AramiscPdfExam;
-use Modules\OnlineExam\Entities\AramiscOnlineExam;
-use Modules\OnlineExam\Entities\AramiscWrittenExam;
+use Modules\OnlineExam\Entities\PdfExam;
+use Modules\OnlineExam\Entities\OnlineExam;
+use Modules\OnlineExam\Entities\WrittenExam;
 use Modules\University\Entities\UnSubjectComplete;
 use Modules\FeesCollection\Entities\AramiscFeesMaster;
 use Modules\BehaviourRecords\Entities\AssignIncident;
 use Modules\FeesCollection\Entities\AramiscFeesPayment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\FeesCollection\Entities\AramiscAssignDiscount;
-use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam;
-use Modules\OnlineExam\Entities\AramiscStudentTakeWrittenExam;
+use Modules\OnlineExam\Entities\StudentTakeOnlineExam;
+use Modules\OnlineExam\Entities\StudentTakeWrittenExam;
 
 class AramiscStudent extends Model
 {

@@ -78,7 +78,7 @@ use Illuminate\Support\Facades\Notification;
 use Modules\RolePermission\Entities\AramiscRole;
 use Modules\Wallet\Entities\WalletTransaction;
 use App\Notifications\LeaveApprovedNotification;
-use Modules\OnlineExam\Entities\AramiscOnlineExam;
+use Modules\OnlineExam\Entities\OnlineExam;
 use Modules\University\Entities\UnAssignSubject;
 use Modules\University\Entities\UnSemesterLabel;
 use Modules\University\Entities\UniversitySetting;

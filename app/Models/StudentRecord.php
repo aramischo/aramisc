@@ -30,9 +30,9 @@ use Modules\Lesson\Entities\LessonPlanner;
 use Modules\University\Entities\UnSubject;
 use Modules\Gmeet\Entities\GmeetVirtualClass;
 use Modules\Jitsi\Entities\JitsiVirtualClass;
-use Modules\OnlineExam\Entities\AramiscOnlineExam as OnlineExam; // Alias pour la classe Modules\OnlineExam\Entities\AramiscOnlineExam
+use Modules\OnlineExam\Entities\OnlineExam as OnlineExam; // Alias pour la classe Modules\OnlineExam\Entities\OnlineExam
 use Modules\University\Entities\UnAssignSubject;
-use Modules\OnlineExam\Entities\AramiscWrittenExam;
+use Modules\OnlineExam\Entities\WrittenExam;
 use Modules\University\Entities\UnSubjectComplete;
 use Modules\BehaviourRecords\Entities\AssignIncident;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,7 +40,7 @@ use JoisarJignesh\Bigbluebutton\Facades\Bigbluebutton;
 use Modules\InAppLiveClass\Entities\InAppLiveClass;
 use Modules\University\Entities\UnSubjectPreRequisite;
 use Modules\University\Entities\UnSubjectAssignStudent;
-use Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam as OnlineExamStudentTakeOnlineExam; // Alias pour la classe Modules\OnlineExam\Entities\AramiscStudentTakeOnlineExam
+use Modules\OnlineExam\Entities\StudentTakeOnlineExam as OnlineExamStudentTakeOnlineExam; // Alias pour la classe Modules\OnlineExam\Entities\StudentTakeOnlineExam
 
 class StudentRecord extends Model
 {
@@ -254,7 +254,7 @@ class StudentRecord extends Model
 
     public function getExamAttribute()
     {
-        return AppAramiscExam::with('examType')->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->where('active_status', 1)->get();
+        return AramiscExam::with('examType')->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->where('active_status', 1)->get();
     }
 
     public function getAssignSubjectAttribute()
@@ -291,7 +291,7 @@ class StudentRecord extends Model
                     return $exam;
                 });
         }
-        return OnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->get();
+        return AppAramiscOnlineExam::where('active_status', 1)->where('academic_id', getAcademicId())->where('status', 1)->where('class_id', $this->class_id)->where('section_id', $this->section_id)->where('school_id', Auth::user()->school_id)->get();
     }
 
     public function getAramiscStudentTakeOnlineExamAttribute()
@@ -314,7 +314,7 @@ class StudentRecord extends Model
                 ->where('student_id', $student_id)
                 ->where('student_record_id', $record_id)->get();
         } else {
-            return OnlineExamStudentTakeOnlineExam::where('active_status', 1)->where('status', 2)
+            return AppAramiscStudentTakeOnlineExam::where('active_status', 1)->where('status', 2)
                 ->where('academic_id', getAcademicId())
                 ->where('student_id', $student_id)
                 ->where('school_id', Auth::user()->school_id)
