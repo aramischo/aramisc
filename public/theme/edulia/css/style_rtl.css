@@ -18945,3 +18945,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .footer_copyright_social_list_link:hover {
   color: rgba(255, 255, 255, 0.7);
 }
+
+.login_wrapper_login_content .login_wrapper_logo  img {
+  max-width: 50%;
+}

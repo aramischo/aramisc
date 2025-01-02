@@ -2647,7 +2647,7 @@ body.login .footer_area a {
 #sidebar .sidebar-header img {
     cursor: pointer;
     max-width: 150px;
-    height: 45px;
+    /*height: 45px;*/
 }
 
 /* line 42, ../../xampp/htdocs/aramiscduB/public/backEnd/scss/admin/_sidebar.scss */
@@ -14875,5 +14875,4 @@ textarea,
 .nice-select .list li {
     text-transform: none!important;
 }
-
 

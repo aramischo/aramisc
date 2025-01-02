@@ -60,7 +60,7 @@
     --sidebar_bg: #0d0e12;
     --gradient_1: #7c32ff;
     --gradient_2: #7c32ff;
---gradient_3: #7c32ff;
+    --gradient_3: #7c32ff;
     --text-color: #828bb2;
     --scroll_color: #828bb2;
     --text_white: #FFFFFF;
@@ -70,7 +70,8 @@
     --border_color: #EFF2F8;
     --sidebar_active: #ffffff;
     --sidebar_hover: #ffffff;
-    --primary-color: #7c32ff;
+    /*--primary-color: #7c32ff;*/
+    --primary-color: #769887;
     --card-gradient-cyan: linear-gradient(to right, #06b6d4, #22d3ee);
     --card-gradient-violet: linear-gradient(to right, #8b5cf6, #a78bfa);
     --card-gradient-blue: linear-gradient(to right, #3b82f6, #60a5fa);
