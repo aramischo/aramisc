@@ -12930,7 +12930,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .login_wrapper_content h4 {
-  font-size: 24px;
+  font-size: 18px;
   line-height: calc(36px / 24px);
   margin-top: 40px;
   margin-bottom: 30px;
@@ -12939,7 +12939,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 @media only screen and (max-width: 767px) {
   .login_wrapper_content h4 {
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 30px;
     margin-bottom: 20px;
   }
@@ -18936,4 +18936,8 @@ input[type="search"]::-webkit-search-results-decoration {
   .footer-item {
     margin-bottom: 20px;
   }
+}
+
+.login_wrapper_login_content .login_wrapper_logo  img {
+  max-width: 50%;
 }
