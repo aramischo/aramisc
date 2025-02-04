@@ -1,665 +1,337 @@
-<?php
-return [
-"admin_section" => "Section d'administration",
-
-"base_setup" => "Configuration de base",
-
-"admission_query" => "Requête d'admission",
-
-"edit_admission_query" => "Editer la requête d'admission",
-
-"edit_visitor" => "Editer le visiteur",
-
-"add_visitor" => "Ajouter un visiteur",
-
-"add_complaint" => "Ajouter une plainte",
-
-"edit_complaint" => "Editer une plainte",
-
-"manage_admin" => "Gérer l'administration",
-
-"select_criteria" => "Sélectionner les critères",
-
-"select_source" => "Sélectionner une source",
-
-"select_status" => "Sélectionner le statut",
-
-"no_data_available_in_table" => "Aucune donnée disponible dans la table",
-
-"entries" => "Entrées",
-
-"query_list" => "Liste de requêtes",
-
-"grid_gap" => "Ecart de grille",
-
-"phone" => "Téléphone",
-
-"source" => "Source",
-
-"query_date" => "Date de la requête",
-
-"last_follow_up_date" => "Dernière date de suivi",
-
-"add_query" => "Ajouter une requête",
-
-"delete_admission_query" => "Supprimer la requête d'admission",
-
-"are_you_sure_to_delete" => "Etes-vous sûr de supprimer cet élément?",
-
-"are_you_sure_to_disable" => "Etes-vous sûr de désactiver cet élément?",
-
-"are_you_sure_to_enable" => "Etes-vous sûr d'activer cet élément?",
-
-"cancel" => "Annuler",
-
-"admission_enquiry" => "Enquête d'admission",
-
-"address" => "Adresse",
-
-"expired" => "Expiré",
-
-"reference" => "Référence",
-
-"visitor_book" => "Livre des visiteurs",
-
-"visitor" => "Visiteur",
-
-"no_of Prson" => "Nbre de personnes",
-
-"in_time" => "Dans le temps",
-
-"out_time" => "Temps de sortie",
-
-"out_of" => "Hors de",
-
-"visitor_list" => "Liste des visiteurs",
-
-"download" => "Télécharger",
-
-"complaint" => "Plainte",
-
-"complaint_by" => "Plainte par",
-
-"complaint_type" => "Type de plainte",
-
-"complaint_details" => "Détails de la plainte",
-
-"delete_complaint" => "Supprimer une plainte",
-
-"complaint_source" => "Source de plainte",
-
-"save_complaint" => "Enregistrer la plainte",
-
-"update_complaint" => "Mettre à jour plainte",
-
-"add_postal_receive" => "Ajouter une réception postale",
-
-"postal_receive_list" => "Liste de réception postale",
-
-"update_postal_receive" => "Mettre à jour la réception postale",
-
-"save_postal_receive" => "Enregistrer la réception de la poste",
-
-"delete_postal_receive" => "Supprimer réception de la poste",
-
-"edit_postal_receive" => "Editer réception de la poste",
-
-"edit_postal_dispatch" => "Edition d'une répartition postale",
-
-"add_postal_dispatch" => "Ajouter une répartition postale",
-
-"update_postal_dispatch" => "Mettre à jour l'adresse postale",
-
-"save_postal_dispatch" => "Enregistrer l'actualisation postale",
-
-"postal_dispatch_list" => "Liste des listes de distribution",
-
-"delete_visitor" => "Supprimer le visiteur",
-
-"add_phone_call" => "Ajouter un appel téléphonique",
-
-"phone_call_list" => "Liste des appels téléphoniques",
-
-"save_phone_call" => "Enregistrer l'appel téléphonique",
-
-"update_phone_call" => "Mettre à jour l'appel téléphonique",
-
-"delete_phone_call" => "Supprimer l'appel téléphonique",
-
-"call_type" => "Type d'appel",
-
-"edit_phone_call" => "Editer l'appel téléphonique",
-
-"add_admin_setup" => "Ajout d'une configuration d'administration",
-
-"admin_setup_list" => "Liste de configuration d'administration",
-
-"save_setup" => "Sauvegarder la configuration",
-
-"add_certificate" => "Ajouter un certificat",
-
-"edit_certificate" => "Editer le certificat",
-
-"update_certificate" => "Mettre à jour certificat",
-
-"delete_certificate" => "Supprimer le certificat",
-
-"certificate_list" => "Liste de certificats",
-
-"certificate_name" => "Nom du certificat",
-
-"view_certificate" => "Afficher le certificat",
-
-"save_certificate" => "Enregistrer le certificat",
-
-"select_certificate" => "Sélectionner un certificat",
-
-"body_max_character_lenght_500" => "Corps (longueur maximale de 500 caractères)",
-
-"create_id_card" => "Créer une carte d'ID",
-
-"add_id_card " => "Ajouter une carte d'ID",
-
-"preview_id_card" => "Carte d'ID de prévisualisation",
-
-"user_id_card" => "Carte d'ID utilisateur",
-
-"add_id_card" => "Ajouter une carte d'ID",
-
-"actions_taken" => "Mesures prises",
-
-"by" => "Par",
-
-"taken" => "Pris",
-
-"postal_receive" => "Réception postale",
-
-"from_title" => "A partir du titre",
-
-"note" => "Remarque",
-
-"to_title" => "Vers le titre",
-
-"postal_dispatch" => "Dispatch postal",
-
-"phone_call_log" => "Journal des appels téléphoniques",
-
-"phone_call" => "Appel téléphonique",
-
-"follow_up_date" => "Date de suivi",
-
-"call_duration" => "Durée des appels",
-
-"incoming" => "Incoming",
-
-"outgoing" => "Sortante",
-
-"call" => "Appeler",
-
-"admin_setup" => "Configuration d'administration",
-
-"setup_admin" => "Configuration d'administration",
-
-"student_certificate" => "Certificat d'étudiant",
-
-"certificate" => "Certificat",
-
-"header_left_text" => "Texte de gauche d'en-tête",
-
-"body" => "Corps",
-
-"footer_left_text" => "Texte de bas de page gauche",
-
-"footer_center_text" => "Texte du centre de bas de page",
-
-"footer_right_text" => "Texte de bas de page",
-
-"student_photo" => "Photo de l'élève",
-
-"none" => "Non",
-
-"background_image" => "Image de fond",
-
-"generate_certificate" => "Générer un certificat",
-
-"select_section" => "Sélectionner une section",
-
-"admission" => "Admission",
-
-"class_Sec" => "Classe (sec.)",
-
-"father" => "Père",
-
-"date_of_birth" => "Date de naissance",
-
-"gender" => "Sexe",
-
-"mobile" => "Mobile",
-
-"student_id_card" => "Carte d'identité de l'étudiant",
-
-"id_card_title" => "Titre de la carte d'ID",
-
-"select_id_card" => "Sélectionner une carte d'ID",
-
-"select_role" => "Sélectionner un rôle",
-
-"mother" => "Mère",
-
-"blood_group" => "Groupe sanguin",
-
-"id_card" => "Carte d'ID",
-
-"generate_id_card" => "Générer une carte d'ID",
-
-"all" => "Tous",
-
-"relation_with_guardian" => "Relation avec Guardian",
-
-"follow_up" => "Suivi",
-
-"follow_up_admission_query" => "Requête d'admission de suivi",
-
-"response" => "Réponse",
-
-"follow_up_list" => "Liste de suivi",
-
-"query_by" => "Requête par",
-
-"delete_follow_up_query" => "Supprimer la requête de suivi",
-
-"certificate_body_len" => "Nb max. De caractères 500",
-
-"class_section" => "Classe (sec.)",
-
-"are_you_sure_to_remove" => "Etes-vous sûr de supprimer cet élément?",
-
-"admission_no" => "Droits d'entrée Non",
-
-"fill_marks" => "Marques de remplissage",
-
-"delete_admin_setup" => "Suppression de la configuration d'administration",
-
-"main" => "Principal",
-
-"duration" => "Durée",
-
-"approve" => "Approuver",
-
-"user_name" => "Nom d'utilisateur",
-
-"rate" => "Taux",
-
-"hourly_rate" => "Taux horaire",
-
-"add_new_staff" => "Ajouter un nouveau personnel",
-
-"first_name" => "Prénom",
-
-"last_name" => "Nom de famille",
-
-"married" => "Marié",
-
-"unmarried" => "Non marié",
-
-"marital_status" => "État matrimonial",
-
-"driving_license" => "Permis de conduire",
-
-"contract" => "Contrat",
-
-"crop" => "Culture",
-
-"crop_image_and_upload" => "Image de culture et téléchargement",
-
-"staff_ID" => "ID personnel",
-
-"for_the_period_of" => "Pour la période de",
-
-"evaluated_by" => "Evalué par",
-
-"summary" => "Résumé",
-
-"good" => "Bonne",
-
-"comments" => "Commentaires",
-
-"roll_number" => "Numéro de rouleau",
-
-"cash" => "Encaisse",
-
-"cheque" => "Chèque",
-
-"dd" => "DD",
-
-"please_give_the_all_information_properly" => "Veuillez donner l'ensemble de l'information. Nous ne pouvons pas sauvegarder vos données. Votre sécurité est notre priorité",
-
-"chairman_of_the_examination_board" => "Président du comité d'examen",
-
-"head_of_students_affairs" => "Chef des affaires étudiantes",
-
-"expiration" => "Expiration",
-
-"vai_card" => "Carte vai",
-
-"pay_with" => "Payer avec",
-
-"pay" => "Payer",
-
-"fees" => "Frais",
-
-"all_fees" => "Tous les frais",
-
-"online" => "En ligne",
-
-"assign_exam_room" => "Affecter une salle d'extension",
-
-"level" => "Niveau",
-
-"question_level" => "Niveau de question",
-
-"update_online_exam_question" => "Mettre à jour la question d'examen en ligne",
-
-"number_options" => "Options de nombre",
-
-"currect_answer" => "Réponse de Currect",
-
-"currect" => "Courte",
-
-"exam_has_to_be_submitted_within" => "L'examen doit être soumis dans",
-
-"is_present" => "Est présent",
-
-"roll_no" => "Rouleau n °",
-
-"button_url" => "URL du bouton",
-
-"button_text" => "Texte du bouton",
-
-"course" => "Cours",
-
-"update_course_heading_section" => "Mettre à jour la section titre du cours",
-
-"stats" => "Statistiques",
-
-"resources" => "Ressources",
-
-"prerequisites" => "Prérequis",
-
-"outline" => "Structure",
-
-"menu" => "Menu",
-
-"sub_menu" => "Sous-menu",
-
-"pages" => "Pages",
-
-"sub_title" => "Sous-titre",
-
-"back" => "Précédent",
-
-"slug" => "Slug",
-
-"overview" => "Aperçu",
-
-"export_to_csv" => "Exporter au format CSV",
-
-"export_to_excel" => "Exporter vers Excel",
-
-"export_to_pdf" => "Exporter vers PDF",
-
-"copy_table" => "Copier la table",
-
-"visibility" => "Visibilité",
-
-"column_view" => "Vue de colonne",
-
-"student_name" => "Nom de l'étudiant",
-
-"manu" => "Menu",
-
-"is_published_web_site" => "Est un site Web publié",
-
-"header_manager" => "Gestionnaire d'en-tête",
-
-"header_menu_manager" => "Gestionnaire de menus d'en-tête",
-
-"module_manager" => "Gestionnaire de modules",
-
-"utilities" => "Utilitaires",
-
-"optional_subject_setup" => "Configuration de sujet facultative",
-
-"jitsi" => "Jitsi",
-
-"break" => "Pause",
-
-"id_card_list" => "Liste des cartes d'ID",
-
-"title" => "Titre",
-
-"height" => "Hauteur",
-
-"width" => "Largeur",
-
-"full" => "Plein",
-
-"half" => "Demi",
-
-"one_thired" => "Un seul souhaité",
-
-"one_fourth" => "Un quatrième",
-
-"Weight" => "Poids",
-
-"applicable_user" => "Utilisateur applicable",
-
-"page_layout" => "Mise en page",
-
-"round" => "Cycle",
-
-"squre" => "Squre",
-
-"layout_spacing" => "Espacement de la présentation",
-
-"top_space" => "Espace supérieur",
-
-"bottom_space" => "Espace inférieur",
-
-"left_space" => "Espace de gauche",
-
-"right_space" => "Espace droit",
-
-"horizontal" => "Horizontal",
-
-"vertical" => "Verticale",
-
-"logo" => "Logo",
-
-"signature" => "Signature",
-
-"user_photo_style" => "Style de photo de l'utilisateur",
-
-"user_photo_size_width" => "Largeur de la photo de l'utilisateur",
-
-"user_photo_size_height" => "Taille de la photo de l'utilisateur Hauteur",
-
-"page_layout_height" => "Hauteur de la présentation de page",
-
-"page_layout_width" => "Largeur de la présentation de la page",
-
-"default" => "Par défaut",
-
-"guardian" => "Gardien",
-
-"staff" => "Personnel",
-
-"profile_image" => "Image de profil",
-
-"edit_admin_setup" => "Modifier la configuration de l'administrateur",
-
-"update_setup" => "Mise à jour de",
-
-"edit_id_card" => "Editer la carte d'ID",
-
-"List" => "Liste",
-
-"Title" => "Titre",
-
-"Slug" => "Slug",
-
-"Description" => "Description",
-
-"Status" => "Statut",
-
-"Duration" => "Durée",
-
-"Logo" => "Logo",
-
-"Browse" => "Parcourir",
-
-"Update" => "Mise à jour",
-
-"ID" => "ID",
-
-"Add" => "Ajouter",
-
-"Class" => "Classe",
-
-"Yes" => "Oui",
-
-"No" => "Non",
-
-"Save" => "Sauvegarder",
-
-"Date" => "Date",
-
-"Select" => "Sélectionner",
-
-"Delete" => "Supprimer",
-
-"Cancel" => "Annuler",
-
-"Name" => "Nom",
-
-"Certificate" => "Certificat",
-
-"Body" => "Corps",
-
-"Signature" => "Signature",
-
-"Preview" => "Aperçu",
-
-"Course" => "Cours",
-
-"Default" => "Par défaut",
-
-"list" => "Liste",
-
-"browse" => "Parcourir",
-
-"name" => "Nom",
-
-"update" => "Mise à jour",
-
-"type" => "Type",
-
-"delete" => "Supprimer",
-
-"yes" => "Oui",
-
-"select" => "Sélectionner",
-
-"no" => "Non",
-
-"not" => "Non",
-
-"generate" => "Générer",
-
-"student" => "Étudiant",
-
-"add" => "Ajouter",
-
-"admin" => "Admin",
-
-"search" => "Rechercher",
-
-"preview" => "Aperçu",
-
-"description" => "Description",
-
-"Active" => "Actif",
-
-"Type" => "Type",
-
-"Staff" => "Personnel",
-
-"Email" => "Courrier électronique",
-
-"Phone" => "Téléphone",
-
-"Address" => "Adresse",
-
-"date" => "Date",
-
-"Download" => "Télécharger",
-
-"Role" => "Rôle",
-
-"Comments" => "Commentaires",
-
-"Inactive" => "Inactif",
-
-"Pay" => "Payer",
-
-"All" => "Tous",
-
-"Level" => "Niveau",
-
-"By" => "Par",
-
-"number" => "Numéro",
-
-"status" => "Statut",
-
-"active" => "Actif",
-
-"inactive" => "En cours",
-
-"email" => "Courrier électronique",
-
-"id" => "ID",
-
-"None" => "Néant",
-
-"role" => "Rôle",
-
-"next_follow_up_date" => "Date de suivi suivante",
-
-"assigned" => "Affecté",
-
-"number_of_child" => "Nombre d'enfants",
-
-"class" => "Classe",
-
-"is_break" => "Est un découpe",
-
-"save" => "Sauvegarder",
-
-"date_from" => "Date de début",
-
-"date_to" => "Date de la",
-
-"name_on_card" => "Nom sur la carte",
-
-"card_number" => "Numéro de carte",
-
-"purpose" => "Objet",
-
-"cvc" => "CVC",
-
-"expiration_month" => "Mois d'expiration",
-
-"expiration_year" => "Année d'expiration",
-
-];
+<?php return array (
+  'font_size' => 'Font Size',
+  'body_font' => 'Body Font',
+  'created_by' => 'Created By',
+  'Generated Certificate List' => 'Generated Certificate List',
+  'Certificate For' => 'Certificate For',
+  'Certificate Template Deleted Successfully' => 'Certificate Template Deleted Successfully',
+  'Enter Certificate Number Prefix' => 'Enter Certificate Number Prefix',
+  'Certificate Settings' => 'Certificate Settings',
+  'Edit Certificate Template' => 'Edit Certificate Template',
+  'Design Certificate Template' => 'Design Certificate Template',
+  'Certificate Template Update Successfully' => 'Certificate Template Update Successfully',
+  'Edit Certificate Templates' => 'Edit Certificate Templates',
+  'Certificate Template Create Successfully' => 'Certificate Template Create Successfully',
+  'Enter Certificate Type' => 'Enter Certificate Type',
+  'Create Certificate Template' => 'Create Certificate Template',
+  'Certificate Types List' => 'Certificate Types List',
+  'Certificate Templates List' => 'Certificate Templates List',
+  'Certificate Templates' => 'Certificate Templates',
+  'Certificate Type Update Successfully' => 'Certificate Type Update Successfully',
+  'Edit Certificate Type' => 'Edit Certificate Type',
+  'Certificate Type Create Successfully' => 'Certificate Type Create Successfully',
+  'Short Code' => 'Short Code',
+  'Applicable For' => 'Applicable For',
+  'Certificate' => 'Certificate',
+  'Certificate Type' => 'Certificate Type',
+  'consider_start_time' => 'Consider Start Time',
+  'delete_conformation' => 'Delete Confirmation',
+  'supported' => 'Supported',
+  'actions' => 'Actions',
+  'body_two_max_character_lenght_500' => 'Body two (Max character lenght 500)',
+  'certificate_no' => 'Certificate No',
+  'no_of_person' => 'No Of Person',
+  'variable_for_showing_static_profile_image' => 'Variable For Showing Static Profile Image',
+  'use' => 'Use',
+  'pading_left' => 'Padding left',
+  'padding_bottom' => 'Padding Bottom',
+  'padding_right' => 'Padding Right',
+  'padding_top' => 'Padding Top',
+  'certificate_weight' => 'Certificate Weight',
+  'certificate_height' => 'Certificate Height',
+  'create_date' => 'Create Date',
+  'preview_cretificate' => 'Preview Certificate',
+  'certificate_title' => 'Certificate Title',
+  'create_certificate' => 'Create Certificate',
+  'edit_id_card' => 'Edit id card',
+  'preview' => 'Preview',
+  'update_setup' => 'Update setup',
+  'edit_admin_setup' => 'Edit admin setup',
+  'add' => 'Add',
+  'profile_image' => 'Profile image',
+  'staff' => 'Staff',
+  'guardian' => 'Guardian',
+  'student' => 'Student',
+  'default' => 'Default',
+  'page_layout_width' => 'Page Layout Width',
+  'page_layout_height' => 'Page Layout Height',
+  'user_photo_size_height' => 'User Photo Size Height',
+  'user_photo_size_width' => 'User Photo Size Width',
+  'user_photo_style' => 'User Photo Style',
+  'signature' => 'Signature',
+  'logo' => 'Logo',
+  'vertical' => 'Vertical',
+  'horizontal' => 'Horizontal',
+  'right_space' => 'Right Space',
+  'left_space' => 'Left Space',
+  'bottom_space' => 'Bottom Space',
+  'top_space' => 'Top Space',
+  'layout_spacing' => 'Layout Spacing',
+  'squre' => 'Squre',
+  'round' => 'Round',
+  'page_layout' => 'Page Layout',
+  'applicable_user' => 'Applicable User',
+  'Weight' => 'Weight',
+  'one_fourth' => 'One Fourth',
+  'one_thired' => 'One Thired',
+  'half' => 'Half',
+  'full' => 'Full',
+  'width' => 'Width',
+  'height' => 'Height',
+  'role' => 'Role',
+  'title' => 'Title',
+  'id_card_list' => 'Id Card List',
+  'break' => 'Break',
+  'is_break' => 'Is Break',
+  'jitsi' => 'Jitsi',
+  'optional_subject_setup' => 'Optional Subject Setup',
+  'utilities' => 'Utilities',
+  'module_manager' => 'Module Manager',
+  'header_menu_manager' => 'Header Menu  Manager',
+  'header_manager' => 'Header Manager',
+  'is_published_web_site' => 'Is Published Web Site',
+  'manu' => 'Menu',
+  'student_name' => 'Student Name',
+  'column_view' => 'Column View',
+  'visibility' => 'Visibility',
+  'copy_table' => 'Copy Table',
+  'export_to_pdf' => 'Export to PDF',
+  'export_to_excel' => 'Export to Excel',
+  'export_to_csv' => 'Export to CSV',
+  'overview' => 'Overview',
+  'slug' => 'Slug',
+  'back' => 'Back',
+  'sub_title' => 'Sub Title',
+  'pages' => 'Pages',
+  'sub_menu' => 'Sub Menu',
+  'menu' => 'Menu',
+  'outline' => 'Outline',
+  'prerequisites' => 'Prerequisites',
+  'resources' => 'Resources',
+  'stats' => 'Stats',
+  'update_course_heading_section' => 'Update Course Heading Section',
+  'course' => 'Course',
+  'button_text' => 'Button Text',
+  'button_url' => 'Button Url',
+  'roll_no' => 'Roll No',
+  'is_present' => 'Is Present',
+  'exam_has_to_be_submitted_within' => 'Exam Has To Be Submitted Within',
+  'currect' => 'Currect',
+  'currect_answer' => 'Currect Answer',
+  'number_options' => 'Number Options',
+  'update_online_exam_question' => 'Update Online Exam Question',
+  'question_level' => 'Question Level',
+  'level' => 'Level',
+  'assign_exam_room' => 'Assign Exam Room',
+  'online' => 'Online',
+  'all_fees' => 'All Fees',
+  'fees' => 'Fees',
+  'expiration_year' => 'Expiration Year',
+  'expiration_month' => 'Expiration Month',
+  'pay' => 'Pay',
+  'pay_with' => 'Pay with',
+  'vai_card' => 'vai Card',
+  'name_on_card' => 'Name on Card',
+  'card_number' => 'Card Number',
+  'cvc' => 'CVC',
+  'expiration' => 'Expiration',
+  'head_of_students_affairs' => 'Head Of Students Affairs',
+  'chairman_of_the_examination_board' => 'Chairman Of The Examination Board',
+  'please_give_the_all_information_properly' => 'Please Give the All Information Properly. We can not Save any of Your Data. Your Safety is our First Priority',
+  'dd' => 'DD',
+  'cheque' => 'Cheque',
+  'cash' => 'Cash',
+  'roll_number' => 'Roll Number',
+  'comments' => 'Comments',
+  'not' => 'Not',
+  'good' => 'Good',
+  'summary' => 'Summary',
+  'evaluated_by' => 'Evaluated By',
+  'for_the_period_of' => 'for the period of',
+  'staff_ID' => 'Staff ID',
+  'crop_image_and_upload' => 'Crop Image And Upload',
+  'crop' => 'Crop',
+  'contract' => 'Contract',
+  'driving_license' => 'Driving License',
+  'marital_status' => 'Marital Status',
+  'unmarried' => 'Unmarried',
+  'married' => 'Married',
+  'last_name' => 'Last Name',
+  'first_name' => 'First Name',
+  'add_new_staff' => 'Add New Staff',
+  'hourly_rate' => 'Hourly Rate',
+  'rate' => 'Rate',
+  'user_name' => 'User Name',
+  'approve' => 'Approve',
+  'duration' => 'Duration',
+  'main' => 'Main',
+  'delete_admin_setup' => 'Delete Admin Setup',
+  'fill_marks' => 'Fill Marks',
+  'admission_no' => 'Admission No',
+  'are_you_sure_to_remove' => 'Are you sure to remove this item?',
+  'class_section' => 'Class (Sec.)',
+  'certificate_body_len' => 'Max Character lenght 500',
+  'delete_follow_up_query' => 'Delete Follow up query',
+  'query_by' => 'Query By',
+  'follow_up_list' => 'Follow Up List',
+  'response' => 'Response',
+  'follow_up_admission_query' => 'Follow Up Admission Query',
+  'follow_up' => 'Follow up',
+  'admin' => 'Admin',
+  'relation_with_guardian' => 'Relation with Guardian',
+  'all' => 'All',
+  'generate_id_card' => 'Generate ID Card',
+  'id_card' => 'ID Card',
+  'blood_group' => 'Blood Group',
+  'mother' => 'Mother',
+  'number' => 'Number',
+  'select_role' => 'Select Role',
+  'select_id_card' => 'Select Id Card',
+  'id_card_title' => 'ID Card Title',
+  'student_id_card' => 'Student ID Card',
+  'mobile' => 'Mobile',
+  'gender' => 'Gender',
+  'date_of_birth' => 'Date Of Birth',
+  'father' => 'Father',
+  'class_Sec' => 'Class (Sec.)',
+  'admission' => 'Admission',
+  'generate' => 'Generate',
+  'select_section' => 'Select section',
+  'generate_certificate' => 'Generate Certificate',
+  'background_image' => 'Background Image',
+  'none' => 'No',
+  'yes' => 'Yes',
+  'student_photo' => 'Student Photo',
+  'footer_right_text' => 'Footer Right text',
+  'footer_center_text' => 'Footer Center text',
+  'footer_left_text' => 'Footer left text',
+  'body' => 'Body',
+  'header_left_text' => 'Header left text',
+  'certificate' => 'Certificate',
+  'student_certificate' => 'Certificate',
+  'setup_admin' => 'Admin Setup',
+  'admin_setup' => 'Admin Setup',
+  'call' => 'Call',
+  'outgoing' => 'Outgoing',
+  'incoming' => 'Incoming',
+  'call_duration' => 'Call Duration',
+  'follow_up_date' => 'Follow Up Date',
+  'phone_call' => 'Phone Call',
+  'phone_call_log' => 'Phone Call Log',
+  'postal_dispatch' => 'Postal Dispatch',
+  'to_title' => 'To Title',
+  'note' => 'Note',
+  'no' => 'No',
+  'from_title' => 'From Title',
+  'postal_receive' => 'Postal Receive',
+  'list' => 'List',
+  'taken' => 'Taken',
+  'type' => 'Type',
+  'by' => 'By',
+  'actions_taken' => 'Actions Taken',
+  'add_id_card' => 'Add Id Card',
+  'user_id_card' => 'User Id Card',
+  'preview_id_card' => 'Preview Id Card',
+  'add_id_card ' => 'Add Id Card',
+  'create_id_card' => 'Create Id Card',
+  'body_max_character_lenght_500' => 'Body (Max Character lenght 500)',
+  'select_certificate' => 'Select Certificate',
+  'save_certificate' => 'Save Certificate',
+  'view_certificate' => 'View Certificate',
+  'certificate_name' => 'Certificate Name',
+  'certificate_list' => 'Certificate List',
+  'delete_certificate' => 'Delete Certificate',
+  'update_certificate' => 'Update Certificate',
+  'edit_certificate' => 'Edit Certificate',
+  'add_certificate' => 'Add Certificate',
+  'save_setup' => 'Save Setup',
+  'admin_setup_list' => 'Admin Setup List',
+  'add_admin_setup' => 'Add Admin Setup',
+  'edit_phone_call' => 'Edit Phone Call',
+  'call_type' => 'Call Type',
+  'delete_phone_call' => 'Delete Phone Call',
+  'update_phone_call' => 'Update Phone Call',
+  'save_phone_call' => 'Save Phone Call',
+  'phone_call_list' => 'Phone Call List',
+  'add_phone_call' => 'Add Phone Call',
+  'delete_visitor' => 'Delete Visitor',
+  'postal_dispatch_list' => 'Postal Dispatch List',
+  'save_postal_dispatch' => 'Save Postal Dispatch',
+  'update_postal_dispatch' => 'Update Postal Dispatch',
+  'add_postal_dispatch' => 'Add Postal Dispatch',
+  'edit_postal_dispatch' => 'Edit Postal Dispatch',
+  'edit_postal_receive' => 'Edit Postal Receive',
+  'delete_postal_receive' => 'Delete Postal Receive',
+  'save_postal_receive' => 'Save Postal Receive',
+  'update_postal_receive' => 'Update Postal Receive',
+  'postal_receive_list' => 'Postal Receive List',
+  'add_postal_receive' => 'Add Postal Receive',
+  'update_complaint' => 'Update Complaint',
+  'save_complaint' => 'Save Complaint',
+  'complaint_source' => 'Complaint Source',
+  'delete_complaint' => 'Delete Complaint',
+  'complaint_details' => 'Complaint Details',
+  'complaint_type' => 'Complaint Type',
+  'complaint_by' => 'Complaint By',
+  'complaint' => 'Complaint',
+  'download' => 'Download',
+  'visitor_list' => 'Visitor List',
+  'update' => 'Update',
+  'browse' => 'browse',
+  'out_of' => 'Out Of',
+  'out_time' => 'Out time',
+  'in_time' => 'In Time',
+  'no_of Person' => 'No. of Person',
+  'no_of Prson' => 'No. of Person',
+  'id' => 'Id',
+  'purpose' => 'Purpose',
+  'visitor' => 'Visitor',
+  'visitor_book' => 'Visitor Book',
+  'save' => 'Save',
+  'number_of_child' => 'Number of child',
+  'reference' => 'Reference',
+  'assigned' => 'Assigned',
+  'expired' => 'Expired',
+  'class' => 'Class',
+  'date' => 'Date',
+  'description' => 'Description',
+  'address' => 'Address',
+  'admission_enquiry' => 'Admission Enquiry',
+  'cancel' => 'Cancel',
+  'are_you_sure_to_enable' => 'Are you sure to enable this item?',
+  'are_you_sure_to_disable' => 'Are you sure to disable this item?',
+  'are_you_sure_to_delete' => 'Are you sure to delete this item?',
+  'delete_admission_query' => 'Delete Admission Query',
+  'delete' => 'Delete',
+  'add_query' => 'Add Query',
+  'select' => 'Select',
+  'next_follow_up_date' => 'next follow up date',
+  'last_follow_up_date' => 'last follow up date',
+  'query_date' => 'Query Date',
+  'email' => 'Email',
+  'source' => 'Source',
+  'phone' => 'Phone',
+  'name' => 'Name',
+  'grid_gap' => 'Grid Gap',
+  'query_list' => 'Query List',
+  'entries' => 'Entries',
+  'no_data_available_in_table' => 'No data available in table',
+  'search' => 'Search',
+  'inactive' => 'Inactive',
+  'active' => 'Active',
+  'Status' => 'Status',
+  'select_status' => 'Select status',
+  'select_source' => 'Select Source',
+  'date_to' => 'Date To',
+  'date_from' => 'Date From',
+  'select_criteria' => 'Select Criteria',
+  'manage_admin' => 'Manage Admin',
+  'edit_complaint' => 'Edit Complaint',
+  'add_complaint' => 'Add Complaint',
+  'add_visitor' => 'Add Visitor',
+  'edit_visitor' => 'Edit Visitor',
+  'edit_admission_query' => 'Edit Admission Query',
+  'admission_query' => 'Admission Query',
+  'base_setup' => 'Base Setup',
+  'admin_section' => 'Admin Section',
+);

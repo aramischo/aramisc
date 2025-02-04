@@ -320,7 +320,7 @@
                                                                                             id="admission_date"
                                                                                             type="text"
                                                                                             name="admission_date"
-                                                                                            value="{{ old('admission_date') != '' ? old('admission_date') : date('m/d/Y') }}"
+                                                                                            value="{{ dateConvert(old('admission_date') != '' ? old('admission_date') : date('Y-m-d')) }}"
                                                                                             autocomplete="off">
                                                                                     </div>
                                                                                 </div>
@@ -511,7 +511,7 @@
                                                                                             id="date_of_birth"
                                                                                             type="text"
                                                                                             name="date_of_birth"
-                                                                                            value="{{ old('admission_date') != '' ? old('admission_date') : date('m/d/Y') }}"
+                                                                                            value="{{ dateConvert(old('admission_date') != '' ? old('admission_date') : date('Y-m-d')) }}"
                                                                                             autocomplete="off">
                                                                                     </div>
                                                                                 </div>

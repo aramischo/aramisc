@@ -25,7 +25,7 @@ class SaveIssueBookRequest extends FormRequest
     {
         return [
             'book_id' => "required",
-            'due_date' => "required|after_or_equal:".date('m/d/Y')
+            'due_date' => "required|after_or_equal:".date('Y-m-d')
         ];
     }
 }

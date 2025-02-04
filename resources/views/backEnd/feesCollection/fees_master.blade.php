@@ -137,7 +137,7 @@ $currency = '$';
                                                 <input
                                                     class="primary_input_field primary_input_field date form-control{{ $errors->has('date') ? ' is-invalid' : '' }}"
                                                     id="startDate" type="text" name="date"
-                                                    value="{{ isset($fees_master) ? date('m/d/Y', strtotime($fees_master->date)) : date('m/d/Y') }}">
+                                                    value="{{ isset($fees_master) ? dateConvert(date('Y-m-d', strtotime($fees_master->date))) : dateConvert(date('Y-m-d')) }}">
                                                     <button class="btn-date" style="top: 70% !important;" data-id="#date_of_birth" type="button">
                                                         <label class="m-0 p-0" for="date_of_birth">
                                                             <i class="ti-calendar" id="start-date-icon"></i>

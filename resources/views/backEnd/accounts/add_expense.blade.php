@@ -152,7 +152,7 @@
                                                     <div class="col">
                                                         <div class="">
                                                             <input class="primary_input_field  primary_input_field date form-control form-control{{ @$errors->has('date') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                                            placeholder="@lang('common.date') " name="date" value="{{isset($add_expense)? date('m/d/Y',strtotime($add_expense->date)) : date('m/d/Y')}}">
+                                                            placeholder="@lang('common.date') " name="date" value="{{isset($add_expense)? dateConvert(date('Y-m-d',strtotime($add_expense->date))) : dateConvert(date('Y-m-d'))}}">
                                                         </div>
                                                     </div>
                                                     <button class="btn-date" data-id="#startDate" type="button">

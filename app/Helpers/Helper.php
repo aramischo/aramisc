@@ -498,8 +498,14 @@ if (!function_exists('dateConvert')) {
                 session()->put('system_date_format', $system_date_format);
             }
 
-            return \Carbon\Carbon::parse($input_date)->format($system_date_format);
+//            $slang = session()->get('selected_language');
+//            $userlang = session()->get('user_language');
+//            $language = ($slang) ? $slang : (($userlang) ? $userlang : 'en');
+//            $system_date_format = ($language =='fr') ? 'd/m/Y' : 'Y-m-d';
+
+            return \Carbon\Carbon::createFromFormat('Y-m-d',$input_date)->format($system_date_format);
         } catch (\Throwable $th) {
+
             return $input_date;
         }
     }

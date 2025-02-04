@@ -166,7 +166,7 @@
                                     <div class="col">
                                         <div class="primary_input">
                                             <label class="primary_input_label" for="">@lang('common.date_of_birth') @if(is_required('date_of_birth')==true) <span class="text-danger"> *</span> @endif</label>
-                                            <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" id="startDate" type="text" name="date_of_birth" value="{{date('m/d/Y', strtotime($student->date_of_birth))}}" autocomplete="off">
+                                            <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" id="startDate" type="text" name="date_of_birth" value="{{dateConvert(date('Y-m-d', strtotime($student->date_of_birth)))}}" autocomplete="off">
                                             @if ($errors->has('date_of_birth'))
                                     <span class="text-danger" >
                                         {{ $errors->first('date_of_birth') }}
@@ -268,9 +268,9 @@
                                     <div class="col">
                                         <div class="primary_input">
                                             <label class="primary_input_label" for="">@lang('student.admission_date')
-                                                @if(is_required('admission_date')==true) <span class="text-danger"> *</span> @endif</span>
+                                                @if(is_required('admission_date')==true) <span class="text-danger"> *</span> @endif
                                             </label>
-                                            <input class="primary_input_field  primary_input_field date form-control" id="endDate" type="text" name="admission_date" value="{{$student->admission_date != ""? date('m/d/Y', strtotime($student->admission_date)): date('m/d/Y')}}" autocomplete="off">
+                                            <input class="primary_input_field  primary_input_field date form-control" id="endDate" type="text" name="admission_date" value="{{$student->admission_date != ""? dateConvert(date('Y-m-d', strtotime($student->admission_date))) : dateConvert(date('Y-m-d'))}}" autocomplete="off">
                                             
                                         </div>
                                     </div>

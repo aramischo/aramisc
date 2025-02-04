@@ -1,219 +1,114 @@
-<?php
-return [
-"academics" => "Universitaires",
-
-"optional_subject" => "Sujet facultatif",
-
-"class_routine" => "Routine de classe",
-
-"class_routine_create" => "Création de routine de classe",
-
-"view_teacher_routine" => "Afficher la routine de classe (Enseignant)",
-
-"assign_subject" => "Affecter un objet",
-
-"assign_subject_create" => "Affecter un objet créé",
-
-"assign_class_teacher" => "Affecter un enseignant de classe",
-
-"next_follow_up_date" => "Date de suivi suivante",
-
-"assigned" => "Affecté",
-
-"number_of_child" => "Nombre d'enfants",
-
-"subjects" => "Sujets",
-
-"class" => "Classe",
-
-"section" => "Section",
-
-"subject" => "Objet",
-
-"edit_section" => "Editer la section",
-
-"add_section" => "Ajouter une section",
-
-"save_section" => "Enregistrer la section",
-
-"update_section" => "Section Mise à jour",
-
-"delete_section" => "Supprimer la section",
-
-"section_list" => "Liste des sections",
-
-"edit_class" => "Editer la classe",
-
-"add_class" => "Ajouter une classe",
-
-"save_class" => "Enregistrer la classe",
-
-"update_class" => "Mettre à jour classe",
-
-"delete_class" => "Supprimer la classe",
-
-"class_list" => "Liste des classes",
-
-"edit_subject" => "Editer le sujet",
-
-"add_subject" => "Ajouter un objet",
-
-"save_subject" => "Sauvegarder le sujet",
-
-"update_subject" => "Mettre à jour sujet",
-
-"delete_subject" => "Supprimer le sujet",
-
-"subject_list" => "Liste des sujets",
-
-"edit_class_room" => "Editer la salle de classe",
-
-"is_break" => "Est un découpe",
-
-"add_class_room" => "Ajouter une classe de classe",
-
-"save_class_room" => "Enregistrer la classe de classe",
-
-"update_class_room" => "Mettre à jour la classe salle",
-
-"delete_class_room" => "Supprimer la salle de classe",
-
-"class_room_list" => "Liste des salles de classe",
-
-"class_teacher_list" => "Liste des enseignants",
-
-"save_class_teacher" => "Enregistrer l'enseignant de classe",
-
-"delete_assign_teacher" => "Supprimer l'enseignant affecté",
-
-"edit_assign_class_teacher" => "Editer un enseignant de classe d'affectation",
-
-"update_class_teacher" => "Mettre à jour un enseignant",
-
-"class_room" => "Salle de classe",
-
-"room_number" => "Numéro de salle",
-
-"room_no" => "N ° de chambre",
-
-"room" => "Salle",
-
-"n_a" => "N \/A",
-
-"save" => "Sauvegarder",
-
-"not_assigned_yet" => "Non affecté cependant",
-
-"class_teacher" => "Enseignant de classe",
-
-"assign_teacher" => "Affecter un enseignant",
-
-"subject_name" => "Nom du sujet",
-
-"theory" => "Théorie",
-
-"practical" => "Pratique",
-
-"subject_code" => "Code d'objet",
-
-"subject_type" => "Type de sujet",
-
-"capacity" => "Capacité",
-
-"cl_ex_time_setup" => "Configuration de Cl \/Ex Time",
-
-"class_exam_time_setup" => "Configuration de la classe et de l'heure d'expiration",
-
-"class_time" => "Temps de classe",
-
-"time_type" => "Type de durée",
-
-"exam_time" => "Heure d'expiration",
-
-"period" => "Période",
-
-"select_time" => "Sélectionner une heure",
-
-"of" => "De",
-
-"about" => "A propos",
-
-"payable" => "Payable",
-
-"start_time" => "Heure de début",
-
-"end_time" => "Heure de fin",
-
-"multiple_day" => "Jour multiple",
-
-"select_all" => "Sélectionner tout",
-
-"other_day" => "Autre jour",
-
-"teacher_class_routine_report" => "Rapport de routine de la classe d'enseignants",
-
-"select_room" => "Sélectionner une salle",
-
-"print" => "Imprimer",
-
-"uqinue_fine_list" => "Liste fine Uqinue",
-
-"days_after_date" => "Jours après la date d'échéance",
-
-"fixed" => "Fixe",
-
-"ltl_rtl" => "LTL vers RTL",
-
-"testimonial_list" => "Liste des témoignages",
-
-"assign_optional_subject" => "Affecter un sujet facultatif",
-
-"term_wise_report" => "Rapport Sages à terme",
-
-"type_wise_report" => "Type de rapport Wise",
-
-"due_wise_report" => "Rapport de Wise Wise",
-
-"contract_type" => "Type de contrat",
-
-"verify" => "Vérifier",
-
-"addOns" => "Ajouter des Ons",
-
-"adons" => "Ajouter des Ons",
-
-"class_recorded_list" => "Liste enregistrée de classe",
-
-"meeting_recorded_list" => "Liste des enregistrements de réunion",
-
-"teacher_class_routine" => "Routine de classe d'enseignant",
-
-"delete_class_routine" => "Supprimer la routine de classe",
-
-"view_class_routine" => "Afficher la routine de classe",
-
-"Class" => "Classe",
-
-"Save" => "Sauvegarder",
-
-"Start" => "Démarrer",
-
-"teacher" => "Enseignant",
-
-"start" => "Démarrer",
-
-"Subjects" => "Sujets",
-
-"About" => "A propos",
-
-"Print" => "Imprimer",
-
-"Fixed" => "Fixe",
-
-"assign" => "Affecter",
-
-"end" => "Fin",
-
-"End" => "Fin",
-
-];
+<?php return array (
+  'academics' => 'Academics',
+  'global_academics' => 'Global Academics',
+  'global_exam_setup' => 'Global Exam Setup',
+  'optional_subject' => 'Optional Subject',
+  'class_routine' => 'Class Routine',
+  'class_routine_create' => 'Class Routine Create',
+  'view_teacher_routine' => 'View Class Routine(Teacher)',
+  'assign_subject' => 'Assign Subject',
+  'assign_subject_create' => 'Assign Subject create',
+  'assign_class_teacher' => 'Assign Class Teacher',
+  'next_follow_up_date' => 'Next Follow Up Date',
+  'assigned' => 'Assigned',
+  'number_of_child' => 'Number Of child',
+  'subjects' => 'Subjects',
+  'teacher' => 'Teacher',
+  'class' => 'Class',
+  'section' => 'Section',
+  'subject' => 'Subject',
+  'edit_section' => 'Edit Section',
+  'add_section' => 'Add Section',
+  'save_section' => 'Save Section',
+  'update_section' => 'Update Section',
+  'delete_section' => 'Delete Section',
+  'section_list' => 'Section List',
+  'edit_class' => 'Edit Class',
+  'add_class' => 'Add Class',
+  'save_class' => 'Save Class',
+  'update_class' => 'Update Class',
+  'delete_class' => 'Delete Class',
+  'class_list' => 'Class List',
+  'edit_subject' => 'Edit Subject',
+  'add_subject' => 'Add Subject',
+  'save_subject' => 'Save Subject',
+  'update_subject' => 'Update Subject',
+  'delete_subject' => 'Delete Subject',
+  'subject_list' => 'Subject List',
+  'edit_class_room' => 'Edit Class Room',
+  'is_break' => 'Is Break',
+  'break' => 'Break',
+  'add_class_room' => 'Add Class Room',
+  'save_class_room' => 'Save Class Room',
+  'update_class_room' => 'Update Class Room',
+  'delete_class_room' => 'Delete Class Room',
+  'class_room_list' => 'Class Room List',
+  'class_teacher_list' => 'Class Teacher List',
+  'save_class_teacher' => 'Save Class Teacher',
+  'delete_assign_teacher' => 'Delete Assign Teacher',
+  'edit_assign_class_teacher' => 'Edit Assign Class Teacher',
+  'update_class_teacher' => 'Update Class Teacher',
+  'class_room' => 'Class Room',
+  'room_number' => 'Room Number',
+  'room_no' => 'Room No',
+  'room' => 'Room',
+  'n_a' => 'N\\/A',
+  'assign' => 'Assign',
+  'save' => 'Save',
+  'not_assigned_yet' => 'Not Assigned Yet',
+  'class_teacher' => 'Class Teacher',
+  'assign_teacher' => 'Assign Teacher',
+  'subject_name' => 'Subject Name',
+  'theory' => 'Theory',
+  'practical' => 'Practical',
+  'subject_code' => 'Subject Code',
+  'subject_type' => 'Subject Type',
+  'capacity' => 'Capacity',
+  'cl_ex_time_setup' => 'Cl\\/Ex Time Setup',
+  'class_exam_time_setup' => 'Class & Exam Time Setup',
+  'class_time' => 'Class Time',
+  'time_type' => 'Time Type',
+  'exam_time' => 'Exam Time',
+  'period' => 'Period',
+  'select_time' => 'Select Time',
+  'of' => 'of',
+  'about' => 'About',
+  'payable' => 'Payable',
+  'start' => 'Start',
+  'end' => 'End',
+  'start_time' => 'Start Time',
+  'end_time' => 'End Time',
+  'multiple_day' => 'Multiple Day',
+  'select_all' => 'Select All',
+  'other_day' => 'Other Day',
+  'teacher_class_routine_report' => 'Teacher Class Routine Report',
+  'select_room' => 'Select Room',
+  'print' => 'Print',
+  'uqinue_fine_list' => 'Uqinue Fine List',
+  'days_after_date' => 'Days After Due Date',
+  'fixed' => 'Fixed',
+  'ltl_rtl' => 'LTL To RTL',
+  'testimonial_list' => 'Testimonial List',
+  'assign_optional_subject' => 'Assign Optional Subject',
+  'term_wise_report' => 'Term Wise Report',
+  'type_wise_report' => 'Type Wise Report',
+  'due_wise_report' => 'Due Wise Report',
+  'contract_type' => 'Contract Type',
+  'verify' => 'Verify',
+  'addOns' => 'Add Ons',
+  'adons' => 'Add Ons',
+  'class_recorded_list' => 'Class Recorded List',
+  'meeting_recorded_list' => 'Meeting Recorded List',
+  'teacher_class_routine' => 'Teacher Class Routine',
+  'delete_class_routine' => 'Delete class routine',
+  'view_class_routine' => 'View class routine',
+  'pass_mark' => 'Pass Mark',
+  'Teacher Have another Class This Time' => 'Teacher Have another Class This Time',
+  'global_class' => 'Global Class',
+  'global_section' => 'Global Section',
+  'global_subject' => 'Global Subject',
+  'global_study_material' => 'Global Study Material',
+  'select_section' => 'Select Section',
+  'select_subject' => 'Select Subject',
+  'reference' => 'Reference',
+);

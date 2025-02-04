@@ -87,11 +87,11 @@
             <div class="value_grid">
                 <div class="grid_item">
                     <p><b class="value_type">@lang('downloadCenter.upload_date')</b> : <span
-                            class="value">{{ date('Y-m-d', strtotime($sharedContent->share_date)) }}</span></p>
+                            class="value">{{ dateConvert(date('Y-m-d', strtotime($sharedContent->share_date))) }}</span></p>
                 </div>
                 <div class="grid_item">
                     <p><b class="value_type">@lang('downloadCenter.valid_upto')</b> : <span
-                            class="value">{{ date('Y-m-d', strtotime($sharedContent->valid_upto)) }}</span></p>
+                            class="value">{{ dateConvert(date('Y-m-d', strtotime($sharedContent->valid_upto))) }}</span></p>
                 </div>
                 <div class="grid_item">
                     <p><b class="value_type">@lang('downloadCenter.uploaded_by')</b> : <span

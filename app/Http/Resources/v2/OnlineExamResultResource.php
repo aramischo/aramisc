@@ -32,7 +32,7 @@ class OnlineExamResultResource extends JsonResource
             'id' => (int)$this->id,
             'title' => (string)$this->onlineExam->title,
             'start_date' => (string)dateConvert(@$this->onlineExam->date),
-            'end_date' => (string)dateConvert(date('m/d/Y', strtotime(@$this->onlineExam->end_date_time))),           
+            'end_date' => (string)dateConvert(date('Y-m-d', strtotime(@$this->onlineExam->end_date_time))),
             'exam_time' => (string)date('h:i A', strtotime(@$this->onlineExam->start_time)),
             'end_time' => (string)date('h:i A', strtotime(@$this->onlineExam->end_time)),
             'total_marks' => (float)@$total_marks,

@@ -36,7 +36,7 @@ class AramiscCollectionReportController extends Controller
 
     public function transactionReportSearch(Request $request)
     {
-        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
+        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".dateConvert(date('Y-m-d'))." - ".dateConvert(date('Y-m-d'))."";
         $date_from = null;
         $date_to = null;
         if($request->date_range){

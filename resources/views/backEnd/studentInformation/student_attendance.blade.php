@@ -78,7 +78,7 @@ $breadCrumbs = [
                                                 <input
                                                     class="primary_input_field  primary_input_field date form-control"
                                                     id="startDate" type="text" name="attendance_date" autocomplete="off"
-                                                    value="{{isset($date)? $date: date('m/d/Y')}}">
+                                                    value="{{isset($date)? dateConvert($date) : dateConvert(date('Y-m-d'))}}">
                                             </div>
                                         </div>
                                         <button class="btn-date" data-id="#attendance_date" type="button">
@@ -110,7 +110,7 @@ $breadCrumbs = [
                                                 <input
                                                     class="primary_input_field  primary_input_field date form-control{{ $errors->has('attendance_date') ? ' is-invalid' : '' }}"
                                                     id="attendance_date" type="text" name="attendance_date"
-                                                    autocomplete="off" value="{{isset($date)? $date: date('m/d/Y')}}">
+                                                    autocomplete="off" value="{{isset($date)? dateConvert($date) : dateConvert(date('Y-m-d'))}}">
                                             </div>
                                         </div>
                                         <button class="btn-date" data-id="#attendance_date" type="button">

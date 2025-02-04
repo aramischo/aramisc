@@ -303,7 +303,7 @@
                     <tr> 
                         @endif
                             <td>{{ dateConvert($exam_routine->date) }} [{{ date('h:i A', strtotime(@$exam_routine->start_time))  }} - {{ date('h:i A', strtotime(@$exam_routine->end_time))  }}]</td>
-                            <td>{{ $exam_routine->subject ? $exam_routine->subject->subject_name :'' }} </strong>  {{ $exam_routine->subject ? '('.$exam_routine->subject->subject_code .')':'' }}</td>
+                            <td><strong>{{ $exam_routine->subject ? $exam_routine->subject->subject_name :'' }} </strong>  {{ $exam_routine->subject ? '('.$exam_routine->subject->subject_code .')':'' }}</td>
                         @if($loop->last % 2 == 1)
                         <td colspan="2"></td>
                         @endif

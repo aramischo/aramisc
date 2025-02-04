@@ -154,7 +154,7 @@
                                                                     <input
                                                                         class="primary_input_field  primary_input_field date form-control"
                                                                         id="startDate" readonly type="text" name="date"
-                                                                        value="{{ isset($postal_dispatch) ? $postal_dispatch->date : date('m/d/Y') }}">
+                                                                        value="{{ isset($postal_dispatch) ? dateConvert($postal_dispatch->date) : dateConvert(date('Y-m-d')) }}">
                                                                 </div>
                                                             </div>
                                                             <button class="btn-date" data-id="#startDate" type="button">

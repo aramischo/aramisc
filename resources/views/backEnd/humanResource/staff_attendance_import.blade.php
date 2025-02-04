@@ -75,7 +75,7 @@
                                     <div class="row no-gutters input-right-icon">
                                         <div class="col">
                                             <div class="primary_input">
-                                                <input class="primary_input_field  primary_input_field date form-control form-control read-only-input has-content" id="startDate" type="text" name="attendance_date" autocomplete="off" value="{{date('m/d/Y')}}">
+                                                <input class="primary_input_field  primary_input_field date form-control form-control read-only-input has-content" id="startDate" type="text" name="attendance_date" autocomplete="off" value="{{dateConvert(date('Y-m-d'))}}">
                                                 <label for="startDate"> @lang('hr.attendance_date') <span class="text-danger"> *</span></label>
                                                 
                                              </div>

@@ -45,7 +45,7 @@ class CreateAramiscDateFormatsTable extends Migration
             ['Y/m/d', '2019/05/17'],
             ['Y/d/m', '2019/17/05'],
             ['d/m/Y', '17/05/2019'],
-            ['m/d/Y', '05/17/2019'],
+            ['Y-m-d', '05/17/2019'],
 
             ['l jS \of F Y', 'Monday 17th of May 2019'],
             ['jS \of F Y', '17th of May 2019'],

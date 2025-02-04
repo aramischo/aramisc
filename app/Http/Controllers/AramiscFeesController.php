@@ -1243,7 +1243,7 @@ class AramiscFeesController extends Controller
 
     public function transactionReportSearch(Request $request)
     {
-        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
+        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('Y-m-d')." - ".date('Y-m-d')."";
 
         try {
             $classes = AramiscClass::where('active_status', 1)
@@ -1644,7 +1644,7 @@ class AramiscFeesController extends Controller
     }
 
     public function fineReportSearch(Request $request){
-        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
+        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('Y-m-d')." - ".date('Y-m-d')."";
 
         try {
             $classes = AramiscClass::where('active_status', 1)

@@ -179,7 +179,7 @@
                                                         class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}"
                                                         id="startDate" type="text"
                                                         name="due_date"
-                                                        value="{{ date('m/d/Y', strtotime($feesInstallment->installment->due_date)) }}"
+                                                        value="{{ dateConvert(date('Y-m-d', strtotime($feesInstallment->installment->due_date))) }}"
                                                         autocomplete="off">
                                                     <label class="primary_input_label" for="">@lang('fees.due_date')
                                                         <span class="text-danger"> *</span></label>
@@ -187,7 +187,7 @@
                                                         class="primary_input_field  primary-input date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}"
                                                         id="startDate" type="text"
                                                         name="due_date"
-                                                        value="{{ date('m/d/Y', strtotime($feesInstallment->installment->due_date)) }}"
+                                                        value="{{ dateConvert(date('Y-m-d', strtotime($feesInstallment->installment->due_date))) }}"
                                                         autocomplete="off">
 
                                                     @if ($errors->has('due_date'))

@@ -21,7 +21,7 @@
                 <div class="no-gutters input-right-icon">
                     <div class="col">
                         <div class="primary_input">
-                            <input class="read-only-input primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" id="startDate" type="text" autocomplete="off" readonly="true" name="date" value="{{date('m/d/Y')}}">
+                            <input class="read-only-input primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" id="startDate" type="text" autocomplete="off" readonly="true" name="date" value="{{dateConvert(date('Y-m-d'))}}">
                             <label class="primary_input_label" for="">@lang('common.date') <span></span> </label>
                             @if ($errors->has('date'))
                                 <span class="text-danger" >

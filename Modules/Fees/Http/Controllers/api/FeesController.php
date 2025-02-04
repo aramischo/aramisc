@@ -884,7 +884,7 @@ class FeesController extends Controller
     public function searchBankPayment(BankFeesPayment $request)
     {
         try {
-            $rangeArr = $request->payment_date ? explode('-', $request->payment_date) : [date('m/d/Y'), date('m/d/Y')];
+            $rangeArr = $request->payment_date ? explode('-', $request->payment_date) : [date('Y-m-d'), date('Y-m-d')];
 
             if ($request->payment_date) {
                 $date_from = date('Y-m-d', strtotime(trim($rangeArr[0])));

@@ -104,7 +104,7 @@
                                                     <div class="col">
                                                         <div class="">
                                                             <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('from_date') ? ' is-invalid' : '' }}" id="event_from_date" type="text"
-                                                            name="from_date" value="{{isset($editData)? date('m/d/Y', strtotime($editData->from_date)): date('m/d/Y')}}" autocomplete="off">
+                                                            name="from_date" value="{{isset($editData)? dateConvert(date('Y-m-d', strtotime($editData->from_date))): dateConvert(date('Y-m-d'))}}" autocomplete="off">
                                                         </div>
                                                     </div>
                                                     <button class="btn-date" data-id="#from_date" type="button">
@@ -128,7 +128,7 @@
                                                     <div class="col">
                                                         <div class="">
                                                             <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('to_date') ? ' is-invalid' : '' }}" id="event_to_date" type="text"
-                                                            name="to_date" value="{{isset($editData)? date('m/d/Y', strtotime($editData->to_date)): date('m/d/Y') }}" autocomplete="off">
+                                                            name="to_date" value="{{isset($editData)? dateConvert(date('Y-m-d', strtotime($editData->to_date))): dateConvert(date('Y-m-d')) }}" autocomplete="off">
                                                         </div>
                                                     </div>
                                                     <button class="btn-date" data-id="#from_date" type="button">

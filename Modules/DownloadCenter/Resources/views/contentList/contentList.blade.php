@@ -429,7 +429,7 @@
                                                             <input
                                                                 class="primary_input_field primary_input_field date form-control"
                                                                 id="shareDate" type="text" name="shareDate"
-                                                                value="{{ old('shareDate') != '' ? old('shareDate') : date('m/d/Y') }}"
+                                                                value="{{ dateConvert(old('shareDate') != '' ? old('shareDate') : date('Y-m-d')) }}"
                                                                 readonly>
                                                         </div>
                                                     </div>
@@ -455,7 +455,7 @@
                                                             <input
                                                                 class="primary_input_field primary_input_field date form-control"
                                                                 id="validUpto" type="text" name="validUpto"
-                                                                value="{{ old('validUpto') != '' ? old('validUpto') : date('m/d/Y') }}"
+                                                                value="{{ dateConvert(old('validUpto') != '' ? old('validUpto') : date('Y-m-d')) }}"
                                                                 readonly>
                                                         </div>
                                                     </div>
@@ -689,7 +689,7 @@
                                                             <input
                                                                 class="primary_input_field primary_input_field date form-control"
                                                                 id="shareDateUrl" type="text" name="shareDate"
-                                                                value="{{ old('shareDate') != '' ? old('shareDate') : date('m/d/Y') }}"
+                                                                value="{{ dateConvert(old('shareDate') != '' ? old('shareDate') : date('Y-m-d')) }}"
                                                                 readonly>
                                                         </div>
                                                     </div>
@@ -715,7 +715,7 @@
                                                             <input
                                                                 class="primary_input_field primary_input_field date form-control"
                                                                 id="validUptoUrl" type="text" name="validUpto"
-                                                                value="{{ old('validUpto') != '' ? old('validUpto') : date('m/d/Y') }}"
+                                                                value="{{ dateConvert(old('validUpto') != '' ? old('validUpto') : date('Y-m-d')) }}"
                                                                 readonly>
                                                         </div>
                                                     </div>

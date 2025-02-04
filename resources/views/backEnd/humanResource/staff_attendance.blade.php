@@ -80,7 +80,7 @@
                                                     <input class="primary_input_field primary_input_field date form-control"
                                                         {{ isset($date) ? 'read-only-input' : '' }}" id="startDate"
                                                         type="text" name="attendance_date" autocomplete="off"
-                                                        value="{{ isset($date) ? $date : date('m/d/Y') }}"
+                                                        value="{{ isset($date) ? dateConvert($date) : dateConvert(date('Y-m-d')) }}"
                                                         autocomplete="off">
                                                 </div>
                                             </div>

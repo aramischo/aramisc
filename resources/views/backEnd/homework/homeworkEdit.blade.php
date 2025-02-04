@@ -112,7 +112,7 @@
                            <div class="col">
                               <div class="primary_input">
                                  <label class="primary_input_label" for="">@lang('homework.home_work_date') <span class="text-danger"> *</span></label>
-                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('homework_date') ? ' is-invalid' : '' }}" id="homework_date" type="text" name="homework_date" value="{{date('m/d/Y', strtotime($homeworkList->homework_date))}}" readonly="true">
+                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('homework_date') ? ' is-invalid' : '' }}" id="homework_date" type="text" name="homework_date" value="{{dateConvert(date('Y-m-d', strtotime($homeworkList->homework_date)))}}" readonly="true">
                                  @if ($errors->has('homework_date'))
                                  <span class="text-danger" >
                                  {{ $errors->first('homework_date') }}
@@ -134,7 +134,7 @@
                            <div class="col">
                               <div class="primary_input">
                                  <label class="primary_input_label" for="">@lang('homework.submission_date') <span class="text-danger"> *</span></label>
-                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('submission_date') ? ' is-invalid' : '' }}" id="submission_date" type="text" name="submission_date" value="{{date('m/d/Y', strtotime($homeworkList->submission_date))}}" readonly="true">
+                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('submission_date') ? ' is-invalid' : '' }}" id="submission_date" type="text" name="submission_date" value="{{dateConvert(date('Y-m-d', strtotime($homeworkList->submission_date)))}}" readonly="true">
                                  @if ($errors->has('submission_date'))
                                  <span class="text-danger" >
                                  {{ $errors->first('submission_date') }}

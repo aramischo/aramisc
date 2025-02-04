@@ -106,7 +106,7 @@
                                                                 <input
                                                                     class="primary_input_field  primary_input_field date form-control"
                                                                     id="startDate" type="text" name="date"
-                                                                    value="{{ isset($phone_call_log) ? $phone_call_log->date : date('m/d/Y') }}"
+                                                                    value="{{ isset($phone_call_log) ? dateConvert($phone_call_log->date) : dateConvert(date('Y-m-d')) }}"
                                                                     autocomplete="off">
                                                             </div>
                                                         </div>
@@ -133,7 +133,7 @@
                                                                 <input
                                                                     class="primary_input_field  primary_input_field date form-control{{ @$errors->has('follow_up_date') ? ' is-invalid' : '' }}"
                                                                     id="follow_up_date" type="text" name="follow_up_date"
-                                                                    value="{{ isset($phone_call_log) ? $phone_call_log->next_follow_up_date : date('m/d/Y') }}"
+                                                                    value="{{ isset($phone_call_log) ? dateConvert($phone_call_log->next_follow_up_date) : dateConvert(date('Y-m-d')) }}"
                                                                     autocomplete="off">
                                                             </div>
                                                         </div>

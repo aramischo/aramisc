@@ -70,7 +70,7 @@
                                     <div class="col">
                                         <div class="primary_input">
                                             <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('attendance_date') ? ' is-invalid' : '' }} {{isset($date)? 'read-only-input': ''}}" id="startDate" type="text"
-                                                name="attendance_date" autocomplete="off" value="{{isset($date)? $date: date('m/d/Y')}}">
+                                                name="attendance_date" autocomplete="off" value="{{isset($date)? dateConvert($date) : dateConvert(date('Y-m-d'))}}">
                                             <label for="startDate">@lang('student.attendance_date')<span class="text-danger"> *</span></label>
                                             
 
@@ -125,7 +125,7 @@
                                     <div class="col">
                                         <div class="primary_input">
                                             <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('attendance_date') ? ' is-invalid' : '' }} {{isset($date)? 'read-only-input': ''}}" id="startDate" type="text"
-                                                name="attendance_date" autocomplete="off" value="{{isset($date)? $date: date('m/d/Y')}}">
+                                                name="attendance_date" autocomplete="off" value="{{isset($date)? dateConvert($date) : dateConvert(date('Y-m-d'))}}">
                                             <label for="startDate">@lang('student.attendance_date')<span class="text-danger"> *</span></label>
                                             
                                             

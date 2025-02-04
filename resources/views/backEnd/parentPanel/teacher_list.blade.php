@@ -105,8 +105,8 @@
                                                         @endif
                                                         @if ($teacherEvaluationSetting->is_enable == 0)
                                                             @if (in_array('3', $teacherEvaluationSetting->submitted_by))
-                                                                @if (date('m/d/Y') >= date('m/d/Y', strtotime($teacherEvaluationSetting->from_date)) &&
-                                                                        date('m/d/Y') <= date('m/d/Y', strtotime($teacherEvaluationSetting->to_date)))
+                                                                @if (dateConvert(date('Y-m-d')) >= dateConvert(date('Y-m-d', strtotime($teacherEvaluationSetting->from_date))) &&
+                                                                        dateConvert(date('Y-m-d')) <= dateConvert(date('Y-m-d', strtotime($teacherEvaluationSetting->to_date))))
                                                                     <th width="15%">@lang('teacherEvaluation.rate')</th>
                                                                     <th width="50%">@lang('teacherEvaluation.comment')</th>
                                                                     <th width="10%">@lang('common.action')</th>
@@ -135,8 +135,8 @@
                                                             @endif
                                                             @if ($teacherEvaluationSetting->is_enable == 0)
                                                                 @if (in_array('3', $teacherEvaluationSetting->submitted_by))
-                                                                    @if (date('m/d/Y') >= date('m/d/Y', strtotime($teacherEvaluationSetting->from_date)) &&
-                                                                            date('m/d/Y') <= date('m/d/Y', strtotime($teacherEvaluationSetting->to_date)))
+                                                                    @if (dateConvert(date('Y-m-d')) >= dateConvert(date('Y-m-d', strtotime($teacherEvaluationSetting->from_date))) &&
+                                                                            dateConvert(date('Y-m-d')) <= dateConvert(date('Y-m-d', strtotime($teacherEvaluationSetting->to_date))))
                                                                         {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'teacher-evaluation-submit', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'aramisc_form']) }}
                                                                         <input type="hidden" name="teacher_id"
                                                                             value="{{ $value->teacher_id }}">

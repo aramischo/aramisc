@@ -137,7 +137,7 @@ else{ $currency = '$'; }
                                                                         <div class="">
                                                                             <input 
                                                                                 class="primary_input_field primary_input_field date form-control"
-                                                                                id="startDate{{ $key }}" type="text" name="studentFeesInfo[{{$key}}][due_date]" value="{{isset($student->studentDetail->forwardBalance->due_date)? \Carbon\Carbon::parse($student->studentDetail->forwardBalance->due_date)->format('m/d/Y') : \Carbon\Carbon::now()->addDays($settings->fees_due_days)->format('m/d/Y')}}" autocomplete="off">
+                                                                                id="startDate{{ $key }}" type="text" name="studentFeesInfo[{{$key}}][due_date]" value="{{isset($student->studentDetail->forwardBalance->due_date)? \Carbon\Carbon::parse($student->studentDetail->forwardBalance->due_date)->format('Y-m-d') : \Carbon\Carbon::now()->addDays($settings->fees_due_days)->format('Y-m-d')}}" autocomplete="off">
                                                                         </div>
                                                                     </div>
                                                                     <button class="btn-date" data-id="#startDate" type="button">

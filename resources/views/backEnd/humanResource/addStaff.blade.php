@@ -415,7 +415,7 @@
                                                                                     class="primary_input_field primary_input_field date form-control"
                                                                                     id="date_of_joining" type="text"
                                                                                     name="date_of_joining"
-                                                                                    value="{{ date('m/d/Y') }}"
+                                                                                    value="{{ dateConvert(date('Y-m-d')) }}"
                                                                                     autocomplete="off">
                                                                             </div>
                                                                         </div>

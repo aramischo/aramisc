@@ -523,7 +523,7 @@
                                                                         class="read-only-input primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date') ? ' is-invalid' : '' }}"
                                                                         id="startDate" type="text" autocomplete="off"
                                                                         readonly="true" name="date"
-                                                                        value="{{ date('m/d/Y') }}"><i
+                                                                        value="{{ dateConvert(date('Y-m-d')) }}"><i
                                                                         class="ti-calendar" id="start-date-icon"></i>
                                                                     @if ($errors->has('date'))
                                                                         <span class="text-danger">

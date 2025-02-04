@@ -102,7 +102,7 @@
                                 <div class="no-gutters input-right-icon">
                                     <div class="col">
                                         <div class="primary_input">
-                                            <input class="primary_input_field  primary_input_field date form-control" id="startDate" type="text" name="date" value="{{isset($date)? date('m/d/Y', strtotime($date)):date('m/d/Y')}}" readonly="true">
+                                            <input class="primary_input_field  primary_input_field date form-control" id="startDate" type="text" name="date" value="{{isset($date)? dateConvert(date('Y-m-d', strtotime($date))) : dateConvert(date('Y-m-d'))}}" readonly="true">
                                                 <label class="primary_input_label" for="">@lang('common.date')</label>
                                             
                                         </div>

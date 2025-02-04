@@ -388,7 +388,7 @@ $record = $student;
                                                         <div class="col">
                                                             <div class="primary_input ">
                                                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                                                     name="due_date" value="{{date('m/d/Y', strtotime($feesInstallment->due_date))}}" autocomplete="off">
+                                                                     name="due_date" value="{{dateConvert(date('Y-m-d', strtotime($feesInstallment->due_date)))}}" autocomplete="off">
                                                                     <label class="primary_input_label" for="">@lang('fees.due_date') <span class="text-danger"> *</span></label>
                                                                     
                                                                 @if ($errors->has('due_date'))
@@ -648,7 +648,7 @@ $record = $student;
                                                               <div class="primary_input ">
                                                                 <label class="primary_input_label" for="">@lang('fees.due_date') <span class="text-danger"> *</span></label>
                                                                   <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                                                       name="due_date" value="{{date('m/d/Y', strtotime(@$feesInstallment->due_date))}}" autocomplete="off">
+                                                                       name="due_date" value="{{dateConvert(date('Y-m-d', strtotime(@$feesInstallment->due_date)))}}" autocomplete="off">
                                                                        <button class="btn-date" style="top: 70% !important;" data-id="#date_of_birth" type="button">
                                                                         <label class="m-0 p-0" for="date_of_birth">
                                                                             <i class="ti-calendar" id="start-date-icon"></i>
@@ -730,7 +730,7 @@ $record = $student;
                                                     <div class="col">
                                                         <div class="primary_input ">
                                                             <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                                                 name="due_date" value="{{date('m/d/Y', strtotime($feesInstallment->due_date))}}" autocomplete="off">
+                                                                 name="due_date" value="{{dateConvert(date('Y-m-d', strtotime($feesInstallment->due_date)))}}" autocomplete="off">
                                                                 <label class="primary_input_label" for="">@lang('fees.due_date') <span class="text-danger"> *</span></label>
                                                                 
                                                             @if ($errors->has('due_date'))

@@ -23,7 +23,7 @@ class AramiscAdmissionQueryFollowUpRequest extends FormRequest
      */
     public function rules()
     {
-        $today = date('m/d/Y');
+        $today = date('Y-m-d');
         return [
             'next_follow_up_date' => 'required|after_or_equal:follow_up_date,'.$today,
             'response' => 'required'

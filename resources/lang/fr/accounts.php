@@ -1,215 +1,113 @@
-<?php
-return [
-"profit_&_loss" => "Bénéfices et pertes",
-
-"profit_/_loss" => "Profits / Perte",
-
-"accounts" => "Comptes",
-
-"account_nor" => "N ° de compte",
-
-"branch_name" => "Nom de branche",
-
-"profit" => "Profits",
-
-"income" => "Revenu",
-
-"asset" => "Actif",
-
-"liability" => "Responsabilité",
-
-"expense" => "Dépense",
-
-"chart_of_account" => "Graphique de compte",
-
-"payment_method" => "Mode de paiement",
-
-"payment_method_setting" => "Paramètres de méthode de paiement",
-
-"bank_account" => "Compte bancaire",
-
-"a_c_Head" => "A \/C Tête",
-
-"add_expense" => "Ajouter une dépense",
-
-"all_payments" => "Tous les paiements",
-
-"search_income_expense" => "Revenu de recherche \/Dépenses",
-
-"item_Receive" => "Réception d'article",
-
-"income_head" => "Chef de revenu",
-
-"income_head_list" => "Liste des revenus",
-
-"income_result" => "Résultat du revenu",
-
-"date_from" => "Date de début",
-
-"date_to" => "Date de la",
-
-"sells" => "Sells",
-
-"dormitory_fees" => "Frais de dortoir",
-
-"grand_total" => "Total général",
-
-"expense_result" => "Résultat de la dépense",
-
-"expense_head" => "Responsable des dépenses",
-
-"purchase" => "Achat",
-
-"item_purchase" => "Achat d'article",
-
-"from_payroll" => "De la paie",
-
-"name_on_card" => "Nom sur la carte",
-
-"card_number" => "Numéro de carte",
-
-"from" => "De",
-
-"upto" => "Upto",
-
-"account_no" => "Numéro de compte",
-
-"account_holder" => "Titulaire de compte",
-
-"account_name" => "Nom du compte",
-
-"account_number" => "Numéro de compte",
-
-"bank_name" => "Nom de la banque",
-
-"account_type" => "Type de compte",
-
-"opening_balance" => "Solde d'ouverture",
-
-"current_balance" => "Solde actuel",
-
-"account" => "Compte",
-
-"bank_account_number" => "Numéro de compte bancaire",
-
-"amount" => "Montant",
-
-"add_chart_of_account" => "Ajouter un graphique de compte",
-
-"edit_chart_of_account" => "Editer le plan de compte",
-
-"update_chart_of_account" => "Mettre à jour le plan de compte",
-
-"delete_chart_of_account" => "Supprimer le graphique de compte",
-
-"chart_of_account_list" => "Liste des comptes",
-
-"add_bank_account" => "Ajouter un compte bancaire",
-
-"edit_bank_account" => "Editer le compte bancaire",
-
-"update_bank_account" => "Mettre à jour le compte bancaire",
-
-"delete_bank_account" => "Supprimer un compte bancaire",
-
-"bank_account_list" => "Liste des comptes bancaires",
-
-"add_income" => "Ajouter un revenu",
-
-"edit_income" => "Editer le revenu",
-
-"update_income" => "Mettre à jour revenu",
-
-"delete_income" => "Supprimer un revenu",
-
-"income_list" => "Liste des revenus",
-
-"edit_expense" => "Editer les dépenses",
-
-"delete_expense" => "Supprimer la dépense",
-
-"expense_list" => "Liste des dépenses",
-
-"save_head" => "Enregistrer la tête",
-
-"update_head" => "Mettre à jour tête",
-
-"save_account" => "Enregistrer le compte",
-
-"update_account" => "Mettre à jour compte",
-
-"save_income" => "Enregistrer le revenu",
-
-"save_expense" => "Enregistrer la dépense",
-
-"update_expense" => "Dépense",
-
-"head" => "Chef",
-
-"slip" => "Diapositives",
-
-"reject" => "Rejeter",
-
-"transaction" => "Transaction",
-
-"delete_item" => "Supprimer l'article",
-
-"amount_transfer_list" => "Liste des transferts de montants",
-
-"fund_transfer" => "Transfert de fonds",
-
-"purpose" => "Objet",
-
-"fine_report" => "Rapport fin",
-
-"reports" => "Rapports",
-
-"payroll_report" => "Rapport sur la paie",
-
-"total" => "Total",
-
-"balance" => "Solde",
-
-"payment_history" => "Historique des paiements",
-
-"payment_method_list" => "Liste des méthodes de paiement",
-
-"cvc" => "CVC",
-
-"trial" => "Sentier",
-
-"expiration_month" => "Mois d'expiration",
-
-"expiration_year" => "Année d'expiration",
-
-"paystack_note" => "Note de la pile",
-
-"payment_amount" => "Montant du paiement",
-
-"payment_mode" => "Mode de paiement",
-
-"payment_status" => "Statut du paiement",
-
-"bank_accounts" => "Comptes bancaires",
-
-"bank" => "Banque",
-
-"bank_transaction" => "Transaction bancaire",
-
-"method" => "Méthode",
-
-"for" => "Pour",
-
-"and" => "Et",
-
-"to" => "Vers",
-
-"To" => "Vers",
-
-"Reject" => "Rejeter",
-
-"Purchase" => "Achat",
-
-"Amount" => "Montant",
-
-];
+<?php return array (
+  'profit_&_loss' => 'Profit & Loss',
+  'profit_/_loss' => 'Profit/Loss',
+  'accounts' => 'Accounts',
+  'account_nor' => 'Account No',
+  'branch_name' => 'Branch Name',
+  'profit' => 'Profit',
+  'income' => 'Income',
+  'asset' => 'Asset',
+  'liability' => 'Liability',
+  'expense' => 'Expense',
+  'chart_of_account' => 'Chart Of Account',
+  'payment_method' => 'Payment Method',
+  'payment_method_setting' => 'Payment Method Settings',
+  'bank_account' => 'Bank Account',
+  'a_c_Head' => 'A/C Head',
+  'add_expense' => 'Add Expense',
+  'all_payments' => 'All payments',
+  'search_income_expense' => 'Search Income/Expense',
+  'item_Receive' => 'Item Receive',
+  'income_head' => 'Income Head',
+  'income_head_list' => 'Income Head List',
+  'income_result' => 'Income Result',
+  'date_from' => 'Date From',
+  'date_to' => 'Date To',
+  'sells' => 'Sells',
+  'dormitory_fees' => 'Dormitory Fees',
+  'grand_total' => 'Grand Total',
+  'expense_result' => 'Expense Result',
+  'and' => 'And',
+  'for' => 'For',
+  'expense_head' => 'Expense Head',
+  'purchase' => 'Purchase',
+  'item_purchase' => 'Item Purchase',
+  'from_payroll' => 'From Payroll',
+  'name_on_card' => 'Name On Card',
+  'card_number' => 'Card Number',
+  'card_holder_name' => 'Card Holder Name',
+  'card_holder_email' => 'Card Holder Email',
+  'identification_number' => 'Identification Number',
+  'from' => 'From',
+  'upto' => 'Upto',
+  'account_no' => 'Account no',
+  'method' => 'Method',
+  'account_holder' => 'Account Holder',
+  'account_name' => 'Account Name',
+  'account_number' => 'Account Number',
+  'bank_name' => 'Bank Name',
+  'account_type' => 'Account Type',
+  'opening_balance' => 'Opening Balance',
+  'current_balance' => 'Current Balance',
+  'account' => 'Account',
+  'bank_account_number' => 'Bank Account Number',
+  'amount' => 'Amount',
+  'add_chart_of_account' => 'Add Chart Of Account',
+  'edit_chart_of_account' => 'Edit Chart Of Account',
+  'update_chart_of_account' => 'Update Chart Of Account',
+  'delete_chart_of_account' => 'Delete Chart Of Account',
+  'chart_of_account_list' => 'Chart Of Account List',
+  'add_bank_account' => 'Add Bank Account',
+  'edit_bank_account' => 'Edit Bank Account',
+  'update_bank_account' => 'Update Bank Account',
+  'delete_bank_account' => 'Delete Bank Account',
+  'bank_account_list' => 'Bank Account List',
+  'add_income' => 'Add Income',
+  'edit_income' => 'Edit Income',
+  'update_income' => 'Update Income',
+  'delete_income' => 'Delete Income',
+  'income_list' => 'Income List',
+  'edit_expense' => 'Edit Expense',
+  'delete_expense' => 'Delete Expense',
+  'expense_list' => 'Expense List',
+  'save_head' => 'Save Head',
+  'update_head' => 'Update Head',
+  'save_account' => 'Save Account',
+  'update_account' => 'Update Account',
+  'save_income' => 'Save Income',
+  'save_expense' => 'Save Expense',
+  'update_expense' => 'Update Expense',
+  'head' => 'Head',
+  'slip' => 'Slip',
+  'reject' => 'Reject',
+  'transaction' => 'Transaction',
+  'delete_item' => 'Delete Item',
+  'amount_transfer_list' => 'Amount Transfer List',
+  'fund_transfer' => 'Fund Transfer',
+  'purpose' => 'Purpose',
+  'to' => 'To',
+  'fine_report' => 'Fine Report',
+  'reports' => 'Reports',
+  'payroll_report' => 'Payroll Report',
+  'total' => 'Total',
+  'balance' => 'Balance',
+  'payment_history' => 'Payment history',
+  'payment_method_list' => 'Payment method list',
+  'cvc' => 'CVC',
+  'trial' => 'Trail',
+  'expiration_month' => 'Expiration Month',
+  'expiration_year' => 'Expiration Year',
+  'paystack_note' => 'Paystack Note',
+  'payment_amount' => 'Payment Amount',
+  'payment_mode' => 'Payment Mode',
+  'payment_status' => 'Payment Status',
+  'bank_accounts' => 'Bank accounts',
+  'bank' => 'Bank',
+  'bank_transaction' => 'Bank Transaction',
+  'profit_loss' => 'Profit & Loss',
+  'payroll' => 'Payroll',
+  'payment_type' => 'Payment Type',
+  'cash' => 'Cash',
+  'cheque' => 'Cheque',
+  'Hello' => 'Hello',
+);

@@ -153,7 +153,7 @@
                                                 <input class="primary_input_field  primary_input_field date form-control"
                                                     placeholder="{{ __('admin.date') }}" id="startDate" type="text"
                                                     name="date"
-                                                    value="{{ isset($visitor) ? date('m/d/Y', strtotime($visitor->date)) : date('m/d/Y') }}">
+                                                    value="{{ isset($visitor) ? dateConvert(date('Y-m-d', strtotime($visitor->date))) : dateConvert(date('Y-m-d')) }}">
                                                 @if ($errors->has('date'))
                                                     <span class="text-danger d-block">
                                                         {{ $errors->first('date') }}</span>

@@ -27,7 +27,7 @@
                                 <div class="primary_input ">
                                     <label class="primary_input_label" for="">@lang('fees.payment_date') <span class="text-danger"> *</span></label>
                                     <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('payment_date') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                         name="payment_date" value="{{date('m/d/Y', strtotime($payment->payment_date))}}" autocomplete="off">
+                                         name="payment_date" value="{{dateConvert(date('Y-m-d', strtotime($payment->payment_date)))}}" autocomplete="off">
                                          <button class="btn-date" style="top: 70% !important;" data-id="#date_of_birth" type="button">
                                             <label class="m-0 p-0" for="date_of_birth">
                                                 <i class="ti-calendar" id="start-date-icon"></i>

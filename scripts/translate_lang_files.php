@@ -6,18 +6,20 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 // Définir les répertoires des fichiers de langue source et cible
 $sourceDir = __DIR__ . '/../resources/lang/en';  // Répertoire source (anglais)
-$targetDir = __DIR__ . '/../resources/lang/ar';  // Répertoire cible (arabe)
+$targetDir = __DIR__ . '/../resources/lang/fr';  // Répertoire cible (arabe)
 
 // Créer une instance de Google Translate pour la langue cible (arabe)
-$translator = new GoogleTranslate('ar');
-
+$translator = new GoogleTranslate('fr');
+echo '<pre>';
 echo "Début de la traduction...\n";
-
+echo '<pre/><br/>';
 // Récupérer tous les fichiers PHP dans le répertoire source
 $langFiles = glob($sourceDir . "/*.php");
 
 if (empty($langFiles)) {
+    echo '<pre>';
     echo "Aucun fichier de langue trouvé dans le répertoire $sourceDir.\n";
+    echo '<pre/>';
     exit;
 }
 
@@ -32,20 +34,26 @@ function translateArray(&$array, $translator) {
             try {
                 $value = $translator->translate($value);
             } catch (Exception $e) {
+                echo '<pre>';
                 echo "Erreur lors de la traduction de '$value': " . $e->getMessage() . "\n";
+                echo '<pre/><br/>';
             }
         }
     }
 }
 
 foreach ($langFiles as $file) {
+    echo '<pre>';
     echo "Traduction du fichier : " . basename($file) . "\n";
+    echo '<pre/><br/>';
 
     // Charger le fichier de langue (anglais)
     $translations = include $file;
 
     if (empty($translations)) {
-        echo "Le fichier $file est vide ou invalide.\n";
+        echo '<pre>';
+        echo "Le fichier $file est vide ou invalide.";
+        echo '<pre/><br/>';
         continue;
     }
 
@@ -60,7 +68,11 @@ foreach ($langFiles as $file) {
     // Sauvegarder le fichier traduit dans le répertoire cible
     $targetFile = $targetDir . '/' . basename($file);
     file_put_contents($targetFile, '<?php return ' . var_export($translations, true) . ';');
-    echo "Fichier traduit et sauvegardé : " . basename($file) . " dans $targetDir\n";
+    echo '<pre>';
+    echo "Fichier traduit et sauvegardé : " . basename($file) . " dans $targetDir";
+    echo '<pre/><br/>';
 }
 
-echo "Traduction terminée !\n";
+echo '<pre>';
+echo "Traduction terminée";
+echo '<pre/><br/>';

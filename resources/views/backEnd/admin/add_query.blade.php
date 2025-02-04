@@ -70,7 +70,7 @@
                                                         class="primary_input_field  primary_input_field date form-control form-control{{ @$errors->has('follow_up_date') ? ' is-invalid' : '' }}"
                                                         id="startDate" type="text"
                                                         name="follow_up_date" readonly="true"
-                                                        value="{{ date('m/d/Y', strtotime(@$admission_query->next_follow_up_date)) }}">
+                                                        value="{{ dateConvert(date('Y-m-d', strtotime(@$admission_query->next_follow_up_date))) }}">
 
                                                     @if ($errors->has('follow_up_date'))
                                                         <span
@@ -95,7 +95,7 @@
                                                         class="primary_input_field  primary_input_field date form-control form-control{{ @$errors->has('follow_up_date') ? ' is-invalid' : '' }}"
                                                         id="startDate" type="text"
                                                         name="next_follow_up_date" readonly="true"
-                                                        value="{{ date('m/d/Y', strtotime(@$admission_query->next_follow_up_date)) }}">
+                                                        value="{{ dateConvert(date('Y-m-d', strtotime(@$admission_query->next_follow_up_date))) }}">
 
 
                                                 </div>

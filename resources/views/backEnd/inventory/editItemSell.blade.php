@@ -227,7 +227,7 @@
                                         <div class="col">
                                             <div class="primary_input">
                                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('sell_date') ? ' is-invalid' : '' }}"  id="sell_date" type="text"
-                                                name="sell_date" value="{{isset($editData)? date('m/d/Y', strtotime($editData->sell_date)): ''}}" autocomplete="off">
+                                                name="sell_date" value="{{isset($editData)? dateConvert(date('Y-m-d', strtotime($editData->sell_date))): ''}}" autocomplete="off">
                                                 <label class="primary_input_label" for="">@lang('inventory.sell_date')<span></span> </label>
                                                 
                                                 @if ($errors->has('sell_date'))

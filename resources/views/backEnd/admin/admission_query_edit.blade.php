@@ -91,7 +91,7 @@
                                                 class="primary_input_field  primary_input_field date form-control form-control has-content"
                                                 id="startDate" type="text"
                                                 name="date" readonly="true"
-                                                value="{{ @$admission_query->date != '' ? date('m/d/Y', strtotime(@$admission_query->date)) : date('m/d/Y') }}">
+                                                value="{{ @$admission_query->date != '' ? dateConvert(date('Y-m-d', strtotime(@$admission_query->date))) : dateConvert(date('Y-m-d')) }}">
                                             <button class="btn-date" data-id="#date_from" type="button">
                                                 <label class="m-0 p-0" for="startDate">
                                                     <i class="ti-calendar" id="start-date-icon"></i>
@@ -112,7 +112,7 @@
                                                 class="primary_input_field  primary_input_field date form-control form-control has-content"
                                                 id="endDate" type="text"
                                                 name="next_follow_up_date" autocomplete="off" readonly="true"
-                                                value="{{ @$admission_query->next_follow_up_date != '' ? date('m/d/Y', strtotime(@$admission_query->next_follow_up_date)) : date('m/d/Y') }}">
+                                                value="{{ @$admission_query->next_follow_up_date != '' ? dateConvert(date('Y-m-d', strtotime(@$admission_query->next_follow_up_date))) : dateConvert(date('Y-m-d')) }}">
                                             <button class="btn-date" data-id="#date_from" type="button">
                                                 <label class="m-0 p-0" for="endDate">
                                                     <i class="ti-calendar" id="end-date-icon"></i>
