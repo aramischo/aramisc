@@ -100,7 +100,7 @@
             <div class="col-lg-6" id="">
                 <div class="primary_input">
                     <input class="read-only-input primary_input_field  primary_input_field date form-control form-control" id="payment_date" type="text"
-                    name="payment_date" value="{{date('m/d/Y')}}">
+                    name="payment_date" value="{{dateConvert(date('Y-m-d'))}}">
                     <label class="primary_input_label" for="">@lang('fees.payment_date') </label>
                     
                 </div>

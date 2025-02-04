@@ -43,7 +43,7 @@
                                         <div class="col">
                                             <div class="primary_input">
                                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ @$errors->has('date_from') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                                     name="date_from" value="{{date('m/d/Y')}}" readonly>
+                                                     name="date_from" value="{{ dateConvert(date('Y-m-d')) }}" readonly>
                                                     <label class="primary_input_label" for="">@lang('accounts.date_from')</label>
                                                     
                                                 @if ($errors->has('date_from'))
@@ -63,7 +63,7 @@
                                         <div class="col">
                                             <div class="primary_input">
                                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ @$errors->has('date_to') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                                     name="date_to" value="{{date('m/d/Y')}}" readonly>
+                                                     name="date_to" value="{{dateConvert(date('Y-m-d'))}}" readonly>
                                                     <label class="primary_input_label" for="">@lang('accounts.date_to')</label>
                                                     
                                                 @if ($errors->has('date_to'))

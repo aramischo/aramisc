@@ -1,47 +1,31 @@
-<?php
-return [
-"school" => "École",
-
-"login_details" => "Détails de connexion",
-
-"enter_email_address" => "Entrer l'adresse électronique",
-
-"enter_name" => "Entrer le nom",
-
-"enter_email" => "Entrer un e-mail",
-
-"enter_password" => "Entrez mot de passe",
-
-"enter_new_password" => "Entrez un nouveau mot de passe",
-
-"remember_me" => "Se souvenir de moi",
-
-"forget_password" => "Mot de passe oublié",
-
-"confirm_password" => "Confirmer mot de",
-
-"password" => "Mot de passe",
-
-"reset_password" => "Réinitialiser le mot",
-
-"current_password" => "Mot de passe actuel",
-
-"new_password" => "Nouveau mot de passe",
-
-"confirm_new_password" => "Confirmation du nouveau mot de passe",
-
-"change_password" => "Modifier mot de passe",
-
-"failed" => "Ces données d'identification ne correspondent pas à nos enregistrements.",
-
-"throttle" => "Trop de tentatives de connexion. Veuillez réessayer en: secondes secondes.",
-
-"Password" => "Mot de passe",
-
-"Login" => "Connexion",
-
-"Failed" => "Echec",
-
-"login" => "Connexion",
-
-];
+<?php return array (
+  'failed' => 'These credentials do not match our records.',
+  'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+  'school' => 'School',
+  'login' => 'Login',
+  'login_details' => 'Login Details',
+  'enter_email_address' => 'Enter Email Address',
+  'enter_name' => 'Enter Name',
+  'enter_email' => 'Enter Email',
+  'enter_password' => 'Enter Password',
+  'enter_new_password' => 'Enter New Password',
+  'remember_me' => 'Remember Me',
+  'forget_password' => 'Forget Password',
+  'confirm_password' => 'Confirm Password',
+  'password' => 'Password',
+  'reset_password' => 'Reset Password',
+  'current_password' => 'Current Password',
+  'new_password' => 'New Password',
+  'confirm_new_password' => 'Confirm New Password',
+  'change_password' => 'Change Password',
+  'verify_two_factor_authentication_code' => 'Verify two factor authentication code',
+  'verify_code' => 'Verify Code',
+  'enter_verification_code' => 'Enter verification code',
+  'two_factor_setting' => 'Two Factor Setting',
+  'code_lifetime' => 'Code Lifetime',
+  'send_code_via' => 'Send code via',
+  'applicable_for' => 'Applicable for',
+  'resend_code' => 'Resend Code',
+  'two_factor_otp' => 'Two Factor OTP',
+  'student_registration' => 'Student Registration',
+);

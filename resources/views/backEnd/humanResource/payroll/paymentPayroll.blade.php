@@ -85,7 +85,7 @@
                                         <input
                                             class="primary_input_field primary_input_field date form-control"
                                             id="payment_date" type="text" name="payment_date"
-                                            value="{{ old('admission_date') != '' ? old('admission_date') : date('m/d/Y') }}"
+                                            value="{{ old('admission_date') != '' ? dateConvert(old('admission_date')) : dateConvert(date('Y-m-d')) }}"
                                             autocomplete="off">
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                     <div class="primary_input">
                         <input
                             class="read-only-input primary_input_field  primary_input_field date form-control form-control{{ $errors->has('apply_date') ? ' is-invalid' : '' }}"
-                            id="payment_date" type="text" name="payment_date" value="{{ date('m/d/Y') }}">
+                            id="payment_date" type="text" name="payment_date" value="{{ date('Y-m-d') }}">
                         <label class="primary_input_label" for="">@lang('fees.payment_date') <span class="text-danger">
                                 *</span> </label>
 

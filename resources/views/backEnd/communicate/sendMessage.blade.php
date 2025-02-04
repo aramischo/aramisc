@@ -89,7 +89,7 @@
                                                                     <input
                                                                         class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('notice_date') ? ' is-invalid' : '' }}"
                                                                         id="notice_date" type="text" autocomplete="off"
-                                                                        name="notice_date" value="{{ date('m/d/Y') }}">
+                                                                        name="notice_date" value="{{ dateConvert(date('Y-m-d')) }}">
                                                                 </div>
                                                             </div>
                                                             <button class="btn-date" data-id="#notice_date" type="button">
@@ -119,7 +119,7 @@
                                                                     <input
                                                                         class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('publish_on') ? ' is-invalid' : '' }}"
                                                                         id="publish_on" type="text" autocomplete="off"
-                                                                        name="publish_on" value="{{ date('m/d/Y') }}">
+                                                                        name="publish_on" value="{{ dateConvert(date('Y-m-d')) }}">
                                                                 </div>
                                                             </div>
                                                             <button class="btn-date" data-id="#notice_date" type="button">

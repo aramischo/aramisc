@@ -167,7 +167,7 @@
                                                         <div class="no-gutters input-right-icon">
                                                             <div class="col">
                                                                 <div class="">
-                                                                    <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('create_date') ? ' is-invalid' : '' }}" id="create_date" type="text" name="create_date" value="{{isset($invoiceInfo)? date('m/d/Y', strtotime($invoiceInfo->create_date)) : date('m/d/Y')}}">
+                                                                    <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('create_date') ? ' is-invalid' : '' }}" id="create_date" type="text" name="create_date" value="{{isset($invoiceInfo)? dateConvert(date('Y-m-d', strtotime($invoiceInfo->create_date))) : dateConvert(date('Y-m-d'))}}">
                                                                 </div>
                                                             </div>
                                                             <button class="btn-date" data-id="#create_date" type="button">
@@ -196,7 +196,7 @@
                                                         <div class="no-gutters input-right-icon">
                                                             <div class="col">
                                                                 <div class="">
-                                                                    <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}" id="due_date" type="text" name="due_date" value="{{isset($invoiceInfo)? date('m/d/Y', strtotime($invoiceInfo->due_date)) : date('m/d/Y')}}">
+                                                                    <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}" id="due_date" type="text" name="due_date" value="{{isset($invoiceInfo)? dateConvert(date('Y-m-d', strtotime($invoiceInfo->due_date))) : dateConvert(date('Y-m-d'))}}">
                                                                 </div>
                                                             </div>
                                                             <button class="btn-date" data-id="#due_date" type="button">

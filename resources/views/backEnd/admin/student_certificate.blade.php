@@ -137,7 +137,7 @@
                                                 <div class="no-gutters input-right-icon">
                                                     <div class="col">
                                                         <div class="">
-                                                            <input class="primary_input_field primary_input_field date form-control" id="startDate" type="text" name="date" autocomplete="off" value="{{isset($certificate)? date('m/d/Y', strtotime($certificate->date)): date('m/d/Y')}}">
+                                                            <input class="primary_input_field primary_input_field date form-control" id="startDate" type="text" name="date" autocomplete="off" value="{{isset($certificate)? dateConvert(date('Y-m-d', strtotime($certificate->date))) : dateConvert(date('Y-m-d'))}}">
                                                         </div>
                                                     </div>
                                                     <button class="btn-date" data-id="#startDate" type="button">

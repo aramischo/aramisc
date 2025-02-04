@@ -222,7 +222,7 @@
                                                     <input
                                                         class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}"
                                                         id="startDate" type="text" name="date_of_birth"
-                                                        value="{{ date('m/d/Y', strtotime($student->date_of_birth)) }}"
+                                                        value="{{ dateConvert(date('Y-m-d', strtotime($student->date_of_birth))) }}"
                                                         autocomplete="off">
 
                                                     @if ($errors->has('date_of_birth'))
@@ -382,7 +382,7 @@
                                                     <input
                                                         class="primary_input_field  primary_input_field date form-control"
                                                         id="endDate" type="text" name="admission_date"
-                                                        value="{{ $student->admission_date != '' ? date('m/d/Y', strtotime($student->admission_date)) : date('m/d/Y') }}"
+                                                        value="{{ $student->admission_date != '' ? dateConvert(date('Y-m-d', strtotime($student->admission_date))) : dateConvert(date('Y-m-d')) }}"
                                                         autocomplete="off">
 
                                                 </div>

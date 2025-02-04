@@ -20,7 +20,7 @@
                                     <div class="primary_input">
                                         <label class="primary_input_label" for="">@lang('common.date')</label>
                                         <input class="primary_input_field  primary_input_field date form-control form-control" id="startDate" type="text"
-                                            name="date" value="{{date('m/d/Y')}}" readonly>
+                                            name="date" value="{{dateConvert(date('Y-m-d'))}}" readonly>
                                     </div>
                                 </div>
                                 <button class="btn-date" style="top: 70% !important;" data-id="#date_of_birth" type="button">

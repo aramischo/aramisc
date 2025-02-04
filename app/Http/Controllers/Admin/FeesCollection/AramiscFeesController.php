@@ -581,10 +581,10 @@ class AramiscFeesController extends Controller
         try {
             if(moduleStatusCheck('University')){
                 // dump($request->all());
-                $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
+                $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('Y-m-d')." - ".date('Y-m-d')."";
                 // dd($rangeArr);
-                $date_from = new \DateTime(trim(date('m/d/Y')));
-                $date_to =  new \DateTime(trim(date('m/d/Y')));
+                $date_from = new \DateTime(trim(date('Y-m-d')));
+                $date_to =  new \DateTime(trim(date('Y-m-d')));
 
                 $fees_masters = AramiscFeesMaster::select('fees_group_id')
                 ->where('active_status', 1)
@@ -607,7 +607,7 @@ class AramiscFeesController extends Controller
                     ->get();
                 return view('backEnd.feesCollection.search_fees_due', compact('fees_dues','fees_masters'));
             }elseif(directFees()){
-                $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
+                $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('Y-m-d')." - ".date('Y-m-d')."";
 
                 $date_from = new \DateTime(trim($rangeArr[0]));
                 $date_to =  new \DateTime(trim($rangeArr[1]));
@@ -937,7 +937,7 @@ class AramiscFeesController extends Controller
     }
     function universityFineReportSearch($request)
     {
-        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
+        $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('Y-m-d')." - ".date('Y-m-d')."";
         // dd($request->all());
         try {
 
@@ -981,7 +981,7 @@ class AramiscFeesController extends Controller
         if (moduleStatusCheck('University')) {
             return $this->universityFineReportSearch($request);
         } else {
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('m/d/Y')." - ".date('m/d/Y')."";
+            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "".date('Y-m-d')." - ".date('Y-m-d')."";
 
             try {
                 $classes = AramiscClass::get();

@@ -159,7 +159,7 @@
                                                                         class="primary_input_field date form-control{{ $errors->has('date') ? ' is-invalid' : '' }}"
                                                                         id="startDate" type="text"
                                                                         placeholder="@lang('common.date') *" name="date"
-                                                                        value="{{ isset($add_news) ? date('m/d/Y', strtotime($add_news->publish_date)) : date('m/d/Y') }}">
+                                                                        value="{{ isset($add_news) ? dateConvert(date('Y-m-d', strtotime($add_news->publish_date))) : dateConvert(date('Y-m-d')) }}">
                                                                         <button class="btn-date" data-id="#startDate" type="button">
                                                                             <i class="ti-calendar" id="start-date-icon"></i>
                                                                         </button>

@@ -206,7 +206,7 @@
                                                                     class="primary_input_field primary_input_field date form-control"
                                                                     id="startDate" type="text" name="date"
                                                                     autocomplete="off"
-                                                                    value="{{ isset($online_exam) ? date('m/d/Y', strtotime($online_exam->date)) : (old('date') != '' ? old('date') : date('m/d/Y')) }}">
+                                                                    value="{{ isset($online_exam) ? dateConvert(date('Y-m-d', strtotime($online_exam->date))) : dateConvert((old('date') != '' ? old('date') : date('Y-m-d'))) }}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#startDate" type="button">
@@ -233,7 +233,7 @@
                                                                     class="primary_input_field primary_input_field date form-control"
                                                                     id="end_date" type="text" name="end_date"
                                                                     autocomplete="off"
-                                                                    value="{{ isset($online_exam) ? date('m/d/Y', strtotime($online_exam->end_date_time)) : (old('end_date') != '' ? old('end_date') : date('m/d/Y')) }}">
+                                                                    value="{{ isset($online_exam) ? dateConvert(date('Y-m-d', strtotime($online_exam->end_date_time))) : dateConvert((old('end_date') != '' ? old('end_date') : date('Y-m-d'))) }}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#end_date" type="button">

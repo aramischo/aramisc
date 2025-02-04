@@ -32,7 +32,7 @@
                                     <div class="primary_input">
                                         <label class="primary_input_label" for="">@lang('common.date')</label>
                                         <input class="primary_input_field  primary_input_field date form-control form-control  has-content" id="startDate" type="text"
-                                            name="date" value="{{isset($fees_payment)? date('m/d/Y', strtotime($fees_payment->date)) : date('m/d/Y')}}" readonly>
+                                            name="date" value="{{isset($fees_payment)? dateConvert(date('Y-m-d', strtotime($fees_payment->date))) : dateConvert(date('Y-m-d'))}}" readonly>
                                         
                                             <button class="btn-date" style="top: 70% !important;" data-id="#date_of_birth" type="button">
                                                 <label class="m-0 p-0" for="date_of_birth">

@@ -26,8 +26,8 @@
                 "daysOfWeek": {!! json_encode(__('calender.daysMin')) !!},
                 "monthNames": {!! json_encode(__('calender.months')) !!}
             },
-            "startDate": '{{ \Carbon\Carbon::parse($date_from)->format('m/d/Y') }}',
-            "endDate": '{{ \Carbon\Carbon::parse($date_to)->format('m/d/Y') }}'
+            "startDate": '{{  dateConvert($date_from) }}',
+            "endDate": '{{ dateConvert($date_to) }}'
             }, function(start, end, label) {
             console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });

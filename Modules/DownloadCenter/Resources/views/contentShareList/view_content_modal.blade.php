@@ -27,7 +27,7 @@
                             @lang('downloadCenter.upload_date'):
                         </span>
                         <span class="content-value">
-                            {{ date('Y-m-d', strtotime($viewContent->created_at)) }}
+                            {{ dateConvert(date('Y-m-d', strtotime($viewContent->created_at))) }}
                         </span>
                     </div>
                     <div class="col-lg-4">

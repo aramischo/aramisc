@@ -177,6 +177,7 @@
                                                                     <div class="primary_input">
                                                                         <label class="primary_input_label"
                                                                             for="">@lang('student.admission_date')
+                                                                            <span>
                                                                             @if (is_required('admission_date') == true)
                                                                                 <span class="text-danger"> *</span>
                                                                             @endif
@@ -191,7 +192,7 @@
                                                                                             id="admission_date"
                                                                                             type="text"
                                                                                             name="admission_date"
-                                                                                            value="{{ $student->admission_date != '' ? date('m/d/Y', strtotime($student->admission_date)) : date('m/d/Y') }}"
+                                                                                            value="{{ $student->admission_date != '' ? dateConvert(date('Y-m-d', strtotime($student->admission_date))) : dateConvert(date('Y-m-d')) }}"
                                                                                             autocomplete="off">
                                                                                     </div>
                                                                                 </div>
@@ -404,7 +405,7 @@
                                                                                             id="date_of_birth"
                                                                                             type="text"
                                                                                             name="date_of_birth"
-                                                                                            value="{{ date('m/d/Y', strtotime($student->date_of_birth)) }}"
+                                                                                            value="{{ dateConvert(date('Y-m-d', strtotime($student->date_of_birth))) }}"
                                                                                             autocomplete="off">
                                                                                     </div>
                                                                                 </div>

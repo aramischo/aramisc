@@ -139,7 +139,7 @@ class FeesReportController extends Controller
                     ->where('academic_id', getAcademicId())
                     ->get();
         if ($request->date_range) {
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : [date('m/d/Y'), date('m/d/Y')];
+            $rangeArr = $request->date_range ? explode('-', $request->date_range) : [date('Y-m-d'), date('Y-m-d')];
             $date_from = date('Y-m-d', strtotime(trim($rangeArr[0])));
             $date_to = date('Y-m-d', strtotime(trim($rangeArr[1])));
         }

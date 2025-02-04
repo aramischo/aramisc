@@ -315,7 +315,7 @@
                                                                                 class="primary_input_field primary_input_field date form-control"
                                                                                 id="startDate" type="text"
                                                                                 name="routine[{{ $row }}][date]"
-                                                                                value="{{ isset($routine) ? date('m/d/Y', strtotime(@$routine->date)) : date('m/d/Y') }}"
+                                                                                value="{{ isset($routine) ? dateConvert(date('Y-m-d', strtotime(@$routine->date))) : dateConvert(date('Y-m-d')) }}"
                                                                                 autocomplete="off" required>
                                                                         </div>
                                                                     </div>
@@ -558,7 +558,7 @@
                                                                         <div class="">
                                                                             <input 
                                                                                 class="primary_input_field primary_input_field date form-control"
-                                                                                id="startDate${row_count}" type="text" name="routine[${row_count}][date]" value="{{ date('m/d/Y') }}" autocomplete="off">
+                                                                                id="startDate${row_count}" type="text" name="routine[${row_count}][date]" value="{{ dateConvert(date('Y-m-d')) }}" autocomplete="off">
                                                                         </div>
                                                                     </div>
                                                                     <button class="btn-date" data-id="#startDate" type="button">

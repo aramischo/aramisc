@@ -109,7 +109,7 @@
                                                         <input
                                                             class="primary_input_field primary_input_field date form-control"
                                                             id="homework_date" type="text" name="homework_date"
-                                                            value="{{ old('homework_date') != '' ? old('homework_date') : date('m/d/Y') }}"
+                                                            value="{{ dateConvert(old('homework_date') != '' ? old('homework_date') : date('Y-m-d')) }}"
                                                             readonly>
                                                     </div>
                                                 </div>
@@ -134,7 +134,7 @@
                                                         <input
                                                             class="primary_input_field primary_input_field date form-control"
                                                             id="submission_date" type="text" name="submission_date"
-                                                            value="{{ old('submission_date') != '' ? old('submission_date') : date('m/d/Y') }}"
+                                                            value="{{ dateConvert(old('submission_date') != '' ? old('submission_date') : date('Y-m-d')) }}"
                                                             readonly>
                                                     </div>
                                                 </div>

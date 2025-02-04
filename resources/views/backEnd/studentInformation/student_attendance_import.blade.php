@@ -112,7 +112,7 @@
                                                     <div class="">
                                                         <input class="primary_input_field  primary_input_field date form-control{{ $errors->has('attendance_date') ? ' is-invalid' : '' }}"
                                                        id="startDate" type="text" name="attendance_date"
-                                                       autocomplete="off" value="{{date('m/d/Y')}}">
+                                                       autocomplete="off" value="{{dateConvert(date('Y-m-d'))}}">
                                                     </div>
                                                 </div>
                                                 <button class="btn-date" data-id="#startDate" type="button">

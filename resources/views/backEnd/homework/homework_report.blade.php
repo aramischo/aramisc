@@ -53,7 +53,7 @@
                                                             <input
                                                                 class="primary_input_field primary_input_field date form-control"
                                                                 id="date" type="text" name="date"
-                                                                value="{{ old('date') != '' ? old('date') : date('m/d/Y') }}"
+                                                                value="{{ dateConvert(old('date') != '' ? old('date') : date('Y-m-d')) }}"
                                                                 autocomplete="off">
                                                         </div>
                                                     </div>
@@ -165,7 +165,7 @@
                                                     <input
                                                         class="primary_input_field primary_input_field date form-control"
                                                         id="date" type="text" name="date"
-                                                        value="{{ old('date') != '' ? old('date') : date('m/d/Y') }}"
+                                                        value="{{ dateConvert(old('date') != '' ? old('date') : date('Y-m-d')) }}"
                                                         autocomplete="off">
                                                 </div>
                                             </div>

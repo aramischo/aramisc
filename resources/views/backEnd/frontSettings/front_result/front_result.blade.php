@@ -82,7 +82,7 @@
                                                             <input
                                                                 class="primary_input_field date form-control{{ $errors->has('publish_date') ? ' is-invalid' : '' }}"
                                                                 id="publish_date" type="text" name="publish_date"
-                                                                value="{{ isset($add_front_result) ? date('m/d/Y', strtotime(@$add_front_result->publish_date)) : date('m/d/Y') }}"
+                                                                value="{{ isset($add_front_result) ? dateConvert(date('Y-m-d', strtotime(@$add_front_result->publish_date))) : dateConvert(date('Y-m-d')) }}"
                                                                 autocomplete="off">
                                                         </div>
                                                     </div>
@@ -209,7 +209,7 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ @$value->title }}</td>
-                                                <td>{{ date('m/d/Y', strtotime(@$value->publish_date)) }}</td>
+                                                <td>{{ dateConvert(date('Y-m-d', strtotime(@$value->publish_date))) }}</td>
                                                 <td>
                                                     <x-drop-down>
                                                         @if ($value->result_file)

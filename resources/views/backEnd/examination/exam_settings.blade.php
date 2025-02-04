@@ -140,7 +140,7 @@
                                                                         class="primary_input_field primary_input_field date form-control{{ $errors->has('publish_date') ? ' is-invalid' : '' }}"
                                                                         id="upload_date" type="text"
                                                                         name="publish_date"
-                                                                        value="{{isset($editData)? date('m/d/Y', strtotime(@$editData->publish_date)): date('m/d/Y')}}">
+                                                                        value="{{isset($editData)? dateConvert(date('Y-m-d', strtotime(@$editData->publish_date))) : dateConvert(date('Y-m-d'))}}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#upload_date" type="button">
@@ -167,7 +167,7 @@
                                                                 <input
                                                                         class="primary_input_field primary_input_field date form-control{{ $errors->has('start_date') ? ' is-invalid' : '' }}"
                                                                         id="start_date" type="text" name="start_date"
-                                                                        value="{{isset($editData) && $editData->start_date ? date('m/d/Y', strtotime(@$editData->start_date)): date('m/d/Y')}}">
+                                                                        value="{{isset($editData) && $editData->start_date ? dateConvert(date('Y-m-d', strtotime(@$editData->start_date))) : dateConvert(date('Y-m-d'))}}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#start_date" type="button">
@@ -191,7 +191,7 @@
                                                                 <input
                                                                         class="primary_input_field primary_input_field date form-control form-control{{ $errors->has('end_date') ? ' is-invalid' : '' }}"
                                                                         id="end_date" type="text" name="end_date"
-                                                                        value="{{isset($editData) && $editData->end_date? date('m/d/Y', strtotime(@$editData->end_date)): date('m/d/Y')}}">
+                                                                        value="{{isset($editData) && $editData->end_date? dateConvert(date('Y-m-d', strtotime(@$editData->end_date))) : dateConvert(date('Y-m-d'))}}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#end_date" type="button">

@@ -1068,7 +1068,7 @@
                                                                         class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}"
                                                                         id="startDate" type="text"
                                                                         name="date" autocomplete="off"
-                                                                        value="{{ date('m/d/Y') }}" required>
+                                                                        value="{{ dateConvert(date('Y-m-d')) }}" required>
                                                                     <label for="startDate" class="primary_input-icon pr-2">
                                                                         <i class="ti-calendar"
                                                                         id="admission-date-icon"></i>

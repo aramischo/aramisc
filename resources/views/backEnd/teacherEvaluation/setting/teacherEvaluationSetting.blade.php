@@ -178,7 +178,7 @@
                                                                                 id="startDate"
                                                                                 type="text"
                                                                                 name="startDate" readonly="true"
-                                                                                value="{{ $teacherEvaluationSetting->from_date ? date('m/d/Y', strtotime($teacherEvaluationSetting->from_date)) : date('m/d/Y') }}"
+                                                                                value="{{ $teacherEvaluationSetting->from_date ? dateConvert(date('Y-m-d', strtotime($teacherEvaluationSetting->from_date))) : dateConvert(date('Y-m-d')) }}"
                                                                                 required>
                                                                         </div>
                                                                     </div>
@@ -209,7 +209,7 @@
                                                                                 id="endDate" type="text"
                                                                                 name="endDate" autocomplete="off"
                                                                                 readonly="true"
-                                                                                value="{{ $teacherEvaluationSetting->to_date ? date('m/d/Y', strtotime($teacherEvaluationSetting->to_date)) : date('m/d/Y', strtotime(' + 1 days')) }}"
+                                                                                value="{{ $teacherEvaluationSetting->to_date ? dateConvert(date('Y-m-d', strtotime($teacherEvaluationSetting->to_date))) : dateConvert(date('Y-m-d', strtotime(' + 1 days'))) }}"
                                                                                 required>
                                                                         </div>
                                                                     </div>

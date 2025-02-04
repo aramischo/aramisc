@@ -151,7 +151,7 @@
                                                     <div class="col">
                                                         <div class="">
                                                             <input class="primary_input_field  primary_input_field date form-control form-control{{ @$errors->has('date') ? ' is-invalid' : '' }}"
-                                                id="startDate" type="text" placeholder="@lang('common.date') *" name="date" value="{{isset($add_income)? date('m/d/Y', strtotime($add_income->date)): date('m/d/Y')}}">
+                                                id="startDate" type="text" placeholder="@lang('common.date') *" name="date" value="{{isset($add_income)? dateConvert(date('Y-m-d', strtotime($add_income->date))): dateConvert(date('Y-m-d')}}">
                                                         </div>
                                                     </div>
                                                     <button class="btn-date" data-id="#startDate" type="button">

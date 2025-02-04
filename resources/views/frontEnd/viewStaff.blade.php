@@ -867,7 +867,7 @@
                                         <div class="col">
                                             <div class="primary_input">
                                                 <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" id="startDate" type="text"
-                                                name="date" autocomplete="off" value="{{date('m/d/Y')}}">
+                                                name="date" autocomplete="off" value="{{dateConvert(date('Y-m-d'))}}">
                                                 
                                                 <label>Date <span class="text-danger"> *</span> </label>
                                                 @if ($errors->has('date_of_birth'))

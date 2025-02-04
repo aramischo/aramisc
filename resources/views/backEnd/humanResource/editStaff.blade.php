@@ -391,7 +391,7 @@
                                                                                             id="date_of_birth"
                                                                                             type="text"
                                                                                             name="date_of_birth"
-                                                                                            value="{{ date('m/d/Y', strtotime($editData->date_of_birth)) }}"
+                                                                                            value="{{ dateConvert(date('Y-m-d', strtotime($editData->date_of_birth))) }}"
                                                                                             autocomplete="off">
                                                                                     </div>
                                                                                 </div>
@@ -423,7 +423,7 @@
                                                                                             id="date_of_joining"
                                                                                             type="text"
                                                                                             name="date_of_joining"
-                                                                                            value="{{ date('m/d/Y', strtotime($editData->date_of_joining)) }} "
+                                                                                            value="{{ dateConvert(date('Y-m-d', strtotime($editData->date_of_joining))) }} "
                                                                                             autocomplete="off">
                                                                                     </div>
                                                                                 </div>

@@ -160,7 +160,7 @@
                                                                 <input
                                                                 class="primary_input_field  primary_input_field date form-control"
                                                                 id="startDate" type="text" name="date"
-                                                                value="{{ isset($complaint) ? date('m/d/Y', strtotime($complaint->date)) : (old('date') != '' ? old('date') : date('m/d/Y')) }}">
+                                                                value="{{ isset($complaint) ? dateConvert(date('Y-m-d', strtotime($complaint->date))) : dateConvert((old('date') != '' ? old('date') : date('Y-m-d'))) }}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#startDate" type="button">

@@ -27,7 +27,7 @@
                 <div class="row no-gutters input-right-icon mt-35">
                     <div class="col">
                         <div class="primary_input">
-                            <input class="primary_input_field  primary_input_field date form-control read-only-input has-content" id="startDate" type="text" name="date" onkeyup="examRoutineCheck()" value="{{isset($assigned_exam)? date('m/d/Y', strtotime($assigned_exam->date)):date('m/d/Y')}}" readonly="true">
+                            <input class="primary_input_field  primary_input_field date form-control read-only-input has-content" id="startDate" type="text" name="date" onkeyup="examRoutineCheck()" value="{{isset($assigned_exam)? dateConvert(date('Y-m-d', strtotime($assigned_exam->date))) : dateConvert(date('Y-m-d'))}}" readonly="true">
                                 <label class="primary_input_label" for="">@lang('common.date')</label>
                             
                             <span class="text-danger"  id="date_error">

@@ -98,7 +98,7 @@
                                                             <input
                                                                 class="primary_input_field date form-control{{ $errors->has('publish_date') ? ' is-invalid' : '' }}"
                                                                 id="publish_date" type="text" name="publish_date"
-                                                                value="{{ isset($add_form_download) ? date('m/d/Y', strtotime(@$add_form_download->publish_date)) : date('m/d/Y') }}"
+                                                                value="{{ isset($add_form_download) ? dateConvert(date('Y-m-d', strtotime(@$add_form_download->publish_date))) : dateConvert(date('Y-m-d')) }}"
                                                                 autocomplete="off">
                                                         </div>
                                                     </div>
@@ -256,7 +256,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ @$value->title }}</td>
                                                 <td>{{ @$value->short_description }}</td>
-                                                <td>{{ date('m/d/Y', strtotime(@$value->publish_date)) }}</td>
+                                                <td>{{ dateConvert(date('Y-m-d', strtotime(@$value->publish_date))) }}</td>
                                                 <td>
                                                     @if (@$value->show_public == 1)
                                                         <button class="primary-btn bg-success text-white border-0 small tr-bg">

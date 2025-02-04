@@ -200,7 +200,7 @@ class AramiscAccountsController extends Controller
         try {
             date_default_timezone_set("Asia/Dhaka");
 
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('m/d/Y') . " - " . date('m/d/Y') . "";
+            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
 
             if ($request->date_range) {
                 $date_from = new DateTime(trim($rangeArr[0]));
@@ -254,7 +254,7 @@ class AramiscAccountsController extends Controller
     public function transactionSearch(Request $request)
     {
         try {
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('m/d/Y') . " - " . date('m/d/Y') . "";
+            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
             if ($request->date_range) {
                 $date_from = new DateTime(trim($rangeArr[0]));
                 $date_to = new DateTime(trim($rangeArr[1]));
@@ -323,7 +323,7 @@ class AramiscAccountsController extends Controller
     public function accountsPayrollReportSearch(Request $request)
     {
         try {
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('m/d/Y') . " - " . date('m/d/Y') . "";
+            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
             if ($request->date_range) {
                 $date_from = new DateTime(trim($rangeArr[0]));
                 $date_to = new DateTime(trim($rangeArr[1]));

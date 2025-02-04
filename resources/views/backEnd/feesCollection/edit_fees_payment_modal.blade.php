@@ -30,7 +30,7 @@
                             <div class="position-relative">
                                 <input class="primary_input_field  primary_input_field date form-control form-control"
                                     id="startDate" type="text"
-                                    name="date" value="{{ date('m/d/Y') }}" readonly
+                                    name="date" value="{{ dateConvert(date('Y-m-d')) }}" readonly
                                     value={{ $fees_payment->payment_date }}>
                                 <label for="startDate" class="primary_input-icon pr-2">
                                     <i class="ti-calendar" id="start-date-icon"></i>

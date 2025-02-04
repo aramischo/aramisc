@@ -113,7 +113,7 @@
                                                                     class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('starting_date') ? ' is-invalid' : '' }}"
                                                                     id="startDate" type="text"
                                                                     placeholder=" @lang('system_settings.starting_date') *" name="starting_date"
-                                                                    value="{{ isset($academic_year) ? date('m/d/Y', strtotime($academic_year->starting_date)) : date('01/01/Y') }}">
+                                                                    value="{{ isset($academic_year) ? dateConvert(date('Y-m-d', strtotime($academic_year->starting_date))) : date('01/01/Y') }}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#starting_date" type="button">
@@ -141,7 +141,7 @@
                                                                     class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('ending_date') ? ' is-invalid' : '' }}"
                                                                     id="endDate" type="text"
                                                                     placeholder="@lang('system_settings.ending_date')*" name="ending_date"
-                                                                    value="{{ isset($academic_year) ? date('m/d/Y', strtotime($academic_year->ending_date)) : date('12/31/Y') }}">
+                                                                    value="{{ isset($academic_year) ? dateConvert(date('Y-m-d', strtotime($academic_year->ending_date))) : dateConvert(date('12/31/Y')) }}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#ending_date" type="button">

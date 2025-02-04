@@ -234,7 +234,7 @@
                         <input type="hidden" name="lessonplan_id" id="lessonplan_id">
                         <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('complete_date') ? ' is-invalid' : '' }}"
                                id="complete_date" type="text"
-                               name="complete_date" value="{{date('m/d/Y')}}">
+                               name="complete_date" value="{{dateConvert(date('Y-m-d'))}}">
                     </div>
                     <div class="mt-40 d-flex justify-content-between">
                         <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">Close</button>

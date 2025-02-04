@@ -75,7 +75,7 @@
                                                     class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('apply_date') ? ' is-invalid' : '' }}"
                                                     id="apply_date" type="text"
                                                     name="apply_date"
-                                                    value="{{ isset($apply_leave) ? date('m/d/Y', strtotime($apply_leave->apply_date)) : date('m/d/Y') }}">
+                                                    value="{{ isset($apply_leave) ? dateConvert(date('Y-m-d', strtotime($apply_leave->apply_date))) : dateConvert(date('Y-m-d')) }}">
                                                 @if ($errors->has('apply_date'))
                                                     <span class="text-danger">
                                                         {{ $errors->first('apply_date') }}
@@ -140,7 +140,7 @@
                                                     class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('leave_from') ? ' is-invalid' : '' }}"
                                                     id="startDate" type="text"
                                                     name="leave_from" autocomplete="off"
-                                                    value="{{ isset($apply_leave) ? date('m/d/Y', strtotime($apply_leave->leave_from)) : '' }}">
+                                                    value="{{ isset($apply_leave) ? dateConvert(date('Y-m-d', strtotime($apply_leave->leave_from))) : '' }}">
                                                 @if ($errors->has('leave_from'))
                                                     <span class="text-danger">
                                                         {{ $errors->first('leave_from') }}
@@ -162,7 +162,7 @@
                                                 <input
                                                     class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('leave_to') ? ' is-invalid' : '' }}"
                                                     id="leave_to" type="text" name="leave_to"
-                                                    value="{{ isset($apply_leave) ? date('m/d/Y', strtotime($apply_leave->leave_to)) : '' }}">
+                                                    value="{{ isset($apply_leave) ? dateConvert(date('Y-m-d', strtotime($apply_leave->leave_to))) : '' }}">
                                                 @if ($errors->has('leave_to'))
                                                     <span class="text-danger">
                                                         {{ $errors->first('leave_to') }}

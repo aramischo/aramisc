@@ -53,7 +53,7 @@ class StudentOnlineExamResource extends JsonResource
             'class_section' => (string)@$this->class->class_name . ' (' . @$this->section->section_name . ')',
             'subject' => (string)@$this->subject->subject_name,
             'start_date' => (string)dateConvert(@$this->date),
-            'end_date' => (string)dateConvert(date('m/d/Y', strtotime(@$this->end_date_time))),          
+            'end_date' => (string)dateConvert(date('Y-m-d', strtotime(@$this->end_date_time))),          
             'start_time' => (string)date('h:i A', strtotime(@$this->start_time)),
             'end_time' => (string)date('h:i A', strtotime(@$this->end_time)),
             'duration' => $this->end_time != 'NULL' ? (string)gmdate($totalDuration) : 'Unlimited',

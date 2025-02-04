@@ -218,7 +218,7 @@
                                                                      class="primary_input_field primary_input_field date form-control"
                                                                      id="receive_date" type="text"
                                                                      name="receive_date"
-                                                                     value="{{ isset($editData) ? date('m/d/Y', strtotime($editData->receive_date)) : date('m/d/Y') }}"
+                                                                     value="{{ isset($editData) ? dateConvert(date('Y-m-d', strtotime($editData->receive_date))) : dateConvert(date('Y-m-d')) }}"
                                                                      autocomplete="off">
                                                              </div>
                                                          </div>

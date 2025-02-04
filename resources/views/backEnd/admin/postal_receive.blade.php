@@ -168,7 +168,7 @@
                                                             <input
                                                                 class="primary_input_field  primary_input_field date form-control"
                                                                 id="startDate" type="text" name="date"
-                                                                value="{{ isset($postal_receive) ? $postal_receive->date : date('m/d/Y') }}"
+                                                                value="{{ isset($postal_receive) ? dateConvert($postal_receive->date) : dateConvert(date('Y-m-d')) }}"
                                                                 autocomplete="off">
                                                         </div>
                                                     </div>

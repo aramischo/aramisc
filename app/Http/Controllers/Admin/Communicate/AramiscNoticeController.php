@@ -160,8 +160,8 @@ class AramiscNoticeController extends Controller
 
             $noticeData->notice_date = date('Y-m-d', strtotime($request->notice_date));
             $noticeData->publish_on = date('Y-m-d', strtotime($request->publish_on));
-            $noticeData->notice_date = Carbon::createFromFormat('m/d/Y', $request->notice_date)->format('Y-m-d');
-            $noticeData->publish_on = Carbon::createFromFormat('m/d/Y', $request->publish_on)->format('Y-m-d');
+            $noticeData->notice_date = Carbon::createFromFormat('Y-m-d', $request->notice_date)->format('Y-m-d');
+            $noticeData->publish_on = Carbon::createFromFormat('Y-m-d', $request->publish_on)->format('Y-m-d');
             $noticeData->inform_to = json_encode($request->role);
             $noticeData->updated_by = auth()->user()->id;
             if ($request->is_published) {

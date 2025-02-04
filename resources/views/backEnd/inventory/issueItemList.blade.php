@@ -176,7 +176,7 @@
                                                                 <input
                                                                 class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('issue_date') ? ' is-invalid' : '' }}"
                                                                 id="startDate" type="text" name="issue_date"
-                                                                value="{{ isset($editData) ? date('m/d/Y', strtotime($editData->issue_date)) : date('m/d/Y') }}">
+                                                                value="{{ isset($editData) ? dateConvert(date('Y-m-d', strtotime($editData->issue_date))) : date('Y-m-d') }}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#issue_date" type="button">
@@ -200,7 +200,7 @@
                                                                 <input
                                                     class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('due_date') ? ' is-invalid' : '' }}"
                                                     id="endDate" type="text" name="due_date"
-                                                    value="{{ isset($editData) ? date('m/d/Y', strtotime($editData->issue_date)) : date('m/d/Y') }}">
+                                                    value="{{ isset($editData) ? dateConvert(date('Y-m-d', strtotime($editData->issue_date))) : date('Y-m-d') }}">
                                                             </div>
                                                         </div>
                                                         <button class="btn-date" data-id="#due_date" type="button">

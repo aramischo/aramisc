@@ -269,7 +269,7 @@
                                                         <input
                                                             class="primary_input_field  primary_input_field date form-control"
                                                             id="startDate" type="text" name="date"
-                                                            value="{{ date('m/d/Y') }}" autocomplete="off" required>
+                                                            value="{{ dateConvert(date('Y-m-d')) }}" autocomplete="off" required>
                                                     </div>
                                                 </div>
                                                 <button class="btn-date" data-id="#startDate" type="button">

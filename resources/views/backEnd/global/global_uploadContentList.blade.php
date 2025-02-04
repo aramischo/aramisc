@@ -184,13 +184,11 @@
                                                     class="primary_input_field  primary-input date form-control form-control{{ $errors->has('upload_date') ? ' is-invalid' : '' }}"
                                                     id="upload_date" type="text"
                                                     name="upload_date"
-                                                    value="{{isset($editData)? date('m/d/Y', strtotime(@$editData->upload_date)): date('m/d/Y')}}">
+                                                    value="{{isset($editData)? dateConvert(date('Y-m-d', strtotime(@$editData->upload_date))) : dateConvert(date('Y-m-d'))}}">
                                                
                                                 
                                                 @if ($errors->has('upload_date'))
-                                                    <span class="text-danger" >
-                                        {{ $errors->first('upload_date') }}</strong>
-                                        </span>
+                                                    <span class="text-danger"><strong>{{ $errors->first('upload_date') }}</strong></span>
                                                 @endif
                                             </div>
 

@@ -131,7 +131,7 @@
                                             <div class="col">
                                                 <div class="primary_input">
                                                     <label class="primary_input_label" for="">@lang('fees.due_date') <span></span></label>
-                                                    <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" id="startDate" type="text" name="date" value="{{isset($fees_master)? date('m/d/Y', strtotime($fees_master->date)) : date('m/d/Y')}}">
+                                                    <input class="primary_input_field  primary_input_field date form-control form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" id="startDate" type="text" name="date" value="{{isset($fees_master)? dateConvert(date('Y-m-d', strtotime($fees_master->date))) : dateConvert(date('Y-m-d'))}}">
                                                         
                                                     <button class="btn-date" style="top: 70% !important;" data-id="#date_of_birth" type="button">
                                                         <label class="m-0 p-0" for="date_of_birth">
@@ -280,7 +280,7 @@
                                                                         <div class="primary_input">
                                                                             <input class="primary_input_field  primary_input_field date form-control {{ $errors->has('due_date') ? ' is-invalid' : '' }}" id="startDate" type="text"
                                                                                    name="due_date[]"
-                                                                                   value="{{isset($installment)? date('m/d/Y', strtotime($installment->due_date)): date('m/d/Y')}}">
+                                                                                   value="{{isset($installment)? dateConvert(date('Y-m-d', strtotime($installment->due_date))) : dateConvert(date('Y-m-d'))}}">
                                                                            
                                                                             
                                                                             @if ($errors->has('due_date'))
@@ -338,7 +338,7 @@
                                                                     <div class="primary_input">
                                                                         <input class="primary_input_field  primary_input_field date form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" id="startDate" type="text"
                                                                                name="due_date[]"
-                                                                               value="{{date('m/d/Y')}}">
+                                                                               value="{{dateConvert(date('Y-m-d'))}}">
                                                                        
                                                                         
                                                                         @if ($errors->has('date'))
@@ -587,7 +587,7 @@
                                     <div class="primary_input">
                                         <input class="primary_input_field  primary_input_field date form-control has-content" id="startDate${tableLength}" type="text"
                                                name="due_date[]"
-                                               value="{{isset($visitor)? date('m/d/Y', strtotime($visitor->date)): date('m/d/Y')}}">
+                                               value="{{isset($visitor)? dateConvert(date('Y-m-d', strtotime($visitor->date))) : dateConvert(date('Y-m-d'))}}">
                                         
                                         @if ($errors->has('date'))
                                             <span class="text-danger" >

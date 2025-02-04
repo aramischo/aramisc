@@ -87,7 +87,7 @@
                                                             <input
                                                                 class="primary_input_field primary_input_field date form-control"
                                                                 id="date_of_birth" type="text" name="date_of_birth"
-                                                                value="{{ !@$add_donor->date_of_birth ? (old('admission_date') != '' ? old('admission_date') : date('m/d/Y')) : date('m/d/Y', strtotime($add_donor->date_of_birth)) }}"
+                                                                value="{{ !@$add_donor->date_of_birth ? (old('admission_date') != '' ? dateConvert(old('admission_date')) : dateConvert(date('Y-m-d'))) : dateConvert(date('Y-m-d', strtotime($add_donor->date_of_birth))) }}"
                                                                 autocomplete="off">
                                                         </div>
                                                     </div>

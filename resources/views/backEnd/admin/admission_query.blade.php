@@ -302,7 +302,7 @@
                                                                     id="startDate"
                                                                     type="text"
                                                                     name="date" readonly="true"
-                                                                    value="{{ date('m/d/Y') }}"
+                                                                    value="{{ dateConvert(date('Y-m-d')) }}"
                                                                     required>
                                                             </div>
                                                         </div>
@@ -330,7 +330,7 @@
                                                                     type="text"
                                                                     name="next_follow_up_date" autocomplete="off"
                                                                     readonly="true"
-                                                                    value="{{ date('m/d/Y', strtotime(' + 1 days')) }}"
+                                                                    value="{{ dateConvert(date('Y-m-d', strtotime(' + 1 days'))) }}"
                                                                     required>
                                                             </div>
                                                         </div>
