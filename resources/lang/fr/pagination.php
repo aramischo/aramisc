@@ -1,11 +1,4 @@
-<?php
-return [
-"Next" => "Suivant",
-
-"Previous" => "Précédent",
-
-"next" => "Suivant",
-
-"previous" => "Précédent",
-
-];
+<?php return array (
+  'previous' => '" Précédent',
+  'next' => 'Suivant "',
+);

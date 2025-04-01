@@ -1,35 +1,19 @@
-<?php
-return [
-    "add_role" => "Ajouter un rôle",
-
-    "edit_role" => "Editer le rôle",
-
-    "update_role" => "Mettre à jour rôle",
-
-    "delete_role" => "Supprimer un rôle",
-
-    "student_permission" => "Autorisation d'étudiant",
-
-    "parents_permission" => "Droit parent",
-
-    "student_password" => "Mot de passe étudiant",
-
-    "parents_password" => "Mot de passe parent",
-
-    "update_password" => "Mettre à jour le",
-
-    "Role" => "Rôle",
-
-    "role_permission" => "Droit de rôle",
-
-    "assign_permission" => "Affecter une autorisation",
-
-    "role" => "Rôle",
-
-    "role_&_permission" => "Droit de rôle",
-
-    "login_permission" => "Droit de connexion",
-
-    "role_list" => "Liste des rôles",
-
-];
+<?php return array (
+  'role' => 'Rôle',
+  'role_&_permission' => 'Rôle et autorisation',
+  'role_permission' => 'Permission de rôle',
+  'role_list' => 'Liste de rôles',
+  'add_role' => 'Ajouter un rôle',
+  'edit_role' => 'Modifier le rôle',
+  'update_role' => 'Mettre à jour le rôle',
+  'delete_role' => 'Supprimer le rôle',
+  'assign_permission' => 'Attribuer une autorisation',
+  'login_permission' => 'Autorisation de connexion',
+  'student_permission' => 'Autorisation des étudiants',
+  'parents_permission' => 'Autorisation des parents',
+  'student_password' => 'Mot de passe étudiant',
+  'parents_password' => 'Mot de passe parent',
+  'update_password' => 'Mettre à jour le mot de passe',
+  'due_fees_login_permission' => 'Les frais d\'échéance de la connexion',
+  'fees_due_users_login_permission' => 'Frais due à la connexion de l\'utilisateur',
+);

@@ -1,355 +1,216 @@
-<?php
-return [
-"staff_registration" => "Enregistrement du personnel",
-
-"human_resource" => "Ressource humaine",
-
-"staff_directory" => "Répertoire du personnel",
-
-"staff_attendance_report" => "Rapport sur la participation du personnel",
-
-"not_generated" => "Non généré",
-
-"approve_leave_request" => "Approuver la demande de congé",
-
-"apply_leave" => "Appliquer un congé",
-
-"leave_type" => "Type de congé",
-
-"department" => "Département",
-
-"staff_list" => "Liste du personnel",
-
-"select_year" => "Sélectionner une année",
-
-"search_by_staff_id" => "Rechercher par ID de personnel",
-
-"staff_id" => "ID personnel",
-
-"generate_payroll" => "Générer la paie",
-
-"not_generate" => "Ne pas générer",
-
-"generated" => "Générer",
-
-"proceed_to_pay" => "Passer à la paye",
-
-"view_payslip" => "Afficher le bulletin de paiement",
-
-"month" => "Mois",
-
-"payslip" => "Feuillet de paiement",
-
-"basic_salary" => "Salaire de base",
-
-"earnings" => "Gains",
-
-"deductions" => "Déductions",
-
-"gross_salary" => "Salaire brut",
-
-"tax" => "Impôt",
-
-"net_salary" => "Salaire net",
-
-"apply_date" => "Appliquer la date",
-
-"static" => "Statique",
-
-"ongoing" => "En cours",
-
-"leave_from" => "Laisser partir de",
-
-"leave_to" => "Laisser à",
-
-"reason" => "Raison",
-
-"type_name" => "Nom de type",
-
-"total_days" => "Nombre total de jours",
-
-"leave_type_list" => "Liste des types de congés",
-
-"departments" => "Ministères",
-
-"department_name" => "Nom du service",
-
-"designations" => "Désignations",
-
-"staffs_payroll" => "Retenues sur la paie",
-
-"staff_no" => "Personnel Non",
-
-"date_of_joining" => "Date de l'adhésion",
-
-"payroll_summary" => "Récapitulatif de la paie",
-
-"calculate" => "Calculer",
-
-"earning" => "Earning",
-
-"deduction" => "Déduction",
-
-"edit_staff" => "Editer le personnel",
-
-"basic_info" => "Informations de base",
-
-"staff_number" => "Numéro de personnel",
-
-"emergency_mobile" => "Mobile d'urgence",
-
-"current_address" => "Adresse actuelle",
-
-"permanent_address" => "Adresse permanente",
-
-"qualifications" => "Qualifications",
-
-"experience" => "Expérience",
-
-"payroll_details" => "Détails de la paie",
-
-"payslip_id" => "ID de paiement",
-
-"month_year" => "Mois -Année",
-
-"mode_of_payment" => "Mode de paiement",
-
-"epf_no" => "EPF NO",
-
-"bank_info_details" => "Détails de la banque",
-
-"bank_account_name" => "Nom du compte bancaire",
-
-"social_links_details" => "Détails des liens sociaux",
-
-"facebook_url" => "URL Facebook",
-
-"twitter_url" => "URL Twitter",
-
-"linkedin_url" => "URL Linkedin",
-
-"instragram_url" => "URL Instragram",
-
-"admin_staff_dashboard" => "Tableau de bord du personnel administratif",
-
-"update_staff" => "Actualisation du personnel",
-
-"user_details" => "Détails de l'utilisateur",
-
-"user_no" => "N ° utilisateur",
-
-"pending_leave_request" => "Congé en attente",
-
-"staff_delete_note" => "Remarque = > si la suppression est supprimée, toutes les informations associées seront supprimées.",
-
-"add_student" => "Ajouter un étudiant",
-
-"add_designation" => "Ajouter une désignation",
-
-"edit_designation" => "Editer la désignation",
-
-"update_designation" => "Mise à jour Désignation",
-
-"delete_designation" => "Supprimer la désignation",
-
-"designation_list" => "Liste de désignation",
-
-"designation_title" => "Titre de la désignation",
-
-"add_department" => "Ajouter un ministère",
-
-"edit_department" => "Editer le ministère",
-
-"update_department" => "Mise à jour Département",
-
-"delete_department" => "Supprimer le ministère",
-
-"department_list" => "Liste des ministères",
-
-"mother_name" => "Nom de la mère",
-
-"staff_photo" => "Photo du personnel",
-
-"permanent" => "Permanent",
-
-"document_info" => "Informations sur le document",
-
-"documents" => "Documents",
-
-"work_experience" => "Expérience de travail",
-
-"resume" => "Reprendre",
-
-"bank_account_details" => "Détails du compte bancaire",
-
-"joining_letter" => "Lettre de joint",
-
-"custom_field" => "Zone personnalisée",
-
-"save_staff" => "Enregistrer le personnel",
-
-"other_documents" => "Autre document",
-
-"staff_information" => "Information du personnel",
-
-"all_staff_list" => "Liste de tous les employés",
-
-"staff_details" => "Détails du personnel",
-
-"profile" => "Profil",
-
-"staff_name" => "Nom du personnel",
-
-"new_document" => "Nouveau document",
-
-"document_title" => "Titre du document",
-
-"upload_document" => "Télécharger le document",
-
-"import_attendance" => "Importation de la participation",
-
-"attendance_date" => "Date de participation",
-
-"late" => "Late",
-
-"add_note_here" => "Ajouter une note ici",
-
-"mark_holiday" => "Marquer Holiday",
-
-"half_day" => "La demi-journée",
-
-"payslip_for_the_period_of" => "PayFeuillet pour la période de",
-
-"teachers_list" => "Liste des enseignants",
-
-"teacher_name" => "Nom de l'enseignant",
-
-"save_designation" => "Enregistrer la désignation",
-
-"save_department" => "Enregistrer le service",
-
-"no_payroll_data" => "Aucune donnée de paie",
-
-"not_leaves_data" => "Aucune donnée de congé",
-
-"delete_timeline" => "Supprimer la chronologie",
-
-"delete_document" => "Supprimer le document",
-
-"Title" => "Titre",
-
-"Close" => "Fermer",
-
-"not" => "Non",
-
-"to" => "Vers",
-
-"leave" => "Congé",
-
-"Pending" => "En attente",
-
-"To" => "Vers",
-
-"Staff" => "Personnel",
-
-"Address" => "Adresse",
-
-"Role" => "Rôle",
-
-"Reason" => "Raison",
-
-"Paid" => "Payé",
-
-"Submit" => "Soumettre",
-
-"Print" => "Imprimer",
-
-"Month" => "Mois",
-
-"designation" => "Désignation",
-
-"value" => "Valeur",
-
-"role" => "Rôle",
-
-"submit" => "Soumettre",
-
-"print" => "Imprimer",
-
-"contract_type" => "Type de contrat",
-
-"branch_name" => "Nom de branche",
-
-"payroll_report" => "Rapport sur la paie",
-
-"payment_mode" => "Mode de paiement",
-
-"address" => "Adresse",
-
-"note" => "Remarque",
-
-"select_role" => "Sélectionner un rôle",
-
-"user_name" => "Nom d'utilisateur",
-
-"add_new_staff" => "Ajouter un nouveau personnel",
-
-"first_name" => "Prénom",
-
-"last_name" => "Nom de famille",
-
-"married" => "Marié",
-
-"unmarried" => "Non marié",
-
-"marital_status" => "État matrimonial",
-
-"driving_license" => "Permis de conduire",
-
-"contract" => "Contrat",
-
-"staff_ID" => "ID personnel",
-
-"title" => "Titre",
-
-"staff" => "Personnel",
-
-"close" => "Fermer",
-
-"absent" => "Absent",
-
-"cancelled" => "Annulé",
-
-"approved" => "Approuvé",
-
-"pending" => "En attente",
-
-"document" => "Document",
-
-"teachers" => "Enseignants",
-
-"add_staff" => "Ajouter un personnel",
-
-"personal_info" => "Informations personnelles",
-
-"payroll" => "Retenues",
-
-"location" => "Emplacement",
-
-"staff_attendance" => "Participation des étudiants",
-
-"present" => "Présent",
-
-"timeline" => "Chronologie",
-
-"visible_to_this_person" => "Visible pour cette personne",
-
-"attendance" => "Participation",
-
-"save_attendance" => "Enregistrer la participation",
-
-"paid" => "Payé",
-
-"unpaid" => "Non payé",
-
-];
+<?php return array (
+  'donor_registration' => 'Inscription aux donateurs',
+  'due' => 'Exigible',
+  'partial_payment_list' => 'Liste de paiement partielle',
+  'payment_date' => 'Date de paiement',
+  'view Payment' => 'Afficher le paiement',
+  'Confirmation Required' => 'Confirmation requise',
+  'custom_fields' => 'Champs personnalisés',
+  'point9' => 'Si la colonne que vous essayez d\'importer est la date, assurez-vous que c\'est <strong> date </strong> formaté au format Y-M-D (2018-06-06).',
+  'point8' => 'Type de contrat',
+  'point7' => 'État matrimonial',
+  'point6' => 'Si la colonne que vous essayez d\'importer est le sexe, assurez-vous que c\'est <strong> formaté de genre </strong>:',
+  'point5' => 'Si la colonne que vous essayez d\'importer est la désignation, assurez-vous que c\'est <strong> désignation </strong> formaté:',
+  'point4' => 'Si la colonne que vous essayez d\'importer est le département, assurez-vous que c\'est <strong> département </strong> formaté:',
+  'point3' => 'Si la colonne que vous essayez d\'importer est un rôle, assurez-vous que c\'est <strong> rôle </strong> formaté:',
+  'point2' => 'Double',
+  'point1' => 'Vos données CSV doivent être dans le fichier de téléchargement de format. La première ligne de votre fichier CSV doit être les en-têtes de colonne comme dans l\'exemple de table. Assurez-vous également que votre fichier est UTF-8 pour éviter les problèmes d\'encodage inutiles.',
+  'import_staff' => 'Personnel d\'importation',
+  'staff_import' => 'Importation du personnel',
+  'save_bulk_staffs' => 'Sauver le personnel en vrac',
+  'select_staff' => 'Sélectionner le personnel',
+  'holiday' => 'Vacances',
+  'crop' => 'Recadrer',
+  'F' => 'F',
+  'H' => 'H',
+  'L' => 'L',
+  'A' => 'UN',
+  'P' => 'P',
+  'staff_attendance_import' => 'Importation de fréquentation du personnel',
+  'crop_image_and_upload' => 'Image et téléchargement de recadrage',
+  'field' => 'champ',
+  'teacher_information_view' => 'Voir l\'information des enseignants',
+  'exit' => 'Sortie',
+  'staff_settings' => 'Paramètres du personnel',
+  'staff_information_field' => 'Champ d\'information du personnel',
+  'date_of_birth' => 'Date de naissance',
+  'other_document' => 'Autre document',
+  'instagram' => 'Instagram',
+  'linkedin' => 'Liendin',
+  'twitter' => 'Gazouillement',
+  'facebook' => 'Facebook',
+  'bank_brach' => 'Succursale',
+  'bank_name' => 'Nom de banque',
+  'bank_account_no' => 'Compte bancaire non',
+  'qualification' => 'Qualification',
+  'mobile' => 'Mobile',
+  'gender' => 'Genre',
+  'email' => 'E-mail',
+  'mothers_name' => 'Nom des mères',
+  'fathers_name' => 'Nom des pères',
+  'staff_edit' => 'Modifier le personnel',
+  'print' => 'Imprimer',
+  'payment_mode' => 'Mode de paiement',
+  'unmarried' => 'Célibataire',
+  'married' => 'Marié',
+  'delete_document' => 'Supprimer le document',
+  'delete_timeline' => 'Supprimer la chronologie',
+  'not_leaves_data' => 'Pas de données de congé',
+  'no_payroll_data' => 'Pas de données de paie',
+  'save_department' => 'Département de sauvegarde',
+  'save_designation' => 'Sauver la désignation',
+  'teacher_name' => 'Nom de l\'enseignant',
+  'teachers' => 'Enseignants',
+  'teachers_list' => 'Liste des enseignants',
+  'payslip_for_the_period_of' => 'Payslip pour la période de',
+  'half_day' => 'Demi-journée',
+  'mark_holiday' => 'Marquer les vacances',
+  'note' => 'Note',
+  'add_note_here' => 'Ajouter une note ici',
+  'late' => 'En retard',
+  'absent' => 'Absent',
+  'present' => 'Présent',
+  'save_attendance' => 'Sauver la fréquentation',
+  'attendance' => 'Présence',
+  'attendance_date' => 'Date de présence',
+  'import_attendance' => 'Participation à l\'importation',
+  'title' => 'Titre',
+  'visible_to_this_person' => 'Visible à cette personne',
+  'upload_document' => 'Télécharger le document',
+  'document_title' => 'Titre du document',
+  'new_document' => 'Nouveau document',
+  'staff_name' => 'Nom du personnel',
+  'profile' => 'Profil',
+  'staff_details' => 'Détails du personnel',
+  'all_staff_list' => 'TOUT LISTE PERSONNEL',
+  'location' => 'Emplacement',
+  'staff_information' => 'Informations sur le personnel',
+  'other_documents' => 'Autre document',
+  'save_staff' => 'Sauver le personnel',
+  'custom_field' => 'Champ personnalisé',
+  'joining_letter' => 'Lettre d\'adhésion',
+  'bank_account_details' => 'Détails du compte bancaire',
+  'resume' => 'CV',
+  'address' => 'Adresse',
+  'work_experience' => 'Expérience de travail',
+  'leave' => 'Partir',
+  'personal_info' => 'Informations personnelles',
+  'timeline' => 'Chronologie',
+  'document' => 'Document',
+  'documents' => 'Documents',
+  'document_info' => 'Informations sur documents',
+  'permanent' => 'Permanent',
+  'contract' => 'Contracter',
+  'contract_type' => 'Type de contrat',
+  'driving_license' => 'Permis de conduire',
+  'staff_photo' => 'Photo du personnel',
+  'marital_status' => 'État matrimonial',
+  'mother_name' => 'Nom de mère',
+  'last_name' => 'Nom de famille',
+  'first_name' => 'Prénom',
+  'role' => 'Rôle',
+  'add_new_staff' => 'Ajouter un nouveau personnel',
+  'department_list' => 'Liste des départements',
+  'delete_department' => 'Supprimer le département',
+  'update_department' => 'Mettre à jour le département',
+  'edit_department' => 'Département d\'édition',
+  'add_department' => 'Ajouter le département',
+  'designation_title' => 'Titre de désignation',
+  'designation_list' => 'Liste de désignation',
+  'delete_designation' => 'Supprimer la désignation',
+  'update_designation' => 'Mettre à jour la désignation',
+  'edit_designation' => 'Modifier la désignation',
+  'add_designation' => 'Ajouter la désignation',
+  'add_student' => 'Ajouter un étudiant',
+  'staff_delete_note' => 'Remarque => Si supprimer, toutes les informations connexes seront supprimées.',
+  'pending_leave_request' => 'Congé en attente',
+  'user_no' => 'Utilisateur non',
+  'user_name' => 'Nom d\'utilisateur',
+  'user_details' => 'Coordonnées',
+  'update_staff' => 'Mettre à jour le personnel',
+  'admin_staff_dashboard' => 'Tableau de bord d\'administration',
+  'instragram_url' => 'URL Instagram',
+  'linkedin_url' => 'URL LinkedIn',
+  'twitter_url' => 'URL Twitter',
+  'facebook_url' => 'URL Facebook',
+  'social_links_details' => 'Détails des liens sociaux',
+  'branch_name' => 'Nom de branche',
+  'bank_account_name' => 'Nom de compte bancaire',
+  'bank_info_details' => 'Détails des informations bancaires',
+  'epf_no' => 'Epf non',
+  'mode_of_payment' => 'Mode de paiement',
+  'month_year' => 'Mois -year',
+  'payslip_id' => 'ID Payslip',
+  'payroll_details' => 'Détails de la paie',
+  'experience' => 'Expérience',
+  'qualifications' => 'Qualifications',
+  'permanent_address' => 'adresse permanente',
+  'current_address' => 'Adresse actuelle',
+  'emergency_mobile' => 'Mobile d\'urgence',
+  'staff_number' => 'Numéro de personnel',
+  'basic_info' => 'Informations de base',
+  'edit_staff' => 'Modifier le personnel',
+  'submit' => 'Soumettre',
+  'deduction' => 'Déduction',
+  'earning' => 'Revenus',
+  'calculate' => 'Calculer',
+  'payroll_summary' => 'Résumé de la paie',
+  'value' => 'Valeur',
+  'date_of_joining' => 'Date d\'adhésion',
+  'staff_no' => 'Personnel Non',
+  'staffs_payroll' => 'Pâque salarial',
+  'designations' => 'Désignations',
+  'department_name' => 'Nom du département',
+  'departments' => 'Services',
+  'leave_type_list' => 'Liste des types de congé',
+  'total_days' => 'Total jours',
+  'type_name' => 'Nom de type',
+  'unpaid' => 'Non rémunéré',
+  'reason' => 'Raison',
+  'leave_to' => 'Quitter',
+  'leave_from' => 'Quitter',
+  'cancelled' => 'Annulé',
+  'approved' => 'Approuvé',
+  'close' => 'Fermer',
+  'ongoing' => 'En cours',
+  'static' => 'Statique',
+  'pending' => 'En attente',
+  'apply_date' => 'Date de demande',
+  'to' => 'À',
+  'net_salary' => 'Salaire net',
+  'tax' => 'Impôt',
+  'gross_salary' => 'Salaire brut',
+  'deductions' => 'Déductions',
+  'earnings' => 'Gains',
+  'basic_salary' => 'Salaire de base',
+  'payslip' => 'Glissement',
+  'month' => 'Mois',
+  'view_payslip_details' => 'Afficher les détails de paiement',
+  'view_payslip' => 'Afficher Payslip',
+  'proceed_to_pay' => 'Procéder à un paiement',
+  'not' => 'Pas',
+  'paid' => 'Payé',
+  'generated' => 'Générer',
+  'not_generate' => 'Ne pas générer',
+  'generate_payroll' => 'Générer de la masse salariale',
+  'select_role' => 'Sélectionner un rôle',
+  'staff_id' => 'Carte d\'identité du personnel',
+  'staff' => 'Personnel',
+  'search_by_staff_id' => 'Recherche par identifiant de personnel',
+  'select_year' => 'Sélectionner l\'année',
+  'add_staff' => 'Ajouter du personnel',
+  'staff_list' => 'Liste du personnel',
+  'designation' => 'Désignation',
+  'department' => 'Département',
+  'leave_type' => 'Type de congé',
+  'apply_leave' => 'Appliquer le congé',
+  'approve_leave_request' => 'Approuver la demande de congé',
+  'payroll_report' => 'Rapport de paie',
+  'not_generated' => 'Non généré',
+  'payroll' => 'Paie',
+  'staff_attendance_report' => 'Rapport de fréquentation du personnel',
+  'staff_attendance' => 'Fréquentation du personnel',
+  'staff_directory' => 'Répertoire du personnel',
+  'human_resource' => 'Ressources humaines',
+  'staff_registration' => 'Inscription au personnel',
+);

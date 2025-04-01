@@ -1,161 +1,86 @@
-<?php
-return [
-"save_category" => "Enregistrer la catégorie",
-
-"book_categories" => "Catégories de livres",
-
-"issue\/return_book" => "Enjeu / Cahier de retour",
-
-"library" => "Bibliothèque",
-
-"book_category" => "Catégories de livres",
-
-"library_member" => "Ajouter un membre",
-
-"member_list" => "Enjeu / Cahier de retour",
-
-"all_issued_book" => "Tous les livres émis",
-
-"edit_book" => "Editer le livre",
-
-"book" => "Livre",
-
-"book_title" => "Titre du livre",
-
-"select_book_category" => "Sélectionner une catégorie de livres",
-
-"isbn" => "ISBN",
-
-"publisher" => "Éditeur",
-
-"author_name" => "Nom de l'auteur",
-
-"rack" => "Armoire",
-
-"book_price" => "Prix du livre",
-
-"add_member" => "Ajouter un membre",
-
-"issue_books" => "Livres de sortie",
-
-"full_name" => "Nom complet",
-
-"issue_return_Book" => "Enjeu / Cahier de retour",
-
-"issued_Book_List" => "Liste de livres émise",
-
-"select_Book_Name" => "Sélectionner un nom de livre",
-
-"search_By_Book_ID" => "Rechercher par ID de livre",
-
-"author" => "Auteur",
-
-"library_book_issue" => "Problème de livre de bibliothèque",
-
-"select_book" => "Sélectionner un livre",
-
-"issue_book" => "Livre de sortie",
-
-"issued_book" => "Livre émis",
-
-"book_number" => "Numéro de livre",
-
-"return_this_book" => "Êtes-vous sûr de retourner ce livre?",
-
-"add_book" => "Ajouter un livre",
-
-"update_book" => "Update Book",
-
-"save_book" => "Sauvegarder le livre",
-
-"delete_book" => "Supprimer le livre",
-
-"book_list" => "Liste de livres",
-
-"rack_number" => "Numéro d'armoire",
-
-"isbn_no" => "ISBN Non",
-
-"book_no" => "Livre n °",
-
-"edit_member" => "Editer un membre",
-
-"update_member" => "Mettre à jour membre",
-
-"save_member" => "Enregistrer le membre",
-
-"delete_member" => "Supprimer un membre",
-
-"member_id" => "ID membre",
-
-"member_name" => "Nom du membre",
-
-"cancel_membership" => "Annuler l'appartenance",
-
-"book_issue" => "Problème de livre",
-
-"publisher_name" => "Nom de l'éditeur",
-
-"all_issued_book_list" => "Toutes les listes de livres émises",
-
-"student_book_issue" => "Numéro du livre d'étudiants",
-
-"parent_book_issue" => "Problème de livre parent",
-
-"Status" => "Statut",
-
-"member" => "Membre",
-
-"Author" => "Auteur",
-
-"Price" => "Prix",
-
-"status" => "Statut",
-
-"subject" => "Objet",
-
-"edit_subject" => "Editer le sujet",
-
-"add_subject" => "Ajouter un objet",
-
-"save_subject" => "Sauvegarder le sujet",
-
-"update_subject" => "Mettre à jour sujet",
-
-"delete_subject" => "Supprimer le sujet",
-
-"subject_list" => "Liste des sujets",
-
-"subject_name" => "Nom du sujet",
-
-"subject_code" => "Code d'objet",
-
-"expired" => "Expiré",
-
-"select_student" => "Sélectionner l'étudiant",
-
-"member_type" => "Type de membre",
-
-"category_name" => "Nom de catégorie",
-
-"update_category" => "Mettre à jour catégorie",
-
-"delete_category" => "Supprimer une catégorie",
-
-"staff_name" => "Nom du personnel",
-
-"issued" => "Emis",
-
-"returned" => "Renvoyé",
-
-"return" => "Retour",
-
-"quantity" => "Quantité",
-
-"price" => "Prix",
-
-"issue_date" => "Date d'émission",
-
-"return_date" => "Date de retour",
-
-];
+<?php return array (
+  'update_category' => 'Catégorie de mise à jour',
+  'save_category' => 'Économiser la catégorie',
+  'delete_category' => 'Supprimer la catégorie',
+  'book_categories' => 'Catégories de livres',
+  'issue\\/return_book' => 'Livre / retour',
+  'library' => 'Bibliothèque',
+  'book_category' => 'Catégories de livres',
+  'library_member' => 'Ajouter un membre',
+  'issued' => 'Émis',
+  'returned' => 'Retourné',
+  'members' => 'Liste des membres',
+  'member_list' => 'Livre / retour',
+  'all_issued_book' => 'Tous les livres émis',
+  'edit_book' => 'Modifier le livre',
+  'book' => 'Livre',
+  'book_title' => 'Titre de livre',
+  'select_book_category' => 'Sélectionnez la catégorie du livre',
+  'isbn' => 'ISBN',
+  'publisher' => 'Éditeur',
+  'author_name' => 'Nom de l\'auteur',
+  'rack' => 'Étagère',
+  'quantity' => 'Quantité',
+  'book_price' => 'Prix ​​du livre',
+  'price' => 'Prix',
+  'category_name' => 'Nom de catégorie',
+  'add_member' => 'Ajouter un membre',
+  'member' => 'Membre',
+  'member_type' => 'Type de membre',
+  'select_student' => 'Sélectionner l\'étudiant',
+  'issue_books' => 'Livres',
+  'full_name' => 'Nom et prénom',
+  'issue_return_Book' => 'Livre / retour',
+  'issued_Book_List' => 'Liste de livres publiée',
+  'select_Book_Name' => 'Sélectionnez le nom du livre',
+  'search_By_Book_ID' => 'Recherche par ID de livre',
+  'author' => 'Auteur',
+  'library_book_issue' => 'Numéro de livre de bibliothèque',
+  'staff_name' => 'Nom du personnel',
+  'select_book' => 'Sélectionner le livre',
+  'issue_book' => 'Livre',
+  'issued_book' => 'Livre émis',
+  'book_number' => 'Numéro de livre',
+  'status' => 'Statut',
+  'issue_date' => 'Date d\'émission',
+  'return_this_book' => 'Êtes-vous sûr de retourner ce livre?',
+  'return_date' => 'Date de retour',
+  'add_subject' => 'Ajouter le sujet',
+  'subject' => 'Sujet',
+  'edit_subject' => 'Modifier le sujet',
+  'update_subject' => 'Mettre à jour le sujet',
+  'save_subject' => 'Sauver le sujet',
+  'delete_subject' => 'Supprimer le sujet',
+  'subject_code' => 'Code sujet',
+  'subject_name' => 'Nom de sujet',
+  'subject_list' => 'Liste de sujets',
+  'add_book' => 'Ajouter un livre',
+  'update_book' => 'Mettre à jour le livre',
+  'save_book' => 'Sauver le livre',
+  'delete_book' => 'Supprimer le livre',
+  'book_list' => 'Liste de livres',
+  'rack_number' => 'Numéro de rack',
+  'isbn_no' => 'Isbn après',
+  'book_no' => 'Livre no',
+  'edit_member' => 'Éditer',
+  'update_member' => 'Mettre à jour le membre',
+  'save_member' => 'Sauver le membre',
+  'delete_member' => 'Supprimer',
+  'member_id' => 'ID du membre',
+  'member_name' => 'Nom de membre',
+  'cancel_membership' => 'Annuler l\'adhésion',
+  'book_issue' => 'Numéro de livre',
+  'publisher_name' => 'Nom de l\'éditeur',
+  'all_issued_book_list' => 'Toutes les listes de livres émises',
+  'student_book_issue' => 'Numéro de livre des étudiants',
+  'expired' => 'Expiré',
+  'parent_book_issue' => 'Numéro de livre parent',
+  'return' => 'Retour',
+  'all_issued_Book_List' => 'Toutes les listes de livres émises',
+  'book_none' => 'Livre no',
+  'isbn_none' => 'Isbn après',
+  'return_Book' => 'Livre de retour',
+  'parent_name' => 'Nom de parent',
+  'parent' => 'Mère',
+  'select_parent' => 'Sélectionner le parent',
+);

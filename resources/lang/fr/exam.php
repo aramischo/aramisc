@@ -1,691 +1,369 @@
-<?php
-return [
-"result" => "Résultat",
-
-"previous_result" => "Résultat précédent",
-
-"previous-record" => "Enregistrement précédent",
-
-"examination" => "Examen",
-
-"examinations" => "Examens",
-
-"exam_time_setup" => "Ajout d'une configuration Exam",
-
-"exam" => "Exam",
-
-"add_exam" => "Ajouter un examen",
-
-"edit_exam" => "Editer l'extension",
-
-"save_exam" => "Enregistrer l'extension",
-
-"update_exam" => "Mettre à jour l'extension",
-
-"delete_exam" => "Supprimer l'extension",
-
-"all_select" => "Tout sélectionner",
-
-"save_marks" => "Enregistrer les marques",
-
-"add_exam_type" => "Ajouter un type d'extension",
-
-"exam_schedule" => "Exam Schedule",
-
-"marks_register" => "Registre des marques",
-
-"final_result" => "Résultat final",
-
-"exam_controller" => "Contrôleur d'extension",
-
-"subjects_list" => "Liste des sujets",
-
-"starting" => "Démarrage",
-
-"custom_merit_list_report" => "Rapport sur les listes de promotions personnalisées",
-
-"merit_list_report" => "Rapport de liste de mérite",
-
-"order_of_merit_list" => "Liste de l'ordre de mérite",
-
-"optional_total_gpa" => "Total GPA facultatif",
-
-"seat_plan" => "Plan de siège",
-
-"exam_attendance" => "Présence d'exam",
-
-"marks_grade" => "Classe de marques",
-
-"custom_result_setting" => "Paramètre de résultat personnalisé",
-
-"send_marks_by_sms" => "Envoyer des marques par ms",
-
-"percentage" => "Pourcentage",
-
-"fcm_key" => "CLÉ FCM",
-
-"random_question" => "Question aléatoire",
-
-"question_group" => "Groupe de questions",
-
-"with_out" => "Avec sortie",
-
-"question_bank" => "Banque de questions",
-
-"online_exam" => "Exam en ligne",
-
-"exam_type" => "Type d'extension",
-
-"exam_setup" => "Configuration d'Exam",
-
-"exam_setup_role" => "ROle d'installation d'Exam",
-
-"setup_exam_role" => "Configuration d'Exam ROle",
-
-"exam_name" => "Nom d'extension",
-
-"exam_mark" => "Marque d'extension",
-
-"add_mark_distributions" => "Ajouter des distributions de marques",
-
-"exam_title" => "Titre de l'exam",
-
-"ct_AT_Exam" => "Nom",
-
-"mark_distribution" => "Marquer la distribution",
-
-"total_mark" => "Marque totale",
-
-"view_status" => "Afficher le statut",
-
-"add_exam_schedule" => "Ajouter un planning d'extension",
-
-"mark_sheet_report_section" => "Section du rapport de la feuille de marquage",
-
-"mark_sheet_report_wise" => "Rapport de la feuille de marquage Wise",
-
-"FALSE" => "FAUX",
-
-"emam_info" => "Infos d'extension",
-
-"exam_list" => "Liste d'extension",
-
-"archive" => "Archiver",
-
-"marks" => "Marques",
-
-"waiting_for" => "En attente de",
-
-"official" => "Officiel",
-
-"transcript" => "Transcription",
-
-"percent" => "Pourcentage",
-
-"previous" => "Précédent",
-
-"position" => "Position",
-
-"tabulation_sheet" => "Feuille de tabulation",
-
-"previous_record" => "Enregistrement précédent",
-
-"seat_plan_report" => "Rapport sur le plan de siège",
-
-"passing_marks" => "Marques de passage",
-
-"exam_status" => "Statut d'extension",
-
-"record" => "Enregistrement",
-
-"assign_students" => "Affecter des étudiants",
-
-"search_by_year" => "Recherche par année",
-
-"start_end_time" => "Heure de début",
-
-"button" => "Bouton",
-
-"exam_not_found" => "Le planning d'extension n'est pas disponible.",
-
-"attendance_create" => "Création de la participation",
-
-"grade" => "Grade",
-
-"consider_start_time" => "Envisager l'heure de début",
-
-"gpa" => "GPA",
-
-"gpa_from" => "GPA de",
-
-"gpa_to" => "GPA To",
-
-"consider_end_time" => "Heure de fin de l'examen",
-
-"percent_from" => "Pourcentage à partir de",
-
-"percent_to" => "Pourcentage à",
-
-"percent_upto" => "Pourcentage de mise à jour",
-
-"send_marks_via_SMS" => "Envoi de marques via SMS",
-
-"seen" => "Seen",
-
-"unseen" => "Invisible",
-
-"log" => "Journal",
-
-"present" => "Présent",
-
-"question_show_in_single_page" => "Par questions, voir en une seule page",
-
-"mcq" => "MCQ",
-
-"answer_type" => "Type de réponse",
-
-"answer" => "Réponse",
-
-"single_select" => "Sélection unique",
-
-"multiple_select" => "Sélection multiple",
-
-"question_image" => "Image de question",
-
-"time_setup" => "Configuration du temps",
-
-"student_absent_notification_sms" => "Notification de l'absence d'un étudiant",
-
-"Ending" => "Fin",
-
-"ending" => "Fin",
-
-"select_receiver" => "Sélectionner un récepteur",
-
-"third_term" => "Troisième terme",
-
-"second_term" => "Deuxième terme",
-
-"question_type" => "Type de question",
-
-"first_term" => "Premier terme",
-
-"multiple_choice" => "Choix multiple",
-
-"multiple_image" => "Image multiple",
-
-"watch" => "Visionnez la vidéo",
-
-"create_class_routine" => "Créer une routine de classe",
-
-"true_false" => "Vrai Faux",
-
-"fill_in_the_blanks" => "Remplissez les blancs",
-
-"question" => "Question",
-
-"number_of_options" => "Nombre d'options",
-
-"true" => "VRAI",
-
-"setting" => "Paramètres",
-
-"false" => "FAUX",
-
-"suitable_words" => "Mots appropriés",
-
-"progress_card" => "Carte de progression",
-
-"enter_student_no" => "Entrer l'étudiant Non",
-
-"minimum_percentage" => "Pourcentage minimal",
-
-"Wait_Till_Exam_Finish" => "Fin de l'expiration du délai d'attente",
-
-"instruction" => "Instruction",
-
-"exam_date" => "Date d'expiration",
-
-"short_answer" => "Réponse courte",
-
-"image_question" => "Question d'image",
-
-"pair_match" => "Paire de correspondance",
-
-"subjective" => "Subjectif",
-
-"letter_grade" => "Grade Letter",
-
-"highest_marks" => "Marques les plus élevées",
-
-"deduct_marks" => "Déduire les marques pour les questions négatives",
-
-"exam_submittion_time" => "Heure de soumission d'exam",
-
-"student_progress_card" => "Carte de progression de l'étudiant",
-
-"mark_sheet_report" => "Marquer le rapport de feuille",
-
-"mark_sheet_report_student" => "Marquer l'étudiant du rapport de feuille",
-
-"audio" => "Audio",
-
-"pdf_resource" => "Ressource Pdf",
-
-"external_resource" => "Ressource externe",
-
-"layout" => "Présentation",
-
-"any_question_access" => "Toute question d'accès aux questions",
-
-"scan_upload" => "Télécharger le téléchargement",
-
-"pdf_exam" => "Exam interactif",
-
-"pdf_exam_result" => "Résultat de l'examen interactif",
-
-"scan_file" => "Fichier d'analyse",
-
-"question_pdf" => "Question Pdf",
-
-"subject_attendance_layout" => "Présentation de la participation des sujets",
-
-"published" => "Publié",
-
-"unpublished" => "Non publié",
-
-"manage_question" => "Gérer la question",
-
-"published_now" => "Publié maintenant",
-
-"view_result" => "Afficher le résultat",
-
-"not_scheduled" => "Non planifié",
-
-"result_view" => "Vue de résultat",
-
-"total_marks" => "Total des marques",
-
-"obtained_marks" => "Marques observées",
-
-"marking" => "Marquage",
-
-"view_answer_marking" => "Afficher la réponse et le marquage",
-
-"online_exam_question" => "Question d'examen en ligne",
-
-"question_list" => "Liste des questions",
-
-"questions" => "Questions",
-
-"previous_class_result" => "Résultat de la classe précédente",
-
-"exam_details" => "Détails de l'extension",
-
-"passing_percentage" => "Pourcentage de réussite",
-
-"number_option" => "Option de numéro",
-
-"pass" => "Passe",
-
-"fail" => "Echec",
-
-"marks_waiting_for" => "Marquer en attente pour",
-
-"save_level" => "Niveau de sauvegarde",
-
-"update_level" => "Mettre à jour niveau",
-
-"edit_question_level" => "Editer le niveau de question",
-
-"update_question_level" => "Mettre à jour le niveau question",
-
-"delete_question_level" => "Supprimer le niveau de question",
-
-"save_question_level" => "Sauvegarder le niveau de question",
-
-"question_level_list" => "Liste des niveaux de questions",
-
-"online_active_exams" => "Exams actifs en ligne",
-
-"take_exam" => "Prendre Exam",
-
-"classes" => "Classes",
-
-"exam_terms" => "Termes de l'examen",
-
-"timeline" => "Chronologie",
-
-"Parent_Guardian_Details" => "Détails du parent \/ du Guardian",
-
-"full_marks" => "Marques complètes",
-
-"auto_marking" => "Marquage automatique",
-
-"make_default" => "Définir par défaut",
-
-"negative_marking" => "Marquage négatif",
-
-"submit_from_last_page" => "Soumettre uniquement à partir de la dernière page",
-
-"visible_to_this_person" => "Visible pour cette personne",
-
-"percent_from_to" => "Pourcentage (From-To)",
-
-"gpa_from_to" => "GPA (From-To)",
-
-"grade_name" => "Nom de grade",
-
-"add_grade" => "Ajouter une classe",
-
-"edit_grade" => "Editer la classe",
-
-"update_grade" => "Mise à jour année",
-
-"delete_grade" => "Supprimer la classe",
-
-"grade_list" => "Liste de classe",
-
-"edit_exam_type" => "Editer le type d'extension",
-
-"update_exam_type" => "Mettre à jour le type d'extension",
-
-"delete_exam_type" => "Supprimer un type d'extension",
-
-"save_exam_type" => "Sauvegarder le type d'extension",
-
-"exam_type_list" => "Liste des types d'extension",
-
-"add_marks" => "Ajouter des marques",
-
-"attendance" => "Participation",
-
-"save_attendance" => "Enregistrer la participation",
-
-"exam_schedule_create" => "Créer une planification d'extension",
-
-"date_&_day" => "Date et jour",
-
-"exam_routine" => "Routine d'extension",
-
-"instruction_list" => "Liste d'instructions",
-
-"delete_instruction" => "Instruction de suppression",
-
-"exam_attendance_create" => "Création d'une participation à l'examen",
-
-"setup_exam_rule" => "Configurer la règle Exam",
-
-"mark_contribution" => "Marquer une contribution",
-
-"setup_final_exam_rule" => "Configurer la règle d'examen final",
-
-"exam_term" => "Terme Exam",
-
-"merit_list_contribution_using" => "Contribution à la liste de mérite",
-
-"merit_list" => "Liste de mérite",
-
-"student_merit_list" => "Liste de mérite des étudiants",
-
-"total_grade" => "Niveau total",
-
-"store" => "Magasin",
-
-"add_exam_format" => "Ajouter un format Exam",
-
-"edit_exam_format" => "Editer le format Exam",
-
-"update_exam_format" => "Mettre à jour le format Exam",
-
-"result_publication_date" => "Date de publication du résultat",
-
-"controller_title" => "Titre du contrôleur",
-
-"format_settings" => "Paramètres de format",
-
-"exam_format_list" => "Liste des formats d'extension",
-
-"delete_upload_content" => "Supprimer le contenu de téléchargement",
-
-"end_date" => "Date de fin",
-
-"add_question_group" => "Ajouter un groupe de questions",
-
-"edit_question_group" => "Editer le groupe de questions",
-
-"question_group_list" => "Liste des groupes de questions",
-
-"delete_question_group" => "Supprimer le groupe de questions",
-
-"save_group" => "Sauvegarder le groupe",
-
-"update_group" => "Mettre à jour groupe",
-
-"add_question_bank" => "Ajouter une banque de questions",
-
-"edit_question_bank" => "Editer la banque de questions",
-
-"question_bank_list" => "Liste des banques de questions",
-
-"delete_question_bank" => "Supprimer la banque de questions",
-
-"save_question" => "Sauvegarder la question",
-
-"update_question" => "Mettre à jour question",
-
-"save_questions" => "Sauvegarder les questions",
-
-"auto_mark_register" => "Auto Mark Register",
-
-"only_for_multiple" => "Uniquement pour plusieurs",
-
-"save_online_exam" => "Enregistrer l'extension en ligne",
-
-"add_online_exam" => "Ajouter un examen en ligne",
-
-"online_exam_list" => "Liste des exits en ligne",
-
-"edit_online_exam" => "Editer l'extension en ligne",
-
-"update_online_exam" => "Mettre à jour l'examen en ligne",
-
-"set_question" => "Définir la question",
-
-"delete_online_exam" => "Supprimer l'examen en ligne",
-
-"question_title" => "Titre de la question",
-
-"answer_script" => "Scripts de réponse",
-
-"result_not_publish_yet" => "Résultat non publié",
-
-"subject_full_marks" => "Objet Marques complètes",
-
-"active_exams" => "Exams actifs",
-
-"minutes" => "Procès-verbaux",
-
-"already_submitted" => "Déjà soumis",
-
-"online_exam_view_result" => "Résultat de la vue Exam en ligne",
-
-"exam_result" => "Résultat d'exam",
-
-"online_exam_result" => "Résultat de l'examen en ligne",
-
-"update_mark_distribution" => "Mettre à jour la distribution Mark",
-
-"save_mark_distribution" => "Enregistrer la distribution de marquage",
-
-"waiver" => "Waiver",
-
-"marking_online_exam" => "Marquage d'examen en ligne",
-
-"incorrect" => "Incorrect",
-
-"exam_marks_already_submitted" => "Marques d'exam déjà soumises",
-
-"submit_exam" => "Soumettre l'examen",
-
-"take_online_exam" => "Examen en ligne",
-
-"teacher_remarks" => "Remarques de l'enseignant",
-
-"save_grade" => "Enregistrer le niveau",
-
-"result_settings" => "Paramètres de résultat",
-
-"exam_notification" => "Notification d'extension",
-
-"Create" => "Créer",
-
-"Title" => "Titre",
-
-"SL" => "SL",
-
-"Setting" => "Paramètre",
-
-"Record" => "Enregistrement",
-
-"Duration" => "Durée",
-
-"Update" => "Mise à jour",
-
-"Classes" => "Classes",
-
-"Running" => "Exécution",
-
-"Time" => "Heure",
-
-"Signature" => "Signature",
-
-"create" => "Créer",
-
-"update" => "Mise à jour",
-
-"settings" => "Paramètres",
-
-"results" => "Résultats",
-
-"group" => "Groupe",
-
-"with" => "Avec",
-
-"Published" => "Publié",
-
-"Previous" => "Précédent",
-
-"Copy" => "Copier",
-
-"Level" => "Niveau",
-
-"Unpublished" => "Non publié",
-
-"Percentage" => "Pourcentage",
-
-"time" => "Heure",
-
-"subject" => "Objet",
-
-"room_number" => "Numéro de salle",
-
-"subject_name" => "Nom du sujet",
-
-"of" => "De",
-
-"start_time" => "Heure de début",
-
-"end_time" => "Heure de fin",
-
-"select_all" => "Sélectionner tout",
-
-"grand_total" => "Total général",
-
-"total" => "Total",
-
-"fill_marks" => "Marques de remplissage",
-
-"duration" => "Durée",
-
-"assign_exam_room" => "Affecter une salle d'extension",
-
-"level" => "Niveau",
-
-"question_level" => "Niveau de question",
-
-"update_online_exam_question" => "Mettre à jour la question d'examen en ligne",
-
-"number_options" => "Options de nombre",
-
-"currect_answer" => "Réponse de Currect",
-
-"currect" => "Courte",
-
-"exam_has_to_be_submitted_within" => "L'examen doit être soumis dans",
-
-"is_present" => "Est présent",
-
-"title" => "Titre",
-
-"signature" => "Signature",
-
-"copy" => "Copier",
-
-"sl" => "SL",
-
-"average_mark" => "Marque moyenne",
-
-"date_of_publication_of_result" => "Date de publication du résultat",
-
-"absent" => "Absent",
-
-"document" => "Document",
-
-"select_subject" => "Sélectionner le sujet",
-
-"select_subjects" => "Sélectionner des sujets",
-
-"select_exam" => "Sélectionner l'extension",
-
-"optional" => "Facultatif",
-
-"option" => "Option",
-
-"select_group" => "Sélectionner un groupe",
-
-"date_|_day" => "Date | Jour",
-
-"monday" => "Lundi",
-
-"tuesday" => "Mardi:",
-
-"wednesday" => "Mercredi",
-
-"thursday" => "Jeudi:",
-
-"friday" => "Vendredi",
-
-"Saturday" => "Samedi",
-
-"sunday" => "Dimanche",
-
-"view_question" => "Afficher la question",
-
-"start_date" => "Date de début",
-
-"update_content" => "Actualisation du contenu",
-
-"save_content" => "Enregistrer le contenu",
-
-"students" => "Étudiants",
-
-"publish_date" => "Date de publication",
-
-"running" => "Exécution",
-
-"biometrics" => "Biométrie",
-
-"total_students" => "Total des étudiants",
-
-];
+<?php return array (
+  'result' => 'Résultat',
+  'previous_result' => 'Résultat précédent',
+  'previous-record' => 'Record précédent',
+  'examination' => 'Examen',
+  'examinations' => 'Examens',
+  'exam_time_setup' => 'Ajouter la configuration de l\'examen',
+  'exam' => 'Examen',
+  'add_exam' => 'Ajouter un examen',
+  'edit_exam' => 'Modifier l\'examen',
+  'save_exam' => 'Sauver l\'examen',
+  'update_exam' => 'Mettre à jour l\'examen',
+  'delete_exam' => 'Supprimer l\'examen',
+  'all_select' => 'Tous sélectionnent',
+  'save_marks' => 'Sauver les marques',
+  'submit_marks' => 'Sauver les marques',
+  'add_exam_type' => 'Ajouter le type d\'examen',
+  'exam_schedule' => 'Calendrier d\'examen',
+  'marks_register' => 'Registre des marques',
+  'final_result' => 'Résultat final',
+  'exam_controller' => 'Contrôleur d\'examen',
+  'subjects_list' => 'Liste de sujets',
+  'starting' => 'Départ',
+  'custom_merit_list_report' => 'Rapport de liste de mérite personnalisé',
+  'merit_list_report' => 'Rapport de liste de mérite',
+  'order_of_merit_list' => 'Liste de mérite',
+  'optional_total_gpa' => 'GPA total en option',
+  'is_present' => 'Est présent',
+  'seat_plan' => 'Plan de siège',
+  'exam_attendance' => 'Participation aux examens',
+  'with' => 'Avec',
+  'marks_grade' => 'Notes',
+  'custom_result_setting' => 'Paramètre de résultat personnalisé',
+  'send_marks_by_sms' => 'Envoyer des marques par SMS',
+  'percentage' => 'Pourcentage',
+  'fcm_key' => 'Clé FCM',
+  'random_question' => 'Question aléatoire',
+  'question_group' => 'Groupe de questions',
+  'with_out' => 'Sans',
+  'question_bank' => 'Banque de questions',
+  'online_exam' => 'Examen en ligne',
+  'exam_type' => 'Type d\'examen',
+  'exam_setup' => 'Configuration',
+  'exam_setup_role' => 'Rôle de configuration des examens',
+  'setup_exam_role' => 'Rôle de l\'examen de configuration',
+  'exam_name' => 'Nom d\'examen',
+  'sl' => 'Sl',
+  'select_subjects' => 'Sélectionner les sujets',
+  'exam_mark' => 'Marque d\'examen',
+  'add_mark_distributions' => 'Ajouter des distributions de marque',
+  'exam_title' => 'Titre d\'examen',
+  'ct_AT_Exam' => 'Nom',
+  'mark_distribution' => 'Distribution de marque',
+  'subject' => 'Sujet',
+  'total_mark' => 'Marque totale',
+  'view_status' => 'Afficher l\'état',
+  'copy' => 'Copie',
+  'add_exam_schedule' => 'Ajouter le calendrier des examens',
+  'mark_sheet_report_section' => 'Section du rapport de la feuille de marque',
+  'mark_sheet_report_wise' => 'Marque du rapport sur la feuille sage',
+  'FALSE' => 'FAUX',
+  'emam_info' => 'Informations sur l\'examen',
+  'exam_list' => 'Liste d\'examen',
+  'archive' => 'Archive',
+  'marks' => 'Marques',
+  'waiting_for' => 'Attendre',
+  'official' => 'Officiel',
+  'select_exam' => 'Sélectionner l\'examen',
+  'transcript' => 'Transcription',
+  'percent' => 'Pour cent',
+  'previous' => 'Précédent',
+  'position' => 'Position',
+  'tabulation_sheet' => 'Tabulation',
+  'previous_record' => 'Record précédent',
+  'seat_plan_report' => 'Rapport de plan de siège',
+  'passing_marks' => 'Marques de passage',
+  'exam_status' => 'Statut d\'examen',
+  'record' => 'Enregistrer',
+  'assign_students' => 'Affecter les étudiants',
+  'assign_exam_room' => 'Affecter une salle d\'examen',
+  'search_by_year' => 'Recherche par année',
+  'start_end_time' => 'heure de début',
+  'button' => 'Bouton',
+  'total_students' => 'Étudiant total',
+  'exam_not_found' => 'Le calendrier des examens n\'est pas disponible.',
+  'attendance_create' => 'Fréquentation de la fréquentation',
+  'biometrics' => 'Biométrie',
+  'grade' => 'Grade',
+  'consider_start_time' => 'Considérez l\'heure de début',
+  'gpa' => 'GPA',
+  'gpa_from' => 'GPA de',
+  'gpa_to' => 'GPA à',
+  'consider_end_time' => 'Considérez l\'heure de fin',
+  'percent_from' => 'Pour cent de',
+  'percent_to' => 'Pour cent à',
+  'percent_upto' => 'Pour cent jusqu\'à',
+  'send_marks_via_SMS' => 'Envoyer des marques via SMS',
+  'seen' => 'Vu',
+  'unseen' => 'Invisible',
+  'log' => 'Enregistrer',
+  'absent' => 'Absent',
+  'present' => 'Présent',
+  'question_show_in_single_page' => 'Par questions, affichez en une seule page',
+  'mcq' => 'CIC',
+  'answer_type' => 'Type de réponse',
+  'answer' => 'Répondre',
+  'single_select' => 'Select unique',
+  'multiple_select' => 'Plusieurs sélections',
+  'question_image' => 'Question Image',
+  'time_setup' => 'Configuration du temps',
+  'student_absent_notification_sms' => 'Notification absente des étudiants',
+  'Ending' => 'Fin',
+  'ending' => 'Fin',
+  'select_receiver' => 'Sélectionner le récepteur',
+  'students' => 'Étudiants',
+  'third_term' => 'Troisième mandat',
+  'select_group' => 'Sélectionner le groupe',
+  'second_term' => 'Deuxième mandat',
+  'question_type' => 'Type de question',
+  'first_term' => 'Premier mandat',
+  'multiple_choice' => 'À choix multiple',
+  'multiple_image' => 'Image multiple',
+  'watch' => 'Regarder la vidéo',
+  'create_class_routine' => 'Créer une routine de classe',
+  'true_false' => 'Vrai Faux',
+  'optional' => 'Facultatif',
+  'fill_in_the_blanks' => 'Remplissez les blancs',
+  'question' => 'Question',
+  'number_of_options' => 'Nombre d\'options',
+  'create' => 'Créer',
+  'option' => 'Option',
+  'true' => 'VRAI',
+  'setting' => 'Paramètres',
+  'false' => 'FAUX',
+  'suitable_words' => 'Mots appropriés',
+  'start_time' => 'Heure de début',
+  'end_time' => 'Heure de fin',
+  'progress_card' => 'Carte de progression',
+  'enter_student_no' => 'Entrez l\'étudiant non',
+  'minimum_percentage' => 'Pourcentage minimum',
+  'Wait_Till_Exam_Finish' => 'Attendez jusqu\'à l\'examen terminé',
+  'instruction' => 'Instruction',
+  'exam_date' => 'Date d\'examen',
+  'short_answer' => 'Réponse courte',
+  'image_question' => 'Question de l\'image',
+  'pair_match' => 'Match de paire',
+  'subjective' => 'Subjectif',
+  'letter_grade' => 'Note de lettre',
+  'highest_marks' => 'Les plus élevées',
+  'deduct_marks' => 'Déduire les marques pour les questions négatives',
+  'exam_submittion_time' => 'Temps de soumission des examens',
+  'student_progress_card' => 'Carte de progression des étudiants',
+  'mark_sheet_report' => 'Rapport de feuille de marque',
+  'mark_sheet_report_student' => 'Étudiant du rapport de feuille de marque',
+  'time' => 'Temps',
+  'audio' => 'Audio',
+  'pdf_resource' => 'Ressource PDF',
+  'external_resource' => 'Ressource externe',
+  'layout' => 'Mise en page',
+  'any_question_access' => 'Tout accès de question',
+  'scan_upload' => 'Téléchargement de balayage',
+  'pdf_exam' => 'Examen interactif',
+  'pdf_exam_result' => 'Résultat de l\'examen interactif',
+  'scan_file' => 'Fichier de balayage',
+  'question_pdf' => 'Question PDF',
+  'subject_attendance_layout' => 'Disposition de présence du sujet',
+  'published' => 'Publié',
+  'unpublished' => 'Non publié',
+  'manage_question' => 'Gérer la question',
+  'published_now' => 'Publié maintenant',
+  'view_result' => 'Afficher le résultat',
+  'monday' => 'Lundi',
+  'tuesday' => 'Mardi',
+  'wednesday' => 'Mercredi',
+  'thursday' => 'Jeudi',
+  'friday' => 'Vendredi',
+  'Saturday' => 'Samedi',
+  'sunday' => 'Dimanche',
+  'room_number' => 'Numéro de chambre',
+  'not_scheduled' => 'Pas programmé',
+  'result_view' => 'Vue de résultats',
+  'total_marks' => 'Marques totales',
+  'obtained_marks' => 'Marques obtenues',
+  'marking' => 'Marquage',
+  'view_answer_marking' => 'Voir la réponse et le marquage',
+  'online_exam_question' => 'Question d\'examen en ligne',
+  'question_list' => 'Liste de questions',
+  'questions' => 'Questions',
+  'previous_class_result' => 'Résultat de la classe précédente',
+  'exam_details' => 'Détails de l\'examen',
+  'passing_percentage' => 'Pourcentage de passage',
+  'number_option' => 'Option de numéro',
+  'pass' => 'Passer',
+  'fail' => 'Échouer',
+  'marks_waiting_for' => 'Marquez en attendant',
+  'question_level' => 'Niveau de question',
+  'level' => 'Niveau',
+  'save_level' => 'Niveau d\'économie',
+  'update_level' => 'Niveau de mise à jour',
+  'edit_question_level' => 'Modifier le niveau de question',
+  'update_question_level' => 'Mettre à jour le niveau de question',
+  'delete_question_level' => 'Supprimer le niveau de question',
+  'save_question_level' => 'Enregistrer le niveau de question',
+  'question_level_list' => 'Liste du niveau de question',
+  'online_active_exams' => 'Examens actifs en ligne',
+  'take_exam' => 'Passer un examen',
+  'classes' => 'Classes',
+  'exam_terms' => 'Conditions d\'examen',
+  'document' => 'Document',
+  'timeline' => 'Chronologie',
+  'Parent_Guardian_Details' => 'Détails du parent \\ / gardien',
+  'full_marks' => 'Marques complètes',
+  'results' => 'Résultats',
+  'auto_marking' => 'Marquage automatique',
+  'make_default' => 'Faire défaut',
+  'negative_marking' => 'Marquage négatif',
+  'submit_from_last_page' => 'Soumettre uniquement à partir de la dernière page',
+  'visible_to_this_person' => 'Visible à cette personne',
+  'percent_from_to' => 'Pour cent (de-t-t-t-t-t-il',
+  'gpa_from_to' => 'GPA (à partir)',
+  'grade_name' => 'Nom de grade',
+  'add_grade' => 'Ajouter',
+  'edit_grade' => 'Noter',
+  'update_grade' => 'Grade de mise à jour',
+  'delete_grade' => 'Supprimer',
+  'grade_list' => 'Liste de notes',
+  'select_subject' => 'Sélectionner le sujet',
+  'edit_exam_type' => 'Modifier le type d\'examen',
+  'update_exam_type' => 'Mettre à jour le type d\'examen',
+  'delete_exam_type' => 'Supprimer le type d\'examen',
+  'save_exam_type' => 'Enregistrer le type d\'examen',
+  'exam_type_list' => 'Liste de types d\'examen',
+  'total' => 'Total',
+  'title' => 'Titre',
+  'add_marks' => 'Ajouter des marques',
+  'fill_marks' => 'Remplir les marques',
+  'attendance' => 'Présence',
+  'save_attendance' => 'Sauver la fréquentation',
+  'exam_schedule_create' => 'Horaire d\'examen Créer',
+  'date_&_day' => 'Date et jour',
+  'date_|_day' => 'Date | Jour',
+  'exam_routine' => 'Routine d\'examen',
+  'instruction_list' => 'Liste d\'instructions',
+  'delete_instruction' => 'Supprimer l\'instruction',
+  'duration' => 'Durée',
+  'exam_attendance_create' => 'Présence à l\'examen Créer',
+  'setup_exam_rule' => 'Règle d\'examen de configuration',
+  'mark_contribution' => 'Contribution de marque',
+  'setup_final_exam_rule' => 'Configuration de la règle d\'examen final',
+  'exam_term' => 'Terme d\'examen',
+  'settings' => 'Paramètres',
+  'merit_list_contribution_using' => 'Contribution de la liste de mérite en utilisant',
+  'merit_list' => 'Liste de mérite',
+  'student_merit_list' => 'Liste de mérite des étudiants',
+  'total_grade' => 'Note totale',
+  'store' => 'Magasin',
+  'add_exam_format' => 'Ajouter le format d\'examen',
+  'edit_exam_format' => 'Modifier le format d\'examen',
+  'update_exam_format' => 'Mettre à jour le format d\'examen',
+  'result_publication_date' => 'Date de publication des résultats',
+  'controller_title' => 'Titre du contrôleur',
+  'format_settings' => 'Paramètres de format',
+  'exam_format_list' => 'Liste de format d\'examen',
+  'delete_upload_content' => 'Supprimer le contenu de téléchargement',
+  'publish_date' => 'Publier la date',
+  'save_content' => 'Sauver le contenu',
+  'update_content' => 'Mettre à jour le contenu',
+  'signature' => 'Signature',
+  'start_date' => 'Date de début',
+  'end_date' => 'Date de fin',
+  'add_question_group' => 'Ajouter un groupe de questions',
+  'edit_question_group' => 'Modifier le groupe de questions',
+  'question_group_list' => 'Liste de groupes de questions',
+  'delete_question_group' => 'Supprimer le groupe de questions',
+  'save_group' => 'Groupe de sauvegarde',
+  'update_group' => 'Mettre à jour le groupe',
+  'add_question_bank' => 'Ajouter la banque de questions',
+  'edit_question_bank' => 'Modifier la banque de questions',
+  'question_bank_list' => 'Liste des banques de questions',
+  'delete_question_bank' => 'Supprimer la banque de questions',
+  'save_question' => 'Sauver la question',
+  'update_question' => 'Mettre à jour la question',
+  'group' => 'Groupe',
+  'save_questions' => 'Économiser des questions',
+  'select_all' => 'Sélectionnez tout',
+  'auto_mark_register' => 'Registre de marque automatique',
+  'only_for_multiple' => 'Seulement pour plusieurs',
+  'save_online_exam' => 'Enregistrer l\'examen en ligne',
+  'add_online_exam' => 'Ajouter l\'examen en ligne',
+  'online_exam_list' => 'Liste des examens en ligne',
+  'edit_online_exam' => 'Modifier l\'examen en ligne',
+  'update_online_exam' => 'Mettre à jour l\'examen en ligne',
+  'set_question' => 'Mettre en question',
+  'delete_online_exam' => 'Supprimer l\'examen en ligne',
+  'question_title' => 'Titre de question',
+  'number_options' => 'Numéro Options',
+  'update_online_exam_question' => 'Mettre à jour la question de l\'examen en ligne',
+  'answer_script' => 'Répondre aux scripts',
+  'result_not_publish_yet' => 'Résultat non publié',
+  'subject_full_marks' => 'Sujet Marques complètes',
+  'active_exams' => 'Examens actifs',
+  'minutes' => 'Minutes',
+  'already_submitted' => 'Déjà soumis',
+  'online_exam_view_result' => 'Résultat de l\'examen en ligne',
+  'view_question' => 'Voir la question',
+  'exam_result' => 'Résultat de l\'examen',
+  'running' => 'En cours d\'exécution',
+  'online_exam_result' => 'Résultat de l\'examen en ligne',
+  'update_mark_distribution' => 'Mettre à jour la distribution de marque',
+  'save_mark_distribution' => 'Sauver la distribution de marque',
+  'waiver' => 'Renoncer',
+  'update' => 'Mise à jour',
+  'marking_online_exam' => 'Marquage en ligne',
+  'incorrect' => 'Incorrect',
+  'currect' => 'Correct',
+  'currect_answer' => 'Réponse correcte',
+  'exam_marks_already_submitted' => 'Marques d\'examen déjà soumises',
+  'submit_exam' => 'Soumettre un examen',
+  'take_online_exam' => 'Passer l\'examen en ligne',
+  'exam_has_to_be_submitted_within' => 'L\'examen doit être soumis dans',
+  'teacher_remarks' => 'Remarques des enseignants',
+  'grand_total' => 'total',
+  'save_grade' => 'Sauver la note',
+  'result_settings' => 'Paramètres de résultat',
+  'date_of_publication_of_result' => 'Date de publication du résultat',
+  'of' => 'De',
+  'subject_name' => 'Nom de sujet',
+  'average_mark' => 'Marque moyenne',
+  'exam_notification' => 'Notification d\'examen',
+  'teacher' => 'Professeur',
+  'room' => 'Chambre',
+  'pass_fail' => 'Passer / échouer',
+  'subject_mark_sheet' => 'Feuille de marque',
+  'id_no' => 'ID Non',
+  'subject_wise_mark_sheet' => 'Feuille de marque de sujet',
+  'average' => 'Moyenne',
+  'final_mark_sheet' => 'Feuille de marque finale',
+  'student_final_mark_sheet' => 'Feuille de marque finale de l\'étudiant',
+  'total_average' => 'Moyenne totale',
+  'pass_mark' => 'Marquer de la passe',
+  'marksheet' => 'Feuille de marque',
+  'subject_mark' => 'Marque',
+  'marksheet_report' => 'Rapport MarkSheet',
+  'obtained_mark' => 'Marque obtenue',
+  'mark_not_stored' => 'Mark non stocké',
+  'result_print_style' => 'Style d\'impression',
+  'position_setup' => 'Configuration de la position',
+  'with_body_background' => 'Avec fond corporel',
+  'with_header_background' => 'Avec fond d\'en-tête',
+  'with_profile_image' => 'Avec image de profil',
+  'do you want to skip this step for mark register/store' => 'Voulez-vous ignorer cette étape pour Mark Register / Store?',
+  'name of step' => 'Nom de pas',
+  'all_exam_position' => 'Tous les postes d\'examen',
+  'with_vertical_boarder' => 'Avec bordure verticale',
+  'roll_no' => 'Rouler non',
+  'admission_number' => 'Numéro d\'admission',
+  'global_exam_type' => 'Type d\'examen global',
+  'global_exam' => 'Examen mondial',
+  'duration_type' => 'Type de durée',
+  'written_exam' => 'Examen écrit',
+  'term_exam' => 'Examen à terme',
+  'exam_signature_settings' => 'Paramètres de signature d\'examen',
+  'signature_tips' => 'Ces signatures ne s\'afficheront que sur la carte de progression, la carte de progression à 100% et la page de rapport de la feuille de tabulation et la page d\'impression. Si vous ajoutez une seule signature, il affichera la signature dans le coin inférieur droit et si vous ajoutez plusieurs signatures, il affichera un espace entre gauche à droite en bas de la page.',
+  'exam_settings_tips' => 'Pour le type d\'examen à terme, le titre du contrôleur et la signature seront affichés sur le rapport de la feuille de marque et le rapport de liste de mérite. Et la date de publication des résultats s\'affiche sur le rapport sur la feuille de marque et le rapport sur la liste de mérite et le rapport de la fiche de tabulation. Pour la date de publication du type de carte de progression, la date de la carte de progression, un rapport de carte de progression à 100%.',
+  'add_signature' => 'Ajouter la signature',
+  'PDF Exam Result' => 'Résultat de l\'examen PDF',
+  'average_passing_examination' => 'Examen de passage moyen',
+  'is_average_passing_exam' => 'Est un examen de passage moyen',
+);

@@ -1,221 +1,95 @@
-<?php
-return [
-"your" => "Votre",
-
-"read_more" => "Lire plus",
-
-"add_to_do" => "Ajouter à faire",
-
-"template" => "Modèle",
-
-"early" => "Tôt",
-
-"cheque_bounce" => "Bounce de chèque",
-
-"checkout" => "Extraire",
-
-"check" => "Vérifier",
-
-"credentials" => "Données d'identification",
-
-"birthday" => "Anniversel",
-
-"application" => "Application",
-
-"student_admitted_message" => "Message d'admission de l'étudiant",
-
-"student_admission_progress" => "Droits d'entrée des étudiants en cours",
-
-"staffs" => "Staffs",
-
-"income_and_expenses_for" => "Revenu et dépenses pour",
-
-"total_income" => "Revenu total",
-
-"total_expenses" => "Total des dépenses",
-
-"total_profit" => "Bénéfice total",
-
-"total_revenue" => "Total des revenus",
-
-"to_do_list" => "Liste de tâches",
-
-"no_do_lists_assigned_yet" => "Aucune liste de tâches n'est affectée",
-
-"theme" => "Thème",
-
-"time_zone" => "Fuseau horaire",
-
-"mail" => "Courrier",
-
-"host" => "Hôte",
-
-"encryption" => "Chiffrement",
-
-"enter" => "Entrer",
-
-"forget" => "Oublier",
-
-"current_month" => "Mois en cours",
-
-"keyword" => "Mot clé",
-
-"manage" => "Gérer",
-
-"manager" => "Gestionnaire",
-
-"next" => "Suivant",
-
-"child" => "Enfant",
-
-"running" => "Exécution",
-
-"biometrics" => "Biométrie",
-
-"export" => "Exportation",
-
-"bio" => "Biométrie",
-
-"buy" => "Acheter",
-
-"csu" => "URL personnalisée",
-
-"now" => "Maintenant",
-
-"lesson" => "Leçon",
-
-"plan" => "Plan",
-
-"sup" => "Sup",
-
-"lesson_plan" => "Plan de leçon",
-
-"lesson_plan_overview" => "Aperçu du plan de leçon",
-
-"sup_topic" => "Rubrique Sup",
-
-"topic_overview" => "Rubrique Présentation",
-
-"my_lesson_plan" => "Mon plan de leçon",
-
-"my_lesson_plan_overview" => "Mon plan de leçon Aperçu",
-
-"before" => "Avant",
-
-"all_sections" => "Toutes les sections",
-
-"bulk_print" => "Impression en bloc",
-
-"bulk" => "En vrac",
-
-"per" => "Par",
-
-"part" => "Pièce",
-
-"is_showing" => "Is Showing",
-
-"format_standard_three_character" => "Caractère de format standard 3",
-
-"prefix" => "Préfixe",
-
-"fees_invoice_settings" => "Paramètres de facturation des frais",
-
-"fees_invoice_bulk_print" => "Frais d'impression en bloc de la facture",
-
-"payroll_bulk_print" => "Impression en bloc de la paie",
-
-"staff_id_card" => "Carte d'identité du personnel",
-
-"total_students" => "Total des étudiants",
-
-"total_teachers" => "Nombre total d'enseignants",
-
-"total_parents" => "Nombre total de parents",
-
-"total_staffs" => "Total des états-majors",
-
-"wallet_balance" => "Solde du portefeuille",
-
-"incomplete" => "Incomplet",
-
-"to_do_title" => "Titre de la do",
-
-"Title" => "Titre",
-
-"Manage" => "Gérer",
-
-"Dashboard" => "Tableau de bord",
-
-"Topic" => "Rubrique",
-
-"Actions" => "Actions",
-
-"Add" => "Ajouter",
-
-"Running" => "Exécution",
-
-"View" => "Afficher",
-
-"Edit" => "Editer",
-
-"message" => "Message",
-
-"student" => "Étudiant",
-
-"add" => "Ajouter",
-
-"Completed" => "Terminé",
-
-"Login" => "Connexion",
-
-"Export" => "Exportation",
-
-"Waiting" => "En attente",
-
-"Checkout" => "Extraire",
-
-"Next" => "Suivant",
-
-"Welcome" => "Bienvenue",
-
-"PDF" => "PDF",
-
-"Host" => "Hôte",
-
-"Lesson" => "Leçon",
-
-"completed" => "Terminé",
-
-"Theme" => "Thème",
-
-"login" => "Connexion",
-
-"total" => "Total",
-
-"title" => "Titre",
-
-"remember_me" => "Se souvenir de moi",
-
-"dashboard" => "Tableau de bord",
-
-"edit" => "édition",
-
-"view" => "Afficher",
-
-"actions" => "Actions",
-
-"waiting" => "En attente",
-
-"topic" => "Rubrique",
-
-"select_academic_year" => "Sélectionner une année universitaire",
-
-"calendar" => "Calendrier",
-
-"teachers" => "Enseignants",
-
-"welcome" => "Bienvenue",
-
-"parents" => "Parents",
-
-];
+<?php return array (
+  'dashboard' => 'Tableau de bord',
+  'your' => 'Ton',
+  'read_more' => 'En savoir plus',
+  'add_to_do' => 'Ajouter à faire',
+  'welcome' => 'Accueillir',
+  'student' => 'Étudiant',
+  'total' => 'Total',
+  'template' => 'Modèle',
+  'early' => 'Tôt',
+  'cheque_bounce' => 'Vérifier le rebond',
+  'checkout' => 'Vérifier',
+  'check' => 'Vérifier',
+  'credentials' => 'Informations d\'identification',
+  'birthday' => 'Anniversaire',
+  'application' => 'Application',
+  'student_admitted_message' => 'Message admis étudiant',
+  'student_admission_progress' => 'Entrée des étudiants en cours',
+  'teachers' => 'Enseignants',
+  'parents' => 'Parents',
+  'staffs' => 'Personnel',
+  'income_and_expenses_for' => 'Revenus et dépenses pour',
+  'total_income' => 'Revenu total',
+  'total_expenses' => 'Dépenses totales',
+  'total_profit' => 'Bénéfice total',
+  'total_revenue' => 'Revenus totaux',
+  'title' => 'Titre',
+  'message' => 'Message',
+  'actions' => 'Actes',
+  'calendar' => 'Calendrier',
+  'view' => 'Voir',
+  'to_do_list' => 'Liste de faire',
+  'add' => 'Ajouter',
+  'edit' => 'Modifier',
+  'no_do_lists_assigned_yet' => 'Pas encore des listes affectées',
+  'theme' => 'Thème',
+  'time_zone' => 'Fuseau horaire',
+  'mail' => 'Mail',
+  'host' => 'Hôte',
+  'encryption' => 'Cryptage',
+  'login' => 'Se connecter',
+  'enter' => 'Entrer',
+  'remember_me' => 'Souviens-toi de moi',
+  'forget' => 'Oublier',
+  'current_month' => 'Mois en cours',
+  'keyword' => 'Mot-clé',
+  'manage' => 'Gérer',
+  'manager' => 'Directeur',
+  'next' => 'Suivant',
+  'child' => 'Enfant',
+  'running' => 'En cours d\'exécution',
+  'select_academic_year' => 'Sélectionnez l\'année académique',
+  'PDF' => 'Pdf',
+  'biometrics' => 'Biométrie',
+  'export' => 'Exporter',
+  'bio' => 'Biométrie',
+  'buy' => 'Acheter',
+  'csu' => 'URL personnalisée',
+  'now' => 'Maintenant',
+  'lesson' => 'Leçon',
+  'plan' => 'Plan',
+  'sup' => 'Souper',
+  'lesson_plan' => 'Plan de cours',
+  'lesson_plan_overview' => 'Présentation du plan de leçon',
+  'sup_topic' => 'Sujet SUP',
+  'topic_overview' => 'Aperçu du sujet',
+  'my_lesson_plan' => 'Mon plan de cours',
+  'my_lesson_plan_overview' => 'My Leçon Présentation du plan',
+  'topic' => 'Sujet',
+  'before' => 'Avant',
+  'waiting' => 'En attendant',
+  'all_sections' => 'Toutes les sections',
+  'bulk_print' => 'Imprimé en vrac',
+  'bulk' => 'En gros',
+  'per' => 'Par',
+  'part' => 'Partie',
+  'is_showing' => 'Montre',
+  'format_standard_three_character' => 'Format standard 3 caractères',
+  'prefix' => 'Préfixe',
+  'fees_invoice_settings' => 'Frais de facture Paramètres',
+  'fees_invoice_bulk_print' => 'Frais de facturation Impression en vrac',
+  'payroll_bulk_print' => 'Impression en vrac de paie',
+  'staff_id_card' => 'Carte d\'identité du personnel',
+  'total_students' => 'Étudiants totaux',
+  'total_teachers' => 'Total des enseignants',
+  'total_parents' => 'Total Parents',
+  'total_staffs' => 'Personnels totaux',
+  'wallet_balance' => 'Équilibre du portefeuille',
+  'incomplete' => 'Incomplet',
+  'completed' => 'Complété',
+  'to_do_title' => 'Faire le titre',
+  'remain_days' => 'Reste les jours',
+  'active_package' => 'Package actif',
+  'students' => 'Étudiants',
+);

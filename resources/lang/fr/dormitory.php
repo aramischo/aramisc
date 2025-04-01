@@ -1,83 +1,41 @@
-<?php
-return [
-"guardian_reports" => "Rapports des gardiens",
-
-"dormitory" => "Dortoir",
-
-"dormitory_rooms" => "Salles de dortoir",
-
-"dormitory_name" => "Nom de dortoir",
-
-"room_type" => "Type de salle",
-
-"student_dormitory_report" => "Rapport Dormitory des étudiants",
-
-"number_of_bed" => "Nombre de lits",
-
-"cost_per_bed" => "Coût par lit",
-
-"no_of_bed" => "NON. OF BEd",
-
-"dormitory_list" => "Liste des dortoirs",
-
-"boys" => "Garçons",
-
-"girls" => "Filles",
-
-"intake" => "Intake",
-
-"select_dormitory" => "Sélectionner Dormitory",
-
-"guardian_phone" => "Tuteurs Téléphone",
-
-"add_room_type" => "Ajouter un type de salle",
-
-"save_room_type" => "Type de salle de sauvegarde",
-
-"update_room_type" => "Mise à jour Type de salle",
-
-"edit_room_type" => "Editer le type de salle",
-
-"room_type_list" => "Liste des types de salle",
-
-"delete_room_type" => "Supprimer le type de salle",
-
-"add_dormitory" => "Ajouter Dortoir",
-
-"save_dormitory" => "Sauvegarder Dormitory",
-
-"edit_dormitory" => "Modifier le dortoir",
-
-"update_dormitory" => "Mettre à jour Dortoir",
-
-"delete_dormitory" => "Supprimer le dortoir",
-
-"add_dormitory_rooms" => "Ajouter des chambres dortoirs",
-
-"save_dormitory_rooms" => "Enregistrer les dortoirs",
-
-"edit_dormitory_rooms" => "Editer les chambres dortoirs",
-
-"update_dormitory_rooms" => "Mettre à jour les chambres dortoirs",
-
-"dormitory_room_list" => "Liste des dortoirs",
-
-"delete_dormitory_rooms" => "Supprimer des chambres dortoirs",
-
-"delete_room" => "Supprimer la salle",
-
-"save_room" => "Salle de sauvegarde",
-
-"update_room" => "Update Room",
-
-"room_name" => "Nom de la salle",
-
-"Address" => "Adresse",
-
-"assigned" => "Affecté",
-
-"room_number" => "Numéro de salle",
-
-"address" => "Adresse",
-
-];
+<?php return array (
+  'guardian_reports' => 'Rapporte les gardiens',
+  'dormitory' => 'Dortoir',
+  'dormitory_rooms' => 'Salles de dortoir',
+  'dormitory_name' => 'Nom de dortoir',
+  'room_type' => 'Type de chambre',
+  'student_dormitory_report' => 'Rapport de dortoir des étudiants',
+  'number_of_bed' => 'Nombre de lit',
+  'cost_per_bed' => 'Coût par lit',
+  'no_of_bed' => 'NON. De lit',
+  'dormitory_list' => 'Dortoir',
+  'boys' => 'Garçons',
+  'girls' => 'Filles',
+  'intake' => 'Admission',
+  'address' => 'Adresse',
+  'select_dormitory' => 'Sélectionner le dortoir',
+  'guardian_phone' => 'Téléphone',
+  'add_room_type' => 'Ajouter le type de pièce',
+  'save_room_type' => 'Sauver le type de chambre',
+  'update_room_type' => 'Mettre à jour le type de salle',
+  'edit_room_type' => 'Type de salle de modification',
+  'room_type_list' => 'Liste de type de chambre',
+  'delete_room_type' => 'Supprimer le type de chambre',
+  'add_dormitory' => 'Ajouter du dortoir',
+  'save_dormitory' => 'Enregistrer le dortoir',
+  'edit_dormitory' => 'Modifier le dortoir',
+  'update_dormitory' => 'Mettre à jour le dortoir',
+  'delete_dormitory' => 'Supprimer le dortoir',
+  'add_dormitory_rooms' => 'Ajouter des salles de dortoir',
+  'save_dormitory_rooms' => 'Sauver les salles de dortoir',
+  'edit_dormitory_rooms' => 'Modifier les salles de dortoir',
+  'update_dormitory_rooms' => 'Mettre à jour les salles de dortoir',
+  'dormitory_room_list' => 'Liste des salles de dortoir',
+  'delete_dormitory_rooms' => 'Supprimer les salles de dortoir',
+  'room_number' => 'Numéro de chambre',
+  'delete_room' => 'Supprimer la chambre',
+  'save_room' => 'Salon',
+  'update_room' => 'Salle de mise à jour',
+  'assigned' => 'Attribué',
+  'room_name' => 'Nom de chambre',
+);
