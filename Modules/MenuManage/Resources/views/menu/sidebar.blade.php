@@ -9,10 +9,10 @@
             
         </div>
     </a>
-    <ul class="mm-collapse" id="subMenuPosition">            
+    <ul class="mm-collapse" id="subMenuPosition">
             <li>
                 <a href="{{route('menumanage.index')}}"> @lang('menumanage::menuManage.manage_position')</a>
-            </li>      
-        
+            </li>
+
     </ul>
 </li>

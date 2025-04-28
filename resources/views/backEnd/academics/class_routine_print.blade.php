@@ -31,11 +31,10 @@
     <div class="container-fluid" id="pdf">
         <table cellspacing="0" width="100%">
             <tr>
-                <td>
-                    <img src="{{ url('/') }}/{{ @generalSetting()->logo }}" style="padding-top: 20px;"
-                        alt="">
+                <td width="10%">
+                    <img width="100%" src="{{ url('/') }}/{{ @generalSetting()->logo }}" style="padding-top: 20px;" alt="">
                 </td>
-                <td style="text-aligh:left">
+                <td style="text-align:center" width="70%">
                     <h3 style="font-size:20px !important; margin-bottom : 0;margin-top: 0px;" class="text-white mb-0">
                         @lang('academics.class_routine') </h3>
                     <span style="font-size:11px !important;margin-right:10px;" align="left"
@@ -46,7 +45,7 @@
                         class="text-white">@lang('common.academic_year'): {{ @$academic_year->title }}
                         ({{ @$academic_year->year }}) </span>
                 </td>
-                <td style="text-aligh:center">
+                <td style="text-align:right" width="20%">
                     <h3 style="font-size:20px !important; margin-bottom : 0;margin-top: 0px;"
                         class="text-white mb-0">
                         {{ isset(generalSetting()->school_name) ? generalSetting()->school_name : 'Aramisc School Management ERP' }}
@@ -61,8 +60,6 @@
         <hr style="margin-bottom: 6px;margin-top: 6px;">
         <table class="table table-bordered table-striped" style="width: 100%; table-layout: fixed">
             <tr>
-                <th style="width:7%;padding: 2px; padding-left:8px;">
-                </th>
                 @php
                     $height = 0;
                     $tr = [];
@@ -73,7 +70,7 @@
                             $height = $aramisc_weekend->classRoutine->count();
                         @endphp
                     @endif
-                    <th style="margin-top: 0px;padding: 2px; padding-left:8px">{{ @$aramisc_weekend->name }}</th>
+                    <th style="margin-top: 0px; padding: 10px;padding-left: 8px;text-align: center;background-color: #ccc;">{{ @$aramisc_weekend->name }}</th>
                 @endforeach
             </tr>
             @php
@@ -104,7 +101,6 @@
             @endforeach
             @for ($i = 0; $i < $height; $i++)
                 <tr style="border-bottom:1px solid #000000">
-                    <td style="padding-top:0px;padding-bottom:0px;font-size:10px !important;">@lang('common.time')</td>
                     @foreach ($tr as $days)
                         @foreach ($aramisc_weekends as $aramisc_weekend)
                             <td style="padding-top:0px ;padding-bottom:0px;">
@@ -121,7 +117,6 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <td>@lang('common.details')</td>
                     @foreach ($tr as $days)
                         @foreach ($aramisc_weekends as $aramisc_weekend)
                             <td style="padding-top:0px ;padding-bottom:0px;">
@@ -141,7 +136,7 @@
                                         @endif
 
                                         @if ($classes[$i]['teacher'])
-                                            <span class=""> {{ $classes[$i]['teacher'] }} <br> </span>
+                                            <span class=""> ( {{ $classes[$i]['teacher'] }} ) <br> </span>
                                         @endif
                                     @endif
                                 @endif

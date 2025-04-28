@@ -593,6 +593,15 @@
     border: none;
     border-radius: 15px;
 }
-.remove_menu{
-    margin-left: 10px;
+/*.remove_menu{*/
+/*    margin-left: 10px;*/
+/*}*/
+
+.edit_menu:hover ,
+.sidebarmenu_delete:hover,
+.edit_section:hover,
+.delete_section:hover
+{
+    font-size: 14px;
+    color: var(--primary-color);
 }

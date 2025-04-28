@@ -24,6 +24,14 @@
                                                             {{ __($menu->permissionInfo->lang_name) }}
                                                         </div>
                                                     </div>
+                                                    <div class="float-right btn_div">
+                                                        <div class="edit_icon btn-md" style="top: 35%;padding-right: 30px;">
+                                                            <i class="ti-pencil-alt edit_menu" data-id="{{$menu->permissionInfo->id}}"></i>
+                                                            <span>&nbsp;|&nbsp;</span>
+                                                            {{--<i class="ti-close remove_menu"></i>--}}
+                                                            <i class="ti-trash sidebarmenu_delete" data-id="{{$menu->permissionInfo->id}}"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -45,7 +53,7 @@
                                                                                
                                                                             </div>
                                                                         </div>
-                                                                    
+
                                                                     </div>
                                                                 </div>
                                                             </li>

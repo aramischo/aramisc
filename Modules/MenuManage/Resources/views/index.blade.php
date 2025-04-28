@@ -1,3 +1,7 @@
+{{-- Icon Picker --}}
+<link rel="stylesheet" href="{{ asset('public/vendor/optionbuilder/css/iconPicker.css')}}">
+<link rel="stylesheet" href="{{ asset('public/theme/'.activeTheme().'/css/fontawesome.all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/vendor/optionbuilder/css/jquery-confirm.min.css')}}">
 @extends('backEnd.master')
 @section('title')
     @lang('menumanage::menuManage.manage_position')
@@ -71,6 +75,66 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-header pt-0 pb-0" id="headingOne">
+                                <h5 class="mb-0 create-title" data-toggle="collapse" data-target="#collapseSidebarMenuOne"
+                                    aria-expanded="false" aria-controls="collapseOne">
+                                    <button class="btn btn-link add_btn_link">
+                                        {{ __('menumanage::menuManage.menu') }}
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseSidebarMenuOne" class="collapse {{ isset($editSidebarMenu) ? 'show':'' }}" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                   @isset($editSidebarMenu)
+                                   {!! Form::open(['route'=>'sidebar-manager.sidebar-menu-update', 'method'=>'POST']) !!}
+                                    <input type="hidden" name="id" value="{{ $editSidebarMenu->id }}">
+                                    @else
+                                    {!! Form::open(['route'=>'sidebar-manager.sidebar-menu.store', 'method'=>'POST']) !!}
+                                    @endif
+                                        <div class="row pt-0">
+
+                                        </div>
+                                        <div id="row_element_div">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="primary_input mb-25">
+                                                        <label class="primary_input_label"
+                                                            for="name">{{ __('common.name') }} <span
+                                                                class="textdanger">*</span>
+                                                        </label>
+                                                        <input class="primary_input_field" type="text" name="name" autocomplete="off" value="{{ isset($editSidebarMenu) ? $editSidebarMenu->name : null }}"
+                                                            placeholder="{{ __('common.name') }}">
+                                                        @if ($errors->has('name'))
+                                                            <span class="text-danger" >{{ @$errors->first('name') }}</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="primary_input mb-25">
+                                                        <label class="primary_input_label"
+                                                               for="name">{{ __('common.icon') }} <span
+                                                                    class="textdanger">*</span>
+                                                        </label>
+                                                        <input class="primary_input_field icon_picker" type="text" name="icon"  value="{{ isset($editSidebarMenu) ? $editSidebarMenu->icon : null }}"
+                                                               placeholder="{{ __('common.icon') }}">
+                                                        @if ($errors->has('icon'))
+                                                            <span class="text-danger" >{{ @$errors->first('icon') }}</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 text-center">
+                                                <button type="submit"
+                                                    class="primary-btn fix-gr-bg">
+                                                    <span class="ti-check"></span>
+                                                    {{ __('common.save') }} </button>
+                                            </div>
+                                        </div>
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="mt_20" id="available_menu_div">
@@ -107,8 +171,24 @@
     <input type="hidden" id="section_delete_url" value="{{ route('sidebar-manager.delete-section') }}">
     <input type="hidden" id="menu_delete_url" value="{{ route('sidebar-manager.menu-store') }}">
     <input type="hidden" id="menu_remove_url" value="{{ route('sidebar-manager.menu-remove') }}">
+    <input type="hidden" id="sidebarmenu_delete_url" value="{{ route('sidebar-manager.sidebar-menu-delete') }}">
 
     <input type="hidden" id="section_sort_url" value="{{ route('sidebar-manager.sort-section') }}">
 @endsection
+@push('scripts')
 
+{{-- Icon Picker --}}
+<script defer src="{{ asset('public/vendor/optionbuilder/js/iconPicker.js') }}"></script>
+<script defer src="{{ asset('public/vendor/optionbuilder/js/jquery-confirm.min.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        // Icon Picker
+        $(document).on('focus', '.icon_picker', function(){
+            $(this).iconpicker({animation:true});
+            $(this).next('.iconpicker-popover').addClass('show');
+        });
+    })
+</script>
+
+@endpush
 

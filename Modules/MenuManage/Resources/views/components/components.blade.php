@@ -11,7 +11,7 @@
             @if (isset($sidebar_menus))
             
                 @foreach ($sidebar_menus as $sidebar_menu)
-                 
+
                         <div class="closed_section" data-id="{{ $sidebar_menu->id }}"
                             data-parent_section="{{ $sidebar_menu->permission_id }}">
                             <div id="accordion" class="dd">
@@ -21,11 +21,10 @@
                                         <span class="edit-btn">
                                             <a class=" btn-modal" data-container="#commonModal" type="button"
                                                 href="{{ route('sidebar-manager.section-edit-form', $sidebar_menu->permission_id) }}">
-                                                <i class="ti-pencil-alt"></i>
+                                                <i class="ti-pencil-alt edit_section"></i>
                                             </a>
-
                                         </span>
-                                        <i class="ti-close delete_section" data-id="{{ $sidebar_menu->id }}"></i>
+                                        <i class="ti-trash delete_section" data-id="{{ $sidebar_menu->id }}"></i>
                                         <i class="ti-angle-up toggle_up_down"></i>
                                     </div>
                                 </div>
@@ -55,10 +54,11 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="float-right btn_div">
-                                                                            <div class="edit_icon">
-                                                                                
-
-                                                                                <i class="ti-close remove_menu"></i>
+                                                                            <div class="edit_icon btn-md">
+                                                                                <i class="ti-pencil-alt edit_menu" data-id="{{$menu->permissionInfo->id}}"></i>
+                                                                                <span>&nbsp;|&nbsp;</span>
+                                                                                <i class="ti-close remove_menu" data-id="{{$menu->id}}"></i>
+{{--                                                                                <i class="ti-trash sidebarmenu_delete"></i>--}}
                                                                             </div>
                                                                         </div>
                                                                     </div>

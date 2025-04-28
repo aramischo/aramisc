@@ -30,6 +30,12 @@ Route::prefix('sidebar-manager')->middleware(['auth', 'subdomain'])->group(funct
     Route::get('/section-edit-form/{id}', 'SidebarManagerController@sectionEditForm')->name('sidebar-manager.section-edit-form');
     Route::post('/section-update', 'SidebarManagerController@sectionUpdate')->name('sidebar-manager.section-update');
 
+    //Sidebar Menu store
+    Route::post('/sidebar-menu/store', 'SidebarManagerController@sidebarMenuStore')->name('sidebar-manager.sidebar-menu.store');
+    Route::get('/sidebar-menu-edit-form/{id}', 'SidebarManagerController@sidebarMenuEditForm')->name('sidebar-manager.sidebar-menu-edit-form');
+    Route::post('/sidebar-menu-update', 'SidebarManagerController@sidebarMenuUpdate')->name('sidebar-manager.sidebar-menu-update');
+    Route::post('/sidebar-menu-delete', 'SidebarManagerController@sidebarMenuDelete')->name('sidebar-manager.sidebar-menu-delete');
+
     Route::post('/section/menu-store', 'SidebarManagerController@menuStore')->name('sidebar-manager.menu-store');
     Route::post('/section/menu-update', 'SidebarManagerController@menuUpdate')->name('sidebar-manager.menu-update');
     Route::post('/section/menu-edit', 'SidebarManagerController@menuEdit')->name('sidebar-manager.menu-edit');
