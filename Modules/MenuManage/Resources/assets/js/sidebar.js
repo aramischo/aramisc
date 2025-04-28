@@ -115,17 +115,13 @@ function showPreloader() {
 }
 
 
-
-
-
 $(document).ready(function () {
     $("#previewMenu").metisMenu();
 
     initSortable();
 
-
     $(document).on('click', '.remove_menu', function () {
-        var $item = $(this).closest(".dd-item");
+        var $item = $(this); //.closest(".dd-item");
         let id = $item.data('id');
         $item.remove();
         let data = {
@@ -139,6 +135,39 @@ $(document).ready(function () {
 
     });
 
+    $(document).on('click', '.edit_menu', function () {
+        var $item = $(this); //.closest(".dd-item");
+        let id = $item.data('id');
+        let url = '/sidebar-manager/sidebar-menu-edit-form/'+id;
+        // console.log($item,id,url);
+        location.href = url;
+
+    });
+
+    $(document).on('click', '.sidebarmenu_delete', function () {
+        var $item = $(this); //.closest(".dd-item");
+        $.confirm({
+            title: window.jsLang('delete_menu'),
+            content: window.jsLang('do_you_want_to_delete_this_menu'),
+            type: "warning",
+            icon: 'icon-alert-circle',
+            theme		: 'modern',
+            animation	: 'scale',
+            closeIcon: true,
+            typeAnimated: false,
+            buttons: {
+                yes: {
+                    btnClass: 'btn-warning',
+                    action: function () {
+                        deleteMenu($item);
+                    },
+                },
+                no: function () {
+                    close();
+                },
+            }
+        });
+    });
 
     $(document).on('click', '.toggle_up_down', function (event) {
         if ($(this).hasClass('ti-angle-up')) {
@@ -235,9 +264,20 @@ $(document).ready(function () {
         });
     });
 
+});
 
-})
-
+function deleteMenu($item) {
+    let id = $item.data('id');
+    $item.remove();
+    let data = {
+        id: id,
+        _token: csrf_token
+    }
+    showPreloader()
+    $.post($('#sidebarmenu_delete_url').val(), data, function (response) {
+        reloadAfterChange(response)
+    });
+}
 
 function checkEmptyChild() {
     $('.dd-list').each(function (i, obj) {

@@ -20,8 +20,8 @@ class SidebarManagerController extends Controller
 {
     use SidebarDataStore;
     public function sectionStore(SectionRequestFrom $request)
-    {     
-     
+    {
+
         if (config('app.app_sync')) {
             Toastr::error('Restricted in demo mode');
             return back();
@@ -51,7 +51,7 @@ class SidebarManagerController extends Controller
                 'parent'=>NULL
             ]);
             Cache::forget('sidebars'.auth()->user()->id);
-            
+
             Toastr::success('Operation successful', 'Success');
             return redirect()->route('menumanage.index');
         }catch(\Exception $e){
@@ -65,49 +65,169 @@ class SidebarManagerController extends Controller
             return back();
         }
         $data = [];
-        $data['unused_menus'] = self::unUsedMenu(); 
-        Cache::forget('sidebars'.auth()->user()->id);             
+        $data['unused_menus'] = self::unUsedMenu();
+        Cache::forget('sidebars'.auth()->user()->id);
         $data['sidebar_menus'] = sidebar_menus();
         $data['editPermissionSection'] = Permission::where('user_id', auth()->user()->id)->where('id', $id)->first();
+        $data['editSidebarMenu'] = null;
         return view('menumanage::index', $data);
     }
-
     public function sectionUpdate(SectionRequestFrom $request)
-    {        
+    {
         $request->validate([
             'id' => 'required'
         ]);
         $section = Permission::find($request->id);
         $section->name = $request->name;
         $section->save();
-                 
+
         Toastr::success('Operation successful', 'Success');
         return redirect()->route('menumanage.index');
     }
     public function deleteSection(Request $request)
     {
         //   uest->all());
-       
+
         if(config('app.app_sync')) {
             return $this->reloadWithData();
         }
-      
+
         try {
             if ($request->id != 1) {
                 $section = Sidebar::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
                 if (count($section->subModule)!=0) {
-                   
+
                     foreach ($section->subModule as $sidebar) {
-                        $sidebar->update(['active_status' => 0, 'ignore'=>0]);                      
+                        $sidebar->update(['active_status' => 0, 'ignore'=>0]);
                     }
                 }
-               
+
                 if($section->permissionInfo->permission_section == 1 && count($section->subModule)==0) {
-                  
+
                     Permission::where('user_id', auth()->user()->id)->where('id', $section->permission_id)->delete();
                     $section->delete();
                 }
-                              
+
+            }
+            Cache::forget('sidebars'.auth()->user()->id);
+            return $this->reloadWithData();
+        } catch (\Exception $e) {
+            return response()->json([
+                'msg' => __('common.Operation failed')
+            ], 500);
+        }
+
+    }
+
+
+    public function sidebarMenuStore(SectionRequestFrom $request)
+    {
+
+        if (config('app.app_sync')) {
+            Toastr::error('Restricted in demo mode');
+            return back();
+        }
+
+
+        $permission_position = Permission::whereNotNull('permission_section')->where('user_id', auth()->user()->id)->latest()->first();
+//        $sidebars = sidebar_menus();
+//        $sidebars->first()->id
+        try{
+            $permission = Permission::create([
+                'name' => $request->name,
+                'sidebar_menu'=> $request->name,
+                'lang_name'=>('common.'.$request->name),
+                'icon'=>($request->icon) ? $request->icon : null,
+                'route'=>strtolower($request->name),
+                'position' => $permission_position->id + 1,
+                'user_id' => auth()->user()->id,
+                'permission_section'=>1,
+                'type'=>1,
+                'is_menu' => 0,
+                'status' => 1,
+                'menu_status' => 1,
+                'is_admin'=>!in_array(auth()->user()->role_id, [2,3,GlobalVariable::isAlumni()]) ? 1 : 0,
+                'is_student'=>auth()->user()->role_id == 2 ? 1 : 0,
+                'is_parent'=>auth()->user()->role_id == 3 ? 1 : 0,
+            ]);
+            Sidebar::create([
+                'permission_id' => $permission->id,
+                'user_id' => auth()->id(),
+                'role_id' => auth()->user()->role_id,
+                'position' => $permission_position->id + 1,
+                'active_status' => 0,
+                'parent'=>null
+            ]);
+            Cache::forget('sidebars'.auth()->user()->id);
+
+            Toastr::success('Operation successful', 'Success');
+            return redirect()->route('menumanage.index');
+        }catch(\Exception $e){
+
+        }
+    }
+    public function sidebarMenuEditForm($id)
+    {
+        if (config('app.app_sync')) {
+            Toastr::error('Restricted in demo mode');
+            return back();
+        }
+        $data = [];
+        $data['unused_menus'] = self::unUsedMenu();
+        Cache::forget('sidebars'.auth()->user()->id);
+        $data['sidebar_menus'] = sidebar_menus();
+        $data['editPermissionSection'] = null;
+//        $perm = Permission::where('user_id', auth()->user()->id)->where('id', $id)->first();
+//        dd($perm);
+        $data['editSidebarMenu'] = Permission::where('id', $id)->first();
+
+
+        return view('menumanage::index', $data);
+    }
+    public function sidebarMenuUpdate(SectionRequestFrom $request)
+    {
+        $request->validate([
+            'id' => 'required'
+        ]);
+        $menu = Permission::find($request->id);
+        $menu->name = $request->name;
+        $menu->sidebar_menu= $request->name;
+        $menu->lang_name= 'common.'.$request->name;
+        $menu->icon=($request->icon) ? $request->icon : null;
+        $menu->save();
+
+        Toastr::success('Operation successful', 'Success');
+        return redirect()->route('menumanage.index');
+    }
+    public function sidebarMenuDelete(Request $request)
+    {
+        //   uest->all());
+
+        if(config('app.app_sync')) {
+            return $this->reloadWithData();
+        }
+
+        try {
+            if ($request->id != 1) {
+//                $section = Sidebar::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+                $menu = Permission::where('id', $request->id)->first();
+               if($menu) {
+                   $section = Sidebar::where('permission_id', $menu->id)->first();
+
+                   if (count($section->subModule) != 0) {
+                       foreach ($section->subModule as $sidebar) {
+                           $sidebar->update(['active_status' => 0, 'ignore' => 0]);
+                       }
+                   }
+
+                   if ($section->permissionInfo->permission_section == 1 && count($section->subModule) == 0) {
+                       $section->delete();
+                   }
+                   
+                   $menu->delete();
+
+               }
+
             }
             Cache::forget('sidebars'.auth()->user()->id);
             return $this->reloadWithData();
@@ -265,7 +385,7 @@ class SidebarManagerController extends Controller
         $single = Sidebar::whereNotIn('parent', $parentSidebars)
                     ->deActiveMenuUser()
                     ->pluck('permission_id')
-                    ->toArray();       
+                    ->toArray();
         $hasIds = array_merge($parentSidebars, $single);
        
         $hasIds = (array_unique($hasIds));

@@ -1,217 +1,106 @@
-<?php
-return [
-    "student_study_material" => "Matériel d'étude",
-
-    "rule" => "Règle",
-
-    "inserted_message" => "Opération réussie",
-
-    "updated_message" => "Mise à jour réussie",
-
-    "deleted_message" => "Supprimé avec succès",
-
-    "inactive_message" => "Inactivé avec succès",
-
-    "active_message" => "Activé avec succès",
-
-    "backup_message" => "La sauvegarde a abouti",
-
-    "restore_message" => "Restauration réussie",
-
-    "not_found_message" => "Ops ! Données non trouvées",
-
-    "error_message" => "Ops ! Quelque chose s'est mal passé, veuillez réessayer",
-
-    "front_cms" => "Cms de face",
-
-    "Existing" => "Existant",
-
-    "Alert" => "Alerte",
-
-    "New_Features" => "Nouvelles fonctions",
-
-    "sub" => "Sous-",
-
-    "teaching" => "Enseignement",
-
-    "general" => "Général",
-
-    "objectives" => "Objectifs",
-
-    "knowledge" => "Connaissances",
-
-    "comprehensive" => "Complet",
-
-    "lecture" => "Conférence",
-
-    "youtube" => "YouTube",
-
-    "multiple" => "Multiples",
-
-    "separate" => "Séparer",
-
-    "coma" => "Coma",
-
-    "add_lesson_name" => "Ajouter un nom de leçon",
-
-    "add_lesson" => "Ajouter une leçon",
-
-    "edit_lesson" => "Editer la leçon",
-
-    "save_lesson" => "Sauvegarder la leçon",
-
-    "update_lesson" => "Mettre à jour les",
-
-    "delete_lesson" => "Supprimer la leçon",
-
-    "lesson_list" => "Liste de leçon",
-
-    "topic_list" => "Liste des rubriques",
-
-    "add_topic" => "Ajouter une rubrique",
-
-    "edit_topic" => "Editer la rubrique",
-
-    "save_topic" => "Enregistrer la rubrique",
-
-    "update_topic" => "Mettre à jour sujet",
-
-    "delete_topic" => "Supprimer la rubrique",
-
-    "select_topic" => "Sélectionner une rubrique",
-
-    "teacher_lesson_plan_overview" => "Aperçu du plan de leçon pour les enseignants",
-
-    "completed_date" => "Date d'achèvement",
-
-    "lesson_overview" => "Présentation de la leçon",
-
-    "lesson_plan_create" => "Plan de leçon-Créer",
-
-    "add_lesson_plan" => "Ajouter un plan de leçon",
-
-    "edit_lesson_plan" => "Editer le plan de leçon",
-
-    "delete_lesson_plan" => "Supprimer le plan de leçon",
-
-    "update_lesson_plan" => "Mettre à jour plan de leçon",
-
-    "teaching_method" => "Méthode d'enseignement",
-
-    "previous_knowledge" => "Connaissances précédentes",
-
-    "general_objectives" => "Objectifs généraux",
-
-    "comprehensive_questions" => "Questions détaillées",
-
-    "lecture_youTube_url_multiple_url_separate_by_coma" => "Lecture de l'URL de Youtube Multiple Url Separate By Coma (,)",
-
-    "sub_topic" => "Sous-rubrique",
-
-    "assigned_date" => "Date d'affectation",
-
-    "complete_date" => "Date d'achèvement",
-
-    "are_you_sure_to_incomplete" => "Are You Want To Incomplete",
-
-    "upcoming_date" => "Date à venir",
-
-    "lecture_youtube_link" => "Conférence de la conférence youtube",
-
-    "Title" => "Titre",
-
-    "Topic" => "Rubrique",
-
-    "Yes" => "Oui",
-
-    "yes" => "Oui",
-
-    "teacher" => "Enseignant",
-
-    "Completed" => "Terminé",
-
-    "Available" => "Disponible",
-
-    "Lesson" => "Leçon",
-
-    "Youtube" => "Youtube",
-
-    "completed" => "Terminé",
-
-    "update_system" => "Mise à jour système",
-
-    "subject" => "Objet",
-
-    "fees" => "Frais",
-
-    "break" => "Pause",
-
-    "title" => "Titre",
-
-    "setup" => "Configuration",
-
-    "topic" => "Rubrique",
-
-    "select_subject" => "Sélectionner le sujet",
-
-    "select_lesson" => "Sélectionner la leçon",
-
-    "save_information" => "Sauvegarder les informations",
-
-    "update_information" => "Sauvegarder les informations",
-
-    "my_children" => "Mes enfants",
-
-    "teacher_list" => "Liste des enseignants",
-
-    "icon" => "Icône",
-
-    "lesson" => "Leçon",
-
-    "lesson_plan" => "Plan de leçon",
-
-    "lesson_plan_overview" => "Aperçu du plan de leçon",
-
-    "sup_topic" => "Rubrique Sup",
-
-    "topic_overview" => "Rubrique Présentation",
-
-    "my_lesson_plan" => "Mon plan de leçon",
-
-    "my_lesson_plan_overview" => "Mon plan de leçon Aperçu",
-
-    "incomplete" => "Incomplet",
-
-    "result" => "Résultat",
-
-    "examinations" => "Examens",
-
-    "active_exams" => "Exams actifs",
-
-    "exam_result" => "Résultat d'exam",
-
-    "pay_fees" => "Frais de paiement",
-
-    "social_media" => "Médias sociaux",
-
-    "book_issue" => "Problème de livre",
-
-    "progress" => "Progrès",
-
-    "upcoming" => "À venir",
-
-    "my_profile" => "Mon profil",
-
-    "download_center" => "Centre de téléchargement",
-
-    "copyright_text" => "Texte du copyright",
-
-    "about_&_update" => "A propos et mise à jour",
-
-    "System_Status" => "Etat du système",
-
-    "Upgrade" => "Mise à niveau",
-
-    "Version" => "Version",
-
-];
+<?php return array (
+  'my_profile' => 'Mon profil',
+  'fees' => 'Frais',
+  'pay_fees' => 'Frais de rémunération',
+  'download_center' => 'Centre de téléchargement',
+  'student_study_material' => 'Matériaux d\'étude',
+  'examinations' => 'Examens',
+  'rule' => 'Règle',
+  'setup' => 'Installation',
+  'result' => 'Résultat',
+  'active_exams' => 'Examens actifs',
+  'book_issue' => 'Livre émis',
+  'my_children' => 'Mes enfants',
+  'exam_result' => 'Résultat de l\'examen',
+  'teacher_list' => 'Liste des enseignants',
+  'inserted_message' => 'Fonctionnement avec succès',
+  'updated_message' => 'Mis à jour avec succès',
+  'deleted_message' => 'Supprimé avec succès',
+  'inactive_message' => 'Inactivé avec succès',
+  'active_message' => 'Activé avec succès',
+  'backup_message' => 'Sauvegarde avec succès',
+  'restore_message' => 'Restaurer avec succès',
+  'not_found_message' => 'OPS! Données introuvables',
+  'error_message' => 'Oups! Quelque chose s\'est mal passé, veuillez réessayer',
+  'front_cms' => 'CMS Avant',
+  'update_system' => 'Mettre à jour le système',
+  'about_&_update' => 'À propos de et mise à jour',
+  'System_Status' => 'État du système',
+  'Upgrade' => 'Mise à niveau',
+  'Version' => 'Version',
+  'Existing' => 'Existant',
+  'Available' => 'Disponible',
+  'Alert' => 'Alerte',
+  'New_Features' => 'Nouvelles fonctionnalités',
+  'copyright_text' => 'Texte du droit d\'auteur',
+  'social_media' => 'Réseaux sociaux',
+  'icon' => 'Icône',
+  'sub' => 'Sous-marin',
+  'teaching' => 'Enseignement',
+  'general' => 'Général',
+  'objectives' => 'Objectifs',
+  'knowledge' => 'Connaissance',
+  'comprehensive' => 'Complet',
+  'lecture' => 'Conférence',
+  'youtube' => 'Youtube',
+  'multiple' => 'Multiple',
+  'separate' => 'Séparé',
+  'coma' => 'Coma',
+  'lesson' => 'Leçon',
+  'lesson_plan' => 'Plan de cours',
+  'add_lesson_name' => 'Ajouter le nom de la leçon',
+  'add_lesson' => 'Ajouter la leçon',
+  'edit_lesson' => 'Modifier la leçon',
+  'save_lesson' => 'Sauver le leçon',
+  'update_lesson' => 'Mettre à jour la leçon',
+  'delete_lesson' => 'Supprimer la leçon',
+  'lesson_list' => 'Liste de cours',
+  'subject' => 'Sujet',
+  'title' => 'Givre',
+  'topic_list' => 'Liste de sujets',
+  'sup_topic' => 'Sujet SUP',
+  'topic' => 'Sujet',
+  'add_topic' => 'Ajouter',
+  'edit_topic' => 'Modifier le sujet',
+  'save_topic' => 'Sauver le sujet',
+  'update_topic' => 'Mettre à jour le sujet',
+  'delete_topic' => 'Supprimer le sujet',
+  'topic_overview' => 'Aperçu du sujet',
+  'select_topic' => 'Sélectionner le sujet',
+  'select_lesson' => 'Sélectionner la leçon',
+  'select_subject' => 'Sélectionner le sujet',
+  'teacher_lesson_plan_overview' => 'Présentation du plan de leçon des enseignants',
+  'completed' => 'Complété',
+  'incomplete' => 'Incomplet',
+  'completed_date' => 'Date terminée',
+  'lesson_plan_overview' => 'Présentation du plan de leçon',
+  'lesson_overview' => 'Aperçu de la leçon',
+  'teacher' => 'Professeur',
+  'lesson_plan_create' => 'Plan de leçon Créer',
+  'add_lesson_plan' => 'Ajouter le plan de leçon',
+  'edit_lesson_plan' => 'Modifier le plan de leçon',
+  'delete_lesson_plan' => 'Supprimer le plan de leçon',
+  'update_lesson_plan' => 'Plan de mise à jour',
+  'save_information' => 'Enregistrer des informations',
+  'update_information' => 'Mettre à jour les informations',
+  'teaching_method' => 'Méthode d\'enseignement',
+  'previous_knowledge' => 'Connaissances antérieures',
+  'general_objectives' => 'Objectifs généraux',
+  'comprehensive_questions' => 'Questions complètes',
+  'lecture_youTube_url_multiple_url_separate_by_coma' => 'Conférence URL YouTube multiple URL séparée par la virgule (,)',
+  'sub_topic' => 'Sous-sujet',
+  'progress' => 'Progrès',
+  'upcoming' => 'Prochain',
+  'assigned_date' => 'Date assignée',
+  'complete_date' => 'Date complète',
+  'are_you_sure_to_incomplete' => 'Voulez-vous',
+  'yes' => 'Oui',
+  'break' => 'Casser',
+  'my_lesson_plan' => 'Mon plan de cours',
+  'my_lesson_plan_overview' => 'My Leçon Présentation du plan',
+  'upcoming_date' => 'Date à venir',
+  'lecture_youtube_link' => 'Lien de conférence YouTube',
+  'lesson_plan_subtopic' => 'Plan de leçon substopique',
+  'lesson_plan_setting' => 'Réglage du plan de leçon',
+  'Are You Sure' => 'Es-tu sûr ?',
+);

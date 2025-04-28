@@ -1,277 +1,257 @@
-<?php
-return [
-"front_settings" => "Paramètres de front",
-
-"news" => "Nouvelles",
-
-"course_category" => "Catégorie de cours",
-
-"new_category" => "Nouvelle catégorie",
-
-"custom_links" => "Liens personnalisés",
-
-"add_header_menu" => "Ajouter un menu d'en-tête",
-
-"update_header_menu" => "Menu d'en-tête Mise à jour",
-
-"edit_header_menu" => "Editer le menu d'en-tête",
-
-"menu_list" => "Liste de menus",
-
-"static_pages" => "Pages statiques",
-
-"navigation_label" => "Libellé de navigation",
-
-"left" => "Gauche",
-
-"right" => "A droite",
-
-"show" => "Afficher",
-
-"link" => "Lien",
-
-"open_in_a_new_tab" => "Ouvrir dans un nouvel onglet",
-
-"home_settings_page" => "Page Paramètres de base",
-
-"home_page_update" => "Page d'accueil Mise à jour",
-
-"upload_background_image" => "Télécharger l'image de fond",
-
-"load_more_courses" => "Charger d'autres cours",
-
-"set_permission_in_home" => "Définir l'autorisation à la maison",
-
-"short_description" => "Description courte",
-
-"heading" => "En-tête",
-
-"home_page" => "Page d'accueil",
-
-"update_news_heading_section" => "Mettre à jour la section des rubriques",
-
-"news_heading" => "Titre de la nouvelle",
-
-"main_title" => "Titre principal",
-
-"main_description" => "Description principale",
-
-"category_name" => "Nom de catégorie",
-
-"edit_category" => "Editer une catégorie",
-
-"update_category" => "Mettre à jour catégorie",
-
-"delete_category" => "Supprimer une catégorie",
-
-"news_list" => "Liste des nouvelles",
-
-"add_category" => "Ajouter une catégorie",
-
-"news_category" => "Catégorie d'informations",
-
-"edit_news" => "Editer les nouvelles",
-
-"news_details" => "Détails des nouvelles",
-
-"update_news" => "Nouvelles mises à jour",
-
-"delete_news_category" => "Supprimer une catégorie d'informations",
-
-"load_more_news" => "Charger d'autres nouvelles",
-
-"latest_news" => "Dernières nouvelles",
-
-"related_news" => "Nouvelles connexes",
-
-"browse_all" => "Parcourir tout",
-
-"Enter_your_name" => "Entrez votre nom",
-
-"Enter_your_email" => "Entrer votre e-mail",
-
-"enter_subject" => "Saisir le sujet",
-
-"enter_message" => "Entrer un message",
-
-"Total_Teachers_count" => "Nombre total d'enseignants",
-
-"faculty" => "Faculté",
-
-"Opened_in" => "Ouvert en",
-
-"delete_news" => "Supprimer les informations",
-
-"publication_date" => "Date de publication",
-
-"course_heading" => "Titre du cours",
-
-"course_details_heading" => "En-tête Détails du cours",
-
-"update_course_details_heading" => "Mettre à jour les détails du cours",
-
-"course_category_list" => "Liste des catégories de cours",
-
-"delete_course_category" => "Supprimer la catégorie de cours",
-
-"course_list" => "Liste des cours",
-
-"add_course" => "Ajouter un cours",
-
-"edit_course" => "Editer le cours",
-
-"update_course" => "Mettre à jour cours",
-
-"delete_course" => "Supprimer le cours",
-
-"save_course" => "Enregistrer le cours",
-
-"delete_testimonial" => "Supprimer l'estimonial",
-
-"update_testimonial" => "Mise à jour de l'estimonial",
-
-"edit_testimonial" => "Editer l'estimonial",
-
-"add_testimonial" => "Ajouter un témoignage",
-
-"institution_name" => "Nom de l'institution",
-
-"testimonial" => "Témoignage",
-
-"testimonial_details" => "Détails de l'estimonial",
-
-"contact_page" => "Page de contact",
-
-"contact_message" => "Message de contact",
-
-"about_us" => "À propos de nous",
-
-"about_page" => "A propos de Page",
-
-"about_us_details" => "A propos de nous Détails",
-
-"add_social_media" => "Ajouter un support social",
-
-"edit_social_media" => "Editer les supports sociaux",
-
-"delete_social_media" => "Supprimer les supports sociaux",
-
-"social_media" => "Médias sociaux",
-
-"pages_list" => "Titre de la page",
-
-"delete_page" => "Supprimer la page",
-
-"update_page" => "Page Mise à jour",
-
-"edit_page" => "Editer la page",
-
-"add_page" => "Ajouter une page",
-
-"create_page" => "Créer une page",
-
-"save_page" => "Enregistrer la page",
-
-"delete_pages" => "Supprimer les pages",
-
-"footer_widget_list" => "Liste des widgets de bas de page",
-
-"footer_widget" => "Widget de bas de page",
-
-"widget" => "Widget",
-
-"link_label" => "Libellé de lien",
-
-"link_url" => "URL de lien",
-
-"image_preview" => "Aperçu de l'image",
-
-"image_header_min" => "Min. D'en-tête d'image",
-
-"Show" => "Afficher",
-
-"Title" => "Titre",
-
-"Slug" => "Slug",
-
-"Image" => "Image",
-
-"Update" => "Mise à jour",
-
-"Save" => "Sauvegarder",
-
-"Preview" => "Aperçu",
-
-"Course" => "Cours",
-
-"update" => "Mise à jour",
-
-"preview" => "Aperçu",
-
-"Active" => "Actif",
-
-"URL" => "URL",
-
-"Category" => "Catégorie",
-
-"Info" => "Infos",
-
-"All" => "Tous",
-
-"designation" => "Désignation",
-
-"active" => "Actif",
-
-"save" => "Sauvegarder",
-
-"testimonial_list" => "Liste des témoignages",
-
-"all" => "Tous",
-
-"button_url" => "URL du bouton",
-
-"button_text" => "Texte du bouton",
-
-"course" => "Cours",
-
-"update_course_heading_section" => "Mettre à jour la section titre du cours",
-
-"stats" => "Statistiques",
-
-"resources" => "Ressources",
-
-"prerequisites" => "Prérequis",
-
-"outline" => "Structure",
-
-"pages" => "Pages",
-
-"sub_title" => "Sous-titre",
-
-"back" => "Précédent",
-
-"slug" => "Slug",
-
-"overview" => "Aperçu",
-
-"header_menu_manager" => "Gestionnaire de menus d'en-tête",
-
-"title" => "Titre",
-
-"url" => "URL",
-
-"image" => "Image",
-
-"info" => "Infos",
-
-"min" => "Min",
-
-"icon" => "Icône",
-
-"add_news" => "Ajouter des informations",
-
-"send_message" => "Envoyer message",
-
-"category" => "Catégorie",
-
-];
+<?php return array (
+  'front_settings' => 'Paramètres avant',
+  'frontend_cms' => 'Frontend CMS',
+  'all' => 'Tous',
+  'course' => 'Cours',
+  'news' => 'Catégorie de nouvelles',
+  'pages' => 'Pages',
+  'latitude' => 'Latitude',
+  'longitude' => 'Longitude',
+  'address_text' => 'Adresse du texte',
+  'phone_text' => 'Texte de téléphone',
+  'zoom_level' => 'Niveau de zoom',
+  'google_map_address' => 'Adresse de la carte Google',
+  'email_text' => 'Texte par e-mail',
+  'inactive' => 'Inactif',
+  'course_category' => 'Catégorie de cours',
+  'new_category' => 'Nouvelle catégorie',
+  'custom_links' => 'Liens personnalisés',
+  'add_header_menu' => 'Ajouter le menu d\'en-tête',
+  'header_menu_manager' => 'Menu',
+  'update_header_menu' => 'Mettre à jour le menu de l\'en-tête',
+  'edit_header_menu' => 'Menu d\'en-tête modifier',
+  'class_exam_routine_page' => 'Routine de classe / d\'examen',
+  'update_course_details_heading_section' => 'Mettre à jour la section des détails du cours',
+  'menu_list' => 'Liste de menu',
+  'static_pages' => 'Pages statiques',
+  'navigation_label' => 'Étiquette de navigation',
+  'left' => 'Gauche',
+  'right' => 'Droite',
+  'update' => 'Mise à jour',
+  'show' => 'Montrer',
+  'hide' => 'Cacher',
+  'class_routine' => 'Routine de classe',
+  'exam_routine' => 'Routine d\'examen',
+  'title' => 'Titre',
+  'link' => 'Lien',
+  'open_in_a_new_tab' => 'Ouvert dans un nouvel onglet',
+  'home_settings_page' => 'Page des paramètres d\'accueil',
+  'home_page_update' => 'Mise à jour de la page d\'accueil',
+  'upload_background_image' => 'Télécharger l\'image d\'arrière-plan',
+  'load_more_courses' => 'Chargez plus de cours',
+  'set_permission_in_home' => 'Définir la permission à la maison',
+  'short_description' => 'Brève description',
+  'heading' => 'Titre',
+  'home_page' => 'Page d\'accueil',
+  'update_news_heading_section' => 'Mettez à jour la section des actualités',
+  'news_heading' => 'Actualités',
+  'main_title' => 'Titre principal',
+  'main_description' => 'Description principale',
+  'button_text' => 'Texte du bouton',
+  'button_url' => 'URL du bouton',
+  'image' => 'Image',
+  'category' => 'Catégorie',
+  'category_name' => 'Nom de catégorie',
+  'edit_category' => 'Modifier la catégorie',
+  'update_category' => 'Catégorie de mise à jour',
+  'delete_category' => 'Supprimer la catégorie',
+  'news_list' => 'Liste de nouvelles',
+  'add_category' => 'Ajouter une catégorie',
+  'news_category' => 'Catégorie de nouvelles',
+  'edit_news' => 'Modifier les nouvelles',
+  'news_details' => 'Informations détaillées',
+  'update_news' => 'Mettre à jour les nouvelles',
+  'delete_news_category' => 'Supprimer la catégorie des nouvelles',
+  'load_more_news' => 'Chargez plus de nouvelles',
+  'latest_news' => 'Dernières nouvelles',
+  'related_news' => 'Nouvelles connexes',
+  'browse_all' => 'Parcourir tout',
+  'Enter_your_name' => 'Entrez votre nom',
+  'Enter_your_email' => 'Entrez votre e-mail',
+  'enter_subject' => 'Entrer le sujet',
+  'enter_message' => 'Entrer le message',
+  'send_message' => 'Entrer le message',
+  'Total_Teachers_count' => 'Le total des enseignants compte',
+  'faculty' => 'Faculté',
+  'Opened_in' => 'Ouvert dans',
+  'delete_news' => 'Supprimer les nouvelles',
+  'publication_date' => 'Date de publication',
+  'update_course_heading_section' => 'Mettez à jour la section de tête du cours',
+  'course_heading' => 'Cap de cours',
+  'course_details_heading' => 'Détails du cours',
+  'update_course_details_heading' => 'Mettre à jour les détails du cours',
+  'course_category_list' => 'Liste des catégories de cours',
+  'save' => 'Sauvegarder',
+  'delete_course_category' => 'Supprimer la catégorie des cours',
+  'min' => 'Minimum',
+  'course_list' => 'Liste de cours',
+  'add_course' => 'Ajouter',
+  'edit_course' => 'Modifier le cours',
+  'update_course' => 'Mettre à jour le cours',
+  'delete_course' => 'Supprimer le cours',
+  'save_course' => 'Sauver le cours',
+  'overview' => 'Aperçu',
+  'outline' => 'Contour',
+  'prerequisites' => 'Condition préalable',
+  'resources' => 'Ressources',
+  'stats' => 'Statistiques',
+  'delete_testimonial' => 'Supprimer le témoignage',
+  'update_testimonial' => 'Mettre à jour le témoignage',
+  'edit_testimonial' => 'Modifier le témoignage',
+  'add_testimonial' => 'Ajouter le témoignage',
+  'testimonial_list' => 'Liste de témoignages',
+  'designation' => 'Désignation',
+  'institution_name' => 'Nom de l\'institution',
+  'testimonial' => 'Témoignage',
+  'testimonial_details' => 'Détails de témoignage',
+  'contact_page' => 'Page de contact',
+  'add_news' => 'Ajouter des nouvelles',
+  'info' => 'Informations',
+  'contact_message' => 'Message de contact',
+  'about_us' => 'À propos de nous',
+  'about_page' => 'À propos de la page',
+  'about_us_details' => 'À propos de nous Détails',
+  'add_social_media' => 'Ajouter les médias sociaux',
+  'edit_social_media' => 'Modifier les médias sociaux',
+  'delete_social_media' => 'Supprimer les médias sociaux',
+  'social_media' => 'Réseaux sociaux',
+  'url' => 'URL',
+  'icon' => 'Icône',
+  'active' => 'Actif',
+  'pages_list' => 'Liste de pages',
+  'sub_title' => 'Sous-titre',
+  'delete_page' => 'Supprimer la page',
+  'update_page' => 'Page de mise à jour',
+  'edit_page' => 'Page de modification',
+  'add_page' => 'Ajouter une page',
+  'create_page' => 'Créer une page',
+  'save_page' => 'Enregistrer la page',
+  'delete_pages' => 'Supprimer les pages',
+  'footer_widget_list' => 'Liste des widgets de pied',
+  'footer_widget' => 'Widget de pied de page',
+  'widget' => 'Widget',
+  'link_label' => 'Étiquette de liaison',
+  'link_url' => 'URL de liaison',
+  'preview' => 'Prévisualisation',
+  'image_preview' => 'Aperçu de l\'image',
+  'slug' => 'Limace',
+  'back' => 'Dos',
+  'image_header_min' => 'En-tête d\'image min',
+  'related_courses' => 'Cours connexes',
+  'main_image' => 'Image principale',
+  'app_slider' => 'Curseur d\'application',
+  'exam_result' => 'Résultat de l\'examen',
+  'update_exam_result_page' => 'Mettre à jour la page des résultats de l\'examen',
+  'home_slider' => 'Curseur de maison',
+  'home_slider_list' => 'Liste des curseurs à domicile',
+  'edit_home_slider' => 'Modifier le curseur de maison',
+  'delete_home_slider' => 'Supprimer le curseur à domicile?',
+  'expert_teacher' => 'Enseignant',
+  'expert_teacher_list' => 'Liste des enseignants experts',
+  'edit_expert_teacher' => 'Modifier un enseignant expert',
+  'name' => 'Nom',
+  'photo_gallery' => 'Galerie de photos',
+  'photo_gallery_list' => 'Liste des galeries',
+  'description' => 'Description',
+  'feature_image' => 'Image de caractéristique',
+  'gallery_image' => 'Image de galerie',
+  'caption' => 'Légende',
+  'add_gallery_photos' => 'Ajouter des photos de la galerie',
+  'edit_photo_gallery' => 'Modifier la galerie de photos',
+  'delete_photo_gallery' => 'Supprimer la galerie de photos?',
+  'view_images' => 'Voir les images',
+  'action' => 'Action',
+  'delete' => 'Supprimer',
+  'video_gallery' => 'Galerie vidéo',
+  'video_gallery_list' => 'Liste des galeries',
+  'video_link' => 'Lien vidéo',
+  'thumbnail' => 'Vignette',
+  'edit_video_gallery' => 'Modifier la galerie vidéo',
+  'delete_video_gallery' => 'Supprimer la galerie vidéo?',
+  'view_video' => 'Voir la vidéo',
+  'front_result' => 'Résultat avant',
+  'front_result_list' => 'Liste des résultats avant',
+  'result_file' => 'Fichier de résultats',
+  'date' => 'Date',
+  'download' => 'Télécharger',
+  'edit_front_result' => 'Modifier le résultat avant',
+  'delete_front_result' => 'Supprimer le résultat avant?',
+  'or' => 'OU',
+  'sl' => 'Sl',
+  'front_class_routine' => 'Routine de classe avant',
+  'front_class_routine_list' => 'Liste de routine de classe avant',
+  'edit_front_class_routine' => 'Modifier la routine de classe avant',
+  'delete_front_class_routine' => 'Supprimer la routine de classe avant?',
+  'front_exam_routine' => 'Routine d\'examen avant',
+  'front_exam_routine_list' => 'Liste de routine d\'examen avant',
+  'edit_front_exam_routine' => 'Modifier la routine',
+  'delete_front_exam_routine' => 'Supprimer la routine de l\'examen avant?',
+  'upload_file' => 'Télécharger le fichier',
+  'front_academic_calendar' => 'Calendrier académique avant',
+  'front_academic_calendar_list' => 'Liste du calendrier académique avant',
+  'calendar_file' => 'Dossier de calendrier',
+  'edit_front_academic_calendar' => 'Modifier le calendrier académique avant',
+  'delete_front_academic_calendar' => 'Supprimer le calendrier académique avant',
+  'Theme Manager' => 'Directeur de thème',
+  'All Themes' => 'Tous les thèmes',
+  'news_comment_list' => 'Liste de commentaires de nouvelles',
+  'Manage Theme' => 'Gérer le thème',
+  'Expert Teacher' => 'Enseignant',
+  'Photo Gallery' => 'Galerie de photos',
+  'Video Gallery' => 'Galerie vidéo',
+  'Result' => 'Résultat',
+  'Class Routine' => 'Routine de classe',
+  'Exam Routine' => 'Routine d\'examen',
+  'Academic Calendar' => 'Calendrier académique',
+  'news_comments' => 'Commentaires',
+  'message' => 'Message',
+  'in_reply_to' => 'En réponse à',
+  'reply_to_comment' => 'Répondre au commentaire',
+  'reply' => 'Répondre',
+  'edit_comment' => 'Edit Comment',
+  'view_post' => 'Afficher la publication',
+  'page_list' => 'Liste de pages',
+  'Home Slider' => 'Curseur de maison',
+  'Header Content' => 'Contenu de l\'en-tête',
+  'Footer Content' => 'Contenu de pied de page',
+  'theme_based_pages' => 'Pages à thème',
+  'not_found_data' => 'Non trouvés de données',
+  'delete_expert_teacher' => 'Supprimer un enseignant expert',
+  'Aora Pagebuilder' => 'AORA PageBuilder',
+  'content_type' => 'Type de contenu',
+  'file' => 'Déposer',
+  'speech' => 'Discours',
+  'speech_slider' => 'Curseur de discours',
+  'speech_slider_list' => 'Liste des curseurs de discours',
+  'delete_speech_slider' => 'Supprimer le curseur de discours',
+  'donor' => 'Donneur',
+  'donor_list' => 'Liste des donateurs',
+  'profession' => 'Profession',
+  'email' => 'E-mail',
+  'mobile' => 'Mobile',
+  'age' => 'Âge',
+  'show_public' => 'Montrer le public',
+  'do_not_show_public' => 'Ne montrez pas le public',
+  'delete_donor' => 'Supprimer le donateur',
+  'gender' => 'Genre',
+  'blood_group' => 'Groupe sanguin',
+  'religion' => 'Religion',
+  'current_address' => 'Adresse actuelle',
+  'permanent_address' => 'adresse permanente',
+  'custom_field' => 'Champ personnalisé',
+  'edit_donor' => 'Modifier le donateur',
+  'form_download' => 'Téléchargement du formulaire',
+  'edit_form_download' => 'Modifier le formulaire Télécharger',
+  'delete_form_download' => 'Supprimer le formulaire de téléchargement',
+  'form_download_list' => 'Liste de téléchargement de formulaire',
+  'publish_date' => 'Publier la date',
+  'shown' => 'Indiqué',
+  'not_shown' => 'Non représenté',
+  'expert_staff' => 'Personnel expert',
+  'expert_staff_list' => 'Liste du personnel expert',
+  'show_as_expert_staff' => 'Montrer en tant que personnel expert',
+  'delete_expert_staff' => 'Supprimer le personnel expert',
+  'add_expert_staff' => 'Ajouter un personnel expert',
+  'yes' => 'Oui',
+  'no' => 'Non',
+);

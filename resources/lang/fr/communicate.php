@@ -1,329 +1,190 @@
-<?php
-return [
-"send_email_\/_sms_" => "Envoyer e-mail / Sms",
-
-"email_\/_sms_log" => "Journal des courriers électroniques / Sms",
-
-"notice_board" => "Conseil des avis",
-
-"for_whom" => "Pour Whom",
-
-"send_message" => "Envoyer message",
-
-"send_email" => "Envoyer un courrier électronique",
-
-"send_mail" => "Envoyer un courrier",
-
-"send_notice" => "Envoyer un avis",
-
-"or" => "Ou",
-
-"send_sms" => "Envoyer SMS",
-
-"email_sms_log" => "Journal des courriers électroniques / Sms",
-
-"event" => "Evénement",
-
-"notices" => "Avis",
-
-"notice" => "Avis",
-
-"publish" => "Publier",
-
-"edit_notice" => "Modifier l'avis",
-
-"update_notice" => "Mettre à jour le",
-
-"delete_notice" => "Supprimer un avis",
-
-"publish_on" => "Publier le",
-
-"Send_Email_Sms" => "Envoyer un courrier électronique",
-
-"individual" => "Individuel",
-
-"For_Sending_Email" => "Pour Sending Email / Sms, il peut prendre quelques secondes. Alors, s'il vous plaît prenez patience.",
-
-"send_through" => "Envoyer par",
-
-"start_date" => "Date de début",
-
-"notice_date" => "Date de l'avis",
-
-"update_content" => "Actualisation du contenu",
-
-"communicate" => "Communiquer",
-
-"student_approve_message" => "Message d'approbation de l'étudiant",
-
-"student_registration_message" => "Message d'inscription des élèves",
-
-"student_admission_message" => "Message d'admission de l'étudiant",
-
-"exam_schedule_message" => "Message de planification d'extension",
-
-"dues_fees_message" => "Message de frais de cotisations",
-
-"variables" => "Variables",
-
-"all_notices" => "Tous les avis",
-
-"add_notice" => "Ajouter un avis",
-
-"message_to" => "Message à",
-
-"save_content" => "Enregistrer le contenu",
-
-"administrator_notices" => "Avis d'administrateur",
-
-"email_sms_log_list" => "Liste des journaux SMS par courrier électronique",
-
-"event_title" => "Titre de l'événement",
-
-"event_location" => "Emplacement de l'événement",
-
-"event_list" => "Liste d'événements",
-
-"edit_list" => "Editer la liste",
-
-"add_event" => "Ajouter un événement",
-
-"edit_event" => "Editer l'événement",
-
-"update_event" => "Mettre à jour événement",
-
-"update_list" => "Liste mise à jour",
-
-"students" => "Étudiants",
-
-"parents" => "Parents",
-
-"location" => "Emplacement",
-
-"sms_template" => "Modèle Sms",
-
-"student_admission" => "Admission d'étudiants",
-
-"student_attendance" => "Participation des étudiants",
-
-"staff_attendance" => "Participation des étudiants",
-
-"student_promote" => "Promotion de l'étudiant",
-
-"student_admission_in_progress" => "Droits d'entrée des étudiants en cours",
-
-"student_admission_for_parent" => "Student Admission For Parent",
-
-"exam_schedule_for_student" => "Exam Schedule For Student",
-
-"exam_schedule_for_parent" => "Exam Schedule For Parent",
-
-"user_login_permission" => "Droits de connexion utilisateur",
-
-"student_attendance_for_parent" => "Fréquentation de l'élève pour le parent",
-
-"student_absent" => "Absent de l'étudiant",
-
-"student_absent_for_parent" => "Absent de l'étudiant pour le parent",
-
-"staff_absent" => "Personnel Absent",
-
-"student_late" => "Étudiants en retard",
-
-"student_late_for_parent" => "Student Late For Parent",
-
-"staff_late" => "Personnel en retard",
-
-"student_early_checkout" => "Réservation anticipée de l'étudiant",
-
-"student_checkout" => "Réservation d'étudiant",
-
-"staff_credentials" => "Données d'identification personnel",
-
-"student_leave_application" => "Demande de congé d'étudiant",
-
-"student_leave_approve" => "Approuver le congé d'étudiant",
-
-"parent_leave_application_for_student" => "Demande de congé parental pour l'étudiant",
-
-"parent_leave_approve_for_student" => "Approuver le congé parental pour l'étudiant",
-
-"staff_leave_application" => "Demande de congé du personnel",
-
-"staff_leave_approve" => "Approuver le congé du personnel",
-
-"student_birthday" => "Student Birthday",
-
-"staff_birthday" => "Personnel Birthday",
-
-"student_library_book_issue" => "Numéro du livre de la bibliothèque étudiante",
-
-"parent_library_book_issue" => "Numéro du livre de la bibliothèque parent",
-
-"student_re_issue_book" => "Livre de réédition de l'étudiant",
-
-"parent_re_issue_book" => "Réserver un carnet de sortie parent",
-
-"student_dues_fees" => "Frais de cotisations des étudiants",
-
-"student_dues_fees_for_parent" => "Frais de cotisations de l'élève pour le parent",
-
-"student_absent_notification" => "Notification de l'absence d'un étudiant",
-
-"holiday" => "Congés",
-
-"test_mail" => "Courrier de test",
-
-"password_reset" => "Mot de passe réiniti",
-
-"student_login_credentials" => "Données d'identification de connexion",
-
-"communication_sent_email" => "Courrier électronique envoyé par courrier électronique",
-
-"frontend_contact" => "Contact frontal",
-
-"parent_login_credentials" => "Données d'identification de connexion parent",
-
-"student_registration" => "Inscription des étudiants",
-
-"student_registration_for_parents" => "Inscription des élèves pour les parents",
-
-"staff_login_credentials" => "Données d'identification du personnel",
-
-"dues_payment" => "Paiement des cotisations",
-
-"parent_reject_bank_payment" => "Paiement de la banque de rejet parent",
-
-"student_reject_bank_payment" => "Paiement de la banque de rejet de l'étudiant",
-
-"administrator_notice" => "Administration",
-
-"sorry_there_is_no_notice_for_you" => "Désolé Il n'y a pas d'avis pour vous",
-
-"wallet_approve" => "Approuver le portefeuille",
-
-"wallet_reject" => "Rejet du portefeuille",
-
-"wallet_refund" => "Remboursement du portefeuille",
-
-"fees_extra_amount_add" => "Frais supplémentaires d'ajout de montant",
-
-"student_admission_progress_sms" => "Progression de l'admission des étudiants (SMS)",
-
-"student_admitted_message_sms" => "Message d'admission de l'étudiant (SMS)",
-
-"login_permission_disable_sms" => "Désactivation des autorisations de connexion (SMS)",
-
-"late_attendance_sms" => "Participation tardive (SMS)",
-
-"attendance_sms" => "Participation (SMS)",
-
-"student_absent_attendance_sms" => "Participation des étudiants absents (SMS)",
-
-"return_issue_books_sms" => "Livres de sortie de retour (SMS)",
-
-"library_book_issue_sms" => "Problème de livre de bibliothèque (SMS)",
-
-"cheque_bounce_sms" => "Bounce de chèque (SMS)",
-
-"staff_birthday_sms" => "Personnel Birthday (SMS)",
-
-"student_birthday_sms" => "Student Birthday (SMS)",
-
-"leave_approve_sms" => "Laisser Approuver (SMS)",
-
-"leave_application_sms" => "Quitter l'application (SMS)",
-
-"holiday_sms" => "Vacances (SMS)",
-
-"staff_credentials_sms" => "Données d'identification du personnel (SMS)",
-
-"student_credentials_sms" => "Données d'identification de l'étudiant (SMS)",
-
-"student_checkout_sms" => "Réservation d'étudiant (SMS)",
-
-"student_early_checkout_sms" => "Student Early Checkout (SMS)",
-
-"exam_publish" => "Exam publié",
-
-"due_fees" => "Frais d'utilisation",
-
-"publish_date" => "Date de publication",
-
-"delete_event" => "Evénement de suppression",
-
-"student_leave_appllication" => "Demande de congé d'étudiant",
-
-"staff_leave_appllication" => "Demande de congé du personnel",
-
-"parent_leave_appllication_for_student" => "Demande de congé parent for_student",
-
-"communicate_sms" => "Communiquer sms",
-
-"lead_reminder" => "Rappel de l'opportunité commerciale",
-
-"Enable" => "Activer",
-
-"Update" => "Mise à jour",
-
-"Save" => "Sauvegarder",
-
-"Details" => "Détails",
-
-"Body" => "Corps",
-
-"update" => "Mise à jour",
-
-"send" => "Envoyer",
-
-"group" => "Groupe",
-
-"Email" => "Courrier électronique",
-
-"Publish" => "Publier",
-
-"Download" => "Télécharger",
-
-"Role" => "Rôle",
-
-"Send" => "Envoyer",
-
-"Or" => "Ou",
-
-"All" => "Tous",
-
-"email" => "Courrier électronique",
-
-"role" => "Rôle",
-
-"save" => "Sauvegarder",
-
-"select_all" => "Sélectionner tout",
-
-"download" => "Télécharger",
-
-"body" => "Corps",
-
-"all" => "Tous",
-
-"is_published_web_site" => "Est un site Web publié",
-
-"created_by" => "Créé par",
-
-"sms" => "SMS",
-
-"details" => "Détails",
-
-"enable" => "Activer",
-
-"attach_file" => "Joindre un fichier",
-
-"to_date" => "Jusqu'à présent",
-
-"from_date" => "Date de début",
-
-"teachers" => "Enseignants",
-
-"email_template" => "Modèle de courrier électronique",
-
-];
+<?php return array (
+  'send_email_\\/_sms' => 'Envoyer un e-mail / SMS',
+  'email_\\/_sms_log' => 'Journal Email / SMS',
+  'notice_board' => 'Panneau de préavis',
+  'for_whom' => 'Pour qui',
+  'send_message' => 'Envoyer un message',
+  'send_email' => 'Envoyer un e-mail',
+  'send_email_sms' => 'Envoyer un e-mail / SMS',
+  'send_mail' => 'Envoyer un courrier',
+  'send_notice' => 'Envoyer un avis',
+  'or' => 'Ou',
+  'send_sms' => 'Envoyer SMS',
+  'email_sms_log' => 'Journal Email / SMS',
+  'event' => 'Événement',
+  'notices' => 'Avis',
+  'notice' => 'Avis',
+  'publish' => 'Publier',
+  'edit_notice' => 'Modifier l\'avis',
+  'update_notice' => 'Mettre à jour l\'avis',
+  'delete_notice' => 'Supprimer un avis',
+  'publish_on' => 'Publier sur',
+  'Send_Email_Sms' => 'Envoyer un e-mail',
+  'sms' => 'SMS',
+  'individual' => 'Individuel',
+  'select_all' => 'Sélectionnez tout',
+  'For_Sending_Email' => 'Pour envoyer des e-mails / SMS, cela peut prendre quelques secondes. Alors, prenez la patience.',
+  'send' => 'Envoyer',
+  'email' => 'E-mail',
+  'send_through' => 'Faire parcourir',
+  'start_date' => 'Date de début',
+  'to_date' => 'À ce jour',
+  'from_date' => 'à partir de la date',
+  'details' => 'Détails',
+  'notice_date' => 'Date de préavis',
+  'update_content' => 'Mettre à jour le contenu',
+  'communicate' => 'Communiquer',
+  'student_approve_message' => 'Student approuver le message',
+  'student_registration_message' => 'Message d\'inscription des étudiants',
+  'student_admission_message' => 'Message d\'admission des étudiants',
+  'exam_schedule_message' => 'Message du calendrier d\'examen',
+  'dues_fees_message' => 'Message de frais de cotisation',
+  'variables' => 'Variables',
+  'all_notices' => 'Tous les avis',
+  'add_notice' => 'Ajouter un avis',
+  'message_to' => 'Message',
+  'is_published_web_site' => 'Est le site Web publié',
+  'save_content' => 'Sauver le contenu',
+  'administrator_notices' => 'Avis d\'administrateur',
+  'group' => 'Groupe',
+  'role' => 'Rôle',
+  'email_sms_log_list' => 'Liste des journaux e-mail / SMS',
+  'event_title' => 'Titre de l\'événement',
+  'event_location' => 'Emplacement de l\'événement',
+  'event_list' => 'Liste d\'événements',
+  'edit_list' => 'Modifier la liste',
+  'add_event' => 'Ajouter l\'événement',
+  'edit_event' => 'Modifier l\'événement',
+  'update_event' => 'Mettre à jour l\'événement',
+  'update_list' => 'Liste de mise à jour',
+  'attach_file' => 'Fichier joint',
+  'save' => 'Sauvegarder',
+  'update' => 'Mise à jour',
+  'all' => 'Tous',
+  'teachers' => 'Enseignants',
+  'students' => 'Étudiants',
+  'parents' => 'Parents',
+  'location' => 'Emplacement',
+  'download' => 'Télécharger',
+  'sms_template' => 'Modèle SMS',
+  'student_admission' => 'Admission des étudiants',
+  'student_attendance' => 'Fréquentation des étudiants',
+  'staff_attendance' => 'Fréquentation du personnel',
+  'student_promote' => 'L\'étudiant fait la promotion',
+  'student_admission_in_progress' => 'Entrée des étudiants en cours',
+  'student_admission_for_parent' => 'Entrée des élèves pour le parent',
+  'exam_schedule_for_student' => 'Horaire d\'examen pour les étudiants',
+  'exam_schedule_for_parent' => 'Horaire d\'examen pour les parents',
+  'user_login_permission' => 'Autorisation de connexion de l\'utilisateur',
+  'student_attendance_for_parent' => 'Fréquentation des élèves pour le parent',
+  'student_absent' => 'Étudiant absent',
+  'student_absent_for_parent' => 'Élève absent pour le parent',
+  'staff_absent' => 'Personnel absent',
+  'student_late' => 'Étudiant en retard',
+  'student_late_for_parent' => 'Élève en retard pour le parent',
+  'staff_late' => 'Personnel en retard',
+  'student_early_checkout' => 'Étudiant à la caisse anticipée',
+  'student_checkout' => 'Caisse des étudiants',
+  'staff_credentials' => 'Personnels',
+  'student_leave_application' => 'Demande de congé des étudiants',
+  'student_leave_approve' => 'Étudiant Conet Approuver',
+  'parent_leave_application_for_student' => 'Demande de congé parental pour l\'élève',
+  'parent_leave_approve_for_student' => 'Le parent laisse approuver l\'élève',
+  'staff_leave_application' => 'Demande de départ du personnel',
+  'staff_leave_approve' => 'Le personnel laisse approuver',
+  'student_birthday' => 'Anniversaire étudiant',
+  'staff_birthday' => 'Anniversaire du personnel',
+  'student_library_book_issue' => 'Numéro de livre de bibliothèque étudiante',
+  'parent_library_book_issue' => 'Numéro de livre de bibliothèque parentale',
+  'student_return_issue_book' => 'Livre de problèmes de rétablissement des étudiants',
+  'parent_return_issue_book' => 'Livre de problèmes de battements parentaux',
+  'student_dues_fees' => 'Frais de cotisation des étudiants',
+  'student_dues_fees_for_parent' => 'Frais de cotisation des élèves pour le parent',
+  'student_absent_notification' => 'Notification absente des étudiants',
+  'holiday' => 'Vacances',
+  'body' => 'Corps',
+  'enable' => 'Activer',
+  'test_mail' => 'Courrier d\'essai',
+  'password_reset' => 'Réinitialisation du mot de passe',
+  'student_login_credentials' => 'Informations sur la connexion des étudiants',
+  'communication_sent_email' => 'Communication envoyée e-mail',
+  'frontend_contact' => 'Contact frontal',
+  'parent_login_credentials' => 'Informations sur la connexion des parents',
+  'student_registration' => 'Inscription des étudiants',
+  'student_registration_for_parents' => 'Inscription des élèves pour les parents',
+  'staff_login_credentials' => 'Connexion de connexion du personnel',
+  'dues_payment' => 'Paiement',
+  'parent_reject_bank_payment' => 'Parent rejeter le paiement bancaire',
+  'student_reject_bank_payment' => 'Student rejeter le paiement bancaire',
+  'email_template' => 'Modèle de messagerie',
+  'administrator_notice' => 'Administration',
+  'sorry_there_is_no_notice_for_you' => 'Désolé, il n\'y a pas de préavis pour vous',
+  'created_by' => 'Créé par',
+  'wallet_approve' => 'Portefeuille approuver',
+  'wallet_reject' => 'Rejet de portefeuille',
+  'wallet_refund' => 'Remboursement du portefeuille',
+  'fees_extra_amount_add' => 'Frais de montant supplémentaire Ajouter',
+  'student_admission_progress_sms' => 'Progrès de l\'admission des étudiants (SMS)',
+  'student_admitted_message_sms' => 'Student Admis Message (SMS)',
+  'login_permission_disable_sms' => 'Permission de connexion Désactiver (SMS)',
+  'late_attendance_sms' => 'Préstance tardive (SMS)',
+  'attendance_sms' => 'Présence (SMS)',
+  'student_absent_attendance_sms' => 'Étudiant absent de fréquentation (SMS)',
+  'return_issue_books_sms' => 'Return Issue Books (SMS)',
+  'library_book_issue_sms' => 'Problème de livre de bibliothèque (SMS)',
+  'cheque_bounce_sms' => 'Vérifier le rebond (SMS)',
+  'staff_birthday_sms' => 'Anniversaire du personnel (SMS)',
+  'student_birthday_sms' => 'Anniversaire étudiant (SMS)',
+  'leave_approve_sms' => 'Laisser approuver (SMS)',
+  'leave_application_sms' => 'Application de congé (SMS)',
+  'holiday_sms' => 'Holiday (SMS)',
+  'staff_credentials_sms' => 'Prédients du personnel (SMS)',
+  'student_credentials_sms' => 'Informations d\'identification des étudiants (SMS)',
+  'student_checkout_sms' => 'Découvrez les étudiants (SMS)',
+  'student_early_checkout_sms' => 'Découvrez le début des étudiants (SMS)',
+  'exam_publish' => 'Examen publié',
+  'due_fees' => 'Frais d\'échéance',
+  'student_fees_due' => 'Frais d\'étudiants dus',
+  'student_fees_due_for_parent' => 'Frais d\'étudiant dû pour le parent',
+  'due_fees_payment' => 'Paiement des frais d\'échéance',
+  'publish_date' => 'Publier la date',
+  'delete_event' => 'Supprimer l\'événement',
+  'student_leave_appllication' => 'Demande de congé des étudiants',
+  'staff_leave_appllication' => 'Demande de départ du personnel',
+  'parent_leave_appllication_for_student' => 'Demande de congé parental pour l\'élève',
+  'communicate_sms' => 'Communiquer SMS',
+  'lead_reminder' => 'Rappel',
+  'exam_mark_student' => 'Étudiant',
+  'exam_mark_parent' => 'Marque de l\'examen Parent',
+  'university_fees_remainder' => 'Frais universitaires',
+  'student_re_issue_book' => 'Livre d\'étudiant',
+  'parent_re_issue_book' => 'Livre de problèmes de parent',
+  'parent_reject_payment' => 'Parent rejeter le paiement',
+  'student_reject_payment' => 'Paiement de rejet des étudiants',
+  'parent_approve_payment' => 'Le parent approuve le paiement',
+  'student_approve_payment' => 'Étudiant approuver le paiement',
+  'parent_course_purchase' => 'Achat de cours des parents',
+  'student_course_purchase' => 'Achat de cours d\'études',
+  'biometrics' => 'Biométrie',
+  'two_factor_code' => 'Code à deux facteurs',
+  'calendar' => 'Calendrier',
+  'calendar_settings' => 'Paramètres du calendrier',
+  'background_color' => 'Couleur de fond',
+  'font_color' => 'Couleur de police',
+  'lesson_plan' => 'Plan de cours',
+  'homework' => 'Devoirs',
+  'exam' => 'Examen',
+  'online_exam' => 'Examen en ligne',
+  'leave' => 'Partir',
+  'study_material' => 'Matériel d\'étude',
+  'exam_schedule' => 'Calendrier d\'examen',
+  'admission_query' => 'Requête d\'admission',
+  'submission_date' => 'Date de soumission',
+  'avaiable' => 'Disponible',
+  'inform_to' => 'Informer',
+  'calendar_settings_view' => 'Affichage des paramètres du calendrier',
+  'library' => 'Bibliothèque',
+  'leave_applied' => 'Congé appliqué',
+  'leave_notification' => 'Notification',
+  'behaviour_record_update' => 'Mise à jour des enregistrements de comportement',
+);

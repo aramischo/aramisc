@@ -78,7 +78,7 @@
              name="routine[{{ $row }}][is_break]"
              {{isset($routine)? ($routine->is_break == 1 ? 'checked':''):''}}
              >
-               
+            <label for="isBreak[{{ $row }}]"></label>
         </div>
     </td>
     <td class="border-top-0 text-center">

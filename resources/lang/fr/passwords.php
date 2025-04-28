@@ -1,19 +1,7 @@
-<?php
-return [
-"reset" => "Votre mot de passe a été réinitialisé !",
-
-"token" => "Le jeton de réinitialisation du mot de passe n'est pas valide.",
-
-"Password" => "Mot de passe",
-
-"sent" => "Envoyé",
-
-"user" => "Utilisateur",
-
-"Reset" => "Réinitialiser",
-
-"User" => "Utilisateur",
-
-"password" => "Mot de passe",
-
-];
+<?php return array (
+  'password' => 'Les mots de passe doivent comporter au moins six caractères et correspondre à la confirmation.',
+  'reset' => 'Votre mot de passe a été réinitialisé!',
+  'sent' => 'Nous avons envoyé un e-mail votre lien de réinitialisation de mot de passe!',
+  'token' => 'Ce jeton de réinitialisation de mot de passe n\'est pas valide.',
+  'user' => 'Nous ne pouvons pas trouver un utilisateur avec cette adresse e-mail.',
+);

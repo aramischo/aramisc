@@ -1,97 +1,49 @@
-<?php
-return [
-    "wallet" => "Wallet",
-
-    "diposit" => "Dépôt",
-
-    "wallet_deposit" => "Dépôt de portefeuille",
-
-    "pending_deposit" => "Dépôt en attente",
-
-    "extra" => "Extra",
-
-    "feedback" => "Commentaires en retour",
-
-    "wallet_details" => "Détails du portefeuille",
-
-    "wallet_report" => "Rapport du portefeuille",
-
-    "my_wallet" => "Mon portefeuille",
-
-    "approve_deposit" => "Approuver le dépôt",
-
-    "reject_deposit" => "Rejeter le dépôt",
-
-    "approve_date" => "Approuver la date",
-
-    "reject_date" => "Date de rejet",
-
-    "wallet_approve_request" => "Demande d'approbation de portefeuille",
-
-    "wallet_reject_request" => "Demande de rejet de portefeuille",
-
-    "wallet_transaction" => "Transaction de portefeuille",
-
-    "refund_request" => "Demande de remboursement",
-
-    "approve_refund" => "Approuver le remboursement",
-
-    "view_bank_payment_reject_note" => "Afficher la note de rejet de paiement bancaire",
-
-    "refund_file" => "Fichier de remboursement",
-
-    "wallet_pending_request" => "Demande de portefeuille en attente",
-
-    "view_file" => "Afficher le fichier",
-
-    "view_feedback" => "Afficher les commentaires",
-
-    "add_balance" => "Ajouter un solde",
-
-    "add_amount" => "Ajouter un montant",
-
-    "method" => "Méthode",
-
-    "Reject" => "Rejeter",
-
-    "Deposit" => "Dépôt",
-
-    "Amount" => "Montant",
-
-    "account" => "Compte",
-
-    "amount" => "Montant",
-
-    "reject" => "Rejeter",
-
-    "balance" => "Solde",
-
-    "note" => "Remarque",
-
-    "approve" => "Approuver",
-
-    "view_note" => "Afficher la note",
-
-    "are_you_sure_to_approve" => "Are You Sure To Approuver",
-
-    "add_in_wallet" => "Ajouter dans le portefeuille",
-
-    "wallet_balance" => "Solde du portefeuille",
-
-    "payment" => "Paiement",
-
-    "deposit" => "Dépôt",
-
-    "are_you_sure_to_reject" => "Etes-vous sûr de rejeter",
-
-    "create_date" => "Date de création",
-
-    "apply_date" => "Appliquer la date",
-
-    "refund" => "Remboursement",
-
-    "issue_date" => "Date d'émission",
-
-    "reject_note" => "Rejeter la note",
-
-];
+<?php return array (
+  'wallet' => 'Portefeuille',
+  'diposit' => 'Dépôt',
+  'deposit' => 'Dépôt',
+  'wallet_deposit' => 'Dépôt de portefeuille',
+  'pending_deposit' => 'Dépôt en attente',
+  'extra' => 'Supplémentaire',
+  'feedback' => 'Retour',
+  'wallet_details' => 'Détails du portefeuille',
+  'wallet_report' => 'Signaler le portefeuille',
+  'my_wallet' => 'Mon portefeuille',
+  'approve_deposit' => 'Approuver le dépôt',
+  'reject_deposit' => 'Rejeter le dépôt',
+  'reject_note' => 'Rejeter la note',
+  'approve_date' => 'Approuver la date',
+  'reject_date' => 'Rejeter la date',
+  'approve' => 'Approuver',
+  'approved' => 'Approuvé',
+  'rejected' => 'Rejeté',
+  'reject' => 'Rejeter',
+  'method' => 'Méthode',
+  'amount' => 'montant',
+  'refund' => 'Remboursement',
+  'note' => 'Note',
+  'wallet_approve_request' => 'Wallet Approuver la demande',
+  'payment' => 'Paiement',
+  'are_you_sure_to_reject' => 'Êtes-vous sûr de rejeter',
+  'wallet_reject_request' => 'Demande de rejet du portefeuille',
+  'wallet_transaction' => 'Transaction de portefeuille',
+  'refund_request' => 'Demande de remboursement',
+  'create_date' => 'Date de création',
+  'approve_refund' => 'Approuver le remboursement',
+  'are_you_sure_to_approve' => 'Êtes-vous sûr d\'approuver',
+  'view_bank_payment_reject_note' => 'Afficher la note de rejet du paiement bancaire',
+  'refund_file' => 'Fichier de remboursement',
+  'apply_date' => 'Date de demande',
+  'wallet_pending_request' => 'Demande en attente du portefeuille',
+  'view_note' => 'Afficher la note',
+  'view_file' => 'Afficher le fichier',
+  'view_feedback' => 'Afficher les commentaires',
+  'account' => 'Compte',
+  'issue_date' => 'Date d\'émission',
+  'add_balance' => 'Ajouter l\'équilibre',
+  'add_amount' => 'Ajouter le montant',
+  'balance' => 'Équilibre',
+  'wallet_balance' => 'Équilibre du portefeuille',
+  'add_in_wallet' => 'Ajouter le portefeuille',
+  'reject_refund' => 'Rejeter le remboursement',
+);

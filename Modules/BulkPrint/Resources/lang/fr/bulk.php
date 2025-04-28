@@ -1,51 +1,31 @@
-<?php
-return [
-    "bulkprint" => "Impression en bloc",
-
-    "fees_bulk_print" => "Frais d'impression en bloc",
-
-    "invoice_settings" => "Paramètres de facture",
-
-    "invoice_prefix_format_standard_three_character" => "Préfixe de facture (format standard de trois caractères)",
-
-    "is_showing_signature" => "Affichage de la signature",
-
-    "copy_for" => "Copier pour",
-
-    "invoice_no" => "N ° de facture",
-
-    "generate" => "Générer",
-
-    "showing_page" => "Affichage de la page",
-
-    "grid_gap" => "Ecart de grille",
-
-    "select_certificate" => "Sélectionner un certificat",
-
-    "student_certificate" => "Certificat d'étudiant",
-
-    "generate_id_card" => "Générer une carte d'ID",
-
-    "bulk_print" => "Impression en bloc",
-
-    "bulk" => "En vrac",
-
-    "per" => "Par",
-
-    "part" => "Pièce",
-
-    "is_showing" => "Is Showing",
-
-    "format_standard_three_character" => "Caractère de format standard 3",
-
-    "prefix" => "Préfixe",
-
-    "fees_invoice_settings" => "Paramètres de facturation des frais",
-
-    "fees_invoice_bulk_print" => "Frais d'impression en bloc de la facture",
-
-    "payroll_bulk_print" => "Impression en bloc de la paie",
-
-    "staff_id_card" => "Carte d'identité du personnel",
-
-];
+<?php return array (
+  'bulk_print' => 'Imprimé en vrac',
+  'bulkprint' => 'Imprimé en vrac',
+  'fees_invoice_settings' => 'Frais de facture Paramètres',
+  'fees_invoice_bulk_print' => 'Frais de facturation Impression en vrac',
+  'payroll_bulk_print' => 'Impression en vrac de paie',
+  'bulk' => 'En gros',
+  'fees_bulk_print' => 'Frais d\'impression en vrac',
+  'per' => 'Par',
+  'part' => 'Partie',
+  'is_showing' => 'Montre',
+  'format_standard_three_character' => 'Format standard 3 caractères',
+  'prefix' => 'Préfixe',
+  'staff_id_card' => 'Carte d\'identité du personnel',
+  'generate_id_card' => 'Générer une carte d\'identité',
+  'grid_gap' => 'Espace de grille',
+  'generate' => 'Générer',
+  'student_certificate' => 'Certificat étudiant',
+  'select_certificate' => 'Sélectionner un certificat',
+  'invoice_settings' => 'Paramètres de facture',
+  'showing_page' => 'Page d\'affichage',
+  'invoice_prefix_format_standard_three_character' => 'Préfixe de facture (format standard à trois caractères)',
+  'is_showing_signature' => 'Montre la signature',
+  'copy_for' => 'Copier pour',
+  'invoice_no' => 'Facture non',
+  'lms_certificate' => 'Certificat LMS',
+  'slip' => 'Glisser',
+  'invoice' => 'facture',
+  'invoice_type' => 'Type de facture',
+  'fees_invoice_bulk_print_settings' => 'Frais de facturation Paramètres d\'impression en vrac',
+);

@@ -1,107 +1,69 @@
-<?php
-return [
-    "generator" => "Générateur",
-
-    "uniq_id" => "ID Uniq",
-
-    "limit" => "Limite",
-
-    "attribute" => "Attribut",
-
-    "select_weaver" => "Sélectionner Weaver",
-
-    "invoice_number_generator" => "Générateur de numéro de facture",
-
-    "invoice_number_preview" => "Aperçu du numéro de facture",
-
-    "invoice_attribute" => " Attribut de facture",
-
-    "class_limit" => "Limite de classe",
-
-    "section_limit" => "Limite de section",
-
-    "admission_no_limit" => "Droits d'entrée No Limit",
-
-    "invoice_number_position" => "Position du numéro de facture",
-
-    "uniq_id_start" => "Démarrage de l'ID unique",
-
-    "view_transcation" => "Afficher la conversion",
-
-    "bank_payment_reject" => "Rejet de paiement bancaire",
-
-    "reject_note" => "Rejeter la note",
-
-    "view_payment_of" => "Afficher le paiement de",
-
-    "fees_refund" => "Frais de remboursement",
-
-    "view_fees_invoice" => "Afficher les frais de facturation",
-
-    "total_amount" => "Montant total",
-
-    "total_weaver" => "Total Weaver",
-
-    "total_fine" => "Total fin",
-
-    "due_balance" => "Solde dû",
-
-    "fees_due" => "Frais à payer",
-
-    "Enable" => "Activer",
-
-    "Disable" => "Désactiver",
-
-    "Paid" => "Payé",
-
-    "Amount" => "Montant",
-
-    "payment_method" => "Mode de paiement",
-
-    "amount" => "Montant",
-
-    "balance" => "Solde",
-
-    "fees" => "Frais",
-
-    "enable" => "Activer",
-
-    "disable" => "Désactiver",
-
-    "add_fees_payment" => "Ajouter un paiement de taxes",
-
-    "prefix" => "Préfixe",
-
-    "fees_invoice_settings" => "Paramètres de facturation des frais",
-
-    "percent" => "Pourcentage",
-
-    "weaver" => "Weaver",
-
-    "paid" => "Payé",
-
-    "due_date" => "Date d'échéance",
-
-    "select_bank" => "Sélectionner une banque",
-
-    "fine" => "Fine",
-
-    "approve_payment" => "Approuver le paiement",
-
-    "are_you_sure_to_reject" => "Etes-vous sûr de rejeter",
-
-    "fees_invoice" => "Facture Facture",
-
-    "create_date" => "Date de création",
-
-    "fees_type" => "Type de frais",
-
-    "fees_type_list" => "Liste des types de frais",
-
-    "paid_amount" => "Montant payé",
-
-    "total_paid" => "Total payé",
-
-    "due" => "Echéance",
-
-];
+<?php return array (
+  'fees_type' => 'Type de frais',
+  'paid_amount' => 'Montant payé',
+  'fees_invoice' => 'Frais de facturation',
+  'fees_invoice_settings' => 'Frais de facture Paramètres',
+  'create_date' => 'Créer une date',
+  'generator' => 'Générateur',
+  'uniq_id' => 'IDENTIFIANT',
+  'limit' => 'Limite',
+  'attribute' => 'Attribut',
+  'waiver' => 'Renoncer',
+  'select_waiver' => 'Sélectionner la dérogation',
+  'invoice_number_generator' => 'Générateur de nombres de facture',
+  'invoice_number_preview' => 'Aperçu du numéro de facture',
+  'invoice_attribute' => 'Attribut de facture',
+  'class_limit' => 'Limite de classe',
+  'section_limit' => 'Limite de section',
+  'admission_no_limit' => 'Entrée sans limite',
+  'invoice_number_position' => 'Position du numéro de facture',
+  'prefix' => 'Préfixe',
+  'uniq_id_start' => 'Démarrage d\'identité unique',
+  'percent' => 'Pour cent',
+  'payment_method' => 'Mode de paiement',
+  'amount' => 'Montant',
+  'view_transcation' => 'Afficher la transaction',
+  'add_fees_payment' => 'Ajouter le paiement des frais',
+  'approve_payment' => 'Approuver le paiement',
+  'bank_payment_reject' => 'Rejet de paiement bancaire',
+  'are_you_sure_to_reject' => 'Êtes-vous sûr de rejeter',
+  'reject_note' => 'Rejeter la note',
+  'view_payment_of' => 'Afficher le paiement de',
+  'fees_refund' => 'Remboursement des frais',
+  'view_fees_invoice' => 'Afficher les frais de facture',
+  'total_amount' => 'Montant total',
+  'total_waiver' => 'Dérogation totale',
+  'fine' => 'Bien',
+  'total_fine' => 'Amende totale',
+  'total_paid' => 'Total payé',
+  'due_balance' => 'Équilibre dûment',
+  'due' => 'Exécutoire',
+  'fees' => 'Frais',
+  'select_bank' => 'Sélectionner la banque',
+  'fees_type_list' => 'Liste de type de frais',
+  'enable' => 'Activer',
+  'disable' => 'Désactiver',
+  'fees_due_report' => 'Rapport dû aux frais',
+  'due_date' => 'Deux dates',
+  'paid' => 'Payé',
+  'balance' => 'Équilibre',
+  'confirmation' => 'Confirmation',
+  'agree' => 'Accepter',
+  'new_fees_module' => 'Module de nouveaux frais',
+  'clone_amount' => 'Montant du clonage',
+  'bank' => 'Banque',
+  'delete_fees_invoice' => 'Supprimer la facture des frais',
+  'view_payments' => 'Afficher les paiements',
+  'wallet_money' => 'Argent du portefeuille',
+  'change_method' => 'Méthode de modification',
+  'payment_report' => 'Rapport de paiement',
+  'balance_report' => 'Rapport d\'équilibre',
+  'fees_due' => 'Frais dus',
+  'fine_report' => 'Bon rapport',
+  'report' => 'Rapport',
+  'waiver_report' => 'Rapport de dérogation',
+  'group_fees_generate_seperate_invoice' => 'Les frais de groupe génèrent une facture séparée',
+  'max_10_characters' => 'Max 10 caractères',
+  'total_service_charge' => 'Total des frais de service',
+  'import-staff' => 'Personnel d\'importation',
+);
