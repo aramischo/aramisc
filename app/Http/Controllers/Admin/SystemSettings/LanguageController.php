@@ -20,7 +20,7 @@ class LanguageController extends Controller
 
     public function index()
     {
-        $languages=Language::where('school_id',Auth::user()->school_id)->get();
+        $languages=Language::where('school_id',Auth::user()->school_id)->orderBy('active_status','desc')->orderBy('code','asc')->get();
         return view('backEnd.systemSettings.language',compact('languages'));
     }
 
@@ -88,6 +88,7 @@ class LanguageController extends Controller
             $s->code = $request->code;
             $s->native = $request->native;
             $s->rtl = $request->rtl;
+            $s->active_status = $request->active_status;
             $s->school_id = Auth::user()->school_id;
             $s->update();
 

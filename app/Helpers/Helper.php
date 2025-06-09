@@ -296,7 +296,7 @@ function sendSMSBio($to_mobile, $sms)
         CURLOPT_MAXREDIRS => 10,
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION =>
-        CURL_HTTP_VERSION_1_1,
+            CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_SSL_VERIFYHOST => 0,
         CURLOPT_SSL_VERIFYPEER => 0,
@@ -503,7 +503,7 @@ if (!function_exists('dateConvert')) {
 //            $language = ($slang) ? $slang : (($userlang) ? $userlang : 'en');
 //            $system_date_format = ($language =='fr') ? 'd/m/Y' : 'Y-m-d';
 
-            return \Carbon\Carbon::createFromFormat('Y-m-d',$input_date)->format($system_date_format);
+            return \Carbon\Carbon::createFromFormat('Y-m-d', $input_date)->format($system_date_format);
         } catch (\Throwable $th) {
 
             return $input_date;
@@ -666,8 +666,8 @@ if (!function_exists('send_mail')) {
                         ->where('mail_driver', 'smtp')
                         ->first() :
                         DB::table('aramisc_email_settings')
-                        ->where('mail_driver', 'smtp')
-                        ->first();
+                            ->where('mail_driver', 'smtp')
+                            ->first();
 
                     if ($config) {
                         Config::set('mail.default', 'smtp');
@@ -724,8 +724,8 @@ if (!function_exists('send_mail_without_template')) {
                         ->where('mail_driver', 'smtp')
                         ->first() :
                         DB::table('aramisc_email_settings')
-                        ->where('mail_driver', 'smtp')
-                        ->first();
+                            ->where('mail_driver', 'smtp')
+                            ->first();
 
                     if ($config) {
                         Config::set('mail.driver', $config->mail_driver);
@@ -1338,7 +1338,7 @@ if (!function_exists('generalSetting')) {
             if (app()->bound('school')) {
                 $generalSetting = AramiscGeneralSettings::where('school_id', app('school')->id)->first();
             } elseif (request('school_id')) {
-                $generalSetting =  AramiscGeneralSettings::where('school_id', request('school_id'))->first();
+                $generalSetting = AramiscGeneralSettings::where('school_id', request('school_id'))->first();
             } else {
                 // $generalSetting = Auth::check() ? AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first() : AramiscGeneralSettings::where('school_id',app('school')->id)->first();
                 $generalSetting = Auth::check() ? AramiscGeneralSettings::where('school_id', Auth::user()->school_id)->first() : AramiscGeneralSettings::where('school_id', 1)->first();
@@ -3592,9 +3592,6 @@ if (!function_exists('send_notification')) {
         }
 
 
-
-
-
         return AramiscExamSignature::where('active_status', 1)->get(['title', 'signature']);
     }
 }
@@ -3763,7 +3760,8 @@ if (!function_exists('storeCalendarInfo')) {
         $section_id = null,
         $url = null
 
-    ) {
+    )
+    {
         $storeData = new SmCalendar();
         $storeData->record_id = $record_id;
         $storeData->role_id = $role_id;
@@ -4099,33 +4097,38 @@ if (!function_exists('getProfileImage')) {
         }
         return $profile;
     }
+}
 
-    function headerContent()
-    {
-        $headerPageData = Page::where('school_id', app('school')->id)->where('name', 'header_menu')
-            ->select('id', 'name', 'title', 'description', 'slug', 'settings', 'status')
-            ->first();
-        if ($headerPageData) {
-            return  view('pagebuilder::components.header-footer-page-components', ['page' => $headerPageData]);
-        }
-    }
-
-
-    function footerContent()
-    {
-        $footerPage = Page::where('school_id', app('school')->id)->where('name', 'footer_menu')
-            ->select('id', 'name', 'title', 'description', 'slug', 'settings', 'status')
-            ->first();
-        if ($footerPage) {
-            return view('pagebuilder::components.header-footer-page-components', ['page' => $footerPage]);
-        }
-    }
-
-    function formatedDate($date)
-    {
-        return date('Y-m-d', strtotime($date));
+function headerContent()
+{
+    $headerPageData = Page::where('school_id', app('school')->id)->where('name', 'header_menu')
+        ->select('id', 'name', 'title', 'description', 'slug', 'settings', 'status')
+        ->first();
+    if ($headerPageData) {
+        return view('pagebuilder::components.header-footer-page-components', ['page' => $headerPageData]);
     }
 }
+
+function footerContent()
+{
+    $footerPage = Page::where('school_id', app('school')->id)->where('name', 'footer_menu')
+        ->select('id', 'name', 'title', 'description', 'slug', 'settings', 'status')
+        ->first();
+    if ($footerPage) {
+        return view('pagebuilder::components.header-footer-page-components', ['page' => $footerPage]);
+    }
+}
+
+function formatedDate($date)
+{
+    return date('Y-m-d', strtotime($date));
+}
+
+function formatedDateformat($date,$format='Y-m-d')
+{
+    return date($format, strtotime($date));
+}
+
 
 if (!function_exists('envu')) {
     function envu($data = array())
@@ -4144,7 +4147,7 @@ if (!function_exists('envu')) {
 
         $env = file_get_contents(base_path() . '/.env');
         $env = explode("\n", $env);
-        foreach ((array) $data as $key => $value) {
+        foreach ((array)$data as $key => $value) {
             foreach ($env as $env_key => $env_value) {
                 $entry = explode("=", $env_value, 2);
                 if ($entry[0] === $key) {
@@ -4215,7 +4218,7 @@ if (!function_exists('curlIt')) {
 
     function curlIt($url, $postData = array())
     {
-        $url  = preg_replace("/\r|\n/", "", $url);
+        $url = preg_replace("/\r|\n/", "", $url);
         try {
             $response = Http::timeout(3)->acceptJson()->get($url);
             if ($response->successful()) {

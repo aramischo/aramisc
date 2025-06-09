@@ -324,8 +324,17 @@ class AramiscSystemSettingController extends Controller
     public function languageSettings()
     {
         try {
-            $sms_languages = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
-            $all_languages = Language::orderBy('code', 'ASC')->get()->except($sms_languages->pluck('lang_id')->toArray());
+            $languages_ids = Language::where('school_id',Auth::user()->school_id)->where('active_status',1)->get()->pluck('id')->toArray();
+
+            $sms_languages = AramiscLanguage::where('school_id', Auth::user()->school_id)
+                ->orderBy('active_status', 'DESC')
+                ->orderBy('language_universal', 'ASC')
+                ->whereIn('lang_id',$languages_ids)->get();
+
+            $all_languages = Language::where('school_id',Auth::user()->school_id)
+                ->where('active_status',1)
+                ->orderBy('code', 'ASC')->get()
+                ->except($sms_languages->pluck('lang_id')->toArray());
             return view('backEnd.systemSettings.languageSettings', compact('sms_languages', 'all_languages'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
