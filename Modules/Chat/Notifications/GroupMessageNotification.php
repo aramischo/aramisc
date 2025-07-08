@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Modules\Chat\Entities\Group;
-use SpondonIt\FCM\FcmMessage;
+use App\Services\FcmMessage;
 
 class GroupMessageNotification extends Notification
 {

@@ -62,6 +62,7 @@ class AramiscNoticeController extends Controller
 
             $data['title'] = $request->notice_title;
             $data['notice'] = $request->notice_title;
+
             foreach($request->role as $role_id){
                 $userIds = User::where('role_id', $role_id)->where('active_status', 1)->pluck('id')->toArray();
                 if($role_id == 4){
@@ -170,6 +171,21 @@ class AramiscNoticeController extends Controller
                $noticeData->is_published = 0;
             }
             $noticeData->update();
+
+            $data['title'] = $request->notice_title;
+            $data['notice'] = $request->notice_title;
+            foreach($request->role as $role_id){
+                $userIds = User::where('role_id', $role_id)->where('active_status', 1)->pluck('id')->toArray();
+                if($role_id == 4){
+                    $this->sent_notifications('Notice', $userIds, $data, ['Teacher']);
+                }elseif($role_id == 2){
+                    $this->sent_notifications('Notice', $userIds, $data, ['Student']);
+                }elseif($role_id == 3){
+                    $this->sent_notifications('Notice', $userIds, $data, ['Parent']);
+                }elseif($role_id == GlobalVariable::isAlumni()){
+                    $this->sent_notifications('Notice', $userIds, $data, ['Alumni']);
+                }
+            }
 
             if ($request->role != null) {
 
