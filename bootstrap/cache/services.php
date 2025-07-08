@@ -66,8 +66,9 @@
     62 => 'Craftsys\\Msg91\\Msg91LaravelServiceProvider',
     63 => 'Yajra\\DataTables\\DataTablesServiceProvider',
     64 => 'App\\Providers\\BroadcastServiceProvider',
-    65 => 'Larabuild\\Optionbuilder\\ServiceProvider',
-    66 => 'Larabuild\\Pagebuilder\\ServiceProvider',
+    65 => 'App\\Providers\\FcmNotificationServiceProvider',
+    66 => 'Larabuild\\Optionbuilder\\ServiceProvider',
+    67 => 'Larabuild\\Pagebuilder\\ServiceProvider',
   ),
   'eager' => 
   array (
@@ -121,8 +122,9 @@
     47 => 'Craftsys\\Msg91\\Msg91LaravelServiceProvider',
     48 => 'Yajra\\DataTables\\DataTablesServiceProvider',
     49 => 'App\\Providers\\BroadcastServiceProvider',
-    50 => 'Larabuild\\Optionbuilder\\ServiceProvider',
-    51 => 'Larabuild\\Pagebuilder\\ServiceProvider',
+    50 => 'App\\Providers\\FcmNotificationServiceProvider',
+    51 => 'Larabuild\\Optionbuilder\\ServiceProvider',
+    52 => 'Larabuild\\Pagebuilder\\ServiceProvider',
   ),
   'deferred' => 
   array (
