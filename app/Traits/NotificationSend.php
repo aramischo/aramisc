@@ -343,7 +343,7 @@ trait NotificationSend
 
                 // SEND PUSHUP NOTIFICATION
                 $firebaseService = new FirebasePushService();
-                $firebaseService->sendToToken($user->device_token ,
+                $firebaseService->sendToToken($user->device_token,
                     $data['title'],
                     $data['message']
                 );
