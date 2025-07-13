@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
+use App\Services\FcmChannel;
 
 /**
  * Class FcmNotificationServiceProvider.

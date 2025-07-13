@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\SystemSettings;
 
-use App\Services\FirebasePushService;
 use App\User;
 use App\AramiscExam;
 use ZipArchive;
@@ -138,17 +137,10 @@ class AramiscSystemSettingController extends Controller
     {
         try {
             $user = User::where('id', $request->id)->first();
-
-            // SEND PUSHUP NOTIFICATION
-            if ($user->device_token != ''){
-                $firebaseService = new FirebasePushService();
-                $firebaseService->sendToToken($user->device_token, $_REQUEST['title'], $_REQUEST['body']);
-            }
-
             if ($user->notificationToken != '') {
                 //echo 'Aramisc Edu';
-//                define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
-                define('API_ACCESS_KEY', Cache::get('firebase_access_token'));                //   $registrationIds = ;
+                define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
+                //   $registrationIds = ;
                 #prep the bundle
                 $msg = array(
                     'body' => $_REQUEST['body'],
@@ -176,8 +168,7 @@ class AramiscSystemSettingController extends Controller
                 $result = curl_exec($ch);
                 echo $result;
                 curl_close($ch);
-            }
-            else {
+            } else {
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                     return ApiBaseMethod::sendError('Token not found');
                 }

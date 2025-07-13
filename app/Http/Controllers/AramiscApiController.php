@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Role;
-use App\Services\FirebasePushService;
 use App\User;
 use App\AramiscBook;
 use App\AramiscExam;
@@ -106,7 +105,6 @@ use App\AramiscTeacherUploadContent;
 use App\AramiscOptionalSubjectAssign;
 use App\AramiscStudentTakeOnlineExam;
 use App\AramiscUploadHomeworkContent;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -1553,7 +1551,7 @@ class AramiscApiController extends Controller
                             ->first();
 
                         if(!$data['userDetails']){
-                            $data['userDetails'] = DB::table('aramisc_students')->select('aramisc_students.*','aramisc_students.user_id as student_user_id', 'aramisc_students.id as s_id')
+                            $data['userDetails'] = DB::table('aramisc_students')->select('aramisc_students.*','aramisc_students.user_id as student_user_id', 'aramisc_students.id as s_id',)
                                 ->where('aramisc_students.user_id', $user->id)
                                 ->first();
                         }
@@ -4942,7 +4940,7 @@ class AramiscApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_disabledStudent(Request $request,$school_id)
+    public function saas_disabledStudent(Request $request)
     {
         try {
             $students = AramiscStudent::where('active_status', 0)->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
@@ -6946,7 +6944,7 @@ class AramiscApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_fees_discount_update(Request $request,$school_id)
+    public function saas_fees_discount_update(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -9235,7 +9233,7 @@ class AramiscApiController extends Controller
             return ApiBaseMethod::sendError('Error.', $e->getMessage());
         }
     }
-    public function saas_staffAttendanceReport(Request $request,$school_id)
+    public function saas_staffAttendanceReport(Request $request, $school_id)
     {
 
 
@@ -11282,7 +11280,7 @@ class AramiscApiController extends Controller
         Toastr::error('Operation Failed', 'Failed');
         return redirect()->back();
     }
-    public function saas_class_store(Request $request,$school_id)
+    public function saas_class_store(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make(
@@ -18615,16 +18613,9 @@ class AramiscApiController extends Controller
             $users = User::where('role_id', $request->id)->get();
             foreach ($users as $user) {
 
-                // SEND PUSHUP NOTIFICATION
-                if ($user->device_token != ''){
-                    $firebaseService = new FirebasePushService();
-                    $firebaseService->sendToToken($user->device_token, $_REQUEST['title'], $_REQUEST['body']);
-                }
-
                 if ($user->notificationToken != '') {
 
-//                    define('API_ACCESS_KEY', 'AAAA5ZKAL1I:APA91bFSF0aIpn2uayU2SJ7Ov8Krc3xlQVqwEBYt0FOyDxswMgDVOq7hKoOkRVm5gGd_YxWzwe_kl-POUQE13twf65yxpd3dRffEjNqaXTdl7x-lCCkIY7YYOD4pVjaHWNazHJSgB6xp');
-                    define('API_ACCESS_KEY', Cache::get('firebase_access_token'));
+                    define('API_ACCESS_KEY', 'AAAA5ZKAL1I:APA91bFSF0aIpn2uayU2SJ7Ov8Krc3xlQVqwEBYt0FOyDxswMgDVOq7hKoOkRVm5gGd_YxWzwe_kl-POUQE13twf65yxpd3dRffEjNqaXTdl7x-lCCkIY7YYOD4pVjaHWNazHJSgB6xp');
                     //   $registrationIds = ;
                     #prep the bundle
                     $msg = array(
@@ -18677,17 +18668,10 @@ class AramiscApiController extends Controller
             $users = User::where('role_id', $request->id)->where('school_id',$school_id)->get();
             foreach ($users as $user) {
 
-                // SEND PUSHUP NOTIFICATION
-                if ($user->device_token != ''){
-                    $firebaseService = new FirebasePushService();
-                    $firebaseService->sendToToken($user->device_token, $_REQUEST['title'], $_REQUEST['body']);
-                }
-
                 if ($user->notificationToken != '') {
 
                     //echo 'Aramisc Edu';
-//                    define('API_ACCESS_KEY', 'AAAA5ZKAL1I:APA91bFSF0aIpn2uayU2SJ7Ov8Krc3xlQVqwEBYt0FOyDxswMgDVOq7hKoOkRVm5gGd_YxWzwe_kl-POUQE13twf65yxpd3dRffEjNqaXTdl7x-lCCkIY7YYOD4pVjaHWNazHJSgB6xp');
-                    define('API_ACCESS_KEY', Cache::get('firebase_access_token'));
+                    define('API_ACCESS_KEY', 'AAAA5ZKAL1I:APA91bFSF0aIpn2uayU2SJ7Ov8Krc3xlQVqwEBYt0FOyDxswMgDVOq7hKoOkRVm5gGd_YxWzwe_kl-POUQE13twf65yxpd3dRffEjNqaXTdl7x-lCCkIY7YYOD4pVjaHWNazHJSgB6xp');
                     //   $registrationIds = ;
                     #prep the bundle
                     $msg = array(
@@ -18741,17 +18725,10 @@ class AramiscApiController extends Controller
             $users = User::where('role_id', $request->id)->get();
             foreach ($users as $user) {
 
-                // SEND PUSHUP NOTIFICATION
-                if ($user->device_token != ''){
-                    $firebaseService = new FirebasePushService();
-                    $firebaseService->sendToToken($user->device_token, $_REQUEST['title'], $_REQUEST['body']);
-                }
-
                 if ($user->notificationToken != '') {
 
                     //echo 'Aramisc Edu';
-//                    define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
-                    define('API_ACCESS_KEY', Cache::get('firebase_access_token'));
+                    define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                     //   $registrationIds = ;
                     #prep the bundle
                     $msg = array(

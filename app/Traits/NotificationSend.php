@@ -337,13 +337,13 @@ trait NotificationSend
             $templete = $notificationData->template[$role]['App'];
             $data['message'] = AramiscNotificationSetting::templeteData($templete, $data);
             $user = User::find(gv($data, 'user_id'));
-            if($user){
+
+            if($user && $user->device_token != ''){
 //                Notification::send($user, new AppNotification($data));
 
                 // SEND PUSHUP NOTIFICATION
                 $firebaseService = new FirebasePushService();
-                $firebaseService->sendToAllUsers(
-//                $firebaseService->sendToAllUsersFromDatabase(
+                $firebaseService->sendToToken($user->device_token ,
                     $data['title'],
                     $data['message']
                 );
