@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\StudyMaterial;
 
+use App\Services\FirebasePushService;
 use App\User;
 use App\AramiscClass;
 use App\AramiscStaff;
@@ -257,6 +258,16 @@ class AramiscUploadContentController extends Controller
 
                             try {
                                 $user=User::find($notification->user_id);
+                                // SEND PUSHUP NOTIFICATION
+                                if ($user->device_token != ''){
+                                    $firebaseService = new FirebasePushService();
+                                    $firebaseService->sendToToken($user->device_token,
+                                        $notification->message,
+                                        $notification->url
+                                    );
+                                }
+
+                                // send notification message
                                 Notification::send($user, new StudyMeterialCreatedNotification($notification));
                             } catch (\Exception $e) {
                                 Log::info($e->getMessage());
@@ -594,6 +605,14 @@ class AramiscUploadContentController extends Controller
                             try {
                                 $user=User::find($notification->user_id);
                                 if($user){
+                                    // SEND PUSHUP NOTIFICATION
+                                    if ($user->device_token != ''){
+                                        $firebaseService = new FirebasePushService();
+                                        $firebaseService->sendToToken($user->device_token,
+                                            $notification->message,
+                                            $notification->url
+                                        );
+                                    }
                                     Notification::send($user, new StudyMeterialCreatedNotification($notification));
                                 }
 
@@ -632,6 +651,14 @@ class AramiscUploadContentController extends Controller
                             try{
                                 $user=User::find($notification->user_id);
                                 if($user){
+                                    // SEND PUSHUP NOTIFICATION
+                                    if ($user->device_token != ''){
+                                        $firebaseService = new FirebasePushService();
+                                        $firebaseService->sendToToken($user->device_token,
+                                            $notification->message,
+                                            $notification->url
+                                        );
+                                    }
                                     Notification::send($user, new StudyMeterialCreatedNotification($notification));
                                 }
 
@@ -672,6 +699,14 @@ class AramiscUploadContentController extends Controller
                             try{
                                 $user=User::find($notification->user_id);
                                 if($user){
+                                    // SEND PUSHUP NOTIFICATION
+                                    if ($user->device_token != ''){
+                                        $firebaseService = new FirebasePushService();
+                                        $firebaseService->sendToToken($user->device_token,
+                                            $notification->message,
+                                            $notification->url
+                                        );
+                                    }
                                     Notification::send($user, new StudyMeterialCreatedNotification($notification));
                                 }
                                 
@@ -683,6 +718,14 @@ class AramiscUploadContentController extends Controller
                             try{
                                 $user=User::find($notification->user_id);
                                 if($user){
+                                    // SEND PUSHUP NOTIFICATION
+                                    if ($user->device_token != ''){
+                                        $firebaseService = new FirebasePushService();
+                                        $firebaseService->sendToToken($user->device_token,
+                                            $notification->message,
+                                            $notification->url
+                                        );
+                                    }
                                     Notification::send($user, new StudyMeterialCreatedNotification($notification));
                                 }
                             }catch (\Exception $e) {

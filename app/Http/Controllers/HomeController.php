@@ -66,7 +66,7 @@ class HomeController extends Controller
 
             if ($role_id == 2) {    #Student
                 if($is_due_fees_login_permission == 1){
-                    if($student_due_fees_login_prevent != null){
+                    if($student_due_fees_login_prevent == null){
                         $errorMessage = '';
                         Auth::logout();
                         session(['role_id' => '']);

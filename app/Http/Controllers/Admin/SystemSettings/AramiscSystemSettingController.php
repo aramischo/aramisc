@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\SystemSettings;
 
+use App\Services\FirebasePushService;
 use App\User;
 use App\AramiscExam;
 use ZipArchive;
@@ -137,10 +138,17 @@ class AramiscSystemSettingController extends Controller
     {
         try {
             $user = User::where('id', $request->id)->first();
+
+            // SEND PUSHUP NOTIFICATION
+            if ($user->device_token != ''){
+                $firebaseService = new FirebasePushService();
+                $firebaseService->sendToToken($user->device_token, $_REQUEST['title'], $_REQUEST['body']);
+            }
+
             if ($user->notificationToken != '') {
                 //echo 'Aramisc Edu';
-                define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
-                //   $registrationIds = ;
+//                define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
+                define('API_ACCESS_KEY', Cache::get('firebase_access_token'));                //   $registrationIds = ;
                 #prep the bundle
                 $msg = array(
                     'body' => $_REQUEST['body'],
@@ -168,7 +176,8 @@ class AramiscSystemSettingController extends Controller
                 $result = curl_exec($ch);
                 echo $result;
                 curl_close($ch);
-            } else {
+            }
+            else {
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                     return ApiBaseMethod::sendError('Token not found');
                 }
@@ -324,8 +333,17 @@ class AramiscSystemSettingController extends Controller
     public function languageSettings()
     {
         try {
-            $sms_languages = AramiscLanguage::where('school_id', Auth::user()->school_id)->get();
-            $all_languages = Language::orderBy('code', 'ASC')->get()->except($sms_languages->pluck('lang_id')->toArray());
+            $languages_ids = Language::where('school_id',Auth::user()->school_id)->where('active_status',1)->get()->pluck('id')->toArray();
+
+            $sms_languages = AramiscLanguage::where('school_id', Auth::user()->school_id)
+                ->orderBy('active_status', 'DESC')
+                ->orderBy('language_universal', 'ASC')
+                ->whereIn('lang_id',$languages_ids)->get();
+
+            $all_languages = Language::where('school_id',Auth::user()->school_id)
+                ->where('active_status',1)
+                ->orderBy('code', 'ASC')->get()
+                ->except($sms_languages->pluck('lang_id')->toArray());
             return view('backEnd.systemSettings.languageSettings', compact('sms_languages', 'all_languages'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');

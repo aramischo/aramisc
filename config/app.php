@@ -176,7 +176,7 @@ return [
         Craftsys\Msg91\Msg91LaravelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
-       // SpondonIt\FCM\FcmNotificationServiceProvider::class,
+        App\Providers\FcmNotificationServiceProvider::class,
         // Vimeo\Laravel\VimeoServiceProvider::class
         Larabuild\Optionbuilder\ServiceProvider::class,
         Larabuild\Pagebuilder\ServiceProvider::class,

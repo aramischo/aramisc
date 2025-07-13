@@ -294,23 +294,24 @@ if (!function_exists('deActivePermissions')) {
     }
 }
 if (!function_exists('sidebar_menus')) {
-    function sidebar_menus()
+    function sidebar_menus($role=null)
     {
         $user = auth()->user();
-        return $sidebars = Cache::rememberForever('sidebars' . $user->id, function () use ($user) {
+        $role_id = ($role === null) ? $user->role_id : $role->id;
+        return $sidebars = Cache::rememberForever('sidebars' . $user->id, function () use ($user,$role_id) {
             return Sidebar::with(['subModule', 'permissionInfo'])
                 ->whereNull('parent')
-                ->whereHas('permissionInfo', function ($q) use ($user) {
+                ->whereHas('permissionInfo', function ($q) use ($user,$role_id) {
                     $q->where('menu_status', 1)
-                        ->when($user->role_id == 2 || $user->role_id == GlobalVariable::isAlumni(), function ($q) {
+                        ->when($role_id == 2 || $role_id == GlobalVariable::isAlumni(), function ($q) {
                             $q->where('is_student', 1);
-                        })->when($user->role_id == 3, function ($q) {
+                        })->when($role_id == 3, function ($q) {
                             $q->where('is_parent', 1);
-                        })->when(!in_array($user->role_id, [2, 3, GlobalVariable::isAlumni()]), function ($q) {
+                        })->when(!in_array($role_id, [2, 3, GlobalVariable::isAlumni()]), function ($q) {
                             $q->where('is_admin', 1);
                         });
                 })
-                ->where('user_id', $user->id)->where('role_id', $user->role_id)->where('active_status', 1)
+                ->where('user_id', $user->id)->where('role_id', $role_id)->where('active_status', 1)
                 ->orderBy('position', 'ASC')->get();
         });
     }

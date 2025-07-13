@@ -82,7 +82,7 @@
                             @else
                                 <option value="{{ @$academic_year->id }}"
                                     {{ getAcademicId() == @$academic_year->id ? 'selected' : '' }}>
-                                    {{ @$academic_year->year }} [{{ @$academic_year->title }}]
+                                    @lang('common.academic_year') : [ {{formatedDateformat(@$academic_year->starting_date,'Y')}} - {{formatedDateformat(@$academic_year->ending_date,'Y')}} ]
                                 </option>
                             @endif
                         @endforeach

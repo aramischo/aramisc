@@ -6,6 +6,7 @@ use App\Models\User;
 use App\AramiscTemplate;
 use App\AramiscSmsGateway;
 use App\Jobs\EmailJob;
+use App\Services\FirebasePushService;
 use GuzzleHttp\Client;
 use App\AramiscEmailSetting;
 use App\AramiscNotification;
@@ -20,6 +21,7 @@ use App\Notifications\AppNotification;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Notification;
+
 
 trait NotificationSend
 {
@@ -332,11 +334,20 @@ trait NotificationSend
         }
 
         try {
-            $templete = $notificationData->template[$role]['App'];                  
+            $templete = $notificationData->template[$role]['App'];
             $data['message'] = AramiscNotificationSetting::templeteData($templete, $data);
             $user = User::find(gv($data, 'user_id'));
-            if($user){
-                Notification::send($user, new AppNotification($data));
+
+            if($user && $user->device_token != ''){
+//                Notification::send($user, new AppNotification($data));
+
+                // SEND PUSHUP NOTIFICATION
+                $firebaseService = new FirebasePushService();
+                $firebaseService->sendToToken($user->device_token,
+                    $data['title'],
+                    $data['message']
+                );
+
             }
             
         } catch (\Exception $e) {

@@ -4,7 +4,7 @@ namespace App\Notifications;
 
 use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
-use SpondonIt\FCM\FcmMessage;
+use App\Services\FcmMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;

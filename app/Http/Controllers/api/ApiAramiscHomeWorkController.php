@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Services\FirebasePushService;
 use App\User;
 use App\AramiscClass;
 use App\AramiscStaff;
@@ -20,6 +21,7 @@ use App\AramiscUploadHomeworkContent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\StatusAcademicSchoolScope;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Admin\StudentInfo\AramiscStudentReportController;
 
@@ -940,10 +942,17 @@ class ApiAramiscHomeWorkController extends Controller
             foreach ($students as $student) {
                 $user = User::where('id', $student->id)->first();
 
+                // SEND PUSHUP NOTIFICATION
+                if ($user->device_token != ''){
+                    $firebaseService = new FirebasePushService();
+                    $firebaseService->sendToToken($user->device_token, $_REQUEST['title'], $_REQUEST['body']);
+                }
+
                 if ($user->notificationToken != '') {
 
                     //echo 'Aramisc Edu';
-                    define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
+//                    define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
+                    define('API_ACCESS_KEY', Cache::get('firebase_access_token'));
                     //   $registrationIds = ;
                     #prep the bundle
                     $msg = array(

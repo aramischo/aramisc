@@ -125,7 +125,18 @@
                                             </div>
                                         </div>
                                     </div>
- 
+                                    <div class="row mt-15">
+                                        <div class="col-lg-12">
+                                            <div class="primary_input">
+                                                <label class="primary_input_label" for="">@lang('system_settings.active_status') <span class="text-danger"> *</span></label>
+                                                <select class="primary_select form-control {{ $errors->has('active_status') ? ' is-invalid' : '' }}" id="active_status" name="active_status">
+                                                    <option value="0" @if(isset($editData) && $editData->active_status == 0 ) selected @endif>@lang('system_setting.no')</option>
+                                                    <option value="1" @if(isset($editData) && $editData->active_status == 1 ) selected @endif>@lang('system_setting.yes')</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     @php 
                                         $tooltip = "";
                                         if(userPermission('language_store') || userPermission('language_edit')){
@@ -178,6 +189,7 @@
                                             <th>@lang('system_settings.code')</th>
                                             <th>@lang('system_settings.native')</th> 
                                             <th>@lang('system_settings.text_alignment')</th> 
+                                            <th>@lang('system_settings.active_status')</th>
                                             <th>@lang('common.action')</th>
                                         </tr>
                                         </thead>
@@ -197,7 +209,14 @@
                                                     @else 
                                                     LTL  
                                                     @endif 
-                                                </td> 
+                                                </td>
+                                                <td>
+                                                    @if($value->active_status == 1)
+                                                        <i class="btn btn-xs btn-success fa fa-check-circle"></i>
+                                                    @else
+                                                        <i class="btn btn-xs btn-danger fa fa-times-circle"></i>
+                                                    @endif
+                                                </td>
                                                 <td>
     
                                                 <x-drop-down>

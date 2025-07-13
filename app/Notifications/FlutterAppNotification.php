@@ -6,7 +6,7 @@ namespace App\Notifications;
 use App\AramiscHomework;
 use App\AramiscNotification;
 use Illuminate\Bus\Queueable;
-use SpondonIt\FCM\FcmMessage;
+use App\Services\FcmMessage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
