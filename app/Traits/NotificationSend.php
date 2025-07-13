@@ -339,8 +339,6 @@ trait NotificationSend
             $user = User::find(gv($data, 'user_id'));
 
             if($user && $user->device_token != ''){
-//                Notification::send($user, new AppNotification($data));
-
                 // SEND PUSHUP NOTIFICATION
                 $firebaseService = new FirebasePushService();
                 $firebaseService->sendToToken($user->device_token,
@@ -349,6 +347,8 @@ trait NotificationSend
                 );
 
             }
+
+            Notification::send($user, new AppNotification($data));
             
         } catch (\Exception $e) {
             Log::info($e->getMessage());    
