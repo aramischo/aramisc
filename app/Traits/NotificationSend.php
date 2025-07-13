@@ -345,11 +345,12 @@ trait NotificationSend
                     $data['title'],
                     $data['message']
                 );
-
             }
 
             Notification::send($user, new AppNotification($data));
             
+            Notification::send($user, new AppNotification($data));
+
         } catch (\Exception $e) {
             Log::info($e->getMessage());    
         }
