@@ -75,7 +75,7 @@ class GlobalClassController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $classById = SmCLass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('id', $id)->firstOrFail();
+            $classById = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->where('id', $id)->firstOrFail();
             $sectionByNames = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope(StatusAcademicSchoolScope::class)->select('section_id')->where('class_id', '=', $classById->id)->get();
             $sectionId = array();
             foreach ($sectionByNames as $sectionByName) {
@@ -94,11 +94,11 @@ class GlobalClassController extends Controller
     public function update(ClassRequest $request)
     {
         
-        SmCLassSection::withoutGlobalScope(GlobalAcademicScope::class, StatusAcademicSchoolScope::class)->where('class_id', $request->id)->delete();
+        AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class, StatusAcademicSchoolScope::class)->where('class_id', $request->id)->delete();
         DB::beginTransaction();
 
         try {
-            $class = SmCLass::withoutGlobalScope(GlobalAcademicScope::class, StatusAcademicSchoolScope::class)->where('id',$request->id)->firstOrFail();
+            $class = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class, StatusAcademicSchoolScope::class)->where('id',$request->id)->firstOrFail();
             $class->class_name = $request->name;
             $class->pass_mark = $request->pass_mark;
             $class->save();
