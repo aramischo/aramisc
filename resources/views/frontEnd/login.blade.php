@@ -67,7 +67,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-5">
-					<p>Copyright © 2018 All rights reserved | This application is made by <a href="http://www.codepixar.com/">Codepixar</a></p>
+					<p>Copyright © 2024 All rights reserved </p>
 				</div>
 			</div>
 		</div>

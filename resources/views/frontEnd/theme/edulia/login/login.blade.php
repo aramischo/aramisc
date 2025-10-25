@@ -5,9 +5,11 @@
 @php
     App::setLocale(getUserLanguage());
     $ttl_rtl = userRtlLtl();
+    $css = "background-color:#f6f9ff;";
+    $logowrapper = 'width: 600px;padding: 0;background: transparent;text-align: center;';
 
-    $login_background = App\AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
-
+   /* $login_background = App\AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
+     $css = 'background:url("'.asset(generalSetting()->logo).'") no-repeat right;background-size: 40%;background-color:#f6f9ff;';
     if (empty($login_background)) {
         $css = 'background: url(' . url('public/backEnd/img/edulia-login-bg.jpg') . ') no-repeat center; background-size: cover; ';
     } else {
@@ -16,7 +18,7 @@
         } else {
             $css = 'background:' . $login_background->color;
         }
-    }
+    } */
 @endphp
 <html lang="{{ app()->getLocale() }}" @if (isset($ttl_rtl) && $ttl_rtl == 1) dir="rtl" class="rtl" @endif>
 
@@ -55,9 +57,9 @@
         }
 
         .login_wrapper {
-            width: 550px;
+            width: 400px;
             background: #fff;
-            padding: 30px;
+            padding: 20px;
         }
 
         .text-danger.text-left {
@@ -98,14 +100,20 @@
 <body>
 
     <section class="login" style="{{ $css }}">
-        <div class="login_wrapper">
+        <div class="login_wrapper pull-right" style="{{$logowrapper}}">
             <!-- login form start -->
             <div class="login_wrapper_login_content">
-                <div class="login_wrapper_logo text-center"><img src="{{ asset(generalSetting()->logo) }}"
-                        alt=""></div>
+                <div class="login_wrapper_logo text-center">
+                    <img src="{{ asset(generalSetting()->logo) }}" style="max-width: 50%" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="login_wrapper pull-left" style="box-shadow: 0px 0px 20px 2px rgba(150, 150, 150, 0.3);border-radius: 15px;">
+            <!-- login form start -->
+            <div class="login_wrapper_login_content">
                 <div class="login_wrapper_content">
-                    <h4>@lang('auth.login_details')</h4>
-                    <form action="{{ route('login') }}" method='POST'>
+                    <h5 style="margin: 15px 0 0;text-align: center;">@lang('auth.login_details')</h5>
+                    <form action="{{ route('login') }}" method='POST' style="margin-top: 15px;">
                         @csrf
                         <input type="hidden" name="username" id="username-hidden">
                         <div class="input-control">
@@ -137,7 +145,7 @@
                             <a href="{{ route('recoveryPassord') }}" id='forget'>@lang('auth.forget_password')?</a>
                         </div>
                         <div class="input-control">
-                            <input type="submit" class='input-control-input' value="Sign In">
+                            <input type="submit" style="margin-top: 40px;border-radius: 40px" class='input-control-input' value="@lang('auth.sign_in')">
                         </div>
                     </form>
                 </div>
@@ -185,7 +193,6 @@
                 </div>
             @endif
         </div>
-
     </section>
 
 

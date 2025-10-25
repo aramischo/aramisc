@@ -85,7 +85,7 @@ class AramiscClassController extends Controller
     public function edit(Request $request, $id)
     {
         try {
-            $classById = SmCLass::find($id);
+            $classById = AramiscClass::find($id);
             $sectionByNames = AramiscClassSection::select('section_id')->where('class_id', '=', $classById->id)->get();
             $sectionId = array();
             foreach ($sectionByNames as $sectionByName) {
@@ -104,11 +104,11 @@ class AramiscClassController extends Controller
 
     public function update(ClassRequest $request)
     {
-        SmCLassSection::where('class_id', $request->id)->delete();
+        AramiscClassSection::where('class_id', $request->id)->delete();
         DB::beginTransaction();
 
         try {
-            $class = SmCLass::find($request->id);
+            $class = AramiscClass::find($request->id);
             $class->class_name = $request->name;
             $class->pass_mark = $request->pass_mark;
             $class->save();

@@ -11348,7 +11348,7 @@ class AramiscApiController extends Controller
 
 
         try {
-            $classById = SmCLass::find($id);
+            $classById = AramiscClass::find($id);
 
             $sectionByNames = AramiscClassSection::select('section_id')->where('class_id', '=', $classById->id)->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->get();
 
@@ -11379,7 +11379,7 @@ class AramiscApiController extends Controller
     {
 
         try {
-            $classById = SmCLass::where('school_id',$school_id)->find($id);
+            $classById = AramiscClass::where('school_id',$school_id)->find($id);
 
             $sectionByNames = AramiscClassSection::select('section_id')->where('class_id', '=', $classById->id)->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())->where('school_id',$school_id)->get();
 
@@ -11431,7 +11431,7 @@ class AramiscApiController extends Controller
         }
 
 
-        SmCLassSection::where('class_id', $request->id)->delete();
+        AramiscClassSection::where('class_id', $request->id)->delete();
 
 
         DB::beginTransaction();
@@ -11498,7 +11498,7 @@ class AramiscApiController extends Controller
         }
 
 
-        SmCLassSection::where('class_id', $request->id)->where('school_id', $request->school_id)->delete();
+        AramiscClassSection::where('class_id', $request->id)->where('school_id', $request->school_id)->delete();
 
 
         DB::beginTransaction();
