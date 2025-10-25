@@ -1512,11 +1512,11 @@ class AramiscSystemSettingController extends Controller
                 if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                     return ApiBaseMethod::sendError('Something went wrong, please try again');
                 }
-                Toastr::error('Operation Failed', 'Failed');
+                Toastr::error('Operation Failed : Something went wrong', 'Failed');
                 return redirect()->back();
             }
         } catch (\Exception $e) {
-            Toastr::error('Operation Failed', 'Failed');
+            Toastr::error('Operation Failed : '.$e->getMessage(), 'Failed');
             return redirect()->back();
         }
     }
