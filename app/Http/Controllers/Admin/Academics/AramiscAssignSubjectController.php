@@ -236,6 +236,7 @@ class AramiscAssignSubjectController extends Controller
             }
             $data['class_id'] = $request->class_id;
             $data['section_id'] = $request->section_id;
+            $data['title'] = "Aramisc Assign Subject";
             if ($request->subjects) {
                 $data['teacher_name'] = $assign_subject->teacher->full_name;
                 $this->sent_notifications('Assign_Subject', (array)$assign_subject->teacher->user_id, $data, ['Teacher']);
