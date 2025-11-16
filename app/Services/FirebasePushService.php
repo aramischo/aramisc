@@ -98,6 +98,7 @@ class FirebasePushService
      */
     public function sendToToken(string $token, string $title, string $body, array $data = []): array
     {
+        $title = (empty($title)) ? "New Message from Aramisc" : $title;
         $data = (empty($data) || is_null($data)) ? $this->_data : $data;
         try {
             $message = [
