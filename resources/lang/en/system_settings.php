@@ -508,5 +508,6 @@
         "QR & Bar Code" => "QR & Bar Code",
         "Qr & Bar Code" => "Qr & Bar Code",
         'actions' => 'actions',
+        'add_notification_recipient' => 'add notification recipient',
     ];
     

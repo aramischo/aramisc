@@ -507,4 +507,5 @@
   'format_settings' => 'Paramètres de format',
   'setup_exam_rule' => 'Configurer la règle Exam',
   'disabled_student' => 'Étudiants handicapés',
+  'add_notification_recipient' => 'add notification recipient',
 );

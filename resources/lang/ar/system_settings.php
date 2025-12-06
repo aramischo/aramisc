@@ -506,4 +506,5 @@
   'Bar Code' => 'الرمز الشريطي',
   'QR & Bar Code' => 'QR والرمز الشريطي',
   'Qr & Bar Code' => 'ريال قطري والرمز الشريطي',
+  'add_notification_recipient' => 'add notification recipient',
 );
