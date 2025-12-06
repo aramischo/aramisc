@@ -44,6 +44,10 @@
                 <h4 class="modal-title" id="showDetaildModalTile">@lang('system_settings.new_client_information')</h4>
                 <button type="button" class="close icons" data-dismiss="modal">&times;</button>
             </div>
+
+            <div class="" style="text-align: center;padding:30px;" id="showDetaildModalLoader">
+                <img class=""  style="width: 70px;height: 70px;" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+            </div>
             <div class="modal-body" id="showDetaildModalBody">
 
             </div>

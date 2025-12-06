@@ -68,12 +68,19 @@
             $("#showDetaildModalTile").text(title);
             var data_title = $(this).attr("data-original-title");
             $("#showDetaildModalTile").text(data_title);
+            if($('#showDetaildModalLoader').length>0) {
+                $('#showDetaildModalLoader').show();
+            }
+            $("#showDetaildModalBody").html("");
             $("#showDetaildModal").modal("show");
             $("div.ajaxLoader").show();
             $.ajax({
                 type: "GET",
                 url: $(this).attr("href"),
                 success: function(data) {
+                    if($('#showDetaildModalLoader').length>0) {
+                        $('#showDetaildModalLoader').hide();
+                    }
                     $("#showDetaildModalBody").html(data);
                     $("#showDetaildModal").modal("show");
                 },

@@ -507,5 +507,6 @@
         "Bar Code" => "Bar Code",
         "QR & Bar Code" => "QR & Bar Code",
         "Qr & Bar Code" => "Qr & Bar Code",
+        'actions' => 'actions',
     ];
     
