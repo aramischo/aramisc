@@ -92,7 +92,6 @@ trait NotificationSend
     
                                         $data['alumni_name'] = $userInfo->full_name;
                                     }
-                                    
                                     elseif ($roleName == 'Parent') {
                                         $data['role_id'] = 3;
                                         if($userInfo->role_id == 3){
@@ -111,7 +110,8 @@ trait NotificationSend
                                             $data['parent_name'] = $data['receiver_name'];
                                             $data['student_name'] = $userInfo->full_name;
                                         }
-                                    } elseif ($roleName == 'Teacher') {
+                                    }
+                                    elseif ($roleName == 'Teacher') {
                                         $data['user_id'] = $userInfo->id;
                                         $data['role_id'] = $userInfo->roles->id;
                                         $data['receiver_name'] = $userInfo->full_name;

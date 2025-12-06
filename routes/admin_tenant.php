@@ -1591,7 +1591,11 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::controller('Admin\SystemSettings\AramiscNotificationController')->group(function () {
             Route::get('notification_settings', 'index')->name('notification_settings')->middleware('userRolePermission:notification_settings');
             Route::get('notification_event_modal/{id}/{key}', 'notificationEventModal')->name('notification_event_modal');
+            Route::get('notification_add_modal', 'notificationAddModal')->name('notification_add_modal');
+            Route::get('notification_delete_modal/{id}/{key}', 'notificationDeleteModal')->name('notification_delete_modal');
+            Route::post('notification-settings-add', 'notificationSettingsAdd')->name('notification_settings_add');
             Route::post('notification-settings-update', 'notificationSettingsUpdate')->name('notification_settings_update');
+            Route::get('notification-settings-delete', 'notificationSettingsDelete')->name('notification_settings_delete');
         });
 
 

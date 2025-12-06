@@ -4316,6 +4316,32 @@ if (!function_exists('verifyUrl')) {
         return $url;
     }
 }
+
+if (!function_exists('uglifyString')) {
+    function uglifyString($html)
+    {
+        $html = strip_tags($html);
+        $replace = '';
+        $search = [',',          // Remove carriage returns
+            ';',          // Remove carriage returns
+            '-',          // Remove carriage returns
+            '_',          // Remove carriage returns
+            ' '];       // Remove carriage returns]
+        $html = str_replace($search, $replace, $html);
+        $search = [
+            '/<!--.*?-->/s', // Remove HTML comments
+            '/\/\*.*?\*\//s', // Remove CSS/JS comments
+            '/\s{2,}/',      // Replace multiple spaces with a single space
+            '/\t/',          // Remove tabs
+            '/\n/',          // Remove newlines
+            '/\r/',          // Remove carriage returns
+        ];
+
+        $html = preg_replace($search, $replace, $html);
+        return strtolower(htmlentities($html));
+    }
+}
+
 /*
 function moduleVerify($file, $type = null)
 {

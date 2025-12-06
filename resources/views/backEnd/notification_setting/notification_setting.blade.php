@@ -61,10 +61,16 @@
         <div class="container-fluid p-0">
             <div class="white-box">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="main-title">
                             <h3 class="mb-15">@lang('system_settings.notification_settings')</h3>
                         </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 text-right">
+                       <a class="btn-success btn btn-sm modalLink" style="padding: 4px 12px; color:white;"
+                           title="@lang('system_settings.add_notification_recipient')"
+                           data-modal-size="large-modal"
+                           href="{{ route('notification_add_modal')}}"><i class="fa fa-plus-circle"></i> @lang('system_settings.add_notification_recipient')</a>
                     </div>
                 </div>
                 <div class="row">
@@ -102,10 +108,13 @@
                                                     @endforeach
                                                 </td>
                                                 <td width="70%">
-                                                    <div class="d-flex recipientCards">
+                                                    <div class="d-flexe recipientCards">
                                                         @foreach ($data->recipient as $key => $recipient)
-                                                            <div class="white-box w-100">
-                                                                <div
+                                                            @php
+                                                                $blocid = 'block-'.$data->id.'-'.uglifyString($key);
+                                                            @endphp
+                                                            <div class="white-box w-100" id="{{ $blocid }}" style="width: fit-content !important;padding: 10px;margin: 10px 0;display: inline-block">
+                                                                <div style="margin-bottom: 0px;width: 200px"
                                                                     class="d-flex align-items-center justify-content-between">
                                                                     <input type="checkbox"
                                                                         id="recipient{{ $loop->index }}{{ $data->id }}"
@@ -115,21 +124,29 @@
                                                                         value="{{ $key }}"
                                                                         name="recipient{{ $loop->index }}{{ $data->id }}">
                                                                     <label class="primary_input_label m-0"
-                                                                        for="recipient{{ $loop->index }}{{ $data->id }}"><b>{{ $key }}</b></label>
-                                                                    <a class="primary-btn fix-gr-bg modalLink"
+                                                                        for="recipient{{ $loop->index }}{{ $data->id }}"><b>{{ $key }}</b>
+
+                                                                    </label>
+                                                                    <div style="width: 80px">
+                                                                    <a class="btn-info btn btn-sm modalLink" style="padding: 4px 12px; color:white;"
                                                                         title="{{ str_replace('_', ' ', $data->event) }}[{{ $key }}]"
                                                                         data-modal-size="large-modal"
-                                                                        href="{{ route('notification_event_modal', [$data->id, $key]) }}">@lang('common.edit')</a>
+                                                                        href="{{ route('notification_event_modal', [$data->id, $key]) }}"><i class="fa fa-pencil"></i></a>
+                                                                    <a class="btn-danger btn btn-sm modalLink" style="padding: 4px 12px; color:white;"
+                                                                       title="{{ str_replace('_', ' ', $data->event) }}[{{ $key }}]"
+                                                                       data-modal-size="large-modal"
+                                                                       href="{{ route('notification_delete_modal', [$data->id, $key,$blocid]) }}"><i class="fa fa-trash"></i></a>
+                                                                    </div>
                                                                 </div>
-                                                                <p class="recipientCard">
-                                                                    @isset($data->shortcode)
-                                                                        @foreach ($data->shortcode as $role => $short)
-                                                                            @if ($key == $role)
-                                                                                {{$short}}
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endisset
-                                                                </p>
+{{--                                                                <p class="recipientCard">--}}
+{{--                                                                    @isset($data->shortcode)--}}
+{{--                                                                        @foreach ($data->shortcode as $role => $short)--}}
+{{--                                                                            @if ($key == $role)--}}
+{{--                                                                                {{$short}}--}}
+{{--                                                                            @endif--}}
+{{--                                                                        @endforeach--}}
+{{--                                                                    @endisset--}}
+{{--                                                                </p>--}}
                                                             </div>
                                                         @endforeach
                                                     </div>
@@ -182,6 +199,73 @@
             }
             statusUpdate(formData);
         });
+        $(document).on('click', '.addNotificationModal', function(e) {
+            let id = $('#id').val();
+            let key = $('#key').val();
+            if(typeof id === null || id == "" || typeof key === null || key==""){
+                $('#errmess').show();
+            }else {
+                $('#errmess').hide();
+
+                let formData = {
+                    id: id,
+                    key: key,
+                }
+                var url = $('#url').val();
+                $.ajax({
+                    type: "POST",
+                    data: formData,
+                    url: url + "/notification-settings-add",
+                    dataType: "json",
+                    success: function (response) {
+                        toastr.success('Operation Successfully', 'Success');
+                        setTimeout(function () {
+                            location.reload();
+                        },1000);
+                    },
+                    error: function (error) {
+                        toastr.error('Operation failed', 'Error');
+                    }
+                });
+                $('.modal').modal('hide');
+            }
+        })
+
+        $(document).on('click', '.deleteNotificationModal', function(e) {
+            let id = $('#id').val();
+            let key = $('#key').val();
+            if(typeof id === null || id == "" || typeof key === null || key==""){
+                $('#errmess').show();
+            }else {
+                $('#errmess').hide();
+
+                let formData = {
+                    id: id,
+                    key: key,
+                }
+                var url = $('#url').val();
+                $.ajax({
+                    type: "GET",
+                    data: formData,
+                    url: url + "/notification-settings-delete",
+                    dataType: "json",
+                    success: function (response) {
+                        toastr.success('Operation Successfully', 'Success');
+                        console.log(response);
+                        if(typeof response.stkey != "undefined" && response.stkey!="" && response.stkey!=null) {
+                            $('#block-' + id + '-' + response.stkey).fadeOut('slow', function () {
+                                $('#block-' + id + '-' + response.stkey).remove();
+                            })
+                        }
+                    },
+                    error: function (error) {
+                        toastr.error('Operation failed', 'Error');
+                    }
+                });
+                $('.modal').modal('hide');
+            }
+        })
+
         $(document).on('click', '.updateNotificationModal', function(e) {
             let id = $('#id').val();
             let key = $('#key').val();
@@ -221,5 +305,6 @@
                 }
             });
         }
+
     </script>
 @endpush

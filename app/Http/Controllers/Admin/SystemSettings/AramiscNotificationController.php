@@ -40,6 +40,84 @@ class AramiscNotificationController extends Controller
         }
     }
 
+
+    public function notificationAddModal()
+    {
+        try {
+            $notificationSettings = AramiscNotificationSetting::where('school_id', auth()->user()->school_id)->get();
+            $data = [
+                'notificationSettings'=>$notificationSettings,
+                'recipients'=>[
+                    'Super admin',
+                    'Admin',
+                    'Student',
+                    'Alumni',
+                    'Parent',
+                    'Teacher'
+                ]
+            ];
+            return view('backEnd.notification_setting.notification_setting_add_modal', $data);
+        } catch (\Exception $e) {
+            Toastr::error('Operation Failed', 'Failed');
+            return redirect()->back();
+        }
+    }
+
+    public function notificationSettingsAdd(Request $request)
+    {
+        try {
+            $id = $request->id;
+            $key = $request->key;
+            if (!$id || !$key) {
+                Toastr::error('Operation Failed, event or notification not sent', 'Failed');
+                return redirect()->back();
+            }
+            $settings = AramiscNotificationSetting::where('id', $id)
+                ->where('school_id', auth()->user()->school_id)
+                ->firstOrFail();
+
+            if (!$settings) {
+                Toastr::error('Operation Failed, no event found', 'Failed');
+                return redirect()->back();
+            }
+
+            $recipients = $settings->recipient;
+            $subjects = $settings->subject;
+            $templates = $settings->template;
+            $shortcodes = $settings->shortcode;
+
+            if (array_key_exists($key, $subjects)) {
+                Toastr::error('Operation Failed, event already exists', 'Failed');
+                return redirect()->back();
+            }
+            else{
+                $subkey = array_key_first($subjects);
+                $subjects[$key] = $subjects[$subkey];
+                $recipients[$key] = 1;
+                $shkey = array_key_first($shortcodes);
+                $shortcodes[$key] = $shortcodes[$shkey];
+
+                $temkey = array_key_first($templates);
+                $templates[$key]['Email'] = $templates[$temkey]['Email'];
+                $templates[$key]['SMS'] = $templates[$temkey]['SMS'] ;
+                $templates[$key]['Web'] = $templates[$temkey]['Web'];
+                $templates[$key]['App'] =  $templates[$temkey]['App'];
+
+                $settings->recipient = $recipients;
+                $settings->subject = $subjects;
+                $settings->template = $templates;
+                $settings->shortcode = $shortcodes;
+                $settings->save();
+            }
+
+            return response()->json();
+
+        } catch (\Exception $e) {
+            Toastr::error('Operation Failed : '. $e->getMessage(), 'Failed');
+            return redirect()->back();
+        }
+    }
+
     public function notificationEventModal($id, $key)
     {
         try {
@@ -102,6 +180,66 @@ class AramiscNotificationController extends Controller
                 $settings->save();
             }
             return response()->json();
+        } catch (\Exception $e) {
+            Toastr::error('Operation Failed', 'Failed');
+            return redirect()->back();
+        }
+    }
+
+    public function notificationDeleteModal($id, $key)
+    {
+        try {
+            $eventModal = AramiscNotificationSetting::find($id);
+            $data = [];
+            $data['id'] = $id;
+            $data['key'] = $key;
+            $data['shortcode'] = $eventModal->shortcode[$key];
+            $data['subject'] = $eventModal->subject[$key];
+            $data['emailBody'] = $eventModal->template[$key]['Email'];
+            $data['smsBody'] = $eventModal->template[$key]['SMS'];
+            $data['appBody'] = $eventModal->template[$key]['App'];
+            $data['webBody'] = $eventModal->template[$key]['Web'];
+
+            return view('backEnd.notification_setting.notification_setting_delete_modal', $data);
+        } catch (\Exception $e) {
+            Toastr::error('Operation Failed', 'Failed');
+            return redirect()->back();
+        }
+    }
+
+    public function notificationSettingsDelete(Request $request)
+    {
+        try {
+            $id = $request->id;
+            $key = $request->key;
+            $settings = AramiscNotificationSetting::where('id', $id)
+                ->where('school_id', auth()->user()->school_id)
+                ->firstOrFail();
+
+            $subjects = $settings->subject;
+            if (array_key_exists($key, $subjects)) {
+                unset($subjects[$key]);
+            }
+            $templates = $settings->template;
+            if (array_key_exists($key, $templates)) {
+                unset($templates[$key]);
+            }
+            $recipients = $settings->recipient;
+            if (array_key_exists($key, $recipients)) {
+                unset($recipients[$key]);
+            }
+            $shortcodes = $settings->shortcode;
+            if (array_key_exists($key, $shortcodes)) {
+                unset($shortcodes[$key]);
+            }
+
+            $settings->subject = $subjects;
+            $settings->template = $templates;
+            $settings->recipient = $recipients;
+            $settings->shortcode = $shortcodes;
+            $settings->save();
+
+            return response()->json(['id'=>$id,'key'=>$key,'stkey'=>uglifyString($key)]);
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
