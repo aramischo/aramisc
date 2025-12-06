@@ -744,4 +744,6 @@ return [
 
 "style" => "Estilo",
 
+"add_notification_recipient" => "add notification recipient",
+
 ];
