@@ -35,27 +35,27 @@ trait NotificationSend
 
             foreach ($notificationData->recipient as $roleName => $recipientType) {
                 // For Super Admin Start
-                 if ($recipientType == 1) {
-                     foreach ($notificationData->destination as $key => $type) {
-                         if ($roleName == 'Super admin') {
-                             $admin = User::find(1, ['id', 'full_name', 'email', 'phone_number']);
-                             $data['user_id'] = $admin->id;
-                             $data['role_id'] = 1;
-                             $data['receiver_name'] = $admin->full_name;
-                             $data['receiver_email'] = $admin->email;
-                             $data['receiver_phone_number'] = $admin->phone_number;
-                             $data['admin_name'] = $data['receiver_name'];
-                             if ($type == 1) {
-                                 $function = 'send_' . strtolower($key);
-                                 $this->$function($notificationData, $roleName, $data);
-                             }
-                         }
-                     }
-                 }
+//                 if ($recipientType == 1) {
+//                     foreach ($notificationData->destination as $key => $type) {
+//                         if ($roleName == 'Super admin') {
+//                             $admin = User::find(1, ['id', 'full_name', 'email', 'phone_number']);
+//                             $data['user_id'] = $admin->id;
+//                             $data['role_id'] = 1;
+//                             $data['receiver_name'] = $admin->full_name;
+//                             $data['receiver_email'] = $admin->email;
+//                             $data['receiver_phone_number'] = $admin->phone_number;
+//                             $data['admin_name'] = $data['receiver_name'];
+//                             if ($type == 1) {
+//                                 $function = 'send_' . strtolower($key);
+//                                 $this->$function($notificationData, $roleName, $data);
+//                             }
+//                         }
+//                     }
+//                 }
                 // For Super Admin End
                 if ($recipientType == 1) {
-                    if(!is_null($role_names)){
-                        if (in_array($roleName, $role_names)) {
+//                    if(!is_null($role_names)){
+//                        if (in_array($roleName, $role_names)) {
                             foreach ($notificationData->destination as $key => $type) {
                                 // For Super Admin Start
                                 if ($roleName == 'Super admin') {
@@ -124,8 +124,8 @@ trait NotificationSend
                                     }
                                 }
                             }
-                        }
-                    }
+//                        }
+//                    }
                 }
             }
         } catch (\Exception $e) {
