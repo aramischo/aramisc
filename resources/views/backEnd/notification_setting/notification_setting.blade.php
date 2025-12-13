@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 text-right">
-                       <a class="btn-success btn btn-sm modalLink" style="padding: 4px 12px; color:white;"
+                       <a class="primary-btn fix-gr-bg text-nowrap modalLink" style="padding: 0px 8px; font-size: 13px"
                            title="@lang('system_settings.add_notification_recipient')"
                            data-modal-size="large-modal"
                            href="{{ route('notification_add_modal')}}"><i class="fa fa-plus-circle"></i> @lang('system_settings.add_notification_recipient')</a>
