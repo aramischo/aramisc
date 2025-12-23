@@ -6,7 +6,7 @@
     App::setLocale(getUserLanguage());
     $ttl_rtl = userRtlLtl();
     $css = "background-color:#f6f9ff;";
-    $logowrapper = 'width: 600px;padding: 0;background: transparent;text-align: center;';
+    $logowrapper = '';
 
    /* $login_background = App\AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
      $css = 'background:url("'.asset(generalSetting()->logo).'") no-repeat right;background-size: 40%;background-color:#f6f9ff;';
@@ -49,7 +49,8 @@
         .login{
             height: auto;
             min-height: 100vh;
-            padding: 50px 0px;
+            padding: 50px;
+            display: block !important;
         }
 
         .row_gap_24 input.input-control-input {
@@ -57,9 +58,18 @@
         }
 
         .login_wrapper {
-            width: 400px;
+            width: 50%;
             background: #fff;
             padding: 20px;
+            float: left;
+        }
+
+        .login_wrapper.logo{
+            width: 50%;
+            padding: 10px 0 30px;
+            background: transparent;
+            text-align: center;
+            float:right;
         }
 
         .text-danger.text-left {
@@ -81,6 +91,20 @@
         .row-gap-10 input.input-control-input {
             font-size: 11px;
         }
+
+        @media only screen and (min-width: 830px){
+            .login_wrapper.logo{
+                padding: 100px 0;
+                min-height: 350px;
+            }
+        }
+        @media only screen and (max-width: 829px){
+            .login_wrapper {
+                width: 70% !important;
+                margin: 0 15%;
+            }
+        }
+
         @media only screen and (max-width: 767px){
                 section.login {
                     place-content: center;
@@ -100,15 +124,15 @@
 <body>
 
     <section class="login" style="{{ $css }}">
-        <div class="login_wrapper pull-right" style="{{$logowrapper}}">
+        <div class="login_wrapper logo" style="{{$logowrapper}}">
             <!-- login form start -->
             <div class="login_wrapper_login_content">
                 <div class="login_wrapper_logo text-center">
-                    <img src="{{ asset(generalSetting()->logo) }}" style="max-width: 50%" alt="">
+                    <img src="{{ asset(generalSetting()->logo) }}" style="max-width: 60%" alt="">
                 </div>
             </div>
         </div>
-        <div class="login_wrapper pull-left" style="box-shadow: 0px 0px 20px 2px rgba(150, 150, 150, 0.3);border-radius: 15px;">
+        <div class="login_wrapper" style="box-shadow: 0px 0px 20px 2px rgba(150, 150, 150, 0.3);border-radius: 15px;">
             <!-- login form start -->
             <div class="login_wrapper_login_content">
                 <div class="login_wrapper_content">
