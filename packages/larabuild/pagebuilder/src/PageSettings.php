@@ -80,7 +80,8 @@ class PageSettings
                     $pageData['slug'] = null;
 
                 if (!empty($pageData['id'])) {
-                    $page = Page::where('home_page', '!=', 1)->where('school_id', auth()->user()->school_id)->find($pageData['id']);
+//                    $page = Page::where('home_page', '!=', 1)->where('school_id', auth()->user()->school_id)->find($pageData['id']);
+                    $page = Page::where('school_id', auth()->user()->school_id)->find($pageData['id']);
                     $page->name = $pageData['name'];
                     $page->title = $pageData['title'];
                     $page->description = $pageData['description'];
@@ -189,11 +190,11 @@ class PageSettings
     public function updateStatus($request)
     {
         $page = Page::find(gv($request, 'id'));
-        if ($page->home_page == 1) {
-            return response()->json(['success' => false, 'error' => 'This page is Home page']);
-        } else {
+//        if ($page->home_page == 1) {
+//            return response()->json(['success' => false, 'error' => 'This page is Home page']);
+//        } else {
             $page->update(['status' => gv($request, 'status')]);
             return response()->json(['success' => true]);
-        }
+//        }
     }
 }
