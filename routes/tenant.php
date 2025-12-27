@@ -18,36 +18,38 @@ Route::group(['middleware' => []], function () {
         if (moduleStatusCheck('Saas') == TRUE) {
             Route::get('login', 'Auth\LoginController@loginFormTwo')->name('login');
         }
-         Route::get('/', 'AramiscFrontendController@index')->name('/');
+
+        Route::get('/', 'Auth\LoginController@loginFormTwo')->name('/');
     }
 
     Route::get('login', 'Auth\LoginController@loginFormTwo')->name('login');
 
     if(!moduleStatusCheck('Saas')){
-        Route::get('/', 'AramiscFrontendController@index')->name('/');
+//        Route::get('/', 'AramiscFrontendController@index')->name('/');
+        Route::get('/', 'Auth\LoginController@loginFormTwo')->name('/');
     }
 
 
     if (activeTheme() != 'edulia') {
 
-        Route::get('home', 'AramiscFrontendController@index');
-        Route::get('about', 'AramiscFrontendController@about');
-        Route::get('course', 'AramiscFrontendController@course');
-        Route::post('load-more-course', 'AramiscFrontendController@loadMoreCourse')->name('load-more-course');
-        Route::get('course-Details/{id}', 'AramiscFrontendController@courseDetails')->name('course-Details')->where('id', '[0-9]+');
-        Route::get('news-page', 'AramiscFrontendController@newsPage');
-        Route::post('load-more-news', 'AramiscFrontendController@loadMoreNews')->name('load-more-news');
-        Route::get('news-details/{id}', 'AramiscFrontendController@newsDetails')->name('news-Details')->where('id', '[0-9]+');
-        Route::get('contact', 'AramiscFrontendController@contact');
-        Route::get('exam-result', 'AramiscFrontendController@examResult')->name('examResult');
-        Route::get('class-exam-routine', 'AramiscFrontendController@classExamRoutine')->name('class-exam-routine');
+//        Route::get('home', 'AramiscFrontendController@index');
+//        Route::get('about', 'AramiscFrontendController@about');
+//        Route::get('course', 'AramiscFrontendController@course');
+//        Route::post('load-more-course', 'AramiscFrontendController@loadMoreCourse')->name('load-more-course');
+//        Route::get('course-Details/{id}', 'AramiscFrontendController@courseDetails')->name('course-Details')->where('id', '[0-9]+');
+//        Route::get('news-page', 'AramiscFrontendController@newsPage');
+//        Route::post('load-more-news', 'AramiscFrontendController@loadMoreNews')->name('load-more-news');
+//        Route::get('news-details/{id}', 'AramiscFrontendController@newsDetails')->name('news-Details')->where('id', '[0-9]+');
+//        Route::get('contact', 'AramiscFrontendController@contact');
+//        Route::get('exam-result', 'AramiscFrontendController@examResult')->name('examResult');
+//        Route::get('class-exam-routine', 'AramiscFrontendController@classExamRoutine')->name('class-exam-routine');
     }
     //front pages without auth
     // Route::group(['middleware' => ['ThemeCheckMiddleware']], function () {
 
     // });
 
-
+    Route::get('home', 'HomeController@index');
     Route::get('change-password', 'HomeController@updatePassowrd')->name('updatePassowrd');
     Route::get('/academic_years', 'HomeController@academicUpdate');
     Route::get('/class_updates', 'HomeController@classUpdate');
