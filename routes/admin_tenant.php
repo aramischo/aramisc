@@ -1780,6 +1780,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('language-delete', 'Admin\SystemSettings\AramiscSystemSettingController@languageDelete')->name('language-delete')->middleware('userRolePermission:language-delete');
 
         Route::get('get-translation-terms', 'Admin\SystemSettings\AramiscSystemSettingController@getTranslationTerms');
+        Route::get('search-translation-terms', 'Admin\SystemSettings\AramiscSystemSettingController@searchTranslationTerms');
         Route::post('translation-term-update', 'Admin\SystemSettings\AramiscSystemSettingController@translationTermUpdate')->name('translation-term-update');
 
         //currency

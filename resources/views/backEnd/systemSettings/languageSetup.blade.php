@@ -41,8 +41,10 @@
 
                     {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'route' => 'translation-term-update', 'method' => 'POST']) }}
                     <div class="row">
-                        <div class="col-lg-3 mb-30">
-                            <div class="white-box onchangeSearch">
+                        <div class="col-lg-12 mb-30">
+                            <div class="white-box onchangeSearch" style="height:100px;">
+
+                                <div class="col-xs-12 col-sm-4 pull-left">
                                 <select class="primary_select form-control {{ $errors->has('module_id') ? ' is-invalid' : '' }}" id="module_id" name="module_id">
                                     <option data-display="Select Module *" value="">@lang('common.select_module') *</option>
                                     @foreach($modules as $key => $module)
@@ -62,20 +64,40 @@
                                         <p class="text-danger">{{ $error }}</p>
                                     @endforeach
                                 @endif
+                                </div>
+                                <div class="col-xs-12 col-sm-8 pull-left">
+                                <input class="primary_input_field form-control"
+                                   placeholder="@lang('common.search_text')"
+                                   type="text"
+                                       id="searchtesxt_id"
+                                   name="searchttext"
+                                   autocomplete="off"
+                                   value="">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-9">
+                        <div class="col-lg-12 mb-30" style="display: none" id="preloader">
+                            <div class="primary_input mb-25 pt-4" style="text-align: center;">
+                                <img height="100" class="" src="http://dev.aramisc.com/public/uploads/settings/preloader/preloader1.gif" alt="">
+                            </div>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="col-lg-12" >
                             <input type="hidden" id="url" value="{{url('/')}}">
                             <input type="hidden" id="language_universal" value="{{@$language_universal}}" name="language_universal">
                             <table class="table school-table-style" cellspacing="0" width="100%" id="language_table">
+                                <thead>
+                                <tr>
+                                    <th>File</th>
+                                    <th>Default Phrases</th>
+                                    <th>{{$language_universal}} Phrases</th>
+                                </tr>
+                                </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>Default Phrases</th>
-                                        <th>{{$language_universal}} Phrases</th>
-                                    </tr>
                                     @php $count=1; @$sms_languages =[]; @endphp
                                     @foreach($sms_languages as $row)
                                     <tr>
+                                        <td>{{@$row->en}}</td>
                                         <td>{{@$row->en}}</td>
                                         <td>
                                             <div class="primary_input">
@@ -93,6 +115,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div id="language-tables"></div>
                             <div class="pull-right">
                                 <div class="row mt-40">
                                     <div class="col-lg-12 text-center">
