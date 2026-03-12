@@ -11,7 +11,7 @@
         </a>
         <div class="Menu_NOtification_Wrap" :class="{active:open_modal}">
             <div class="notification_Header">
-                <h4>{{__('notification')}}</h4>
+                <h4>{{__('chat_notification')}}</h4>
                 <audio id="sound" :src="asset_type+'/chat/audio/notification.mp3'" muted></audio>
             </div>
             <div class="Notification_body">

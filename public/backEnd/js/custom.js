@@ -4500,56 +4500,152 @@
     });
 
     $(document).ready(function() {
+        // $("#module_id").on("change", function(e) {
+        //     e.preventDefault();
+        //     $('.submit').hide().prop('disabled', true);
+        //
+        //     $("table#language_table tr:not(:first)").remove();
+        //
+        //     var url = $("#url").val();
+        //     var lu = $("#language_universal").val();
+        //     var file = $(this).val();
+        //     var formData = {
+        //         id: file,
+        //         lu: lu
+        //     };
+        //     // get section for student
+        //     $.ajax({
+        //         type: "GET",
+        //         data: formData,
+        //         dataType: "json",
+        //         url: url + "/" + "get-translation-terms",
+        //         success: function(data) {
+        //             var appendRow = "";
+        //             $.each(data.en_terms, function(key, value) {
+        //                 console.log(data.terms[key])
+        //                 appendRow = "<tr>";
+        //                 appendRow += "<td>" + file + "</td>";
+        //                 appendRow += "<td>" + value + "</td>";
+        //                 appendRow += "<td>";
+        //
+        //                 appendRow += "<div class='input-effect'>";
+        //                 appendRow +=
+        //                     "<input class='primary_input_field type='text' name=\"LU[" +
+        //                     key +
+        //                     "]\" value=\"" +
+        //                     checkNul(data.terms[key], value) +
+        //                     "\">";
+        //
+        //                 appendRow += "<span class='focus-border'></span>";
+        //
+        //                 appendRow += "</div>";
+        //
+        //                 appendRow += "</td>";
+        //                 appendRow += "</tr>";
+        //                 $("table#language_table tr:first").after(appendRow);
+        //             });
+        //             $('.submit').show().prop('disabled', false);
+        //         },
+        //         error: function(data) {
+        //             console.log("Error:", data);
+        //         },
+        //     });
+        // });
+        var currentRequest = null;
         $("#module_id").on("change", function(e) {
-            e.preventDefault();
             $('.submit').hide().prop('disabled', true);
-
-            $("table#language_table tr:not(:first)").remove();
-
-            var url = $("#url").val();
+            $("table#language_table tbody").html("");
+            $('table#language_table').hide();
+            $('#preloader').show();
+            var st = $("#searchtesxt_id").val();
             var lu = $("#language_universal").val();
+            var url = $("#url").val();
             var formData = {
-                id: $(this).val(),
-                lu: lu
+                id: $("#module_id").val(),
+                lu: lu,
+                st: st
             };
-            // get section for student
-            $.ajax({
-                type: "GET",
-                data: formData,
-                dataType: "json",
-                url: url + "/" + "get-translation-terms",
-                success: function(data) {
-                    var appendRow = "";
-                    $.each(data.en_terms, function(key, value) {
-                        console.log(data.terms[key])
-                        appendRow = "<tr>";
-                        appendRow += "<td>" + value + "</td>";
-                        appendRow += "<td>";
+            currentRequest = $.ajax({
+            type: "GET",
+            data: formData,
+            dataType: "json",
+            url: url + "/" + "search-translation-terms",
+            success: function (data) {
+                setTranslationTermsData(data);
+                $('.submit').show().prop('disabled', false);
+                $('table#language_table').show();
+                $('#preloader').hide();
 
-                        appendRow += "<div class='input-effect'>";
-                        appendRow +=
-                            "<input class='primary_input_field type='text' name=\"LU[" +
-                            key +
-                            "]\" value=\"" +
-                            checkNul(data.terms[key], value) +
-                            "\">";
+            },
+            error: function (data) {
+                console.log("Error:", data);
+            },
+        });
+        });
 
-                        appendRow += "<span class='focus-border'></span>";
-
-                        appendRow += "</div>";
-
-                        appendRow += "</td>";
-                        appendRow += "</tr>";
-                        $("table#language_table tr:first").after(appendRow);
-                    });
-                    $('.submit').show().prop('disabled', false);
-                },
-                error: function(data) {
-                    console.log("Error:", data);
-                },
-            });
+        $("#searchtesxt_id").on("input", function(e) {
+            if (currentRequest && currentRequest.readyState != 4) {
+                currentRequest.abort();
+            }
+            $('.submit').hide().prop('disabled', true);
+            $("table#language_table tbody").html("");
+            $('table#language_table').hide();
+            $('#preloader').show();
+            var st = $("#searchtesxt_id").val();
+            var lu = $("#language_universal").val();
+            var url = $("#url").val();
+            var formData = {
+                id: $("#module_id").val(),
+                lu: lu,
+                st: st
+            };
+            currentRequest = $.ajax({
+            type: "GET",
+            data: formData,
+            dataType: "json",
+            url: url + "/" + "search-translation-terms",
+            success: function (data) {
+                setTranslationTermsData(data);
+                $('.submit').show().prop('disabled', false);
+                $('table#language_table').show();
+                $('#preloader').hide();
+                currentRequest = null;
+            },
+            error: function (data) {
+                console.log("Error:", data);
+                currentRequest = null;
+            },
+        });
         });
     });
+
+    function setTranslationTermsData(data) {
+
+        $.each(data.en_terms, function(file, values) {
+            var appendRow = "";
+            $.each(values, function(key, value) {
+                appendRow = "<tr>";
+                appendRow += "<td>" + file + "</td>";
+                appendRow += "<td>" + key + "</td>";
+                appendRow += "<td>";
+
+                appendRow += "<div class='input-effect'>";
+                appendRow +=
+                    '<input class="primary_input_field" ' +
+                    'type="text" ' +
+                    'name="LU[' +file+']['+ key + ']" ' +
+                    'value="' + checkNul(data.terms[file][key], value) + '">';
+
+                appendRow += "<span class='focus-border'></span>";
+
+                appendRow += "</div>";
+
+                appendRow += "</td>";
+                appendRow += "</tr>";
+                $("table#language_table tbody").append(appendRow);
+            });
+        });
+    }
 
     function checkNul(value, en_value){
         if(typeof value == "undefined"){
