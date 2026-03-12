@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-lg-12 mb-30" style="display: none" id="preloader">
                             <div class="primary_input mb-25 pt-4" style="text-align: center;">
-                                <img height="100" class="" src="http://dev.aramisc.com/public/uploads/settings/preloader/preloader1.gif" alt="">
+                                <img height="100" class="" src="{{ asset('/public/uploads/settings/preloader/preloader1.gif') }}" alt="">
                             </div>
                         </div>
                         <div class="clear clearfix"></div>
