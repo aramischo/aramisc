@@ -4572,7 +4572,9 @@
             url: url + "/" + "search-translation-terms",
             success: function (data) {
                 setTranslationTermsData(data);
-                $('.submit').show().prop('disabled', false);
+                if($("table#language_table tbody tr").length >0) {
+                    $('.submit').show().prop('disabled', false);
+                }
                 $('table#language_table').show();
                 $('#preloader').hide();
 
@@ -4606,7 +4608,9 @@
             url: url + "/" + "search-translation-terms",
             success: function (data) {
                 setTranslationTermsData(data);
-                $('.submit').show().prop('disabled', false);
+                if($("table#language_table tbody tr").length >0) {
+                    $('.submit').show().prop('disabled', false);
+                }
                 $('table#language_table').show();
                 $('#preloader').hide();
                 currentRequest = null;
