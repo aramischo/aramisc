@@ -2114,91 +2114,99 @@ class AramiscSystemSettingController extends Controller
         try {
             $terms = [];
             $en_terms = [];
-            $mfiles = [];
-            $searchtxt = $request->st;
-            if(isset($request->id) && !empty($request->id)) {
-                $file ="";
-                $en_file ="";
-                $bfile = explode('::', $request->id);
-                $bfile_name = gv($bfile, 1);
-                $module = gv($bfile, 0, 'base');
-                if ($module == 'base') {
-                    $file = resource_path('lang/' . $request->lu . '/' . $bfile_name . '.php');
-                    $en_file = resource_path('lang/en/' . $bfile_name . '.php');
-                } else {
-                    $file = module_path($module) . '/Resources/lang/' . $request->lu . '/' . $bfile_name . '.php';
-                    $en_file = module_path($module) . '/Resources/lang/en/' . $bfile_name . '.php';
-                }
 
-                $exists = null;
-
-                if ($file!="" && File::exists($file)){
-//                    $mfiles[$request->id] = include  "{$file}";
-                    $mfiles[$request->id] = $file;
-                }
-//                if ($en_file!="" && File::exists($en_file)){
-//                    $mfiles[$request->id] = include  "{$en_file}";
-//                }
-
-            }
-            else{
-
-                $basefiles = scandir(resource_path( 'lang/' . $request->lu));
-                $basefiles = (count($basefiles)>0) ? array_filter($basefiles,function ($fl){return $fl != '.' &&  $fl != '..'; }) : $basefiles;
-                if(count($basefiles)){
-                    foreach($basefiles as $key => $bfile){
-                        if($bfile != '.' &&  $bfile != '..'){
-                            $filename = 'base::'.str_replace('.php','',$bfile);
-                            $mfiles[$filename] = resource_path( 'lang/' . $request->lu . '/' . $bfile);
-                        }
+            if (
+                (isset($request->id) && !empty($request->id))
+                || (isset($request->st) && !empty($request->st))
+            ) {
+                $mfiles = [];
+                $searchtxt = $request->st;
+                if (isset($request->id) && !empty($request->id)) {
+                    $file = "";
+                    $en_file = "";
+                    $bfile = explode('::', $request->id);
+                    $bfile_name = gv($bfile, 1);
+                    $module = gv($bfile, 0, 'base');
+                    if ($module == 'base') {
+                        $file = resource_path('lang/' . $request->lu . '/' . $bfile_name . '.php');
+                        $en_file = resource_path('lang/en/' . $bfile_name . '.php');
+                    } else {
+                        $file = module_path($module) . '/Resources/lang/' . $request->lu . '/' . $bfile_name . '.php';
+                        $en_file = module_path($module) . '/Resources/lang/en/' . $bfile_name . '.php';
                     }
+
+                    $exists = null;
+
+                    if ($file != "" && File::exists($file)) {
+    //                    $mfiles[$request->id] = include  "{$file}";
+                        $mfiles[$request->id] = $file;
+                    }
+    //                if ($en_file!="" && File::exists($en_file)){
+    //                    $mfiles[$request->id] = include  "{$en_file}";
+    //                }
+
                 }
-                
-                $modulesfiles= [];
-                $modules = Module::all();
-                foreach ($modules as $module) {
-                    $fl = module_path($module->getName()) . '/Resources/lang/' . $request->lu;
-                    if(file_exists($fl) && is_dir($fl)){
-                        $dirfiles = scandir($fl);
-                        foreach($dirfiles as $key => $dfile){
-                            if($dfile != '.' &&  $dfile != '..'){
-                                $filename = $module->getName().'::'.str_replace('.php','',$dfile);
-                                $mfiles[$filename] = $fl .'/' .$dfile;
+                else {
+
+                    $basefiles = scandir(resource_path('lang/' . $request->lu));
+                    $basefiles = (count($basefiles) > 0) ? array_filter($basefiles, function ($fl) {
+                        return $fl != '.' && $fl != '..';
+                    }) : $basefiles;
+                    if (count($basefiles)) {
+                        foreach ($basefiles as $key => $bfile) {
+                            if ($bfile != '.' && $bfile != '..') {
+                                $filename = 'base::' . str_replace('.php', '', $bfile);
+                                $mfiles[$filename] = resource_path('lang/' . $request->lu . '/' . $bfile);
                             }
                         }
                     }
-                }
 
-            }
-            if(count($mfiles)){
-                foreach($mfiles as $mkey => $file){
-                    $content = include "{$file}";
-                    $fullpathen = str_replace('/fr/','/en/',$file);
-                    if($searchtxt != null && trim($searchtxt) != "") {
-                        $exsitst = array_filter($content, function ($row, $fkey) use ($searchtxt) {
-                            if (str_contains(strtolower($fkey), strtolower($searchtxt))) {
-                                return true;
-                            } else {
-                                if (is_array($row) && count($row) > 0) {
-                                    return array_filter($row, function ($elem) use ($searchtxt) {
-                                        return str_contains(strtolower($elem), strtolower($searchtxt));
-                                    });
-                                } elseif (str_contains(strtolower($row), strtolower($searchtxt))) {
-                                    return true;
+                    $modulesfiles = [];
+                    $modules = Module::all();
+                    foreach ($modules as $module) {
+                        $fl = module_path($module->getName()) . '/Resources/lang/' . $request->lu;
+                        if (file_exists($fl) && is_dir($fl)) {
+                            $dirfiles = scandir($fl);
+                            foreach ($dirfiles as $key => $dfile) {
+                                if ($dfile != '.' && $dfile != '..') {
+                                    $filename = $module->getName() . '::' . str_replace('.php', '', $dfile);
+                                    $mfiles[$filename] = $fl . '/' . $dfile;
                                 }
                             }
-                        }, ARRAY_FILTER_USE_BOTH);
-                    }else{
-                        $exsitst = $content;
+                        }
                     }
 
-                    if(is_array($exsitst) && count($exsitst)>0){
-                        $terms[$mkey] = $exsitst;
-                        if(file_exists($fullpathen)) {
-                            $enterms = include "{$fullpathen}";
-                            foreach ($exsitst as $exkey => $value) {
-                                if(isset($enterms[$exkey])){
-                                    $en_terms[$mkey][$exkey] = $enterms[$exkey];
+                }
+                if (count($mfiles)) {
+                    foreach ($mfiles as $mkey => $file) {
+                        $content = include "{$file}";
+                        $fullpathen = str_replace('/fr/', '/en/', $file);
+                        if ($searchtxt != null && trim($searchtxt) != "") {
+                            $exsitst = array_filter($content, function ($row, $fkey) use ($searchtxt) {
+                                if (str_contains(strtolower($fkey), strtolower($searchtxt))) {
+                                    return true;
+                                } else {
+                                    if (is_array($row) && count($row) > 0) {
+                                        return array_filter($row, function ($elem) use ($searchtxt) {
+                                            return str_contains(strtolower($elem), strtolower($searchtxt));
+                                        });
+                                    } elseif (str_contains(strtolower($row), strtolower($searchtxt))) {
+                                        return true;
+                                    }
+                                }
+                            }, ARRAY_FILTER_USE_BOTH);
+                        } else {
+                            $exsitst = $content;
+                        }
+
+                        if (is_array($exsitst) && count($exsitst) > 0) {
+                            $terms[$mkey] = $exsitst;
+                            if (file_exists($fullpathen)) {
+                                $enterms = include "{$fullpathen}";
+                                foreach ($exsitst as $exkey => $value) {
+                                    if (isset($enterms[$exkey])) {
+                                        $en_terms[$mkey][$exkey] = $enterms[$exkey];
+                                    }
                                 }
                             }
                         }
