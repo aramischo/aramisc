@@ -271,19 +271,22 @@
     });
     $(document).ready(function() {
         $("#languageChange").on("change", function() {
-
             var url = $("#url").val();
             var formData = {
                 id: $(this).val(),
             };
-            console.log(formData);
+            var loaderImg = '<img src="/public/backEnd/img/demo_wait.gif" alt="Loading..." style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">';
+            toastr.success(jsLang('please wait ') + loaderImg, jsLang('processing language change'), {timeOut: 10000});
             $.ajax({
                 type: "GET",
                 data: formData,
                 dataType: "json",
                 url: url + "/" + "user-language-change?",
                 success: function(data) {
-                    location.reload();
+                    setTimeout(function(){
+                        location.reload();
+                    },1000);
+
                 },
                 error: function (err){
                     console.log(err);

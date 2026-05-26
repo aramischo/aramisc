@@ -498,12 +498,37 @@ if (!function_exists('dateConvert')) {
                 session()->put('system_date_format', $system_date_format);
             }
 
-//            $slang = session()->get('selected_language');
-//            $userlang = session()->get('user_language');
-//            $language = ($slang) ? $slang : (($userlang) ? $userlang : 'en');
-//            $system_date_format = ($language =='fr') ? 'd/m/Y' : 'Y-m-d';
+            $slang = session()->get('selected_language');
+            $userlang = session()->get('user_language');
+            $language = ($slang) ? $slang : (($userlang) ? $userlang : 'en');
+            $system_date_format = ($language =='fr') ? 'd/m/Y' : 'Y-m-d';
 
             return \Carbon\Carbon::createFromFormat('Y-m-d', $input_date)->format($system_date_format);
+        } catch (\Throwable $th) {
+
+            return $input_date;
+        }
+    }
+}
+
+if (!function_exists('toDbDateConvert')) {
+
+    function toDbDateConvert($input_date)
+    {
+        try {
+            $system_date_format = session()->get('system_date_format');
+            if (empty($system_date_format)) {
+                $date_format_id = AramiscGeneralSettings::where('id', 1)->first(['date_format_id'])->date_format_id;
+                $system_date_format = AramiscDateFormat::where('id', $date_format_id)->first(['format'])->format;
+                session()->put('system_date_format', $system_date_format);
+            }
+
+            $slang = session()->get('selected_language');
+            $userlang = session()->get('user_language');
+            $language = ($slang) ? $slang : (($userlang) ? $userlang : 'en');
+            $system_date_format = ($language =='fr') ? 'd/m/Y' : 'Y-m-d';
+
+            return \Carbon\Carbon::createFromFormat($system_date_format, $input_date)->format('Y-m-d');
         } catch (\Throwable $th) {
 
             return $input_date;
