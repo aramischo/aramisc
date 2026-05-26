@@ -45,6 +45,8 @@ class ClassAttendanceController extends Controller
                 }])
                 ->where('school_id', auth()->user()->school_id)
                 ->where('teacher_id', $teacherId)
+                ->groupBy('class_id')
+                ->distinct()
                 ->get()->map(function ($class) {
                     return [
                         'id'            => (int)$class->class->id,
