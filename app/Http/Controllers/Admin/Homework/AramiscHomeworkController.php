@@ -616,10 +616,11 @@ class AramiscHomeworkController extends Controller
     {
         try {
             $destination = "public/uploads/homeworkcontent/";
+
             if (moduleStatusCheck('University')) {
                 $homeworks = AramiscHomework::find($request->id);
-                $homeworks->homework_date = date('Y-m-d', strtotime($request->homework_date));
-                $homeworks->submission_date = date('Y-m-d', strtotime($request->submission_date));
+                $homeworks->homework_date = toDbDateConvert($request->homework_date);
+                $homeworks->submission_date = toDbDateConvert($request->submission_date);
                 $homeworks->marks = $request->marks;
                 $homeworks->description = $request->description;
                 $homeworks->file = fileUpdate($homeworks->file, $request->homework_file, $destination);
@@ -635,8 +636,8 @@ class AramiscHomeworkController extends Controller
 
             if ($request->status == "lmsHomework") {
                 $homeworks = AramiscHomework::find($request->id);
-                $homeworks->homework_date = date('Y-m-d', strtotime($request->homework_date));
-                $homeworks->submission_date = date('Y-m-d', strtotime($request->submission_date));
+                $homeworks->homework_date = toDbDateConvert($request->homework_date);
+                $homeworks->submission_date = toDbDateConvert($request->submission_date);
                 $homeworks->marks = $request->marks;
                 $homeworks->description = $request->description;
                 $homeworks->file = fileUpdate($homeworks->file, $request->homework_file, $destination);
@@ -646,8 +647,8 @@ class AramiscHomeworkController extends Controller
                 $homeworks->class_id = $request->class_id;
                 $homeworks->section_id = $request->section_id;
                 $homeworks->subject_id = $request->subject_id;
-                $homeworks->homework_date = date('Y-m-d', strtotime($request->homework_date));
-                $homeworks->submission_date = date('Y-m-d', strtotime($request->submission_date));
+                $homeworks->homework_date = toDbDateConvert($request->homework_date);
+                $homeworks->submission_date = toDbDateConvert($request->submission_date);
                 $homeworks->marks = $request->marks;
                 $homeworks->description = $request->description;
                 $homeworks->file = fileUpdate($homeworks->file, $request->homework_file, $destination);
