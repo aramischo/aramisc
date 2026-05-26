@@ -38,8 +38,8 @@ class AramiscEventController extends Controller
             $events->role_ids = json_encode($request->role_ids);
             $events->event_des = $request->event_des;
             $events->event_location = $request->event_location;
-            $events->from_date = date('Y-m-d', strtotime($request->from_date));
-            $events->to_date = date('Y-m-d', strtotime($request->to_date));
+            $events->from_date = toDbDateConvert($request->from_date);
+            $events->to_date = toDbDateConvert($request->to_date);
             $events->url = $request->url;
             $events->created_by = auth()->user()->id;
             $events->uplad_image_file =fileUpload($request->upload_file_name,$destination);
@@ -104,8 +104,8 @@ class AramiscEventController extends Controller
             $events->role_ids = json_encode($request->role_ids);
             $events->event_des = $request->event_des;
             $events->event_location = $request->event_location;
-            $events->from_date = date('Y-m-d', strtotime($request->from_date));
-            $events->to_date = date('Y-m-d', strtotime($request->to_date));
+            $events->from_date = toDbDateConvert($request->from_date);
+            $events->to_date = toDbDateConvert($request->to_date);
             $events->url = $request->url;
             $events->updated_by = auth()->user()->id;
             $events->uplad_image_file = fileUpdate($events->uplad_image_file,$request->upload_file_name,$destination);

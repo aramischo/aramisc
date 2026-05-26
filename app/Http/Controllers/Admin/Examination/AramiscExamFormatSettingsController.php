@@ -53,10 +53,10 @@ class AramiscExamFormatSettingsController extends Controller
             $add_content = new AramiscExamSetting();
             $add_content->exam_type = $request->exam_type;
             $add_content->title = $request->title;
-            $add_content->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $add_content->publish_date = toDbDateConvert($request->publish_date);
             $add_content->file = fileUpload($request->file, $destination);
-            $add_content->start_date = $request->start_date ? date('Y-m-d', strtotime($request->start_date)): null;
-            $add_content->end_date = $request->end_date ? date('Y-m-d', strtotime($request->end_date)) : null;
+            $add_content->start_date = $request->start_date ? toDbDateConvert($request->start_date): null;
+            $add_content->end_date = $request->end_date ? toDbDateConvert($request->end_date) : null;
             $add_content->school_id = Auth::user()->school_id;
             $add_content->academic_id = getAcademicId();
             $add_content->save();
@@ -101,9 +101,9 @@ class AramiscExamFormatSettingsController extends Controller
             $update_add_content = AramiscExamSetting::find($request->id);
             $update_add_content->exam_type = $request->exam_type;
             $update_add_content->title = $request->title;
-            $update_add_content->publish_date = date('Y-m-d', strtotime($request->publish_date));
-            $update_add_content->start_date = $request->start_date ? date('Y-m-d', strtotime($request->start_date)) : null;
-            $update_add_content->end_date = $request->end_date ? date('Y-m-d', strtotime($request->end_date)) : null;
+            $update_add_content->publish_date = toDbDateConvert($request->publish_date);
+            $update_add_content->start_date = $request->start_date ? toDbDateConvert($request->start_date) : null;
+            $update_add_content->end_date = $request->end_date ? toDbDateConvert($request->end_date) : null;
             $update_add_content->school_id = Auth::user()->school_id;
             $update_add_content->academic_id = getAcademicId();
             $update_add_content->file = fileUpdate($update_add_content->file, $request->file, $destination);

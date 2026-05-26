@@ -115,8 +115,8 @@ class AramiscHomeworkController extends Controller
                     foreach ($sections as $section) {
                         $homeworks = new AramiscHomework();
                         $homeworks->un_subject_id = $request->un_subject_id;
-                        $homeworks->homework_date = date('Y-m-d', strtotime($request->homework_date));
-                        $homeworks->submission_date = date('Y-m-d', strtotime($request->submission_date));
+                        $homeworks->homework_date = toDbDateConvert($request->homework_date);
+                        $homeworks->submission_date = toDbDateConvert($request->submission_date);
                         $homeworks->marks = $request->marks;
                         $homeworks->description = $request->description;
                         $homeworks->file = $upload_file;
@@ -130,8 +130,8 @@ class AramiscHomeworkController extends Controller
                 } else {
                     $homeworks = new AramiscHomework();
                     $homeworks->un_subject_id = $request->un_subject_id;
-                    $homeworks->homework_date = date('Y-m-d', strtotime($request->homework_date));
-                    $homeworks->submission_date = date('Y-m-d', strtotime($request->submission_date));
+                    $homeworks->homework_date = toDbDateConvert($request->homework_date);
+                    $homeworks->submission_date = toDbDateConvert($request->submission_date);
                     $homeworks->marks = $request->marks;
                     $homeworks->description = $request->description;
                     $homeworks->file = $upload_file;
@@ -157,8 +157,8 @@ class AramiscHomeworkController extends Controller
                         $homeworks->class_id = $classe->class_id;
                         $homeworks->section_id = $classe->section_id;
                         $homeworks->subject_id = $request->subject_id;
-                        $homeworks->homework_date = date('Y-m-d', strtotime($request->homework_date));
-                        $homeworks->submission_date = date('Y-m-d', strtotime($request->submission_date));
+                        $homeworks->homework_date = toDbDateConvert($request->homework_date);
+                        $homeworks->submission_date = toDbDateConvert($request->submission_date);
                         $homeworks->marks = $request->marks;
                         $homeworks->description = $request->description;
                         $homeworks->file = $upload_file;
@@ -180,8 +180,8 @@ class AramiscHomeworkController extends Controller
                         $homeworks->class_id = $request->class_id;
                         $homeworks->section_id = $section;
                         $homeworks->subject_id = $request->subject_id;
-                        $homeworks->homework_date = date('Y-m-d', strtotime($request->homework_date));
-                        $homeworks->submission_date = date('Y-m-d', strtotime($request->submission_date));
+                        $homeworks->homework_date = toDbDateConvert($request->homework_date);
+                        $homeworks->submission_date = toDbDateConvert($request->submission_date);
                         $homeworks->marks = $request->marks;
                         $homeworks->description = $request->description;
                         $homeworks->file = $upload_file;
@@ -825,7 +825,7 @@ class AramiscHomeworkController extends Controller
                     $query->where('un_subject_id', $request->un_subject_id);
                 })
                 ->when($request->date, function ($query) use ($request) {
-                    $query->where('homework_date', date('Y-m-d', strtotime($request->date)));
+                    $query->where('homework_date', toDbDateConvert($request->date));
                 });
             $homeworks = $homeworks->with('class.students.studentDetail', 'unSection.section', 'subjects', 'evaluatedBy')->get();
             foreach ($homeworks as $hw) {

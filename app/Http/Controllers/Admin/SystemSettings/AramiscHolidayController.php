@@ -40,8 +40,8 @@ class AramiscHolidayController extends Controller
             $holidays = new AramiscHoliday();
             $holidays->holiday_title = $request->holiday_title;
             $holidays->details = $request->details;
-            $holidays->from_date = date('Y-m-d', strtotime($request->from_date));
-            $holidays->to_date = date('Y-m-d', strtotime($request->to_date));
+            $holidays->from_date = toDbDateConvert($request->from_date);
+            $holidays->to_date = toDbDateConvert($request->to_date);
             $holidays->created_by = Auth::user()->id;
             $holidays->upload_image_file = fileUpload($request->upload_file_name,$destination);
             $holidays->school_id = Auth::user()->school_id;
@@ -84,8 +84,8 @@ class AramiscHolidayController extends Controller
 
             $holidays->holiday_title = $request->holiday_title;
             $holidays->details = $request->details;
-            $holidays->from_date = date('Y-m-d', strtotime($request->from_date));
-            $holidays->to_date = date('Y-m-d', strtotime($request->to_date));
+            $holidays->from_date = toDbDateConvert($request->from_date);
+            $holidays->to_date = toDbDateConvert($request->to_date);
             $holidays->updated_by = auth()->user()->id;
             $holidays->upload_image_file =  fileUpdate($holidays->upload_image_file,$request->upload_file_name,$destination);
             $holidays->update();

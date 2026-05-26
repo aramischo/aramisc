@@ -126,7 +126,7 @@ class AramiscSubjectAttendanceController extends Controller
             foreach ($request->attendance as $record_id => $student) {
                 $attendance = AramiscSubjectAttendance::where('student_id', gv($student, 'student'))
                     ->where('subject_id', $request->subject)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                    ->where('attendance_date', toDbDateConvert($request->date))
                     ->where('class_id', gv($student, 'class'))
                     ->where('section_id', gv($student, 'section'))
                     ->where('student_record_id', $record_id)
@@ -148,7 +148,7 @@ class AramiscSubjectAttendanceController extends Controller
                 $attendance->notes = gv($student, 'note');
                 $attendance->school_id = Auth::user()->school_id;
                 $attendance->academic_id = getAcademicId();
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
+                $attendance->attendance_date = toDbDateConvert($request->date);
                 $r = $attendance->save();
 
                 $student_user_id = AramiscStudent::find($attendance->student_id)->user_id;
@@ -249,7 +249,7 @@ class AramiscSubjectAttendanceController extends Controller
                 $attendance_type = gv($student, 'attendance_type') ? gv($student, 'attendance_type') : 'A';
                 $attendance = AramiscSubjectAttendance::where('student_id', gv($student, 'student'))
                     ->where('subject_id', $request->subject)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                    ->where('attendance_date', toDbDateConvert($request->attendance_date))
                     ->where('class_id', gv($student, 'class'))
                     ->where('section_id', gv($student, 'section'))
                     ->where('student_record_id', $record_id)
@@ -270,7 +270,7 @@ class AramiscSubjectAttendanceController extends Controller
                 $attendance->notes = gv($student, 'note');
                 $attendance->school_id = Auth::user()->school_id;
                 $attendance->academic_id = getAcademicId();
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                $attendance->attendance_date = toDbDateConvert($request->attendance_date);
                 $r = $attendance->save();
             }
             return response()->json('success');
@@ -301,7 +301,7 @@ class AramiscSubjectAttendanceController extends Controller
             foreach ($students as $record) {
                 $attendance = AramiscSubjectAttendance::where('student_id', $record->student_id)
                     ->where('subject_id', $request->subject_id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                    ->where('attendance_date', toDbDateConvert($request->attendance_date))
                     ->where('class_id', $request->class_id)->where('section_id', $request->section_id)
                     ->where('student_record_id', $record->id)
                     ->where('academic_id', getAcademicId())
@@ -312,7 +312,7 @@ class AramiscSubjectAttendanceController extends Controller
                     $attendance = new AramiscSubjectAttendance();
                     $attendance->attendance_type = "H";
                     $attendance->notes = "Holiday";
-                    $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                    $attendance->attendance_date = toDbDateConvert($request->attendance_date);
                     $attendance->student_id = $record->student_id;
                     $attendance->subject_id = $request->subject_id;
                     $attendance->student_record_id = $record->id;
@@ -325,7 +325,7 @@ class AramiscSubjectAttendanceController extends Controller
                     $attendance = new AramiscSubjectAttendance();
                     $attendance->attendance_type = "H";
                     $attendance->notes = "Holiday";
-                    $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                    $attendance->attendance_date = toDbDateConvert($request->attendance_date);
                     $attendance->student_id = $record->student_id;
                     $attendance->subject_id = $request->subject_id;
 
@@ -400,7 +400,7 @@ class AramiscSubjectAttendanceController extends Controller
             foreach ($students as $record) {
                 $attendance = AramiscSubjectAttendance::where('student_id', $record->student_id)
                     ->where('subject_id', $request->subject_id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                    ->where('attendance_date', toDbDateConvert($request->attendance_date))
                     ->where('class_id', $request->class_id)->where('section_id', $request->section_id)
                     ->where('student_record_id', $record->id)
                     ->where('academic_id', getAcademicId())

@@ -87,7 +87,7 @@ class AramiscItemReceiveController extends Controller
             $itemReceives->supplier_id = $request->supplier_id;
             $itemReceives->store_id = $request->store_id;
             $itemReceives->reference_no = $request->reference_no;
-            $itemReceives->receive_date = date('Y-m-d', strtotime($request->receive_date));
+            $itemReceives->receive_date = toDbDateConvert($request->receive_date);
             $itemReceives->grand_total = $request->subTotalValue;
             $itemReceives->total_quantity = $request->subTotalQuantityValue;
             $itemReceives->total_paid = $total_paid;
@@ -107,7 +107,7 @@ class AramiscItemReceiveController extends Controller
 
             $add_expense = new AramiscAddExpense();
             $add_expense->name = 'Item Receive';
-            $add_expense->date = date('Y-m-d', strtotime($request->receive_date));
+            $add_expense->date = toDbDateConvert($request->receive_date);
             $add_expense->amount = $total_paid;
             $add_expense->item_receive_id = $itemReceives->id;
             $add_expense->active_status = 1;
@@ -135,7 +135,7 @@ class AramiscItemReceiveController extends Controller
                 $bank_statement->type= 0;
                 $bank_statement->details= "Item Receive Payment";
                 $bank_statement->item_receive_id= $itemReceives->id;
-                $bank_statement->payment_date= date('Y-m-d', strtotime($request->receive_date));
+                $bank_statement->payment_date= toDbDateConvert($request->receive_date);
                 $bank_statement->bank_id= $request->bank_id;
                 $bank_statement->school_id=Auth::user()->school_id;
                 $bank_statement->payment_method= $request->payment_method;
@@ -267,7 +267,7 @@ class AramiscItemReceiveController extends Controller
             $itemReceives->supplier_id = $request->supplier_id;
             $itemReceives->store_id = $request->store_id;
             $itemReceives->reference_no = $request->reference_no;
-            $itemReceives->receive_date = date('Y-m-d', strtotime($request->receive_date));
+            $itemReceives->receive_date = toDbDateConvert($request->receive_date);
             $itemReceives->grand_total = $request->subTotalValue;
             $itemReceives->total_quantity = $request->subTotalQuantityValue;
             $itemReceives->total_paid = $total_paid;
@@ -281,7 +281,7 @@ class AramiscItemReceiveController extends Controller
 
             $add_expense = new AramiscAddExpense();
             $add_expense->name = 'Item Receive';
-            $add_expense->date = date('Y-m-d', strtotime($request->receive_date));
+            $add_expense->date = toDbDateConvert($request->receive_date);
             $add_expense->amount = $total_paid;
             $add_expense->item_receive_id = $itemReceives->id;
             $add_expense->active_status = 1;
@@ -313,7 +313,7 @@ class AramiscItemReceiveController extends Controller
                 $bank_statement->type= 0;
                 $bank_statement->details= "Item Receive Payment";
                 $bank_statement->item_receive_id= $itemReceives->id;
-                $bank_statement->payment_date= date('Y-m-d', strtotime($request->receive_date));
+                $bank_statement->payment_date= toDbDateConvert($request->receive_date);
                 $bank_statement->bank_id= $request->bank_id;
                 $bank_statement->school_id= Auth::user()->school_id;
                 $bank_statement->payment_method= $request->payment_method;
@@ -417,7 +417,7 @@ class AramiscItemReceiveController extends Controller
         try {
             $payments = new AramiscInventoryPayment();
             $payments->item_receive_sell_id = $request->item_receive_id;
-            $payments->payment_date = date('Y-m-d', strtotime($request->payment_date));
+            $payments->payment_date = toDbDateConvert($request->payment_date);
             $payments->reference_no = $request->reference_no;
             $payments->amount = $request->amount;
             $payments->payment_method = $request->payment_method;
@@ -449,7 +449,7 @@ class AramiscItemReceiveController extends Controller
 
                 $add_expense = new AramiscAddExpense();
                 $add_expense->name = 'Item Receive';
-                $add_expense->date = date('Y-m-d', strtotime($request->payment_date));
+                $add_expense->date = toDbDateConvert($request->payment_date);
                 $add_expense->amount = $request->amount;
                 $add_expense->item_receive_id = $request->item_receive_id;
                 $add_expense->active_status = 1;
@@ -478,7 +478,7 @@ class AramiscItemReceiveController extends Controller
                     $bank_statement->details= "Item Receive Payment";
                     $bank_statement->item_receive_id= $request->item_receive_id;
                     $bank_statement->item_receive_bank_statement_id = $payments->id;
-                    $bank_statement->payment_date= date('Y-m-d', strtotime($request->payment_date));
+                    $bank_statement->payment_date= toDbDateConvert($request->payment_date);
                     $bank_statement->bank_id= $request->bank_id;
                     $bank_statement->school_id= Auth::user()->school_id;
                     $bank_statement->payment_method= $request->payment_method;

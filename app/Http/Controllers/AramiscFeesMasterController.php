@@ -78,7 +78,7 @@ class AramiscFeesMasterController extends Controller
                 $fees_master = new AramiscFeesMaster();
                 $fees_master->fees_group_id = $fees_type->fees_group_id;
                 $fees_master->fees_type_id = $request->fees_type;
-                $fees_master->date = date('Y-m-d', strtotime($request->date));
+                $fees_master->date = toDbDateConvert($request->date);
                 $fees_master->school_id = Auth::user()->school_id;
                 $fees_master->academic_id = getAcademicId();
                 $fees_master->amount = $request->amount;
@@ -153,7 +153,7 @@ class AramiscFeesMasterController extends Controller
                 $fees_master = AramiscFeesMaster::where('id',$request->id)->where('school_id',Auth::user()->school_id)->first();
             }
             $fees_master->fees_type_id = $request->fees_type;
-            $fees_master->date = date('Y-m-d', strtotime($request->date));
+            $fees_master->date = toDbDateConvert($request->date);
             $fees_master->amount = $request->amount;
             $fees_master->fees_group_id = $fees_type->fees_group_id;
             $result = $fees_master->save();

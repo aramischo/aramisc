@@ -59,11 +59,11 @@ class AramiscLeaveRequestController extends Controller
             $apply_leave = new AramiscLeaveRequest();
             $apply_leave->staff_id = auth()->user()->id;
             $apply_leave->role_id = auth()->user()->role_id;
-            $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
+            $apply_leave->apply_date = toDbDateConvert($request->apply_date);
             $apply_leave->leave_define_id = $request->leave_define_id;
             $apply_leave->type_id = $leaveDefine->type_id;
-            $apply_leave->leave_from = date('Y-m-d', strtotime($request->leave_from));
-            $apply_leave->leave_to = date('Y-m-d', strtotime($request->leave_to));
+            $apply_leave->leave_from = toDbDateConvert($request->leave_from);
+            $apply_leave->leave_to = toDbDateConvert($request->leave_to);
             $apply_leave->approve_status = 'P';
             $apply_leave->reason = $request->reason;
             if ($request->file('attach_file') != "") {
@@ -136,9 +136,9 @@ class AramiscLeaveRequestController extends Controller
         try {
             $path = 'public/uploads/leave_request/';
             $apply_leave = AramiscLeaveRequest::find($request->id);
-            $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
-            $apply_leave->leave_from = date('Y-m-d', strtotime($request->leave_from));
-            $apply_leave->leave_to = date('Y-m-d', strtotime($request->leave_to));
+            $apply_leave->apply_date = toDbDateConvert($request->apply_date);
+            $apply_leave->leave_from = toDbDateConvert($request->leave_from);
+            $apply_leave->leave_to = toDbDateConvert($request->leave_to);
             $apply_leave->approve_status = 'P';
             $apply_leave->reason = $request->reason;
             if ($request->file != "") {

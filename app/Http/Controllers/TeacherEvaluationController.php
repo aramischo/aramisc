@@ -35,8 +35,8 @@ class TeacherEvaluationController extends Controller
             if ($request->type == 'submission') {
                 $teacherEvaluationSetting->submitted_by = $request->submitted_by ? $request->submitted_by : $teacherEvaluationSetting->submitted_by;
                 $teacherEvaluationSetting->rating_submission_time = $request->rating_submission_time;
-                $teacherEvaluationSetting->from_date = date('Y-m-d', strtotime($request->startDate));
-                $teacherEvaluationSetting->to_date = date('Y-m-d', strtotime($request->endDate));
+                $teacherEvaluationSetting->from_date = toDbDateConvert($request->startDate);
+                $teacherEvaluationSetting->to_date = toDbDateConvert($request->endDate);
             }
             $teacherEvaluationSetting->update();
             return redirect()->back();

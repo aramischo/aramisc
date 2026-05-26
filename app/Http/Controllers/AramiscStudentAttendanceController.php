@@ -98,7 +98,7 @@ class AramiscStudentAttendanceController extends Controller
             $attendance_type = "";
             foreach ($students as $student) {
                 $attendance = AramiscStudentAttendance::where('student_id', $student->id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                    ->where('attendance_date', toDbDateConvert($request->attendance_date))
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
@@ -140,10 +140,10 @@ class AramiscStudentAttendanceController extends Controller
 
     public function studentAttendanceStore(Request $request)
     {
-        $attendance = AramiscStudentAttendance::where('student_id', $request->student_id)->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))->first();
+        $attendance = AramiscStudentAttendance::where('student_id', $request->student_id)->where('attendance_date', toDbDateConvert($request->attendance_date))->first();
         try {
             foreach ($request->id as $student) {
-                $attendance = AramiscStudentAttendance::where('student_id', $student)->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                $attendance = AramiscStudentAttendance::where('student_id', $student)->where('attendance_date', toDbDateConvert($request->date))
                     ->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->first();
 
                 if ($attendance) {
@@ -158,7 +158,7 @@ class AramiscStudentAttendanceController extends Controller
                     $attendance->attendance_type = $request->attendance[$student];
                     $attendance->notes = $request->note[$student];
                 }
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
+                $attendance->attendance_date = toDbDateConvert($request->date);
                 $attendance->school_id = Auth::user()->school_id;
                 $attendance->academic_id = getAcademicId();
                 $attendance->save();
@@ -208,7 +208,7 @@ class AramiscStudentAttendanceController extends Controller
             foreach ($students as $student) {
 
                 $attendance = AramiscStudentAttendance::where('student_id', $student->id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                    ->where('attendance_date', toDbDateConvert($request->attendance_date))
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
@@ -218,7 +218,7 @@ class AramiscStudentAttendanceController extends Controller
                     $attendance = new AramiscStudentAttendance();
                     $attendance->attendance_type = "H";
                     $attendance->notes = "Holiday";
-                    $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                    $attendance->attendance_date = toDbDateConvert($request->attendance_date);
                     $attendance->student_id = $student->id;
                     $attendance->academic_id = getAcademicId();
                     $attendance->school_id = Auth::user()->school_id;
@@ -227,7 +227,7 @@ class AramiscStudentAttendanceController extends Controller
                     $attendance = new AramiscStudentAttendance();
                     $attendance->attendance_type = "H";
                     $attendance->notes = "Holiday";
-                    $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                    $attendance->attendance_date = toDbDateConvert($request->attendance_date);
                     $attendance->student_id = $student->id;
                     $attendance->academic_id = getAcademicId();
                     $attendance->school_id = Auth::user()->school_id;
@@ -237,7 +237,7 @@ class AramiscStudentAttendanceController extends Controller
         } elseif ($request->purpose == "unmark") {
             foreach ($students as $student) {
                 $attendance = AramiscStudentAttendance::where('student_id', $student->id)
-                    ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                    ->where('attendance_date', toDbDateConvert($request->attendance_date))
                     ->where('academic_id', getAcademicId())
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
@@ -318,7 +318,7 @@ class AramiscStudentAttendanceController extends Controller
                         $students = AramiscStudent::where('class_id', $class_section[0])->where('section_id', $class_section[1])->where('school_id', Auth::user()->school_id)->get();
 
                         foreach ($students as $student) {
-                            StudentAttendanceBulk::where('student_id', $student->id)->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                            StudentAttendanceBulk::where('student_id', $student->id)->where('attendance_date', toDbDateConvert($request->attendance_date))
                                 ->delete();
                             $all_student_ids[] = $student->id;
                         }
@@ -371,7 +371,7 @@ class AramiscStudentAttendanceController extends Controller
                         //         $import->attendance_type = 'A';
                         //         $import->in_time = '';
                         //         $import->out_time = '';
-                        //         $import->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                        //         $import->attendance_date = toDbDateConvert($request->attendance_date);
                         //         $import->school_id = Auth::user()->school_id;
                         //         $import->academic_id = getAcademicId();
                         //         $import->save();

@@ -115,7 +115,7 @@ class AramiscItemSellController extends Controller
             $itemSells->role_id = $request->role_id;
             $itemSells->student_staff_id = $student_staff_id;
             $itemSells->reference_no = $request->reference_no;
-            $itemSells->sell_date = date('Y-m-d', strtotime($request->sell_date));
+            $itemSells->sell_date = toDbDateConvert($request->sell_date);
             if (@$request->subTotalValue) {
                 $itemSells->grand_total = $request->subTotalValue;
             }
@@ -140,7 +140,7 @@ class AramiscItemSellController extends Controller
 
             $add_income = new AramiscAddIncome();
             $add_income->name = 'Item Sell';
-            $add_income->date = date('Y-m-d', strtotime($request->sell_date));
+            $add_income->date = toDbDateConvert($request->sell_date);
             $add_income->amount = $total_paid;
             $add_income->item_sell_id = $itemSells->id;
             $add_income->active_status = 1;
@@ -382,7 +382,7 @@ class AramiscItemSellController extends Controller
             $itemSells->role_id = $request->role_id;
             $itemSells->student_staff_id = $student_staff_id;
             $itemSells->reference_no = $request->reference_no;
-            $itemSells->sell_date = date('Y-m-d', strtotime($request->sell_date));
+            $itemSells->sell_date = toDbDateConvert($request->sell_date);
             $itemSells->grand_total = $request->subTotalValue;
             $itemSells->total_quantity = $request->subTotalQuantityValue;
             $itemSells->total_paid = $total_paid;
@@ -398,7 +398,7 @@ class AramiscItemSellController extends Controller
             
             $add_income = new AramiscAddIncome();
             $add_income->name = 'Item Sell';
-            $add_income->date = date('Y-m-d', strtotime($request->sell_date));
+            $add_income->date = toDbDateConvert($request->sell_date);
             $add_income->amount = $total_paid;
             $add_income->item_sell_id = $itemSells->id;
             $add_income->active_status = 1;
@@ -430,7 +430,7 @@ class AramiscItemSellController extends Controller
                 $bank_statement->type= 1;
                 $bank_statement->details= "Item Sell Payment";
                 $bank_statement->item_sell_id= $itemSells->id;
-                $bank_statement->payment_date= date('Y-m-d', strtotime($request->sell_date));
+                $bank_statement->payment_date= toDbDateConvert($request->sell_date);
                 $bank_statement->bank_id= $request->bank_id;
                 $bank_statement->school_id= Auth::user()->school_id;
                 $bank_statement->payment_method= $request->payment_method;
@@ -516,7 +516,7 @@ class AramiscItemSellController extends Controller
             $itemReceives->supplier_id = $request->supplier_id;
             $itemReceives->store_id = $request->store_id;
             $itemReceives->reference_no = $request->reference_no;
-            $itemReceives->receive_date = date('Y-m-d', strtotime($request->receive_date));
+            $itemReceives->receive_date = toDbDateConvert($request->receive_date);
             $itemReceives->grand_total = $request->subTotalValue;
             $itemReceives->total_quantity = $request->subTotalQuantityValue;
             $itemReceives->total_paid = $total_paid;
@@ -608,7 +608,7 @@ class AramiscItemSellController extends Controller
         try {
             $payments = new AramiscInventoryPayment();
             $payments->item_receive_sell_id = $request->item_sell_id;
-            $payments->payment_date = date('Y-m-d', strtotime($request->payment_date));
+            $payments->payment_date = toDbDateConvert($request->payment_date);
             $payments->reference_no = $request->reference_no;
             $payments->amount = $request->amount;
             $payments->payment_method = $request->payment_method;
@@ -653,7 +653,7 @@ class AramiscItemSellController extends Controller
 
             $add_income = new AramiscAddIncome();
             $add_income->name = 'Item Sell';
-            $add_income->date = date('Y-m-d', strtotime($request->payment_date));
+            $add_income->date = toDbDateConvert($request->payment_date);
             $add_income->amount = $request->amount;
             $add_income->item_sell_id  = $request->item_sell_id;
             $add_income->active_status = 1;
@@ -683,7 +683,7 @@ class AramiscItemSellController extends Controller
                 $bank_statement->details= "Item Sell Payment";
                 $bank_statement->item_sell_id= $request->item_sell_id;
                 $bank_statement->item_sell_bank_statement_id = $payments->id;
-                $bank_statement->payment_date= date('Y-m-d', strtotime($request->payment_date));
+                $bank_statement->payment_date= toDbDateConvert($request->payment_date);
                 $bank_statement->bank_id= $request->bank_id;
                 $bank_statement->school_id= Auth::user()->school_id;
                 $bank_statement->payment_method= $request->payment_method;
@@ -774,8 +774,8 @@ class AramiscItemSellController extends Controller
             $itemIssue->issue_by = auth()->user()->id;
             $itemIssue->item_category_id = $request->item_category_id;
             $itemIssue->item_id = $request->item_id;
-            $itemIssue->issue_date = date('Y-m-d', strtotime($request->issue_date));
-            $itemIssue->due_date = date('Y-m-d', strtotime($request->due_date));
+            $itemIssue->issue_date = toDbDateConvert($request->issue_date);
+            $itemIssue->due_date = toDbDateConvert($request->due_date);
             $itemIssue->quantity = $request->quantity;
             $itemIssue->issue_status = 'I';
             $itemIssue->note = $request->description;

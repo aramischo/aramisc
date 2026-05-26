@@ -460,7 +460,7 @@ class FrontendController extends Controller
             $visitor->visitor_id = $request->visitor_id;
             $visitor->no_of_person = $request->no_of_person;
             $visitor->purpose = $request->purpose;
-            $visitor->date = date('Y-m-d', strtotime($request->date));
+            $visitor->date = toDbDateConvert($request->date);
             $visitor->in_time = $request->in_time;
             $visitor->out_time = $request->out_time;
             $visitor->file = $fileName;

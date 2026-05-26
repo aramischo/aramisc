@@ -391,7 +391,7 @@ class HomeController extends Controller
         try {
             $toDolists = new AramiscToDo();
             $toDolists->todo_title = $request->todo_title;
-            $toDolists->date = date('Y-m-d', strtotime($request->date));
+            $toDolists->date = toDbDateConvert($request->date);
             $toDolists->created_by = Auth()->user()->id;
             $toDolists->school_id = Auth()->user()->school_id;
             $toDolists->academic_id = getAcademicId();
@@ -447,7 +447,7 @@ class HomeController extends Controller
             $to_do_id = $request->to_do_id;
             $toDolists = AramiscToDo::find($to_do_id);
             $toDolists->todo_title = $request->todo_title;
-            $toDolists->date = date('Y-m-d', strtotime($request->date));
+            $toDolists->date = toDbDateConvert($request->date);
             $toDolists->complete_status = $request->complete_status;
             $toDolists->updated_by = Auth()->user()->id;
             $results = $toDolists->update();

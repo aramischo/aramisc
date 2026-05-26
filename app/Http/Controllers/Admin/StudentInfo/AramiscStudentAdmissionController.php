@@ -306,11 +306,11 @@ class AramiscStudentAdmissionController extends Controller
             $student->last_name = $request->last_name;
             $student->full_name = $request->first_name . ' ' . $request->last_name;
             $student->gender_id = $request->gender;
-            $student->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+            $student->date_of_birth = toDbDateConvert($request->date_of_birth);
             $student->caste = $request->caste;
             $student->email = $request->email_address;
             $student->mobile = $request->phone_number;
-            $student->admission_date = date('Y-m-d', strtotime($request->admission_date));
+            $student->admission_date = toDbDateConvert($request->admission_date);
             $student->student_photo = session()->get('student_photo') ?? fileUpload($request->photo, $student_file_destination);
             $student->bloodgroup_id = $request->blood_group;
             $student->religion_id = $request->religion;
@@ -636,12 +636,12 @@ class AramiscStudentAdmissionController extends Controller
             $student->last_name = $request->last_name;
             $student->full_name = $request->first_name . ' ' . $request->last_name;
             $student->gender_id = $request->gender;
-            $student->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+            $student->date_of_birth = toDbDateConvert($request->date_of_birth);
             $student->age = $request->age;
             $student->caste = $request->caste;
             $student->email = $request->email_address;
             $student->mobile = $request->phone_number;
-            $student->admission_date = date('Y-m-d', strtotime($request->admission_date));
+            $student->admission_date = toDbDateConvert($request->admission_date);
             if($request->photo) {
                 $student->student_photo = fileUpdate($student->student_photo, $request->photo, $student_file_destination);
             }
@@ -1606,11 +1606,11 @@ class AramiscStudentAdmissionController extends Controller
                                         $student->last_name = $value->last_name;
                                         $student->full_name = $value->first_name . ' ' . $value->last_name;
                                         $student->gender_id = $value->gender;
-                                        $student->date_of_birth = date('Y-m-d', strtotime($value->date_of_birth));
+                                        $student->date_of_birth = toDbDateConvert($value->date_of_birth);
                                         $student->caste = $value->caste;
                                         $student->email = $value->email;
                                         $student->mobile = $value->mobile;
-                                        $student->admission_date = date('Y-m-d', strtotime($value->admission_date));
+                                        $student->admission_date = toDbDateConvert($value->admission_date);
                                         $student->bloodgroup_id = $value->blood_group;
                                         $student->religion_id = $value->religion;
                                         $student->height = $value->height;

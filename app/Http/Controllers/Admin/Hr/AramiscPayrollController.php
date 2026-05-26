@@ -317,7 +317,7 @@ class AramiscPayrollController extends Controller
             $payrollPayment = new PayrollPayment;
             $payrollPayment->aramisc_hr_payroll_generate_id = $request->payroll_generate_id;
             $payrollPayment->amount = $request->submit_amount;
-            $payrollPayment->payment_date = date('Y-m-d', strtotime($request->payment_date));
+            $payrollPayment->payment_date = toDbDateConvert($request->payment_date);
             $payrollPayment->bank_id = $request->bank_id;
             $payrollPayment->payment_mode = $request->payment_mode;
             $payrollPayment->payment_method_id = $request->payment_method;
@@ -326,7 +326,7 @@ class AramiscPayrollController extends Controller
             $result = $payrollPayment->save();
 
             if ($payments->payrollPayments->sum('amount') >= $payments->net_salary || $request->submit_amount >= $payments->net_salary) {
-                $payments->payment_date = date('Y-m-d', strtotime($request->payment_date));
+                $payments->payment_date = toDbDateConvert($request->payment_date);
                 $payments->payment_mode = $request->payment_mode;
                 $payments->note = $request->note;
                 $payments->payroll_status = 'P';
@@ -380,7 +380,7 @@ class AramiscPayrollController extends Controller
                 $bank_statement->details = "Staff Payroll Payment";
                 $bank_statement->item_receive_id = $payments->id;
                 $bank_statement->payroll_payment_id = $payrollPayment->id;
-                $bank_statement->payment_date = date('Y-m-d', strtotime($request->payment_date));
+                $bank_statement->payment_date = toDbDateConvert($request->payment_date);
                 $bank_statement->bank_id = $request->bank_id;
                 $bank_statement->school_id = Auth::user()->school_id;
                 $bank_statement->payment_method = $request->payment_method;

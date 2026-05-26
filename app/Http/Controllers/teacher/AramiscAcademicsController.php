@@ -286,8 +286,8 @@ class AramiscAcademicsController extends Controller
 			$homeworks->subject_id = $request->subject;
 			$homeworks->marks = $request->marks;
 			$homeworks->created_by = $request->teacher_id;
-			$homeworks->homework_date = $request->assign_date;
-			$homeworks->submission_date = $request->submission_date;
+			$homeworks->homework_date = toDbDateConvert($request->assign_date);
+			$homeworks->submission_date = toDbDateConvert($request->submission_date);
 			$homeworks->school_id = Auth::user()->school_id;
 			//$homeworks->marks = $request->marks;
 			$homeworks->description = $request->description;

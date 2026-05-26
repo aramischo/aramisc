@@ -42,6 +42,7 @@
              $(".primary_input_field.date").datepicker({
                autoclose: true,
                // setDate: new Date(),
+                 language: _locale,
                format: (_locale.toLowerCase() === 'fr') ? 'd/m/yyyy' : 'yyyy-mm-d',
              });
              $(".primary_input_field.date").on("changeDate", function (ev) {

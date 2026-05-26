@@ -18,6 +18,7 @@ use App\Http\Requests\Admin\AdminSection\AramiscAdmissionQueryRequest;
 use App\Http\Requests\Admin\AdminSection\AramiscAdmissionQuerySearchRequest;
 use App\Http\Requests\Admin\AdminSection\AramiscAdmissionQueryFollowUpRequest;
 use Modules\University\Repositories\Interfaces\UnCommonRepositoryInterface;
+use function Monolog\Formatter\format;
 
 class AramiscAdmissionQueryController extends Controller
 {
@@ -48,8 +49,8 @@ class AramiscAdmissionQueryController extends Controller
             $admission_query->email = $request->email;
             $admission_query->address = $request->address;
             $admission_query->description = $request->description;
-            $admission_query->date = date('Y-m-d', strtotime($request->date));
-            $admission_query->next_follow_up_date = date('Y-m-d', strtotime($request->next_follow_up_date));
+            $admission_query->date = toDbDateConvert($request->date);
+            $admission_query->next_follow_up_date = toDbDateConvert($request->next_follow_up_date);
             $admission_query->assigned = $request->assigned;
             $admission_query->reference = $request->reference;
             $admission_query->source = $request->source;
@@ -96,6 +97,7 @@ class AramiscAdmissionQueryController extends Controller
     public function update(AramiscAdmissionQueryRequest $request)
     {
         try {
+
             if (checkAdmin()) {
                 $admission_query = AramiscAdmissionQuery::find($request->id);
             }else{
@@ -106,8 +108,8 @@ class AramiscAdmissionQueryController extends Controller
             $admission_query->email = $request->email;
             $admission_query->address = $request->address;
             $admission_query->description = $request->description;
-            $admission_query->date = date('Y-m-d', strtotime($request->date));
-            $admission_query->next_follow_up_date = date('Y-m-d', strtotime($request->next_follow_up_date));
+            $admission_query->date = toDbDateConvert($request->date);
+            $admission_query->next_follow_up_date = toDbDateConvert($request->next_follow_up_date);
             $admission_query->assigned = $request->assigned;
             if ($request->reference) {
                 $admission_query->reference = $request->reference;
@@ -152,8 +154,8 @@ class AramiscAdmissionQueryController extends Controller
         DB::beginTransaction();
         try {
             $admission_query = AramiscAdmissionQuery::find($request->id);
-            $admission_query->follow_up_date = date('Y-m-d', strtotime($request->follow_up_date));
-            $admission_query->next_follow_up_date = date('Y-m-d', strtotime($request->next_follow_up_date));
+            $admission_query->follow_up_date = toDbDateConvert($request->follow_up_date);
+            $admission_query->next_follow_up_date = toDbDateConvert($request->next_follow_up_date);
             $admission_query->active_status = $request->status;
             $admission_query->school_id = Auth::user()->school_id;
             $admission_query->academic_id = getAcademicId();
@@ -214,8 +216,8 @@ class AramiscAdmissionQueryController extends Controller
     {
         try {
             $requestData = [];
-            $date_from = date('Y-m-d', strtotime($request->date_from));
-            $date_to = date('Y-m-d', strtotime($request->date_to));
+            $date_from = toDbDateConvert($request->date_from);
+            $date_to = toDbDateConvert($request->date_to);
             $requestData['date_from'] = $request->date_from;
             $requestData['date_to'] = $request->date_to;
             $requestData['source'] = $request->source;
@@ -240,8 +242,8 @@ class AramiscAdmissionQueryController extends Controller
         try{
             if ($request->ajax()) 
             {
-                $date_from = date('Y-m-d', strtotime($request->date_from));
-                $date_to = date('Y-m-d', strtotime($request->date_to));
+                $date_from = toDbDateConvert($request->date_from);
+                $date_to = toDbDateConvert($request->date_to);
                 $admission_queries = AramiscAdmissionQuery::query();
                 $admission_queries->with('sourceSetup', 'className', 'user', 'referenceSetup')->orderBy('id', 'DESC');
                 if ($request->date_from != "" && $request->date_to) {

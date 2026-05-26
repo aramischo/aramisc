@@ -91,8 +91,8 @@ class AramiscEventController extends Controller
             $events->for_whom = $request->for_whom;
             $events->event_des = $request->event_des;
             $events->event_location = $request->event_location;
-            $events->from_date = date('Y-m-d', strtotime($request->from_date));
-            $events->to_date = date('Y-m-d', strtotime($request->to_date));
+            $events->from_date = toDbDateConvert($request->from_date);
+            $events->to_date = toDbDateConvert($request->to_date);
             $events->created_by = $login_id;
             $events->uplad_image_file = $fileName;
             $events->school_id = Auth::user()->school_id;
@@ -264,8 +264,8 @@ class AramiscEventController extends Controller
             $events->for_whom = $request->for_whom;
             $events->event_des = $request->event_des;
             $events->event_location = $request->event_location;
-            $events->from_date = date('Y-m-d', strtotime($request->from_date));
-            $events->to_date = date('Y-m-d', strtotime($request->to_date));
+            $events->from_date = toDbDateConvert($request->from_date);
+            $events->to_date = toDbDateConvert($request->to_date);
             $events->updated_by = $login_id;
             $results = $events->update();
 

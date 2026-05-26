@@ -120,7 +120,7 @@ class AramiscFeesMasterController extends Controller
             if ($combination == 0) {
                 $fees_master = new AramiscFeesMaster();
                 $fees_master->fees_type_id = $feesTypeId;
-                $fees_master->date = date('Y-m-d', strtotime($request->date));
+                $fees_master->date = toDbDateConvert($request->date);
                 $fees_master->school_id = Auth::user()->school_id;
                 
                 if(moduleStatusCheck('University')) {
@@ -240,7 +240,7 @@ class AramiscFeesMasterController extends Controller
             $fees_master = AramiscFeesMaster::find($request->id);
 
             $fees_master->fees_type_id = $request->fees_type;
-            $fees_master->date = date('Y-m-d', strtotime($request->date));
+            $fees_master->date = toDbDateConvert($request->date);
             $fees_master->amount = $request->amount;
             $fees_master->fees_group_id = $fees_type->fees_group_id;
             $fees_master->save();
@@ -610,7 +610,7 @@ class AramiscFeesMasterController extends Controller
         ]);
 
         $installment = DirectFeesInstallmentAssign::find($request->installment_id);
-        $installment->due_date = date('Y-m-d', strtotime($request->due_date));
+        $installment->due_date = toDbDateConvert($request->due_date);
         $installment->save();
         Toastr::success('Operation Successfull', 'Success');
         return redirect()->back();

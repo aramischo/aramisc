@@ -41,7 +41,7 @@ class AramiscFrontResultController extends Controller
             $destination = 'public/uploads/front_result/';
             $frontResult = new FrontResult();
             $frontResult->title = $request->title;
-            $frontResult->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $frontResult->publish_date = toDbDateConvert($request->publish_date);
             if ($request->link) {
                 $frontResult->link = $request->link;
             }
@@ -85,7 +85,7 @@ class AramiscFrontResultController extends Controller
             $destination = 'public/uploads/front_result/';
             $frontResult = FrontResult::find($request->id);
             $frontResult->title = $request->title;
-            $frontResult->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $frontResult->publish_date = toDbDateConvert($request->publish_date);
             if ($request->link) {
                 $frontResult->link = $request->link;
             }

@@ -45,7 +45,7 @@ class AramiscAddExpenseController extends Controller
             $add_expense = new AramiscAddExpense();
             $add_expense->name = $request->name;
             $add_expense->expense_head_id = $request->expense_head;
-            $add_expense->date = date('Y-m-d', strtotime($request->date));
+            $add_expense->date = toDbDateConvert($request->date);
             $add_expense->payment_method_id = $request->payment_method;
             if (paymentMethodName($request->payment_method)) {
                 $add_expense->account_id = $request->accounts;
@@ -73,7 +73,7 @@ class AramiscAddExpenseController extends Controller
                 $bank_statement->type= 0;
                 $bank_statement->details= $request->name;
                 $bank_statement->item_receive_id= $add_expense->id;
-                $bank_statement->payment_date= date('Y-m-d',strtotime($request->date));
+                $bank_statement->payment_date= toDbDateConvert($request->date);
                 $bank_statement->bank_id= $request->accounts;
                 $bank_statement->school_id=Auth::user()->school_id;
                 $bank_statement->payment_method= $request->payment_method;
@@ -119,7 +119,7 @@ class AramiscAddExpenseController extends Controller
             }
             $add_expense->name = $request->name;
             $add_expense->expense_head_id = $request->expense_head;
-            $add_expense->date = date('Y-m-d', strtotime($request->date));
+            $add_expense->date = toDbDateConvert($request->date);
             $add_expense->payment_method_id = $request->payment_method;
             if (paymentMethodName($request->payment_method)) {
                 $add_expense->account_id = $request->accounts;
@@ -150,7 +150,7 @@ class AramiscAddExpenseController extends Controller
                 $bank_statement->type= 0;
                 $bank_statement->details= $request->name;
                 $bank_statement->item_receive_id= $add_expense->id;
-                $bank_statement->payment_date= date('Y-m-d',strtotime($request->date));
+                $bank_statement->payment_date= toDbDateConvert($request->date);
                 $bank_statement->bank_id= $request->accounts;
                 $bank_statement->school_id= Auth::user()->school_id;
                 $bank_statement->payment_method= $request->payment_method;

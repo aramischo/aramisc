@@ -61,8 +61,8 @@ class AramiscSearchFeesPaymentController extends Controller
     public function search(AramiscFeesCollectSearchRequest $request)
     {      
      
-        $date_from = date('Y-m-d', strtotime($request->date_from));
-        $date_to = date('Y-m-d', strtotime($request->date_to));
+        $date_from = toDbDateConvert($request->date_from);
+        $date_to = toDbDateConvert($request->date_to);
         try {
             $classes = AramiscClass::where('active_status', 1)
                         ->where('school_id',Auth::user()->school_id)

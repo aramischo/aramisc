@@ -47,7 +47,7 @@ class AramiscComplaintController extends Controller
             $complaint->complaint_type = $request->complaint_type;
             $complaint->complaint_source = $request->complaint_source;
             $complaint->phone = $request->phone;
-            $complaint->date = date('Y-m-d', strtotime($request->date));
+            $complaint->date = toDbDateConvert($request->date);
             $complaint->description = $request->description;
             $complaint->action_taken = $request->action_taken;
             $complaint->assigned = $request->assigned;
@@ -107,7 +107,7 @@ class AramiscComplaintController extends Controller
             $complaint->complaint_type = $request->complaint_type;
             $complaint->complaint_source = $request->complaint_source;
             $complaint->phone = $request->phone;
-            $complaint->date = date('Y-m-d', strtotime($request->date));
+            $complaint->date = toDbDateConvert($request->date);
             $complaint->description = $request->description;
             $complaint->action_taken = $request->action_taken;
             $complaint->assigned = $request->assigned;        

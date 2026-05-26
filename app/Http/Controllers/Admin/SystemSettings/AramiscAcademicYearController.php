@@ -54,8 +54,8 @@ class AramiscAcademicYearController extends Controller
         $academic_year = new AramiscAcademicYear();
         $academic_year->year = $request->year;
         $academic_year->title = $request->title;
-        $academic_year->starting_date = date('Y-m-d', strtotime($request->starting_date));
-        $academic_year->ending_date = date('Y-m-d', strtotime($request->ending_date));
+        $academic_year->starting_date = toDbDateConvert($request->starting_date);
+        $academic_year->ending_date = toDbDateConvert($request->ending_date);
         if ($request->copy_with_academic_year != null) {
                 $academic_year->copy_with_academic_year =implode(",",$request->copy_with_academic_year);
             }
@@ -194,8 +194,8 @@ class AramiscAcademicYearController extends Controller
             }
             $academic_year->year = $request->year;
             $academic_year->title = $request->title;
-            $academic_year->starting_date = date('Y-m-d', strtotime($request->starting_date));
-            $academic_year->ending_date = date('Y-m-d', strtotime($request->ending_date));
+            $academic_year->starting_date = toDbDateConvert($request->starting_date);
+            $academic_year->ending_date = toDbDateConvert($request->ending_date);
             $academic_year->created_at = $created_year;
             if ($yr->year != $request->year) {
                 if ($request->copy_with_academic_year != null) {

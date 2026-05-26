@@ -209,7 +209,7 @@ class AramiscTeacherController extends Controller
                         $uploadContents->academic_id = getAcademicId();
                         $uploadContents->class = $request->class;
                         $uploadContents->section = $section->section_id;
-                        $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                        $uploadContents->upload_date = toDbDateConvert($request->upload_date);
                         $uploadContents->description = $request->description;
                         $uploadContents->source_url = $request->source_url;
                         $uploadContents->upload_file = $fileName;
@@ -240,7 +240,7 @@ class AramiscTeacherController extends Controller
                     }
                 }
     
-                $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                $uploadContents->upload_date = toDbDateConvert($request->upload_date);
                 $uploadContents->description = $request->description;
                 $uploadContents->source_url = $request->source_url;
                 $uploadContents->upload_file = $fileName;
@@ -525,7 +525,7 @@ class AramiscTeacherController extends Controller
             }
 
            
-            $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+            $uploadContents->upload_date = toDbDateConvert($request->upload_date);
             $uploadContents->description = $request->description;
             $uploadContents->source_url = $request->source_url;
             if ($request->file('content_file') != "") {
