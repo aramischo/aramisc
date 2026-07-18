@@ -169,7 +169,7 @@
                             <a href="{{ route('recoveryPassord') }}" id='forget'>@lang('auth.forget_password')?</a>
                         </div>
                         <div class="input-control">
-                            <input type="submit" style="margin-top: 40px;border-radius: 40px" class='input-control-input' value="@lang('auth.sign_in')">
+                            <input type="submit" style="margin-top: 40px;border-radius: 40px" class='input-control-input' value="@lang('auth.login')">
                         </div>
                     </form>
                 </div>
