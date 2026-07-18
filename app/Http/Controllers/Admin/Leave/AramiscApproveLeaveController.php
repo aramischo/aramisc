@@ -102,10 +102,10 @@ class AramiscApproveLeaveController extends Controller
             $leave_request_data = new AramiscLeaveRequest();
             $leave_request_data->staff_id = $login_id;
             $leave_request_data->role_id =  $role_id;
-            $leave_request_data->apply_date = date('Y-m-d', strtotime($request->apply_date));
+            $leave_request_data->apply_date = toDbDateConvert($request->apply_date);
             $leave_request_data->type_id = $request->leave_type;
-            $leave_request_data->leave_from = date('Y-m-d', strtotime($request->leave_from));
-            $leave_request_data->leave_to = date('Y-m-d', strtotime($request->leave_to));
+            $leave_request_data->leave_from = toDbDateConvert($request->leave_from);
+            $leave_request_data->leave_to = toDbDateConvert($request->leave_to);
             $leave_request_data->approve_status = $request->approve_status;
             $leave_request_data->reason = $request->reason;
             $leave_request_data->file = $fileName;

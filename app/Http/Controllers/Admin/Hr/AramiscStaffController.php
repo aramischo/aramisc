@@ -253,8 +253,8 @@ class AramiscStaffController extends Controller
                 $staff->show_public = $request->show_public;
                 $staff->gender_id = $request->gender_id;
                 $staff->marital_status = $request->marital_status;
-                $staff->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
-                $staff->date_of_joining = date('Y-m-d', strtotime($request->date_of_joining));
+                $staff->date_of_birth = toDbDateConvert($request->date_of_birth);
+                $staff->date_of_joining = toDbDateConvert($request->date_of_joining);
                 $staff->mobile = $request->mobile ?? null;
                 $staff->emergency_mobile = $request->emergency_mobile;
                 $staff->current_address = $request->current_address;
@@ -587,10 +587,10 @@ class AramiscStaffController extends Controller
                 $staff->marital_status = $request->marital_status;
             }
             if ($request->filled('date_of_birth')) {
-                $staff->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+                $staff->date_of_birth = toDbDateConvert($request->date_of_birth);
             }
             if ($request->filled('date_of_joining')) {
-                $staff->date_of_joining = date('Y-m-d', strtotime($request->date_of_joining));
+                $staff->date_of_joining = toDbDateConvert($request->date_of_joining);
             }
             if ($request->filled('mobile')) {
                 $staff->mobile = $request->mobile;
@@ -975,7 +975,7 @@ class AramiscStaffController extends Controller
                 $timeline->staff_student_id = $request->staff_student_id;
                 $timeline->title = $request->title;
                 $timeline->type = 'stf';
-                $timeline->date = date('Y-m-d', strtotime($request->date));
+                $timeline->date = toDbDateConvert($request->date);
                 $timeline->description = $request->description;
                 if (isset($request->visible_to_student)) {
                     $timeline->visible_to_student = $request->visible_to_student;

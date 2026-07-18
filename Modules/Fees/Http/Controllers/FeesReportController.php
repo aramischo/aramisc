@@ -196,8 +196,8 @@ class FeesReportController extends Controller
                             });
                         });
                         if($request->date_from && $request->date_to) {
-                            $date_from = date('Y-m-d', strtotime($request->date_from));
-                            $date_to = date('Y-m-d', strtotime($request->date_to));
+                            $date_from = toDbDateConvert($request->date_from);
+                            $date_to = toDbDateConvert($request->date_to);
                             $fees_dues->when($request->date_from, function ($query) use ($date_from, $date_to) {
                                 $query->whereBetween('due_date', [$date_from, $date_to]);
                             })

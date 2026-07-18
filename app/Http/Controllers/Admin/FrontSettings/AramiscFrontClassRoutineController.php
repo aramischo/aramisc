@@ -40,7 +40,7 @@ class AramiscFrontClassRoutineController extends Controller
             $destination =  'public/uploads/front_class_routine/';
             $frontClassRoutine = new FrontClassRoutine();
             $frontClassRoutine->title = $request->title;
-            $frontClassRoutine->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $frontClassRoutine->publish_date = toDbDateConvert($request->publish_date);
             $frontClassRoutine->result_file = fileUpload($request->result_file, $destination);
             $frontClassRoutine->school_id = app('school')->id;
             $result = $frontClassRoutine->save();
@@ -84,7 +84,7 @@ class AramiscFrontClassRoutineController extends Controller
             $destination =  'public/uploads/front_class_routine/';
             $frontClassRoutine = FrontClassRoutine::find($request->id);
             $frontClassRoutine->title = $request->title;
-            $frontClassRoutine->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $frontClassRoutine->publish_date = toDbDateConvert($request->publish_date);
             $frontClassRoutine->result_file = fileUpdate($frontClassRoutine->result_file, $request->result_file, $destination);
             $frontClassRoutine->school_id = app('school')->id;
             $result = $frontClassRoutine->save();

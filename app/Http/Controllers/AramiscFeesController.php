@@ -476,7 +476,7 @@ class AramiscFeesController extends Controller
             $fees_payment->assign_id = $request->assign_id;
             $fees_payment->amount = !empty($request->amount) ? $request->amount : 0;
             $fees_payment->assign_id = $request->assign_id;
-            $fees_payment->payment_date = date('Y-m-d', strtotime($request->date));
+            $fees_payment->payment_date = toDbDateConvert($request->date);
             $fees_payment->payment_mode = $request->payment_mode;
             $fees_payment->created_by = $user->id;
             $fees_payment->note = $request->note;
@@ -494,7 +494,7 @@ class AramiscFeesController extends Controller
 
             $add_income = new AramiscAddIncome();
             $add_income->name = 'Fees Collect';
-            $add_income->date = date('Y-m-d', strtotime($request->date));
+            $add_income->date = toDbDateConvert($request->date);
             $add_income->amount = !empty($request->amount) ? $request->amount : 0;
             $add_income->fees_collection_id = $fees_payment->id;
             $add_income->active_status = 1;
@@ -520,7 +520,7 @@ class AramiscFeesController extends Controller
                 $bank_statement->after_balance= $after_balance;
                 $bank_statement->type= 1;
                 $bank_statement->details= "Fees Payment";
-                $bank_statement->payment_date= date('Y-m-d', strtotime($request->date));
+                $bank_statement->payment_date= toDbDateConvert($request->date);
                 $bank_statement->bank_id= $request->bank_id;
                 $bank_statement->school_id= Auth::user()->school_id;
                 $bank_statement->payment_method= $payment_method->id;
@@ -1326,8 +1326,8 @@ class AramiscFeesController extends Controller
     public function studentFineReportSearch(Request $request)
     {
         try {
-            $date_from = date('Y-m-d', strtotime($request->date_from));
-            $date_to = date('Y-m-d', strtotime($request->date_to));
+            $date_from = toDbDateConvert($request->date_from);
+            $date_to = toDbDateConvert($request->date_to);
             $fees_payments = AramiscFeesPayment::where('active_status',1)->where('payment_date', '>=', $date_from)->where('payment_date', '<=', $date_to)->where('fine', '!=', 0)->where('school_id',Auth::user()->school_id)->get();
             if (ApiBaseMethod::checkUrl($request->fullUrl())) {
                 return ApiBaseMethod::sendResponse($fees_payments, null);

@@ -760,8 +760,8 @@ class FeesController extends Controller
 
             $storeFeesInvoice = FmFeesInvoice::find($request->id);
             $storeFeesInvoice->class_id = $request->class;
-            $storeFeesInvoice->create_date = date('Y-m-d', strtotime($request->create_date));
-            $storeFeesInvoice->due_date = date('Y-m-d', strtotime($request->due_date));
+            $storeFeesInvoice->create_date = toDbDateConvert($request->create_date);
+            $storeFeesInvoice->due_date = toDbDateConvert($request->due_date);
             $storeFeesInvoice->payment_status = $request->payment_status;
             $storeFeesInvoice->bank_id = $request->bank;
             $storeFeesInvoice->student_id = $student->student_id;

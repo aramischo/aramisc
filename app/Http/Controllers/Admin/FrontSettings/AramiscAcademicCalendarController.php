@@ -41,7 +41,7 @@ class AramiscAcademicCalendarController extends Controller
             $destination =  'public/uploads/academic_calendar/';
             $frontAcademicCalendar = new FrontAcademicCalendar();
             $frontAcademicCalendar->title = $request->title;
-            $frontAcademicCalendar->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $frontAcademicCalendar->publish_date = toDbDateConvert($request->publish_date);
             $frontAcademicCalendar->calendar_file = fileUpload($request->calendar_file, $destination);
             $frontAcademicCalendar->school_id = app('school')->id;
             $result = $frontAcademicCalendar->save();
@@ -86,7 +86,7 @@ class AramiscAcademicCalendarController extends Controller
             $destination =  'public/uploads/academic_calendar/';
             $frontAcademicCalendar = FrontAcademicCalendar::find($request->id);
             $frontAcademicCalendar->title = $request->title;
-            $frontAcademicCalendar->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $frontAcademicCalendar->publish_date = toDbDateConvert($request->publish_date);
             $frontAcademicCalendar->calendar_file = fileUpdate($frontAcademicCalendar->calendar_file, $request->calendar_file, $destination);
             $frontAcademicCalendar->school_id = app('school')->id;
             $result = $frontAcademicCalendar->save();

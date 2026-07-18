@@ -1227,7 +1227,7 @@ class GlobalExaminationController extends Controller
                 // return redirect('seat-plan-create')->with('message-danger', 'No result found');
             }
 
-            $seat_plan_assign = AramiscSeatPlan::where('exam_id', $request->exam)->where('subject_id', $request->subject)->where('class_id', $request->class)->where('section_id', $request->section)->where('date', date('Y-m-d', strtotime($request->date)))->first();
+            $seat_plan_assign = AramiscSeatPlan::where('exam_id', $request->exam)->where('subject_id', $request->subject)->where('class_id', $request->class)->where('section_id', $request->section)->where('date', toDbDateConvert($request->date))->first();
 
             $seat_plan_assign_childs = [];
             if ($seat_plan_assign != "") {
@@ -1292,10 +1292,10 @@ class GlobalExaminationController extends Controller
             } else {
                 $class_room = AramiscClassRoom::where('id', $request->id)->where('school_id', Auth::user()->school_id)->first();
             }
-            $assigned = AramiscSeatPlanChild::where('room_id', $request->id)->where('date', date('Y-m-d', strtotime($request->date)))->first();
+            $assigned = AramiscSeatPlanChild::where('room_id', $request->id)->where('date', toDbDateConvert($request->date))->first();
             $assigned_student = 0;
             if ($assigned != '') {
-                $assigned_student = AramiscSeatPlanChild::where('room_id', $request->id)->where('date', date('Y-m-d', strtotime($request->date)))->where('start_time', '<=', date('H:i:s', strtotime($request->start_time)))->where('end_time', '>=', date('H:i:s', strtotime($request->end_time)))->sum('assign_students');
+                $assigned_student = AramiscSeatPlanChild::where('room_id', $request->id)->where('date', toDbDateConvert($request->date))->where('start_time', '<=', date('H:i:s', strtotime($request->start_time)))->where('end_time', '>=', date('H:i:s', strtotime($request->end_time)))->sum('assign_students');
             }
             return response()->json([$class_room, $assigned_student]);
         } catch (\Exception $e) {
@@ -1313,13 +1313,13 @@ class GlobalExaminationController extends Controller
             if ($seat_plan_assign == "") {
                 $seat_plan = new AramiscSeatPlan();
             } else {
-                $seat_plan = AramiscSeatPlan::where('exam_id', $request->exam_id)->where('subject_id', $request->subject_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('date', date('Y-m-d', strtotime($request->exam_date)))->first();
+                $seat_plan = AramiscSeatPlan::where('exam_id', $request->exam_id)->where('subject_id', $request->subject_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('date', toDbDateConvert($request->exam_date))->first();
             }
             $seat_plan->exam_id = $request->exam_id;
             $seat_plan->subject_id = $request->subject_id;
             $seat_plan->class_id = $request->class_id;
             $seat_plan->section_id = $request->section_id;
-            $seat_plan->date = date('Y-m-d', strtotime($request->exam_date));
+            $seat_plan->date = toDbDateConvert($request->exam_date);
             $seat_plan->school_id = Auth::user()->school_id;
             $seat_plan->academic_id = getAcademicId();
             $seat_plan->save();
@@ -1337,7 +1337,7 @@ class GlobalExaminationController extends Controller
                 $seat_plan_child->assign_students = $request->assign_student[$i];
                 $seat_plan_child->start_time = date('H:i:s', strtotime($request->start_time));
                 $seat_plan_child->end_time = date('H:i:s', strtotime($request->end_time));
-                $seat_plan_child->date = date('Y-m-d', strtotime($request->exam_date));
+                $seat_plan_child->date = toDbDateConvert($request->exam_date);
                 $seat_plan_child->school_id = Auth::user()->school_id;
                 $seat_plan_child->academic_id = getAcademicId();
                 $seat_plan_child->save();
@@ -1375,7 +1375,7 @@ class GlobalExaminationController extends Controller
                 $seat_plans->where('section_id', $request->section);
             }
             if ($request->date != "") {
-                $seat_plans->where('date', date('Y-m-d', strtotime($request->date)));
+                $seat_plans->where('date', toDbDateConvert($request->date));
             }
             $seat_plans = $seat_plans->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             if ($seat_plans->count() == 0) {
@@ -3112,10 +3112,10 @@ class GlobalExaminationController extends Controller
             $add_content = new AramiscExamSetting();
             $add_content->exam_type = $request->exam_type;
             $add_content->title = $request->title;
-            $add_content->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $add_content->publish_date = toDbDateConvert($request->publish_date);
             $add_content->file = $fileName;
-            $add_content->start_date = date('Y-m-d', strtotime($request->start_date));
-            $add_content->end_date = date('Y-m-d', strtotime($request->end_date));
+            $add_content->start_date = toDbDateConvert($request->start_date);
+            $add_content->end_date = toDbDateConvert($request->end_date);
             $add_content->school_id = Auth::user()->school_id;
             $add_content->academic_id = getAcademicId();
             $result = $add_content->save();
@@ -3213,10 +3213,10 @@ class GlobalExaminationController extends Controller
             }
             $update_add_content->exam_type = $request->exam_type;
             $update_add_content->title = $request->title;
-            $update_add_content->publish_date = date('Y-m-d', strtotime($request->publish_date));
+            $update_add_content->publish_date = toDbDateConvert($request->publish_date);
             $update_add_content->file = $fileName;
-            $update_add_content->start_date = date('Y-m-d', strtotime($request->start_date));
-            $update_add_content->end_date = date('Y-m-d', strtotime($request->end_date));
+            $update_add_content->start_date = toDbDateConvert($request->start_date);
+            $update_add_content->end_date = toDbDateConvert($request->end_date);
             $update_add_content->school_id = Auth::user()->school_id;
             $update_add_content->academic_id = getAcademicId();
             $update_add_content->file = $fileName;

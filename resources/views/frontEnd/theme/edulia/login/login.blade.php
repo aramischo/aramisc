@@ -5,10 +5,10 @@
 @php
     App::setLocale(getUserLanguage());
     $ttl_rtl = userRtlLtl();
-    $css = "background-color:#f6f9ff;";
+    //$css = "background-color:#f6f9ff;";
     $logowrapper = '';
 
-   /* $login_background = App\AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
+    $login_background = App\AramiscBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
      $css = 'background:url("'.asset(generalSetting()->logo).'") no-repeat right;background-size: 40%;background-color:#f6f9ff;';
     if (empty($login_background)) {
         $css = 'background: url(' . url('public/backEnd/img/edulia-login-bg.jpg') . ') no-repeat center; background-size: cover; ';
@@ -18,7 +18,7 @@
         } else {
             $css = 'background:' . $login_background->color;
         }
-    } */
+    }
 @endphp
 <html lang="{{ app()->getLocale() }}" @if (isset($ttl_rtl) && $ttl_rtl == 1) dir="rtl" class="rtl" @endif>
 
@@ -49,7 +49,7 @@
         .login{
             height: auto;
             min-height: 100vh;
-            padding: 50px;
+            padding: 100px;
             display: block !important;
         }
 
@@ -58,7 +58,7 @@
         }
 
         .login_wrapper {
-            width: 50%;
+           /*width: 50%;*/
             background: #fff;
             padding: 20px;
             float: left;
@@ -66,7 +66,7 @@
 
         .login_wrapper.logo{
             width: 50%;
-            padding: 10px 0 30px;
+            padding: 0px 0 30px;
             background: transparent;
             text-align: center;
             float:right;
@@ -94,7 +94,7 @@
 
         @media only screen and (min-width: 830px){
             .login_wrapper.logo{
-                padding: 100px 0;
+                padding: 0px 0;
                 min-height: 350px;
             }
         }

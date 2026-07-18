@@ -49,7 +49,7 @@ class AramiscDonorController extends Controller
             $donor = new AramiscDonor();
             $donor->full_name = $request->name;
             $donor->profession = $request->profession;
-            $donor->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+            $donor->date_of_birth = toDbDateConvert('Y-m-d', strtotime($request->date_of_birth);
             $donor->email = $request->email;
             $donor->mobile = $request->mobile;
             $donor->photo = $image;
@@ -120,7 +120,7 @@ class AramiscDonorController extends Controller
             $donor = AramiscDonor::find($request->id);
             $donor->full_name = $request->name;
             $donor->profession = $request->profession;
-            $donor->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+            $donor->date_of_birth = toDbDateConvert($request->date_of_birth);
             $donor->email = $request->email;
             $donor->mobile = $request->mobile;
             $donor->photo = fileUpdate($donor->photo, $request->photo, $destination);

@@ -551,7 +551,7 @@ class AramiscStudentPanelController extends Controller
                     $student->gender_id = $request->gender;
                 }
                 if ($request->filled('date_of_birth')) {
-                    $student->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+                    $student->date_of_birth = toDbDateConvert($request->date_of_birth);
                 }
                 if ($request->filled('age')) {
                     $student->age = $request->age;
@@ -566,7 +566,7 @@ class AramiscStudentPanelController extends Controller
                     $student->mobile = $request->phone_number;
                 }
                 if ($request->filled('admission_date')) {
-                    $student->admission_date = date('Y-m-d', strtotime($request->admission_date));
+                    $student->admission_date = toDbDateConvert($request->admission_date);
                 }
                 if ($request->filled('photo')) {
                     $student->student_photo = fileUpdate($parent->student_photo, $request->photo, $student_file_destination);
@@ -1939,11 +1939,11 @@ class AramiscStudentPanelController extends Controller
             $apply_leave = new AramiscLeaveRequest();
             $apply_leave->staff_id = $login_id;
             $apply_leave->role_id = $role_id;
-            $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
+            $apply_leave->apply_date = toDbDateConvert($request->apply_date);
             $apply_leave->leave_define_id = $request->leave_type;
             $apply_leave->type_id = $leaveDefine->leaveType->id;
-            $apply_leave->leave_from = date('Y-m-d', strtotime($request->leave_from));
-            $apply_leave->leave_to = date('Y-m-d', strtotime($request->leave_to));
+            $apply_leave->leave_from = toDbDateConvert($request->leave_from);
+            $apply_leave->leave_to = toDbDateConvert($request->leave_to);
             $apply_leave->approve_status = 'P';
             $apply_leave->reason = $request->reason;
             $apply_leave->file = $fileName;
@@ -2080,10 +2080,10 @@ class AramiscStudentPanelController extends Controller
             $apply_leave = AramiscLeaveRequest::find($request->id);
             $apply_leave->staff_id = $login_id;
             $apply_leave->role_id = $role_id;
-            $apply_leave->apply_date = date('Y-m-d', strtotime($request->apply_date));
+            $apply_leave->apply_date = toDbDateConvert($request->apply_date);
             $apply_leave->leave_define_id = $request->leave_type;
-            $apply_leave->leave_from = date('Y-m-d', strtotime($request->leave_from));
-            $apply_leave->leave_to = date('Y-m-d', strtotime($request->leave_to));
+            $apply_leave->leave_from = toDbDateConvert($request->leave_from);
+            $apply_leave->leave_to = toDbDateConvert($request->leave_to);
             $apply_leave->approve_status = 'P';
             $apply_leave->reason = $request->reason;
             if ($fileName != "") {

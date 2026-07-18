@@ -38,7 +38,7 @@ class AramiscPostalDispatchController extends Controller
             $postal_dispatch->from_title = $request->from_title;
             $postal_dispatch->reference_no = $request->reference_no;
             $postal_dispatch->address = $request->address;
-            $postal_dispatch->date = date('Y-m-d', strtotime($request->date));
+            $postal_dispatch->date = toDbDateConvert($request->date);
             $postal_dispatch->note = $request->note;
             $postal_dispatch->to_title = $request->to_title;
             $postal_dispatch->file = $fileName;
@@ -80,7 +80,7 @@ class AramiscPostalDispatchController extends Controller
             $postal_dispatch->from_title = $request->from_title;
             $postal_dispatch->reference_no = $request->reference_no;
             $postal_dispatch->address = $request->address;
-            $postal_dispatch->date = date('Y-m-d', strtotime($request->date));
+            $postal_dispatch->date = toDbDateConvert($request->date);
             $postal_dispatch->note = $request->note;
             $postal_dispatch->to_title = $request->to_title;            
             $postal_dispatch->file =fileUpdate($postal_dispatch->file,$request->file,$destination); 

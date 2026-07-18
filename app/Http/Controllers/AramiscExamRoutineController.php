@@ -110,7 +110,7 @@ class AramiscExamRoutineController extends Controller
                 ->where('section_id', $request->section_id)
                 ->where('exam_period_id', $request->exam_period_id)
                 ->where('exam_term_id', $request->exam_term_id)
-                ->where('date', date('Y-m-d', strtotime($request->date)))
+                ->where('date', toDbDateConvert($request->date))
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
 
@@ -129,7 +129,7 @@ class AramiscExamRoutineController extends Controller
                 ->where('section_id', $request->section_id)
                 ->where('exam_period_id', $request->exam_period_id)
                 ->where('exam_term_id', $request->exam_term_id)
-                ->where('date', date('Y-m-d', strtotime($request->date)))
+                ->where('date', toDbDateConvert($request->date))
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
 
@@ -173,12 +173,12 @@ class AramiscExamRoutineController extends Controller
 
         try {
             if ($request->assigned_id == "") {
-                $check_date = AramiscExamSchedule::where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('exam_term_id', $request->exam_term_id)->where('date', date('Y-m-d', strtotime($request->date)))->where('exam_period_id', $request->exam_period_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $check_date = AramiscExamSchedule::where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('exam_term_id', $request->exam_term_id)->where('date', toDbDateConvert($request->date))->where('exam_period_id', $request->exam_period_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             } else {
-                $check_date = AramiscExamSchedule::where('id', '!=', $request->assigned_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('exam_term_id', $request->exam_term_id)->where('date', date('Y-m-d', strtotime($request->date)))->where('exam_period_id', $request->exam_period_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
+                $check_date = AramiscExamSchedule::where('id', '!=', $request->assigned_id)->where('class_id', $request->class_id)->where('section_id', $request->section_id)->where('exam_term_id', $request->exam_term_id)->where('date', toDbDateConvert($request->date))->where('exam_period_id', $request->exam_period_id)->where('academic_id', getAcademicId())->where('school_id', Auth::user()->school_id)->get();
             }
 
-            $holiday_check = AramiscHoliday::where('from_date', '<=', date('Y-m-d', strtotime($request->date)))->where('to_date', '>=', date('Y-m-d', strtotime($request->date)))->where('school_id', Auth::user()->school_id)->first();
+            $holiday_check = AramiscHoliday::where('from_date', '<=', toDbDateConvert($request->date))->where('to_date', '>=', toDbDateConvert($request->date))->where('school_id', Auth::user()->school_id)->first();
 
             if ($holiday_check != "") {
                 $from_date = date('jS M, Y', strtotime($holiday_check->from_date));

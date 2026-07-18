@@ -624,7 +624,7 @@ class LessonPlanController extends Controller
                 $statusUpdate->competed_date = null;
                 $statusUpdate->completed_status = null;
             } else {
-                $statusUpdate->competed_date = date('Y-m-d', strtotime($request->complete_date));
+                $statusUpdate->competed_date = toDbDateConvert($request->complete_date);
                 $statusUpdate->completed_status = "completed";
             }
             $statusUpdate->save();
@@ -642,7 +642,7 @@ class LessonPlanController extends Controller
                 $statusUpdateLessonPlan->competed_date = null;
                 $statusUpdateLessonPlan->completed_status = null;
             } else {
-                $statusUpdateLessonPlan->competed_date = date('Y-m-d', strtotime($request->complete_date));
+                $statusUpdateLessonPlan->competed_date = toDbDateConvert($request->complete_date);
                 $statusUpdateLessonPlan->completed_status = "completed";
             }
             $statusUpdateLessonPlan->save();

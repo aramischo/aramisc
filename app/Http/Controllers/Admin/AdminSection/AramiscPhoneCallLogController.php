@@ -36,9 +36,9 @@ class AramiscPhoneCallLogController extends Controller
             $phone_call_log = new AramiscPhoneCallLog();
             $phone_call_log->name = $request->name;
             $phone_call_log->phone = $request->phone;
-            $phone_call_log->date = date('Y-m-d', strtotime($request->date));
+            $phone_call_log->date = toDbDateConvert($request->date);
             $phone_call_log->description = $request->description;
-            $phone_call_log->next_follow_up_date = date('Y-m-d', strtotime($request->follow_up_date));
+            $phone_call_log->next_follow_up_date = toDbDateConvert($request->follow_up_date);
             $phone_call_log->call_duration = $request->call_duration;
             $phone_call_log->call_type = $request->call_type;
             $phone_call_log->school_id = Auth::user()->school_id;
@@ -75,9 +75,9 @@ class AramiscPhoneCallLogController extends Controller
             $phone_call_log = AramiscPhoneCallLog::find($request->id);
             $phone_call_log->name = $request->name;
             $phone_call_log->phone = $request->phone;
-            $phone_call_log->date = date('Y-m-d', strtotime($request->date));
+            $phone_call_log->date = toDbDateConvert($request->date);
             $phone_call_log->description = $request->description;
-            $phone_call_log->next_follow_up_date = date('Y-m-d', strtotime($request->follow_up_date));
+            $phone_call_log->next_follow_up_date = toDbDateConvert($request->follow_up_date);
             $phone_call_log->call_duration = $request->call_duration;
             $phone_call_log->call_type = $request->call_type;
             if(moduleStatusCheck('University')){

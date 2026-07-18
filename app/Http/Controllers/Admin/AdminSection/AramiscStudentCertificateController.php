@@ -43,7 +43,7 @@ class AramiscStudentCertificateController extends Controller
             $certificate = new AramiscStudentCertificate();
             $certificate->name = $request->name;
             $certificate->header_left_text = $request->header_left_text;
-            $certificate->date = date('Y-m-d', strtotime($request->date));
+            $certificate->date = toDbDateConvert($request->date);
             $certificate->body = $request->body;
             $certificate->footer_left_text = $request->footer_left_text;
             $certificate->footer_center_text = $request->footer_center_text;
@@ -97,7 +97,7 @@ class AramiscStudentCertificateController extends Controller
             }
             $certificate->name = $request->name;
             $certificate->header_left_text = $request->header_left_text;
-            $certificate->date = date('Y-m-d', strtotime($request->date));
+            $certificate->date = toDbDateConvert($request->date);
             $certificate->body = $request->body;
             if($request->body_two){
                 $certificate->body_two = $request->body_two;

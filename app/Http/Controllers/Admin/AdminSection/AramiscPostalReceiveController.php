@@ -44,7 +44,7 @@ class AramiscPostalReceiveController extends Controller
             $postal_receive->from_title = $request->from_title;
             $postal_receive->reference_no = $request->reference_no;
             $postal_receive->address = $request->address;
-            $postal_receive->date = date('Y-m-d', strtotime($request->date));
+            $postal_receive->date = toDbDateConvert($request->date);
             $postal_receive->note = $request->note;
             $postal_receive->to_title = $request->to_title;
             $postal_receive->file = $fileName;
@@ -85,7 +85,7 @@ class AramiscPostalReceiveController extends Controller
             $postal_receive->from_title = $request->from_title;
             $postal_receive->reference_no = $request->reference_no;
             $postal_receive->address = $request->address;
-            $postal_receive->date = date('Y-m-d', strtotime($request->date));
+            $postal_receive->date = toDbDateConvert($request->date);
             $postal_receive->note = $request->note;
             $postal_receive->to_title = $request->to_title;
             $postal_receive->file = fileUpdate($postal_receive->file,$request->file,$destination);

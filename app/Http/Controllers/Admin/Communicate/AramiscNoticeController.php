@@ -48,8 +48,8 @@ class AramiscNoticeController extends Controller
             }
             $noticeData->notice_title = $request->notice_title;
             $noticeData->notice_message = $request->notice_message;
-            $noticeData->notice_date = date('Y-m-d', strtotime($request->notice_date));
-            $noticeData->publish_on = date('Y-m-d', strtotime($request->publish_on));
+            $noticeData->notice_date = toDbDateConvert($request->notice_date);
+            $noticeData->publish_on = toDbDateConvert($request->publish_on);
             $noticeData->inform_to = json_encode($request->role);
             $noticeData->created_by = Auth::user()->id;
             $noticeData->school_id = Auth::user()->school_id;
@@ -159,8 +159,8 @@ class AramiscNoticeController extends Controller
             $noticeData->notice_title = $request->notice_title;
             $noticeData->notice_message = $request->notice_message;
 
-            $noticeData->notice_date = date('Y-m-d', strtotime($request->notice_date));
-            $noticeData->publish_on = date('Y-m-d', strtotime($request->publish_on));
+            $noticeData->notice_date = toDbDateConvert($request->notice_date);
+            $noticeData->publish_on = toDbDateConvert($request->publish_on);
             $noticeData->notice_date = Carbon::createFromFormat('Y-m-d', $request->notice_date)->format('Y-m-d');
             $noticeData->publish_on = Carbon::createFromFormat('Y-m-d', $request->publish_on)->format('Y-m-d');
             $noticeData->inform_to = json_encode($request->role);

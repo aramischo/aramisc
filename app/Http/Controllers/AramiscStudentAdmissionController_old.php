@@ -610,7 +610,7 @@ class AramiscStudentAdmissionController extends Controller
                         $student->last_name = $request->last_name;
                         $student->full_name = $request->first_name . ' ' . $request->last_name;
                         $student->gender_id = $request->gender;
-                        $student->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+                        $student->date_of_birth = toDbDateConvert($request->date_of_birth);
                         $student->caste = $request->caste;
 
                         $student->email = $request->email_address;
@@ -618,7 +618,7 @@ class AramiscStudentAdmissionController extends Controller
 
 
                         $student->mobile = $request->phone_number;
-                        $student->admission_date = date('Y-m-d', strtotime($request->admission_date));
+                        $student->admission_date = toDbDateConvert($request->admission_date);
 
                         if (Session::get('student_photo') != "") {
                             $student->student_photo = Session::get('student_photo');
@@ -1174,7 +1174,7 @@ class AramiscStudentAdmissionController extends Controller
                 $timeline->staff_student_id = $request->student_id;
                 $timeline->type = 'stu';
                 $timeline->title = $request->title;
-                $timeline->date = date('Y-m-d', strtotime($request->date));
+                $timeline->date = toDbDateConvert($request->date);
                 $timeline->description = $request->description;
                 if (isset($request->visible_to_student)) {
                     $timeline->visible_to_student = $request->visible_to_student;
@@ -1949,7 +1949,7 @@ class AramiscStudentAdmissionController extends Controller
                         $student->last_name = $request->last_name;
                         $student->full_name = $request->first_name . ' ' . $request->last_name;
                         $student->gender_id = $request->gender;
-                        $student->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+                        $student->date_of_birth = toDbDateConvert($request->date_of_birth);
                        
 
                         $student->age = $request->age;
@@ -1958,7 +1958,7 @@ class AramiscStudentAdmissionController extends Controller
                         $student->caste = $request->caste;
                         $student->email = $request->email_address;
                         $student->mobile = $request->phone_number;
-                        $student->admission_date = date('Y-m-d', strtotime($request->admission_date));
+                        $student->admission_date = toDbDateConvert($request->admission_date);
 
                         if (Session::get('student_photo') != "") {
                             $student->student_photo = Session::get('student_photo');

@@ -97,7 +97,7 @@ class AramiscOnlineExamController extends Controller
                     $online_exam->class_id = $request->class;
                     $online_exam->section_id = $section;
                     $online_exam->subject_id = $request->subject;
-                    $online_exam->date = date('Y-m-d', strtotime($request->date));
+                    $online_exam->date = toDbDateConvert($request->date);
                     $online_exam->start_time = date('H:i:s', strtotime($request->start_time));
                     $online_exam->end_time = date('H:i:s', strtotime($request->end_time));
                     $online_exam->end_date_time = date('Y-m-d H:i:s', strtotime($request->date . ' ' . $request->end_time));

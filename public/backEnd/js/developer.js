@@ -272,8 +272,9 @@
     $(document).ready(function() {
         $("#languageChange").on("change", function() {
             var url = $("#url").val();
+            var langcode = $(this).val();
             var formData = {
-                id: $(this).val(),
+                id: langcode,
             };
             var loaderImg = '<img src="/public/backEnd/img/demo_wait.gif" alt="Loading..." style="width: 20px; height: 20px; vertical-align: middle; margin-right: 10px;">';
             toastr.success(jsLang('please wait ') + loaderImg, jsLang('processing language change'), {timeOut: 10000});

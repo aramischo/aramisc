@@ -292,7 +292,7 @@ class AramiscExamController extends Controller
                             'exam_term_id'=>  $exam->exam_type_id,
                             'exam_id'=>  $exam->id,
                             'un_subject_id'=>$exam->un_subject_id ,
-                            'date'=> date('Y-m-d', strtotime($request->date)),
+                            'date'=> toDbDateConvert($request->date),
                             'start_time' =>  date('H:i:s', strtotime($request->start_time)),
                             'end_time' => date('H:i:s', strtotime($request->end_time)),
                             'room_id' => $request->room,
@@ -322,7 +322,7 @@ class AramiscExamController extends Controller
                             $exam_routine->un_section_id = $section->un_section_id;
                             $exam_routine->un_subject_id = $request->un_subject_id;
                             $exam_routine->teacher_id = $request->teacher_id;
-                            $exam_routine->date = date('Y-m-d', strtotime($request->date));
+                            $exam_routine->date = toDbDateConvert($request->date);
                             $exam_routine->start_time = date('H:i:s', strtotime($request->start_time));
                             $exam_routine->end_time = date('H:i:s', strtotime($request->end_time));
                             $exam_routine->room_id = $request->room;
@@ -385,7 +385,7 @@ class AramiscExamController extends Controller
                             'exam_term_id'=>  $exam->exam_type_id,
                             'exam_id'=>  $exam->id,
                             'subject_id'=>$request->subject_id,
-                            'date'=> date('Y-m-d', strtotime($request->date)),
+                            'date'=> toDbDateConvert($request->date),
                             'start_time' =>  date('H:i:s', strtotime($request->start_time)),
                             'end_time' => date('H:i:s', strtotime($request->end_time)),
                             'room_id' => $request->room,
@@ -404,7 +404,7 @@ class AramiscExamController extends Controller
                         $exam_routine->section_id = $exam->section_id;
                         $exam_routine->subject_id =  $exam->subject_id;
                         $exam_routine->teacher_id = $request->teacher_id;
-                        $exam_routine->date = date('Y-m-d', strtotime($request->date));
+                        $exam_routine->date = toDbDateConvert($request->date);
                         $exam_routine->start_time = date('H:i:s', strtotime($request->start_time));
                         $exam_routine->end_time = date('H:i:s', strtotime($request->end_time));
                         $exam_routine->room_id = $request->room;

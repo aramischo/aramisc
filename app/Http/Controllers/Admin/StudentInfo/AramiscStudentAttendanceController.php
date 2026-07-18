@@ -124,7 +124,7 @@ class AramiscStudentAttendanceController extends Controller
             foreach ($request->attendance as $record_id => $student) {
                 if (moduleStatusCheck('University')) {
                     $attendance = AramiscStudentAttendance::where('student_id', gv($student, 'student'))
-                        ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                        ->where('attendance_date', toDbDateConvert($request->date))
                         ->when(gv($student, 'un_session_id'), function ($q) use ($student) {
                             $q->where('un_session_id', gv($student, 'un_session_id'));
                         })
@@ -151,7 +151,7 @@ class AramiscStudentAttendanceController extends Controller
                         ->where('school_id', Auth::user()->school_id)->first();
                 } else {
                     $attendance = AramiscStudentAttendance::where('student_id', gv($student, 'student'))
-                        ->where('attendance_date', date('Y-m-d', strtotime($request->date)))
+                        ->where('attendance_date', toDbDateConvert($request->date))
 
                         ->when(!moduleStatusCheck('University'), function ($query) use ($student) {
                             $query->where('class_id', gv($student, 'class'));
@@ -178,7 +178,7 @@ class AramiscStudentAttendanceController extends Controller
                     $attendance->attendance_type = gv($student, 'attendance_type');
                     $attendance->notes = gv($student, 'note');
                 }
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->date));
+                $attendance->attendance_date = toDbDateConvert($request->date);
                 $attendance->school_id = Auth::user()->school_id;
                 $attendance->academic_id = getAcademicId();
                 if (moduleStatusCheck('University')) {
@@ -204,7 +204,7 @@ class AramiscStudentAttendanceController extends Controller
                 }
 
                 // $studentInfo = StudentRecord::find($record_id);
-                // $compact['attendance_date'] = date('Y-m-d', strtotime($request->date));
+                // $compact['attendance_date'] = toDbDateConvert($request->date);
                 // if (gv($student, 'attendance_type') == "P") {
                 //     $compact['user_email'] = $studentInfo->studentDetail->email;
                 //     $compact['student_name'] = $studentInfo->studentDetail->full_name;
@@ -332,7 +332,7 @@ class AramiscStudentAttendanceController extends Controller
         foreach ($studentRecords as $record) {
 
             $attendance = AramiscStudentAttendance::where('student_id', $record->student_id)
-                ->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                ->where('attendance_date', toDbDateConvert($request->attendance_date))
                 ->when(!moduleStatusCheck('University'), function ($query) use ($request) {
                     $query->where('class_id', $request->class_id);
                 })->when(!moduleStatusCheck('University'), function ($query) use ($request) {
@@ -349,7 +349,7 @@ class AramiscStudentAttendanceController extends Controller
                 $attendance = new AramiscStudentAttendance();
                 $attendance->attendance_type = "H";
                 $attendance->notes = "Holiday";
-                $attendance->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                $attendance->attendance_date = toDbDateConvert($request->attendance_date);
                 $attendance->student_id = $record->student_id;
                 $attendance->student_record_id = $record->id;
                 $attendance->class_id = $record->class_id;
@@ -362,7 +362,7 @@ class AramiscStudentAttendanceController extends Controller
                 }
                 $attendance->save();
 
-                $compact['holiday_date'] = date('Y-m-d', strtotime($request->attendance_date));
+                $compact['holiday_date'] = toDbDateConvert($request->attendance_date);
                 @send_sms($record->student->mobile, 'holiday', $compact);
                 @send_sms(@$record->student->parents->guardians_mobile, 'holiday', $compact);
 
@@ -412,7 +412,7 @@ class AramiscStudentAttendanceController extends Controller
                     }
 
 
-                    $compact['holiday_date'] = date('Y-m-d', strtotime($request->attendance_date));
+                    $compact['holiday_date'] = toDbDateConvert($request->attendance_date);
                     @send_sms($record->student->mobile, 'holiday', $compact);
                 }
                 // end
@@ -520,7 +520,7 @@ class AramiscStudentAttendanceController extends Controller
                         $students = StudentRecord::where('class_id', $class_section[0])->where('section_id', $class_section[1])->where('school_id', Auth::user()->school_id)->get();
                     }
                     foreach ($students as $student) {
-                        StudentAttendanceBulk::where('student_record_id', $student->id)->where('attendance_date', date('Y-m-d', strtotime($request->attendance_date)))
+                        StudentAttendanceBulk::where('student_record_id', $student->id)->where('attendance_date', toDbDateConvert($request->attendance_date))
                             ->delete();
                         $all_student_ids[] = $student->id;
                     }
@@ -541,7 +541,7 @@ class AramiscStudentAttendanceController extends Controller
                                     $import = new AramiscStudentAttendance();
                                     $import->student_id = $student->student_id;
                                     $import->student_record_id = $student->id;
-                                    $import->attendance_date = date('Y-m-d', strtotime($request->attendance_date));
+                                    $import->attendance_date = toDbDateConvert($request->attendance_date);
                                     $import->attendance_type = $value->attendance_type;
                                     $import->notes = $value->note;
                                     $import->school_id = Auth::user()->school_id;

@@ -234,6 +234,7 @@
 @include('backEnd.partials.date_picker_css_js')
 
 <script>
+
     $('.input-right-icon button').on("click", function(){
         $(this).parent().find("input").focus();
     });
@@ -252,7 +253,9 @@
 
     $(".primary_input_field.date").datepicker({
         autoclose: true,
-        setDate: new Date(),
+        // setDate: new Date(),
+        format: (_locale.toLowerCase() === 'fr') ? 'd/m/yyyy' : 'yyyy-mm-d',
+        language: _locale,
     });
     $(".primary_input_field.date").on("changeDate", function(ev) {
         // $(this).datepicker('hide');

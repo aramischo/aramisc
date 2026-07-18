@@ -135,7 +135,7 @@ class GlobalUploadContentController extends Controller
                                 $uploadContents->content_title = $request->content_title;
                                 $uploadContents->content_type = $request->content_type;
                                 $uploadContents->school_id = Auth::user()->school_id;
-                                $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                                $uploadContents->upload_date = toDbDateConvert($request->upload_date);
                                 $uploadContents->description = $request->description;
                                 $uploadContents->source_url = $request->source_url;
                                 $uploadContents->upload_file = fileUpload($request->content_file, $destination);
@@ -151,7 +151,7 @@ class GlobalUploadContentController extends Controller
                             $uploadContents->content_title = $request->content_title;
                             $uploadContents->content_type = $request->content_type;
                             $uploadContents->school_id = Auth::user()->school_id;
-                            $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                            $uploadContents->upload_date = toDbDateConvert($request->upload_date);
                             $uploadContents->description = $request->description;
                             $uploadContents->source_url = $request->source_url;
                             $uploadContents->upload_file = fileUpload($request->content_file, $destination);
@@ -166,7 +166,7 @@ class GlobalUploadContentController extends Controller
                         $uploadContents->content_title = $request->content_title;
                         $uploadContents->content_type = $request->content_type;
                         $uploadContents->school_id = Auth::user()->school_id;
-                        $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                        $uploadContents->upload_date = toDbDateConvert($request->upload_date);
                         foreach ($request->available_for as $value) {
                             if ($value == 'admin') {
                                 $uploadContents->available_for_admin = 1;
@@ -198,7 +198,7 @@ class GlobalUploadContentController extends Controller
                             }
                         }
                     }
-                    $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+                    $uploadContents->upload_date = toDbDateConvert($request->upload_date);
                     $uploadContents->description = $request->description;
                     $uploadContents->source_url = $request->source_url;
                     $uploadContents->upload_file = fileUpload($request->content_file, $destination);
@@ -555,7 +555,7 @@ class GlobalUploadContentController extends Controller
                 $uploadContents->available_for_all_classes = null;
             }
 
-            $uploadContents->upload_date = date('Y-m-d', strtotime($request->upload_date));
+            $uploadContents->upload_date = toDbDateConvert($request->upload_date);
             $uploadContents->description = $request->description;
             $uploadContents->source_url = $request->source_url;
             if ($request->file('content_file') != "") {

@@ -58,8 +58,8 @@ class ContentShareListController extends Controller
         try {
             $newContent = new ContentShareList();
             $newContent->title = $request->title;
-            $newContent->share_date = date('Y-m-d', strtotime($request->shareDate));
-            $newContent->valid_upto = date('Y-m-d', strtotime($request->validUpto));
+            $newContent->share_date = toDbDateConvert($request->shareDate);
+            $newContent->valid_upto = toDbDateConvert($request->validUpto);
             $newContent->description = $request->description;
             $newContent->send_type = $request->selectTab;
             $newContent->content_ids = $request->content_ids;
@@ -88,8 +88,8 @@ class ContentShareListController extends Controller
         try {
             $newContent = new ContentShareList();
             $newContent->title = $request->title;
-            $newContent->share_date = date('Y-m-d', strtotime($request->shareDate));
-            $newContent->valid_upto = date('Y-m-d', strtotime($request->validUpto));
+            $newContent->share_date = toDbDateConvert($request->shareDate);
+            $newContent->valid_upto = toDbDateConvert($request->validUpto);
             $newContent->content_ids = $request->content_ids;
             $newContent->send_type = "P";
             $newContent->url = generateRandomString(30);

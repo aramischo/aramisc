@@ -285,7 +285,7 @@ class AramiscBookController extends Controller
             $bookIssue->book_id = $request->book_id;
             $bookIssue->member_id = $request->member_id;
             $bookIssue->given_date = date('Y-m-d');
-            $bookIssue->due_date = date('Y-m-d', strtotime($request->due_date));
+            $bookIssue->due_date = toDbDateConvert($request->due_date);
             $bookIssue->issue_status = 'I';
             $bookIssue->school_id = Auth::user()->school_id;
 
@@ -316,7 +316,7 @@ class AramiscBookController extends Controller
             if ($bookIssue->member->memberTypes->id == '2') {
                 $compact['slug'] = 'student';
                 $compact['user_email'] = $bookIssue->member->studentDetails->email;
-                $compact['due_date'] = date('Y-m-d', strtotime($request->due_date));
+                $compact['due_date'] = toDbDateConvert($request->due_date);
                 $compact['student_name'] = $bookIssue->member->studentDetails->full_name;
                 $compact['class_name'] = $bookIssue->member->studentDetails->defaultClass->class->class_name;
                 $compact['section_name'] = $bookIssue->member->studentDetails->defaultClass->section->section_name;
@@ -328,7 +328,7 @@ class AramiscBookController extends Controller
             } elseif ($bookIssue->member->memberTypes->id == '3') {
                 $compact['slug'] = 'parent';
                 $compact['user_email'] = $bookIssue->member->parentsDetails->guardians_email;
-                $compact['due_date'] = date('Y-m-d', strtotime($request->due_date));
+                $compact['due_date'] = toDbDateConvert($request->due_date);
                 $compact['issue_date'] = date('Y-m-d');
                 $compact['book_title'] = $bookIssue->books->book_title;
                 $compact['book_no'] = $bookIssue->books->book_number;

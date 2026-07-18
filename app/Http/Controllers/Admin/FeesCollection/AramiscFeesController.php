@@ -144,7 +144,7 @@ class AramiscFeesController extends Controller
             $fees_payment->assign_id = $request->assign_id;
             $fees_payment->amount = !empty($request->amount) ? $request->amount : 0;
             $fees_payment->assign_id = $request->assign_id;
-            $fees_payment->payment_date = date('Y-m-d', strtotime($request->date));
+            $fees_payment->payment_date = toDbDateConvert($request->date);
             $fees_payment->payment_mode = $request->payment_mode;
             $fees_payment->created_by = $user->id;
             $fees_payment->note = $request->note;
@@ -162,7 +162,7 @@ class AramiscFeesController extends Controller
                 $sub_payment = $installment->payments->sum('paid_amount');
                 $direct_payment =  $installment->paid_amount;
                 $total_paid =  $sub_payment + $direct_payment;
-                $installment->payment_date = date('Y-m-d', strtotime($request->date));
+                $installment->payment_date = toDbDateConvert($request->date);
 
 
                 $last_inovoice = UnFeesInstallAssignChildPayment::where('school_id',auth()->user()->school_id)->max('invoice_no');
@@ -255,7 +255,7 @@ class AramiscFeesController extends Controller
 
             $add_income = new AramiscAddIncome();
             $add_income->name = 'Fees Collect';
-            $add_income->date = date('Y-m-d', strtotime($request->date));
+            $add_income->date = toDbDateConvert($request->date);
             $add_income->amount = $fees_payment->amount;
             $add_income->fees_collection_id = $fees_payment->id;
             $add_income->active_status = 1;
@@ -281,7 +281,7 @@ class AramiscFeesController extends Controller
                 $bank_statement->after_balance= $after_balance;
                 $bank_statement->type= 1;
                 $bank_statement->details= "Fees Payment";
-                $bank_statement->payment_date= date('Y-m-d', strtotime($request->date));
+                $bank_statement->payment_date= toDbDateConvert($request->date);
                 $bank_statement->bank_id= $request->bank_id;
                 $bank_statement->school_id= Auth::user()->school_id;
                 $bank_statement->payment_method= $payment_method->id;
@@ -919,8 +919,8 @@ class AramiscFeesController extends Controller
     public function studentFineReportSearch(Request $request)
     {
         try {
-            $date_from = date('Y-m-d', strtotime($request->date_from));
-            $date_to = date('Y-m-d', strtotime($request->date_to));
+            $date_from = toDbDateConvert($request->date_from);
+            $date_to = toDbDateConvert($request->date_to);
             $fees_payments = AramiscFeesPayment::where('active_status',1)->where('payment_date', '>=', $date_from)->where('payment_date', '<=', $date_to)->where('fine', '!=', 0)->where('school_id',Auth::user()->school_id)->get();
             return view('backEnd.reports.student_fine_report', compact('fees_payments'));
         } catch (\Exception $e) {
@@ -1081,7 +1081,7 @@ class AramiscFeesController extends Controller
 
         $installment = DirectFeesInstallmentAssign::find($request->installment_id);
         $installment->amount = $request->amount;
-        $installment->due_date = date('Y-m-d', strtotime($request->due_date));
+        $installment->due_date = toDbDateConvert($request->due_date);
         if($installment->fees_discount_id){
             $fees_discount = AramiscFeesDiscount::find($installment->fees_discount_id);
             $installment->discount_amount =  ($installment->amount * $fees_discount->amount) / 100;
@@ -1110,11 +1110,11 @@ class AramiscFeesController extends Controller
             $payment->paid_amount = $request->amount;
             $payment->amount = $request->amount;
             $payment->balance_amount = $payment->balance_amount - $dif_amount ;
-            $payment->payment_date = date('Y-m-d', strtotime($request->payment_date));
+            $payment->payment_date = toDbDateConvert($request->payment_date);
             $payment->save();
             $aramisc_fees_payment = AramiscFeesPayment::where('installment_payment_id',$payment->id)->first();
             if($aramisc_fees_payment){
-                $aramisc_fees_payment->payment_date = date('Y-m-d', strtotime($request->payment_date));
+                $aramisc_fees_payment->payment_date = toDbDateConvert($request->payment_date);
                 $aramisc_fees_payment->amount = $request->amount;
                 $aramisc_fees_payment->save();
             }
@@ -1365,7 +1365,7 @@ class AramiscFeesController extends Controller
                 $fees_payment->assign_id = $request->assign_id;
                 $fees_payment->amount = $paid_amount;
                 $fees_payment->assign_id = $request->assign_id;
-                $fees_payment->payment_date = date('Y-m-d', strtotime($request->date));
+                $fees_payment->payment_date = toDbDateConvert($request->date);
                 $fees_payment->payment_mode = $request->payment_mode;
                 $fees_payment->created_by = $user->id;
                 $fees_payment->note = $request->note;
@@ -1383,7 +1383,7 @@ class AramiscFeesController extends Controller
                     $sub_payment = $installment->payments->sum('paid_amount');
                     $direct_payment =  $installment->paid_amount;
                     $total_paid =  $sub_payment + $direct_payment;
-                    $installment->payment_date = date('Y-m-d', strtotime($request->date));
+                    $installment->payment_date = toDbDateConvert($request->date);
 
                     $last_inovoice = UnFeesInstallAssignChildPayment::where('school_id',auth()->user()->school_id)->max('invoice_no');
                     $new_subPayment = new UnFeesInstallAssignChildPayment();
@@ -1470,7 +1470,7 @@ class AramiscFeesController extends Controller
 
                 $add_income = new AramiscAddIncome();
                 $add_income->name = 'Fees Collect';
-                $add_income->date = date('Y-m-d', strtotime($request->date));
+                $add_income->date = toDbDateConvert($request->date);
                 $add_income->amount = $fees_payment->amount;
                 $add_income->fees_collection_id = $fees_payment->id;
                 $add_income->active_status = 1;
@@ -1496,7 +1496,7 @@ class AramiscFeesController extends Controller
                     $bank_statement->after_balance= $after_balance;
                     $bank_statement->type= 1;
                     $bank_statement->details= "Fees Payment";
-                    $bank_statement->payment_date= date('Y-m-d', strtotime($request->date));
+                    $bank_statement->payment_date= toDbDateConvert($request->date);
                     $bank_statement->bank_id= $request->bank_id;
                     $bank_statement->school_id= Auth::user()->school_id;
                     $bank_statement->payment_method= $payment_method->id;

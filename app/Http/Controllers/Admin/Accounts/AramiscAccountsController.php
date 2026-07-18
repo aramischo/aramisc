@@ -46,13 +46,13 @@ class AramiscAccountsController extends Controller
             'type' => 'required'
         ]);
         try {
-            $date_from = date('Y-m-d', strtotime($request->date_from));
-            $date_to = date('Y-m-d', strtotime($request->date_to));
-            $date_time_from = date('Y-m-d H:i:s', strtotime($request->date_from));
-            $date_time_to = date('Y-m-d H:i:s', strtotime($request->date_to . ' ' . '23:59:00'));
+            $date_from = toDbDateConvert($request->date_from);
+            $date_to = toDbDateConvert($request->date_to);
+            $date_time_from = toDbDateConvert($request->date_from);
+            $date_time_to = toDbDateConvert($request->date_to . ' ' . '23:59:00');
             $type_id = $request->type;
-            $from_date = $request->date_from;
-            $to_date = $request->date_to;
+            $from_date = toDbDateConvert($request->date_from);
+            $to_date = toDbDateConvert($request->date_to);
             if ($request->type == "In") {
                 if ($request->filtering_income == "all") {
                     $dormitory = 0;
@@ -145,10 +145,10 @@ class AramiscAccountsController extends Controller
     public function searchExpenseReportByDate(Request $request)
     {
         try {
-            date_default_timezone_set("Asia/Dhaka");
+//            date_default_timezone_set("Asia/Dhaka");
 
-            $date_from = date('Y-m-d', strtotime($request->date_from));
-            $date_to = date('Y-m-d', strtotime($request->date_to));
+            $date_from = toDbDateConvert($request->date_from);
+            $date_to = toDbDateConvert($request->date_to);
 
             $date_time_from = date('Y-m-d H:i:s', strtotime($request->date_from));
             $date_time_to = date('Y-m-d H:i:s', strtotime($request->date_to . ' ' . '23:59:00'));

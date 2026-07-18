@@ -628,7 +628,8 @@
 
         $(".primary_input_field.date").datepicker({
             autoclose: true,
-            setDate: new Date(),
+            // setDate: new Date(),
+            format: (_locale.toLowerCase() === 'fr') ? 'd/m/yyyy' : 'yyyy-mm-d',
         });
         
         $(".common-select").addClass("new_select_css");

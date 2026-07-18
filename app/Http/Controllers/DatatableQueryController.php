@@ -1374,8 +1374,8 @@ class DatatableQueryController extends Controller
 
     public function ajaxFeesPayment(Request $request){
         if($request->ajax()){
-            $date_from = date('Y-m-d', strtotime($request->date_from));
-            $date_to = date('Y-m-d', strtotime($request->date_to));
+            $date_from = toDbDateConvert($request->date_from);
+            $date_to = toDbDateConvert($request->date_to);
             $fees_payments = AramiscFeesPayment::query();
             $fees_payments = $fees_payments->when(directFees(), function($q){
                 $q->whereNotNull('installment_payment_id');

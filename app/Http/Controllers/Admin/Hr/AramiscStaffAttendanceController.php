@@ -80,7 +80,7 @@ class AramiscStaffAttendanceController extends Controller
         try {
             foreach ($request->id as $staff) {
                 $attendance = AramiscStaffAttendence::where('staff_id', $staff)
-                    ->where('attendence_date', date('Y-m-d', strtotime($request->date)))
+                    ->where('attendence_date', toDbDateConvert($request->date))
                     ->where('school_id', Auth::user()->school_id)
                     ->first();
 
@@ -93,7 +93,7 @@ class AramiscStaffAttendanceController extends Controller
                 $attendance->school_id = Auth::user()->school_id;
                 $attendance->attendence_type = $request->attendance[$staff];
                 $attendance->notes = $request->note[$staff];
-                $attendance->attendence_date = date('Y-m-d', strtotime($request->date));
+                $attendance->attendence_date = toDbDateConvert($request->date);
                 $attendance->save();
 
                 $data['teacher_name'] = $attendance->StaffInfo->full_name;
@@ -103,7 +103,7 @@ class AramiscStaffAttendanceController extends Controller
                 $compact['slug'] = 'staff';
                 $compact['user_email'] = $staffInfo->email;
                 $compact['staff_name'] = $staffInfo->full_name;
-                $compact['attendance_date'] = date('Y-m-d', strtotime($request->date));
+                $compact['attendance_date'] = toDbDateConvert($request->date);
                 if ($request->attendance[$staff] == "P") {
                     @send_sms($staffInfo->mobile, 'staff_attendance', $compact);
                 } elseif ($request->attendance[$staff] == "A") {
@@ -134,7 +134,7 @@ class AramiscStaffAttendanceController extends Controller
 
         foreach ($staffs as $staff) {
             $attendance = AramiscStaffAttendence::where('staff_id', $staff->id)
-                ->where('attendence_date', date('Y-m-d', strtotime($request->date)))
+                ->where('attendence_date', toDbDateConvert($request->date))
                 ->where('academic_id', getAcademicId())
                 ->where('school_id', Auth::user()->school_id)
                 ->first();
@@ -146,13 +146,13 @@ class AramiscStaffAttendanceController extends Controller
                 $attendance = new AramiscStaffAttendence();
                 $attendance->attendence_type = "H";
                 $attendance->notes = "Holiday";
-                $attendance->attendence_date = date('Y-m-d', strtotime($request->date));
+                $attendance->attendence_date = toDbDateConvert($request->date);
                 $attendance->staff_id = $staff->id;
                 $attendance->academic_id = getAcademicId();
                 $attendance->school_id = Auth::user()->school_id;
                 $attendance->save();
 
-                $compact['holiday_date'] = date('Y-m-d', strtotime($request->date));
+                $compact['holiday_date'] = toDbDateConvert($request->date);
                 @send_sms($staff->mobile, 'holiday', $compact);
             }
         }
@@ -368,7 +368,7 @@ class AramiscStaffAttendanceController extends Controller
                     }
 
                     try {
-                        AramiscStaffAttendanceImport::where('attendence_date', date('Y-m-d', strtotime($request->attendance_date)))->delete();
+                        AramiscStaffAttendanceImport::where('attendence_date', toDbDateConvert($request->attendance_date))->delete();
 
                         foreach ($data as $key => $val) {
                             AramiscStaffAttendence::where('attendence_date', date('Y-m-d', strtotime($val->attendence_date)))
@@ -392,7 +392,7 @@ class AramiscStaffAttendanceController extends Controller
                                         $present_staffs[] = $staff->id;
                                         $import = new AramiscStaffAttendence();
                                         $import->staff_id = $staff->id;
-                                        $import->attendence_date = date('Y-m-d', strtotime($request->attendance_date));
+                                        $import->attendence_date = toDbDateConvert($request->attendance_date);
                                         $import->attendence_type = $value->attendance_type;
                                         $import->notes = $value->notes;
                                         $import->school_id = Auth::user()->school_id;
@@ -408,7 +408,7 @@ class AramiscStaffAttendanceController extends Controller
                                 $import = new AramiscStaffAttendence();
                                 $import->staff_id = $all_staff_id;
                                 $import->attendence_type = 'A';
-                                $import->attendence_date = date('Y-m-d', strtotime($request->attendance_date));
+                                $import->attendence_date = toDbDateConvert($request->attendance_date);
                                 $import->school_id = Auth::user()->school_id;
                                 $import->academic_id = getAcademicId();
                                 $import->save();
