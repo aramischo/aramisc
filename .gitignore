@@ -23,3 +23,5 @@ docker-compose.override.yml
 copy.php
 change-list.txt
 .DS_Store
+.env.cypress
+.env.backup

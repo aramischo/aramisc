@@ -14,7 +14,7 @@
     @else
         <link rel="icon" href="{{asset('public/uploads/settings/favicon.png')}}" type="image/png"/>
     @endif
-    <title>{{@schoolConfig()->school_name ? @schoolConfig()->school_name : 'Aramisc Edu ERP'}} |
+    <title>{{@schoolConfig()->school_name ? @schoolConfig()->school_name : 'Aramisc ERP'}} |
         @yield('title')
     </title>
 
@@ -59,7 +59,7 @@
 
         window._locale = '{{ app()->getLocale() }}';
         window._rtl = {{ userRtlLtl()==1 ? "true" : "false" }};
-        window._translations = {!! cache('translations') !!};
+        window._translations = {!! json_encode(cache('translations') ?? []) !!};
     </script>
 </head>
 @php

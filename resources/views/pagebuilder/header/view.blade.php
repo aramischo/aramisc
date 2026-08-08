@@ -7,8 +7,8 @@
                         <ul>
                             <li><a href="tel:+1 (123) 456-7890"><i class="fa fa-phone-alt"></i> +1 (123) 456-7890</a>
                             </li>
-                            <li><a href="mailto:info@spondonit.net"><i class="fa fa-envelope"></i>
-                                    info@spondonit.net</a></li>
+                            <li><a href="mailto:info@aramisc.net"><i class="fa fa-envelope"></i>
+                                    info@aramisc.net</a></li>
                             <li>
                                 <div id="options" data-input-name="country2" data-selected-country="US">
                                 </div>

@@ -577,13 +577,13 @@ return new class extends Migration
         if(!$exist){
             $s = new AramiscModuleManager();
             $s->name = "DownloadCenter";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This Module is named Download Center for managing study materials more efficiently. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
             $s->purchase_code = time();
-            $s->addon_url = "mailto:support@spondonit.com";
+            $s->addon_url = "mailto:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -597,12 +597,12 @@ return new class extends Migration
         if(!$exist2){
             $s2 = new AramiscModuleManager();
             $s2->name = "AiContent";
-            $s2->email = 'support@spondonit.com';
+            $s2->email = 'support@aramisc.com';
             $s2->notes = "This is AI Content Generator module. Generate content via AI.";
             $s2->version = "1.0";
-            $s2->update_url = "https://spondonit.com/contact";
+            $s2->update_url = "https://aramisc.com/contact";
             $s2->is_default = 0;
-            $s2->addon_url = "maito:support@spondonit.com";
+            $s2->addon_url = "maito:support@aramisc.com";
             $s2->installed_domain = url('/');
             $s2->activated_date = date('Y-m-d');
             $s2->save();
@@ -614,12 +614,12 @@ return new class extends Migration
         if(!$exist3){
             $s3 = new AramiscModuleManager();
             $s3->name = "WhatsappSupport";
-            $s3->email = 'support@spondonit.com';
+            $s3->email = 'support@aramisc.com';
             $s3->notes = "This is WhatsApp Support module. Send message via WhatsApp.";
             $s3->version = "1.0";
-            $s3->update_url = "https://spondonit.com/contact";
+            $s3->update_url = "https://aramisc.com/contact";
             $s3->is_default = 0;
-            $s3->addon_url = "maito:support@spondonit.com";
+            $s3->addon_url = "maito:support@aramisc.com";
             $s3->installed_domain = url('/');
             $s3->activated_date = date('Y-m-d');
             $s3->save();

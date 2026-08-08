@@ -280,7 +280,7 @@
   'select_package' => 'Sélectionner le package',
   'purchase_date' => 'Date d\'achat',
   'expaire_date' => 'Date d\'expiration',
-  'aramisc_edu' => 'Aramisc Edu',
+  'aramisc_edu' => 'Aramisc',
   'aramisc_clasified' => 'ARAMISC classé',
   'date_|_day' => 'Date | Jour',
   'purchase_list' => 'Liste d\'achat',

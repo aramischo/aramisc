@@ -47,7 +47,7 @@ class CreateDirectFeesSettingsTable extends Migration
             if (!$check) {
                 $s = new AramiscModuleManager();
                 $s->name = $module_name;
-                $s->email = 'support@spondonit.com';
+                $s->email = 'support@aramisc.com';
                 $s->notes = "Manage Your University Using This Module";
                 $s->version = 1.0;
                 $s->update_url = url('/');

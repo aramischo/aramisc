@@ -10,7 +10,7 @@ qui sur :  scripts/Migration.php
 Il faut modifier : translate_lang_files.php
 Puis lancer la commande suivante dans le terminal : php translate_lang_files.php
 
-## About Aramisc Edu - The Ultimate Education Management System For School, Institute & Academy 
+## About Aramisc - The Ultimate Education Management System For School, Institute & Academy 
 
 Managing various administrative tasks in one place is now quite easy and time savior with this Aramisc and Give your valued time to your institute that will increase next generation productivity for our society.
 

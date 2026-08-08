@@ -178,8 +178,8 @@
                                         <th> @lang('transport.model_no')</th>
                                         <th> @lang('transport.year_made')</th>
                                         <th> @lang('transport.driver_name')</th>
-                                        <th> @lang('transport.driver_license')</th>
-                                        <th> @lang('common.phone')</th>
+{{--                                        <th> @lang('transport.driver_license')</th>--}}
+{{--                                        <th> @lang('common.phone')</th>--}}
                                         <th> @lang('common.action')</th>
                                     </tr>
                                 </thead>
@@ -192,8 +192,8 @@
                                         <td>{{@$assign_vehicle->made_year}}</td>
                                         <td>{{(empty(@$assign_vehicle->driver->full_name))?'-':@$assign_vehicle->driver->full_name}}   </td> 
     
-                                        <td>{{(empty(@$assign_vehicle->driver->driving_license))?'-':@$assign_vehicle->driver->driving_license}}   </td> 
-                                        <td>{{(empty(@$assign_vehicle->driver->mobile))?'-':@$assign_vehicle->driver->mobile}}   </td> 
+{{--                                        <td>{{(empty(@$assign_vehicle->driver->driving_license))?'-':@$assign_vehicle->driver->driving_license}}   </td>--}}
+{{--                                        <td>{{(empty(@$assign_vehicle->driver->mobile))?'-':@$assign_vehicle->driver->mobile}}   </td>--}}
     
                                         <td>
                                             <x-drop-down>

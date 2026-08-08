@@ -14,8 +14,8 @@ function getStorageFile($file_name)
 <html>
 
 <head>
-    <meta name="author" content="spondonit">
-    <meta name="descripton" content="A project of spondonit">
+    <meta name="author" content="aramisc">
+    <meta name="descripton" content="A project of aramisc">
     <title>Version | AramiscEdu</title>
 </head>
 

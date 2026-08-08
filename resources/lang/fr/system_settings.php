@@ -437,7 +437,7 @@
   'team' => 'Équipe',
   'thanks' => 'Merci',
   'select_package' => 'Sélectionner un package',
-  'aramisc_edu' => 'Aramisc Edu',
+  'aramisc_edu' => 'Aramisc',
   'aramisc_clasified' => 'Aramisc classifié',
   'purchase_list' => 'Liste d\'achats',
   'sl' => 'SL',

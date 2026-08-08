@@ -3,7 +3,7 @@
 
 <head>
      @php
-        $base_path = 'public/vendor/spondonit';
+        $base_path = 'public/vendor/aramisc';
     @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="{{ asset($base_path . '/img/favicon.png') }}"/>
 
     <link rel="stylesheet" href="{{ asset($base_path . '/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset($base_path . '/css/spondonit.css') }}">
+    <link rel="stylesheet" href="{{ asset($base_path . '/css/aramisc.css') }}">
     <link rel="stylesheet" href="{{ asset($base_path . '/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset($base_path . '/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset($base_path . '/css/parsley.css') }}">

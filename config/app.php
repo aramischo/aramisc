@@ -9,7 +9,7 @@ return [
 
     'debug' => env('APP_DEBUG', true),
 
-    'name' => env('APP_NAME', 'Aramisc Edu'),
+    'name' => env('APP_NAME', 'Aramisc'),
 
     'force_https'=> env('FORCE_HTTPS',false),
 
@@ -181,6 +181,7 @@ return [
         Larabuild\Optionbuilder\ServiceProvider::class,
         Larabuild\Pagebuilder\ServiceProvider::class,
 
+        Laracasts\Cypress\CypressServiceProvider::class,
 
     ],
 

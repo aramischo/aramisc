@@ -69,7 +69,7 @@
         'sl'=> 'SL',
         'purchase_list'=> 'Purchase List',
         'aramisc_clasified'=> 'Aramisc Clasified',
-        'aramisc_edu'=> 'Aramisc Edu',
+        'aramisc_edu'=> 'Aramisc',
         'select_package'=> 'Select Package',
         'thanks'=> 'Thanks',
         'team'=> 'Team',

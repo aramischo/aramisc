@@ -416,6 +416,11 @@ function FeesDueSMSBody($body, $s_id, $time)
 if (!function_exists('userPermission')) {
     function userPermission($route, $role_id = null, $purpose = null)
     {
+        // Guard: return false immediately if no authenticated user
+        if (!Auth::check() || Auth::user() === null) {
+            return false;
+        }
+
         $role_id = Auth::user()->role_id;
         $permissions = app('permission');
         if ($role_id == 1 && Auth::user()->is_administrator == "yes") {
@@ -4307,8 +4312,8 @@ if (!function_exists('nav_item_open')) {
 if (!function_exists('app_url')) {
     function app_url()
     {
-        $saas = config('spondonit.saas_module_name', 'Saas');
-        $module_check_function = config('spondonit.module_status_check_function', 'moduleStatusCheck');
+        $saas = config('aramisc.saas_module_name', 'Saas');
+        $module_check_function = config('aramisc.module_status_check_function', 'moduleStatusCheck');
         if (function_exists($module_check_function) && $module_check_function($saas)) {
             return config('app.url');
         }

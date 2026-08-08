@@ -5,13 +5,13 @@
 @endsection
 
 @push('script')
-    <script type="text/javascript" src="{{ asset('public/vendor/spondonit/js/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/spondonit/js/function.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/spondonit/js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/vendor/aramisc/js/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/vendor/aramisc/js/function.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/vendor/aramisc/js/common.js') }}"></script>
 @endpush
 
 @section('mainContent')
-    <link rel="stylesheet" href="{{ asset('public/vendor/spondonit/css/parsley.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/vendor/aramisc/css/parsley.css') }}">
     <style type="text/css">
         #selectStaffsDiv,
         .forStudentWrapper {

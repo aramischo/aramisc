@@ -99,6 +99,13 @@
       'Bigbluebutton' => 'JoisarJignesh\\Bigbluebutton\\Facades\\Bigbluebutton',
     ),
   ),
+  'laracasts/cypress' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laracasts\\Cypress\\CypressServiceProvider',
+    ),
+  ),
   'laravel/dusk' => 
   array (
     'providers' => 

@@ -46,7 +46,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -70,7 +70,7 @@ class CreateAramiscModuleManagersTable extends Migration
             $s = new AramiscModuleManager();
             $s->name = $name;
             $s->is_default = 1;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -94,7 +94,7 @@ class CreateAramiscModuleManagersTable extends Migration
             $s = new AramiscModuleManager();
             $s->name = $name;
             $s->is_default = 1;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -116,7 +116,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->is_default = 1;
             $s->version = $version;
@@ -139,7 +139,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -162,7 +162,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -184,7 +184,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -199,10 +199,10 @@ class CreateAramiscModuleManagersTable extends Migration
             $name = 'Zoom';
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Zoom module for live virtual class and meeting in this system at a time. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
             $s->addon_url = "https://codecanyon.net/item/aramiscdu-zoom-live-class/27623128?s_rank=12";
             $s->installed_domain = url('/');
@@ -213,12 +213,12 @@ class CreateAramiscModuleManagersTable extends Migration
             $name = 'OnlineExam';
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is OnlineExam module for take online exam Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "mailto:support@spondonit.com";
+            $s->addon_url = "mailto:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -227,10 +227,10 @@ class CreateAramiscModuleManagersTable extends Migration
             $name = 'ParentRegistration';
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Parent Registration module for Registration. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
             $s->addon_url = 'https://aorasoft.com';
             $s->installed_domain = url('/');
@@ -243,10 +243,10 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = 'RazorPay';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Razor Pay module for Online payemnt. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
             $s->addon_url = "https://codecanyon.net/item/razorpay-payment-gateway-for-aramiscdu/27721206?s_rank=11";
             $s->installed_domain = url('/');
@@ -257,12 +257,12 @@ class CreateAramiscModuleManagersTable extends Migration
             $name = 'BBB';
             $s = new AramiscModuleManager();
             $s->name = 'BBB';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is BigBlueButton module for live virtual class and meeting in this system at a time. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "mailto:support@spondonit.com";
+            $s->addon_url = "mailto:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -272,12 +272,12 @@ class CreateAramiscModuleManagersTable extends Migration
             $name = 'Jitsi';
             $s = new AramiscModuleManager();
             $s->name = 'Jitsi';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Jitsi module for live virtual class and meeting in this system at a time. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "mailto:support@spondonit.com";
+            $s->addon_url = "mailto:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -287,12 +287,12 @@ class CreateAramiscModuleManagersTable extends Migration
             $name = 'Saas';
             $s = new AramiscModuleManager();
             $s->name = 'Saas';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Saas module for manage multiple school or institutes.Every school managed by individual admin. Thanks for using.";
             $s->version = "1.1";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;           
-            $s->addon_url = "mailto:support@spondonit.com";
+            $s->addon_url = "mailto:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -302,10 +302,10 @@ class CreateAramiscModuleManagersTable extends Migration
             $bulk_print = 'BulkPrint';
             $bulk_print = new AramiscModuleManager();
             $bulk_print->name = 'BulkPrint';
-            $bulk_print->email = 'support@spondonit.com';
+            $bulk_print->email = 'support@aramisc.com';
             $bulk_print->notes = "This is Bulkprint module for print invoice ,certificate and id card. Thanks for using.";
             $bulk_print->version = "1.0";
-            $bulk_print->update_url = "https://spondonit.com/contact";
+            $bulk_print->update_url = "https://aramisc.com/contact";
             $bulk_print->is_default = 1;
             $bulk_print->addon_url = "https://codecanyon.net/item/aramiscdu-zoom-live-class/27623128?s_rank=12";
             $bulk_print->installed_domain = url('/');
@@ -316,12 +316,12 @@ class CreateAramiscModuleManagersTable extends Migration
             $HimalayaSms = 'HimalayaSms';
             $HimalayaSms = new AramiscModuleManager();
             $HimalayaSms->name = "HimalayaSms";
-            $HimalayaSms->email = 'support@spondonit.com';
+            $HimalayaSms->email = 'support@aramisc.com';
             $HimalayaSms->notes = "This is sms gateway module for sending sms via api. Thanks for using.";
             $HimalayaSms->version = "1.0";
-            $HimalayaSms->update_url = "https://spondonit.com/contact";
+            $HimalayaSms->update_url = "https://aramisc.com/contact";
             $HimalayaSms->is_default = 1;
-            $HimalayaSms->addon_url = "mailto:support@spondonit.com";
+            $HimalayaSms->addon_url = "mailto:support@aramisc.com";
             $HimalayaSms->installed_domain = url('/');
             $HimalayaSms->activated_date = date('Y-m-d');
             $HimalayaSms->save();
@@ -330,12 +330,12 @@ class CreateAramiscModuleManagersTable extends Migration
             $XenditPayment = 'XenditPayment';
             $XenditPayment = new AramiscModuleManager();
             $XenditPayment->name = 'XenditPayment';
-            $XenditPayment->email = 'support@spondonit.com';
+            $XenditPayment->email = 'support@aramisc.com';
             $XenditPayment->notes = "This is online payment gateway module for specially indonesian currency. Thanks for using.";
             $XenditPayment->version = "1.0";
-            $XenditPayment->update_url = "https://spondonit.com/contact";
+            $XenditPayment->update_url = "https://aramisc.com/contact";
             $XenditPayment->is_default = 1;
-            $XenditPayment->addon_url = "mailto:support@spondonit.com";
+            $XenditPayment->addon_url = "mailto:support@aramisc.com";
             $XenditPayment->installed_domain = url('/');
             $XenditPayment->activated_date = date('Y-m-d');
             $XenditPayment->save();
@@ -344,12 +344,12 @@ class CreateAramiscModuleManagersTable extends Migration
              $XenditPayment = 'AppSlider';
              $XenditPayment = new AramiscModuleManager();
              $XenditPayment->name = 'AppSlider';
-             $XenditPayment->email = 'support@spondonit.com';
+             $XenditPayment->email = 'support@aramisc.com';
              $XenditPayment->notes = "This is for school affiliate banner for mobile app. Thanks for using.";
              $XenditPayment->version = "1.0";
-             $XenditPayment->update_url = "https://spondonit.com/contact";
+             $XenditPayment->update_url = "https://aramisc.com/contact";
              $XenditPayment->is_default = 0;
-             $XenditPayment->addon_url = "mailto:support@spondonit.com";
+             $XenditPayment->addon_url = "mailto:support@aramisc.com";
              $XenditPayment->installed_domain = url('/');
              $XenditPayment->activated_date = date('Y-m-d');
              $XenditPayment->save();
@@ -357,10 +357,10 @@ class CreateAramiscModuleManagersTable extends Migration
              //KhaltiPayment
             $s = new AramiscModuleManager();
             $s->name = "KhaltiPayment";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "Khalti Is A Online Payment Gatway Module For Collect Fees Online";
             $s->version = 1.0;
-            $s->update_url = "support@spondonit.com";
+            $s->update_url = "support@aramisc.com";
             $s->is_default = 0;
             $s->purchase_code = null;
             $s->installed_domain = null;
@@ -370,12 +370,12 @@ class CreateAramiscModuleManagersTable extends Migration
             //Raudhahpay
             $s = new AramiscModuleManager();
             $s->name = 'Raudhahpay';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Saas module for Online Payment. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "mailto:support@spondonit.com";
+            $s->addon_url = "mailto:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -392,7 +392,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -414,7 +414,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = $notes;
             $s->version = $version;
             $s->update_url = $url;
@@ -427,7 +427,7 @@ class CreateAramiscModuleManagersTable extends Migration
 
             $s = new AramiscModuleManager();
             $s->name = 'ExamPlan';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "Exam Plan and Seat Plan Module";
             $s->version = 1.0;
             $s->update_url = url('/');;
@@ -440,10 +440,10 @@ class CreateAramiscModuleManagersTable extends Migration
             //AramiscBiometrics 
             $s = new AramiscModuleManager();
             $s->name = "AramiscBiometrics";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is AramiscBiometrics module for live virtual class and meeting in this system at a time. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
             $s->addon_url = "https://codecanyon.net/item/aramiscdu-zoom-live-class/27623128?s_rank=12";
             $s->installed_domain = url('/');
@@ -453,10 +453,10 @@ class CreateAramiscModuleManagersTable extends Migration
              //Gmeet 
              $s = new AramiscModuleManager();
              $s->name = "Gmeet";
-             $s->email = 'support@spondonit.com';
+             $s->email = 'support@aramisc.com';
              $s->notes = "This is Gmeet module for live virtual class and meeting in this system at a time. Thanks for using.";
              $s->version = "1.0";
-             $s->update_url = "https://spondonit.com/contact";
+             $s->update_url = "https://aramisc.com/contact";
              $s->is_default = 0;
              $s->addon_url = "https://codecanyon.net/item/google-meet-module-for-aramiscdu-gmeet-live-class/42463761";
              $s->installed_domain = url('/');
@@ -467,12 +467,12 @@ class CreateAramiscModuleManagersTable extends Migration
              //Phonepay 
              $s = new AramiscModuleManager();
              $s->name = "PhonePay";
-             $s->email = 'support@spondonit.com';
+             $s->email = 'support@aramisc.com';
              $s->notes = "This is PhonePay module for manage Phonepe  online payment gateway . Thanks for using.";
              $s->version = "1.0";
-             $s->update_url = "https://spondonit.com/contact";
+             $s->update_url = "https://aramisc.com/contact";
              $s->is_default = 0;
-             $s->addon_url = "https://spondonit.com/contact";
+             $s->addon_url = "https://aramisc.com/contact";
              $s->installed_domain = url('/');
              $s->activated_date = date('Y-m-d');
              $s->save();
@@ -480,10 +480,10 @@ class CreateAramiscModuleManagersTable extends Migration
             //BehaviourRecords 
             $s = new AramiscModuleManager();
             $s->name = "BehaviourRecords";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Behaviour Records Module for manage student behaviour records & Activity. Thanks for using .";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 1;
             $s->purchase_code = time();
             $s->addon_url = "https://codecanyon.net/item/google-meet-module-for-aramiscdu-gmeet-live-class/42463761";
@@ -494,10 +494,10 @@ class CreateAramiscModuleManagersTable extends Migration
             //DownloadCenter 
             $s = new AramiscModuleManager();
             $s->name = "DownloadCenter";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This Module is named Download Center for managing study materials more efficiently. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 1;
             $s->purchase_code = time();
             $s->addon_url = "https://codecanyon.net/item/google-meet-module-for-aramiscdu-gmeet-live-class/42463761";
@@ -508,10 +508,10 @@ class CreateAramiscModuleManagersTable extends Migration
             //  //DownloadCenter 
             //  $s = new AramiscModuleManager();
             //  $s->name = "DownloadCenter";
-            //  $s->email = 'support@spondonit.com';
+            //  $s->email = 'support@aramisc.com';
             //  $s->notes = "This Module is named Download Center for managing study materials more efficiently. Thanks for using.";
             //  $s->version = "1.0";
-            //  $s->update_url = "https://spondonit.com/contact";
+            //  $s->update_url = "https://aramisc.com/contact";
             //  $s->is_default = 0;
             //  $s->purchase_code = time();
             //  $s->addon_url = "https://codecanyon.net/item/google-meet-module-for-aramiscdu-gmeet-live-class/42463761";
@@ -523,10 +523,10 @@ class CreateAramiscModuleManagersTable extends Migration
             //TwoFactorAuth 
             $s = new AramiscModuleManager();
             $s->name = "TwoFactorAuth";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is TwoFactorAuth module for verfication two factor authentication code using email or text sms. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 1;
             $s->purchase_code = time();
             $s->addon_url = "https://codecanyon.net/item/google-meet-module-for-aramiscdu-gmeet-live-class/42463761";
@@ -539,12 +539,12 @@ class CreateAramiscModuleManagersTable extends Migration
             $name = 'Lms';
             $s = new AramiscModuleManager();
             $s->name = 'Lms';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is Lms module for learning management. Teacher & Admin Can create course and student & parent can enroll using online & offline payment gateway . Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "mailto:support@spondonit.com";
+            $s->addon_url = "mailto:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -552,12 +552,12 @@ class CreateAramiscModuleManagersTable extends Migration
             //CcAveune 
             $s = new AramiscModuleManager();
             $s->name = "CcAveune";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This CcAveune Module For AramiscEdu . Manage online payment for fees & wallet.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "maito:support@spondonit.com";
+            $s->addon_url = "maito:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -565,12 +565,12 @@ class CreateAramiscModuleManagersTable extends Migration
             //AiContent 
             $s = new AramiscModuleManager();
             $s->name = "AiContent";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is AI Content Generator module. Generate content via AI.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "maito:support@spondonit.com";
+            $s->addon_url = "maito:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -578,12 +578,12 @@ class CreateAramiscModuleManagersTable extends Migration
             //WhatsappSupport 
             $s = new AramiscModuleManager();
             $s->name = "WhatsappSupport";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is WhatsApp Support module. Send message via WhatsApp.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "maito:support@spondonit.com";
+            $s->addon_url = "maito:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();
@@ -592,11 +592,11 @@ class CreateAramiscModuleManagersTable extends Migration
         // Certificate
             $s = new AramiscModuleManager();
             $s->name = 'Certificate';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is the module to generate Certificate's for students and employees.";
             $s->is_default = 0;
             $s->version = '1.0' ;
-            $s->update_url = "maito:support@spondonit.com";
+            $s->update_url = "maito:support@aramisc.com";
             $s->purchase_code = null;
             $s->installed_domain = null;
             $s->activated_date = null;
@@ -605,12 +605,12 @@ class CreateAramiscModuleManagersTable extends Migration
             //InAppLiveClass 
             $s = new AramiscModuleManager();
             $s->name = "InAppLiveClass";
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This InAppLiveClass Module For AramiscEdu . Manage Online Class and Meeting Reports.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "maito:support@spondonit.com";
+            $s->addon_url = "maito:support@aramisc.com";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();

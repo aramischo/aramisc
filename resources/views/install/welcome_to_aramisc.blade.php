@@ -57,7 +57,7 @@
             </div>
 
             <div class="card-body">
-                  <p style="text-align: center">Thank you for choosing Aramiscdu for your school administration. Please follow the steps to complete Aramisc Edu installation!</p>
+                  <p style="text-align: center">Thank you for choosing Aramiscdu for your school administration. Please follow the steps to complete Aramisc installation!</p>
 
                <a href="{{url('/check-purchase-verification')}}"  class="offset-3 col-sm-6 primary-btn fix-gr-bg mt-40 mb-20"  >  Start </a>
             </div>

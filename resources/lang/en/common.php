@@ -280,7 +280,7 @@
     "select_package" => "Select Package",
     "purchase_date" => "Purchase Date",
     "expaire_date" => "Expaire Date",
-    "aramisc_edu" => "Aramisc Edu",
+    "aramisc_edu" => "Aramisc",
     "aramisc_clasified" => "Aramisc Classified",
     "date_|_day" => "Date | Day",
     "purchase_list" => "Purchase List",

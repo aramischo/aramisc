@@ -18,6 +18,11 @@ class FeesDueCheckMiddleware
     public function handle(Request $request, Closure $next): Response
     {   
         if(generalSetting()->due_fees_login){
+            // Guard: skip all due-fees logic if user is not authenticated
+            if (!auth()->check() || auth()->user() === null) {
+                return $next($request);
+            }
+
             $now = (date("Y-m-d"));
             $user = auth()->user();
             $due_fees = false;

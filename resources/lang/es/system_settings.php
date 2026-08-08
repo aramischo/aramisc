@@ -690,7 +690,7 @@ return [
 
 "expaire_date" => "Fecha de caducidad",
 
-"aramisc_edu" => "Aramisc Edu",
+"aramisc_edu" => "Aramisc",
 
 "aramisc_clasified" => "Aramisc clasificado",
 
