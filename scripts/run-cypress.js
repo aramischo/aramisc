@@ -83,7 +83,8 @@ activateCypressEnv();
 
 console.log(`\n🚀 Lancement de Cypress (${mode}) sur la base de test...\n`);
 
-const cypressArgs = mode === "run" ? ["cypress", "run"] : ["cypress", "open"];
+const extraArgs = process.argv.slice(3);
+const cypressArgs = mode === "run" ? ["cypress", "run", ...extraArgs] : ["cypress", "open", ...extraArgs];
 const child = spawn("npx", cypressArgs, {
   cwd: ROOT,
   stdio: "inherit",

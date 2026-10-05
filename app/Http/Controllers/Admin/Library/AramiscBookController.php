@@ -136,7 +136,7 @@ class AramiscBookController extends Controller
             $books->book_title = $request->book_title;
             $books->book_category_id = $request->book_category_id;
             $books->book_number = $request->book_number;
-            $books->isbn_no = $request->isbn_no;
+            //$books->isbn_no = $request->isbn_no;
             $books->publisher_name = $request->publisher_name;
             $books->author_name = $request->author_name;
             if (@$request->subject) {

@@ -135,7 +135,12 @@ class AramiscStudentIdCardController extends Controller
             $destination='public/uploads/studentIdCard/';  
             $id_card = AramiscStudentIdCard::find($request->id);
             $id_card->title = $request->title;
-            $id_card->logo = fileUpdate($id_card->logo,$request->logo,$destination);          
+            // Sans logo propre, la carte pointe sur le logo de l'école : ne pas le supprimer en le remplaçant
+            if ($id_card->logo == generalSetting()->logo) {
+                $id_card->logo = $request->logo ? fileUpload($request->logo, $destination) : $id_card->logo;
+            } else {
+                $id_card->logo = fileUpdate($id_card->logo,$request->logo,$destination);
+            }
             $id_card->background_img = fileUpdate($id_card->background_img,$request->background_img,$destination);          
             $id_card->profile_image = fileUpdate($id_card->profile_image,$request->profile_image,$destination);
             if(in_array(2, $request->applicable_user) || in_array(3, $request->applicable_user)){
@@ -187,7 +192,8 @@ class AramiscStudentIdCardController extends Controller
         try {
             $id_card = AramiscStudentIdCard::find($request->id);
             
-            if ($id_card->logo != "" && file_exists($id_card->logo)) {
+            // Le logo de l'école (logo par défaut de la carte) ne doit jamais être supprimé
+            if ($id_card->logo != "" && $id_card->logo != generalSetting()->logo && file_exists($id_card->logo)) {
                 unlink($id_card->logo);
             }
 

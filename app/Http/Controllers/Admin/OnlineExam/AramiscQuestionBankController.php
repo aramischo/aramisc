@@ -441,6 +441,8 @@ class AramiscQuestionBankController extends Controller
                                     Toastr::warning('Please choose correct option', 'warning');
                                     return redirect()->back();
                                 }
+                                // Recompter depuis 1 : la boucle de contrôle ci-dessus a déjà avancé $i
+                                $i = 0;
                                 foreach ($request->option as $option) {
                                     $i++;
                                     $option_check = 'option_check_' . $i;

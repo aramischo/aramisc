@@ -60,17 +60,31 @@ class FcmChannel
             foreach ($chunks as $chunk) {
                 $message->to($chunk);
 
-                $response = $this->client->post(self::API_URI, [
-                    'headers' => [
-                        'Authorization' => 'key='.$this->apiKey,
-                        'Content-Type'  => 'application/json',
-                    ],
-                    'body' => $message->formatData(),
-                ]);
-
-                array_push($response_array, \GuzzleHttp\json_decode($response->getBody(), true));
+                $response = $this->post($message);
+                if ($response !== null) {
+                    array_push($response_array, $response);
+                }
             }
         } else {
+            $response = $this->post($message);
+            if ($response !== null) {
+                array_push($response_array, $response);
+            }
+        }
+
+        return $response_array;
+    }
+
+    /**
+     * A push failure (legacy FCM endpoint shut down, unregistered device, network...) must not
+     * break the action that triggered the notification (e.g. sending a chat message): log it and go on.
+     *
+     * @param  FcmMessage  $message
+     * @return array|null
+     */
+    private function post($message)
+    {
+        try {
             $response = $this->client->post(self::API_URI, [
                 'headers' => [
                     'Authorization' => 'key='.$this->apiKey,
@@ -79,9 +93,11 @@ class FcmChannel
                 'body' => $message->formatData(),
             ]);
 
-            array_push($response_array, \GuzzleHttp\json_decode($response->getBody(), true));
-        }
+            return \GuzzleHttp\json_decode($response->getBody(), true);
+        } catch (\Throwable $e) {
+            \Log::warning('FCM push failed: '.$e->getMessage());
 
-        return $response_array;
+            return null;
+        }
     }
 }

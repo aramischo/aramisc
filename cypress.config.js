@@ -10,6 +10,24 @@ module.exports = defineConfig({
     baseUrl: "http://dev.aramisc.com",
     experimentalStudio: true,
     setupNodeEvents(on, config) {
+      // Captures nommées « <rôle>/<rubrique>/<page>/<étape> » : rangées exactement à ce chemin sous
+      // screenshotsFolder (même arborescence que les specs), quel que soit le lot de specs lancé.
+      // Les autres captures (échecs, anciens noms plats) restent à l'emplacement par défaut de Cypress.
+      on("after:screenshot", (details) => {
+        const path = require("path");
+        if (!/^(admin|student|teacher|parent)\//.test(details.name || "")) return;
+        const target = path.join(config.screenshotsFolder, `${details.name}.png`);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.renameSync(details.path, target);
+        // Supprime les dossiers devenus vides à l'emplacement par défaut
+        let dir = path.dirname(details.path);
+        while (dir.startsWith(config.screenshotsFolder) && dir !== config.screenshotsFolder && fs.readdirSync(dir).length === 0) {
+          fs.rmdirSync(dir);
+          dir = path.dirname(dir);
+        }
+        return { path: target };
+      });
+
       on("task", {
         // Exécute n'importe quelle commande artisan depuis un test si besoin
         // (ponctuel uniquement — la base de test n'est PAS reset automatiquement,
@@ -59,7 +77,7 @@ module.exports = defineConfig({
     supportFile: "cypress/support/e2e.js",
     viewportWidth: 1280,
     viewportHeight: 800,
-    video: false,
+    video: false, // pas de vidéos pour le moment
     screenshotOnRunFailure: true,
     defaultCommandTimeout: 20000,
     screenshotsFolder: 'cypress/screenshots',
