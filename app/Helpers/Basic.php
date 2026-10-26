@@ -32,7 +32,7 @@ if (!function_exists('color_theme')) {
 }
 
 if (!function_exists('userColorThemeActive')) {
-    function userColorThemeActive(int $user_id = null)
+    function userColorThemeActive(?int $user_id = null)
     {
         $school_id = auth()->user()->school_id ?? 1;
         $cache_key = $user_id ? ('active_theme_user_' . $user_id) : 'active_theme_school_' . $school_id;
@@ -54,7 +54,7 @@ if (!function_exists('userColorThemeActive')) {
 }
 
 if (!function_exists('userColorThemes')) {
-    function userColorThemes(int $user_id = null)
+    function userColorThemes(?int $user_id = null)
     {
 
         $themes = Theme::with('colors')
@@ -107,7 +107,7 @@ if (!function_exists('currency_format_list')) {
     }
 }
 if (!function_exists('currency_format')) {
-    function currency_format($amount = null, string $format = null)
+    function currency_format($amount = null, ?string $format = null)
     {
         if (!$amount) return false;
         $format = generalSetting()->currencyDetail;
@@ -130,7 +130,7 @@ if (!function_exists('currency_format')) {
     }
 }
 if (!function_exists('classes')) {
-    function classes(int $academic_year = null)
+    function classes(?int $academic_year = null)
     {
         return AramiscClass::withOutGlobalScopes()
             ->when($academic_year, function ($q) use ($academic_year) {
@@ -156,7 +156,7 @@ if (!function_exists('sections')) {
     }
 }
 if (!function_exists('subjects')) {
-    function subjects(int $class_id, int $section_id, int $academic_year = null)
+    function subjects(int $class_id, int $section_id, ?int $academic_year = null)
     {
         $subjects = AramiscAssignSubject::withOutGlobalScopes()
             ->where('class_id', $class_id)
@@ -173,7 +173,7 @@ if (!function_exists('subjects')) {
     }
 }
 if (!function_exists('students')) {
-    function students(int $class_id, int $section_id = null, int $academic_year = null)
+    function students(int $class_id, ?int $section_id = null, ?int $academic_year = null)
     {
         $student_ids = StudentRecord::where('class_id', $class_id)
             ->when($section_id, function ($q) use ($section_id) {

@@ -60,7 +60,7 @@ class LanguageController extends Controller
         return $fileList;
  
     }
-    public function fileName(string $lang, array $fileList = [], string $fileName = null):string
+    public function fileName(string $lang, array $fileList = [], ?string $fileName = null):string
     {
         $zip = new ZipArchive;
         $fileName =  $fileName ?? $lang.'_language_file'.'.zip';
