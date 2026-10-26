@@ -173,7 +173,8 @@ class AramiscFeesMasterController extends Controller
                 $installment = new DirectFeesInstallment();
             }
             $installment->title = $payload['title'][$key];
-            $installment->due_date = date('Y-m-d', strtotime($date));
+            // Date saisie au format de la langue (j/m/aaaa en FR) : strtotime() seul la lisait en m/j/aaaa (1970-01-01 si jour > 12)
+            $installment->due_date = date('Y-m-d', strtotime(toDbDateConvert($date)));
             $installment->percentange = $payload['unPercentage'][$key];
             $installment->amount = $payload['unPercentage'][$key];
             $installment->fees_master_id = $master_id;
@@ -337,28 +338,24 @@ class AramiscFeesMasterController extends Controller
                      $master = AramiscFeesMaster::find($request->id);
                     if($master){
                         $master_installments = DirectFeesInstallment::where('fees_master_id',$master->id)->get();
-                        if(count($master_installments)){
-                            foreach($master_installments as $installment){
-                                $assignrd_inst = DirectFeesInstallmentAssign::where('fees_installment_id',$installment->id)->first();
-                                if((!is_null($assignrd_inst)) &&  count($assignrd_inst->payments) > 0){
-                                    $msg = 'This data already used in : ' . $tables . ' Please remove those data first';
-                                    Toastr::error($msg, 'Failed');
-                                    return redirect()->back();
-                                }else{
-                                    DirectFeesInstallmentAssign::where('fees_installment_id',$installment->id)->delete();
-                                    AramiscFeesAssign::where('fees_master_id',$request->id)->delete();
-                                    AramiscFeesType::where('id',$master->fees_type_id)->delete();
-                                    AramiscFeesGroup::where('id',$master->fees_group_id)->delete();
-                                    Toastr::success('Operation successful', 'Success');
-                                    return redirect()->back();
-                                }
+                        // Refus si une échéance a déjà des paiements (contrôle de TOUTES les échéances, pas seulement la 1re)
+                        foreach($master_installments as $installment){
+                            $assignrd_inst = DirectFeesInstallmentAssign::where('fees_installment_id',$installment->id)->first();
+                            if((!is_null($assignrd_inst)) &&  count($assignrd_inst->payments) > 0){
+                                $msg = 'This data already used in : ' . $tables . ' Please remove those data first';
+                                Toastr::error($msg, 'Failed');
+                                return redirect()->back();
                             }
-                        }else{
-                            AramiscFeesType::where('id',$master->fees_type_id)->delete();
-                            AramiscFeesGroup::where('id',$master->fees_group_id)->delete();
-                            Toastr::success('Operation successful', 'Success');
-                            return redirect()->back();
                         }
+                        // Suppression complète : affectations des échéances, échéances, affectations du frais, type et groupe
+                        // (les échéances restaient orphelines auparavant)
+                        DirectFeesInstallmentAssign::whereIn('fees_installment_id', $master_installments->pluck('id'))->delete();
+                        DirectFeesInstallment::where('fees_master_id',$master->id)->delete();
+                        AramiscFeesAssign::where('fees_master_id',$request->id)->delete();
+                        AramiscFeesType::where('id',$master->fees_type_id)->delete();
+                        AramiscFeesGroup::where('id',$master->fees_group_id)->delete();
+                        Toastr::success('Operation successful', 'Success');
+                        return redirect()->back();
                     }
                 }
                 $assigned_master_id = [];

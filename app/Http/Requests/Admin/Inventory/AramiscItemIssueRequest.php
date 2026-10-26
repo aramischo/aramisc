@@ -16,6 +16,16 @@ class AramiscItemIssueRequest extends FormRequest
         return true;
     }
 
+    // Le formulaire envoie les dates au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // les règles « date » / « after_or_equal », qui les liraient sinon en m/j/aaaa (refus dès que le jour dépasse 12).
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'issue_date' => $this->issue_date ? toDbDateConvert($this->issue_date) : $this->issue_date,
+            'due_date' => $this->due_date ? toDbDateConvert($this->due_date) : $this->due_date,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

@@ -630,6 +630,29 @@ class AramiscItemReceiveController extends Controller
         try {
             $tables = \App\tableList::getTableList('item_sell_id', $id);
             try {
+                // Annule entièrement la vente : stock rendu, lignes, revenu « Item Sell » et relevé bancaire supprimés
+                // (auparavant seule la vente était supprimée : stock non rendu, revenu et lignes orphelins)
+                $itemSell = AramiscItemSell::find($id);
+                if ($itemSell) {
+                    foreach (\App\AramiscItemSellChild::where('item_sell_id', $id)->get() as $child) {
+                        $item = AramiscItem::find($child->item_id);
+                        if ($item) {
+                            $item->total_in_stock = $item->total_in_stock + $child->quantity;
+                            $item->update();
+                        }
+                    }
+                    \App\AramiscItemSellChild::where('item_sell_id', $id)->delete();
+                    if ($itemSell->payment_method && $itemSell->account_id && paymentMethodName($itemSell->payment_method)) {
+                        $statements = AramiscBankStatement::where('item_sell_id', $id)->where('bank_id', $itemSell->account_id)->where('type', 1);
+                        $bank = AramiscBankAccount::find($itemSell->account_id);
+                        if ($bank) {
+                            $bank->current_balance = $bank->current_balance - $statements->sum('amount');
+                            $bank->update();
+                        }
+                        $statements->delete();
+                    }
+                    \App\AramiscAddIncome::where('item_sell_id', $id)->where('name', 'Item Sell')->delete();
+                }
                 $result = AramiscItemSell::destroy($id);
                 if ($result) {
                     Toastr::success('Operation successful', 'Success');

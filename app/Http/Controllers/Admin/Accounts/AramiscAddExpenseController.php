@@ -117,6 +117,18 @@ class AramiscAddExpenseController extends Controller
                 }else{
                     $add_expense = AramiscAddExpense::where('id',$request->id)->where('school_id',Auth::user()->school_id)->first();
             }
+
+            // Annule l'effet de l'ancienne dépense sur l'ancien compte avant d'appliquer la nouvelle
+            // (sinon le solde était débité de l'ancien + du nouveau montant).
+            if ($add_expense->payment_method_id && $add_expense->account_id && paymentMethodName($add_expense->payment_method_id)) {
+                $old_bank = AramiscBankAccount::find($add_expense->account_id);
+                if ($old_bank) {
+                    $old_bank->current_balance = $old_bank->current_balance + $add_expense->amount;
+                    $old_bank->update();
+                }
+                AramiscBankStatement::where('item_receive_id', $add_expense->id)->where('bank_id', $add_expense->account_id)->where('type', 0)->delete();
+            }
+
             $add_expense->name = $request->name;
             $add_expense->expense_head_id = $request->expense_head;
             $add_expense->date = toDbDateConvert($request->date);

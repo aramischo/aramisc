@@ -444,6 +444,15 @@ class AramiscItemSellController extends Controller
             
 
             if ($results) {
+                // Rend au stock les quantités de l'ancienne vente avant d'appliquer les nouvelles
+                // (sinon le stock était diminué de l'ancienne + de la nouvelle quantité)
+                foreach (AramiscItemSellChild::where('item_sell_id', $itemSells->id)->get() as $oldChild) {
+                    $oldItem = AramiscItem::find($oldChild->item_id);
+                    if ($oldItem) {
+                        $oldItem->total_in_stock = $oldItem->total_in_stock + $oldChild->quantity;
+                        $oldItem->update();
+                    }
+                }
                 AramiscItemSellChild::where('item_sell_id', $itemSells->id)->delete();
                 $item_ids = count($request->item_id);
                 for ($i = 0; $i < $item_ids; $i++) {

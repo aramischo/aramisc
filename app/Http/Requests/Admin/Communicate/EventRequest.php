@@ -11,6 +11,16 @@ class EventRequest extends FormRequest
         return true;
     }
 
+    // Le formulaire envoie les dates au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // les règles « date » / « after_or_equal », qui les liraient sinon en m/j/aaaa (refus dès que le jour dépasse 12).
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'from_date' => $this->from_date ? toDbDateConvert($this->from_date) : $this->from_date,
+            'to_date' => $this->to_date ? toDbDateConvert($this->to_date) : $this->to_date,
+        ]);
+    }
+
     public function rules()
     {
         $maxFileSize=generalSetting()->file_size*1024;

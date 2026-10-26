@@ -49,6 +49,18 @@ function activateCypressEnv() {
   fs.copyFileSync(ENV_CYPRESS_PATH, ENV_PATH);
 
   clearLaravelConfigCache();
+  cacheLaravelConfig();
+}
+
+// Met la config en cache pendant les tests : Laravel ne relit plus .env à chaque requête.
+// Sous Apache Windows (PHP thread-safe), la lecture de .env entre requêtes simultanées échouait parfois
+// (500 « Accès refusé pour l'utilisateur 'forge' »). Le cache est vidé à la restauration (clearLaravelConfigCache).
+function cacheLaravelConfig() {
+  try {
+    execSync("php artisan config:cache", { cwd: ROOT, stdio: "inherit" });
+  } catch (e) {
+    console.warn("⚠️  Impossible de mettre la config en cache (les tests tournent quand même, sans cache).");
+  }
 }
 
 function restoreOriginalEnv() {

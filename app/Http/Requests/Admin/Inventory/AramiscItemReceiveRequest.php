@@ -16,6 +16,15 @@ class AramiscItemReceiveRequest extends FormRequest
         return true;
     }
 
+    // Le formulaire envoie la date au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // la règle « date », qui la lirait sinon en m/j/aaaa (refus dès que le jour dépasse 12).
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'receive_date' => $this->receive_date ? toDbDateConvert($this->receive_date) : $this->receive_date,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

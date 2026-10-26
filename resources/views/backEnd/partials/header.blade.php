@@ -59,7 +59,7 @@
 
         window._locale = '{{ app()->getLocale() }}';
         window._rtl = {{ userRtlLtl()==1 ? "true" : "false" }};
-        window._translations = {!! json_encode(cache('translations') ?? []) !!};
+        window._translations = {!! json_encode(cache(\App\Http\Middleware\Localization::cacheKey(app()->getLocale())) ?? []) !!};
     </script>
 </head>
 @php

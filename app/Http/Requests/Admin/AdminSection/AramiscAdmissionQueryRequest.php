@@ -19,6 +19,16 @@ class AramiscAdmissionQueryRequest extends FormRequest
         return false;
     }
 
+    // Le formulaire envoie les dates au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // les règles « date » / « after », qui les liraient sinon en m/j/aaaa (refus dès que le jour dépasse 12).
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'date' => $this->date ? toDbDateConvert($this->date) : $this->date,
+            'next_follow_up_date' => $this->next_follow_up_date ? toDbDateConvert($this->next_follow_up_date) : $this->next_follow_up_date,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

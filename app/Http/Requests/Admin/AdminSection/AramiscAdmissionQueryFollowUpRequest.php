@@ -16,6 +16,16 @@ class AramiscAdmissionQueryFollowUpRequest extends FormRequest
         return true;
     }
 
+    // Le formulaire envoie les dates au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // la règle « after_or_equal », qui les lirait sinon en m/j/aaaa.
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'follow_up_date' => $this->follow_up_date ? toDbDateConvert($this->follow_up_date) : $this->follow_up_date,
+            'next_follow_up_date' => $this->next_follow_up_date ? toDbDateConvert($this->next_follow_up_date) : $this->next_follow_up_date,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

@@ -109,7 +109,19 @@ class AramiscAddIncomeController extends Controller
             $destination =  'public/uploads/add_income/'; 
            // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-            $add_income = AramiscAddIncome::find($request->id);            
+            $add_income = AramiscAddIncome::find($request->id);
+
+            // Annule l'effet de l'ancien revenu sur l'ancien compte avant d'appliquer le nouveau
+            // (sinon le solde cumulait ancien + nouveau montant).
+            if ($add_income->payment_method_id && $add_income->account_id && paymentMethodName($add_income->payment_method_id)) {
+                $old_bank = AramiscBankAccount::find($add_income->account_id);
+                if ($old_bank) {
+                    $old_bank->current_balance = $old_bank->current_balance - $add_income->amount;
+                    $old_bank->update();
+                }
+                AramiscBankStatement::where('item_sell_id', $add_income->id)->where('bank_id', $add_income->account_id)->where('type', 1)->delete();
+            }
+
             $add_income->name = $request->name;
             $add_income->income_head_id = $request->income_head;
             $add_income->date = toDbDateConvert($request->date);

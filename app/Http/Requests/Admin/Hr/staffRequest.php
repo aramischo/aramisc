@@ -21,6 +21,16 @@ class staffRequest extends FormRequest
         return true;
     }
 
+    // Le formulaire envoie les dates au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // la règle « date », qui les lirait sinon en m/j/aaaa (refus dès que le jour dépasse 12).
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'date_of_birth' => $this->date_of_birth ? toDbDateConvert($this->date_of_birth) : $this->date_of_birth,
+            'date_of_joining' => $this->date_of_joining ? toDbDateConvert($this->date_of_joining) : $this->date_of_joining,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
