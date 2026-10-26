@@ -640,3 +640,19 @@ et sessions) pendant le run et rétablit en after(), et récupère dynamiquement
 - **Présence** : le `<select name="year">` ne propose pas forcément l'année courante → on choisit une année
   réellement listée. Rapport vide tant qu'aucune présence n'est saisie pour l'enfant.
 - **Mise à jour enfant** (my-children-update) : réutilise le formulaire d'admission complet → non testé (destructeur).
+
+### ✅ Rôle Teacher — 13 rubriques, 15 tests verts
+Ancien `teacher_panel.cy.js` (smoke-tests) **supprimé**, remplacé par `cypress/e2e/teacher/<rubrique>/` :
+tableau_de_bord, eleves, presence_matiere, devoirs, centre_telechargement, notes, emploi_du_temps,
+planning_examen, tableau_affichage, conge, evaluation, bibliotheque, mot_de_passe.
+L'enseignant (role 4) utilise le back-office admin restreint par permissions ; `teacher1` a accès à toutes ces pages.
+
+**URL périmées corrigées (les 3 échecs historiques du panneau enseignant sont résolus) :**
+- `/subject-attendance` (404) → **`/subject-wise-attendance`** (présence par matière)
+- `/notice-board` (404) → **`/notice-list`** (tableau d'affichage)
+- `/add-homework` (404) → **`/add-homeworks`** (ajout de devoir, pluriel)
+- emploi du temps → **`/class-routine`** (et non `/class-routine-new`)
+- changement de mot de passe → `/change-password` (routes/tenant.php)
+
+➡️ Trio « partiels » terminé (Student, Parents, Teacher). Reste à créer les rôles sans aucun spec :
+Super admin, Accountant, Receptionist, Librarian, Driver — **nécessitent d'abord un compte de test** (aucun n'existe).
