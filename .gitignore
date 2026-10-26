@@ -25,3 +25,9 @@ change-list.txt
 .DS_Store
 .env.cypress
 .env.backup
+
+# Tuyauterie Claude Code (ne pas versionner)
+/.claude/
+/Claude outputs/
+installer-claude-code.bat
+skills-lock.json
