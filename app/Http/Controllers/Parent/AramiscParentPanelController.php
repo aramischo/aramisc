@@ -862,8 +862,8 @@ class AramiscParentPanelController extends Controller
                 //                'attach_file' => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png,txt",
                 $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
-                $fileSize = filesize($file);
-                $fileSizeKb = ($fileSize / 1000000);
+                // Utiliser getSize() de l'UploadedFile : filesize() recevait un objet (TypeError en PHP 8.4).
+                $fileSizeKb = ($file->getSize() / 1000000);
                 if ($fileSizeKb >= $maxFileSize) {
                     Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
                     return redirect()->back();
@@ -1040,8 +1040,8 @@ class AramiscParentPanelController extends Controller
             if ($request->file('attach_file') != "") {
                 $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
-                $fileSize = filesize($file);
-                $fileSizeKb = ($fileSize / 1000000);
+                // Utiliser getSize() de l'UploadedFile : filesize() recevait un objet (TypeError en PHP 8.4).
+                $fileSizeKb = ($file->getSize() / 1000000);
                 if ($fileSizeKb >= $maxFileSize) {
                     Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
                     return redirect()->back();

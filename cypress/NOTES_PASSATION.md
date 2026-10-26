@@ -621,3 +621,22 @@ Captures en commentaire, assertions réelles (URL + authentifié + contenu), auc
      du fichier → avec un fichier joint, `filesize()` reçoit un objet `UploadedFile` (TypeError) ; sans
      fichier, `filesize(null)` (déprécié). Garder `attach_file` réellement optionnel : n'appeler `filesize()`
      que si `$request->hasFile('attach_file')`, et utiliser `$file->getSize()` plutôt que `filesize($file)`.
+
+### ✅ Rôle Parents — 16 rubriques, 22 tests verts
+Ancien `parent_panel.cy.js` (smoke-tests) **supprimé**, remplacé par `cypress/e2e/parent/<rubrique>/` :
+tableau_de_bord, mes_enfants, frais, emploi_du_temps, presence (recherche), devoirs, tableau_affichage,
+examen_en_ligne, examen, planning_examen, bibliotheque, matieres, enseignants, transport, dortoir, conge.
+Socle partagé `cypress/e2e/parent/_support.js` : coupe `due_fees_login` (+ purge cache `have_due_fees_*`
+et sessions) pendant le run et rétablit en after(), et récupère dynamiquement l'`id` de l'enfant de parent1
+(user_id 6, parent_id 1, enfant student_id 1).
+
+**Findings / points rôle Parents :**
+- **Bug filesize() corrigé aussi côté Parent** : `AramiscParentPanelController::leaveStore()` (≈865) et
+  `update()` (≈1043) faisaient `filesize($file)` sur l'objet `UploadedFile` (déjà dans un `if fichier présent`,
+  donc crash seulement avec pièce jointe) → remplacé par `$file->getSize()`. (Le même motif subsiste ligne ≈436
+  dans la mise à jour enfant — hors périmètre congé.)
+- **Congé** : aucun type de congé défini pour parent1 → chemin d'écriture ignoré. Mais le parent a bien une
+  route de suppression (`parent-leave-delete`) → CRUD complet nettoyable une fois un type défini (user_id 6, role_id 3).
+- **Présence** : le `<select name="year">` ne propose pas forcément l'année courante → on choisit une année
+  réellement listée. Rapport vide tant qu'aucune présence n'est saisie pour l'enfant.
+- **Mise à jour enfant** (my-children-update) : réutilise le formulaire d'admission complet → non testé (destructeur).
