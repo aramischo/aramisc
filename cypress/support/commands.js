@@ -74,6 +74,34 @@ Cypress.Commands.add('loginAsTeacher', () => {
 });
 
 /**
+ * Login helpers — staff roles (Accountant, Receptionist, Librarian, Driver).
+ * Comptes de test créés via Admin > Ressources humaines > Ajouter du personnel.
+ */
+Cypress.Commands.add('loginAsAccountant', () => {
+  cy.fixture('users').then((u) => {
+    cy.login(u.accountant.email, u.accountant.password);
+  });
+});
+
+Cypress.Commands.add('loginAsReceptionist', () => {
+  cy.fixture('users').then((u) => {
+    cy.login(u.receptionist.email, u.receptionist.password);
+  });
+});
+
+Cypress.Commands.add('loginAsLibrarian', () => {
+  cy.fixture('users').then((u) => {
+    cy.login(u.librarian.email, u.librarian.password);
+  });
+});
+
+Cypress.Commands.add('loginAsDriver', () => {
+  cy.fixture('users').then((u) => {
+    cy.login(u.driver.email, u.driver.password);
+  });
+});
+
+/**
  * Assert a success toast/alert is visible.
  * Adjust the selector to match your theme's alert class.
  */

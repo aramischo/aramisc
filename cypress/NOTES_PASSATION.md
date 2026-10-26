@@ -656,3 +656,26 @@ L'enseignant (role 4) utilise le back-office admin restreint par permissions ; `
 
 ➡️ Trio « partiels » terminé (Student, Parents, Teacher). Reste à créer les rôles sans aucun spec :
 Super admin, Accountant, Receptionist, Librarian, Driver — **nécessitent d'abord un compte de test** (aucun n'existe).
+
+### ✅ Rôles staff — Accountant, Receptionist, Librarian, Driver (27/10/2026)
+Comptes de test créés via l'UI admin (Ressources humaines → Ajouter du personnel), email `[role]@aramisc.com`.
+**Important** : le formulaire ne propose pas de champ mot de passe → le contrôleur force un mot de passe par défaut. Les 4 comptes ont
+ensuite été alignés sur le mot de passe de l'admin par SQL (hash bcrypt, base aramisc01). Fixtures + commandes
+de login ajoutées (`loginAsAccountant/Receptionist/Librarian/Driver`).
+
+Specs par rubrique, basées sur les **permissions réelles** de chaque rôle (`aramisc_role_permissions` → `aramisc_module_links`) :
+- **Accountant** (103 perms) : tableau_de_bord, comptabilite (revenus/dépenses/plan comptable/comptes bancaires/bénéfice),
+  frais (collecte/groupes/types/barèmes/rapports), inventaire (articles/réceptions/ventes/fournisseurs), eleves, personnel, mot_de_passe.
+- **Receptionist** (44) : tableau_de_bord, admissions, accueil (visiteurs/plaintes/appels), courrier (réception/envoi), eleves, mot_de_passe.
+- **Librarian** (44) : tableau_de_bord, bibliotheque (livres/catégories/membres/emprunts), communication (événements/annonces), eleves, mot_de_passe.
+- **Driver** (0 permission) : tableau_de_bord + mot_de_passe uniquement (aucun module assigné).
+→ **42 tests verts.**
+
+**Findings / points :**
+- **Throttle de connexion** : des connexions/déconnexions manuelles rapides au navigateur déclenchent la limitation Laravel
+  (même un bon mot de passe est alors refusé, ~1 min). Les specs Cypress (session en cache) n'y sont pas sujettes.
+  → Confirmé que Librarian et Driver se connectent bien (le doute venait du throttle, pas du rôle).
+- **`/payment-method`** renvoie une erreur (403/500) pour le rôle Accountant alors que le lien figure dans ses permissions
+  → page exclue du test, à investiguer.
+- **Super admin** : non créable via le formulaire staff (liste limitée à Accountant/Admin/Driver/Librarian/Receptionist/Teacher) ;
+  existe déjà via le compte perso et reste un sur-ensemble de l'admin (87 specs admin). Pas de compte `superadmin@aramisc.com` dédié créé.
