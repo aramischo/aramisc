@@ -1,0 +1,510 @@
+[2026-08-18T18:26:25.511Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Book Category - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'une catégorie de livre
+Error: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787077519278_Updated' but never did.
+Stack: AssertionError: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787077519278_Updated' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/library.cy.js:52:51)
+---
+[2026-08-18T18:27:33.709Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Library Subject - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un sujet de bibliothèque
+Error: Timed out retrying after 10000ms: Expected to find content: 'Subject_1787077585796_Updated' but never did.
+Stack: AssertionError: Timed out retrying after 10000ms: Expected to find content: 'Subject_1787077585796_Updated' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/library.cy.js:146:51)
+---
+[2026-08-18T18:29:24.070Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Book Category - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'une catégorie de livre
+Error: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787077734227' but never did.
+Stack: AssertionError: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787077734227' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/library.cy.js:29:44)
+---
+[2026-08-18T18:30:21.054Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Library Subject - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un sujet de bibliothèque
+Error: Timed out retrying after 10000ms: Expected to find content: 'Subject_1787077764252_Updated' but never did.
+Stack: AssertionError: Timed out retrying after 10000ms: Expected to find content: 'Subject_1787077764252_Updated' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/library.cy.js:146:51)
+---
+[2026-08-18T18:32:34.577Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Book Category - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'une catégorie de livre
+Error: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787077921945' but never did.
+Stack: AssertionError: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787077921945' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/library.cy.js:29:44)
+---
+[2026-08-18T18:33:41.351Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Library Subject - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un sujet de bibliothèque
+Error: Cannot read properties of undefined (reading 'KeyboardEvent')
+Stack: TypeError: Cannot read properties of undefined (reading 'KeyboardEvent')
+    at Keyboard.fireSimulatedEvent (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117318:28)
+    at Keyboard.simulatedKeydown (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117441:58)
+    at Keyboard.typeSimulatedKey (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117479:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117176:21)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at onReady (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:116393:14)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114047:14)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114070:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152216:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152116:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+---
+[2026-08-18T18:36:32.300Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Library Member - Add Member & Lifecycle affiche la page et ajoute un membre de bibliothèque (Add Member)
+Error: Timed out retrying after 20050ms: `cy.click()` failed because this element:
+
+`<li data-value="1" class="option">Super a...</li>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+Stack: CypressError: Timed out retrying after 20050ms: `cy.click()` failed because this element:
+
+`<li data-value="1" class="option">Super a...</li>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+    at ensureIsDescendent (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113647:68)
+    at ensureDescendents (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113698:5)
+    at ensureDescendentsAndScroll (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113704:14)
+    at ensureElIsNotCovered (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113835:5)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114032:52)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114070:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152216:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152116:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+---
+[2026-08-18T18:38:42.336Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Book Category - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'une catégorie de livre
+Error: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787078288446' but never did.
+Stack: AssertionError: Timed out retrying after 10000ms: Expected to find content: 'BookCat_1787078288446' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/library.cy.js:29:44)
+---
+[2026-08-18T18:39:46.333Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Library Subject - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un sujet de bibliothèque
+Error: Cannot read properties of undefined (reading 'KeyboardEvent')
+Stack: TypeError: Cannot read properties of undefined (reading 'KeyboardEvent')
+    at Keyboard.fireSimulatedEvent (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117318:28)
+    at Keyboard.simulatedKeydown (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117441:58)
+    at Keyboard.typeSimulatedKey (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117479:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:117176:21)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at onReady (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:116393:14)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114047:14)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114070:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152216:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152116:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+---
+[2026-08-18T18:49:59.276Z] [TEST FAILED] Spec: cypress/e2e/admin/library.cy.js
+Test: Admin – Library Library Member - Add Member & Lifecycle affiche la page et ajoute un membre de bibliothèque (Add Member)
+Error: Timed out retrying after 20050ms: `cy.click()` failed because this element:
+
+`<li data-value="1" class="option">Super a...</li>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+Stack: CypressError: Timed out retrying after 20050ms: `cy.click()` failed because this element:
+
+`<li data-value="1" class="option">Super a...</li>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+    at ensureIsDescendent (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113647:68)
+    at ensureDescendents (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113698:5)
+    at ensureDescendentsAndScroll (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113704:14)
+    at ensureElIsNotCovered (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113835:5)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114032:52)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:114070:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152216:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:152116:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+---
+[2026-08-18T18:56:15.642Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-08-18T18:56:15.646Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-08-18T20:05:37.805Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-08-18T20:05:37.813Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-08-18T20:05:37.818Z] [TEST FAILED] Spec: cypress/e2e/admin/communicate.cy.js
+Test: Admin – Communicate Noticeboard affiche la liste des notices
+Error: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/notice-board
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+Stack: CypressError: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/notice-board
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133331:76)
+    at visitFailedByErr (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:132921:12)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133314:13)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1670:18)
+    at _drainQueueStep (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2380:12)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise._passThrough (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4083:17)
+    at Promise.lastly.Promise.finally (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4092:17)
+    at Object.onRunnableRun (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172098:53)
+    at $Cypress.action (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:41990:28)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154014:13)
+    at Runner.runTest (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164444:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164570:12)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164361:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164371:7)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164273:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164339:5)
+    at timeslice (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154365:27)
+---
+[2026-08-18T20:05:40.032Z] [TEST FAILED] Spec: cypress/e2e/admin/communicate.cy.js
+Test: Admin – Communicate Events affiche la liste des événements
+Error: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/events
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+Stack: CypressError: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/events
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133331:76)
+    at visitFailedByErr (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:132921:12)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133314:13)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1670:18)
+    at _drainQueueStep (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2380:12)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise._passThrough (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4083:17)
+    at Promise.lastly.Promise.finally (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4092:17)
+    at Object.onRunnableRun (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172098:53)
+    at $Cypress.action (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:41990:28)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154014:13)
+    at Runner.runTest (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164444:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164570:12)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164361:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164371:7)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164273:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164339:5)
+    at timeslice (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154365:27)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/admin/communicate.cy.js:21:9)
+---
+[2026-08-18T20:06:12.261Z] [TEST FAILED] Spec: cypress/e2e/admin/communicate.cy.js
+Test: Admin – Communicate Send SMS affiche la page d'envoi de SMS
+Error: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/send-sms
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+Stack: CypressError: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/send-sms
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133331:76)
+    at visitFailedByErr (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:132921:12)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133314:13)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1670:18)
+    at _drainQueueStep (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2380:12)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise._passThrough (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4083:17)
+    at Promise.lastly.Promise.finally (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4092:17)
+    at Object.onRunnableRun (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172098:53)
+    at $Cypress.action (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:41990:28)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154014:13)
+    at Runner.runTest (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164444:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164570:12)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164361:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164371:7)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164273:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164339:5)
+    at timeslice (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154365:27)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/admin/communicate.cy.js:51:9)
+---
+[2026-08-18T20:06:14.945Z] [TEST FAILED] Spec: cypress/e2e/admin/communicate.cy.js
+Test: Admin – Communicate Send Email affiche la page d'envoi d'e-mail
+Error: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/send-email
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+Stack: CypressError: `cy.visit()` failed trying to load:
+
+http://dev.aramisc.com/send-email
+
+The response we received from your web server was:
+
+  > 404: Not Found
+
+This was considered a failure because the status code was not `2xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133331:76)
+    at visitFailedByErr (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:132921:12)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:133314:13)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1670:18)
+    at _drainQueueStep (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2380:12)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise._passThrough (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4083:17)
+    at Promise.lastly.Promise.finally (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4092:17)
+    at Object.onRunnableRun (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172098:53)
+    at $Cypress.action (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:41990:28)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154014:13)
+    at Runner.runTest (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164444:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164570:12)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164361:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164371:7)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164273:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:164339:5)
+    at timeslice (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154365:27)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/admin/communicate.cy.js:61:9)
+---
