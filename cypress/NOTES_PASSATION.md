@@ -581,3 +581,43 @@ sans mot de passe (exploit confirmé en live : `/api/v2/user-demo-login/1` → t
 
 **Fichiers projet modifiés (non committés)** : `.htaccess`, `routes/{admin_tenant,student,tenant,api,v2api}.php`,
 `app/Helpers/Basic.php`, `app/Http/Controllers/LanguageController.php`, `composer.json`/`composer.lock`.
+
+---
+
+## 🧑‍🎓 Campagne « specs par rôle » (26/10/2026) — en cours
+
+Objectif (demandé par l'utilisateur) : de vrais specs pour **chaque rôle**, structure **un dossier par rubrique**
+(comme admin). Ordre : refaire les partiels (Student → Parents → Teacher), puis créer les absents
+(Super admin, Accountant, Receptionist, Librarian, Driver).
+
+### ⚙️ Prérequis d'exécution (IMPORTANT)
+Le `php` par défaut du shell est **8.2.18** → `scripts/run-cypress.js` (qui lance `php artisan config:cache`)
+plante sur `platform_check` (dépendances exigent ≥ 8.4) et ne régénère pas le cache avec `.env.cypress`.
+**Lancer le runner avec PHP 8.4 en tête de PATH :**
+```
+export PATH="/c/wamp64/bin/php/php8.4.27:$PATH" && node scripts/run-cypress.js run --browser chrome --spec "..."
+```
+(À terme : corriger le PATH système, ou faire pointer run-cypress.js sur php8.4.27.)
+
+### ✅ Rôle Student — 16 rubriques, 25 tests verts
+Ancien `student_panel.cy.js` (visites + screenshots non commentés) **supprimé** et remplacé par
+`cypress/e2e/student/<rubrique>/` : tableau_de_bord, profil, frais, presence (recherche), resultat,
+emploi_du_temps, planning… → examen_en_ligne, matieres, transport, dortoir, bibliotheque, devoirs,
+centre_telechargement (4 pages), enseignants, tableau_affichage, conge.
+Captures en commentaire, assertions réelles (URL + authentifié + contenu), aucune donnée laissée.
+
+**Blocages / findings rôle Student :**
+- **Présence** : `student1` n'a aucune présence saisie → le rapport mensuel est vide ; le test valide le
+  round-trip POST (page 200 authentifiée), pas un calendrier peuplé.
+- **Congé (CRUD non automatisable en l'état)** :
+  1. `student1` n'a **aucun type de congé** dans `aramisc_leave_defines` → `<select name="leave_type">` vide,
+     soumission impossible. Pour activer le chemin d'écriture, définir un type, ex. :
+     `INSERT INTO aramisc_leave_defines (role_id,user_id,type_id,days,academic_id,active_status,school_id,created_at,updated_at) VALUES (2,5,1,10,getAcademicId_courant,1,1,NOW(),NOW());`
+     (adapter `type_id` à un `aramisc_leave_types` existant et `academic_id`).
+  2. Le bouton « Supprimer » du panneau élève pointe vers la route **admin** `apply-leave-delete`
+     (permission admin) → un élève ne peut pas nettoyer sa propre demande via l'UI.
+  3. **Bug à corriger** : `AramiscStudentPanelController::leaveStore()` (≈1916) et `update()` (≈2055) font
+     `$file = $request->file('attach_file'); $fileSize = filesize($file);` **avant** de vérifier la présence
+     du fichier → avec un fichier joint, `filesize()` reçoit un objet `UploadedFile` (TypeError) ; sans
+     fichier, `filesize(null)` (déprécié). Garder `attach_file` réellement optionnel : n'appeler `filesize()`
+     que si `$request->hasFile('attach_file')`, et utiliser `$file->getSize()` plutôt que `filesize($file)`.

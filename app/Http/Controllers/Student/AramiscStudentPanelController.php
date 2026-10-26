@@ -1914,12 +1914,14 @@ class AramiscStudentPanelController extends Controller
         ]);
         try {
             $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
-            $file = $request->file('attach_file');
-            $fileSize = filesize($file);
-            $fileSizeKb = ($fileSize / 1000000);
-            if ($fileSizeKb >= $maxFileSize) {
-                Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
-                return redirect()->back();
+            // attach_file est optionnel : ne calculer la taille que si un fichier est réellement joint.
+            // (filesize() recevait sinon null ou un objet UploadedFile → avertissement / TypeError en PHP 8.4.)
+            if ($request->hasFile('attach_file')) {
+                $fileSizeKb = ($request->file('attach_file')->getSize() / 1000000);
+                if ($fileSizeKb >= $maxFileSize) {
+                    Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
+                    return redirect()->back();
+                }
             }
             $input = $request->all();
             $fileName = "";
@@ -2052,12 +2054,14 @@ class AramiscStudentPanelController extends Controller
         ]);
         try {
             $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
-            $file = $request->file('attach_file');
-            $fileSize = filesize($file);
-            $fileSizeKb = ($fileSize / 1000000);
-            if ($fileSizeKb >= $maxFileSize) {
-                Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
-                return redirect()->back();
+            // attach_file est optionnel : ne calculer la taille que si un fichier est réellement joint.
+            // (filesize() recevait sinon null ou un objet UploadedFile → avertissement / TypeError en PHP 8.4.)
+            if ($request->hasFile('attach_file')) {
+                $fileSizeKb = ($request->file('attach_file')->getSize() / 1000000);
+                if ($fileSizeKb >= $maxFileSize) {
+                    Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
+                    return redirect()->back();
+                }
             }
             $fileName = "";
             if ($request->file('attach_file') != "") {
