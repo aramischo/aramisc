@@ -12,8 +12,10 @@ describe('Accountant · Comptabilité · consultation', () => {
     { url: '/chart-of-account', nom: 'plan-comptable' },
     { url: '/bank-account', nom: 'comptes-bancaires' },
     { url: '/profit', nom: 'benefice' },
-    // NB : /payment-method renvoie une erreur pour le rôle Accountant (403/500) bien que le
-    // lien soit dans ses permissions — à investiguer (voir NOTES_PASSATION). Exclu du test.
+    // NB : /payment-method est une route web retirée (commentée dans admin_tenant.php), remplacée
+    // par /payment-method-settings. Il ne restait qu'une permission orpheline (aramisc_role_permissions,
+    // lien 152) pour les rôles 1/5/6, non rendue dans les menus actifs → nettoyée (voir NOTES_PASSATION).
+    // Exclu du test car la route n'existe plus (404).
   ];
 
   pages.forEach(({ url, nom }, i) => {

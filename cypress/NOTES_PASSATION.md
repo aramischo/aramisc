@@ -675,7 +675,11 @@ Specs par rubrique, basées sur les **permissions réelles** de chaque rôle (`a
 - **Throttle de connexion** : des connexions/déconnexions manuelles rapides au navigateur déclenchent la limitation Laravel
   (même un bon mot de passe est alors refusé, ~1 min). Les specs Cypress (session en cache) n'y sont pas sujettes.
   → Confirmé que Librarian et Driver se connectent bien (le doute venait du throttle, pas du rôle).
-- **`/payment-method`** renvoie une erreur (403/500) pour le rôle Accountant alors que le lien figure dans ses permissions
-  → page exclue du test, à investiguer.
+- **`/payment-method`** (résolu) : ce n'était pas un bug applicatif visible. La route web `payment-method` et tout son CRUD
+  sont **retirés** (commentés dans `admin_tenant.php`), remplacés par `payment-method-settings` (route active). Les menus actifs
+  (non-SaaS) pointent déjà vers `payment-method-settings` ; seule `saas_menu.blade.php` (module SaaS inactif) référence encore
+  l'ancienne route. Il restait un **vestige de données** : des assignations orphelines dans `aramisc_role_permissions`
+  (lien `aramisc_module_links` id 152) pour les rôles 1/5/6, non rendues dans les menus → nettoyées par SQL
+  (`active_status=0` sur le lien 152 + suppression des `aramisc_role_permissions` du lien 152). Page exclue des specs (404 attendu).
 - **Super admin** : non créable via le formulaire staff (liste limitée à Accountant/Admin/Driver/Librarian/Receptionist/Teacher) ;
   existe déjà via le compte perso et reste un sur-ensemble de l'admin (87 specs admin). Pas de compte `superadmin@aramisc.com` dédié créé.
