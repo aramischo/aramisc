@@ -7,7 +7,9 @@ use Modules\Chat\Http\Controllers\Api\ChatController;
 
 Route::controller(AuthenticationController::class)->group(function () {
     Route::any('login', 'login');
-    Route::get('user-demo-login/{role_id}', 'DemoUser');
+    // Désactivé (sécurité CRITIQUE) : contournement d'authentification — connectait le 1er utilisateur
+    // d'un rôle donné et renvoyait un token d'accès valide SANS mot de passe (ex. role_id=1 => token admin).
+    // Route::get('user-demo-login/{role_id}', 'DemoUser');
     Route::post('forget-password', 'emailVerify');
     Route::get('student-profile-details/{id}', 'studentProfile');
 });

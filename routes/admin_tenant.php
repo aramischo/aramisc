@@ -51,6 +51,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         Route::get('staff-download-timeline-doc/{file_name}', function ($file_name = null) {
             // return "Timeline";                                                                                  
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/student/timeline/' . $file_name;
             // echo $file;
             // exit();
@@ -62,6 +63,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         Route::get('download-holiday-document/{file_name}', function ($file_name = null) {
             // return "Timeline";
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/holidays/' . $file_name;
 
             if (file_exists($file)) {
@@ -419,6 +421,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         Route::get('bank-slip-view/{file_name}', function ($file_name = null) {
 
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/bankSlip/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -586,6 +589,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('add-income-update', ['as' => 'add_income_update', 'uses' => 'Admin\Accounts\AramiscAddIncomeController@update'])->middleware('userRolePermission:add_income_edit');
         Route::post('add-income-delete', ['as' => 'add_income_delete', 'uses' => 'Admin\Accounts\AramiscAddIncomeController@delete'])->middleware('userRolePermission:add_income_delete');
         Route::get('download-income-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/add_income/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -990,6 +994,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::put('add-expense/{id}', 'Admin\Accounts\AramiscAddExpenseController@update')->name('add-expense-update')->middleware('userRolePermission:add-expense-edit');
         Route::post('add-expense-delete', 'Admin\Accounts\AramiscAddExpenseController@destroy')->name('add-expense-delete')->middleware('userRolePermission:add-expense-delete');
         Route::get('download-expense-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/addExpense/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1027,6 +1032,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('delete-complaint', 'Admin\AdminSection\AramiscComplaintController@destroy')->name('complaint_delete')->middleware('userRolePermission:complaint_delete');
 
         Route::get('download-complaint-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/complaint/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1052,6 +1058,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('postal-receive-delete', 'Admin\AdminSection\AramiscPostalReceiveController@destroy')->name('postal-receive_delete')->middleware('userRolePermission:postal-receive_delete');
 
         Route::get('postal-receive-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/postal/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1071,6 +1078,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         Route::get('postal-dispatch-document/{file_name}', function ($file_name = null) {
 
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/postal/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1195,6 +1203,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
 
         Route::get('download-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/student/document/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1209,6 +1218,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('student-timeline-store', ['as' => 'student_timeline_store', 'uses' => 'AramiscStudentAdmissionController@studentTimelineStore']);
         //parent
         Route::get('parent-download-timeline-doc/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/student/timeline/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1417,6 +1427,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('upload-staff-documents/{id}', 'Admin\Hr\AramiscStaffController@uploadStaffDocuments');
         Route::post('save_upload_document', 'Admin\Hr\AramiscStaffController@saveUploadDocument')->name('save_upload_document');
         Route::get('download-staff-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/staff/document/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1424,6 +1435,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         })->name('download-staff-document');
 
         Route::get('download-staff-joining-letter/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/staff_joining_letter/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1431,6 +1443,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         })->name('download-staff-joining-letter');
 
         Route::get('download-resume/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/resume/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1438,6 +1451,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         })->name('download-resume');
 
         Route::get('download-other-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/others_documents/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1445,6 +1459,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         })->name('download-other-document');
 
         Route::get('download-staff-timeline-doc/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/staff/timeline/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1521,6 +1536,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('save-homework-evaluation-data', ['as' => 'save-homework-evaluation-data', 'uses' => 'Admin\Homework\AramiscHomeworkController@saveHomeworkEvaluationData']);
         Route::get('evaluation-report', 'Admin\Homework\AramiscHomeworkController@EvaluationReport')->name('evaluation-report')->middleware('userRolePermission:evaluation-report');
         Route::get('evaluation-document-download/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/homework/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -1548,6 +1564,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
 
         Route::get('download-content-document/{file_name}', function ($file_name = null) {
 
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/upload_contents/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);
@@ -2405,6 +2422,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('delete-event/{id}', 'deleteEvent')->name('delete-event')->middleware('userRolePermission:delete-event-view');
         Route::get('get-all-event-list', 'getAllEventList')->name('get-all-event-list');
         Route::get('download-event-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/events/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);

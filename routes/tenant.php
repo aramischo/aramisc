@@ -214,6 +214,7 @@ Route::group(['middleware' => []], function () {
     Route::get('page-list', 'AramiscFrontendController@pageList')->name('page-list')->middleware('userRolePermission:page-list');
     Route::post('delete-page/{id}', 'AramiscFrontendController@deletePage')->name('delete-page')->middleware('userRolePermission:delete-page');
     Route::get('download-header-image/{file_name}', function ($file_name = null) {
+        $file_name = basename((string) $file_name);
         $file = public_path() . '/uploads/pages/' . $file_name;
         if (file_exists($file)) {
             return Response::download($file);

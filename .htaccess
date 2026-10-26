@@ -5,6 +5,23 @@ Options -MultiViews
 
 RewriteEngine On
 
+# ===================== Durcissement sécurité =====================
+# Dossiers internes jamais destinés au web (code source, dépendances, logs, sauvegardes…)
+RewriteRule ^(\.git|\.github|\.idea|\.vs|\.claude|vendor|node_modules|storage|bootstrap|database|tests|scripts|cypress|config|resources|routes|app|Modules|packages)(/|$) - [F,L]
+
+# Sauvegardes de base de données
+RewriteRule ^public/Backup(/|$) - [F,L,NC]
+
+# Dump de routes (liste toutes les routes/middlewares de l'app)
+RewriteRule ^(public/)?route-list\.json$ - [F,L,NC]
+
+# Interdire l'exécution de scripts dans les dossiers d'upload (anti-RCE)
+RewriteRule ^public/uploads/.*\.(php|php[0-9]|phtml|phar|pht)$ - [F,L,NC]
+
+# Fichiers sensibles à la racine (config, secrets, manifestes, archives…)
+RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|webpack\.mix\.js|artisan|server\.php|Envoy\.php|version\.php|config\.json|general_settings\.json|aramiscsys_firebase\.json|modules_statuses\.json|skills-lock\.json|models\.txt|phpunit.*\.xml|.*\.(md|rar|sql|sh|bat|lock|example))$ - [F,L,NC]
+# =================================================================
+
 # Redirect Trailing Slashes...
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
@@ -17,12 +34,19 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]
 </IfModule>
 
-<Files .env>
-    Order allow,deny
-    Deny from all
-</Files>
+# Refuser tout fichier caché (.env, .env.cypress, .gitignore, .htaccess…)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
 
-<Files .zip>
-    Order allow,deny
-    Deny from all
-</Files>
+# Refuser explicitement les variantes d'environnement
+<FilesMatch "(?i)\.(env|cypress|backup|zip)$">
+    Require all denied
+</FilesMatch>
+
+# PHP 8.4 : ne pas afficher les notices de dépréciation (vendor/ : Carbon, etc.)
+# sinon elles sont injectées dans les réponses et cassent le JSON (DataTables, API).
+# Les erreurs restent journalisées. Doublon volontaire du php.ini (prise d'effet sans redémarrage).
+<IfModule php_module>
+    php_flag display_errors Off
+</IfModule>
