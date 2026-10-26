@@ -536,7 +536,7 @@ class WalletController extends Controller
         }
 
         try {
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : [date('Y/m/d'), date('Y/m/d')];
+            $rangeArr = $request->date_range ? parseDateRange($request->date_range) : [date('Y/m/d'), date('Y/m/d')];
 
 
             $date_from = \Carbon\Carbon::parse($rangeArr[0])->format('Y-m-d');

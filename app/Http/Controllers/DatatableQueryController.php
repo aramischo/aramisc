@@ -664,7 +664,7 @@ class DatatableQueryController extends Controller
                     $bank_slips->where('section_id', $request->section);
                 }
                 if ($request->payment_date != "") {
-                    $date = strtotime($request->payment_date);
+                    $date = strtotime(toDbDateConvert($request->payment_date));
                     $new_format = date('Y-m-d', $date);
                     $bank_slips->where('date', $new_format);
                 }

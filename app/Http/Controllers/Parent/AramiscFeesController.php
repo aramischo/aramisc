@@ -84,7 +84,7 @@ class AramiscFeesController extends Controller
                 $fileName = 'public/uploads/bankSlip/' . $fileName;
             }
 
-            $date = strtotime($request->date);
+            $date = strtotime(toDbDateConvert($request->date));
 
             $newformat = date('Y-m-d', $date);
 
@@ -192,7 +192,7 @@ class AramiscFeesController extends Controller
                 $fileName = 'public/uploads/bankSlip/' . $fileName;
             }
 
-            $date = strtotime($request->date);
+            $date = strtotime(toDbDateConvert($request->date));
             $newformat = date('Y-m-d', $date);
             $payment = AramiscBankPaymentSlip::find($request->id);
             $payment->date = $newformat;

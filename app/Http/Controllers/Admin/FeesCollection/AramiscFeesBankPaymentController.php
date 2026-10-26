@@ -351,8 +351,7 @@ class AramiscFeesBankPaymentController extends Controller
             }
             
             if ($request->payment_date != "") {
-                $date = strtotime($request->payment_date);
-                $new_format = date('Y-m-d', $date);
+                $new_format = toDbDateConvert($request->payment_date);
 
                 $bank_slips->where('date', $new_format);
             }

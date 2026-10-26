@@ -489,7 +489,7 @@ class AramiscStudentAttendanceController extends Controller
                 $class_sections = [];
                 $university_data = [];
                 foreach ($data as $key => $value) {
-                    if (date('d/m/Y', strtotime($request->attendance_date)) == date('d/m/Y', strtotime($value->attendance_date))) {
+                    if (date('d/m/Y', strtotime(toDbDateConvert($request->attendance_date))) == date('d/m/Y', strtotime($value->attendance_date))) {
                         $class_sections[] = $value->class_id . '-' . $value->section_id;
                     }
 
@@ -528,7 +528,7 @@ class AramiscStudentAttendanceController extends Controller
                 try {
                     foreach ($data as $key => $value) {
                         if ($value != "") {
-                            if (date('d/m/Y', strtotime($request->attendance_date)) == date('d/m/Y', strtotime($value->attendance_date))) {
+                            if (date('d/m/Y', strtotime(toDbDateConvert($request->attendance_date))) == date('d/m/Y', strtotime($value->attendance_date))) {
                                 $student = StudentRecord::where('id', $value->student_record_id)->where('school_id', Auth::user()->school_id)->first();
                                 if ($student != "") {
                                     // AramiscStudentAttendance

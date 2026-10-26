@@ -1903,6 +1903,8 @@ class AramiscStudentPanelController extends Controller
 
     public function leaveStore(Request $request)
     {
+        // Dates saisies au format de la langue (j/m/aaaa en FR) : converties en Y-m-d avant la règle before_or_equal (sinon refus dès que le jour dépasse 12).
+        $request->merge(['apply_date' => toDbDateConvert($request->apply_date), 'leave_from' => toDbDateConvert($request->leave_from), 'leave_to' => toDbDateConvert($request->leave_to)]);
         $request->validate([
             'apply_date' => "required",
             'leave_type' => "required",
@@ -2039,6 +2041,8 @@ class AramiscStudentPanelController extends Controller
     public function update(Request $request)
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Dates saisies au format de la langue (j/m/aaaa en FR) : converties en Y-m-d avant la règle before_or_equal (sinon refus dès que le jour dépasse 12).
+        $request->merge(['apply_date' => toDbDateConvert($request->apply_date), 'leave_from' => toDbDateConvert($request->leave_from), 'leave_to' => toDbDateConvert($request->leave_to)]);
         $request->validate([
             'apply_date' => "required",
             'leave_type' => "required",

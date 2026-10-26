@@ -378,7 +378,7 @@ class AramiscStaffAttendanceController extends Controller
 
                         foreach ($data as $key => $value) {
                             if (!empty($value)) {
-                                if (date('d/m/Y', strtotime($request->attendance_date)) == date('d/m/Y', strtotime($value->attendence_date))) {
+                                if (date('d/m/Y', strtotime(toDbDateConvert($request->attendance_date))) == date('d/m/Y', strtotime($value->attendence_date))) {
                                     $staff = AramiscStaff::find($value->staff_id);
                                     $attendance = AramiscStaffAttendence::where('staff_id', $staff->id)
                                         ->where('attendence_date', date('Y-m-d', strtotime($value->attendence_date)))
