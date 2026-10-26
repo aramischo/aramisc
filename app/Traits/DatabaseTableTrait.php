@@ -11,7 +11,7 @@ trait DatabaseTableTrait
     {
         $tables = $this->getAllTables();
         $withRecords = [];
-        $db = "Tables_in_".env('DB_DATABASE');
+        $db = "Tables_in_".DB::getDatabaseName();
         foreach($tables as $table) {
             if(config('database.default') == 'mysql'){
                 $table_name = $table->{$db};
@@ -30,7 +30,7 @@ trait DatabaseTableTrait
     public function tableWithRecordIdActiveStatus(): array
     {
         $tables = $this->getAllTables();
-        $db = "Tables_in_".env('DB_DATABASE');
+        $db = "Tables_in_".DB::getDatabaseName();
         $recordWithActiveStatus = [];
         foreach($tables as $table) {
             if(config('database.default') == 'mysql'){

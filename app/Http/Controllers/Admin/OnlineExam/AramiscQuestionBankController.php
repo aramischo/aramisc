@@ -883,33 +883,32 @@ class AramiscQuestionBankController extends Controller
 
     public function destroy($id)
     {
-        $tables = \App\tableList::getTableList('question_bank_id', $id);
+        $online_question = AramiscQuestionBank::findOrFail($id);
 
-        
-        $online_question = AramiscQuestionBank::find($id);
-        if ($online_question->type != "M") {
-            $tables = \App\tableList::getTableList('question_bank_id', $id);
-        } else {
-            $tables = null;
-        }
-        try {
-            if ($tables == null) {
-                if ($online_question->type == "M") {
-                    AramiscQuestionBankMuOption::where('question_bank_id', $online_question->id)->delete();
-                }
-
-                $online_question->delete();
-
-                Toastr::success('Operation successful', 'Success');
-                return redirect('question-bank');
-            } else {
-                $msg = 'This data already used in  : ' . $tables . ' Please remove those data first';
-                Toastr::error($msg, 'Failed');
-                return redirect()->back();
+        // Usage dans les examens en ligne, quel que soit le type (avant : non contrôlé pour les QCM « M »,
+        // et les options propres d'un QCM à images « MI » étaient prises pour un usage → suppression toujours refusée).
+        $tables = '';
+        foreach (['aramisc_online_exam_question_assigns', 'aramisc_student_take_online_exam_questions'] as $table) {
+            if (DB::table($table)->where('question_bank_id', $online_question->id)->exists()) {
+                $tables .= ucfirst(str_replace('_', ' ', str_replace('aramisc_', '', $table))) . ', ';
             }
+        }
+        if ($tables != '') {
+            Toastr::error('This data already used in  : ' . $tables . ' Please remove those data first', 'Failed');
+            return redirect()->back();
+        }
+
+        DB::beginTransaction();
+        try {
+            AramiscQuestionBankMuOption::where('question_bank_id', $online_question->id)->delete();
+            $online_question->delete();
+            DB::commit();
+
+            Toastr::success('Operation successful', 'Success');
+            return redirect('question-bank');
         } catch (\Exception $e) {
-            $msg = 'This data already used in  : ' . $tables . ' Please remove those data first';
-            Toastr::error($msg, 'Failed');
+            DB::rollBack();
+            Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
     }

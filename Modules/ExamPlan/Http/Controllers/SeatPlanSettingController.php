@@ -130,7 +130,7 @@ class SeatPlanSettingController extends Controller
                 $exam->where('un_section_id', $request->un_section_id);
             }
             $exam_routine = $exam->get();
-            if ($exam_routine) {
+            if ($exam_routine->isNotEmpty()) {
 
                 $seat_plans = SeatPlan::where('exam_type_id', $request->exam_type)
                     ->where('school_id', Auth::user()->school_id)
@@ -201,7 +201,7 @@ class SeatPlanSettingController extends Controller
                     $exam->where('section_id', $request->section);
                 }
                 $exam_routine = $exam->get();
-                if ($exam_routine) {
+                if ($exam_routine->isNotEmpty()) {
 
                     $seat_plans = SeatPlan::where('exam_type_id', $request->exam)
                         ->where('school_id', Auth::user()->school_id)
@@ -259,6 +259,7 @@ class SeatPlanSettingController extends Controller
         try {
             $student_records = [];
             $studentRecord = null;
+            $notify_user_ids = [];
             if ($request->data) {
                 foreach ($request->data as $key => $data) {
                     if (count($data) == 2) {
@@ -279,13 +280,12 @@ class SeatPlanSettingController extends Controller
 
                         $data['un_semester_label_id'] = $new_seat->studentRecord->un_semester_label_id;
                         $data['un_section_id'] = $new_seat->studentRecord->un_section_id;
-                        $records = $this->unStudentRecordInfo($data['un_semester_label_id'], $data['un_section_id'])->pluck('studentDetail.user_id');
-                        $this->sent_notifications('Exam_Seat_Plan', $records, $data, ['Student', 'Parent']);
-
-                        $student_id = StudentRecord::find($record)->student_id;
-                        $student = AramiscStudent::find($student_id);
-                        $exam_type = AramiscExamType::find($request->exam_type_id);
+                        $notify_user_ids[] = $new_seat->studentRecord->studentDetail->user_id;
                     }
+                }
+                // Une seule notification, aux élèves (et parents) dont la place vient d'être créée.
+                if (!empty($notify_user_ids)) {
+                    $this->sent_notifications('Exam_Seat_Plan', collect($notify_user_ids)->unique(), $data, ['Student', 'Parent']);
                 }
                 $seat_plans = SeatPlan::with('studentRecord.studentDetail')->where('exam_type_id', $request->exam_type_id)->where('school_id', Auth::user()->school_id)->where('un_academic_id', getAcademicId())->whereIn('student_record_id', $student_records)->get();
 
@@ -314,6 +314,7 @@ class SeatPlanSettingController extends Controller
             try {
                 $student_records = [];
                 $studentRecord = null;
+                $notify_user_ids = [];
                 if ($request->data) {
                     foreach ($request->data as $key => $data) {
                         if (count($data) == 2) {
@@ -334,13 +335,13 @@ class SeatPlanSettingController extends Controller
 
                             $data['class_id'] = $new_seat->studentRecord->class_id;
                             $data['section_id'] = $new_seat->studentRecord->section_id;
-                            $records = $this->studentRecordInfo($data['class_id'], $data['section_id'])->pluck('studentDetail.user_id');
-                            $this->sent_notifications('Exam_Seat_Plan', $records, $data, ['Student', 'Parent']);
-
-                            $student_id = StudentRecord::find($record)->student_id;
-                            $student = AramiscStudent::find($student_id);
-                            $exam_type = AramiscExamType::find($request->exam_type_id);
+                            $notify_user_ids[] = $new_seat->studentRecord->studentDetail->user_id;
                         }
+                    }
+                    // Une seule notification, aux élèves (et parents) dont la place vient d'être créée
+                    // (avant : toute la section à chaque place créée → N² envois).
+                    if (!empty($notify_user_ids)) {
+                        $this->sent_notifications('Exam_Seat_Plan', collect($notify_user_ids)->unique(), $data, ['Student', 'Parent']);
                     }
                     $seat_plans = SeatPlan::with('studentRecord.studentDetail')->where('exam_type_id', $request->exam_type_id)->where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->whereIn('student_record_id', $student_records)->get();
 

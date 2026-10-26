@@ -27,7 +27,7 @@ class AramiscPostalReceiveController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(AramiscPostalReceiveRequest $request)
     {
         if ($request->hasFile('file')) {
             $fileExtension = $request->file('file')->getClientOriginalExtension();

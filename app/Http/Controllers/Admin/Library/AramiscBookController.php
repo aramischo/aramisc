@@ -280,6 +280,8 @@ class AramiscBookController extends Controller
             return redirect()->back();
         }
 
+        // Prêt + stock : tout ou rien.
+        DB::beginTransaction();
         try {
             $bookIssue = new AramiscBookIssue();
             $bookIssue->book_id = $request->book_id;
@@ -296,21 +298,28 @@ class AramiscBookController extends Controller
             }
 
             $bookIssue->created_by = auth()->user()->id;
-            $results = $bookIssue->save();
+            $bookIssue->save();
 
-            $data['date'] = $bookIssue->given_date;
-            $data['book'] = $bookIssue->books->book_title;
-            $data['class_id'] = $bookIssue->member->studentDetails->studentRecord->class_id;
-            $data['section_id'] = $bookIssue->member->studentDetails->studentRecord->section_id;
-            $records = $this->studentRecordInfo($data['class_id'], $data['section_id'])->pluck('studentDetail.user_id');
-            $this->sent_notifications('Issue/Return_Book', $records, $data, ['Student', 'Parent']);
+            $books = AramiscBook::find($request->book_id);
+            $books->quantity = $books->quantity - 1;
+            $books->update();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Toastr::error('Operation Failed', 'Failed');
+            return redirect()->back();
+        }
 
-            $bookIssue->toArray();
-
-            if ($results) {
-                $books = AramiscBook::find($request->book_id);
-                $books->quantity = $books->quantity - 1;
-                $books->update();
+        // Notifications : un échec n'annule pas le prêt. La notification de classe ne concerne que les membres élèves
+        // (un membre personnel / parent n'a pas de studentDetails → exception qui interrompait le prêt).
+        try {
+            if ($bookIssue->member->memberTypes->id == '2') {
+                $data['date'] = $bookIssue->given_date;
+                $data['book'] = $bookIssue->books->book_title;
+                $data['class_id'] = $bookIssue->member->studentDetails->studentRecord->class_id;
+                $data['section_id'] = $bookIssue->member->studentDetails->studentRecord->section_id;
+                $records = $this->studentRecordInfo($data['class_id'], $data['section_id'])->pluck('studentDetail.user_id');
+                $this->sent_notifications('Issue/Return_Book', $records, $data, ['Student', 'Parent']);
             }
 
             if ($bookIssue->member->memberTypes->id == '2') {
@@ -335,13 +344,12 @@ class AramiscBookController extends Controller
                 $compact['parent_name'] = $bookIssue->member->parentsDetails->guardians_name;
                 @send_sms($bookIssue->member->parentsDetails->guardians_mobile, 'parent_library_book_issue', $compact);
             }
-
-            Toastr::success('Operation successful', 'Success');
-            return redirect()->back();
         } catch (\Exception $e) {
-            Toastr::error('Operation Failed', 'Failed');
-            return redirect()->back();
+            Log::warning('Book issue notification failed: ' . $e->getMessage());
         }
+
+        Toastr::success('Operation successful', 'Success');
+        return redirect()->back();
     }
 
     public function returnBookView(Request $request, $issue_book_id)

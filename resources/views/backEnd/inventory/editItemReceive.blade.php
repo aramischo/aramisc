@@ -67,9 +67,7 @@
                                                     @if (isset($expense_head))
                                                         @foreach ($expense_head as $key => $value)
                                                             <option value="{{ $value->id }}"
-                                                                @if (isset($editData)) @if ($editData->expense_head_id == $value->id)
-                                                    @lang('inventory.selected') @endif
-                                                                @endif
+                                                                {{ old('expense_head_id', $editData->expense_head_id ?? null) == $value->id ? 'selected' : '' }}
                                                                 >{{ $value->head }}</option>
                                                         @endforeach
                                                     @endif

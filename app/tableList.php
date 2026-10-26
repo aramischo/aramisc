@@ -14,7 +14,7 @@ class tableList extends Model
 	{
 		
 		try{
-			$db_name = env('DB_DATABASE', null);
+			$db_name = DB::getDatabaseName();
 			$table_list = DB::select("SELECT TABLE_NAME 
 			FROM INFORMATION_SCHEMA.COLUMNS
 			WHERE COLUMN_NAME ='$colunm_name_id'
@@ -43,7 +43,7 @@ class tableList extends Model
 	public static function ONLY_TABLE_LIST($id)
 	{
 		try{
-			$db_name = env('DB_DATABASE', null);
+			$db_name = DB::getDatabaseName();
 			$table_list = DB::select("SELECT TABLE_NAME 
 			FROM INFORMATION_SCHEMA.COLUMNS
 			WHERE COLUMN_NAME ='$id'
@@ -65,12 +65,12 @@ class tableList extends Model
 
 		//this function not working 
 		try {
-            return env('DB_DATABASE', null);
+            return DB::getDatabaseName();
 		} catch (\Exception $e) {
 			return [];
 		}
 
-		$db_name = env('DB_DATABASE', null);
+		$db_name = DB::getDatabaseName();
 		$table_list = DB::select("SELECT TABLE_NAME 
 		FROM INFORMATION_SCHEMA.COLUMNS
 		WHERE COLUMN_NAME ='$column'
