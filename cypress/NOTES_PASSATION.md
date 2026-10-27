@@ -883,3 +883,25 @@ en Phase 1 — ou sur la définition de menu attendue du rôle, pas sur un balay
 
 Les `unresolved` rencontrés en navigation (`global-exam`, `global-upload-content` = module Global Academics) restent tolérés,
 à traiter avec les autres unresolved.
+
+#### ✅ Phase 3 — validation en MODE TEST (27/10/2026)
+`ACCESS_CONTROL_ENFORCE=true` + `ACCESS_CONTROL_AUDIT=true` activés **uniquement dans `.env.cypress`** (base de test
+`aramisc01`), log d'audit purgé, puis **toutes les suites** relancées (`cypress/e2e/**/*.cy.js`). Le web dev (`.env`) n'a
+**jamais** été touché (resté `audit=false/enforce=false`). `.env.cypress` **restauré** après le run (bloc TEMP retiré,
+vérifié : plus aucune ligne `ACCESS_CONTROL` ; config cache vidé par le runner).
+
+**Résultat : 321 tests, 320 passants, 1 skippé, 0 échec — `✔ All specs passed!` (1h27).**
+- **0 `deny`** : aucune route *légitime* exercée par une suite de rôle n'a reçu de 403 → le seeder Phase 2 (+ complément
+  web dev) couvre **exactement** ce dont les rôles ont besoin. L'enforcement ne casse **rien**.
+- **23 `unresolved`** (tolérés, jamais 403, seulement journalisés) = les gardes mal câblées déjà cataloguées :
+  - module **Global Academics** (`global-exam`, `global-subject`, `global-assign`, `global-assign-subject`,
+    `global-assign-subject-create`, `global-exam-type`, `global-upload-content`, `global-examView`, `global_subject`…),
+  - `wallet.approve-payment` / `wallet.reject-payment`,
+  - sous-actions CRUD orphelines (`delete-lesson-plan`, `delete-supplier`, `delete-holiday-data`,
+    `exam_schedule_create`, `global_assign_subject_create`, `subjectMarkSheet`),
+  - params chaîne orphelins (`student_fine_report` role 6, `student_study_material` role 2, `parent_fees` role 3),
+  - un param numérique sans `old_id` (`147`).
+
+**Conclusion** : l'activation `enforce=true` est **sûre** vis-à-vis des parcours couverts par les suites. Ne reste, avant
+une activation réelle sur le web dev, que (a) le traitement optionnel des `unresolved` (créer la permission ou corriger la
+garde — non bloquant) et (b) la décision d'activer `enforce` en prod/web dev, **à valider avec l'utilisateur**.
