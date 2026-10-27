@@ -905,3 +905,28 @@ vérifié : plus aucune ligne `ACCESS_CONTROL` ; config cache vidé par le runne
 **Conclusion** : l'activation `enforce=true` est **sûre** vis-à-vis des parcours couverts par les suites. Ne reste, avant
 une activation réelle sur le web dev, que (a) le traitement optionnel des `unresolved` (créer la permission ou corriger la
 garde — non bloquant) et (b) la décision d'activer `enforce` en prod/web dev, **à valider avec l'utilisateur**.
+
+#### ✅ Traitement des `unresolved` (28/10/2026) — seeder `AccessControlUnresolvedSeeder`
+Les 23 gardes `unresolved` de la Phase 3 ont été **rendues enforce-ables** : pour chacune, création de la permission
+feuille manquante (`database/seeders/AccessControlUnresolvedSeeder.php`, modèle calqué sur `fees_group_store` :
+`type=3, is_menu=0, menu_status=0, parent_route=<parent>` → **n'apparaît pas dans le sidebar** et laisse `hasPermission()`
+neutre) puis assignation au(x) rôle(s) qui l'exerce(nt) réellement (relevés en audit). Idempotent, data-only.
+- **38 permissions** créées (module `access_control`), **0 en menu** (aucune pollution sidebar, vérifié).
+- **38 assignations** : Admin (5) = 35 ; Accountant (6) = 1 (`student_fine_report`) ; Student (2) = 1
+  (`student_study_material`) ; Parents (3) = 1 (`parent_fees`).
+- **Groupe A (11)** : `exam_schedule_create`→`exam_schedule`, `delete-lesson-plan`→`lesson-plan`,
+  `delete-supplier`→`suppliers`, `delete-holiday-data`→`holiday`, `search-account` (garde numérique `147` résolue via
+  `old_id=147`)→`accounts`, `subjectMarkSheet`, `wallet.approve-payment`/`wallet.reject-payment`→`wallet`,
+  `student_fine_report`, `student_study_material`→`study_material`, `parent_fees`.
+- **Groupe B — module Global Academics (27 gardes, 0 permission en base)** : le module n'avait **jamais** été branché au
+  système de permissions. Décision utilisateur : tout créer + assigner à l'Admin (role 5). Les 27 permissions `global-*`
+  sont créées (non-menu) et assignées à l'Admin.
+
+**Revalidation Phase 3 mode test (28/10/2026)** : `enforce=true` + `audit=true` (base de test, `.env.cypress` restauré
+après), cache applicatif vidé, toutes les suites relancées (1h21). **Résultat : `✔ All specs passed!`, 320/320, 0 échec ;
+log d'audit VIDE → `0 deny, 0 unresolved`.** Les 23 gardes sont désormais résolues (connues + assignées) et **aucun
+conflit inter-rôle** n'est apparu (une permission désormais « connue » mais non assignée à un autre rôle l'aurait refusé).
+L'enforcement est propre : plus aucune garde tolérée par défaut sur les parcours couverts.
+
+**Reste (à valider avec l'utilisateur)** : l'activation **réelle** de `enforce=true` sur le web dev / prod (`.env`),
+idéalement après un passage manuel de quelques parcours métier réels par rôle (les suites ne couvrent pas 100 % des écrans).
