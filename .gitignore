@@ -31,3 +31,6 @@ change-list.txt
 /Claude outputs/
 installer-claude-code.bat
 skills-lock.json
+
+# Identifiants de test Cypress (ne pas versionner)
+/cypress/fixtures/users.json
