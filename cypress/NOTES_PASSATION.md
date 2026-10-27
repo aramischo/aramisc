@@ -749,3 +749,76 @@ utile) obtient 200** sur `/global-section`, `/department`, `/bank-account`, `/ad
   (`DatatableQueryController@ajaxApproveLeave`) en Super admin puis en Driver, et vérifie que **seul** le Super admin voit
   la demande d'autrui (vue globale role 1) tandis que le Driver ne voit que la sienne. Données supprimées en `after`.
   NB : `aramisc_leave_requests.staff_id` est une **FK vers `users(id)`** (c'est un *user id*, pas un `aramisc_staffs.id`).
+
+### 🏗️ CHANTIER — Réactiver le contrôle d'accès par rôle (préparé 27/10/2026, NON exécuté)
+
+Objectif : corriger le bug `app('permission')` (singleton sans `return`, `AppServiceProvider.php:133`) qui désactive
+l'enforcement des permissions par-route pour tous les rôles, **sans casser les accès légitimes**. Big-bang = exclu.
+
+#### Audit de l'existant (base `aramisc01`)
+- **973 permissions** ; assignations : Super admin **0** (bypasse, OK), Admin 615, Accountant 220, Teacher 209,
+  Receptionist 150, Student 134, Parents 104, Librarian 88, Driver 22.
+- **755 routes web admin** gardées par `userRolePermission:<param>`. Le middleware compare `<param>` à la liste des
+  `permissions.route` du rôle (`UserRolePermission.php:50`).
+- **3 problèmes structurels à régler AVANT d'activer** (sinon 403 pour tous, role 1 excepté) :
+  1. **58 params numériques** (`userRolePermission:265`…) : aucune `permissions.route` numérique n'existe → ne résolvent jamais.
+  2. **131 params chaîne** (sur 581 distincts) : pas de `permissions.route` correspondante → ne résolvent jamais.
+  3. Le `return $permissions;` manquant lui-même.
+- **Impact d'un fix brut** (routes actuellement atteintes qui deviendraient 403), par rôle :
+  Admin **51**, Teacher 293, Accountant 367, Receptionist 398, Librarian 425, Driver 449 ; Student/Parent **0**
+  (panneaux séparés, garde différente → hors périmètre de ce chantier).
+  ⚠️ Une grande partie de ces blocages serait **CORRECTE** (un Librarian ne devrait pas atteindre 425 écrans admin).
+  Le risque = le **sous-ensemble** de routes dont le rôle a *légitimement* besoin mais qui n'a jamais été assigné.
+
+#### Plan proposé (par phases)
+- **Phase 0 — prérequis structurels** : corriger les 58 params numériques + 131 params chaîne orphelins
+  (soit créer/mapper les `permissions.route` manquantes, soit corriger les gardes de route). Rendre aussi le
+  middleware **tolérant** à un param inconnu (log + allow) pour ne jamais 403 sur une garde mal câblée.
+- **Phase 1 — MODE AUDIT (log-only)** : ajouter `return $permissions;` MAIS remplacer temporairement `abort(403)` par
+  un **log** (user_id, role_id, route, timestamp) sans bloquer. Déployer, laisser les vrais utilisateurs exercer l'app
+  (ou rejouer les suites Cypress de tous les rôles), et **collecter l'ensemble réel** des routes que chaque rôle
+  utilise vraiment. C'est ce qui transforme « 425 perdues en théorie » en « N réellement nécessaires ».
+- **Phase 2 — réconciliation `assign_permissions`** : à partir des logs Phase 1 (et des menus/`sidebars` comme source
+  de vérité), compléter les assignations par rôle via un **seeder idempotent** (versionné), pas à la main en base.
+- **Phase 3 — activation + tests** : basculer le middleware en mode bloquant (`abort(403)`), puis valider.
+
+#### Stratégie de test (Cypress)
+- **Matrice d'autorisation data-driven** : une spec par rôle lisant deux listes — `allowed` (doit répondre 200) et un
+  échantillon `forbidden` (doit répondre 403) — construites depuis les assignations réconciliées. Assertions via
+  `cy.request({failOnStatusCode:false})`.
+- **Non-régression** : rejouer les suites existantes (admin 85 specs, + student/parent/teacher/staff/superadmin) APRÈS
+  activation ; tout échec = soit un accès légitime manquant (à ajouter en Phase 2), soit un test qui s'appuyait sur
+  l'absence de contrôle.
+- Prévoir un **toggle** (env/config) pour activer/désactiver l'enforcement sans redéployer, le temps de stabiliser.
+
+#### Points d'attention
+- Les requêtes **DataTables AJAX** (ex. `*-ajax`) sont des routes séparées, souvent gardées à part : les inclure dans
+  la matrice, sinon une page « autorisée » afficherait une table vide/403.
+- Ne **pas** confondre avec les autres systèmes de permission présents (`aramisc_role_permissions` + `aramisc_module_links`,
+  `sidebars`) : le middleware `userRolePermission` s'appuie sur `assign_permissions` + `permissions` uniquement.
+- Role 1 (Super admin) reste bypassé par construction (`role_id != 1`) — ne pas lui assigner de permissions.
+
+#### ✅ Phase 0 réalisée (27/10/2026) — middleware tolérant + toggles, NEUTRE par défaut
+Livré (aucun changement de comportement tant que les toggles sont OFF) :
+- **`config/access_control.php`** : `enforce` (défaut `false`) et `audit` (défaut `false`), pilotables par env
+  `ACCESS_CONTROL_ENFORCE` / `ACCESS_CONTROL_AUDIT` ; `log_channel` (`stack`).
+- **`app/Http/Middleware/UserRolePermission.php`** refondu :
+  - Contrôle par rôle **gated** par la config. Toggles OFF ⇒ le bloc est ignoré ⇒ `return next` (identique à l'existant).
+  - Ne dépend plus du singleton cassé `app('permission')` : calcule lui-même les routes autorisées du rôle
+    (`assign_permissions ∩ permissions.route`, cache 60 s) — le singleton d'AppServiceProvider reste **inchangé** (documenté).
+  - **Résolution des params numériques** via `permissions.old_id` (ex. `265`→`section`).
+  - **Tolérance** : un param non résolu (numérique sans `old_id`, sous-action CRUD orpheline…) ⇒ décision `null`
+    ⇒ **jamais 403**, seulement journalisé. Une garde mal câblée ne casse pas l'accès.
+  - Super admin (role 1) : bypass conservé. Restriction congés parents (role 3) et garde plan/école : inchangées.
+- **Vérifié** : lint PHP 8.4 OK ; config `false/false` ; suite Super admin 10/10 (neutralité) ; logique d'enforcement
+  prouvée par réflexion (cas Driver) : `dashboard`→autorisé, `department`/`265`→refusé si enforce, `999999`/`global-exam`→toléré.
+
+**Inventaire Phase 0 (pour Phase 2, listes brutes dans le scratchpad de session) :**
+- **Params numériques** : 40 résolus via `old_id`, **11 à mapper manuellement** (147,153,154,155,180,184,193,273,274,275,437 —
+  ex. 180→`designation`, 184→`department`).
+- **Params chaîne orphelins : 128** — quasi tous des **sous-actions CRUD** (`*-store/-edit/-delete/-delete-modal/-update`
+  de donor, expert-teacher, form-download, front-*, home/photo/speech/video-gallery, theme.*) et le module
+  **Global Academics** (`global-*`). Décision Phase 2 : soit créer la permission, soit faire hériter la sous-action du parent.
+
+**Prochaine étape (Phase 1)** : passer `ACCESS_CONTROL_AUDIT=true` (sans `enforce`) pour journaliser l'usage réel par rôle,
+puis construire le seeder d'assignations (Phase 2). Rien n'est bloquant tant que `enforce` reste `false`.
