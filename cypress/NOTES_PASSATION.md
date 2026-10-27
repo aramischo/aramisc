@@ -683,3 +683,29 @@ Specs par rubrique, basées sur les **permissions réelles** de chaque rôle (`a
   (`active_status=0` sur le lien 152 + suppression des `aramisc_role_permissions` du lien 152). Page exclue des specs (404 attendu).
 - **Super admin** : non créable via le formulaire staff (liste limitée à Accountant/Admin/Driver/Librarian/Receptionist/Teacher) ;
   existe déjà via le compte perso et reste un sur-ensemble de l'admin (87 specs admin). Pas de compte `superadmin@aramisc.com` dédié créé.
+
+### 🔧 Correctifs issus du run complet Admin (27/10/2026)
+Run admin (87 specs) : 190/202 tests verts au départ, 10 specs en échec. Causes et correctifs :
+
+- **⚠️ Régression `.htaccess` (introduite par le durcissement sécurité de cette session)** : le blocage
+  `RewriteRule ^(...|Modules|packages)(/|$) - [F,L]` renvoyait **403** sur les assets servis directement depuis
+  `Modules/<Module>/Resources/assets/` (ex. `footer.blade.php` charge `Modules\Wallet\Resources\assets\js\wallet.js`,
+  et plusieurs modules chargent leur `app.js` de la même façon : Lesson, Fees, University, BulkPrint…). Conséquences :
+  - **Wallet** : `wallet.js` (toggle du moyen de paiement) non chargé → la section bancaire restait `d-none`,
+    le champ `#note` du dépôt invisible → specs `portefeuille/*` KO.
+  - **Lesson** : `app.js` non chargé → le `<select>` des matières (`#select_subject`, rempli en AJAX) restait vide
+    → helper `createLesson` en échec → specs `plan_de_cours/*` KO.
+  - **Correctif** : le `.htaccess` laisse désormais passer les extensions statiques (js/mjs/css/map/images/fonts)
+    sous `Modules/` et `packages/`, tout en bloquant le code source. Vérifié : `wallet.js`/Lesson `app.js` → 200,
+    `WalletController.php`/`composer.json` → 403. **DocumentRoot = racine projet** (le `.htaccess` racine est actif),
+    d'où l'impact de ce blocage sur les assets de module.
+- **Bibliothèque — recherche DataTable** (`SQLSTATE 42S22 : aramisc_books.category_name inconnu`) :
+  `DatatableQueryController::bookListAjax` — la recherche globale Yajra préfixait `category_name`/`subject_name`
+  sur `aramisc_books` (colonnes en fait sur les tables jointes). Ajout de `filterColumn` ciblant
+  `aramisc_book_categories.category_name` et `aramisc_subjects.subject_name`.
+- **Examen global** (`GlobalExamController::examView`, `Undefined array key "code"` → 500) : `$request->only(['code'])`
+  puis `$input['code']` sans garde + `$view` indéfini si code ≠ single/multi. Corrigé : `$request->input('code')`,
+  retour **422** si absent/invalide. Le spec `global_academics` testait cet endpoint **AJAX** via `cy.visit` →
+  réécrit en `cy.request('/return_global_exam_view?code=single')` attendant le JSON `{status, html}`.
+
+Restant : `examination.cy.js` (2 tests) = **`/online-exam` 500** (anomalie 16, contrôleur tronqué) — non traité (plus lourd).
