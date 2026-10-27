@@ -822,3 +822,48 @@ Livré (aucun changement de comportement tant que les toggles sont OFF) :
 
 **Prochaine étape (Phase 1)** : passer `ACCESS_CONTROL_AUDIT=true` (sans `enforce`) pour journaliser l'usage réel par rôle,
 puis construire le seeder d'assignations (Phase 2). Rien n'est bloquant tant que `enforce` reste `false`.
+
+#### ✅ Phase 1 réalisée (27/10/2026) — collecte d'usage en mode audit
+Méthode : canal de log dédié `access_audit` (ajouté à `config/logging.php` → `storage/logs/access_audit.log`),
+`ACCESS_CONTROL_AUDIT=true` + `ACCESS_CONTROL_LOG_CHANNEL=access_audit` posés **temporairement** dans `.env.cypress`,
+puis rejeu de **toutes** les suites rôles (156 specs). Environnement **restauré** ensuite (`git checkout .env.cypress`,
+`config:cache` → web dev `audit=false / enforce=false`, vérifié).
+
+Résultat : **95 entrées** (72 `deny` = permission connue non assignée ; 23 `unresolved` = garde non résolue, tolérée).
+Routes exercées par les specs mais **non assignées** (candidates à accorder en Phase 2) :
+- **Admin (5)** — 30 deny : bloc **frais** (`fees-master`/`_group`/`_type`/`_discount`, `collect_fees`, `fees_forward`,
+  `search_fees_due`/`_payment`), `library_subject*`, `transport-route-edit/-delete`, `vehicle-edit/-delete`,
+  `dormitory-list-store`, `exam_schedule*`. Unresolved : `147`, `global-*` (Global Academics), `wallet.approve/reject-payment`,
+  `delete-lesson-plan`, `delete-holiday-data`, `delete-supplier`, `subjectMarkSheet`.
+- **Accountant (6)** — 11 deny : `add-expense`, `add_income`, `bank-account`, `chart-of-account`, `item-*` (inventaire),
+  `profit`, `suppliers`, `staff_directory`. Unresolved : `student_fine_report`.
+- **Student (2)** : `student_noticeboard`, `update-my-profile` (+ unresolved `student_study_material`).
+- **Parents (3)** : `parent_examination`, `parent_online_examination` (+ unresolved `parent_fees`).
+- **Teacher (4)** : `exam_schedule`. **Librarian (8)** : `event`, `notice-list`.
+- **Receptionist (7) / Driver (9)** : 0 (leurs specs ne frappent que des routes assignées).
+
+Interprétation : la quasi-totalité des `deny` sont des **assignations légitimes manquantes** (l'Admin doit gérer frais/biblio/transport,
+l'Accountant dépenses/revenus/inventaire), pas des accès à refuser. ⚠️ C'est un **minimum reproductible** (couverture des specs) ;
+l'usage réel sur le web dev en révélerait d'autres → envisager d'activer l'audit sur `dev.aramisc.com` avant de figer le seeder.
+
+**Prochaine étape (Phase 2)** : seeder idempotent accordant ces routes par rôle (revu avant application) + traitement des
+`unresolved` (créer la permission ou corriger la garde). Puis Phase 3 : `enforce=true` + matrice de tests d'autorisation.
+
+#### ✅ Phase 2 réalisée (27/10/2026) — assignations manquantes accordées
+**`database/seeders/AccessControlPermissionsSeeder.php`** (idempotent, additif) : accorde dans `assign_permissions`
+les routes `deny` légitimes de la Phase 1, par rôle (map `role_id => [routes]`, résolues en `permission_id` au runtime).
+Lancé sur `aramisc01` (base web dev + specs) :
+```
+php artisan db:seed --class=Database\Seeders\AccessControlPermissionsSeeder --force
+```
+Résultat : **49 lignes insérées** (Admin +31, Accountant +11, Student +2, Parents +2, Teacher +1, Librarian +2).
+Totaux `assign_permissions` : Admin 615→646, Accountant 220→231, Student 134→136, Parents 104→106, Teacher 209→210, Librarian 88→90.
+Vérifié (réflexion, cache vidé) : les routes auparavant refusées (`fees-master`, `library_subject`, `vehicle-edit`,
+`add-expense`, `suppliers`, `profit`…) renvoient désormais `true` (autorisées). Rejouable sans effet (idempotent).
+
+**Reste (hors Phase 2)** : les `unresolved` (params numériques sans `old_id` comme `147`, sous-actions CRUD orphelines,
+module Global Academics, `wallet.approve/reject-payment`) — à traiter par création de permission ou correction de garde.
+Ils restent **tolérés** (non bloquants). Et la collecte d'usage **web dev** (reportée) affinera le seeder avant Phase 3.
+
+**Prochaine étape (Phase 3, à valider)** : `ACCESS_CONTROL_ENFORCE=true` + matrice de tests d'autorisation (par rôle :
+`allowed`→200, échantillon `forbidden`→403) + non-régression des suites existantes.
