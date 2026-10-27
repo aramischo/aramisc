@@ -44,6 +44,9 @@ class AccessControlPermissionsSeeder extends Seeder
             'vehicle-edit', 'vehicle-delete',
             'dormitory-list-store',
             'exam_schedule', 'exam_schedule_print',
+            // Complément découvert par navigation réelle (web dev, 27/10/2026) :
+            'fees.fees-group', 'fees.fees-type', 'fees.fees-invoice-list', 'fees.bank-payment',
+            'custom-marksheet-report', 'student.multi-class-student', 'unassigned_student',
         ],
         // Accountant (6) : comptes, dépenses/revenus, inventaire, annuaire du personnel.
         6 => [

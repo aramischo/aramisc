@@ -867,3 +867,19 @@ Ils restent **tolérés** (non bloquants). Et la collecte d'usage **web dev** (r
 
 **Prochaine étape (Phase 3, à valider)** : `ACCESS_CONTROL_ENFORCE=true` + matrice de tests d'autorisation (par rôle :
 `allowed`→200, échantillon `forbidden`→403) + non-régression des suites existantes.
+
+#### ✅ Collecte d'usage web dev (Chrome) — Admin (27/10/2026)
+Audit réactivé temporairement sur `dev.aramisc.com`, connexion **Admin** via l'extension Chrome, extraction des 291 liens
+de menu puis balayage en `fetch()` (session réelle). Audit **re-désactivé** ensuite (web dev `audit=false/enforce=false`, vérifié).
+Révèle **7 routes Admin légitimes** absentes des specs → ajoutées au seeder (role 5) :
+`fees.fees-group`, `fees.fees-type`, `fees.fees-invoice-list`, `fees.bank-payment`, `custom-marksheet-report`,
+`student.multi-class-student`, `unassigned_student`. Seeder relancé : +7 (Admin `assign_permissions` 646→653). Vérifié autorisées.
+
+**⚠️ Insight méthodo (important pour la suite)** : l'enforcement étant OFF, le menu latéral **n'est pas filtré par rôle**
+(un Accountant voit le même menu qu'un Admin). Donc la collecte web dev est **fiable pour l'Admin** (quasi tout ce qu'il
+atteint est légitime) mais **PAS pour les rôles restreints** (impossible de distinguer « légitime » de « ne devrait pas avoir »).
+Pour les rôles restreints, s'appuyer sur les **suites Cypress** (qui ne testent que les features propres au rôle) — déjà fait
+en Phase 1 — ou sur la définition de menu attendue du rôle, pas sur un balayage du menu non filtré.
+
+Les `unresolved` rencontrés en navigation (`global-exam`, `global-upload-content` = module Global Academics) restent tolérés,
+à traiter avec les autres unresolved.
