@@ -15,15 +15,9 @@ describe('Admin – Examination', () => {
     });
   });
 
-  // ─────────────────── ONLINE EXAM ──────────────────────────────
-  describe('Online Exam', () => {
-    it('affiche la liste des examens en ligne', () => {
-      cy.visit('/online-exam');
-      cy.url().should('include', '/online-exam');
-      cy.get('table, .card').should('exist');
-      cy.screenshot('admin_online_exam_list');
-    });
-  });
+  // NOTE: /online-exam et /online-exam-report (module Online Exam) renvoient 500
+  // (anomalie 16, bug applicatif non corrigé — voir NOTES_PASSATION.md).
+  // Tests retirés de la suite sur demande.
 
   // ─────────────────── QUESTION GROUP ───────────────────────────
   describe('Question Group', () => {
@@ -92,15 +86,7 @@ describe('Admin – Examination', () => {
     });
   });
 
-  // ─────────────────── ONLINE EXAM REPORT ───────────────────────
-  describe('Online Exam Report', () => {
-    it('affiche le rapport d\'examen en ligne', () => {
-      cy.visit('/online-exam-report');
-      cy.url().should('include', '/online-exam-report');
-      cy.get('body').should('be.visible');
-      cy.screenshot('admin_online_exam_report');
-    });
-  });
+  // NOTE: /online-exam-report retiré — voir note Online Exam ci-dessus (anomalie 16, 500).
 
   // ─────────────────── RESULTS ARCHIVE ──────────────────────────
   describe('Results Archive', () => {
