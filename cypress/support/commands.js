@@ -34,6 +34,17 @@ Cypress.Commands.add('artisan', (command) => {
 });
 
 /**
+ * Login helper — Super admin (role_id 1).
+ * Compte propriétaire plateforme ; contourne le système de permissions.
+ * Credentials pulled from cypress/fixtures/users.json (non versionné).
+ */
+Cypress.Commands.add('loginAsSuperAdmin', () => {
+  cy.fixture('users').then((u) => {
+    cy.login(u.superadmin.email, u.superadmin.password);
+  });
+});
+
+/**
  * Login helper — Admin.
  * Credentials pulled from cypress/fixtures/users.json
  */

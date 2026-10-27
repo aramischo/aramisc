@@ -709,3 +709,43 @@ Run admin (87 specs) : 190/202 tests verts au départ, 10 specs en échec. Cause
   réécrit en `cy.request('/return_global_exam_view?code=single')` attendant le JSON `{status, html}`.
 
 Restant : `examination.cy.js` (2 tests) = **`/online-exam` 500** (anomalie 16, contrôleur tronqué) — non traité (plus lourd).
+
+### ✅ Suite Admin 100 % verte — retrait des tests `/online-exam` (27/10/2026)
+Sur demande, les 2 tests `/online-exam` et `/online-exam-report` (tous deux **500**, anomalie 16, bug applicatif
+non corrigé) ont été **retirés** de `examination.cy.js` (commentaire renvoyant à cette note). La suite admin
+(85 specs) est désormais **100 % verte** : 201 passing, 0 failing, 1 skipped. Le bug `/online-exam` lui-même
+reste ouvert (non corrigé).
+
+### 👑 Rôle Super admin (role_id 1) — specs d'autorisation (27/10/2026)
+
+**Compte** : `abassi.hicham@gmail.com` (id 2, role_id 1, `is_administrator=yes`). Mot de passe remis à celui des
+comptes de test via `php artisan tinker` (`bcrypt`) — ⚠️ **ne pas** le faire via `mysql -e "...$2y$..."` : le shell
+(PowerShell/bash) mange les `$` du hash et le tronque. Passer par un fichier .sql ou par tinker (`bcrypt('...')`).
+Ajouté à `cypress/fixtures/users.json` (clé `superadmin`, **non versionné**) + commande `cy.loginAsSuperAdmin()`.
+
+**Différence Super admin vs Admin (role 5) — vérifiée dans le code :**
+- `userPermission()` (Helper.php:426) : `role_id==1 && is_administrator=='yes'` ⇒ `true` immédiat (accès à tout).
+  L'Admin (role 5), bien qu'`is_administrator=yes`, **n'a pas** ce court-circuit (le test porte sur `role_id==1`).
+- Middleware `UserRolePermission:50` : `role_id != 1` ⇒ la route doit être dans les permissions assignées ; role 1 passe toujours.
+- Dimension **SaaS** : le lien « View as super admin » (`view-as-superadmin` → `superadmin-dashboard`) est conditionné par
+  `moduleStatusCheck('Saas')`, **désactivé** ici, et la route `superadmin-dashboard` **n'existe pas**. ⇒ **aucune page
+  exclusive au Super admin** dans cette install.
+- Branches codées en dur `role_id==1` : congés (voit toutes les demandes), paie (voit tous les paiements), audience notifications.
+
+**⚠️ Finding de sécurité (NON corrigé — documenté sur décision utilisateur) :** le singleton `app('permission')`
+(`AppServiceProvider.php:124-134`, commit de 2024) construit `$permissions` mais **ne fait aucun `return`** ⇒ il vaut
+**`null`** pour tous. Conséquence : la vérification par-route (`!is_null($permissions) && role_id != 1`) du middleware
+et de `userPermission()` est **court-circuitée pour TOUS les rôles**. Sonde Cypress confirmée : le **Driver (0 permission
+utile) obtient 200** sur `/global-section`, `/department`, `/bank-account`, `/add-expense`… exactement comme le Super admin.
+⇒ L'enforcement des permissions par-rôle est de fait **désactivé à l'échelle de l'app**. Correctif = ajouter
+`return $permissions;` ligne 133, mais **risqué** (réactive l'enforcement partout, peut bloquer des accès légitimes si
+`assign_permissions` est incomplet, et fausserait les autres suites). À traiter séparément et prudemment.
+
+**Specs créés (`cypress/e2e/superadmin/`, 10 tests verts) :**
+- `tableau_de_bord.cy.js` (8) : login role 1 + accès dashboard et écrans de gestion (200). Baseline / garde du chemin role 1.
+  N'affirme **pas** de différence 403/200 (impossible, cf. finding ci-dessus).
+- `portee_conges.cy.js` (2) : **vraie** différence de comportement. Sème 2 demandes de congé (une « au Driver », une
+  « à un autre staff ») via le helper `php()` (tinker), interroge `/approve-leave-request-ajax`
+  (`DatatableQueryController@ajaxApproveLeave`) en Super admin puis en Driver, et vérifie que **seul** le Super admin voit
+  la demande d'autrui (vue globale role 1) tandis que le Driver ne voit que la sienne. Données supprimées en `after`.
+  NB : `aramisc_leave_requests.staff_id` est une **FK vers `users(id)`** (c'est un *user id*, pas un `aramisc_staffs.id`).
