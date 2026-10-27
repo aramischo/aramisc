@@ -82,11 +82,15 @@ describe('Admin – Global Academics (Multi-School)', () => {
       cy.screenshot('admin_global_exam_list');
     });
 
-    it('affiche le planning d\'examen global', () => {
-      cy.visit('/return_global_exam_view');
-      cy.url().should('include', '/return_global_exam_view');
-      cy.get('body').should('be.visible');
-      cy.screenshot('admin_global_exam_view');
+    it('renvoie le formulaire de configuration d\'examen global (AJAX, code=single)', () => {
+      // /return_global_exam_view (GlobalExamController@examView) est un endpoint AJAX : il attend
+      // ?code=single|multi et renvoie { status, html }. On le teste via cy.request (pas cy.visit,
+      // qui échouait car ce n'est pas une page). Le contrôleur renvoie désormais 422 si code manque.
+      cy.request('/return_global_exam_view?code=single').then((res) => {
+        expect(res.status).to.eq(200);
+        expect(res.body).to.have.property('status', true);
+        expect(res.body.html).to.be.a('string').and.not.to.be.empty;
+      });
     });
   });
 

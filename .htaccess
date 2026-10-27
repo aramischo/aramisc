@@ -7,7 +7,12 @@ RewriteEngine On
 
 # ===================== Durcissement sécurité =====================
 # Dossiers internes jamais destinés au web (code source, dépendances, logs, sauvegardes…)
-RewriteRule ^(\.git|\.github|\.idea|\.vs|\.claude|vendor|node_modules|storage|bootstrap|database|tests|scripts|cypress|config|resources|routes|app|Modules|packages)(/|$) - [F,L]
+RewriteRule ^(\.git|\.github|\.idea|\.vs|\.claude|vendor|node_modules|storage|bootstrap|database|tests|scripts|cypress|config|resources|routes|app)(/|$) - [F,L]
+
+# Modules & packages : bloquer le code source (PHP, etc.) MAIS laisser passer les assets statiques.
+# (Plusieurs modules chargent leurs js/css directement depuis Modules/<Module>/Resources/assets/.)
+RewriteCond %{REQUEST_URI} !\.(js|mjs|css|map|png|jpe?g|gif|svg|webp|avif|ico|cur|woff2?|ttf|otf|eot)$ [NC]
+RewriteRule ^(Modules|packages)(/|$) - [F,L,NC]
 
 # Sauvegardes de base de données
 RewriteRule ^public/Backup(/|$) - [F,L,NC]
