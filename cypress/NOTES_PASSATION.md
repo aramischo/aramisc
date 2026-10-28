@@ -974,4 +974,43 @@ librarian/student/admin passent — le menu ne montre plus que les liens autoris
 a des frais dus), prouvés non liés à notre contrôle (0 `deny` loggé, routes assignées à role 3). Ces 7 sont explicitement
 exclus de l'assertion de la spec (liste `CONTEXTUAL`).
 
-**Reste** : merge éventuel de `chantier-menu-role-filter` dans `Hicham` ; contrôle visuel optionnel des menus par rôle.
+La branche `chantier-menu-role-filter` a été **mergée dans `Hicham`** et le filtre corrigé (match par route + ancêtres).
+
+#### ✅ Crawl `menu_links` sous enforce + traitement des 2 findings (29/10/2026)
+Relance du crawl `menu_links.cy.js` sous `enforce=true` + `audit=true` (base de test, `.env.cypress` restauré après)
+pour détecter d'éventuels **écrans légitimes non assignés** par rôle. Il a révélé **2 findings** :
+
+**Finding 1 — liens RH morts dans le sidebar (incohérence de données + filtre trop permissif).**
+`teacher` (role 4) voyait `designation`, `department`, `staff_directory` ; `receptionist` (7) et `librarian` (8) voyaient
+`staff_directory` → **403** au clic. Cause : ces rôles avaient des **sous-actions** assignées (`designation-store/edit/delete`,
+`department-store/edit/delete`, `editStaff`, `deleteStaff`) dont le `parent_route` est une page gardée (`type=2`) **non
+assignée** ; mon expansion d'ancêtres (`roleAllowedMenuRoutes`) tirait cette page comme lien visible → lien mort.
+Décision utilisateur : **masquer + retirer les sous-actions**.
+- **Filtre durci** (`app/Helpers/Basic.php`, `roleAllowedMenuRoutes`) : l'expansion d'ancêtres n'ajoute QUE des **conteneurs**
+  (`type=1`, ex. `human_resource`, `library`) ou des **sections** (`permission_section=1`), **jamais une page navigable
+  gardée** (`type=2`). On s'arrête à la première page gardée rencontrée en remontant. Préserve le cas Library (`type=1`).
+- **Nettoyage data** (SQL, base `aramisc01`, hors versionnement) : retrait des sous-actions RH de teacher (8), receptionist (2),
+  librarian (2). `accountant` (6) conserve `editStaff`/`deleteStaff` car il a **aussi** la vue `staff_directory` (légitime,
+  pas de lien mort — il passait déjà le crawl).
+
+**Finding 2 — gardes `unresolved` sur 2 rapports (param de garde mal nommé).**
+`student-transport-report` et `student-dormitory-report` (atteints par admin + teacher) étaient `unresolved` : la garde
+`userRolePermission:student_transport_report` / `:student_dormitory_report` ne correspondait à **aucune** `permissions.route`.
+Or la permission de menu **existe** sous `student_transport_report_index` / `student_dormitory_report_index` (is_menu=1, type=2,
+assignées aux rôles 4 et 5). Ce n'était donc pas un écran sans permission (≠ les 23 précédents) mais un **param mal nommé**.
+Décision utilisateur : **Admin seulement**.
+- **Gardes alignées** (`routes/admin_tenant.php`) : `:student_transport_report` → `:student_transport_report_index`, idem
+  dormitory → pointent sur la permission existante (plus d'orphelin, menu + accès sur la MÊME permission).
+- **Nettoyage data** (SQL) : retrait des 2 permissions au **teacher** (role 4) → menu masqué + accès 403 ; l'Admin les garde.
+
+**Fixture régénérée** (`php artisan permissions:reachable-routes`) : admin 245, teacher 72, accountant 43, student 21,
+receptionist 14, librarian 13, parent 7, driver 0.
+
+**Validation (29/10/2026)** — `cypress/e2e/autorisation/*.cy.js` sous `enforce=true` (base de test) :
+- `acces_routes.cy.js` : **415/415**, 0 échec.
+- `menu_links.cy.js` : **7/7 rôles** (admin, teacher, accountant, student, parent, receptionist, librarian) **0 lien mort**.
+- **Log d'audit VIDE → 0 deny, 0 unresolved.** Le teacher est exclu des 2 rapports **sans lien mort** (menu masqué → jamais
+  de clic → aucun deny), et les 2 `unresolved` ont disparu.
+
+**Reste (décision utilisateur, non bloquant)** : passage manuel de parcours métier réels par rôle (les specs ne couvrent pas
+100 % des écrans) ; activation `enforce=true` sur une éventuelle prod distincte ; affinage des assignations larges (accountant).

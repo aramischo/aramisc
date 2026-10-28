@@ -203,6 +203,7 @@
         "student-attendance-report",
         "student-category",
         "student-certificate",
+        "student-dormitory-report",
         "student-group",
         "student-history",
         "student-id-card",
@@ -213,6 +214,7 @@
         "student-registration-custom-field",
         "student-report",
         "student-settings",
+        "student-transport-report",
         "student_mark_sheet_final",
         "subject",
         "subject-attendance-report",
@@ -222,6 +224,8 @@
         "syllabus-list",
         "syllabus-list-ajax",
         "tabulation-sheet-report",
+        "templatesettings/email-template",
+        "templatesettings/sms-template",
         "testimonial",
         "theme/index",
         "transaction",
@@ -364,7 +368,6 @@
     "student": [
         "academic-calendar",
         "fees/student-fees-list",
-        "student-apply-leave",
         "student-assignment",
         "student-book-issue",
         "student-class-routine",
@@ -377,10 +380,8 @@
         "student-my-attendance",
         "student-noticeboard",
         "student-online-exam",
-        "student-pending-leave",
         "student-profile",
         "student-result",
-        "student-study-material",
         "student-subject",
         "student-syllabus",
         "student-teacher",
@@ -429,7 +430,7 @@
     ],
     "driver": [],
     "_meta": {
-        "generated_at": "2026-10-28 11:36:28",
+        "generated_at": "2026-10-28 22:44:05",
         "guarded_get_total": 286,
         "note": "Routes GET sans param gard\u00e9es, hors routes \u00e0 effet de bord. Assertion attendue c\u00f4t\u00e9 spec : statut != 403."
     }

@@ -681,7 +681,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::delete('room-list/{id}', 'Admin\Dormitory\AramiscRoomListController@destroy')->name('room-list-delete')->middleware('userRolePermission:room-list-index');
 
         // Student Dormitory Report
-        Route::get('student-dormitory-report', ['as' => 'student_dormitory_report_index', 'uses' => 'Admin\Dormitory\AramiscDormitoryController@studentDormitoryReport'])->middleware('userRolePermission:student_dormitory_report');
+        Route::get('student-dormitory-report', ['as' => 'student_dormitory_report_index', 'uses' => 'Admin\Dormitory\AramiscDormitoryController@studentDormitoryReport'])->middleware('userRolePermission:student_dormitory_report_index');
 
         Route::post('student-dormitory-report', ['as' => 'student_dormitory_report_store', 'uses' => 'Admin\Dormitory\AramiscDormitoryController@studentDormitoryReportSearch']);
 
@@ -706,7 +706,7 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::post('assign-vehicle-delete', 'Admin\Transport\AramiscAssignVehicleController@delete')->name('assign-vehicle-delete')->middleware('userRolePermission:assign-vehicle-index');
 
         // student transport report
-        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\AramiscTransportController@studentTransportReport'])->middleware('userRolePermission:student_transport_report');
+        Route::get('student-transport-report', ['as' => 'student_transport_report_index', 'uses' => 'Admin\Transport\AramiscTransportController@studentTransportReport'])->middleware('userRolePermission:student_transport_report_index');
         Route::post('student-transport-report', ['as' => 'student_transport_report_store', 'uses' => 'Admin\Transport\AramiscTransportController@studentTransportReportSearch']);
 
         // Route transport

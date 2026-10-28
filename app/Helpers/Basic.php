@@ -513,19 +513,38 @@ if (!function_exists('roleAllowedMenuRoutes')) {
                     ->whereIn('id', $ids)->whereNotNull('route')
                     ->pluck('route')->all();
 
-                // Carte route => parent_route (toutes permissions) pour remonter l'arbre.
-                $parentMap = \Illuminate\Support\Facades\DB::table('permissions')
+                // Cartes route => parent_route et route => est_conteneur, sur
+                // toutes les permissions, pour remonter l'arbre du menu.
+                // Conteneur = dropdown/section (type 1) ou en-tête de section
+                // (permission_section = 1) : rendu en href="#", jamais gardé par
+                // le middleware. Une page navigable (type 2) n'est PAS un conteneur :
+                // c'est un lien réel que le middleware refuse si non assigné.
+                $meta = \Illuminate\Support\Facades\DB::table('permissions')
                     ->whereNotNull('route')
-                    ->pluck('parent_route', 'route')->all();
+                    ->get(['route', 'parent_route', 'type', 'permission_section']);
+                $parentMap = [];
+                $isContainer = [];
+                foreach ($meta as $m) {
+                    $parentMap[$m->route] = $m->parent_route;
+                    if ((int) $m->type === 1 || (int) $m->permission_section === 1) {
+                        $isContainer[$m->route] = true;
+                    }
+                }
 
-                // Étendre l'ensemble autorisé avec les ANCÊTRES (groupes/sections
-                // parents) des items autorisés, sinon filtrer un groupe parent
-                // non assigné masquerait toute sa branche.
+                // Étendre l'ensemble autorisé avec les ANCÊTRES des items autorisés,
+                // sinon filtrer un groupe parent non assigné masquerait toute sa
+                // branche. MAIS on n'étend qu'aux ancêtres CONTENEURS : tirer une
+                // page navigable (type 2) non assignée afficherait un lien mort
+                // (le middleware la refuse → 403). On s'arrête donc à la première
+                // page gardée rencontrée dans la remontée.
                 $set = array_fill_keys($allowed, true);
                 foreach ($allowed as $r) {
                     $cur = $parentMap[$r] ?? null;
                     $guard = 0;
                     while (!empty($cur) && !isset($set[$cur]) && $guard < 20) {
+                        if (!isset($isContainer[$cur])) {
+                            break; // ancêtre = page navigable gardée non assignée → ne pas l'afficher
+                        }
                         $set[$cur] = true;
                         $cur = $parentMap[$cur] ?? null;
                         $guard++;
