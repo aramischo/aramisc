@@ -47,6 +47,8 @@ class AccessControlPermissionsSeeder extends Seeder
             // Complément découvert par navigation réelle (web dev, 27/10/2026) :
             'fees.fees-group', 'fees.fees-type', 'fees.fees-invoice-list', 'fees.bank-payment',
             'custom-marksheet-report', 'student.multi-class-student', 'unassigned_student',
+            // Décision utilisateur (28/10/2026, filet menu_links) : l'Admin gère les templates email/SMS.
+            'templatesettings.email-template', 'templatesettings.sms-template',
         ],
         // Accountant (6) : comptes, dépenses/revenus, inventaire, annuaire du personnel.
         6 => [
