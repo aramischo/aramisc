@@ -444,10 +444,66 @@ if (!function_exists('sidebarPermission')) {
 
         }
 
-        if (userPermission($permission->route) == true && $access == true) {
+        if (userPermission($permission->route) == true && $access == true && roleHasMenuPermission($permission)) {
             return true;
         }
         return false;
+    }
+}
+
+if (!function_exists('roleHasMenuPermission')) {
+    /**
+     * Filtre d'affichage du menu par RÔLE (chantier permissions).
+     *
+     * userPermission() s'appuie sur le singleton app('permission') qui renvoie
+     * null (bug documenté) → il autorise tout, d'où un menu non filtré par rôle.
+     * On ré-aligne ici l'AFFICHAGE du menu sur les assign_permissions du rôle
+     * (le même ensemble que l'enforcement par-route), sans toucher au singleton
+     * global (blast radius). Scopé au rendu du sidebar.
+     *
+     * Nœuds toujours affichés (jamais filtrés) :
+     *  - Super admin (role 1) : bypass.
+     *  - en-têtes de section (permission_section == 1).
+     *  - conteneurs sans route (groupes dépliables) : leurs enfants sont, eux,
+     *    filtrés individuellement.
+     * Un item navigable (avec route) ne s'affiche que si sa permission est
+     * assignée au rôle courant.
+     */
+    function roleHasMenuPermission($permission)
+    {
+        if (!$permission) return false;
+        $user = auth()->user();
+        if (!$user) return false;
+        if ((int) $user->role_id === 1) return true;          // Super admin
+        if ($permission->permission_section == 1) return true; // en-tête de section
+        if (empty($permission->route)) return true;            // conteneur sans route
+
+        return in_array((int) $permission->id, roleAssignedMenuPermissionIds(), true);
+    }
+}
+
+if (!function_exists('roleAssignedMenuPermissionIds')) {
+    /** permission_id assignés au rôle courant (school courante), mis en cache 60s. */
+    function roleAssignedMenuPermissionIds()
+    {
+        $user = auth()->user();
+        if (!$user) return [];
+
+        return \Illuminate\Support\Facades\Cache::remember(
+            'menu_assigned_' . $user->role_id . '_' . $user->school_id,
+            60,
+            function () use ($user) {
+                $isSaas = (int) \Illuminate\Support\Facades\DB::table('aramisc_roles')
+                    ->where('id', $user->role_id)->value('is_saas');
+
+                $q = \Illuminate\Support\Facades\DB::table('assign_permissions')
+                    ->where('role_id', $user->role_id);
+                if ($isSaas === 0) {
+                    $q->where('school_id', $user->school_id);
+                }
+                return array_map('intval', $q->pluck('permission_id')->all());
+            }
+        );
     }
 }
 

@@ -950,3 +950,28 @@ mais ne découvrent pas un écran légitime *non encore assigné* (ça, seule la
 
 **État `.env` au 28/10/2026** : web dev en **mode audit-only** (`ACCESS_CONTROL_AUDIT=true`, `ENFORCE=false`) pour la
 collecte d'usage manuelle en cours ; `.env.cypress` neutre. Backup de `.env` : `scratchpad/env.webdev.backup`.
+
+#### ✅ Activation enforce=true sur le web dev + filet `menu_links` (28/10/2026)
+`ACCESS_CONTROL_ENFORCE=true` activé **réellement sur le web dev** (`.env`, même base `aramisc01` que les tests, donc mêmes
+assignations déjà validées). Rollback = flag à `false` (effet immédiat, pas de config cache). `templatesettings.email-template`
+et `sms-template` accordés à l'Admin (décision utilisateur).
+
+**Filet `cypress/e2e/autorisation/menu_links.cy.js`** : par rôle, harveste TOUS les liens `a[href]` réellement rendus
+(menus + sous-menus repliés + liens paramétrés avec vrais IDs) et vérifie `≠ 403`. A révélé que **le menu latéral n'était pas
+filtré par rôle** : les rôles staff voyaient le menu admin quasi complet (teacher 147, accountant 158, receptionist 175,
+librarian 176 liens morts sous enforce). Cause racine = **même singleton `app('permission')` cassé** (via `userPermission()`,
+`app/Helpers/Helper.php` → autorise tout).
+
+**Correctif menu (branche `chantier-menu-role-filter`)** : nouveau helper `roleHasMenuPermission()` (`app/Helpers/Basic.php`)
+branché dans `sidebarPermission()`. Un item navigable (avec `route`) ne s'affiche que si sa permission est **assignée au
+rôle** ; exemptés : Super admin (bypass), en-têtes de section (`permission_section=1`), conteneurs sans route. Scopé au
+**rendu du menu**, sans toucher au singleton global (blast radius). Filtrage par `permission_id ∈ assign_permissions(role)`,
+caché 60s.
+
+**Validation menu_links sous enforce (28/10/2026)** : **6/7 rôles à 0 lien mort** (teacher/accountant/receptionist/
+librarian/student/admin passent — le menu ne montre plus que les liens autorisés). Le rôle **parent** garde 7 liens en 403
+(`/parent-subjects/1`, `/parent-attendance/1`, …) = **faux positifs de la règle « frais impayés »** pré-existante (enfant 1
+a des frais dus), prouvés non liés à notre contrôle (0 `deny` loggé, routes assignées à role 3). Ces 7 sont explicitement
+exclus de l'assertion de la spec (liste `CONTEXTUAL`).
+
+**Reste** : merge éventuel de `chantier-menu-role-filter` dans `Hicham` ; contrôle visuel optionnel des menus par rôle.
