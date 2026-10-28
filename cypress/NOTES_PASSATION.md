@@ -930,3 +930,23 @@ L'enforcement est propre : plus aucune garde tolérée par défaut sur les parco
 
 **Reste (à valider avec l'utilisateur)** : l'activation **réelle** de `enforce=true` sur le web dev / prod (`.env`),
 idéalement après un passage manuel de quelques parcours métier réels par rôle (les suites ne couvrent pas 100 % des écrans).
+
+#### ✅ Specs d'autorisation data-driven (28/10/2026)
+Pour couvrir *systématiquement* l'enforcement (au-delà des specs « consultation » triées à la main), ajout de :
+- **Commande** `php artisan permissions:reachable-routes` (`app/Console/Commands/GenerateReachableRoutes.php`) : calcule,
+  par rôle, les routes **GET sans paramètre gardées** par `userRolePermission` que le rôle est **autorisé** à atteindre
+  (reproduit la décision du middleware), en **excluant les routes à effet de bord** (logout, suppression, envoi, backup,
+  export/pdf…). Écrit `cypress/fixtures/reachable_routes.json`. À relancer après toute modif des permissions.
+- **Spec** `cypress/e2e/autorisation/acces_routes.cy.js` : lit la fixture et, par rôle (login via `cy.loginAs<Role>`),
+  vérifie pour chaque route que le statut **≠ 403** (seul le 403 = échec ; 200/302 OK ; 500 = bug applicatif, pas un refus).
+  Tourne toujours (routes destructives déjà exclues → GET en lecture, rejouables) ; prend tout son sens sous `enforce=true`.
+- **286** routes gardées probables ; atteignables/rôle : Admin 241, Teacher 72, Accountant 43, Student 24, Receptionist 14,
+  Librarian 13, Parent 7, Driver 0 (les pages Driver ne sont pas gardées par `userRolePermission`).
+
+**Validation (28/10/2026)** : run sous `enforce=true` (base de test, `.env.cypress` restauré après). **Résultat :
+`✔ All specs passed!`, 414/414, 0 échec ; log d'audit VIDE → 0 `deny`.** Toute route déclarée autorisée est bien
+atteignable sous enforce. **Complémentaire** de la collecte audit manuelle : ces specs valident « autorisé → atteignable »,
+mais ne découvrent pas un écran légitime *non encore assigné* (ça, seule la navigation réelle en mode audit le révèle).
+
+**État `.env` au 28/10/2026** : web dev en **mode audit-only** (`ACCESS_CONTROL_AUDIT=true`, `ENFORCE=false`) pour la
+collecte d'usage manuelle en cours ; `.env.cypress` neutre. Backup de `.env` : `scratchpad/env.webdev.backup`.
