@@ -478,19 +478,24 @@ if (!function_exists('roleHasMenuPermission')) {
         if ($permission->permission_section == 1) return true; // en-tête de section
         if (empty($permission->route)) return true;            // conteneur sans route
 
-        return in_array((int) $permission->id, roleAssignedMenuPermissionIds(), true);
+        // Match par ROUTE (comme le middleware d'enforce) : robuste aux
+        // permissions dupliquées (même route, ids différents).
+        return in_array($permission->route, roleAllowedMenuRoutes(), true);
     }
 }
 
-if (!function_exists('roleAssignedMenuPermissionIds')) {
-    /** permission_id assignés au rôle courant (school courante), mis en cache 60s. */
-    function roleAssignedMenuPermissionIds()
+if (!function_exists('roleAllowedMenuRoutes')) {
+    /**
+     * Routes autorisées au rôle courant (assign_permissions ∩ permissions.route),
+     * mis en cache 60s. Même ensemble que UserRolePermission::allowedRoutesForCurrentRole.
+     */
+    function roleAllowedMenuRoutes()
     {
         $user = auth()->user();
         if (!$user) return [];
 
         return \Illuminate\Support\Facades\Cache::remember(
-            'menu_assigned_' . $user->role_id . '_' . $user->school_id,
+            'menu_routes_' . $user->role_id . '_' . $user->school_id,
             60,
             function () use ($user) {
                 $isSaas = (int) \Illuminate\Support\Facades\DB::table('aramisc_roles')
@@ -501,7 +506,32 @@ if (!function_exists('roleAssignedMenuPermissionIds')) {
                 if ($isSaas === 0) {
                     $q->where('school_id', $user->school_id);
                 }
-                return array_map('intval', $q->pluck('permission_id')->all());
+                $ids = $q->pluck('permission_id')->all();
+                if (empty($ids)) return [];
+
+                $allowed = \Illuminate\Support\Facades\DB::table('permissions')
+                    ->whereIn('id', $ids)->whereNotNull('route')
+                    ->pluck('route')->all();
+
+                // Carte route => parent_route (toutes permissions) pour remonter l'arbre.
+                $parentMap = \Illuminate\Support\Facades\DB::table('permissions')
+                    ->whereNotNull('route')
+                    ->pluck('parent_route', 'route')->all();
+
+                // Étendre l'ensemble autorisé avec les ANCÊTRES (groupes/sections
+                // parents) des items autorisés, sinon filtrer un groupe parent
+                // non assigné masquerait toute sa branche.
+                $set = array_fill_keys($allowed, true);
+                foreach ($allowed as $r) {
+                    $cur = $parentMap[$r] ?? null;
+                    $guard = 0;
+                    while (!empty($cur) && !isset($set[$cur]) && $guard < 20) {
+                        $set[$cur] = true;
+                        $cur = $parentMap[$cur] ?? null;
+                        $guard++;
+                    }
+                }
+                return array_keys($set);
             }
         );
     }
