@@ -137,7 +137,8 @@
 
 <script>
 import vSelect from 'vue-select';
-import 'vue-select/dist/vue-select.css';
+// vue-select 1.3.3 ne fournit pas de CSS séparé (styles inline dans le composant) :
+// l'import 'vue-select/dist/vue-select.css' n'existe qu'en vue-select 2+/3+.
 
 export default {
     components: {
