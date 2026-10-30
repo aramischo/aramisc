@@ -844,4 +844,6 @@ return [
 
 "record" => "Dossier",
 
+"student_settings" => "Paramètres élève",
+
 ];
