@@ -1054,3 +1054,8 @@ Tour manuel de l'utilisateur (235 liens sidebar chargés dans le navigateur + te
 **Reste signalé, non traité** (décision utilisateur) : chaînes EN en dur/clés manquantes (Male/Female, ASSIGN CLASS,
 « Showing 1 to 6 », Processing…, Copyright 2020) ; visuel/CSS (menus header transparents, débordement `/manage-adons`,
 libellés sidebar coupés, `<img src="">` vides) ; https non configuré ; anomalie 16 (online-exam).
+
+**Suivi 30/10 (suite)** : labels manquants `student`/`style`/`exam` ajoutés (commit i18n). DataTables i18n fait :
+clés `common.dt_*` (fr+en) + défaut global `$.fn.dataTable.defaults.language` dans `partials/data_table_js.blade.php`
+(« Processing… », « Showing _START_ to _END_… » traduits sur toutes les listes qui incluent ce partiel).
+Restent **données** (pas du code) : Male/Female (table `base_setup`), copyright (réglage `copyright_text`). Restent visuel/CSS + https + anomalie 16.

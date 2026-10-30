@@ -523,6 +523,14 @@
     "no_course_found" => "No Course Found",
     "some_problem_occurred" => "Some Problem Occurred",
     "please_try_again" => "Please Try Again",
+    "dt_processing" => "Processing...",
+    "dt_loading" => "Loading...",
+    "dt_info" => "Showing _START_ to _END_ of _TOTAL_ entries",
+    "dt_info_empty" => "Showing 0 to 0 of 0 entries",
+    "dt_info_filtered" => "(filtered from _MAX_ total entries)",
+    "dt_empty_table" => "No data available in table",
+    "dt_zero_records" => "No matching records found",
+    "dt_length_menu" => "Show _MENU_ entries",
     
     ]
 ?>

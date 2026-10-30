@@ -523,4 +523,12 @@
   'no_course_found' => 'Aucun cours trouvé',
   'some_problem_occurred' => 'Certains problèmes se sont produits',
   'please_try_again' => 'Veuillez réessayer',
+  'dt_processing' => 'Traitement en cours...',
+  'dt_loading' => 'Chargement...',
+  'dt_info' => 'Affichage de _START_ à _END_ sur _TOTAL_ entrées',
+  'dt_info_empty' => 'Affichage de 0 à 0 sur 0 entrée',
+  'dt_info_filtered' => '(filtré à partir de _MAX_ entrées au total)',
+  'dt_empty_table' => 'Aucune donnée disponible dans le tableau',
+  'dt_zero_records' => 'Aucun élément correspondant trouvé',
+  'dt_length_menu' => 'Afficher _MENU_ éléments',
 );
