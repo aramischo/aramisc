@@ -1059,3 +1059,9 @@ libellés sidebar coupés, `<img src="">` vides) ; https non configuré ; anomal
 clés `common.dt_*` (fr+en) + défaut global `$.fn.dataTable.defaults.language` dans `partials/data_table_js.blade.php`
 (« Processing… », « Showing _START_ to _END_… » traduits sur toutes les listes qui incluent ce partiel).
 Restent **données** (pas du code) : Male/Female (table `base_setup`), copyright (réglage `copyright_text`). Restent visuel/CSS + https + anomalie 16.
+
+**Suivi 30/10 — visuel/CSS (inspection navigateur en direct)** :
+- Menus header « transparents » = **faux positif** : panneaux profil + notification mesurés `opacity:1`, `background #fff` (opaque). Le « voir à travers » = contenu situe au-dela du bord droit du panneau, pas au travers. Rien a corriger.
+- `/manage-adons` débordement horizontal = label FR `common.upload_or_update_module` trop long (« Module de téléchargement / mise à jour ») + `nowrap`. **Corrigé** → « Importer / Mettre à jour » (plus court + corrige le contresens download/upload). docWidth 1265 < 1280, bouton visible.
+- `/manage-adons` « Version: » vide et « Not Purchase » = **par conception** (panneau addons vendeur : json modules sans champ `versions`, `purchase_code` vide en auto-hébergé). Pas un bug.
+- Libellés de sous-menu coupés (nowrap + labels FR longs) : à traiter via wrap global de la sidebar (en attente de validation).

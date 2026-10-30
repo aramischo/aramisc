@@ -424,7 +424,7 @@
   'export' => 'Exporter',
   'import' => 'Importer',
   'VIEW_AS_Staff' => 'Voir le personnel',
-  'upload_or_update_module' => 'Module de téléchargement / mise à jour',
+  'upload_or_update_module' => 'Importer / Mettre à jour',
   'delete_pdf_exam' => 'Supprimer l\'examen PDF',
   'Assign' => 'Attribuer',
   'select_record' => 'Sélectionner l\'enregistrement',
