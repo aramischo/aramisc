@@ -830,4 +830,18 @@ return [
 
 "information" => "Information",
 
+"assign_class" => "Affecter une classe",
+
+"unassigned_student" => "Élève non affecté",
+
+"multi_class_student" => "Élève multi-classes",
+
+"delete_student_record" => "Supprimer le dossier élève",
+
+"subject_attendance" => "Présence par matière",
+
+"behaviour_record" => "Dossier de comportement",
+
+"record" => "Dossier",
+
 ];

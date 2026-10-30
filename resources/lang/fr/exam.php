@@ -212,7 +212,7 @@
   'full_marks' => 'Marques complètes',
   'results' => 'Résultats',
   'auto_marking' => 'Marquage automatique',
-  'make_default' => 'Faire défaut',
+  'make_default' => 'Définir par défaut',
   'negative_marking' => 'Marquage négatif',
   'submit_from_last_page' => 'Soumettre uniquement à partir de la dernière page',
   'visible_to_this_person' => 'Visible à cette personne',

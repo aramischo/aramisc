@@ -40,4 +40,8 @@ return [
 
 "make_default" => "Définir par défaut",
 
+"Add New Theme" => "Ajouter un nouveau thème",
+
+"Make Default" => "Définir par défaut",
+
 ];
