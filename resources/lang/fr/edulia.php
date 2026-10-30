@@ -398,7 +398,7 @@
   'in_time' => 'À temps',
   'out_time' => 'Temps de sortie',
   'id' => 'IDENTIFIANT',
-  'file' => 'Déposer',
+  'file' => 'Fichier',
   'purpose' => 'But',
   'no_of_person' => 'Nombre de personnes',
   'donor' => 'Donneur',

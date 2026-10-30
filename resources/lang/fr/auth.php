@@ -22,7 +22,7 @@
   'verify_code' => 'Vérifier le code',
   'enter_verification_code' => 'Entrez le code de vérification',
   'two_factor_setting' => 'Réglage à deux facteurs',
-  'code_lifetime' => 'Coder la durée de vie',
+  'code_lifetime' => 'Durée de validité du code',
   'send_code_via' => 'Envoyer du code via',
   'applicable_for' => 'Applicable à',
   'resend_code' => 'Code de resend',

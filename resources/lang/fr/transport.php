@@ -14,13 +14,13 @@ return [
 
 "route_title" => "Titre de la route",
 
-"fare" => "Fare",
+"fare" => "Tarif",
 
 "model" => "Modèle",
 
 "year_made" => "Année de fabrication",
 
-"select_driver" => "Sélectionner un pilote",
+"select_driver" => "Sélectionner un chauffeur",
 
 "license" => "Licence",
 
@@ -114,7 +114,7 @@ return [
 
 "vehicle_list" => "Liste de véhicules",
 
-"model_no" => "Modèle n °",
+"model_no" => "N° de modèle",
 
 "vehicle_no" => "No de véhicule",
 
@@ -122,7 +122,7 @@ return [
 
 "driver_contact" => "Driver_contact",
 
-"driver_license" => "Licence de pilote",
+"driver_license" => "Permis de conduire",
 
 "assign_vehicle_list" => "Affecter une liste de véhicules",
 
@@ -136,15 +136,15 @@ return [
 
 "State" => "Etat",
 
-"Save" => "Sauvegarder",
+"Save" => "Enregistrer",
 
 "Model" => "Modèle",
 
-"save" => "Sauvegarder",
+"save" => "Enregistrer",
 
 "note" => "Remarque",
 
-"roll_number" => "Numéro de rouleau",
+"roll_number" => "N° d'ordre",
 
 "route" => "Achemée",
 
@@ -156,7 +156,7 @@ return [
 
 "made" => "Fait",
 
-"driver_phone_number" => "Numéro de téléphone du pilote",
+"driver_phone_number" => "Téléphone du chauffeur",
 
 "route_list" => "Liste des routes",
 
@@ -166,7 +166,7 @@ return [
 
 "vehicle_number" => "Numéro de véhicule",
 
-"driver_name" => "Nom du pilote",
+"driver_name" => "Nom du chauffeur",
 
 "transport" => "Transports",
 

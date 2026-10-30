@@ -16,7 +16,7 @@
                             data-parent_section="{{ $sidebar_menu->permission_id }}">
                             <div id="accordion" class="dd">
                                 <div class="section_nav">
-                                    <h5>{{ $sidebar_menu->permissionInfo->name }}</h5>
+                                    <h5>{{ $sidebar_menu->permissionInfo->lang_name ? __($sidebar_menu->permissionInfo->lang_name) : $sidebar_menu->permissionInfo->name }}</h5>
                                     <div class="setting_icons">
                                         <span class="edit-btn">
                                             <a class=" btn-modal" data-container="#commonModal" type="button"
@@ -50,7 +50,7 @@
                                                                         id="heading_{{ $menu->id }}">
                                                                         <div class="dd-handle">
                                                                             <div class="float-left">
-                                                                                {{ $menu->permissionInfo->name }} 
+                                                                                {{ $menu->permissionInfo->lang_name ? __($menu->permissionInfo->lang_name) : $menu->permissionInfo->name }} 
                                                                             </div>
                                                                         </div>
                                                                         <div class="float-right btn_div">
@@ -78,7 +78,7 @@
                                                                                     id="heading_{{ $submenu->id }}">
                                                                                     <div class="dd-handle">
                                                                                         <div class="float-left">
-                                                                                            {{ $submenu->permissionInfo->name }}
+                                                                                            {{ $submenu->permissionInfo->lang_name ? __($submenu->permissionInfo->lang_name) : $submenu->permissionInfo->name }}
                                                                                             
                                                                                         </div>
                                                                                     </div>

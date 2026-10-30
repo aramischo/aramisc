@@ -16,7 +16,7 @@ return [
 
 "dashboard_background" => "Tableau de bord",
 
-"login_page_background" => "Historique de la page de connexion",
+"login_page_background" => "Arrière-plan de la page de connexion",
 
 "color_style_list" => "Liste des styles de couleur",
 

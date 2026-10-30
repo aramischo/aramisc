@@ -5,7 +5,7 @@
   'sl' => 'Sl',
   'title' => 'Titre',
   'name' => 'Nom',
-  'file' => 'Déposer',
+  'file' => 'Fichier',
   'link' => 'Lien',
   'type' => 'Type',
   'save' => 'Enregistrer',

@@ -1,7 +1,7 @@
 <?php return array (
   'bulk_print' => 'Impression groupée',
   'bulkprint' => 'Impression groupée',
-  'fees_invoice_settings' => 'Frais de facture Paramètres',
+  'fees_invoice_settings' => 'Paramètres des factures de frais',
   'fees_invoice_bulk_print' => 'Impression groupée des factures de frais',
   'payroll_bulk_print' => 'Impression groupée des fiches de paie',
   'bulk' => 'En gros',
@@ -24,7 +24,7 @@
   'copy_for' => 'Copier pour',
   'invoice_no' => 'N° de facture',
   'lms_certificate' => 'Certificat LMS',
-  'slip' => 'Glisser',
+  'slip' => 'Bordereau',
   'invoice' => 'facture',
   'invoice_type' => 'Type de facture',
   'fees_invoice_bulk_print_settings' => 'Paramètres d\'impression des factures de frais',

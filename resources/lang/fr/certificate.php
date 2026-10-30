@@ -5,7 +5,7 @@
   'Applicable For' => 'Applicable à',
   'Certificate Type' => 'Type de certificat',
   'Certificate Name' => 'Nom de certificat',
-  'Custom' => 'Coutume',
+  'Custom' => 'Personnalisé',
   'Types' => 'Types',
   'Templates' => 'Modèles',
   'Generate' => 'Générer',

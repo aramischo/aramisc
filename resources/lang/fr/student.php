@@ -4,9 +4,9 @@ return [
 
 "my_profile" => "Mon profil",
 
-"subject_wise_attendance" => "Objet Sages Participation",
+"subject_wise_attendance" => "Présence par matière",
 
-"subject_wise_attendance_report" => "Rapport sur la fréquentation des Sages",
+"subject_wise_attendance_report" => "Rapport des présences par matière",
 
 "save_student_category" => "Enregistrer la catégorie d'étudiant",
 
@@ -30,7 +30,7 @@ return [
 
 "history" => "Historique",
 
-"subject_attendance_report" => "Rapport sur la participation des sujets",
+"subject_attendance_report" => "Rapport des présences par matière",
 
 "ltl" => "LTL",
 
@@ -38,7 +38,7 @@ return [
 
 "alignment" => "Alignement",
 
-"new_client_information" => "Nouveaux renseignements sur le client",
+"new_client_information" => "Nouvelles informations client",
 
 "made" => "Fait",
 
@@ -48,7 +48,7 @@ return [
 
 "transport_and_dormitory_details" => "Détails du transport et de la dortoir",
 
-"driver_phone_number" => "Numéro de téléphone du pilote",
+"driver_phone_number" => "Téléphone du chauffeur",
 
 "national_identification_number" => "Numéro d'identification national",
 
@@ -118,7 +118,7 @@ return [
 
 "edit_time_setup" => "Modification de l'heure d'installation",
 
-"save_time_setup" => "Configuration de l'heure de sauvegarde",
+"save_time_setup" => "Enregistrer l'horaire",
 
 "update_time_setup" => "Mise à jour de l'heure",
 
@@ -126,7 +126,7 @@ return [
 
 "time_setup_list" => "Liste de configuration du temps",
 
-"transcript_no" => "Transcription Non",
+"transcript_no" => "N° du relevé",
 
 "student_export" => "Exportation des étudiants",
 
@@ -142,7 +142,7 @@ return [
 
 "religion" => "Religion",
 
-"caste" => "Goût",
+"caste" => "Caste",
 
 "height_in" => "Hauteur (In)",
 
@@ -170,7 +170,7 @@ return [
 
 "route_list" => "Liste des routes",
 
-"driver" => "Pilote",
+"driver" => "Chauffeur",
 
 "present_address" => "Adresse actuelle",
 
@@ -206,15 +206,15 @@ return [
 
 "mother_phone" => "Mère Téléphone",
 
-"select_sibling" => "Sélectionner un élément apparant",
+"select_sibling" => "Sélectionner un frère / une sœur",
 
 "select_current_session" => "Sélectionner l'année académique en cours",
 
-"promote_student_in_next_session" => "Promouvoir les étudiants au cours de la prochaine année universitaire",
+"promote_student_in_next_session" => "Faire passer les élèves à l'année scolaire suivante",
 
 "view_academic_performance" => "Afficher les performances académiques",
 
-"select_promote_session" => "Sélectionner la promotion de l'année universitaire",
+"select_promote_session" => "Sélectionner l'année scolaire de passage",
 
 "select_promote_class" => "Sélectionner la classe de promotion",
 
@@ -228,11 +228,11 @@ return [
 
 "all_student_export" => "Toutes les exportations d'étudiants",
 
-"attendance_already_submitted_as_holiday" => "Participation déjà soumise en tant que jour férié. Vous pouvez éditer un enregistrement",
+"attendance_already_submitted_as_holiday" => "Présences déjà enregistrées comme jour férié. Vous pouvez modifier la saisie.",
 
 "attendance_already_submitted" => "Présence déjà soumise Vous pouvez éditer un enregistrement",
 
-"unmark_holiday" => "Annuler la marque",
+"unmark_holiday" => "Retirer le jour férié",
 
 "add_student_group" => "Ajouter un groupe d'étudiants",
 
@@ -240,7 +240,7 @@ return [
 
 "student_group_list" => "Liste des groupes d'étudiants",
 
-"student_attendance_report" => "Rapport sur la participation des étudiants",
+"student_attendance_report" => "Rapport des présences des élèves",
 
 "january" => "Janvier",
 
@@ -268,23 +268,23 @@ return [
 
 "student_category" => "Catégorie d'étudiant",
 
-"promote_academic_year" => "Promouvoir l'année universitaire",
+"promote_academic_year" => "Année scolaire de passage",
 
 "select_current_class" => "Sélectionner la classe en cours",
 
-"current_roll" => "Rouleau en cours",
+"current_roll" => "N° d'ordre actuel",
 
 "promote_class" => "Promotion de la classe",
 
 "promote_section" => "Promouvoir la section",
 
-"next_roll_number" => "Numéro de rouleau suivant",
+"next_roll_number" => "N° d'ordre suivant",
 
 "student_category_list" => "Liste des catégories d'étudiants",
 
 "student_group" => "Groupe d'étudiants",
 
-"disabled_student" => "Étudiants handicapés",
+"disabled_student" => "Élèves désactivés",
 
 "birth_certificate" => "Certificat de naissance",
 
@@ -296,27 +296,27 @@ return [
 
 "siblings" => "Les frères",
 
-"guardian_name" => "Nom des gardiens",
+"guardian_name" => "Nom du tuteur",
 
-"guardian_email" => "Courrier électronique des gardiens",
+"guardian_email" => "E-mail du tuteur",
 
-"guardian_registration_message" => "Message d'enregistrement du Guardian",
+"guardian_registration_message" => "Message d'inscription du tuteur",
 
-"guardian_occupation" => "Profession des gardiens",
+"guardian_occupation" => "Profession du tuteur",
 
-"guardian_address" => "Adresse du Guardian",
+"guardian_address" => "Adresse du tuteur",
 
 "student_address_info" => "Informations d'adresse de l'étudiant",
 
 "vehicle_number" => "Numéro de véhicule",
 
-"driver_name" => "Nom du pilote",
+"driver_name" => "Nom du chauffeur",
 
 "update_student" => "Mettre à jour le",
 
 "are_you" => "Etes-vous sûr de supprimer les éléments apparentés?",
 
-"academic_records" => "Documents universitaires",
+"academic_records" => "Dossier scolaire",
 
 "merit" => "Mérite",
 
@@ -332,7 +332,7 @@ return [
 
 "save_student" => "Enregistrer l'étudiant",
 
-"roll" => "Rouleau",
+"roll" => "N° d'ordre",
 
 "manage_student" => "Gérer l'étudiant",
 
@@ -350,7 +350,7 @@ return [
 
 "parent_/_guardian_details" => "Détails du parent / du tuteur",
 
-"attendance_result" => "Résultat de la participation",
+"attendance_result" => "Résultat des présences",
 
 "student_profile" => "Profil de l'élève",
 
@@ -358,7 +358,7 @@ return [
 
 "download_sample_file" => "Télécharger un exemple de fichier",
 
-"save_bulk_students" => "Enregistrer les étudiants en vrac",
+"save_bulk_students" => "Enregistrer les élèves (import groupé)",
 
 "point1" => "Point1",
 
@@ -394,7 +394,7 @@ return [
 
 "new_registration" => "Nouvel enregistrement",
 
-"guardian_mobile" => "Gardien mobile",
+"guardian_mobile" => "Mobile du tuteur",
 
 "Title" => "Titre",
 
@@ -404,7 +404,7 @@ return [
 
 "Class" => "Classe",
 
-"Save" => "Sauvegarder",
+"Save" => "Enregistrer",
 
 "Time" => "Heure",
 
@@ -458,7 +458,7 @@ return [
 
 "room" => "Salle",
 
-"save" => "Sauvegarder",
+"save" => "Enregistrer",
 
 "start_time" => "Heure de début",
 
@@ -492,11 +492,11 @@ return [
 
 "blood_group" => "Groupe sanguin",
 
-"relation_with_guardian" => "Relation avec Guardian",
+"relation_with_guardian" => "Lien avec le tuteur",
 
 "class_section" => "Classe (sec.)",
 
-"admission_no" => "Droits d'entrée Non",
+"admission_no" => "N° d'admission",
 
 "first_name" => "Prénom",
 
@@ -506,7 +506,7 @@ return [
 
 "crop_image_and_upload" => "Image de culture et téléchargement",
 
-"roll_number" => "Numéro de rouleau",
+"roll_number" => "N° d'ordre",
 
 "chairman_of_the_examination_board" => "Président du comité d'examen",
 
@@ -514,7 +514,7 @@ return [
 
 "is_present" => "Est présent",
 
-"roll_no" => "Rouleau n °",
+"roll_no" => "N° d'ordre",
 
 "pages" => "Pages",
 
@@ -564,7 +564,7 @@ return [
 
 "vertical" => "Verticale",
 
-"guardian" => "Gardien",
+"guardian" => "Tuteur",
 
 "change_password" => "Modifier mot de passe",
 
@@ -592,13 +592,13 @@ return [
 
 "email_address" => "Adresse électronique",
 
-"academic_year" => "Année universitaire",
+"academic_year" => "Année scolaire",
 
 "select_class" => "Sélectionner une classe",
 
-"select_subject" => "Sélectionner le sujet",
+"select_subject" => "Sélectionner la matière",
 
-"select_academic_year" => "Sélectionner une année universitaire",
+"select_academic_year" => "Sélectionner l'année scolaire",
 
 "info" => "Infos",
 
@@ -606,7 +606,7 @@ return [
 
 "father_name" => "Nom du père",
 
-"update_information" => "Sauvegarder les informations",
+"update_information" => "Mettre à jour les informations",
 
 "search_by_name" => "Rechercher par nom",
 
@@ -642,7 +642,7 @@ return [
 
 "student_admission" => "Admission d'étudiants",
 
-"student_attendance" => "Participation des étudiants",
+"student_attendance" => "Présence des élèves",
 
 "student_promote" => "Promotion de l'étudiant",
 
@@ -660,7 +660,7 @@ return [
 
 "online_exam" => "Exam en ligne",
 
-"passing_marks" => "Marques de passage",
+"passing_marks" => "Note de passage",
 
 "present" => "Présent",
 
@@ -672,9 +672,9 @@ return [
 
 "letter_grade" => "Grade Letter",
 
-"highest_marks" => "Marques les plus élevées",
+"highest_marks" => "Note la plus élevée",
 
-"obtained_marks" => "Marques observées",
+"obtained_marks" => "Note obtenue",
 
 "pass" => "Passe",
 
@@ -684,17 +684,17 @@ return [
 
 "Parent_Guardian_Details" => "Détails du parent / du tuteur",
 
-"full_marks" => "Marques complètes",
+"full_marks" => "Note maximale",
 
 "visible_to_this_person" => "Visible pour cette personne",
 
-"attendance" => "Participation",
+"attendance" => "Présence",
 
-"save_attendance" => "Enregistrer la participation",
+"save_attendance" => "Enregistrer les présences",
 
 "merit_list" => "Liste de mérite",
 
-"save_group" => "Sauvegarder le groupe",
+"save_group" => "Enregistrer le groupe",
 
 "update_group" => "Mettre à jour groupe",
 
@@ -760,15 +760,15 @@ return [
 
 "upload_document" => "Télécharger le document",
 
-"import_attendance" => "Importation de la participation",
+"import_attendance" => "Importer les présences",
 
-"attendance_date" => "Date de participation",
+"attendance_date" => "Date de présence",
 
 "late" => "Late",
 
 "add_note_here" => "Ajouter une note ici",
 
-"mark_holiday" => "Marquer Holiday",
+"mark_holiday" => "Marquer comme jour férié",
 
 "half_day" => "La demi-journée",
 
@@ -804,11 +804,11 @@ return [
 
 "total_pending_home_work" => "Nombre total de travaux en attente",
 
-"total_attendance_in_current_month" => "Nombre total de participations dans le mois en cours",
+"total_attendance_in_current_month" => "Total des présences du mois en cours",
 
 "pending_home_work" => "Travail à domicile en attente",
 
-"attendance_in_current_month" => "Participation au mois en cours",
+"attendance_in_current_month" => "Présences du mois en cours",
 
 "student_report" => "Rapport étudiant",
 

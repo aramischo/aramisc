@@ -100,7 +100,7 @@
   'my_lesson_plan_overview' => 'My Leçon Présentation du plan',
   'upcoming_date' => 'Date à venir',
   'lecture_youtube_link' => 'Lien de conférence YouTube',
-  'lesson_plan_subtopic' => 'Plan de leçon substopique',
+  'lesson_plan_subtopic' => 'Sous-thèmes du plan de leçon',
   'lesson_plan_setting' => 'Réglage du plan de leçon',
   'Are You Sure' => 'Es-tu sûr ?',
 );

@@ -19,7 +19,7 @@
 
     <div class="role_permission_wrap">
         <div class="permission_title">
-            <h4>Assign Permission ({{ @$role->name }})</h4>
+            <h4>{{ __('rolepermission::permissions.Assign Permission') }} ({{ @$role->name }})</h4>
         </div>
     </div>
 

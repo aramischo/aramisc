@@ -14,6 +14,6 @@
   'student_password' => 'Mot de passe étudiant',
   'parents_password' => 'Mot de passe parent',
   'update_password' => 'Mettre à jour le mot de passe',
-  'due_fees_login_permission' => 'Les frais d\'échéance de la connexion',
-  'fees_due_users_login_permission' => 'Frais due à la connexion de l\'utilisateur',
+  'due_fees_login_permission' => 'Connexion avec frais impayés',
+  'fees_due_users_login_permission' => 'Autoriser la connexion des utilisateurs ayant des frais impayés',
 );
