@@ -40,10 +40,10 @@
   'view_feedback' => 'Afficher les commentaires',
   'account' => 'Compte',
   'issue_date' => 'Date d\'émission',
-  'add_balance' => 'Ajouter l\'équilibre',
+  'add_balance' => 'Recharger le solde',
   'add_amount' => 'Ajouter le montant',
-  'balance' => 'Équilibre',
-  'wallet_balance' => 'Équilibre du portefeuille',
+  'balance' => 'Solde',
+  'wallet_balance' => 'Solde du portefeuille',
   'add_in_wallet' => 'Ajouter le portefeuille',
   'reject_refund' => 'Rejeter le remboursement',
 );
