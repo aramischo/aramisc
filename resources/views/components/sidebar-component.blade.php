@@ -65,7 +65,7 @@
                                                 <span class="{{ $item->permissionInfo->icon }}"></span>
                                             </div>
                                             <div class="nav_title">
-                                                <span>{{ __($item->permissionInfo->lang_name) }} 
+                                                <span title="{{ __($item->permissionInfo->lang_name) }}">{{ __($item->permissionInfo->lang_name) }} 
                                                 </span>
                                                 @if (config('app.app_sync') && $item->permissionInfo->module && in_array($item->permissionInfo->module, $paid_modules))
                                                     <span class="demo_addons">Addon</span>
@@ -137,7 +137,7 @@
                                                     <span class="{{ $item->permissionInfo->icon }}"></span>
                                                 </div>
                                                 <div class="nav_title">
-                                                        <span>{{ __($item->permissionInfo->lang_name) }}</span>
+                                                        <span title="{{ __($item->permissionInfo->lang_name) }}">{{ __($item->permissionInfo->lang_name) }}</span>
                                                         @if (config('app.app_sync') && $item->permissionInfo->module && in_array($item->permissionInfo->module, $paid_modules))
                                                         @if (config('app.app_sync'))
                                                             <span class="demo_addons">Addon</span>
@@ -235,7 +235,7 @@
                                                     <span class="{{ $item->permissionInfo->icon }}"></span>
                                                 </div>
                                                 <div class="nav_title">
-                                                        <span>{{ __($item->permissionInfo->lang_name) }}</span>
+                                                        <span title="{{ __($item->permissionInfo->lang_name) }}">{{ __($item->permissionInfo->lang_name) }}</span>
                                                         @if (config('app.app_sync') && $item->permissionInfo->module && in_array($item->permissionInfo->module, $paid_modules))
                                                         @if (config('app.app_sync'))
                                                             <span class="demo_addons">Addon</span>

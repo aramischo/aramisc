@@ -1120,3 +1120,16 @@ Débloqué par ce chantier : rework largeur/troncature sidebar (le scss recompil
   préfixes vendeur obsolètes retirés (cibles navigateurs modernes de Vite), `initial` au lieu de `400`/`none` (même effet).
 - Vérifs : navigateur (chat, cloche, tableau de bord, 0 erreur console, handler `#imgInp` bien attaché) ; Cypress
   `admin/chat/*` + `plan_de_siege` + `auth` : **7/7 verts**.
+
+### Sidebar : libellés tronqués (30/10/2026)
+
+- **Cause** : les liens du menu sont en `display: grid; grid-template-columns: 20px auto !important` (colonne d'icône,
+  `solid_style.css`). Les liens de sous-menu n'ont pas d'icône → le texte tombait dans la colonne de 20 px : en `nowrap`
+  il débordait (42/233 sous-menus coupés), en wrap il donnait un mot par ligne (d'où l'échec du « wrap naïf »).
+- **Correctif** (`resources/sass/backend_design_v2.scss`, chargé en dernier) : sous-menus en `display: block` +
+  `white-space: normal` (aussi au survol du menu réduit, où `style.css` remettait `nowrap`) ; entrées de 1er niveau à
+  sous-menu : `padding-inline-end: 32px` pour que le texte passe à la ligne avant le chevron au lieu de passer dessous
+  (6 entrées touchées). 0 sous-menu coupé ; 45 sur 2 lignes, 3 sur 3.
+- **Menu réduit (survol)** : l'ellipse des titres de 1er niveau est **gardée** (hauteur fixe 50 px ; passer à la ligne ferait
+  glisser le menu sous le curseur) → ajout d'un `title` (infobulle) sur les libellés dans `components/sidebar-component.blade.php`.
+- Non vérifié : sidebars des autres rôles (élève/parent, partiels séparés, mêmes sélecteurs `#sidebar_menu`) et RTL.
