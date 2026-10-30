@@ -1014,3 +1014,43 @@ receptionist 14, librarian 13, parent 7, driver 0.
 
 **Reste (décision utilisateur, non bloquant)** : passage manuel de parcours métier réels par rôle (les specs ne couvrent pas
 100 % des écrans) ; activation `enforce=true` sur une éventuelle prod distincte ; affinage des assignations larges (accountant).
+
+---
+
+## Audit manuel super admin + correctifs (30/10/2026)
+
+Tour manuel de l'utilisateur (235 liens sidebar chargés dans le navigateur + tests de formulaires) → rapport
+`audit-dev-aramisc-2026-10-30.md`. Triage et correctifs :
+
+**Plantages serveur**
+- `/online-exam` + `/online-exam-report` → **anomalie 16 connue** (contrôleur tronqué), non traité (chantier).
+- 🆕 **`/templatesettings/sms-template`** — « Operation Failed » silencieux. Cause : `TemplateSettingsController@smsTemplate`
+  rendait `view('templatesettings::smsTemplate')` **inexistante**. La vue SMS réelle est `AramiscTemplate.blade.php`
+  (utilise `$smsTemplates`, route `sms-template-update`). **Corrigé** : vue rebranchée sur `AramiscTemplate`. 0 fichier créé.
+
+**Non-bugs confirmés**
+- `/student-list` « Taper: null » = élève sans catégorie + en-tête `common.type` mal placé sur la colonne `category_name`.
+- `/marks-register` liste vide = `aramisc_exam_types` à 0 ligne (absence de données, pas un bug).
+- `/user-log` « +6h » = vraies heures de connexion (UTC), aucun skew (système/PHP/MySQL tous alignés UTC).
+
+**Fuseau horaire** — `config/app.php` : `env('APP_TIMEZONE','UTC')` → `env('APP_TIMEZONE','Africa/Casablanca')`
+(identité correcte pour un ERP marocain ; Casablanca = UTC+0 à cette date, +1 en période DST).
+
+**Traductions FR** (fautes de traduction auto, corrigées dans `resources/lang/fr/`) :
+- `common` : Actes→Actions, Taper→Type, HEURE→RH, Services publics→Utilitaires, Numéro de rouleau→N° d'ordre,
+  À ce jour→Date de fin, Infos Guardian→Infos tuteur, report_section→Rapports, settings_section→Paramètres.
+- `fees`/`reports` : fine « Bien »→Amende, waiver « Renoncer »→Remise, fees_forward→Report de frais. (`good`=« Bien » gardé, correct.)
+- `exam` : marks_register→Registre des notes, add_marks→Saisir les notes, marks→Notes, waiver→Remise, slash échappé + Guardian.
+- `leave`/`hr`/`communicate` : leave « Partir »→Congés.
+- `student` : « Détails du parent \/ du Guardian »→« / du tuteur ». `admin`/`edulia` : no_of_person→Nombre de personnes, guardian_name→Nom du tuteur.
+- `system_settings` : guardian→Tuteur, with/without_guardian→Avec/Sans tuteur, to_date→Date de fin.
+- `homework`/`lms` : marks→Notes.
+- **Nouveau fichier** `resources/lang/fr/teacherEvaluation.php` (manquait ; en/ar existaient) → module Évaluation des enseignants en FR.
+
+**Vrai bug i18n trouvé** — `resources/views/components/sidebar-component.blade.php` : les **en-têtes de section** affichaient
+`{{ ...->name }}` brut (anglais) alors que les items utilisent `{{ __(...->lang_name) }}`. **Corrigé** : section passée à
+`__(lang_name)` avec repli sur `name`. Les en-têtes (DASHBOARD, STUDENT, EXAM, HR…) se traduisent désormais.
+
+**Reste signalé, non traité** (décision utilisateur) : chaînes EN en dur/clés manquantes (Male/Female, ASSIGN CLASS,
+« Showing 1 to 6 », Processing…, Copyright 2020) ; visuel/CSS (menus header transparents, débordement `/manage-adons`,
+libellés sidebar coupés, `<img src="">` vides) ; https non configuré ; anomalie 16 (online-exam).

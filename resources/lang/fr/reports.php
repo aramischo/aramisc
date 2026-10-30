@@ -149,7 +149,7 @@
   'mode' => 'Mode',
   'unpaid' => 'Non rémunéré',
   'discount' => 'Rabais',
-  'fine' => 'Bien',
+  'fine' => 'Amende',
   'paid' => 'Payé',
   'balance' => 'Équilibre',
   'class_teacher' => 'Enseignant',

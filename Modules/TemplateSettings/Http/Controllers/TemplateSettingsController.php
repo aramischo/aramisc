@@ -83,7 +83,7 @@ class TemplateSettingsController extends Controller
                 ->where('school_id', Auth::user()->school_id)
                 ->get();
 
-            return view('templatesettings::smsTemplate', compact('smsTemplates'));
+            return view('templatesettings::AramiscTemplate', compact('smsTemplates'));
         }catch(\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();

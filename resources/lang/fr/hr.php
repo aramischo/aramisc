@@ -93,7 +93,7 @@
   'resume' => 'CV',
   'address' => 'Adresse',
   'work_experience' => 'Expérience de travail',
-  'leave' => 'Partir',
+  'leave' => 'Congés',
   'personal_info' => 'Informations personnelles',
   'timeline' => 'Chronologie',
   'document' => 'Document',

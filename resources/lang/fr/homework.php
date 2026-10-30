@@ -27,7 +27,7 @@
   'save_homework' => 'Sauver les devoirs',
   'submission_date' => 'Date de soumission',
   'evaluation_date' => 'Date d\'évaluation',
-  'marks' => 'Marques',
+  'marks' => 'Notes',
   'subject' => 'Sujet',
   'student_home_work' => 'Devoirs des étudiants',
   'home_work_date' => 'Date des devoirs',

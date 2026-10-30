@@ -682,7 +682,7 @@ return [
 
 "timeline" => "Chronologie",
 
-"Parent_Guardian_Details" => "Détails du parent \/ du Guardian",
+"Parent_Guardian_Details" => "Détails du parent / du tuteur",
 
 "full_marks" => "Marques complètes",
 

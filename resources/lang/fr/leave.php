@@ -1,5 +1,5 @@
 <?php return array (
-  'leave' => 'Partir',
+  'leave' => 'Congés',
   'leave_list' => 'Liste de congé',
   'leave_name' => 'Nom de congé',
   'type_name' => 'Nom de type',

@@ -53,7 +53,7 @@
   'Minimum Percentage' => 'Pourcentage minimum',
   'Instruction' => 'Instruction',
   'Question' => 'Question',
-  'Marks' => 'Marques',
+  'Marks' => 'Notes',
   'Number Of Options' => 'Nombre d\'options',
   'Create' => 'Créer',
   'Close' => 'Fermer',
