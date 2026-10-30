@@ -232,7 +232,7 @@ html[dir="rtl"] .menu_seperator {
 			padding: 20px !important;
 			box-shadow: 0px 9px 20px rgba(46, 35, 94, 0.07);
 			&::before {
-				border-color: transparent transparent var(--text_white transparent);
+				border-color: transparent transparent var(--text_white) transparent;
 			}
 			p {
 				color: var(--black) !important;

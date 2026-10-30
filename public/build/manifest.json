@@ -1,0 +1,33 @@
+{
+  "public/backEnd/img/summery-bg1.png": {
+    "file": "assets/summery-bg1-C-tBNdkz.png",
+    "src": "public/backEnd/img/summery-bg1.png"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-Ce0clCRz.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-CDD_Cxl1.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/sass/app.scss",
+    "isEntry": true
+  },
+  "resources/sass/backend_design_v2.scss": {
+    "file": "assets/backend_design_v2-DpBtThSD.css",
+    "name": "backend_design_v2",
+    "names": [
+      "backend_design_v2.css"
+    ],
+    "src": "resources/sass/backend_design_v2.scss",
+    "isEntry": true,
+    "assets": [
+      "assets/summery-bg1-C-tBNdkz.png"
+    ]
+  }
+}

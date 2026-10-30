@@ -4,10 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import './bootstrap';
 
 import { createApp } from 'vue';
 import 'vue3-emoji-picker/css';
+import trans from './trans';
 
 import ChatComponent from './components/chat/ChatComponent.vue';
 import GroupChatComponent from './components/chat/GroupChatComponent.vue';
@@ -45,7 +46,7 @@ function mountApp(selector) {
 
     const app = createApp({});
 
-    app.mixin(require('./trans'));
+    app.mixin(trans);
     app.directive('chat-scroll', chatScroll);
 
     app.component('chat-component', ChatComponent);

@@ -501,7 +501,7 @@
 
 <script>
 import moment from 'moment'
-import StatusChangeComponent from "./StatusChangeComponent";
+import StatusChangeComponent from "./StatusChangeComponent.vue";
 import EmojiPicker from 'vue3-emoji-picker';
 // import LinkPreview from '@ashwamegh/vue-link-preview'
 import VueEditor from "./VueEditor.vue";

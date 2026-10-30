@@ -173,7 +173,7 @@
 <script src="{{asset('public/backEnd/')}}/js/search.js"></script>
 
 {!! Toastr::message() !!}
-<script src="{{ asset('public/js/app.js') }}"></script>
+<script src="{{ Vite::asset('resources/js/app.js') }}"></script>
 <script src="{{ asset('public/chat/js/custom.js') }}"></script>
 @yield('script')
 @stack('script')

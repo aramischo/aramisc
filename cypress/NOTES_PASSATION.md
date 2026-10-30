@@ -1100,3 +1100,23 @@ et `examplan/seatplan/setting`) : 0 erreur console. Cypress `admin/chat/*` : **3
 Données de test laissées (écriture DB assistant bloquée) : messages 11-13 (soft-deleted), groupe orphelin `Groupe_Test_Vue3`
 (+ 2 fils, conversations 15-16, 4 notifications du 30/10 ≥ 07:51) — SQL de purge donné à l'utilisateur.
 Débloqué par ce chantier : rework largeur/troncature sidebar (le scss recompile).
+
+### Phase 2 — laravel-mix → Vite 8 (30/10/2026)
+
+- Outillage : `vite` 8.3.5 (Rolldown), `laravel-vite-plugin` 3.2.0, `@vitejs/plugin-vue` 6.0.10, `sass` 1.107. Retirés : laravel-mix,
+  webpack, vue-loader, @vue/compiler-sfc, sass-loader, resolve-url-loader, cross-env, `webpack.mix.js`. `npm audit` : 2 (1 low, 1 moderate).
+- `npm run build` (= `prod`) → `public/build/` (manifest + assets hachés, **commités**). `npm run dev` = `vite build --watch`
+  (pas de serveur Vite/HMR : voir point suivant). Anciens `public/js/app.js`, `public/css/{app,backend_design_v2}.css`, `mix-manifest.json` supprimés.
+- **Le bundle JS reste un `<script>` classique** (pas `type="module"`) : il doit s'exécuter AVANT `public/chat/js/custom.js` et les
+  scripts de page, qui attachent des handlers jQuery sur le DOM rendu par Vue (`#imgInp`…). Le plugin `aramisc-classic-script`
+  (`vite.config.js`) emballe l'entrée JS dans une IIFE et y injecte le CSS importé par le JS (Quill, emojis, `<style>` des .vue), comme mix.
+- Blade : `Vite::asset('resources/...')` dans `partials/css.blade.php`, `partials/footer.blade.php`, `layouts/app.blade.php`.
+  `AppServiceProvider` : `Vite::createAssetPathsUsing` → préfixe `public/` (site servi depuis la racine) + `?v=filemtime`
+  (le hash du nom de fichier JS ne couvre pas le CSS injecté ; Rolldown interdit de renommer). Alias `Vite` ajouté à `config/app.php`.
+- `base: '/public/build/'` : les `url()` du scss sont copiées et réécrites correctement (`summery-bg1.png`).
+- Sources : `bootstrap.js`/`trans.js` en imports ES ; imports `.vue` avec extension ; `@import '~bootstrap…'` → sans `~` ;
+  scss `var(--text_white transparent)` (invalide, rejeté par lightningcss) → `var(--text_white) transparent`.
+- CSS comparé à celui de mix (normalisé lightningcss) : équivalent ; écarts = arrondis de couleurs Bootstrap (≤1/255, sass récent),
+  préfixes vendeur obsolètes retirés (cibles navigateurs modernes de Vite), `initial` au lieu de `400`/`none` (même effet).
+- Vérifs : navigateur (chat, cloche, tableau de bord, 0 erreur console, handler `#imgInp` bien attaché) ; Cypress
+  `admin/chat/*` + `plan_de_siege` + `auth` : **7/7 verts**.

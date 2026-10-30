@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Modules\MenuManage\Entities\Sidebar;
 use Modules\MenuManage\Entities\SidebarNew;
@@ -28,7 +29,14 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        
+        // The site is served from the project root : built assets live under /public/build.
+        // ?v= : the JS file name hash does not cover the CSS injected after hashing (see vite.config.js).
+        Vite::createAssetPathsUsing(function ($path, $secure = null) {
+            $version = @filemtime(public_path($path));
+
+            return asset('public/' . $path, $secure) . ($version ? '?v=' . $version : '');
+        });
+
         try{
             Paginator::useBootstrapFour();
             Builder::defaultStringLength(191);

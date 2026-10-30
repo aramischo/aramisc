@@ -10,14 +10,14 @@
     <title>{{ config('app.name', 'Aramisc') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('public/js/app.js') }}" defer></script>
+    <script src="{{ Vite::asset('resources/js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ Vite::asset('resources/sass/app.scss') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
