@@ -11,6 +11,20 @@ const mix = require('laravel-mix');
  |
  */
 
+// The site is served from the project root (assets live under /public/...),
+// so the relative url() of the scss sources must be kept as written.
+mix.options({ processCssUrls: false });
+
 mix.js('resources/js/app.js', 'public/js')
+    .vue({ version: 3 })
     .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/backend_design_v2.scss', 'public/css');
+    .sass('resources/sass/backend_design_v2.scss', 'public/css')
+    .webpackConfig(webpack => ({
+        plugins: [
+            new webpack.DefinePlugin({
+                __VUE_OPTIONS_API__: true,
+                __VUE_PROD_DEVTOOLS__: false,
+                __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+            }),
+        ],
+    }));

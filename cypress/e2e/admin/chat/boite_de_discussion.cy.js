@@ -60,9 +60,7 @@ describe('Admin – Chat : Boîte de discussion', () => {
     cy.intercept('POST', '**/chat/send/user').as('send');
     cy.get('button.svg_send_button').click();
     cy.wait('@send').its('response.statusCode').should('eq', 200);
-    // ⚠ Anomalie : l'expéditeur ne voit son message qu'après rechargement (messagePush commenté dans
-    //   JqueryChatComponent, et newMessageCheck ne renvoie que les messages reçus).
-    cy.reload();
+    // Corrigé 30/10 : newMessageCheck renvoie aussi les messages envoyés → visible sans rechargement.
     cy.contains('span.textmsg', message, { timeout: 20000 }).should('exist');
     // cy.screenshot(`${shot}/02-message-envoye`);
 

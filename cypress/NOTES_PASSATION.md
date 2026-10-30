@@ -1065,3 +1065,38 @@ Restent **données** (pas du code) : Male/Female (table `base_setup`), copyright
 - `/manage-adons` débordement horizontal = label FR `common.upload_or_update_module` trop long (« Module de téléchargement / mise à jour ») + `nowrap`. **Corrigé** → « Importer / Mettre à jour » (plus court + corrige le contresens download/upload). docWidth 1265 < 1280, bouton visible.
 - `/manage-adons` « Version: » vide et « Not Purchase » = **par conception** (panneau addons vendeur : json modules sans champ `versions`, `purchase_code` vide en auto-hébergé). Pas un bug.
 - Libellés de sous-menu coupés (nowrap + labels FR longs) : à traiter via wrap global de la sidebar (en attente de validation).
+
+## 🛠️ Build front réparé — migration Vue 3 + laravel-mix (30/10/2026)
+
+**Avant** : `npm run prod` cassé (webpack 5.108 sans `SizeFormatHelpers` exigé par mix 6 ; Vue 3 installé mais code Vue 2 ;
+pas de `vue-loader`). `public/js/app.js` commité = asset orphelin non régénérable.
+
+**Choix** : Vue 3 en gardant laravel-mix (pas Vite). Build désormais **vert et reproductible** (`npm run prod`).
+- `package.json` : `webpack` épinglé **5.88.2** (dernier compatible mix 6), `vue-loader` 17.4.2, `@vue/compiler-sfc` 3.5.44,
+  `sass-loader` 12.6.0 ; scripts → CLI `mix` / `mix --production`.
+- Plugins Vue 2 remplacés : `vue2-editor` → `resources/js/components/chat/VueEditor.vue` (wrapper **Quill 2.0.3**, même API :
+  `v-model`, `editor-toolbar`, `.quill`) ; `v-emoji-picker` → `vue3-emoji-picker` (`emoji.data` → `emoji.i`) ;
+  `vue-chat-scroll` → directive `v-chat-scroll` maison (MutationObserver) dans `app.js` ; `vue-select` retiré (importé, jamais utilisé).
+- `resources/js/app.js` : `createApp` sur `#admin-visitor-area` et `#main-nav-for-chat` (si présents). Templates in-DOM → build complet `vue.esm-bundler` (alias mix).
+- `webpack.mix.js` : `.vue({version:3})`, flags `__VUE_*__`, `processCssUrls:false` (le site sert `/public/...`, l'URL réécrite `/images/...` aurait été 404).
+- CSS régénéré vérifié **équivalent** (diff postcss déclaration par déclaration) sauf : fond `summery-bg1.png` de l'en-tête
+  « Notification de chat » désormais présent (prévu par le scss, perdu dans l'ancien asset).
+
+**Bugs corrigés en passant (confirmés au test)** :
+- Chat 1-1 (mode log) : l'expéditeur ne voyait son message qu'après rechargement → `ChatController::newMessageCheck` renvoie
+  les deux sens + cast `(int)` (conversation vide envoyait `"null"`). Spec `boite_de_discussion` : `cy.reload()` retiré.
+- Chat groupe : 1er message d'un groupe vide jamais affiché (`1 > "null"` faux en PHP 8) → cast `(int)` dans `GroupChatController::newMessageCheck`.
+- Composants jQuery : `setInterval` empilés à chaque envoi (fuite) → `clearInterval` ; anti-doublon dans `messagePush`.
+- « Répondre » plantait (`quill.offset()` n'existe pas) → `$(editor.$el).offset()`.
+- `SidePanelComponent` : prop `all_users` requise jamais passée (crash `mounted`) → défaut `[]`.
+- `GroupChatController::destroy` : supprimait les membres mais **jamais le groupe** (résultat de `Group::find` ignoré) → groupe supprimé.
+- i18n FR chat (`system_settings`) : quote « Devis »→Citer, forward « Suivant »→Transférer, replying→« Réponse à »,
+  forwarded_message « Message reçu »→Message transféré.
+
+**Vérifs** : navigateur (chat 1-1, groupe, cloche, emojis, éditeur, auto-scroll, pages montées en entier `directFees/setting`
+et `examplan/seatplan/setting`) : 0 erreur console. Cypress `admin/chat/*` : **3/3 verts**.
+
+**Restant connu** : colonne `chat_conversations.message` pas en utf8mb4 → emojis stockés en `?` (donnée/DB, pas Vue).
+Données de test laissées (écriture DB assistant bloquée) : messages 11-13 (soft-deleted), groupe orphelin `Groupe_Test_Vue3`
+(+ 2 fils, conversations 15-16, 4 notifications du 30/10 ≥ 07:51) — SQL de purge donné à l'utilisateur.
+Débloqué par ce chantier : rework largeur/troncature sidebar (le scss recompile).

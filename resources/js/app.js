@@ -6,36 +6,59 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import { createApp } from 'vue';
+import 'vue3-emoji-picker/css';
 
-Vue.mixin(require('./trans'))
+import ChatComponent from './components/chat/ChatComponent.vue';
+import GroupChatComponent from './components/chat/GroupChatComponent.vue';
+import NotificationComponent from './components/chat/NotificationComponent.vue';
+import JqueryNotificationComponent from './components/chat/JqueryNotificationComponent.vue';
+import JqueryChatComponent from './components/chat/JqueryChatComponent.vue';
+import JqueryGroupChatComponent from './components/chat/JqueryGroupChatComponent.vue';
+import SidePanelComponent from './components/chat/SidePanelComponent.vue';
+import StatusChangeComponent from './components/chat/StatusChangeComponent.vue';
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Keeps a chat container scrolled to the bottom whenever its content changes
+ * (replaces the Vue 2 only "vue-chat-scroll" plugin).
  */
+const chatScroll = {
+    mounted(el) {
+        const scrollDown = () => { el.scrollTop = el.scrollHeight; };
+        el._chatScrollObserver = new MutationObserver(scrollDown);
+        el._chatScrollObserver.observe(el, { childList: true, subtree: true });
+        scrollDown();
+    },
+    unmounted(el) {
+        el._chatScrollObserver && el._chatScrollObserver.disconnect();
+    }
+};
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+/**
+ * Next, we will create the Vue application instances and attach them to
+ * the page. Each mount point gets its own app with the same components.
+ */
+function mountApp(selector) {
+    if (!document.querySelector(selector)) {
+        return null;
+    }
 
-Vue.component('chat-component', require('./components/chat/ChatComponent.vue').default);
-Vue.component('group-chat-component', require('./components/chat/GroupChatComponent.vue').default);
-Vue.component('notification-component', require('./components/chat/NotificationComponent.vue').default);
-Vue.component('jquery-notification-component', require('./components/chat/JqueryNotificationComponent.vue').default);
+    const app = createApp({});
 
-Vue.component('jquery-chat-component', require('./components/chat/JqueryChatComponent.vue').default);
-Vue.component('jquery-group-chat-component', require('./components/chat/JqueryGroupChatComponent.vue').default);
+    app.mixin(require('./trans'));
+    app.directive('chat-scroll', chatScroll);
 
-Vue.component('side-panel-component', require('./components/chat/SidePanelComponent.vue').default);
-Vue.component('status-change-component', require('./components/chat/StatusChangeComponent.vue').default);
+    app.component('chat-component', ChatComponent);
+    app.component('group-chat-component', GroupChatComponent);
+    app.component('notification-component', NotificationComponent);
+    app.component('jquery-notification-component', JqueryNotificationComponent);
+    app.component('jquery-chat-component', JqueryChatComponent);
+    app.component('jquery-group-chat-component', JqueryGroupChatComponent);
+    app.component('side-panel-component', SidePanelComponent);
+    app.component('status-change-component', StatusChangeComponent);
 
-import VueChatScroll from 'vue-chat-scroll'
-Vue.use(VueChatScroll)
+    return app.mount(selector);
+}
 
-const app = new Vue({
-    el: '#admin-visitor-area'
-});
-
-const app1 = new Vue({
-    el: '#main-nav-for-chat'
-});
+mountApp('#admin-visitor-area');
+mountApp('#main-nav-for-chat');

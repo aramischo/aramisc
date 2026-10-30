@@ -358,7 +358,7 @@
                         </div>
                     </div>
                     <div class="emoji_box" :class="{ active: emoji }">
-                        <VEmojiPicker @select="selectEmoji" />
+                        <EmojiPicker :native="true" @select="selectEmoji" />
                     </div>
                 </form>
             </div>
@@ -502,14 +502,14 @@
 <script>
 import moment from 'moment'
 import StatusChangeComponent from "./StatusChangeComponent";
-import { VEmojiPicker } from 'v-emoji-picker';
+import EmojiPicker from 'vue3-emoji-picker';
 // import LinkPreview from '@ashwamegh/vue-link-preview'
-import { VueEditor } from "vue2-editor";
+import VueEditor from "./VueEditor.vue";
 
 export default {
     components: {
         StatusChangeComponent,
-        VEmojiPicker,
+        EmojiPicker,
         VueEditor
         // LinkPreview
     },
@@ -701,7 +701,7 @@ export default {
         },
         selectEmoji(emoji) {
              let lastIndex = this.$refs.contenteditor.quill.getText().length - 1;
-             this.$refs.contenteditor.quill.insertText(lastIndex, emoji.data);
+             this.$refs.contenteditor.quill.insertText(lastIndex, emoji.i);
              this.$refs.contenteditor.quill.focus();
         },
 
@@ -923,7 +923,7 @@ export default {
             this.replying = true;
             this.replying_text = c.message
             this.replying_to = c.id
-            $('html, body').animate({ scrollTop: this.$refs.contenteditor.quill.offset().top }, 'slow');
+            $('html, body').animate({ scrollTop: $(this.$refs.contenteditor.$el).offset().top }, 'slow');
 
         },
 
@@ -1001,6 +1001,11 @@ export default {
 .chat_view_list .chat_input_box {
     position: relative;
     padding: 0;
+}
+
+/* Global (shared by all chat components) : fit the box to the vue3-emoji-picker */
+.emoji_box {
+    height: auto;
 }
 
 .pt-100px {

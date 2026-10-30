@@ -216,8 +216,18 @@ class ChatController extends Controller
             ]);
         }
 
-        $messages = auth()->user()->userSpecificConversationCollection($from_user->id)
-            ->where('id', '>', $request->last_conversation_id);
+        // Both directions : the sender's own message is only shown once this poll returns it.
+        $messages = Conversation::with('forwardFrom','reply','fromUser','toUser')
+            ->where(function ($query) use ($from_user) {
+                $query->where(function ($q) use ($from_user) {
+                    $q->where('from_id', $from_user->id)->where('to_id', auth()->id());
+                })->orWhere(function ($q) use ($from_user) {
+                    $q->where('from_id', auth()->id())->where('to_id', $from_user->id);
+                });
+            })
+            ->where('id', '>', (int) $request->last_conversation_id)
+            ->orderBy('id')
+            ->get();
 
         return response()->json([
             'invalid' => false,
