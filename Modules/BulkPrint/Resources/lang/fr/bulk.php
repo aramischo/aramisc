@@ -28,4 +28,7 @@
   'invoice' => 'facture',
   'invoice_type' => 'Type de facture',
   'fees_invoice_bulk_print_settings' => 'Paramètres d\'impression des factures de frais',
+  'fees_collection_details' => 'Détails des encaissements de frais',
+  'generate_staff_id_card' => 'Générer la carte du personnel',
+  'mode' => 'Mode',
 );

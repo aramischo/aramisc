@@ -126,5 +126,14 @@ return[
     'store_warehouse'=>'Store Warehouse',
     'due_date'=>'Due Date',
     'category'=>'Category',
+  'author_name' => 'Author Name',
+  'bank' => 'Bank',
+  'book' => 'Book',
+  'book_none' => 'Book No',
+  'book_price' => 'Book Price',
+  'isbn_none' => 'ISBN No',
+  'item_Receive' => 'Item Receive',
+  'publisher_name' => 'Publisher Name',
+  'rack_number' => 'Rack Number',
 
 ];

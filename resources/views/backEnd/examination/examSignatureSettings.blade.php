@@ -63,7 +63,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <code class="nowrap d-block mb-30">(Allow file jpg, png, jpeg, svg)</code>
+                                        <code class="nowrap d-block mb-30">({{ __("common.allowed_for_upload", ["types" => "jpg, png, jpeg, svg"]) }})</code>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="primary_input">
@@ -134,7 +134,7 @@
                                 </button>
                             </div>
                         </div>
-                        <code class="nowrap d-block mb-30">(Allow file jpg, png, jpeg, svg)</code>
+                        <code class="nowrap d-block mb-30">({{ __("common.allowed_for_upload", ["types" => "jpg, png, jpeg, svg"]) }})</code>
                     </div>
                     <div class="col-lg-2">
                         <div class="primary_input">

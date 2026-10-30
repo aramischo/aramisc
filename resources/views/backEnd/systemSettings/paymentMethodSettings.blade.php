@@ -470,18 +470,18 @@
                                     @endphp
                                     @if (@$row->gateway_name != 'Bank')
                                         @if (@$row->gateway_name == 'Paystack')
-                                            <strong class="main-title"> N.B: Please Set This url <a class="disabled link-wrod-wrap"
+                                            <strong class="main-title"> {{ __("system_settings.nb_please_set_this_url") }} <a class="disabled link-wrod-wrap"
                                                     href=" {{ route('payment.success','Paystack') }}" disable>
                                                     @if (directFees() ||  generalSetting()->fees_status )
                                                     {{ route('payment.success','Paystack') }} 
                                                     @else
                                                         {{ route('handleGatewayCallback') }} 
                                                     @endif
-                                                </a> As Paystack Callback Url </strong>
+                                                </a> {{ __("system_settings.as_callback_url", ["gateway" => "Paystack"]) }} </strong>
                                         @endif
     
                                         @if (@$row->gateway_name == 'Raudhahpay')
-                                            <strong class="main-title"> N.B: Please Set This url <a class="disabled link-wrod-wrap"
+                                            <strong class="main-title"> {{ __("system_settings.nb_please_set_this_url") }} <a class="disabled link-wrod-wrap"
                                                     href="{{ url('raudhahpay/payment_success_callback') }}"
                                                     disable>{{ url('raudhahpay/payment_success_callback') }}</a> As
                                                 Raudhahpay WebHook Url </strong>

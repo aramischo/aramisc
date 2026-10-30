@@ -38,7 +38,7 @@ class InvitationController extends Controller
             $connectedPeoples = $this->invitation->getAllConnectedUsers();
             return view('chat::invitation', compact('ownRequest','peopleRequest','connectedPeoples'));
         }catch (\Exception $exception){
-            Toastr::error(__('chat.something_went_wrong'));
+            Toastr::error(__('chat::chat.something_went_wrong'));
             return redirect()->back();
         }
     }
@@ -51,7 +51,7 @@ class InvitationController extends Controller
         ]);
 
         if ($validation->fails()){
-            Toastr::error(__('chat.something_went_wrong'));
+            Toastr::error(__('chat::chat.something_went_wrong'));
             return redirect()->back();
         }
 

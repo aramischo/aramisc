@@ -528,7 +528,7 @@
                                                                         class="primary_input_field form-control {{ $errors->has('staff_photo') ? ' is-invalid' : '' }}"
                                                                         type="text" id="placeholderStaffsName"
                                                                         placeholder="@lang('hr.staff_photo')" disabled>
-                                                                    <code>(JPG,JPEG,PNG are allowed for upload)</code>
+                                                                    <code>({{ __("common.allowed_for_upload", ["types" => "JPG,JPEG,PNG"]) }})</code>
                                                                     <button class="" type="button">
                                                                         <label class="primary-btn small fix-gr-bg"
                                                                             for="addStaffImage">{{ __('common.browse') }}</label>

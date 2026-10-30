@@ -153,7 +153,7 @@
                     <div class="row">
                         <div class="col-lg-2 no-gutters">
                             <div class="main-title">
-                                <h3 class="mb-15">@lang('studentInfo.student_list')</h3>
+                                <h3 class="mb-15">@lang('student.student_list')</h3>
                             </div>
                         </div>
                         <div class="col-lg-1">
@@ -174,13 +174,13 @@
                                                 <input type="checkbox" id="checkAll" class="common-checkbox generate-id-card-print-all" name="checkAll" value="">
                                                 <label for="checkAll">@lang('admin.all')</label>
                                             </th>
-                                            <th>@lang('studentInfo.admission_no')</th>
+                                            <th>@lang('student.admission_no')</th>
                                             <th>@lang('common.name')</th>
                                             <th>@lang('admin.class_Sec')</th>
                                             <th>@lang('common.father_name')</th>
-                                            <th>@lang('studentInfo.date_of_birth')</th>
+                                            <th>@lang('student.date_of_birth')</th>
                                             <th>@lang('admin.gender')</th>
-                                            <th>@lang('studentInfo.mobile')</th>
+                                            <th>@lang('student.mobile')</th>
                                         </tr>
                                     </thead>
     

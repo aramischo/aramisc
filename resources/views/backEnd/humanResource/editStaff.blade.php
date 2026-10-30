@@ -676,7 +676,7 @@
                                                                         <div class="col-lg-12">
                                                                             <div class="primary_input">
                                                                                 <label class="primary_input_label"
-                                                                                    for="">@lang('staff.staff_bio')
+                                                                                    for="">@lang('hr.staff_bio')
                                                                                     {{ in_array('staff_bio', $is_required) ? '*' : '' }}</label>
                                                                                 <textarea class="primary_input_field form-control" cols="0" rows="6" name="staff_bio" id="staff_bio">
                                                                                     @if (isset($editData)){{ $editData->staff_bio }}@endif

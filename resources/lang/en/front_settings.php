@@ -255,4 +255,12 @@ return [
     'add_expert_staff' => 'Add Expert Staff',
     'yes' => 'Yes',
     'no' => 'no',
+  'course_details' => 'Course Details',
+  'edit_expert_staff' => 'Edit Expert Staff',
+  'edit_speech_slider' => 'Edit Speech Slider',
+  'home' => 'Home',
+  'main' => 'Main',
+  'operation_success_message' => 'Operation successful',
+  'set_permission_in' => 'Set permission in',
+  'submit' => 'Submit',
 ];

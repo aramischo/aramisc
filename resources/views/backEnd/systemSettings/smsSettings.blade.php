@@ -541,7 +541,7 @@
                                                     @endif
                                                 </li>
                                             @else
-                                                <li>No Device Connected !</li>
+                                                <li>{{ __("system_settings.no_device_connected") }}</li>
     
                                             @endif
     

@@ -276,7 +276,7 @@
                                         }
 
                                         if (Auth::user()->role_id == 1) {
-                                            $tooltip = "Super Admin Can't Leave Appy.";
+                                            $tooltip = __("leave.super_admin_cannot_apply_leave");
                                         }
                                     @endphp
                                     <div class="row mt-40">

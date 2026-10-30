@@ -83,4 +83,6 @@
   'parent_name' => 'Nom de parent',
   'parent' => 'Mère',
   'select_parent' => 'Sélectionner le parent',
+  'practical' => 'Pratique',
+  'theory' => 'Théorie',
 );

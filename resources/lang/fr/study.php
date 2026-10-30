@@ -102,5 +102,7 @@ return [
 "download" => "Télécharger",
 "study" => "Supports de cours",
 "delete_other_download" => "Supprimer les autres téléchargements",
+"log" => "Journal",
+"study_material_list" => "Liste des supports de cours",
 
 ];

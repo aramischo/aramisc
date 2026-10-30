@@ -137,7 +137,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <a href="#" data-toggle="modal" class="primary-btn small fix-gr-bg nowrap"
-                                            data-target="#add_to_do" title="Add To Do" data-modal-size="modal-md">
+                                            data-target="#add_to_do" title="{{ __("dashboard.add_to_do") }}" data-modal-size="modal-md">
                                             <span class="ti-upload pr-2"></span>
                                             @lang('common.upload_or_update_module')
                                         </a>
@@ -208,7 +208,7 @@
                                                     <td>
                                                         @if (is_null($module->purchase_code) && !file_exists($is_module_available))
                                                             <a class="primary-btn fix-gr-bg" href="{{ $module->addon_url }}"
-                                                                target="_blank">Buy Now</a>
+                                                                target="_blank">{{ __("common.buy_now") }}</a>
                                                         @elseif(is_null($module->purchase_code) && moduleStatusCheck($module->name) == false && file_exists($is_module_available))
                                                             <div class="row">
                                                                 <div class="col-lg-6">

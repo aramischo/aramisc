@@ -67,4 +67,5 @@
   'cancelled' => 'annulé',
   'download' => 'Télécharger',
   'leave_types' => 'Congés',
+  'super_admin_cannot_apply_leave' => 'Le super administrateur ne peut pas demander de congé.',
 );

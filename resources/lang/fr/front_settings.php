@@ -254,4 +254,12 @@
   'add_expert_staff' => 'Ajouter un personnel expert',
   'yes' => 'Oui',
   'no' => 'Non',
+  'course_details' => 'Détails du cours',
+  'edit_expert_staff' => 'Modifier l\'intervenant',
+  'edit_speech_slider' => 'Modifier le carrousel des discours',
+  'home' => 'Accueil',
+  'main' => 'Principal',
+  'operation_success_message' => 'Opération réussie',
+  'set_permission_in' => 'Définir les permissions dans',
+  'submit' => 'Valider',
 );

@@ -451,4 +451,9 @@
   'total' => 'Total',
   'starting' => 'Départ',
   'ending' => 'Fin',
+  'SVG' => 'SVG',
+  'left_menu_label' => 'Libellé du menu gauche',
+  'message' => 'Message',
+  'phone_no' => 'N° de téléphone',
+  'register_form' => 'Formulaire d\'inscription',
 );

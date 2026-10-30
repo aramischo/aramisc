@@ -68,4 +68,5 @@ return[
     'cancelled'=>'cancelled',
     'download'=>'Download',
     'leave_types'=>'Leave Types',
+  'super_admin_cannot_apply_leave' => 'Super Admin can\'t apply for leave.',
 ];

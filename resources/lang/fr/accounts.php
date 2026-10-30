@@ -110,4 +110,6 @@
   'cash' => 'Espèces',
   'cheque' => 'Vérifier',
   'Hello' => 'Bonjour',
+  'fine' => 'Amende',
+  'mode' => 'Mode',
 );

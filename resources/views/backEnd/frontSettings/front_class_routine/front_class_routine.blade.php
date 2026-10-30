@@ -119,7 +119,7 @@
                                                     <input type="file" class="d-none" name="result_file"
                                                         id="document_file_1">
                                                 </button>
-                                                <code>(jpg,png,jpeg,pdf are allowed for upload)</code>
+                                                <code>({{ __("common.allowed_for_upload", ["types" => "jpg,png,jpeg,pdf"]) }})</code>
                                             </div>
                                             @if ($errors->has('result_file'))
                                                 <span class="text-danger">

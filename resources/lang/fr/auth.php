@@ -28,4 +28,5 @@
   'resend_code' => 'Code de resend',
   'two_factor_otp' => 'OTP à deux facteurs',
   'student_registration' => 'Inscription des étudiants',
+  'enter_confirm_password' => 'Confirmez le mot de passe',
 );

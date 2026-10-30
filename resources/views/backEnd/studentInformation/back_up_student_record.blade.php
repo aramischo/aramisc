@@ -86,15 +86,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Confirmation Required</h4>
+                    <h4 class="modal-title">{{ __("hr.Confirmation Required") }}</h4>
                     {{-- <h4 class="modal-title">@lang('student.delete') @lang('student.student')</h4> --}}
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <div class="modal-body">
                     <div class="text-center">
-                        <h4 class="text-danger">You are going to remove {{ @$record->first_name . ' ' . @$record->last_name }}.
-                            Removed data CANNOT be restored! Are you ABSOLUTELY Sure!</h4>
+                        <h4 class="text-danger">{{ __("student.you_are_going_to_remove", ["name" => @$record->first_name . ' ' . @$record->last_name]) }}</h4>
                     </div>
 
                     <div class="mt-40 d-flex justify-content-between">

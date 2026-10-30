@@ -51,5 +51,7 @@ return [
     'student_study_material_notification' => 'Student study material notification',
     'study'=>'Study',
     'delete_other_download'=>'Delete Other Downloads',
+  'log' => 'Log',
+  'study_material_list' => 'Study Material List',
     
 ];

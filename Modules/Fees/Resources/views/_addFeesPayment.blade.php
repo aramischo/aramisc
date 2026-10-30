@@ -189,7 +189,7 @@
                                                     <input type="file" class="d-none form-control" name="file" id="upload_content_file">
                                         </button>
                                     </div>
-                                    <code>(JPG, JPEG, PNG, PDF are allowed for upload)</code>
+                                    <code>({{ __("common.allowed_for_upload", ["types" => "JPG, JPEG, PNG, PDF"]) }})</code>
                                     @if ($errors->has('upload_event_image'))
                                     <span class="text-danger d-block">
                                         {{ $errors->first('upload_event_image') }}

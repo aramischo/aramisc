@@ -565,7 +565,7 @@
                                         </div>
                                         <div class="col-lg-6 text-right col-md-6 col-6">
                                             <a href="#" data-toggle="modal" class="primary-btn small fix-gr-bg"
-                                                data-target="#add_to_do" title="Add To Do" data-modal-size="modal-md">
+                                                data-target="#add_to_do" title="{{ __("dashboard.add_to_do") }}" data-modal-size="modal-md">
                                                 <span class="ti-plus pr-2"></span>
                                                 @lang('common.add')
                                             </a>

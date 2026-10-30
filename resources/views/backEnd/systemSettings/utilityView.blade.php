@@ -28,7 +28,7 @@
                        href="{{ route('utilities','optimize_clear') }}">
                         <div class="d-block mt-10 text-center ">
                             <h3><i class="ti-cloud font_30"></i></h3>
-                            <h1 class="gradient-color2 total_purchase"> Clear Cache </h1>
+                            <h1 class="gradient-color2 total_purchase"> {{ __("system_settings.clear_cache") }} </h1>
                         </div>
                     </a>
                 </div>
@@ -38,7 +38,7 @@
                        href="{{ route('utilities','clear_log') }}">
                         <div class="d-block mt-10 text-center ">
                             <h3><i class="ti-receipt font_30"></i></h3>
-                            <h1 class="gradient-color2 total_purchase">Clear Log</h1>
+                            <h1 class="gradient-color2 total_purchase">{{ __("system_settings.clear_log") }}</h1>
                         </div>
                     </a>
                 </div>
@@ -135,7 +135,7 @@
                                                     
                                                     <div class="mr-30">
                                                         <input type="checkbox" name="applicable_for[]" id="applicable_for_front" class="common-radio relationButton copy_per_th" value="front" @if(is_null($setting->applicable_for) || in_array('front', $setting->applicable_for)) checked @endif>
-                                                        <label for="applicable_for_front" id="applicable_for_front">Frontend/Website</label>
+                                                        <label for="applicable_for_front" id="applicable_for_front">{{ __("system_settings.frontend_website") }}</label>
                                                     </div>
 
                                                 </div>

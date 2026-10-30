@@ -58,4 +58,6 @@
   'you_have_a_new_chat_message' => 'Vous avez un nouveau message de chat',
   'student_can_add_member' => 'L\'étudiant peut ajouter un membre',
   'no_user_found' => 'Aucun utilisateur trouvé',
+  'username' => 'Username',
+  'something_went_wrong' => 'Something went wrong',
 );

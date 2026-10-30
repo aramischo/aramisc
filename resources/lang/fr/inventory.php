@@ -124,4 +124,13 @@
   'store_warehouse' => 'Entrepôt de magasin',
   'due_date' => 'Deux dates',
   'category' => 'Catégorie',
+  'author_name' => 'Nom de l\'auteur',
+  'bank' => 'Banque',
+  'book' => 'Livre',
+  'book_none' => 'N° du livre',
+  'book_price' => 'Prix du livre',
+  'isbn_none' => 'N° ISBN',
+  'item_Receive' => 'Réception d\'articles',
+  'publisher_name' => 'Nom de l\'éditeur',
+  'rack_number' => 'N° d\'étagère',
 );

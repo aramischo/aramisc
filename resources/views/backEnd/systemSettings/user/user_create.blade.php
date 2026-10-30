@@ -95,7 +95,7 @@
                                         <option value="">@lang('common.select_gender')</option>
                                         <option value="1">@lang('common.male')</option>
                                         <option value="2">@lang('common.female')</option>
-                                        <option value="3">@lang('coommon.others')</option>
+                                        <option value="3">@lang('common.others')</option>
                                     </select>
                                     @if ($errors->has('gender'))
                                         <span class="text-danger invalid-select" role="alert">

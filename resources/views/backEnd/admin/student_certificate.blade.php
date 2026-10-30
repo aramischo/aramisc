@@ -190,7 +190,7 @@
                                         <div class="primary_input">
                                             <label>@lang('admin.font_size')<span class="text-danger">*</span></label>
                                             <input class="primary_input_field{{ $errors->has('body_font_size') ? ' is-invalid' : '' }} body_font_size" 
-                                                type="text" name="body_font_size" placeholder="Ex: 2em" autocomplete="off" value="{{isset($certificate)? $certificate->body_font_size: old('body_font_size')}}">
+                                                type="text" name="body_font_size" placeholder="{{ __("common.example_short") }} 2em" autocomplete="off" value="{{isset($certificate)? $certificate->body_font_size: old('body_font_size')}}">
                                            
                                           
                                             @if ($errors->has('body_font_size'))

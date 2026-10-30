@@ -85,4 +85,6 @@ return [
    'parent_name'=>'Parent Name',
    'parent'=>'Parent',
    'select_parent'=>'Select Parent',
+  'practical' => 'Practical',
+  'theory' => 'Theory',
 ];

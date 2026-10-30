@@ -114,5 +114,7 @@ return[
     'cash' => 'Cash',
     'cheque' => 'Cheque',
     'Hello'=>'Hello',
+  'fine' => 'Fine',
+  'mode' => 'Mode',
 
 ];

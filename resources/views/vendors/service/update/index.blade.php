@@ -6,7 +6,7 @@
     <div class="container-fluid p-0">
       <div class="white-box aramisc_mb_20 sm2_mb_20 md_mb_20 ">
             <div class="main-title">
-                <h3 class="mb-30">@lang('setting.Update')</h3>
+                <h3 class="mb-30">@lang('system_settings.Update')</h3>
             </div>
             <div class="card-body">
                 @if(gv($product, 'current_version') == gv($product, 'next_release_version') && gv($product, 'name'))
@@ -30,11 +30,11 @@
                                     </tr>
 
                                     <tr>
-                                            <td> {{__('setting.PHP Version')}}</td>
+                                            <td> {{__('system_settings.PHP Version')}}</td>
                                             <td>{{phpversion() }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{__('setting.Curl Enable')}}</td>
+                                            <td>{{__('system_settings.Curl Enable')}}</td>
                                             <td>@php
                                                     if  (in_array  ('curl', get_loaded_extensions())) {
                                                         echo 'enable';
@@ -47,18 +47,18 @@
 
 
                                         <tr>
-                                            <td>{{__('setting.Purchase code')}}</td>
+                                            <td>{{__('system_settings.Purchase code')}}</td>
                                             <td>{{__('Verified')}}</td>
                                         </tr>
 
 
                                         <tr>
-                                            <td>{{__('setting.Install Domain')}}</td>
+                                            <td>{{__('system_settings.Install Domain')}}</td>
                                             <td>{{ config('configs')->where('key','system_domain')->first()->value }}</td>
                                         </tr>
 
                                         <tr>
-                                            <td>{{__('setting.System Activated Date')}}</td>
+                                            <td>{{__('system_settings.System Activated Date')}}</td>
                                             <td>{{ config('configs')->where('key','system_activated_date')->first()->value }}</td>
                                         </tr>
 
@@ -103,11 +103,11 @@
                                     </tr>
 
                                     <tr>
-                                            <td> {{__('setting.PHP Version')}}</td>
+                                            <td> {{__('system_settings.PHP Version')}}</td>
                                             <td>{{phpversion() }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{__('setting.Curl Enable')}}</td>
+                                            <td>{{__('system_settings.Curl Enable')}}</td>
                                             <td>@php
                                                     if  (in_array  ('curl', get_loaded_extensions())) {
                                                         echo 'enable';
@@ -120,18 +120,18 @@
 
 
                                         <tr>
-                                            <td>{{__('setting.Purchase code')}}</td>
+                                            <td>{{__('system_settings.Purchase code')}}</td>
                                             <td>{{__('Verified')}}</td>
                                         </tr>
 
 
                                         <tr>
-                                            <td>{{__('setting.Install Domain')}}</td>
+                                            <td>{{__('system_settings.Install Domain')}}</td>
                                             <td>{{ config('configs')->where('key','system_domain')->first()->value }}</td>
                                         </tr>
 
                                         <tr>
-                                            <td>{{__('setting.System Activated Date')}}</td>
+                                            <td>{{__('system_settings.System Activated Date')}}</td>
                                             <td>{{ config('configs')->where('key','system_activated_date')->first()->value }}</td>
                                         </tr>
                                     @if(gv($product, 'next_release_change_log'))

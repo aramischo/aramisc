@@ -1843,7 +1843,7 @@
                                                         <button type="button" class="primary-btn tr-bg"
                                                             data-dismiss="modal">@lang('common.cancel')</button>
     
-                                                        <button class="primary-btn fix-gr-bg" type="submit">save</button>
+                                                        <button class="primary-btn fix-gr-bg" type="submit">{{ __("common.save") }}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2047,7 +2047,7 @@
                                     <button type="button" class="primary-btn tr-bg"
                                         data-dismiss="modal">@lang('common.cancel')</button>
 
-                                    <button class="primary-btn fix-gr-bg" type="submit">save</button>
+                                    <button class="primary-btn fix-gr-bg" type="submit">{{ __("common.save") }}</button>
                                 </div>
                             </div>
                         </div>
