@@ -99,5 +99,8 @@ return [
 "upload_document" => "Télécharger le document",
 
 "Other" => "Autres",
+"download" => "Télécharger",
+"study" => "Supports de cours",
+"delete_other_download" => "Supprimer les autres téléchargements",
 
 ];

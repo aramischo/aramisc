@@ -98,7 +98,7 @@ return [
 
 "delete_route" => "Supprimer la route",
 
-"update_route" => "Update Route",
+"update_route" => "Mettre à jour l'itinéraire",
 
 "save_route" => "Enregistrer la route",
 
@@ -169,5 +169,7 @@ return [
 "driver_name" => "Nom du chauffeur",
 
 "transport" => "Transports",
+"assigned" => "Affecté",
+"driver" => "Chauffeur",
 
 ];

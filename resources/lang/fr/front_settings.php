@@ -208,7 +208,7 @@
   'in_reply_to' => 'En réponse à',
   'reply_to_comment' => 'Répondre au commentaire',
   'reply' => 'Répondre',
-  'edit_comment' => 'Edit Comment',
+  'edit_comment' => 'Modifier le commentaire',
   'view_post' => 'Afficher la publication',
   'page_list' => 'Liste de pages',
   'Home Slider' => 'Carrousel d\'accueil',

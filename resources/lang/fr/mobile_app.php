@@ -386,4 +386,13 @@
 Select Present/Absent/Late/Half Day' => 'La fréquentation des étudiants n\'est pas encore terminée.
 Sélectionnez la journée présente / absente / tardive / demi',
   'Student Attendance not done yet.  Select Present/Absent/Late/Half Day' => 'Les présences des élèves n\'ont pas encore été saisies. Sélectionnez Présent / Absent / En retard / Demi-journée',
+  'Are you sure,
+ you want to delete your account?' => 'Êtes-vous sûr(e),
+ de vouloir supprimer votre compte ?',
+  'Are you sure,
+ you want to delete your document?' => 'Êtes-vous sûr(e),
+ de vouloir supprimer votre document ?',
+  'Student Attendance not done yet.
+Select Present/Absent/Late/Half Day' => 'Les présences des élèves n\'ont pas encore été saisies.
+Sélectionnez Présent / Absent / En retard / Demi-journée',
 );
