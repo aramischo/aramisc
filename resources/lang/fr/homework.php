@@ -1,7 +1,7 @@
 <?php return array (
   'homework' => 'Devoirs',
   'add_content' => 'Ajouter du contenu',
-  'student_name' => 'Nom de l\'étudiant',
+  'student_name' => 'Nom de l\'élève',
   'class' => 'Classe',
   'section' => 'Section',
   'title' => 'Titre',
@@ -29,7 +29,7 @@
   'evaluation_date' => 'Date d\'évaluation',
   'marks' => 'Notes',
   'subject' => 'Matière',
-  'student_home_work' => 'Devoirs des étudiants',
+  'student_home_work' => 'Devoirs des élèves',
   'home_work_date' => 'Date des devoirs',
   'homework_status' => 'Statut de devoir',
   'evaluated_by' => 'Évalué par',

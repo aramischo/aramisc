@@ -6,9 +6,9 @@ return [
 
 "assign_vehicle" => "Affecter un véhicule",
 
-"student_transport" => "Transport d'étudiants",
+"student_transport" => "Transport d'élèves",
 
-"student_transport_report" => "Rapport sur le transport des étudiants",
+"student_transport_report" => "Rapport sur le transport des élèves",
 
 "transport_route" => "Route de transport",
 
@@ -28,7 +28,7 @@ return [
 
 "select_vehicle" => "Sélectionner un véhicule",
 
-"student_teacher" => "Étudiant enseignant",
+"student_teacher" => "Élève / enseignant",
 
 "bbb" => "Bouton BigBlueButton",
 

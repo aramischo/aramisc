@@ -285,8 +285,7 @@
                                                         <input type="file" class="d-none" name="content_file"
                                                             id="upload_content_file">
                                                     </button>
-                                                    <code>(jpg,png,jpeg,pdf,doc,docx,mp4,mp3,txt are allowed for
-                                                        upload)</code>
+                                                    <code>({{ __("common.allowed_for_upload", ["types" => "jpg,png,jpeg,pdf,doc,docx,mp4,mp3,txt"]) }})</code>
                                                 </div>
                                             </div>
                                         </div>

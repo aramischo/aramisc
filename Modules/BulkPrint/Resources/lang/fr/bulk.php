@@ -15,7 +15,7 @@
   'generate_id_card' => 'Générer une carte d\'identité',
   'grid_gap' => 'Espace de grille',
   'generate' => 'Générer',
-  'student_certificate' => 'Certificat étudiant',
+  'student_certificate' => 'Certificat élève',
   'select_certificate' => 'Sélectionner un certificat',
   'invoice_settings' => 'Paramètres de facture',
   'showing_page' => 'Page d\'affichage',

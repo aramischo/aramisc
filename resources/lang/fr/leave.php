@@ -13,7 +13,7 @@
   'total_days' => 'Total jours',
   'days' => 'Jours',
   'day' => 'Jour',
-  'student' => 'Étudiant',
+  'student' => 'Élève',
   'not_leaves_data' => 'Ne laisse pas les données',
   'leave_type_list' => 'Liste des types de congé',
   'leave_type' => 'Type de congé',

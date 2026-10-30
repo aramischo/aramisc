@@ -1133,3 +1133,28 @@ Débloqué par ce chantier : rework largeur/troncature sidebar (le scss recompil
 - **Menu réduit (survol)** : l'ellipse des titres de 1er niveau est **gardée** (hauteur fixe 50 px ; passer à la ligne ferait
   glisser le menu sous le curseur) → ajout d'un `title` (infobulle) sur les libellés dans `components/sidebar-component.blade.php`.
 - Non vérifié : sidebars des autres rôles (élève/parent, partiels séparés, mêmes sélecteurs `#sidebar_menu`) et RTL.
+
+## Audit des libellés FR (audit-libelles-fr-2026-10-30.md, traité le 30/10/2026)
+
+Commits `25e84192` → passe 5. Outils (scratchpad, non versionnés) : modification ligne à ligne des fichiers de langue
+(formats `'k' => 'v'` var_export ET `"k" => "v"` de student/transport/style…), avec vérification par `include` après écriture.
+- **Glossaire scolaire** (≈ 600 valeurs) : Matière (Subject), Thème (Topic), Présence (Attendance), Note / Relevé de notes /
+  Répartition des notes (Mark…), N° d'ordre (Roll No), N° d'admission, Congé (Leave), Solde (Balance), Amende (Fine),
+  Remise (Waiver), Rubrique (Head), Tuteur (Guardian), « Enregistrer … » (Save), Année scolaire, Scolarité (Academics),
+  Emploi du temps / Calendrier des examens (Routine), Jours fériés (Holiday), Impression groupée (Bulk Print),
+  Chauffeur (Driver), … (site) (Front), Carrousel (Slider), Tableau d'affichage, « par … » (… Wise), Tâches (To Do).
+- **Élève** au lieu d'« étudiant » partout (219 valeurs, élision/pluriel gérés).
+- **Menus** : `/menumanage` affichait `permissionInfo->name` brut (anglais) → `__(lang_name)` avec repli ;
+  `permissions.php` / `menuManage.php` corrigés et complétés.
+- **Clés** : plus aucune clé EN sans FR ; nouveau `resources/lang/fr/validation.php` ; ≈ 300 clés utilisées dans le code mais
+  absentes partout ajoutées en FR + EN (dont nouveau groupe `lang.php`) ; groupes erronés corrigés dans les vues
+  (`coommon`, `system_setting`, `studentInfo`, `staff`, `general_settings`, `user`, `setting`, `chat.` → `chat::chat.`).
+- **Textes en dur** traduits (header recherche, formats d'upload via `common.allowed_for_upload` sur 23 vues, modales de
+  suppression définitive, cron, Paystack/Raudhahpay, utilitaires, SMS, Buy Now, Add To Do, save…).
+- **Vérif** : rendu des 213 pages du menu (GET, session super admin) → 0 clé brute, 0 libellé fautif de l'audit hors
+  Frontend CMS (`/header/build`, `/header-menu-manager`, hors campagne) ; 500 restants = `/online-exam*` (anomalie 16).
+  41 vues modifiées compilées sans erreur. Cypress auth + élève + comptabilité : 8/8.
+- **Non traité** : clés des modules absents (University, Alumni, Lms, Lead, OnlineExam, BBB, Gmeet, Jitsi, Zoom),
+  installateur, menu SaaS ; Frontend CMS ; **données en base** (Male/Female, religions, rôles « Student/Teacher… »,
+  copyright, textes des modèles SMS/e-mail) à traduire par l'utilisateur.
+- `php artisan view:cache` échoue (chemin `resources/views/modules/rolepermission` configuré mais absent) — préexistant.

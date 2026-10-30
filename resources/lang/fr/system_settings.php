@@ -228,7 +228,7 @@
   'payment_settings' => 'Paramètres de paiement',
   'value' => 'Valeur',
   'bank_account_list' => 'Liste des comptes bancaires',
-  'Available_for_students_and_parents' => 'Disponible pour les étudiants et les parents',
+  'Available_for_students_and_parents' => 'Disponible pour les élèves et les parents',
   'gateway_setting' => 'Paramètre de passerelle',
   'select_a_payment_gateway' => 'Sélectionner une passerelle de paiement',
   'custom_url' => 'URL personnalisée',

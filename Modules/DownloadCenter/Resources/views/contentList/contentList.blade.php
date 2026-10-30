@@ -250,8 +250,7 @@
                                                             <input type="file" class="d-none" name="content_file"
                                                                 id="upload_content_file">
                                                         </button>
-                                                        <code>(jpg,png,jpeg,pdf,doc,docx,txt,xlsx,rar,zip are allowed for
-                                                            upload)</code>
+                                                        <code>({{ __("common.allowed_for_upload", ["types" => "jpg,png,jpeg,pdf,doc,docx,txt,xlsx,rar,zip"]) }})</code>
                                                     </div>
                                                 </div>
                                                 @if ($errors->has('content_file'))

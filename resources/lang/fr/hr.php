@@ -121,7 +121,7 @@
   'update_designation' => 'Mettre à jour la désignation',
   'edit_designation' => 'Modifier la désignation',
   'add_designation' => 'Ajouter la désignation',
-  'add_student' => 'Ajouter un étudiant',
+  'add_student' => 'Ajouter un élève',
   'staff_delete_note' => 'Remarque : en cas de suppression, toutes les informations associées seront supprimées.',
   'pending_leave_request' => 'Congé en attente',
   'user_no' => 'N° d\'utilisateur',

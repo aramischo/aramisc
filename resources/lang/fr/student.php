@@ -1,6 +1,6 @@
 <?php
 return [
-"student_info" => "Info-étudiant",
+"student_info" => "Info-élève",
 
 "my_profile" => "Mon profil",
 
@@ -8,15 +8,15 @@ return [
 
 "subject_wise_attendance_report" => "Rapport des présences par matière",
 
-"save_student_category" => "Enregistrer la catégorie d'étudiant",
+"save_student_category" => "Enregistrer la catégorie d'élève",
 
-"edit_student_category" => "Editer la catégorie d'étudiant",
+"edit_student_category" => "Editer la catégorie d'élève",
 
-"update_student_category" => "Mettre à jour catégorie d'étudiants",
+"update_student_category" => "Mettre à jour catégorie d'élèves",
 
-"delete_student_category" => "Supprimer la catégorie d'étudiant",
+"delete_student_category" => "Supprimer la catégorie d'élève",
 
-"add_student_category" => "Ajouter une catégorie d'étudiant",
+"add_student_category" => "Ajouter une catégorie d'élève",
 
 "age" => "Age",
 
@@ -102,7 +102,7 @@ return [
 
 "contarct_type" => "Type de contarct",
 
-"student_information" => "Info-étudiant",
+"student_information" => "Info-élève",
 
 "add_custom_field" => "Ajouter une zone personnalisée",
 
@@ -128,7 +128,7 @@ return [
 
 "transcript_no" => "N° du relevé",
 
-"student_export" => "Exportation des étudiants",
+"student_export" => "Exportation des élèves",
 
 "add_parents" => "Ajouter des parents",
 
@@ -150,7 +150,7 @@ return [
 
 "weight" => "Poids",
 
-"student_registration_custom_field" => "Zone personnalisée de l'inscription de l'étudiant",
+"student_registration_custom_field" => "Zone personnalisée de l'inscription de l'élève",
 
 "sibling" => "Sibling",
 
@@ -226,7 +226,7 @@ return [
 
 "promote" => "Promouvoir",
 
-"all_student_export" => "Toutes les exportations d'étudiants",
+"all_student_export" => "Toutes les exportations d'élèves",
 
 "attendance_already_submitted_as_holiday" => "Présences déjà enregistrées comme jour férié. Vous pouvez modifier la saisie.",
 
@@ -234,11 +234,11 @@ return [
 
 "unmark_holiday" => "Retirer le jour férié",
 
-"add_student_group" => "Ajouter un groupe d'étudiants",
+"add_student_group" => "Ajouter un groupe d'élèves",
 
-"edit_student_group" => "Editer le groupe d'étudiants",
+"edit_student_group" => "Editer le groupe d'élèves",
 
-"student_group_list" => "Liste des groupes d'étudiants",
+"student_group_list" => "Liste des groupes d'élèves",
 
 "student_attendance_report" => "Rapport des présences des élèves",
 
@@ -266,7 +266,7 @@ return [
 
 "december" => "Décembre",
 
-"student_category" => "Catégorie d'étudiant",
+"student_category" => "Catégorie d'élève",
 
 "promote_academic_year" => "Année scolaire de passage",
 
@@ -280,15 +280,15 @@ return [
 
 "next_roll_number" => "N° d'ordre suivant",
 
-"student_category_list" => "Liste des catégories d'étudiants",
+"student_category_list" => "Liste des catégories d'élèves",
 
-"student_group" => "Groupe d'étudiants",
+"student_group" => "Groupe d'élèves",
 
 "disabled_student" => "Élèves désactivés",
 
 "birth_certificate" => "Certificat de naissance",
 
-"student_edit" => "Éditer l'étudiant",
+"student_edit" => "Éditer l'élève",
 
 "kg" => "KG",
 
@@ -306,7 +306,7 @@ return [
 
 "guardian_address" => "Adresse du tuteur",
 
-"student_address_info" => "Informations d'adresse de l'étudiant",
+"student_address_info" => "Informations d'adresse de l'élève",
 
 "vehicle_number" => "Numéro de véhicule",
 
@@ -328,15 +328,15 @@ return [
 
 "ifsc_code" => "Code IFSC",
 
-"import_student" => "Importer l'étudiant",
+"import_student" => "Importer l'élève",
 
-"save_student" => "Enregistrer l'étudiant",
+"save_student" => "Enregistrer l'élève",
 
 "roll" => "N° d'ordre",
 
-"manage_student" => "Gérer l'étudiant",
+"manage_student" => "Gérer l'élève",
 
-"disable_student" => "Désactiver l'étudiant",
+"disable_student" => "Désactiver l'élève",
 
 "local_id_number" => "Numéro d'ID local",
 
@@ -354,7 +354,7 @@ return [
 
 "student_profile" => "Profil de l'élève",
 
-"student_dashboard" => "Tableau de bord étudiant",
+"student_dashboard" => "Tableau de bord élève",
 
 "download_sample_file" => "Télécharger un exemple de fichier",
 
@@ -376,19 +376,19 @@ return [
 
 "point8" => "Point8",
 
-"student_number" => "Numéro d'étudiant",
+"student_number" => "Numéro d'élève",
 
 "transport" => "Transports",
 
 "excel_file" => "Fichier Excel",
 
-"student_import" => "Importation d'étudiant",
+"student_import" => "Importation d'élève",
 
-"all_student" => "Tous les étudiants",
+"all_student" => "Tous les élèves",
 
-"enable Student" => "Activer l'étudiant",
+"enable Student" => "Activer l'élève",
 
-"enable_student" => "Activer l'étudiant",
+"enable_student" => "Activer l'élève",
 
 "local_Id_Number" => "Numéro d'ID local",
 
@@ -424,7 +424,7 @@ return [
 
 "remove" => "Supprimer",
 
-"student" => "Étudiant",
+"student" => "Élève",
 
 "Current" => "Courant",
 
@@ -486,7 +486,7 @@ return [
 
 "date_of_birth" => "Date de naissance",
 
-"student_id_card" => "Carte d'identité de l'étudiant",
+"student_id_card" => "Carte d'identité de l'élève",
 
 "mother" => "Mère",
 
@@ -510,7 +510,7 @@ return [
 
 "chairman_of_the_examination_board" => "Président du comité d'examen",
 
-"head_of_students_affairs" => "Chef des affaires étudiantes",
+"head_of_students_affairs" => "Responsable de la vie scolaire",
 
 "is_present" => "Est présent",
 
@@ -524,7 +524,7 @@ return [
 
 "export_to_pdf" => "Exporter vers PDF",
 
-"student_name" => "Nom de l'étudiant",
+"student_name" => "Nom de l'élève",
 
 "title" => "Titre",
 
@@ -580,7 +580,7 @@ return [
 
 "document" => "Document",
 
-"student_list" => "Liste des étudiants",
+"student_list" => "Liste des élèves",
 
 "select_month" => "Sélectionner un mois",
 
@@ -636,19 +636,19 @@ return [
 
 "notice" => "Avis",
 
-"students" => "Étudiants",
+"students" => "Élèves",
 
 "parents" => "Parents",
 
-"student_admission" => "Admission d'étudiants",
+"student_admission" => "Admission d'élèves",
 
 "student_attendance" => "Présence des élèves",
 
-"student_promote" => "Promotion de l'étudiant",
+"student_promote" => "Promotion de l'élève",
 
 "holiday" => "Congés",
 
-"student_registration" => "Inscription des étudiants",
+"student_registration" => "Inscription des élèves",
 
 "total_teachers" => "Nombre total d'enseignants",
 
@@ -734,7 +734,7 @@ return [
 
 "mode_of_payment" => "Mode de paiement",
 
-"add_student" => "Ajouter un étudiant",
+"add_student" => "Ajouter un élève",
 
 "mother_name" => "Nom de la mère",
 
@@ -810,7 +810,7 @@ return [
 
 "attendance_in_current_month" => "Présences du mois en cours",
 
-"student_report" => "Rapport étudiant",
+"student_report" => "Rapport élève",
 
 "select_current_section" => "Sélectionner la section en cours",
 

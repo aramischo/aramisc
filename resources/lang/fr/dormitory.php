@@ -4,7 +4,7 @@
   'dormitory_rooms' => 'Salles de dortoir',
   'dormitory_name' => 'Nom de dortoir',
   'room_type' => 'Type de chambre',
-  'student_dormitory_report' => 'Rapport de dortoir des étudiants',
+  'student_dormitory_report' => 'Rapport de dortoir des élèves',
   'number_of_bed' => 'Nombre de lit',
   'cost_per_bed' => 'Coût par lit',
   'no_of_bed' => 'Nombre de lits',

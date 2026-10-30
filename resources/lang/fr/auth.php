@@ -27,6 +27,6 @@
   'applicable_for' => 'Applicable à',
   'resend_code' => 'Code de resend',
   'two_factor_otp' => 'OTP à deux facteurs',
-  'student_registration' => 'Inscription des étudiants',
+  'student_registration' => 'Inscription des élèves',
   'enter_confirm_password' => 'Confirmez le mot de passe',
 );
