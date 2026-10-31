@@ -315,6 +315,67 @@ class FcmMessage
     }
 
     /**
+     * Message au format de l'API HTTP v1 de Firebase.
+     *
+     * @param string|null $token Destinataire, si le message ne vise pas un topic ou une condition
+     * @return array
+     */
+    public function toV1($token = null)
+    {
+        $notification = (array) $this->notification;
+        $high = $this->priority === self::PRIORITY_HIGH;
+
+        if (! empty($this->condition)) {
+            $message = ['condition' => $this->condition];
+        } elseif (is_string($token) && strpos($token, '/topics/') === 0) {
+            $message = ['topic' => substr($token, strlen('/topics/'))];
+        } else {
+            $message = ['token' => $token];
+        }
+
+        // v1 n'admet que title, body et image ici : le reste passe dans les blocs android et apns.
+        $content = array_intersect_key($notification, array_flip(['title', 'body', 'image']));
+        if (count($content)) {
+            $message['notification'] = array_map('strval', $content);
+        }
+
+        if (isset($this->data) && count($this->data)) {
+            $message['data'] = array_map(function ($value) {
+                if (is_null($value)) {
+                    return '';
+                }
+
+                return is_string($value) ? $value : (string) json_encode($value);
+            }, $this->data);
+        }
+
+        $sound = $notification['sound'] ?? 'default';
+
+        $message['android'] = array_filter([
+            'priority' => $high ? 'high' : 'normal',
+            'collapse_key' => $this->collapseKey,
+            'ttl' => isset($this->timeToLive) ? $this->timeToLive.'s' : null,
+            'restricted_package_name' => $this->packageName,
+            'notification' => array_filter([
+                'sound' => $sound,
+                'icon' => $notification['icon'] ?? null,
+                'click_action' => $notification['click_action'] ?? $this->data['click_action'] ?? null,
+            ]),
+        ]);
+
+        $message['apns'] = [
+            'headers' => ['apns-priority' => $high ? '10' : '5'],
+            'payload' => ['aps' => array_filter([
+                'sound' => $sound,
+                'content-available' => $this->contentAvailable ? 1 : null,
+                'mutable-content' => $this->mutableContent ? 1 : null,
+            ])],
+        ];
+
+        return $message;
+    }
+
+    /**
      * @param array $headers
      * @return $this
      */
