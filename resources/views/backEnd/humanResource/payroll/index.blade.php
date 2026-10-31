@@ -251,7 +251,7 @@
                                                                     @endif
                                                                 @endif
                                                                 @if($getPayrollDetails->payrollPayments)
-                                                                    <a class="dropdown-item modalLink" title="View Payroll Payment"
+                                                                    <a class="dropdown-item modalLink" title="{{ __('lang.View Payroll Payment') }}"
                                                                     data-modal-size="modal-xl"
                                                                   
                                                                 href="{{ route('view-payroll-payment', $getPayrollDetails->id) }}">@lang('hr.view Payment')</a>

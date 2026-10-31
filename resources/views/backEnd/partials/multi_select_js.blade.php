@@ -4,7 +4,7 @@
         $(function () {
             $("select[multiple].active.multypol_check_select").multiselect({ 
                 columns: 1, 
-                placeholder: "Select", 
+                placeholder: "@lang('common.select')", 
                 search: true, 
                 searchOptions: {default: "Select"},
                 selectAll: true, 

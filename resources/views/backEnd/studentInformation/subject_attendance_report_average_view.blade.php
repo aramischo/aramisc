@@ -103,7 +103,7 @@
                                 <div class="col-lg-3 mt-25">
                                     <label class="primary_input_label" for="">{{ __('common.month') }}  <span class="text-danger"> *</span></label>
                                     <select class="primary_input_field form-control{{ $errors->has('month') ? ' is-invalid' : '' }}" name="month">
-                                        <option data-display="Select Month *" value="">@lang('student.select_month') *</option>
+                                        <option data-display="{{ __('lang.Select Month *') }}" value="">@lang('student.select_month') *</option>
                                         <option value="01" {{isset($month)? ($month == "01"? 'selected':''):($current_month == "01"? 'selected':'')}}>@lang('student.january')</option>
                                         <option value="02" {{isset($month)? ($month == "02"? 'selected':''):($current_month == "02"? 'selected':'')}}>@lang('student.february')</option>
                                         <option value="03" {{isset($month)? ($month == "03"? 'selected':''):($current_month == "03"? 'selected':'')}}>@lang('student.march')</option>
@@ -126,7 +126,7 @@
                                 <div class="col-lg-3 mt-25  ">
                                     <label class="primary_input_label" for="">{{ __('common.year') }}  <span class="text-danger"> *</span></label>
                                     <select class="primary_input_field form-control{{ $errors->has('year') ? ' is-invalid' : '' }}" name="year">
-                                        <option data-display="Select Year *" value="">@lang('student.select_year') *</option>
+                                        <option data-display="{{ __('lang.Select Year *') }}" value="">@lang('student.select_year') *</option>
                                         @php 
                                             $current_year = date('Y');
                                             $ini = date('y');
@@ -153,7 +153,7 @@
                             <div class="col-lg-3 mt-30-md">
                                 <label class="primary_input_label" for="">{{ __('common.month') }}  <span class="text-danger"> *</span></label>
                                 <select class="primary_select" name="month">
-                                    <option data-display="Select Month *" value="">@lang('student.select_month') *</option>
+                                    <option data-display="{{ __('lang.Select Month *') }}" value="">@lang('student.select_month') *</option>
                                     <option value="01" {{isset($month)? ($month == "01"? 'selected':''):($current_month == "01"? 'selected':'')}}>@lang('student.january')</option>
                                     <option value="02" {{isset($month)? ($month == "02"? 'selected':''):($current_month == "02"? 'selected':'')}}>@lang('student.february')</option>
                                     <option value="03" {{isset($month)? ($month == "03"? 'selected':''):($current_month == "03"? 'selected':'')}}>@lang('student.march')</option>
@@ -176,7 +176,7 @@
                             <div class="col-lg-3 mt-30-md  ">
                                 <label class="primary_input_label" for="">{{ __('common.year') }}  <span class="text-danger"> *</span></label>
                                 <select class="primary_select" name="year">
-                                    <option data-display="Select Year *" value="">@lang('student.select_year') *</option>
+                                    <option data-display="{{ __('lang.Select Year *') }}" value="">@lang('student.select_year') *</option>
                                     @php 
                                         $current_year = date('Y');
                                         $ini = date('y');

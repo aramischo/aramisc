@@ -188,7 +188,7 @@
                                 <div class="col-lg-6 mt-30-md">
                                     <select class="primary_select form-control{{ $errors->has('month') ? ' is-invalid' : '' }}"
                                             name="month">
-                                        <option data-display="Select Month *" value="">@lang('student.select_month')*
+                                        <option data-display="{{ __('lang.Select Month *') }}" value="">@lang('student.select_month')*
                                         </option>
                                         <option value="01" {{isset($month)? ($month == "01"? 'selected': ''): ''}}>@lang('student.january')</option>
                                         <option value="02" {{isset($month)? ($month == "02"? 'selected': ''): ''}}>@lang('student.february')</option>
@@ -212,7 +212,7 @@
                                 <div class="col-lg-6">
                                     <select class="primary_select form-control{{$errors->has('year') ? ' is-invalid' : ''}}"
                                             name="year" id="year">
-                                        <option data-display="Select Year *" value="">@lang('student.select_year')*
+                                        <option data-display="{{ __('lang.Select Year *') }}" value="">@lang('student.select_year')*
                                         </option>
                                         @foreach (academicYears() as $academic_year)
                                             <option value="{{$academic_year->year}}">{{$academic_year->year}}

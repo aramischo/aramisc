@@ -109,7 +109,7 @@
                                                 <div class="primary_input">
                                                     <input
                                                         class="primary_input_field form-control {{ $errors->has('file') ? ' is-invalid' : '' }}"
-                                                        type="text" id="placeholderPhoto" placeholder="Excel file"
+                                                        type="text" id="placeholderPhoto" placeholder="{{ __('lang.Excel file') }}"
                                                         readonly>
 
                                                     @if ($errors->has('file'))
@@ -196,7 +196,7 @@
                                             <div class="primary_file_uploader">
                                                 <input
                                                         class="primary_input_field form-control {{ $errors->has('file') ? ' is-invalid' : '' }}"
-                                                        type="text" id="placeholderPhoto" placeholder="Excel file"
+                                                        type="text" id="placeholderPhoto" placeholder="{{ __('lang.Excel file') }}"
                                                         readonly>
                                                 <button class="" type="button">
                                                     <label class="primary-btn small fix-gr-bg" for="upload_content_file"><span

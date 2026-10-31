@@ -155,7 +155,7 @@
                                             <td>
                                             @if(@$sms_language->active_status==1)
                                                 <!-- <span class="badge badge-pill badge-success"></span> -->
-                                                    <strong>Active</strong>
+                                                    <strong>{{ __('lang.Active') }}</strong>
     
                                             @else
                                                 <!-- <span class="badge badge-pill badge-secondary"></span> -->

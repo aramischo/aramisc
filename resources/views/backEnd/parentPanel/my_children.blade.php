@@ -1702,7 +1702,7 @@
                                                             <div class="col">
                                                                 <div class="primary_input">
                                                                     <input class="primary_input_field" type="text"
-                                                                           id="placeholderPhoto" placeholder="Document"
+                                                                           id="placeholderPhoto" placeholder="{{ __('lang.Document') }}"
                                                                            disabled>
 
                                                                 </div>
@@ -1740,7 +1740,7 @@
                                                         <div class="col">
                                                             <div class="input-effect">
                                                                 <input class="primary-input" type="text"
-                                                                       id="placeholderPhoto" placeholder="Document"
+                                                                       id="placeholderPhoto" placeholder="{{ __('lang.Document') }}"
                                                                        disabled>
                                                                 <span class="focus-border"></span>
                                                             </div>
@@ -1915,7 +1915,7 @@
                                             <div class="primary_input">
                                                 <input class="primary_input_field" type="text"
                                                        id="placeholderFileFourName"
-                                                       placeholder="Document"
+                                                       placeholder="{{ __('lang.Document') }}"
                                                        disabled>
 
                                             </div>
@@ -1985,7 +1985,7 @@
                                     <div class="col">
                                         <div class="input-effect">
                                             <input class="primary-input" type="text" id="placeholderFileFourName"
-                                                   placeholder="Document"
+                                                   placeholder="{{ __('lang.Document') }}"
                                                    disabled>
                                             <span class="focus-border"></span>
                                         </div>

@@ -95,10 +95,10 @@
                                                         @if(@$submitted_answer->status == 1)
                                                             <span class="btn primary-btn small  fix-gr-bg"
                                                                 style="background:green">@lang('exam.already_submitted')</span>
-                                                            {{-- <span class="btn btn-success">Already Submitted</span> --}}
+                                                            {{-- <span class="btn btn-success">{{ __('lang.Already Submitted') }}</span> --}}
                                                             {{-- <a class="btn btn-success" href="#">@lang('exam.not_yet_start')</a> --}}
                                                         {{-- @else
-                                                            <span class="btn btn-success">Already Submitted</span> --}}
+                                                            <span class="btn btn-success">{{ __('lang.Already Submitted') }}</span> --}}
                                                         @endif
                                                     @else
                                                         

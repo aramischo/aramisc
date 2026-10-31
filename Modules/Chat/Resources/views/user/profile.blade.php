@@ -75,7 +75,7 @@
 
 
     <div class="main-title mb-25 mt-5">
-        <h3 class="mb-0">Change Password</h3>
+        <h3 class="mb-0">{{ __('lang.Change Password') }}</h3>
     </div>
 
     <form action="{{ route('chat.user.password') }}" method="POST" enctype="multipart/form-data">

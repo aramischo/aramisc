@@ -132,11 +132,11 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 @if(userPermission('parent_homework_view'))
                                                                 @if(moduleStatusCheck('University'))
-                                                                <a class="dropdown-item modalLink" title="Homework View"
+                                                                <a class="dropdown-item modalLink" title="{{ __('lang.Homework View') }}"
                                                                 data-modal-size="modal-lg"
                                                                 href="{{route('un_student_homework_view', [$value->un_semester_label_id, $value->id])}}">@lang('common.view')</a>
                                                                 @else
-                                                                    <a class="dropdown-item modalLink" title="Homework View"
+                                                                    <a class="dropdown-item modalLink" title="{{ __('lang.Homework View') }}"
                                                                        data-modal-size="modal-lg"
                                                                        href="{{route('parent_homework_view', [$value->class_id, $value->section_id, $value->id])}}">@lang('common.view')</a>
                                                                 @endif

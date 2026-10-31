@@ -135,7 +135,7 @@
                                         class="text-danger"> *</span></label>
                                 <select class="primary_select form-control{{ $errors->has('month') ? ' is-invalid' : '' }}"
                                     name="month">
-                                    <option data-display="Select Month *" value="">@lang('student.select_month') *</option>
+                                    <option data-display="{{ __('lang.Select Month *') }}" value="">@lang('student.select_month') *</option>
                                     <option value="01"
                                         {{ isset($month) ? ($month == '01' ? 'selected' : '') : ($current_month == '01' ? 'selected' : '') }}>
                                         @lang('student.january')</option>

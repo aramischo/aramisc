@@ -71,10 +71,10 @@
             <table class="d-table table-responsive custom-table" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th width="40%">Description</th>
-                        <th width="20%">Quantity</th>
-                        <th width="20%">Price</th>
-                        <th width="20%">Amount</th>
+                        <th width="40%">{{ __('lang.Description') }}</th>
+                        <th width="20%">{{ __('lang.Quantity') }}</th>
+                        <th width="20%">{{ __('lang.Price') }}</th>
+                        <th width="20%">{{ __('lang.Amount') }}</th>
                     </tr>
                 </thead>
 

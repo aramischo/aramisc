@@ -127,7 +127,7 @@
                                             </td>
                                             <td>
                                                 <x-drop-down>
-                                                        <a data-modal-size="modal-lg" title="View Content Details" class="dropdown-item modalLink" href="{{route('upload-content-student-view', $value->id)}}">@lang('common.view')</a>
+                                                        <a data-modal-size="modal-lg" title="{{ __('lang.View Content Details') }}" class="dropdown-item modalLink" href="{{route('upload-content-student-view', $value->id)}}">@lang('common.view')</a>
                                                         @if(@$value->upload_file != "")
                                                            
                                                             <a class="dropdown-item" href="{{url(@$value->upload_file)}}" download>

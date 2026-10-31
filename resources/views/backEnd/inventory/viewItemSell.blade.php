@@ -28,7 +28,7 @@
                 <!-- <div class="row">
                     <div class="col-lg-4 no-gutters">
                         <div class="main-title">
-                            <h3 class="mb-0">Item Receive List</h3>
+                            <h3 class="mb-0">{{ __('lang.Item Receive List') }}</h3>
                         </div>
                     </div>
                 </div> -->

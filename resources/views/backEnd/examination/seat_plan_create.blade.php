@@ -47,7 +47,7 @@
                             <input type="hidden" name="url" id="url" value="{{URL::to('/')}}">
                             <div class="col-lg-2 mt-30-md">
                                 <select class="primary_select form-control{{ $errors->has('exam') ? ' is-invalid' : '' }}" name="exam">
-                                    <option data-display="Select Exam *" value="">@lang('exam.select_exam') *</option>
+                                    <option data-display="{{ __('lang.Select Exam *') }}" value="">@lang('exam.select_exam') *</option>
                                     @foreach($exam_types as $exam)
                                         <option value="{{$exam->id}}" {{isset($exam_id)? ($exam_id == $exam->id? 'selected':''):''}}>{{$exam->title}}</option>
                                     @endforeach
@@ -87,7 +87,7 @@
                             </div>
                             <div class="col-lg-2 mt-30-md" id="select_subject_div">
                                 <select class="primary_select form-control{{ $errors->has('subject') ? ' is-invalid' : '' }}" id="select_subject" name="subject">
-                                    <option data-display="Select Subject *" value="">@lang('common.select_subjects') *</option>
+                                    <option data-display="{{ __('lang.Select Subject *') }}" value="">@lang('common.select_subjects') *</option>
                                     @if(isset($subject_id))
                                         <option value="" selected>@php $subject = App\AramiscSubject::select('subject_name')->where('id', $subject_id)->first(); echo $subject->subject_name; @endphp</option>
                                     @endif
@@ -220,7 +220,7 @@
                                     <div class="col">
                                         <div class="primary_input">
                                             <select class="primary_select class_room room_select" name="room[]" id="room_1">
-                                                <option data-display="Select *" value="">@lang('common.select') *</option>
+                                                <option data-display="{{ __('lang.Select *') }}" value="">@lang('common.select') *</option>
                                                 @foreach($class_rooms as $class_room)
                                                     @if(!in_array($class_room->id, $fill_uped))
                                                         <option value="{{$class_room->id}}">{{$class_room->room_no}}</option>
@@ -318,7 +318,7 @@
                                             <div class="col">
                                                 <div class="primary_input">
                                                     <select class="primary_select class_room room_select" name="room[]" id="room_{{$i}}">
-                                                        <option data-display="Select *" value="">@lang('common.select') *</option>
+                                                        <option data-display="{{ __('lang.Select *') }}" value="">@lang('common.select') *</option>
                                                         @foreach($class_rooms as $class_room)
                                                             @if(!in_array($class_room->id, $fill_uped) || $seat_plan_assign_child->room_id == $class_room->id)
                                                                 <option value="{{$class_room->id}}" {{$seat_plan_assign_child->room_id == $class_room->id? 'selected': ''}}>{{$class_room->room_no}}</option>

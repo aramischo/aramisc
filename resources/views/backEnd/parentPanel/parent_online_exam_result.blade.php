@@ -96,7 +96,7 @@
                                                     @endphp
                                                 </td>
                                                 <td>
-                                                    {{-- <a class="btn btn-success modalLink" data-modal-size="modal-lg" title="Answer Script"  href="{{route('parent_answer_script', [@$result_view->online_exam_id, @$result_view->student_id])}}" >@lang('exam.answer_script')</a> --}}
+                                                    {{-- <a class="btn btn-success modalLink" data-modal-size="modal-lg" title="{{ __('lang.Answer Script') }}"  href="{{route('parent_answer_script', [@$result_view->online_exam_id, @$result_view->student_id])}}" >@lang('exam.answer_script')</a> --}}
                                                 @php
                                                 $startTime = strtotime($result_view->onlineExam->date . ' ' . $result_view->onlineExam->start_time);
                                                 $endTime = strtotime($result_view->onlineExam->date . ' ' . $result_view->onlineExam->end_time);
@@ -105,10 +105,10 @@
                                                 @endphp
                                                 @if($now >= $endTime)
                                                 @if (moduleStatusCheck('OnlineExam')== TRUE)
-                                                    <a class="btn primary-btn" title="Answer Script"  href="{{route('om-parent_answer_script', [@$result_view->online_exam_id, @$result_view->student_id, $record->id])}}" >@lang('exam.answer_script')</a>
+                                                    <a class="btn primary-btn" title="{{ __('lang.Answer Script') }}"  href="{{route('om-parent_answer_script', [@$result_view->online_exam_id, @$result_view->student_id, $record->id])}}" >@lang('exam.answer_script')</a>
                                                 
                                                 @else
-                                                    <a class="btn primary-btn small  fix-gr-bg" data-modal-size="modal-lg" title="Answer Script"  href="{{route('parent_answer_script', [@$result_view->online_exam_id, @$result_view->student_id])}}" >@lang('exam.answer_script')</a>
+                                                    <a class="btn primary-btn small  fix-gr-bg" data-modal-size="modal-lg" title="{{ __('lang.Answer Script') }}"  href="{{route('parent_answer_script', [@$result_view->online_exam_id, @$result_view->student_id])}}" >@lang('exam.answer_script')</a>
                                                 
                                                 @endif
                                                     

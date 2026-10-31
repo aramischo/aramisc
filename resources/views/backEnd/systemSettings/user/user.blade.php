@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <select class="primary_select ">
-                                        <option data-display="Source">@lang('lang.source')</option>
+                                        <option data-display="{{ __('lang.Source') }}">@lang('lang.source')</option>
                                         <option value="1">@lang('lang.front_office')</option>
                                         <option value="2">@lang('lang.advertisement')</option>
                                         <option value="4">@lang('lang.online_front_site')</option>
@@ -63,7 +63,7 @@
 
                                 <div class="col-lg-3">
                                     <select class="primary_select ">
-                                        <option data-display="Status">@lang('common.status')</option>
+                                        <option data-display="{{ __('lang.Status') }}">@lang('common.status')</option>
                                         <option value="1">@lang('common.all')</option>
                                         <option value="2">@lang('lang.active')</option>
                                         <option value="3">@lang('lang.passive')</option>
@@ -106,8 +106,8 @@
                             <th>@lang('lang.query_date')</th>
                             <th>@lang('lang.last_follow_up_date')</th>
                             <th>@lang('lang.next_follow_up_date')</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>{{ __('lang.Status') }}</th>
+                            <th>{{ __('lang.Action') }}</th>
                         </tr>
                     </thead>
 
@@ -126,7 +126,7 @@
                             <td>31st Oct, 2018</td>
                             <td>23rd Oct, 2018</td>
                             <td>31st Oct, 2018</td>
-                            <td>Active</td>
+                            <td>{{ __('lang.Active') }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">

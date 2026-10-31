@@ -108,12 +108,12 @@
                                                                  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">@lang('common.select')</button>
                                                                      <div class="dropdown-menu dropdown-menu-right">
                                                                          @if(moduleStatusCheck('University'))
-                                                                         <a class="dropdown-item modalLink" title="Homework View" data-modal-size="modal-lg" href="{{route('student.un_student_homework_view', [$value->un_semester_label_id, $value->id])}}">@lang('common.view')</a>
+                                                                         <a class="dropdown-item modalLink" title="{{ __('lang.Homework View') }}" data-modal-size="modal-lg" href="{{route('student.un_student_homework_view', [$value->un_semester_label_id, $value->id])}}">@lang('common.view')</a>
                                                                          @else 
-                                                                         <a class="dropdown-item modalLink" title="Homework View" data-modal-size="modal-lg" href="{{route('student_homework_view', [@$value->class_id, @$value->section_id, @$value->id])}}">@lang('common.view')</a>
+                                                                         <a class="dropdown-item modalLink" title="{{ __('lang.Homework View') }}" data-modal-size="modal-lg" href="{{route('student_homework_view', [@$value->class_id, @$value->section_id, @$value->id])}}">@lang('common.view')</a>
                                                                          @endif
                                                                              @if(!@$student_result->marks)
-                                                                                 <a class="dropdown-item modalLink" title="Add Homework content" data-modal-size="modal-lg" href="{{route('add-homework-content', [@$value->id])}}">
+                                                                                 <a class="dropdown-item modalLink" title="{{ __('lang.Add Homework content') }}" data-modal-size="modal-lg" href="{{route('add-homework-content', [@$value->id])}}">
                                                                                      @lang('homework.add_content')
                                                                                  </a>
                                                                              @endif
@@ -121,7 +121,7 @@
                                                                              @if(@$student_result->marks && ($student_detail->id==@$student_result->student_id))
                                                                              
                                                                              @else
-                                                                                 <a class="dropdown-item modalLink" title="Delete Homework content" data-modal-size="modal-md" href="{{route('deleteview-homework-content', [@$value->id])}}">@lang('homework.delete_uploaded_content')</a>
+                                                                                 <a class="dropdown-item modalLink" title="{{ __('lang.Delete Homework content') }}" data-modal-size="modal-md" href="{{route('deleteview-homework-content', [@$value->id])}}">@lang('homework.delete_uploaded_content')</a>
                                                                              @endif
                                                                              @endif
                                                                              @if($uploadedContent != "")

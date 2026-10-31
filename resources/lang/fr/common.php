@@ -587,4 +587,5 @@
   'example' => 'Exemple :',
   'example_short' => 'Ex. :',
   'buy_now' => 'Acheter',
+  'warning' => 'Attention',
 );

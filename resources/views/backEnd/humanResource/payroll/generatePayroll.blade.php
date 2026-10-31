@@ -73,19 +73,19 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-9 d-flex col-9">
-                                        <div class="value ml-20" data-toggle="tooltip" title="Present!">
+                                        <div class="value ml-20" data-toggle="tooltip" title="{{ __('lang.Present!') }}">
                                             P
                                         </div>
-                                        <div class="value ml-20" data-toggle="tooltip" title="Late!">
+                                        <div class="value ml-20" data-toggle="tooltip" title="{{ __('lang.Late!') }}">
                                             L
                                         </div>
-                                        <div class="value ml-20" data-toggle="tooltip" title="Absent!">
+                                        <div class="value ml-20" data-toggle="tooltip" title="{{ __('lang.Absent!') }}">
                                             A
                                         </div>
-                                        <div class="value ml-20" data-toggle="tooltip" title="Half Day!">
+                                        <div class="value ml-20" data-toggle="tooltip" title="{{ __('lang.Half Day!') }}">
                                             F
                                         </div>
-                                        <div class="value ml-20" data-toggle="tooltip" title="Holiday!">
+                                        <div class="value ml-20" data-toggle="tooltip" title="{{ __('lang.Holiday!') }}">
                                             H
                                         </div>
                                        

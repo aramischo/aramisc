@@ -85,7 +85,7 @@
                             <a class="primary-btn small fix-gr-bg"
                                 href="{{ route('teacher-evaluation-approve-delete', $teacherEvaluation->id) }}"
                                 style="padding: 0px 10px;!important"
-                                data-bs-toggle="tooltip" title="Delete">&#x292C;</a>
+                                data-bs-toggle="tooltip" title="{{ __('lang.Delete') }}">&#x292C;</a>
                         </td>
                     </tr>
                 @endif
@@ -151,11 +151,11 @@
                             <a class="primary-btn small fix-gr-bg"
                                 href="{{ route('teacher-evaluation-approve-submit', $teacherEvaluation->id) }}"
                                 style="padding: 0px 10px;!important"
-                                data-bs-toggle="tooltip" title="Approve">&#10003;</a>
+                                data-bs-toggle="tooltip" title="{{ __('lang.Approve') }}">&#10003;</a>
                             <a class="primary-btn small fix-gr-bg"
                                 href="{{ route('teacher-evaluation-approve-delete', $teacherEvaluation->id) }}"
                                 style="padding: 0px 10px;!important"
-                                data-bs-toggle="tooltip" title="Delete">&#x292C;</a>
+                                data-bs-toggle="tooltip" title="{{ __('lang.Delete') }}">&#x292C;</a>
                         </td>
                     </tr>
                 @endif

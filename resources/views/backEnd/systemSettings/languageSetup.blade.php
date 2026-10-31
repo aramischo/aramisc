@@ -46,7 +46,7 @@
 
                                 <div class="col-xs-12 col-sm-4 pull-left">
                                 <select class="primary_select form-control {{ $errors->has('module_id') ? ' is-invalid' : '' }}" id="module_id" name="module_id">
-                                    <option data-display="Select Module *" value="">@lang('common.select_module') *</option>
+                                    <option data-display="{{ __('lang.Select Module *') }}" value="">@lang('common.select_module') *</option>
                                     @foreach($modules as $key => $module)
                                         <optgroup label="{{ $key }}">
                                             @foreach($module as $k => $moduleName)

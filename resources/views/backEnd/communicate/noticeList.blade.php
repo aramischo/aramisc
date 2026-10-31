@@ -54,7 +54,7 @@
                                                         </a>
                                                     @endif
                                                     @if (userPermission('delete-notice-view'))
-                                                        <a class="deleteUrl" data-modal-size="modal-md" title="Delete Notice"
+                                                        <a class="deleteUrl" data-modal-size="modal-md" title="{{ __('lang.Delete Notice') }}"
                                                             href="{{ route('delete-notice-view', $value->id) }}"><button
                                                                 class="primary-btn small tr-bg">@lang('common.delete') </button></a>
                                                     @endif

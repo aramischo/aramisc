@@ -21,11 +21,11 @@
                                                 <div class="d-flex radio-btn-flex ml-30 mt-1">
                                                     <div class="mr-20">
                                                         <input type="radio" name="can_teacher_chat_with_parents" id="relationFather" value="yes" class="common-radio relationButton" {{ app('general_settings')->get('chat_can_teacher_chat_with_parents') == 'yes' ? 'checked' : ''}}>
-                                                        <label for="relationFather">Yes</label>
+                                                        <label for="relationFather">{{ __('lang.Yes') }}</label>
                                                     </div>
                                                     <div class="mr-20">
                                                         <input type="radio" name="can_teacher_chat_with_parents" id="relationMother" value="no" class="common-radio relationButton" {{ app('general_settings')->get('chat_can_teacher_chat_with_parents') == 'no' ? 'checked' : ''}}>
-                                                        <label for="relationMother">No</label>
+                                                        <label for="relationMother">{{ __('lang.No') }}</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -35,11 +35,11 @@
                                                 <div class="d-flex radio-btn-flex ml-30 mt-1">
                                                     <div class="mr-20">
                                                         <input type="radio" name="can_student_chat_with_admin_account" id="relationFather1" value="yes" class="common-radio relationButton" {{ app('general_settings')->get('chat_can_student_chat_with_admin_account') == 'yes' ? 'checked' : ''}}>
-                                                        <label for="relationFather1">Yes</label>
+                                                        <label for="relationFather1">{{ __('lang.Yes') }}</label>
                                                     </div>
                                                     <div class="mr-20">
                                                         <input type="radio" name="can_student_chat_with_admin_account" id="relationMother2" value="no" class="common-radio relationButton" {{ app('general_settings')->get('chat_can_student_chat_with_admin_account') == 'no' ? 'checked' : ''}}>
-                                                        <label for="relationMother2">No</label>
+                                                        <label for="relationMother2">{{ __('lang.No') }}</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -49,11 +49,11 @@
                                                 <div class="d-flex radio-btn-flex ml-30 mt-1">
                                                     <div class="mr-20">
                                                         <input type="radio" name="admin_can_chat_without_invitation" id="relationFather3" value="yes" class="common-radio relationButton" {{ app('general_settings')->get('chat_admin_can_chat_without_invitation') == 'yes' ? 'checked' : ''}}>
-                                                        <label for="relationFather3">Yes</label>
+                                                        <label for="relationFather3">{{ __('lang.Yes') }}</label>
                                                     </div>
                                                     <div class="mr-20">
                                                         <input type="radio" name="admin_can_chat_without_invitation" id="relationMother4" value="no" class="common-radio relationButton" {{ app('general_settings')->get('chat_admin_can_chat_without_invitation') == 'no' ? 'checked' : ''}}>
-                                                        <label for="relationMother4">No</label>
+                                                        <label for="relationMother4">{{ __('lang.No') }}</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,11 +63,11 @@
                                                 <div class="d-flex radio-btn-flex ml-30 mt-1">
                                                     <div class="mr-20">
                                                         <input type="radio" name="open_chat_system" id="relationFather5" value="yes" class="common-radio relationButton" {{ app('general_settings')->get('chat_open') == 'yes' ? 'checked' : ''}}>
-                                                        <label for="relationFather5">Yes</label>
+                                                        <label for="relationFather5">{{ __('lang.Yes') }}</label>
                                                     </div>
                                                     <div class="mr-20">
                                                         <input type="radio" name="open_chat_system" id="relationMother6" value="no" class="common-radio relationButton" {{ app('general_settings')->get('chat_open') == 'no' ? 'checked' : ''}}>
-                                                        <label for="relationMother6">No</label>
+                                                        <label for="relationMother6">{{ __('lang.No') }}</label>
                                                     </div>
                                                 </div>
                                             </div>

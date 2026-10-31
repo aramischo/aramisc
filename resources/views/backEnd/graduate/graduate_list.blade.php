@@ -60,7 +60,7 @@
                                             <div class="col-lg-3 mt-0">
                                                 <div class="primary_input aramisc_mb_20 ">
                                                     <label class="primary_input_label" for="">@lang('student.search_by_name')</label>
-                                                    <input class="primary_input_field" type="text" placeholder="Name" name="name"
+                                                    <input class="primary_input_field" type="text" placeholder="{{ __('lang.Name') }}" name="name"
                                                         value="{{ isset($name) ? $name : old('name') }}">
                                                 </div>
                                             </div>

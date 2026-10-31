@@ -119,7 +119,7 @@
                                 </label>
                                 <input
                                     class="primary_input_field form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                    type="text" placeholder="Name" name="name"
+                                    type="text" placeholder="{{ __('lang.Name') }}" name="name"
                                     value="{{ isset($name) ? $name : old('name') }}">
                             </div>
                             @if ($errors->has('name'))

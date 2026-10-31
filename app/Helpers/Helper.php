@@ -491,6 +491,15 @@ if (!function_exists('moduleStatusCheck')) {
     }
 }
 
+if (!function_exists('trans_literal')) {
+
+    // Traduit à l'affichage un libellé stocké en anglais en base (événements, jours...) via resources/lang/<langue>/lang.php
+    function trans_literal($text)
+    {
+        return Illuminate\Support\Facades\Lang::has('lang.' . $text) ? __('lang.' . $text) : $text;
+    }
+}
+
 if (!function_exists('dateConvert')) {
 
     function dateConvert($input_date)

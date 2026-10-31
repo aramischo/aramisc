@@ -43,7 +43,7 @@
                         <div class="row mb-30">
                             <div class="col-lg-3">
                                         <select class="primary_select  form-control{{ $errors->has('member_type') ? ' is-invalid' : '' }}" name="member_type" id="member_type">
-                                            <option data-display="Member Type *" value="">@lang('common.member_type') *</option>
+                                            <option data-display="{{ __('lang.Member Type *') }}" value="">@lang('common.member_type') *</option>
                                             @foreach($roles as $value)
                                             @if(isset($editData))
                                             <option value="{{$value->id}}" {{$value->id == $editData->role_id? 'selected':''}}>{{$value->name}}</option>
@@ -64,7 +64,7 @@
                             <div class="col-lg-3">
                                 <div class="primary_input">
                                     <select class="primary_select  form-control{{ $errors->has('subject') ? ' is-invalid' : '' }}" name="subject" id="subject">
-                                        <option data-display="Select Subject *" value="">@lang('common.select')</option>
+                                        <option data-display="{{ __('lang.Select Subject *') }}" value="">@lang('common.select')</option>
                                         @foreach($subjects as $key=>$value)
                                         <option value="{{$value->id}}"
                                         @if(isset($editData))

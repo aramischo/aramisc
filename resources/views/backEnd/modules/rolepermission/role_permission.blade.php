@@ -214,7 +214,7 @@
             <div class="col-lg-12 text-center">
 
                 @if(Illuminate\Support\Facades\Config::get('app.app_sync')  && $role->id < 10)
-                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('common.submit') </button></span>
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('common.submit') </button></span>
                 @else
                     <button class="primary-btn fix-gr-bg">
                         <span class="ti-check"></span>

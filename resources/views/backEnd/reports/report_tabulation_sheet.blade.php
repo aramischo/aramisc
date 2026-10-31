@@ -20,7 +20,7 @@ Tabulation Report
             <div class="row">
                 <div class="col-lg-8 col-md-6">
                     <div class="main-title">
-                        <h3 class="mb-30">Select Criteria </h3>
+                        <h3 class="mb-30">{{ __('lang.Select Criteria') }}</h3>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@ Tabulation Report
                             <input type="hidden" name="url" id="url" value="{{URL::to('/')}}">
                             <div class="col-lg-4 mt-30-md">
                                 <select class="primary_select form-control{{ $errors->has('exam') ? ' is-invalid' : '' }}" name="exam">
-                                    <option data-display="Select Exam *" value="">Select Exam *</option>
+                                    <option data-display="{{ __('lang.Select Exam *') }}" value="">Select Exam *</option>
                                     @foreach($exams as $exam)
                                         <option value="{{$exam->id}}" {{isset($exam_id)? ($exam_id == $exam->id? 'selected':''):''}}>{{$exam->name}}</option>
                                     @endforeach
@@ -148,7 +148,7 @@ Tabulation Report
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <h3>Subjects</h3>
+                                                    <h3>{{ __('lang.Subjects') }}</h3>
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             @foreach($subjects as $subject)
@@ -166,17 +166,17 @@ Tabulation Report
                                         <table class="w-100 mt-30 mb-20">
                                             <thead>
                                                 <tr>
-                                                    <th>Student</th>
+                                                    <th>{{ __('lang.Student') }}</th>
                                                     <th>Position</th>
-                                                    <th>Admission No.</th>
+                                                    <th>{{ __('lang.Admission No.') }}</th>
                                                     @foreach($subjectlist as $subject)
                                                     <th>{{$subject}}</th>
                                                     @endforeach
 
-                                                    <th>Total Marks</th>
+                                                    <th>{{ __('lang.Total Marks') }}</th>
                                                     <th>Average</th>
                                                     <th>GPA</th>
-                                                    <th>Result</th>
+                                                    <th>{{ __('lang.Result') }}</th>
                                                 </tr>
                                             </thead>
 
@@ -200,7 +200,7 @@ Tabulation Report
                                                     <td>{{$row->average_mark}} </td>
                                                     <td>{{$row->gpa_point}} </td> 
                                                     <td> 
-                                                        <button class="primary-btn small bg-success text-white border-0">Pass</button>
+                                                        <button class="primary-btn small bg-success text-white border-0">{{ __('lang.Pass') }}</button>
                                                     </td>
                                                 </tr> 
 

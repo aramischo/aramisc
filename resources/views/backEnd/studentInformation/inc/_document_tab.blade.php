@@ -236,7 +236,7 @@
                                     <div class="col">
                                         <div class="primary_input">
                                             <input class="primary_input_field" type="text"
-                                                id="placeholderPhoto" placeholder="Document"
+                                                id="placeholderPhoto" placeholder="{{ __('lang.Document') }}"
                                                 disabled>
 
                                         </div>

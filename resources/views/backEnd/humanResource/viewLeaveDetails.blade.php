@@ -290,7 +290,7 @@ $days = $days_between + 1;
 
 <!-- <div class="col-lg-12 text-center mt-40">
     <div class="mt-40 d-flex justify-content-between">
-        <button type="button" class="primary-btn tr-bg" data-dismiss="modal">Cancel</button>
+        <button type="button" class="primary-btn tr-bg" data-dismiss="modal">{{ __('lang.Cancel') }}</button>
 
         <button class="primary-btn fix-gr-bg" id="" data-dismiss="modal" type="button">save information</button>
     </div>

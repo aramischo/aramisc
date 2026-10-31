@@ -154,7 +154,7 @@
     
                                 <div class="col-lg-4 mt-30-md" id="select_subject_div">
                                     <select class="primary_select form-control{{ $errors->has('subject') ? ' is-invalid' : '' }} select_subject" id="select_subject" name="subject">
-                                        <option data-display="Select subject *" value="">@lang('common.select_subjects') *</option>
+                                        <option data-display="{{ __('lang.Select subject *') }}" value="">@lang('common.select_subjects') *</option>
                                     </select>
                                     <div class="pull-right loader" id="select_subject_loader" style="margin-top: -30px;padding-right: 21px;">
                                         <img src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="" style="width: 28px;height:28px;">
@@ -327,7 +327,7 @@
                     name="complete_date" value="{{dateConvert(date('Y-m-d'))}}">
                 </div>
                 <div class="mt-40 d-flex justify-content-between">
-                    <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">Close</button>
+                    <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">{{ __('lang.Close') }}</button>
                     <button class="primary-btn fix-gr-bg" type="submit">@lang('common.save') </button>
                     
                 </div>
@@ -357,7 +357,7 @@
                   
                 </div>
                 <div class="mt-40 d-flex justify-content-between">
-                    <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">Close</button>
+                    <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">{{ __('lang.Close') }}</button>
                     <button class="primary-btn fix-gr-bg" type="submit">@lang('lesson::lesson.yes') </button>
                     
                 </div>

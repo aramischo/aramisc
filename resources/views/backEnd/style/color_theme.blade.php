@@ -140,7 +140,7 @@
                                                             @if(userPermission("themes.default"))
                                                                 @if (env('APP_SYNC'))
                                                                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                                                                        title="Disabled For Demo ">
+                                                                        title="{{ __('lang.Disabled For Demo') }}">
                                                                         <a class="primary-btn small tr-bg text-nowrap" href="#">
                                                                             @lang('style.Make Default')</a>
                                                                     </span>

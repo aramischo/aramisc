@@ -62,7 +62,7 @@
   'are_you_sure_to_approve' => 'Êtes-vous sûr d\'approuver',
   'reject_payment' => 'Rejeter le paiement',
   'are_you_sure_to_reject' => 'Êtes-vous sûr de rejeter',
-  'fees_collection' => 'Collection des frais',
+  'fees_collection' => 'Encaissement des frais',
   'collect_fees' => 'Percevoir des frais',
   'search_fees_payment' => 'Paiement des frais de recherche',
   'search_fees_due' => 'Frais de recherche dus',

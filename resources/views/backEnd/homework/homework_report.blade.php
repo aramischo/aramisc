@@ -240,7 +240,7 @@
                                                     <td>
                                                         <x-drop-down>
                                                             <a class="dropdown-item modalLink"
-                                                                title="Evaluation Report"
+                                                                title="{{ __('lang.Evaluation Report') }}"
                                                                 data-modal-size="large-modal"
                                                                 href="{{ route('homework-report-view', [@$report['student_id'], @$report['class_id'], @$report['section_id'], @$report['homework_id']]) }}">
                                                                 @lang('common.view')

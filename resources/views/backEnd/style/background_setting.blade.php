@@ -199,7 +199,7 @@
                                                     <a  class="primary-btn small fix-gr-bg " href="{{route('background_setting-status',@$background_setting->id)}}"> @lang('style.activated') </a> 
                                                 @else
                                                 @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> 
+                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> 
                                                     @if(userPermission("background_setting-status"))
                                                     <a  class="primary-btn small tr-bg" href="#"> @lang('style.make_default')</a> 
                                                     </span>

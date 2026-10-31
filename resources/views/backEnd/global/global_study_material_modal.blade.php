@@ -33,7 +33,7 @@
                          @endforeach
                      </tbody>
                      <tfoot>
-                         <button class="primary-btn fix-gr-bg submit" type="submit">Submit </button>
+                         <button class="primary-btn fix-gr-bg submit" type="submit">{{ __('lang.Submit') }}</button>
                      </tfoot>
                  </table>
              {{ Form::close() }}

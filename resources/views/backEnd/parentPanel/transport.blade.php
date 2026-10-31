@@ -97,7 +97,7 @@
                                                          
                                                         <div>
                                                              
-                                                             {{-- <a class="primary-btn small fix-gr-bg modalLink" title="Transport Details" data-modal-size="modal" href="{{route('student_transport_view_modal', [$route->route->id, $vehicle->id])}}">View</a> --}}
+                                                             {{-- <a class="primary-btn small fix-gr-bg modalLink" title="{{ __('lang.Transport Details') }}" data-modal-size="modal" href="{{route('student_transport_view_modal', [$route->route->id, $vehicle->id])}}">View</a> --}}
                                                              <a class="primary-btn small fix-gr-bg" data-toggle="modal" data-target="#transportView{{$route->route->id}}{{$vehicle->id}}"  href="#">@lang('common.view')</a>
                                                         </div>
                                                     </td>

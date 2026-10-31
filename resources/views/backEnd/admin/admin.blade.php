@@ -67,7 +67,7 @@
 
                     <div class="offset-lg-4 col-md-4 d-flex justify-content-end">
                         <select class="primary_select tr-bg mr-10">
-                            <option data-display="Column View">@lang('academics.column_view')</option>
+                            <option data-display="{{ __('lang.Column View') }}">@lang('academics.column_view')</option>
                             <option value="Name">@lang('common.name')</option>
                             <option value="Position">@lang('common.phone')</option>
                             <option value="Source">@lang('academics.source')</option>
@@ -79,7 +79,7 @@
                             <option value="Restore Visibility">@lang('academics.restore_visibility')</option>
                         </select>
                         <select class="primary_select tr-bg">
-                            <option data-display="Actions">@lang('common.action')</option>
+                            <option data-display="{{ __('lang.Actions') }}">@lang('common.action')</option>
                             <option value="1">@lang('common.print')</option>
                             <option value="2">@lang('academics.export_to_csv')</option>
                             <option value="3">@lang('academics.export_to_excel')</option>

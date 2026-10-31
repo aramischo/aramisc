@@ -587,6 +587,7 @@
 "example" => "Example:",
 "example_short" => "Ex:",
 "buy_now" => "Buy Now",
+"warning" => "Warning",
     
     ]
 ?>

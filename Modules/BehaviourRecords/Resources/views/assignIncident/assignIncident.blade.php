@@ -49,14 +49,14 @@
                                 <div class="col-lg-3 mt-25">
                                     <div class="primary_input ">
                                         <label class="primary_input_label" for="">@lang('student.search_by_name')</label>
-                                        <input class="primary_input_field" type="text" placeholder="Name" name="name"
+                                        <input class="primary_input_field" type="text" placeholder="{{ __('lang.Name') }}" name="name"
                                             value="{{ isset($name) ? $name : '' }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mt-25">
                                     <div class="primary_input md_mb_20">
                                         <label class="primary_input_label" for="">@lang('student.search_by_roll_no')</label>
-                                        <input class="primary_input_field" type="text" placeholder="Roll" name="roll_no"
+                                        <input class="primary_input_field" type="text" placeholder="{{ __('lang.Roll') }}" name="roll_no"
                                             value="{{ isset($roll_no) ? $roll_no : '' }}">
                                     </div>
                                 </div>
@@ -70,14 +70,14 @@
                                 <div class="col-lg-2 mt-0">
                                     <div class="primary_input aramisc_mb_20 ">
                                         <label class="primary_input_label" for="">@lang('student.search_by_name')</label>
-                                        <input class="primary_input_field" type="text" placeholder="Name" name="name"
+                                        <input class="primary_input_field" type="text" placeholder="{{ __('lang.Name') }}" name="name"
                                             value="{{ isset($name) ? $name : old('name') }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-1 mt-0">
                                     <div class="primary_input aramisc_mb_20 ">
                                         <label class="primary_input_label" for="">@lang('student.search_by_roll')</label>
-                                        <input class="primary_input_field" type="text" placeholder="Roll" name="roll_no"
+                                        <input class="primary_input_field" type="text" placeholder="{{ __('lang.Roll') }}" name="roll_no"
                                             value="{{ isset($roll_no) ? $roll_no : old('roll_no') }}">
                                     </div>
                                 </div>

@@ -189,7 +189,7 @@
                                     <select class="primary_select  form-control{{ $errors->has('week_start_id') ? ' is-invalid' : '' }}" name="week_start_id" id="week_start_id">
                                         <option data-display="@lang('system_settings.week_start_day') *" value="">@lang('system_settings.week_start_day') <span class="text-danger"> *</span></option>
                                         @foreach ($weekends as $weekend)
-                                            <option value="{{$weekend->id}}" @if(isset($editData)) @if(@$editData->week_start_id == @$weekend->id) selected @endif  @endif>{{$weekend->name}}</option>
+                                            <option value="{{$weekend->id}}" @if(isset($editData)) @if(@$editData->week_start_id == @$weekend->id) selected @endif  @endif>{{trans_literal($weekend->name)}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -608,7 +608,7 @@
                     <div class="row mt-40">
                         <div class="col-lg-12 text-center">
                             @if(env('APP_SYNC')==TRUE)
-                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" > @lang('common.update')</button></span>
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" > @lang('common.update')</button></span>
                             @else
                                 @if(userPermission('update-general-settings-data'))
                                     <button type="submit" class="primary-btn fix-gr-bg submit">

@@ -136,7 +136,7 @@
                                                             @endif
                                                             
                                                             @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                                                <span  tabindex="0" data-toggle="tooltip" title="Disabled For Demo"> <a href="#" class="dropdown-item small fix-gr-bg  demo_view" style="pointer-events: none;" >@lang('common.delete')</a></span>
+                                                                <span  tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <a href="#" class="dropdown-item small fix-gr-bg  demo_view" style="pointer-events: none;" >@lang('common.delete')</a></span>
                                                             @else
                                                                 @if(userPermission('for-delete-news-category'))
                                                                     <a class="deleteUrl dropdown-item" data-modal-size="modal-md" title="@lang('front_settings.delete_news_category')" href="{{route('for-delete-news-category',$value->id)}}"> @lang('common.delete')</a>

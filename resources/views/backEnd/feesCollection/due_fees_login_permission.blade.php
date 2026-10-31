@@ -51,7 +51,7 @@
                                                 )
                                                 <div class="col-lg-3 mt-25">
                                                     <div class="primary_input ">
-                                                        <input class="primary_input_field" type="text" placeholder="Name"
+                                                        <input class="primary_input_field" type="text" placeholder="{{ __('lang.Name') }}"
                                                             name="name" value="{{ isset($name) ? $name : '' }}">
                                                         <label class="primary_input_label"
                                                             for="">@lang('student.search_by_name')</label>
@@ -62,7 +62,7 @@
                                                     <div class="primary_input md_mb_20">
                                                         <label class="primary_input_label"
                                                             for="">@lang('student.search_by_roll_no')</label>
-                                                        <input class="primary_input_field" type="text" placeholder="Roll"
+                                                        <input class="primary_input_field" type="text" placeholder="{{ __('lang.Roll') }}"
                                                             name="roll_no" value="{{ isset($roll_no) ? $roll_no : '' }}">
 
 
@@ -80,7 +80,7 @@
                                                         <label class="primary_input_label"
                                                             for="">@lang('student.search_by_name')</label>
 
-                                                        <input class="primary_input_field" type="text" placeholder="Name"
+                                                        <input class="primary_input_field" type="text" placeholder="{{ __('lang.Name') }}"
                                                             name="name" value="{{ isset($name) ? $name : old('name') }}">
 
                                                     </div>

@@ -507,7 +507,7 @@
   'format_settings' => 'Paramètres de format',
   'setup_exam_rule' => 'Configurer la règle Exam',
   'disabled_student' => 'Élèves désactivés',
-  'add_notification_recipient' => 'add notification recipient',
+  'add_notification_recipient' => 'Ajouter un destinataire de notification',
   'about' => 'À propos',
   'about_system' => 'À propos du système',
   'active_status' => 'Statut actif',

@@ -158,7 +158,7 @@
                                 );
                             });
                         } else {
-                            $("#selectStaffsDiv .current").html("SELECT *");
+                            $("#selectStaffsDiv .current").html(trLiteral("SELECT *"));
                             $("#selectStaffs").find("option").not(":first").remove();
                             $("#selectStaffsDiv ul").find("li").not(":first").remove();
                         }
@@ -207,7 +207,7 @@
                                 );
                             });
                         } else {
-                            $("#selectItemsDiv .current").html("SELECT *");
+                            $("#selectItemsDiv .current").html(trLiteral("SELECT *"));
                             $("#selectItems").find("option").not(":first").remove();
                             $("#selectItemsDiv ul").find("li").not(":first").remove();
                         }
@@ -559,7 +559,7 @@
     //                             );
     //                         });
     //                     } else {
-    //                         $("#subjectSelecttDiv .current").html("Subject *");
+    //                         $("#subjectSelecttDiv .current").html(trLiteral("Subject *"));
     //                         $("#subjectSelect").find("option").not(":first").remove();
     //                         $("#subjectSelecttDiv ul").find("li").not(":first").remove();
     //                     }
@@ -762,7 +762,7 @@
                                     }
                                 });
                             } else {
-                                $("#selectStaffsDiv .current").html("SELECT *");
+                                $("#selectStaffsDiv .current").html(trLiteral("SELECT *"));
                                 $("#selectStaffs").find("option").not(":first").remove();
                                 $("#selectStaffsDiv ul").find("li").not(":first").remove();
                             }
@@ -826,7 +826,7 @@
                     "<div class='nice-select primary_select form-control' tabindex='0'>";
                 tr += "<span class='current'>"+jsLang('select_item')+"</span>";
                 tr +=
-                    "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='Search...'></div>";
+                    "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='" + trLiteral("Search...") + "'></div>";
                 tr += "<ul class='list'>";
                 tr +=
                     "<li data-value='' data-display='"+jsLang('select_item')+"' class='option selected'>"+jsLang('select_item')+"</li>";
@@ -1036,7 +1036,7 @@
                     "<div class='nice-select primary_select form-control' tabindex='0'>";
                 tr += "<span class='current'>"+jsLang('select_item')+"</span>";
                 tr +=
-                    "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='Search...'></div>";
+                    "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='" + trLiteral("Search...") + "'></div>";
                 tr += "<ul class='list'>";
                 tr +=
                     "<li data-value='' data-display='"+jsLang('select_item')+"' class='option selected'>"+jsLang('select_item')+"</li>";
@@ -2126,7 +2126,7 @@
         var alertContainer = $("#messageAlert");
     
         if (totalMarks > parseInt(mainExamMark.val())) {
-            alertContainer.text("You have distributed marks more than the exam mark");
+            alertContainer.text(trLiteral("You have distributed marks more than the exam mark"));
     
             setTimeout(function() {
                 alertContainer.text("");
@@ -2203,10 +2203,10 @@
         $('input[type="checkbox"]').each(function() {
             if ($(this).is(":checked")) {
                 $(this).attr("checked", false);
-                $(".all_check").html("Select All");
+                $(".all_check").html(trLiteral("Select All"));
             } else {
                 $(this).attr("checked", true);
-                $(".all_check").html("Unselect All");
+                $(".all_check").html(trLiteral("Unselect All"));
             }
         });
         console.log(this);
@@ -2742,7 +2742,7 @@ $(document).on("keyup", ".maxPercent", function(event) {
     });
     let total = totalMark - totalValue;
 
-    $("#mark-calculate").html('Remaining ' + ' ' + total + '%');
+    $("#mark-calculate").html(trLiteral("Remaining ") + ' ' + total + '%');
 });
 
     $(document).ready(function() {

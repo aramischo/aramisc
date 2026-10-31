@@ -118,7 +118,7 @@
                                                     @endif
                                                 </label>
                                                 <input class="primary_input_field read-only-input" type="text"
-                                                    placeholder="Roll Number" name="roll_number"
+                                                    placeholder="{{ __('lang.Roll Number') }}" name="roll_number"
                                                     value="{{ $student->roll_no }}" readonly id="roll_number">
 
                                             </div>
@@ -969,7 +969,7 @@
                                                         <span class="text-danger"> *</span>
                                                     @endif </label>
                                                 <input class="primary_input_field read-only-input" type="text"
-                                                    placeholder="Relation" name="relation" id="relation"
+                                                    placeholder="{{ __('lang.Relation') }}" name="relation" id="relation"
                                                     value="{{ $student->parents != '' ? @$student->parents->guardians_relation : '' }}"
                                                     readonly>
 
@@ -1630,7 +1630,7 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Crop Image And Upload</h4>
+                    <h4 class="modal-title">{{ __('lang.Crop Image And Upload') }}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
@@ -1641,7 +1641,7 @@
                     <button class="btn rotate float-right" data-deg="-90">
                         <i class="ti-back-left"></i></button>
                     <hr>
-                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="upload_logo">Crop</a>
+                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="upload_logo">{{ __('lang.Crop') }}</a>
                 </div>
             </div>
         </div>
@@ -1653,7 +1653,7 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Crop Image And Upload</h4>
+                    <h4 class="modal-title">{{ __('lang.Crop Image And Upload') }}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
@@ -1664,7 +1664,7 @@
                     <button class="btn rotate float-right" data-deg="-90">
                         <i class="ti-back-left"></i></button>
                     <hr>
-                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="FatherPic_logo">Crop</a>
+                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="FatherPic_logo">{{ __('lang.Crop') }}</a>
                 </div>
             </div>
         </div>
@@ -1677,7 +1677,7 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Crop Image And Upload</h4>
+                    <h4 class="modal-title">{{ __('lang.Crop Image And Upload') }}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
@@ -1688,7 +1688,7 @@
                     <button class="btn rotate float-right" data-deg="-90">
                         <i class="ti-back-left"></i></button>
                     <hr>
-                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="Mother_logo">Crop</a>
+                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="Mother_logo">{{ __('lang.Crop') }}</a>
                 </div>
             </div>
         </div>
@@ -1701,7 +1701,7 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Crop Image And Upload</h4>
+                    <h4 class="modal-title">{{ __('lang.Crop Image And Upload') }}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
@@ -1713,7 +1713,7 @@
                         <i class="ti-back-left"></i></button>
                     <hr>
 
-                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="Gurdian_logo">Crop</a>
+                    <a href="javascript:;" class="primary-btn fix-gr-bg pull-right" id="Gurdian_logo">{{ __('lang.Crop') }}</a>
                 </div>
             </div>
         </div>

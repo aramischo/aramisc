@@ -147,7 +147,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <h3>Subjects</h3>
+                                                    <h3>{{ __('lang.Subjects') }}</h3>
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             @foreach($subjects as $subject)
@@ -163,8 +163,8 @@
                                         <table class="w-100 mt-30 mb-20">
                                             <thead>
                                                 <tr>
-                                                    <th>Student</th>
-                                                    <th>Admission No.</th>
+                                                    <th>{{ __('lang.Student') }}</th>
+                                                    <th>{{ __('lang.Admission No.') }}</th>
                                                     @php
                                                         $subjects = $marks_register->marksRegisterChilds;
                                                        

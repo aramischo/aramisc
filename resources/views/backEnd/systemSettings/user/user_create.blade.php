@@ -135,7 +135,7 @@
                                     <div class="row no-gutters input-right-icon">
                                         <div class="col">
                                             <div class="primary_input">
-                                                <input class="primary_input_field form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" type="Password" placeholder="Phone *" name="phone" autocomplete="off">
+                                                <input class="primary_input_field form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" type="Password" placeholder="{{ __('lang.Phone *') }}" name="phone" autocomplete="off">
                                                 
                                                 @if ($errors->has('phone'))
                                                     <span class="text-danger" >
@@ -149,7 +149,7 @@
                                     <div class="row no-gutters input-right-icon">
                                         <div class="col">
                                             <div class="primary_input">
-                                                <input class="primary_input_field form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" type="text" placeholder="Phone *" name="phone" autocomplete="off">
+                                                <input class="primary_input_field form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" type="text" placeholder="{{ __('lang.Phone *') }}" name="phone" autocomplete="off">
                                                 
                                                 @if ($errors->has('phone'))
                                                     <span class="text-danger" >

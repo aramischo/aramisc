@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        {{-- <button class="primary-btn fix-gr-bg" type="button" id="create-option-edit">Create</button> --}}
+                        {{-- <button class="primary-btn fix-gr-bg" type="button" id="create-option-edit">{{ __('lang.Create') }}</button> --}}
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        {{-- <button class="primary-btn fix-gr-bg" type="button" id="create-option-edit">Create</button> --}}
+                        {{-- <button class="primary-btn fix-gr-bg" type="button" id="create-option-edit">{{ __('lang.Create') }}</button> --}}
                     </div>
                 </div>
             </div>

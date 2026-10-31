@@ -371,7 +371,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
     
                                                                 @if (userPermission('view-leave-details-apply'))
-                                                                    <a data-modal-size="modal-lg" title="View Leave Details"
+                                                                    <a data-modal-size="modal-lg" title="{{ __('lang.View Leave Details') }}"
                                                                         class="dropdown-item modalLink"
                                                                         href="{{ route('view-leave-details-apply', $apply_leave->id) }}">@lang('common.view')</a>
                                                                 @endif

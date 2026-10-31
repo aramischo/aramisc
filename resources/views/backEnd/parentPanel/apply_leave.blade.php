@@ -303,7 +303,7 @@
                                                         <x-drop-down>
                                                             @if (userPermission('parent-view-leave-details-apply'))
                                                                 <a data-modal-size="modal-lg"
-                                                                    title="View Leave Details"
+                                                                    title="{{ __('lang.View Leave Details') }}"
                                                                     class="dropdown-item modalLink"
                                                                     href="{{ route('parent-view-leave-details-apply', $apply_leave->id) }}">@lang('common.view')</a>
                                                             @endif

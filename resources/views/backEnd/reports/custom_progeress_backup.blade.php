@@ -248,7 +248,7 @@
                      @foreach ($assigned_exam as $key => $exam)
 
                       @foreach ($assign_subjects as $subject)
-                          <td >Mark</td>
+                          <td >{{ __('lang.Mark') }}</td>
                           <td >GPA</td>
                       @endforeach
                    

@@ -323,9 +323,9 @@
                                     <td>{{($grand_total==0)?0:number_format($grand_total/$grand_total_marks*100, 2)}}</td>
                                     <td>
                                         @if($final_result == 0)
-                                            <button class="primary-btn small bg-success text-white border-0">Pass</button>
+                                            <button class="primary-btn small bg-success text-white border-0">{{ __('lang.Pass') }}</button>
                                         @else
-                                            <button class="primary-btn small bg-danger text-white border-0">Fail</button>
+                                            <button class="primary-btn small bg-danger text-white border-0">{{ __('lang.Fail') }}</button>
                                         @endif
                                     </td>
                                 </tr>
