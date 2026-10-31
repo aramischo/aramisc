@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\AdminSection;
 
 use App\Role;
 use App\AramiscClass;
+use App\AramiscClassSection;
 use App\AramiscStaff;
 use App\AramiscParent;
 use App\AramiscSection;
@@ -224,7 +225,8 @@ class AramiscStudentIdCardController extends Controller
             $id_cards = AramiscStudentIdCard::get();
             $roles = Role::get();
             $classes = AramiscClass::get();
-            return view('backEnd.admin.idCard.generate_id_card', compact('id_cards','roles','classes'));
+            $sections = old('class') ? AramiscClassSection::with('sectionName')->where('class_id', old('class'))->get() : collect();
+            return view('backEnd.admin.idCard.generate_id_card', compact('id_cards','roles','classes','sections'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -237,6 +239,10 @@ class AramiscStudentIdCardController extends Controller
             'role' => 'required',
             'id_card' => 'required',
             'grid_gap' => 'required',
+        ], [], [
+            'role' => __('common.role'),
+            'id_card' => __('admin.id_card'),
+            'grid_gap' => __('admin.grid_gap'),
         ]);
         if ($request->role==2) {
             $s_students = AramiscStudent::when($request->class, function($q) use($request){
@@ -256,6 +262,10 @@ class AramiscStudentIdCardController extends Controller
             $s_students = AramiscParent::whereIn('id', $studentGuardian)->get();
         } else {
             $s_students = AramiscStaff::whereRole($request->role)->status()->get();
+        }
+        if ($s_students->isEmpty()) {
+            Toastr::warning(__('common.no_data_available_in_table'), __('common.warning'));
+            return redirect()->back()->withInput();
         }
         $id_card = AramiscStudentIdCard::status()->find($request->id_card);
 

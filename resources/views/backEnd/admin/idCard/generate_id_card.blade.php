@@ -42,7 +42,7 @@
                                 <select class="primary_select" name="role" id="role_id">
                                     <option data-display="@lang('admin.select_role') *" value="">@lang('admin.select_role') *</option>
                                     @foreach($roles as $role)
-                                    <option value="{{@$role->id}}" {{isset($class_id)? ($class_id == $class->id? 'selected':''):''}}>{{@$role->name}}</option>
+                                    <option value="{{@$role->id}}" {{old('role') == @$role->id ? 'selected':''}}>{{@$role->name}}</option>
                                     @endforeach
                                 </select>
                                
@@ -58,7 +58,13 @@
                                 <label class="primary_input_label" for="">@lang('admin.id_card') <span class="text-danger"> *</span></label>
                                 <select class="primary_select" id="id_card_list" name="id_card">
                                     <option data-display=" @lang('admin.select_id_card') *" value=""> @lang('admin.select_id_card') *</option>
-                                  
+                                    @if(old('role'))
+                                        @foreach($id_cards as $id_card)
+                                            @if($id_card->active_status == 1 && in_array(old('role'), json_decode($id_card->role_id) ?: []))
+                                            <option value="{{@$id_card->id}}" {{old('id_card') == @$id_card->id ? 'selected':''}}>{{@$id_card->title}}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </select>
                                 <div class="pull-right loader loader_style" id="select_id_card_loader">
                                     <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
@@ -73,7 +79,7 @@
                             <div class="col-lg-4 mt-30-md">
                                 <div class="primary_input">
                                     <label class="primary_input_label" for="">@lang('admin.grid_gap') (px) <span class="text-danger"> *</span></label>
-                                    <input class="primary_input_field" type="number" name="grid_gap" autocomplete="off" value="{{old('grid_gap')}}">
+                                    <input class="primary_input_field" type="number" name="grid_gap" autocomplete="off" value="{{old('grid_gap', 10)}}">
                                     @if ($errors->has('grid_gap'))
                                     <span class="text-danger">
                                         {{ $errors->first('grid_gap') }}
@@ -82,7 +88,7 @@
                                 </div>
                             </div>
 
-                            <div class="forStudentWrapper col-lg-12 mt-20">
+                            <div class="forStudentWrapper col-lg-12 mt-20" @if(old('role') == 2) style="display: block" @endif>
                                 <div class="row">
                                     <div class="col-lg-6 mb-30">
                                         <label class="primary_input_label" for="">
@@ -117,6 +123,12 @@
                                             <option data-display="@lang('common.select_section')" value="">
                                                 @lang('common.select_section')
                                             </option>
+                                            @foreach ($sections as $section)
+                                                <option value="{{ @$section->section_id }}"
+                                                    {{ old('section') == @$section->section_id ? 'selected' : '' }}>
+                                                    {{ @$section->sectionName->section_name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                         @if ($errors->has('section'))
                                             <span class="text-danger">
@@ -259,7 +271,7 @@ $(document).ready(function() {
                             );
                         });
                     } else {
-                        $("#id-card-div .current").html("ID Card *");
+                        $("#id-card-div .current").html("@lang('admin.select_id_card') *");
                         $("#id_card_list").find("option").not(":first").remove();
                         $("#id-card-div ul").find("li").not(":first").remove();
                     }
