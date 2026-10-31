@@ -1158,3 +1158,37 @@ Commits `25e84192` → passe 5. Outils (scratchpad, non versionnés) : modificat
   installateur, menu SaaS ; Frontend CMS ; **données en base** (Male/Female, religions, rôles « Student/Teacher… »,
   copyright, textes des modèles SMS/e-mail) à traduire par l'utilisateur.
 - `php artisan view:cache` échoue (chemin `resources/views/modules/rolepermission` configuré mais absent) — préexistant.
+
+## Génération des cartes d'identité : formulaire vidé après erreur (30/10)
+
+- Symptôme : `Espace de grille` vide à la soumission → retour sur `GET /generate-id-card-search` avec rôle, carte, classe et section perdus (liste des cartes vide, recherche impossible sans tout refaire).
+- Correctif : `grid_gap` à 10 par défaut ; rôle, carte, classe et section restaurés via `old()` (`AramiscStudentIdCardController@generateIdCard` + `generate_id_card.blade.php`) ; noms de champs traduits dans les messages de validation ; libellé `ID Card *` en dur remplacé ; aucun résultat → retour au formulaire avec un avertissement au lieu d'une page blanche ; clé `common.warning` ajoutée.
+- À savoir : seul le modèle `Model1` existe et il ne cible que le rôle Élève, donc la liste des cartes reste vide pour les autres rôles tant qu'aucun modèle ne les couvre.
+
+## Anglais résiduel en version FR : calendriers, notifications, textes en dur (30/10)
+
+- Calendrier académique : FullCalendar 6 sans `locale` → ajout de `locale: _locale` et de `locales-all.global.min.js`. Sélecteurs de date : `$.fn.datepicker.defaults.language` défini dans `date_picker_css_js`, ce qui couvre les modales AJAX ; `moment.updateLocale('en', …)` traduit mois/jours sans toucher aux formats (`LT` inchangé). Les 4 vues qui n'indiquaient aucun format gardent explicitement `mm/dd/yyyy`.
+- Notifications : ~4 500 appels `Toastr::x('…')` / `toastr.x('…')` en anglais. Traduction en un seul point : `window.trLiteral` + enveloppe de `toastr.*` dans `partials/footer.blade.php`, table dans `resources/lang/fr/lang.php` (clé = texte anglais exact ; une clé finissant par un espace traduit aussi un début de message). Ajouter ici tout nouveau message plutôt que de le traduire dans le contrôleur.
+- `trLiteral` dans `custom.js`, `developer.js` et `nice-select.min.js` ; helper PHP `trans_literal()` pour les libellés stockés en base (événements de notification, jours). Vues Blade : attributs et balises simples passés en `__('lang.…')`, sauf les `<option>` sans `value`.
+- Noms de rôles : NE PAS les traduire en base, le code teste `Student`, `Parents`, `Teacher`… (dont `AramiscAuthController`).
+- Non traité : Frontend CMS, descriptions de modules (`/manage-adons`), devises, reçus de paiement de démonstration.
+
+## Push Firebase : `FcmChannel` migré vers l'API v1 (31/10)
+
+- `fcm/send` étant fermé (404), `FcmChannel` passe par `FirebasePushService::send()` ; `FcmMessage::toV1()` construit le message (données converties en chaînes, `sound`/`icon`/`click_action` dans les blocs android et apns, un envoi par jeton). `dryRun(true)` correspond à `validate_only`.
+- Jeton refusé `UNREGISTERED` → `device_token` remis à null ; l'application en renvoie un via `set-fcm-token`.
+- Vérifié : 18 classes de notification validées par Firebase en `validate_only` (rien livré), câblage et purge testés avec `Http::fake`. Livraison réelle non testée : aucun appareil n'a de jeton valide.
+- Reste sur `fcm/send` : 9 blocs `notificationToken` dans les contrôleurs. La passerelle « Mobile SMS » (`apk_secret()` dans `services.fcm.key`, `sendSmsJob`) ne fonctionnait plus avant la migration et son jeton dépend peut-être d'un autre projet Firebase.
+
+## Application mobile (`C:\workspace\aramisc`) : simulation Firebase sur émulateur (31/10)
+
+- L'application cible `https://aramisc.com` : les jetons des téléphones sont dans la base de production, pas dans la base locale.
+- Vraie livraison vérifiée sur l'émulateur (`New_Device_API_36`) depuis le serveur local, via `notify()` → `FcmChannel` → API v1 : application ouverte, en arrière-plan et fermée.
+- Corrigés dans `lib/main.dart` et `AndroidManifest.xml` (non commités) : notification en double en arrière-plan, exception de `getToken` au démarrage sans réseau (l'écran reste toutefois sur le logo après 30 s, cause non établie), canal par défaut `high_importance_channel`.
+- Reste à faire : navigation au clic (`TODO` dans `main.dart`), désabonnement des topics et effacement du jeton à la déconnexion. Connexion et écrans non testés (production).
+
+## Application mobile reliée à `dev.aramisc.com` sur émulateur (31/10)
+
+- Méthode : émulateur lancé avec `-writable-system -memory 4096`, `10.0.2.2 dev.aramisc.com` dans `/system/etc/hosts` de l'émulateur, `domainName` modifié le temps du test puis remis sur `https://aramisc.com`. Avec les 2 Go par défaut, Android tue l'application debug (`lowmemorykiller`).
+- Validé avec le compte élève : connexion, `set-fcm-token` en base, notification reçue une fois (ouverte et arrière-plan), 11 écrans en lecture seule sans erreur HTTP ni exception. Notes de `users.device_token` : le jeton de l'utilisateur 5 est celui de l'émulateur.
+- L'interface s'affiche en anglais sur ce serveur (cause non établie). L'application enregistre le mot de passe en clair (`login_controller.dart:65`).
