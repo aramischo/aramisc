@@ -359,7 +359,8 @@ class FcmMessage
             'notification' => array_filter([
                 'sound' => $sound,
                 'icon' => $notification['icon'] ?? null,
-                'click_action' => $notification['click_action'] ?? $this->data['click_action'] ?? null,
+                // Pas celui de data : Android cherche une activité déclarant cette action, sinon le clic n'ouvre rien.
+                'click_action' => $notification['click_action'] ?? null,
             ]),
         ]);
 

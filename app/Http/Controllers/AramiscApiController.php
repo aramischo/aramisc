@@ -904,9 +904,8 @@ class AramiscApiController extends Controller
     public function setFcmToken(Request $request)
     {
 
-        $user = User::find($request->id);
-        $user->device_token = $request->token;
-        $user->save();
+        // Toujours le compte connecté : l'id reçu permettrait de capter les notifications d'un autre utilisateur.
+        $request->user()->assignDeviceToken($request->token);
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $data = '';
             return ApiBaseMethod::sendResponse($data, 'Token Updated');

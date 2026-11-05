@@ -162,6 +162,7 @@ class AuthenticationController extends Controller
         // return response()->json($response, 200);
 
         $user = $request->user();
+        $user->assignDeviceToken(null);
         $user->token()->revoke();
 
         return response([

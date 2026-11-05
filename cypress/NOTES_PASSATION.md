@@ -1192,3 +1192,10 @@ Commits `25e84192` → passe 5. Outils (scratchpad, non versionnés) : modificat
 - Méthode : émulateur lancé avec `-writable-system -memory 4096`, `10.0.2.2 dev.aramisc.com` dans `/system/etc/hosts` de l'émulateur, `domainName` modifié le temps du test puis remis sur `https://aramisc.com`. Avec les 2 Go par défaut, Android tue l'application debug (`lowmemorykiller`).
 - Validé avec le compte élève : connexion, `set-fcm-token` en base, notification reçue une fois (ouverte et arrière-plan), 11 écrans en lecture seule sans erreur HTTP ni exception. Notes de `users.device_token` : le jeton de l'utilisateur 5 est celui de l'émulateur.
 - L'interface s'affiche en anglais sur ce serveur (cause non établie). L'application enregistre le mot de passe en clair (`login_controller.dart:65`).
+
+## Sécurité et notifications : passe du 31/10
+
+- `set-fcm-token` : l'`id` reçu est ignoré, le jeton va au compte connecté (`User::assignDeviceToken`), et il est retiré des autres comptes. La déconnexion v2 efface `device_token`.
+- `FcmMessage::toV1` : ne pas recopier `click_action` de `data` dans le bloc Android, l'application ne déclare pas cette action et le clic n'ouvrirait rien.
+- Application (non commitée) : mot de passe en stockage chiffré (`flutter_secure_storage`), retrait des topics à la déconnexion, clic → liste des notifications.
+- Testé sur émulateur connecté à `dev.aramisc.com`, sauf le retrait des topics, non vérifiable sans envoi réel à un groupe.

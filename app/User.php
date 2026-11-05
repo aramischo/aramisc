@@ -153,6 +153,23 @@ class User extends Authenticatable
         return $this->device_token;
     }
 
+    /**
+     * Rattache l'appareil à cet utilisateur. Sur un téléphone partagé, le compte précédent
+     * ne doit plus recevoir les notifications : le jeton est retiré des autres comptes.
+     *
+     * @param  string|null  $token
+     * @return void
+     */
+    public function assignDeviceToken($token)
+    {
+        if ($token) {
+            static::where('device_token', $token)->where('id', '<>', $this->id)->update(['device_token' => null]);
+        }
+
+        $this->device_token = $token;
+        $this->save();
+    }
+
     public function getProfileAttribute()
     {
         $role_id = Auth::user()->role_id;
