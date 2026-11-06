@@ -9,6 +9,11 @@ RewriteEngine On
 # Dossiers internes jamais destinés au web (code source, dépendances, logs, sauvegardes…)
 RewriteRule ^(\.git|\.github|\.idea|\.vs|\.claude|vendor|node_modules|storage|bootstrap|database|tests|scripts|cypress|config|resources|routes|app)(/|$) - [F,L]
 
+# Fichiers et dossiers cachés (.env, .env.*, .gitignore…), sauf /.well-known (certificat SSL).
+# Doublon voulu des <FilesMatch> plus bas : OpenLiteSpeed (CyberPanel) ignore <FilesMatch>/Require.
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteRule (^|/)\. - [F,L]
+
 # Modules & packages : bloquer le code source (PHP, etc.) MAIS laisser passer les assets statiques.
 # (Plusieurs modules chargent leurs js/css directement depuis Modules/<Module>/Resources/assets/.)
 RewriteCond %{REQUEST_URI} !\.(js|mjs|css|map|png|jpe?g|gif|svg|webp|avif|ico|cur|woff2?|ttf|otf|eot)$ [NC]
@@ -40,7 +45,7 @@ RewriteRule ^ index.php [L]
 </IfModule>
 
 # Refuser tout fichier caché (.env, .env.cypress, .gitignore, .htaccess…)
-<FilesMatch "^\.">
+<FilesMatch "^\.(?!well-known$)">
     Require all denied
 </FilesMatch>
 
