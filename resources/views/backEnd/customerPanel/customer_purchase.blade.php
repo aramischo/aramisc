@@ -16,7 +16,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <select class="primary_select ">
-                                        <option data-display="Select Class">@lang('student.select_month')</option>
+                                        <option data-display="{{ __('lang.Select Class') }}">@lang('student.select_month')</option>
                                         <option value="1"> @lang('student.may') </option>
                                         <option value="2"> @lang('student.june') </option>
                                     </select>
@@ -24,7 +24,7 @@
 
                                 <div class="col-lg-6 mt-30-md">
                                     <select class="primary_select ">
-                                        <option data-display="Select Class">@lang('common.select_package')</option>
+                                        <option data-display="{{ __('lang.Select Class') }}">@lang('common.select_package')</option>
                                         <option value="1">@lang('common.aramisc_edu')</option>
                                         <option value="2">@lang('common.aramisc_clasified')</option>
                                     </select>

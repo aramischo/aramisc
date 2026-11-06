@@ -1538,7 +1538,7 @@
                                                     @endphp
                                                     @if ($now >= $endTime)
                                                         <a class="linkopenmodal btn btn-success modalLink" data-modal-size="modal-lg"
-                                                            title="Answer Script"
+                                                            title="{{ __('lang.Answer Script') }}"
                                                             href="
                                                     @if (moduleStatusCheck('OnlineExam')) {{ route('om-student_answer_script-modal', [@$result_view->online_exam_id, @$result_view->student_id, @$result_view->student_record_id]) }}
                                                     @else
@@ -1816,7 +1816,7 @@
                                                         <div class="col">
                                                             <div class="primary_input">
                                                                 <input class="primary_input_field" type="text"
-                                                                    id="placeholderPhoto" placeholder="Document" disabled>
+                                                                    id="placeholderPhoto" placeholder="{{ __('lang.Document') }}" disabled>
     
                                                             </div>
                                                         </div>
@@ -1843,7 +1843,7 @@
                                                         <button type="button" class="primary-btn tr-bg"
                                                             data-dismiss="modal">@lang('common.cancel')</button>
     
-                                                        <button class="primary-btn fix-gr-bg" type="submit">save</button>
+                                                        <button class="primary-btn fix-gr-bg" type="submit">{{ __("common.save") }}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2014,7 +2014,7 @@
                                     <div class="col">
                                         <div class="primary_input">
                                             <input class="primary_input_field" type="text"
-                                                id="placeholderFileFourName" placeholder="Document" disabled>
+                                                id="placeholderFileFourName" placeholder="{{ __('lang.Document') }}" disabled>
 
                                         </div>
                                     </div>
@@ -2047,7 +2047,7 @@
                                     <button type="button" class="primary-btn tr-bg"
                                         data-dismiss="modal">@lang('common.cancel')</button>
 
-                                    <button class="primary-btn fix-gr-bg" type="submit">save</button>
+                                    <button class="primary-btn fix-gr-bg" type="submit">{{ __("common.save") }}</button>
                                 </div>
                             </div>
                         </div>

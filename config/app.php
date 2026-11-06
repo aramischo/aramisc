@@ -9,7 +9,7 @@ return [
 
     'debug' => env('APP_DEBUG', true),
 
-    'name' => env('APP_NAME', 'Aramisc Edu'),
+    'name' => env('APP_NAME', 'Aramisc'),
 
     'force_https'=> env('FORCE_HTTPS',false),
 
@@ -76,7 +76,7 @@ return [
 
     /* 'timezone' => 'UTC', */
     // 'timezone' => 'Asia/Dhaka',
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'timezone' => env('APP_TIMEZONE', 'Africa/Casablanca'),
 
     /*
     |--------------------------------------------------------------------------
@@ -181,6 +181,7 @@ return [
         Larabuild\Optionbuilder\ServiceProvider::class,
         Larabuild\Pagebuilder\ServiceProvider::class,
 
+        Laracasts\Cypress\CypressServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Vite' => Illuminate\Support\Facades\Vite::class,
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
         'PDF' => Barryvdh\DomPDF\Facade::class,
     

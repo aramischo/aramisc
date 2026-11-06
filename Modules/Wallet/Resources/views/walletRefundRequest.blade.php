@@ -124,7 +124,7 @@
                         <textarea readonly id="noteArea" class="form-control" rows="4"></textarea>
                     </div>
                     <div class="mt-40 d-flex justify-content-between">
-                        <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">Close</button>
+                        <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">{{ __('lang.Close') }}</button>
                     </div>
                 </div>
             </div>

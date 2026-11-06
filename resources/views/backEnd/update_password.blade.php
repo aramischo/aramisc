@@ -111,7 +111,7 @@
                                     <div class="col-lg-12 mt-20 text-center">
                                         @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                             <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                                                title="Disabled For Demo ">
+                                                title="{{ __('lang.Disabled For Demo') }}">
                                                 <button style="pointer-events: none;"
                                                     class="primary-btn small fix-gr-bg  demo_view" type="button">
                                                     @lang('auth.change_password')</button>

@@ -16,7 +16,7 @@ function send_notification()
         $firebaseService->sendToToken($_REQUEST['token'], $_REQUEST['title'], $_REQUEST['body']);
     }
 	
-	//echo 'Aramisc Edu';
+	//echo 'Aramisc';
 //define( 'API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
     define('API_ACCESS_KEY', Cache::get('firebase_access_token'));
  //   $registrationIds = ;

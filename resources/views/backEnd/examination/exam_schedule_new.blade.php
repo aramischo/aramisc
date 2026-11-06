@@ -42,7 +42,7 @@
                             <div class="col-lg-4 mt-30-md">
                                 <select class="primary_select form-control{{ $errors->has('exam') ? ' is-invalid' : '' }}"
                                     name="exam_type">
-                                    <option data-display="Select Exam *"
+                                    <option data-display="{{ __('lang.Select Exam *') }}"
                                         value="">@lang('common.select_exam') *
                                     </option>
                                     @foreach ($exam_types as $exam_type)

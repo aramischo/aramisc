@@ -44,9 +44,9 @@ return [
 
 "all_admins" => "Tous les administrateurs",
 
-"all_students_of" => "Tous les étudiants de",
+"all_students_of" => "Tous les élèves de",
 
-"all_classes_student" => "Tous les étudiants de classe",
+"all_classes_student" => "Tous les élèves de classe",
 
 "all_classes" => "Toutes les classes",
 
@@ -99,5 +99,10 @@ return [
 "upload_document" => "Télécharger le document",
 
 "Other" => "Autres",
+"download" => "Télécharger",
+"study" => "Supports de cours",
+"delete_other_download" => "Supprimer les autres téléchargements",
+"log" => "Journal",
+"study_material_list" => "Liste des supports de cours",
 
 ];

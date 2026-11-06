@@ -17,7 +17,7 @@ class ExampleTest extends TestCase
     $this->browse(function (Browser $browser) {
             $browser->visit('logout')
                     ->visit('login')
-                    ->type('email','admin@spondonit.com')
+                    ->type('email','admin@aramisc.com')
                     ->type('password','123456')
                     ->click('#btnsubmit')
                     ->waitForText('Welcome to')

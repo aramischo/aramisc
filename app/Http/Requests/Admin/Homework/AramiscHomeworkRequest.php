@@ -11,6 +11,16 @@ class AramiscHomeworkRequest extends FormRequest
         return true;
     }
 
+    // Le formulaire envoie les dates au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // les règles « date » / « after », qui les liraient sinon en m/j/aaaa (refus dès que le jour dépasse 12).
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'homework_date' => $this->homework_date ? toDbDateConvert($this->homework_date) : $this->homework_date,
+            'submission_date' => $this->submission_date ? toDbDateConvert($this->submission_date) : $this->submission_date,
+        ]);
+    }
+
     public function rules()
     {
         $maxFileSize=generalSetting()->file_size*1024;

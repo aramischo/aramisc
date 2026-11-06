@@ -18,12 +18,12 @@ return new class extends Migration
         if (!$exist) {
             $s3 = new AramiscModuleManager();
             $s3->name = "Certificate";
-            $s3->email = 'support@spondonit.com';
+            $s3->email = 'support@aramisc.com';
             $s3->notes = "This is the module to generate Certificate's for students and employees.";
             $s3->version = "1.0";
-            $s3->update_url = "https://spondonit.com/contact";
+            $s3->update_url = "https://aramisc.com/contact";
             $s3->is_default = 0;
-            $s3->addon_url = "maito:support@spondonit.com";
+            $s3->addon_url = "maito:support@aramisc.com";
             $s3->installed_domain = url('/');
             $s3->activated_date = date('Y-m-d');
             $s3->save();

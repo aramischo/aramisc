@@ -1,0 +1,47 @@
+[2026-07-25T11:33:51.018Z] [TEST FAILED] Spec: cypress/e2e/admin/academics.cy.js
+Test: Admin – Academics Section - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'une section
+Error: Timed out after waiting `60000ms` for your remote page to load.
+
+Your page did not fire its `load` event within `60000ms`.
+
+You can try increasing the `pageLoadTimeout` value in `cypress.config.js` to wait longer.
+
+Browsers will not fire the `load` event until all stylesheets and scripts are done downloading.
+
+When this `load` event occurs, Cypress will continue running commands.
+Stack: CypressError: Timed out after waiting `60000ms` for your remote page to load.
+
+Your page did not fire its `load` event within `60000ms`.
+
+You can try increasing the `pageLoadTimeout` value in `cypress.config.js` to wait longer.
+
+Browsers will not fire the `load` event until all stylesheets and scripts are done downloading.
+
+When this `load` event occurs, Cypress will continue running commands.
+    at timedOutWaitingForPageLoad (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:135199:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:135516:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at module.exports (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4156:41)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1667:18)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1209:17)
+    at Promise._passThrough (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4080:17)
+    at Promise.<anonymous> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4089:17)
+    at Object.onRunnableRun (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:174485:53)
+    at $Cypress.action (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:41934:28)
+    at Test.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156401:13)
+    at Runner.runTest (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166831:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166957:12)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166748:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166758:7)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166660:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166726:5)
+    at timeslice (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156752:27)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/admin/academics.cy.js:32:9)
+---

@@ -49,8 +49,6 @@
         .login{
             height: auto;
             min-height: 100vh;
-            padding: 100px;
-            display: block !important;
         }
 
         .row_gap_24 input.input-control-input {
@@ -93,6 +91,10 @@
         }
 
         @media only screen and (min-width: 830px){
+            .login{
+                padding: 100px;
+                display: block !important;
+            }
             .login_wrapper.logo{
                 padding: 0px 0;
                 min-height: 350px;

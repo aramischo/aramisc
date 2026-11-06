@@ -32,7 +32,7 @@ if (!function_exists('color_theme')) {
 }
 
 if (!function_exists('userColorThemeActive')) {
-    function userColorThemeActive(int $user_id = null)
+    function userColorThemeActive(?int $user_id = null)
     {
         $school_id = auth()->user()->school_id ?? 1;
         $cache_key = $user_id ? ('active_theme_user_' . $user_id) : 'active_theme_school_' . $school_id;
@@ -54,7 +54,7 @@ if (!function_exists('userColorThemeActive')) {
 }
 
 if (!function_exists('userColorThemes')) {
-    function userColorThemes(int $user_id = null)
+    function userColorThemes(?int $user_id = null)
     {
 
         $themes = Theme::with('colors')
@@ -107,7 +107,7 @@ if (!function_exists('currency_format_list')) {
     }
 }
 if (!function_exists('currency_format')) {
-    function currency_format($amount = null, string $format = null)
+    function currency_format($amount = null, ?string $format = null)
     {
         if (!$amount) return false;
         $format = generalSetting()->currencyDetail;
@@ -130,7 +130,7 @@ if (!function_exists('currency_format')) {
     }
 }
 if (!function_exists('classes')) {
-    function classes(int $academic_year = null)
+    function classes(?int $academic_year = null)
     {
         return AramiscClass::withOutGlobalScopes()
             ->when($academic_year, function ($q) use ($academic_year) {
@@ -156,7 +156,7 @@ if (!function_exists('sections')) {
     }
 }
 if (!function_exists('subjects')) {
-    function subjects(int $class_id, int $section_id, int $academic_year = null)
+    function subjects(int $class_id, int $section_id, ?int $academic_year = null)
     {
         $subjects = AramiscAssignSubject::withOutGlobalScopes()
             ->where('class_id', $class_id)
@@ -173,7 +173,7 @@ if (!function_exists('subjects')) {
     }
 }
 if (!function_exists('students')) {
-    function students(int $class_id, int $section_id = null, int $academic_year = null)
+    function students(int $class_id, ?int $section_id = null, ?int $academic_year = null)
     {
         $student_ids = StudentRecord::where('class_id', $class_id)
             ->when($section_id, function ($q) use ($section_id) {
@@ -444,10 +444,115 @@ if (!function_exists('sidebarPermission')) {
 
         }
 
-        if (userPermission($permission->route) == true && $access == true) {
+        if (userPermission($permission->route) == true && $access == true && roleHasMenuPermission($permission)) {
             return true;
         }
         return false;
+    }
+}
+
+if (!function_exists('roleHasMenuPermission')) {
+    /**
+     * Filtre d'affichage du menu par RÔLE (chantier permissions).
+     *
+     * userPermission() s'appuie sur le singleton app('permission') qui renvoie
+     * null (bug documenté) → il autorise tout, d'où un menu non filtré par rôle.
+     * On ré-aligne ici l'AFFICHAGE du menu sur les assign_permissions du rôle
+     * (le même ensemble que l'enforcement par-route), sans toucher au singleton
+     * global (blast radius). Scopé au rendu du sidebar.
+     *
+     * Nœuds toujours affichés (jamais filtrés) :
+     *  - Super admin (role 1) : bypass.
+     *  - en-têtes de section (permission_section == 1).
+     *  - conteneurs sans route (groupes dépliables) : leurs enfants sont, eux,
+     *    filtrés individuellement.
+     * Un item navigable (avec route) ne s'affiche que si sa permission est
+     * assignée au rôle courant.
+     */
+    function roleHasMenuPermission($permission)
+    {
+        if (!$permission) return false;
+        $user = auth()->user();
+        if (!$user) return false;
+        if ((int) $user->role_id === 1) return true;          // Super admin
+        if ($permission->permission_section == 1) return true; // en-tête de section
+        if (empty($permission->route)) return true;            // conteneur sans route
+
+        // Match par ROUTE (comme le middleware d'enforce) : robuste aux
+        // permissions dupliquées (même route, ids différents).
+        return in_array($permission->route, roleAllowedMenuRoutes(), true);
+    }
+}
+
+if (!function_exists('roleAllowedMenuRoutes')) {
+    /**
+     * Routes autorisées au rôle courant (assign_permissions ∩ permissions.route),
+     * mis en cache 60s. Même ensemble que UserRolePermission::allowedRoutesForCurrentRole.
+     */
+    function roleAllowedMenuRoutes()
+    {
+        $user = auth()->user();
+        if (!$user) return [];
+
+        return \Illuminate\Support\Facades\Cache::remember(
+            'menu_routes_' . $user->role_id . '_' . $user->school_id,
+            60,
+            function () use ($user) {
+                $isSaas = (int) \Illuminate\Support\Facades\DB::table('aramisc_roles')
+                    ->where('id', $user->role_id)->value('is_saas');
+
+                $q = \Illuminate\Support\Facades\DB::table('assign_permissions')
+                    ->where('role_id', $user->role_id);
+                if ($isSaas === 0) {
+                    $q->where('school_id', $user->school_id);
+                }
+                $ids = $q->pluck('permission_id')->all();
+                if (empty($ids)) return [];
+
+                $allowed = \Illuminate\Support\Facades\DB::table('permissions')
+                    ->whereIn('id', $ids)->whereNotNull('route')
+                    ->pluck('route')->all();
+
+                // Cartes route => parent_route et route => est_conteneur, sur
+                // toutes les permissions, pour remonter l'arbre du menu.
+                // Conteneur = dropdown/section (type 1) ou en-tête de section
+                // (permission_section = 1) : rendu en href="#", jamais gardé par
+                // le middleware. Une page navigable (type 2) n'est PAS un conteneur :
+                // c'est un lien réel que le middleware refuse si non assigné.
+                $meta = \Illuminate\Support\Facades\DB::table('permissions')
+                    ->whereNotNull('route')
+                    ->get(['route', 'parent_route', 'type', 'permission_section']);
+                $parentMap = [];
+                $isContainer = [];
+                foreach ($meta as $m) {
+                    $parentMap[$m->route] = $m->parent_route;
+                    if ((int) $m->type === 1 || (int) $m->permission_section === 1) {
+                        $isContainer[$m->route] = true;
+                    }
+                }
+
+                // Étendre l'ensemble autorisé avec les ANCÊTRES des items autorisés,
+                // sinon filtrer un groupe parent non assigné masquerait toute sa
+                // branche. MAIS on n'étend qu'aux ancêtres CONTENEURS : tirer une
+                // page navigable (type 2) non assignée afficherait un lien mort
+                // (le middleware la refuse → 403). On s'arrête donc à la première
+                // page gardée rencontrée dans la remontée.
+                $set = array_fill_keys($allowed, true);
+                foreach ($allowed as $r) {
+                    $cur = $parentMap[$r] ?? null;
+                    $guard = 0;
+                    while (!empty($cur) && !isset($set[$cur]) && $guard < 20) {
+                        if (!isset($isContainer[$cur])) {
+                            break; // ancêtre = page navigable gardée non assignée → ne pas l'afficher
+                        }
+                        $set[$cur] = true;
+                        $cur = $parentMap[$cur] ?? null;
+                        $guard++;
+                    }
+                }
+                return array_keys($set);
+            }
+        );
     }
 }
 

@@ -434,4 +434,42 @@ class AramiscGeneralSettings extends Model
     {
         return $this->belongsTo(AramiscAboutPage::class, 'school_id', 'school_id');
     }
+
+    /** Couleurs de l'application mobile (réglages généraux) : valeurs d'origine de l'application. */
+    const MOBILE_COLOR_DEFAULTS = [
+        'primary' => '#862CFF',
+        'secondary' => '#B844D1',
+        'header_start' => '#6100B8',
+        'header_end' => '#943AE3',
+        'button' => '#953BE4',
+    ];
+
+    /** Rangées dans aramisc__settings : section mobile_app_<école>, une clé par couleur. */
+    public static function mobileColors($schoolId)
+    {
+        $saved = DB::table('aramisc__settings')
+            ->where('section', 'mobile_app_' . $schoolId)
+            ->pluck('value', 'key')->all();
+        $colors = [];
+        foreach (self::MOBILE_COLOR_DEFAULTS as $key => $default) {
+            $value = (string) ($saved[$key] ?? '');
+            $colors[$key] = preg_match('/^#[0-9A-Fa-f]{6}$/', $value) ? strtoupper($value) : $default;
+        }
+
+        return $colors;
+    }
+
+    public static function saveMobileColors($schoolId, array $input)
+    {
+        foreach (array_keys(self::MOBILE_COLOR_DEFAULTS) as $key) {
+            $value = (string) ($input[$key] ?? '');
+            if (!preg_match('/^#[0-9A-Fa-f]{6}$/', $value)) {
+                continue;
+            }
+            DB::table('aramisc__settings')->updateOrInsert(
+                ['section' => 'mobile_app_' . $schoolId, 'key' => $key],
+                ['value' => strtoupper($value)]
+            );
+        }
+    }
 }

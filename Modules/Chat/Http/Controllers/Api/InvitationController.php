@@ -39,7 +39,7 @@ class InvitationController extends Controller
             $connectedPeoples = $this->invitation->getAllConnectedUsers();
             return response()->json(compact('ownRequest', 'peopleRequest', 'connectedPeoples'));
         }catch (\Exception $exception){
-            Toastr::error(__('chat.something_went_wrong'));
+            Toastr::error(__('chat::chat.something_went_wrong'));
             return redirect()->back();
         }
     }

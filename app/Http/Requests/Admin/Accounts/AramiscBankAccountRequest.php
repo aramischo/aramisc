@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Accounts;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AramiscBankAccountRequest extends FormRequest
@@ -26,7 +27,8 @@ class AramiscBankAccountRequest extends FormRequest
         return [
             'bank_name' => "required",
             'account_name' => "required",
-            'account_number' => "required|unique:aramisc_bank_accounts,account_number",
+            // En modification (route bank-account/{id}), le compte lui-même ne compte pas comme doublon.
+            'account_number' => ['required', Rule::unique('aramisc_bank_accounts', 'account_number')->ignore($this->route('id'))],
             'account_type' => "sometimes|nullable",
             'opening_balance' => "required|numeric",           
             'note'=>"sometimes|nullable|max:200",

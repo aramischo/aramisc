@@ -52,7 +52,7 @@
                         <form action="#">
                             <div class="search_field">
                                 <input type="text" class="form-control primary_input_field input-left-icon"
-                                    placeholder="Search" id="search" onkeyup="showResult(this.value)">
+                                    placeholder="{{ __("common.search") }}" id="search" onkeyup="showResult(this.value)">
                             </div>
                             <button type="submit" style="padding-top: 3px"><i
                                     style="font-size: 13px; padding-left: 13px;" class="ti-search"></i></button>
@@ -65,7 +65,7 @@
                         <div class="search_inner">
                             <div class="search_field">
                                 <input type="text" class="form-control primary_input_field input-left-icon"
-                                    placeholder="Name/Admission No." id="searchStudent"
+                                    placeholder="{{ __("common.name_admission_no") }}" id="searchStudent"
                                     onkeyup="showStudent(this.value)">
                             </div>
                             <button type="submit" style="padding-top: 3px"><i
@@ -164,7 +164,7 @@
                                             <div class="notify_thumb">
                                                 <i class="fa fa-bell"></i>
                                             </div>
-                                            <a href="#" class="unread_notification flex-grow-1" title="Mark As Read"
+                                            <a href="#" class="unread_notification flex-grow-1" title="{{ __('lang.Mark As Read') }}"
                                                 data-notification_id="{{ $notification->id }}">
                                                 <div class="notify_content">
                                                     <p class="notification_title">{!! strip_tags(\Illuminate\Support\Str::limit(@$notification->message, 70, $end = '...')) !!}</p>

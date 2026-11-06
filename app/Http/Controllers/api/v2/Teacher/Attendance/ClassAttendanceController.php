@@ -53,6 +53,13 @@ class ClassAttendanceController extends Controller
                         'class_name'    => (string)$class->class->class_name,
                     ];
                 });
+        } else {
+            // Admin et personnel : toutes les classes de l'école (sinon $data indéfini => erreur 500).
+            $data = AramiscClass::withoutGlobalScopes([StatusAcademicSchoolScope::class])
+                ->select('id', 'class_name')
+                ->where('active_status', 1)
+                ->where('academic_id', AramiscAcademicYear::SINGLE_SCHOOL_API_ACADEMIC_YEAR())
+                ->where('school_id', auth()->user()->school_id)->get();
         }
 
         if (!$data) {
@@ -73,18 +80,17 @@ class ClassAttendanceController extends Controller
 
     public function sections(Request $request)
     {
-        if (teacherAccess()) {
-            $sectionIds = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)
-                ->where('class_id', $request->class_id)
-                ->where('school_id', auth()->user()->school_id)
-                ->get();
-            $data = [];
-            foreach ($sectionIds as $sectionId) {
-                $data[] = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)
-                    ->where('id', $sectionId->section_id)
-                    ->whereNull('parent_id')
-                    ->first(['id', 'section_name']);
-            }
+        // Pas réservé aux enseignants : sinon $data est indéfini pour l'admin (erreur 500).
+        $sectionIds = AramiscClassSection::withoutGlobalScope(GlobalAcademicScope::class)
+            ->where('class_id', $request->class_id)
+            ->where('school_id', auth()->user()->school_id)
+            ->get();
+        $data = [];
+        foreach ($sectionIds as $sectionId) {
+            $data[] = AramiscSection::withoutGlobalScope(StatusAcademicSchoolScope::class)
+                ->where('id', $sectionId->section_id)
+                ->whereNull('parent_id')
+                ->first(['id', 'section_name']);
         }
 
         if (!$data) {
@@ -105,26 +111,25 @@ class ClassAttendanceController extends Controller
 
     public function subjects(Request $request)
     {
+        // $data initialisé : sans matière affectée, ou pour l'admin, la variable était indéfinie (erreur 500).
+        $data = [];
+        $subject_all = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+            ->where('class_id', $request->class)
+            ->where('section_id', $request->section)
+            ->where('school_id', auth()->user()->school_id);
         if (teacherAccess()) {
+            // Un enseignant ne voit que ses matières
             $staff_info = AramiscStaff::withoutGlobalScope(ActiveStatusSchoolScope::class)
                 ->where('user_id', auth()->user()->id)
                 ->where('school_id', auth()->user()->school_id)->first();
-            if (teacherAccess()) {
-                $subject_all = AramiscAssignSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
-                    ->where('class_id', $request->class)
-                    ->where('section_id', $request->section)
-                    ->where('teacher_id', $staff_info->id)
-                    ->where('school_id', auth()->user()->school_id)
-                    ->distinct('subject_id')
-                    ->get();
-            }
+            $subject_all->where('teacher_id', optional($staff_info)->id);
+        }
 
-            foreach ($subject_all as $allSubject) {
-                $data[] = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
-                    ->where('id', $allSubject->subject_id)
-                    ->where('school_id', auth()->user()->school_id)
-                    ->first(['id', 'subject_name']);
-            }
+        foreach ($subject_all->get()->unique('subject_id') as $allSubject) {
+            $data[] = AramiscSubject::withoutGlobalScope(StatusAcademicSchoolScope::class)
+                ->where('id', $allSubject->subject_id)
+                ->where('school_id', auth()->user()->school_id)
+                ->first(['id', 'subject_name']);
         }
 
         if (!$data) {

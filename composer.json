@@ -53,6 +53,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
+        "laracasts/cypress": "^3.03",
         "laravel/dusk": "^7.7.1",
         "laravel/sail": "^1.14",
         "laravel/ui": "^4.2.2",

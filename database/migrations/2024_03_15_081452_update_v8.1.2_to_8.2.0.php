@@ -19,10 +19,10 @@ return new class extends Migration
             $name = 'ToyyibPay';
             $s = new AramiscModuleManager();
             $s->name = $name;
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is ToyyibPay module for Online payemnt. Thanks for using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
             $s->addon_url = "https://codecanyon.net/item/aramiscdu-zoom-live-class/27623128?s_rank=12";
             $s->installed_domain = url('/');

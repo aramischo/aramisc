@@ -74,6 +74,8 @@ return [
     "Other Downloads"=> "Other Downloads",
     "Home"=> "Home",
     "Notification"=> "Notification",
+    "Nav Notifications"=> "Notifications",
+    "Nav Routine"=> "Routine",
     "No Data Available"=> "No Data Available",
     "You have"=> "You have",
     "New notification"=> "New notification",

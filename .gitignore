@@ -23,3 +23,14 @@ docker-compose.override.yml
 copy.php
 change-list.txt
 .DS_Store
+.env.cypress
+.env.backup
+
+# Tuyauterie Claude Code (ne pas versionner)
+/.claude/
+/Claude outputs/
+installer-claude-code.bat
+skills-lock.json
+
+# Identifiants de test Cypress (ne pas versionner)
+/cypress/fixtures/users.json

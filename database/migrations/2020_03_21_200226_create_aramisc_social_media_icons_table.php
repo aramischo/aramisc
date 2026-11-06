@@ -32,22 +32,22 @@ class CreateAramiscSocialMediaIconsTable extends Migration
 
         DB::table('aramisc_social_media_icons')->insert([
             [
-                'url' => 'https://www.facebook.com/Spondonit',
+                'url' => 'https://www.facebook.com/aramisc',
                 'icon' => 'fa fa-facebook',
                 'status' => 1,
             ],
             [
-                'url' => 'https://www.facebook.com/Spondonit',
+                'url' => 'https://www.facebook.com/aramisc',
                 'icon' => 'fa fa-twitter',
                 'status' => 1,
             ],
             [
-                'url' => 'https://www.facebook.com/Spondonit',
+                'url' => 'https://www.facebook.com/aramisc',
                 'icon' => 'fa fa-dribbble',
                 'status' => 1,
             ],
             [
-                'url' => 'https://www.facebook.com/Spondonit',
+                'url' => 'https://www.facebook.com/aramisc',
                 'icon' => 'fa fa-linkedin',
                 'status' => 1,
             ],

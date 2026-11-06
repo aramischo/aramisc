@@ -10,6 +10,7 @@ use App\AramiscBankStatement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\Admin\Accounts\AramiscBankAccountRequest;
@@ -100,24 +101,31 @@ class AramiscBankAccountController extends Controller
 
     public function update(AramiscBankAccountRequest $request, $id)
     {
+        DB::beginTransaction();
         try{
-            $bank_account = AramiscBankAccount::find($request->id);
+            $bank_account = AramiscBankAccount::findOrFail($id);
+            // Un changement de solde d'ouverture décale le solde courant d'autant et met à jour le revenu « Opening Balance ».
+            $delta = $request->opening_balance - $bank_account->opening_balance;
             $bank_account->bank_name = $request->bank_name;
             $bank_account->account_name = $request->account_name;
             $bank_account->account_number = $request->account_number;
             $bank_account->account_type = $request->account_type;
             $bank_account->opening_balance = $request->opening_balance;
+            $bank_account->current_balance = $bank_account->current_balance + $delta;
             $bank_account->note = $request->note;
-            if(moduleStatusCheck('University')){
-                $bank_account->un_academic_id = getAcademicId();
-            }else{
-                $bank_account->academic_id = getAcademicId();
-            }
             $bank_account->save();
+
+            if ($delta != 0) {
+                AramiscAddIncome::where('name', 'Opening Balance')->where('item_sell_id', $bank_account->id)
+                    ->where('school_id', Auth::user()->school_id)
+                    ->update(['amount' => $request->opening_balance]);
+            }
+            DB::commit();
 
             Toastr::success('Operation successful', 'Success');
             return redirect('bank-account');
         }catch (\Exception $e) {
+            DB::rollBack();
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
         }
@@ -176,6 +184,8 @@ class AramiscBankAccountController extends Controller
                                         
                                 <div class="dropdown-menu dropdown-menu-right">'.
                                 (userPermission('bank-transaction') === true ? '<a class="dropdown-item" href="' . route('bank-transaction', [$row->id]) . '">' . __('accounts.transaction') . '</a>' : '') .
+
+                                (userPermission('bank-account-store') === true ? '<a class="dropdown-item" href="' . route('bank-account-edit', [$row->id]) . '">' . app('translator')->get('common.edit') . '</a>' : '') .
 
                                 (userPermission('bank-account-delete') === true ? (Config::get('app.app_sync') ? '<span data-toggle="tooltip" title="Disabled For Demo"><a class="dropdown-item" href="#" >' . app('translator')->get('common.disable') . '</a></span>' :
                                 '<a onclick="deleteBankModal(' . $row->id . ');"  class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteBankAccountModal" data-id="' . $row->id . '"  >' . app('translator')->get('common.delete') . '</a>') : '') .

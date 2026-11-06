@@ -177,7 +177,7 @@
                                             <span class="text-danger d-block">
                                                 {{ $errors->first('upload_file_name') }}</span>
                                             @endif
-                                            <code>(PDF,DOC,DOCX,JPG,JPEG,PNG,TXT are allowed for upload)</code>
+                                            <code>({{ __("common.allowed_for_upload", ["types" => "PDF,DOC,DOCX,JPG,JPEG,PNG,TXT"]) }})</code>
                                         </div>
                                     </div>
                                     <div class="col-auto">

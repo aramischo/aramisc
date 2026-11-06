@@ -120,7 +120,7 @@ $setting  = generalSetting()
                                     <div class="d-flex align-items-center justify-content-left">
                                         <span style="font-size: 17px; padding-right: 15px;">@lang('system_settings.website')  </span>
                                         @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No action For Demo "> 
+                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.No action For Demo') }}"> 
                                             @php
                                                 if(@$settings->website_btn == 0){
                                                         $permission_id='status-change';
@@ -180,7 +180,7 @@ $setting  = generalSetting()
                                 <div class="col-lg-4">
                                     <div class="d-flex align-items-center justify-content-center mb-20">
                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> 
+                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> 
                                         <button  style="pointer-events: none;" class="primary-btn fix-gr-bg" type="button" > @lang('common.update') </button>
                                         </span>
                                     @else
@@ -214,7 +214,7 @@ $setting  = generalSetting()
                                 <div class="col-lg-2 py-2">
                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
                                         
-                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No action For Demo "> 
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.No action For Demo') }}"> 
                                         @php
                                             if(@$settings->website_btn == 0){
                                                     $permission_id='status-change';
@@ -260,7 +260,7 @@ $setting  = generalSetting()
                                 <div class="col-lg-2 py-2">
                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
                                         
-                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No action For Demo ">
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.No action For Demo') }}">
                                         @php
                                             if(@$settings->website_btn == 0){
                                                     $permission_id='status-change';
@@ -305,7 +305,7 @@ $setting  = generalSetting()
                                 <div class="col-lg-2 py-2">
                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
                                         
-                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No action For Demo ">
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.No action For Demo') }}">
                                         @php
                                             if(@$settings->website_btn == 0){
                                                 $permission_id='status-change';
@@ -353,7 +353,7 @@ $setting  = generalSetting()
                                 <div class="col-lg-2 py-2">
                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
                                         
-                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No action For Demo "> 
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.No action For Demo') }}"> 
                                         @php
                                             if(@$settings->website_btn == 0){
                                                     $permission_id='status-change';
@@ -397,7 +397,7 @@ $setting  = generalSetting()
                                 <div class="col-lg-2 py-2">
                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
                                         
-                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="No action For Demo ">
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.No action For Demo') }}">
                                         @php
                                             if(@$settings->website_btn == 0){
                                                     $permission_id='status-change';

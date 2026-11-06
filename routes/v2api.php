@@ -7,12 +7,15 @@ use Modules\Chat\Http\Controllers\Api\ChatController;
 
 Route::controller(AuthenticationController::class)->group(function () {
     Route::any('login', 'login');
-    Route::get('user-demo-login/{role_id}', 'DemoUser');
+    // Désactivé (sécurité CRITIQUE) : contournement d'authentification — connectait le 1er utilisateur
+    // d'un rôle donné et renvoyait un token d'accès valide SANS mot de passe (ex. role_id=1 => token admin).
+    // Route::get('user-demo-login/{role_id}', 'DemoUser');
     Route::post('forget-password', 'emailVerify');
     Route::get('student-profile-details/{id}', 'studentProfile');
 });
 
-Route::group(['middleware' => ['auth:api', 'subdomain']], function () {
+// api.v2.scope : élèves et parents limités à leurs routes et à leurs propres données
+Route::group(['middleware' => ['auth:api', 'subdomain', 'api.v2.scope']], function () {
     Route::get('general-settings', 'Auth\AuthenticationController@generalSettings');
     Route::post('auth/logout', 'Auth\AuthenticationController@logout');
     Route::get('teacher-about', [AuthenticationController::class, 'aboutApi']);
@@ -298,15 +301,19 @@ Route::group(['middleware' => ['auth:api', 'subdomain']], function () {
     Route::post('handle-payment-request', 'Student\Payment\PaymentHandlerController@handlePayment');
 
     Route::middleware(['XSS', 'json.response'])->group(function () {
-        Route::get('zoom-class-list', 'Student\Class\ZoomController@classes');
-        Route::get('zoom-class-section-list', 'Student\Class\ZoomController@sections');
-        Route::get('zoom-class-teacher-list', 'Student\Class\ZoomController@teachers');
-        Route::post('zoom-meeting-store', 'Student\Class\ZoomController@store');
-        Route::get('zoom-meeting-detail', 'Student\Class\ZoomController@show');
-        Route::get('zoom-meeting-update', 'Student\Class\ZoomController@update');
-        Route::post('zoom-meeting-delete', 'Student\Class\ZoomController@delete');
-        Route::get('zoom-class-meeting-list', 'Student\Class\ZoomController@classList');
-        Route::get('zoom-meeting-list', 'Student\Class\ZoomController@meetings');
+        // Module Zoom désactivé (modules_statuses.json: "Zoom": false, dossier Modules/Zoom absent).
+        // Ces routes pointaient vers ZoomController qui exige
+        // Modules\Zoom\Repositories\Interfaces\VirtualClassRepositoryInterface (non liée) :
+        // elles renvoyaient 500 et cassaient `php artisan route:list`. Neutralisées.
+        // Route::get('zoom-class-list', 'Student\Class\ZoomController@classes');
+        // Route::get('zoom-class-section-list', 'Student\Class\ZoomController@sections');
+        // Route::get('zoom-class-teacher-list', 'Student\Class\ZoomController@teachers');
+        // Route::post('zoom-meeting-store', 'Student\Class\ZoomController@store');
+        // Route::get('zoom-meeting-detail', 'Student\Class\ZoomController@show');
+        // Route::get('zoom-meeting-update', 'Student\Class\ZoomController@update');
+        // Route::post('zoom-meeting-delete', 'Student\Class\ZoomController@delete');
+        // Route::get('zoom-class-meeting-list', 'Student\Class\ZoomController@classList');
+        // Route::get('zoom-meeting-list', 'Student\Class\ZoomController@meetings');
 
         Route::get('set-fcm-token', 'PushNotification\PushNotificationController@setFcmToken');
     });

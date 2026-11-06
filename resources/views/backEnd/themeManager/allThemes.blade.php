@@ -110,7 +110,7 @@
                                         </div>
                                         @if(activeTheme() != 'edulia')
                                             <div class="text-center active_btn">
-                                                <a href="javascript:void(0)"  onclick="themeActive('edulia')">Active</a>
+                                                <a href="javascript:void(0)"  onclick="themeActive('edulia')">{{ __('lang.Active') }}</a>
                                             </div>
                                         @endif 
                                     </div>
@@ -132,7 +132,7 @@
                                         </div>
                                         @if(activeTheme() == 'edulia')
                                             <div class="text-center active_btn">
-                                                <a href="javascript:void(0)"  onclick="themeActive('default')">Active</a>
+                                                <a href="javascript:void(0)"  onclick="themeActive('default')">{{ __('lang.Active') }}</a>
                                             </div>
                                         @endif 
                                     </div>

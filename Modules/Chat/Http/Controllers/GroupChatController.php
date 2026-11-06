@@ -154,7 +154,7 @@ class GroupChatController extends Controller
 
     public function destroy(Request $request)
     {
-        Group::find($request->group_id);
+        $group = Group::find($request->group_id);
 
         $relatedGroup = GroupUser::where('group_id', $request->group_id)
             ->where('user_id', auth()->id())
@@ -166,6 +166,7 @@ class GroupChatController extends Controller
 
         GroupUser::where('group_id', $request->group_id)->delete();
         $relatedGroup->delete();
+        $group && $group->delete();
         return response()->json(['notPermitted' => false, 'url' => route('chat.index')]);
     }
 
@@ -350,7 +351,8 @@ class GroupChatController extends Controller
             ]);
         }
 
-        $messages = $group->threads->where('id', '>', $request->last_thread_id);
+        // (int) : an empty group sends the string "null", and 1 > "null" is false in PHP 8.
+        $messages = $group->threads->where('id', '>', (int) $request->last_thread_id);
         return response()->json([
             'invalid' => false,
             'messages' => $messages

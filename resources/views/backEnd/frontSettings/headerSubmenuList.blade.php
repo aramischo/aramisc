@@ -31,7 +31,7 @@
                                             </a>
                                             @endif
                                             @if(env('APP_SYNC')==TRUE)
-                                                <a href="javascript:void(0);" class="primary-btn btn_zindex" title="Disable For Demo" data-toggle="tooltip">
+                                                <a href="javascript:void(0);" class="primary-btn btn_zindex" title="{{ __('lang.Disable For Demo') }}" data-toggle="tooltip">
                                                     <i class="ti-close"></i>
                                                 </a>
                                             @else
@@ -64,7 +64,7 @@
                                                                 <label class="primary_input_label" for="link">
                                                                     @lang('front_settings.link')
                                                                 </label>
-                                                                <input class="primary_input_field form-control link" type="text" name="link" autocomplete="off" value="{{$element->link}}"  placeholder="Link">
+                                                                <input class="primary_input_field form-control link" type="text" name="link" autocomplete="off" value="{{$element->link}}"  placeholder="{{ __('lang.Link') }}">
                                                             </div>
                                                         </div>
                                                         @elseif($element->type == 'dCourse')
@@ -194,7 +194,7 @@
                                                         <div class="col-lg-12 text-center">
                                                             <div class="d-flex justify-content-center pt_20">
                                                                 @if(env('APP_SYNC')==TRUE)
-                                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo ">
+                                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}">
                                                                         <button class="primary-btn fix-gr-bg" style="pointer-events: none;" type="button" > @lang('front_settings.update')</button>
                                                                     </span>
                                                                 @else
@@ -229,7 +229,7 @@
                                                         <a href="javascript:void(0);" onclick="" data-toggle="collapse" data-target="#collapse_{{$submenu->id}}" aria-expanded="false" aria-controls="collapse_{{$submenu->id}}" class="primary-btn btn_zindex panel-title">@lang('common.edit') <span class="collapge_arrow_normal"></span></a>
                                                     @endif
                                                     @if(env('APP_SYNC')==TRUE)
-                                                        <a href="javascript:void(0);" class="primary-btn btn_zindex" title="Disable For Demo" data-toggle="tooltip">
+                                                        <a href="javascript:void(0);" class="primary-btn btn_zindex" title="{{ __('lang.Disable For Demo') }}" data-toggle="tooltip">
                                                             <i class="ti-close"></i>
                                                         </a>
                                                     @else
@@ -260,7 +260,7 @@
                                                                         <label class="primary_input_label" for="link">
                                                                             @lang('front_settings.link')
                                                                         </label>
-                                                                        <input class="primary_input_field form-control link" type="text" name="link" autocomplete="off" value="{{$submenu->link}}"  placeholder="Link">
+                                                                        <input class="primary_input_field form-control link" type="text" name="link" autocomplete="off" value="{{$submenu->link}}"  placeholder="{{ __('lang.Link') }}">
                                                                     </div>
                                                                 </div>
                                                                 @elseif($submenu->type == 'dPages')
@@ -360,7 +360,7 @@
                                                                 <div class="col-lg-12 text-center">
                                                                     <div class="d-flex justify-content-center pt_20">
                                                                         @if(env('APP_SYNC')==TRUE)
-                                                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo ">
+                                                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}">
                                                                                 <button class="primary-btn fix-gr-bg" style="pointer-events: none;" type="button" > @lang('front_settings.update')</button>
                                                                             </span>
                                                                         @else
@@ -394,7 +394,7 @@
                                                             <a href="javascript:void(0);" onclick="" data-toggle="collapse" data-target="#collapse_{{$element->id}}" aria-expanded="false" aria-controls="collapse_{{$element->id}}" class="primary-btn btn_zindex panel-title">@lang('common.edit') <span class="collapge_arrow_normal"></span></a>
                                                         @endif
                                                         @if(env('APP_SYNC')==TRUE)
-                                                            <a href="javascript:void(0);" class="primary-btn btn_zindex" title="Disable For Demo" data-toggle="tooltip">
+                                                            <a href="javascript:void(0);" class="primary-btn btn_zindex" title="{{ __('lang.Disable For Demo') }}" data-toggle="tooltip">
                                                                 <i class="ti-close"></i>
                                                             </a>
                                                         @else
@@ -425,7 +425,7 @@
                                                                             <label class="primary_input_label" for="link">
                                                                                 @lang('front_settings.link')
                                                                             </label>
-                                                                            <input class="primary_input_field form-control link" type="text" name="link" autocomplete="off" value="{{$element->link}}"  placeholder="Link">
+                                                                            <input class="primary_input_field form-control link" type="text" name="link" autocomplete="off" value="{{$element->link}}"  placeholder="{{ __('lang.Link') }}">
                                                                         </div>
                                                                     </div>
                                                                     @elseif($element->type == 'dPages')
@@ -525,7 +525,7 @@
                                                                     <div class="col-lg-12 text-center">
                                                                         <div class="d-flex justify-content-center pt_20">
                                                                             @if(env('APP_SYNC')==TRUE)
-                                                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo ">
+                                                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}">
                                                                                     <button class="primary-btn fix-gr-bg" style="pointer-events: none;" type="button" > @lang('front_settings.update')</button>
                                                                                 </span>
                                                                             @else

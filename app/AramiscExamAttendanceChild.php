@@ -10,7 +10,7 @@ class AramiscExamAttendanceChild extends Model
 {
     use HasFactory;
     // Spécifiez le nom de la table explicitement
-    protected $table = 'aramisc_exam_attendance_childs';
+    protected $table = 'aramisc_exam_attendance_children'; // « _childs » n'existe pas en base
     protected $guarded = ['id'];
     public function studentInfo()
     {

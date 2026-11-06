@@ -113,7 +113,7 @@
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
 
-                                     <a data-modal-size="modal-lg" title="View Content Details" class="dropdown-item modalLink" href="{{route('upload-content-view', $value->id)}}">@lang('common.view')</a>
+                                     <a data-modal-size="modal-lg" title="{{ __('lang.View Content Details') }}" class="dropdown-item modalLink" href="{{route('upload-content-view', $value->id)}}">@lang('common.view')</a>
 
                                     <a class="dropdown-item" href="{{route('upload-content-edit',$value->id)}}">@lang('common.edit')</a>
 

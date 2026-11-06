@@ -94,6 +94,15 @@ class FirebasePushService
     }
 
     /**
+     * Envoie un message déjà au format v1 (voir FcmMessage::toV1).
+     * Avec $validateOnly, Firebase vérifie le message sans rien livrer.
+     */
+    public function send(array $message, bool $validateOnly = false): array
+    {
+        return $this->sendMessage(['message' => $message] + ($validateOnly ? ['validate_only' => true] : []));
+    }
+
+    /**
      * Envoie une notification à un token spécifique
      */
     public function sendToToken(string $token, string $title, string $body, array $data = []): array
@@ -108,7 +117,7 @@ class FirebasePushService
                         'title' => $title,
                         'body' => $body
                     ],
-                    'data' => $data,
+                    'data' => $this->convertDataToStrings($data),
                     'android' => [
                         'priority' => 'high',
                         'notification' => [

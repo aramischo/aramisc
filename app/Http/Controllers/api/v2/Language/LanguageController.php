@@ -40,12 +40,15 @@ class LanguageController extends Controller
             $active = __('mobile_app', [], $langName);
 
             if (count($en) != count($active)) {
-                $active = array_merge($active, $en);
+                // L'anglais ne sert qu'à combler les clés manquantes, il ne doit pas écraser la traduction
+                $active = array_merge($en, $active);
             }
         }
 
         $data['lang_list'] = $languages;
         $data['lang'] =  $active;
+        // Couleurs de l'application, réglées dans Réglages généraux
+        $data['mobile_colors'] = \App\AramiscGeneralSettings::mobileColors(optional(auth()->user())->school_id ?? app('school')->id);
 
         return response()->json($data);
     }
@@ -93,12 +96,15 @@ class LanguageController extends Controller
             $active = __('mobile_app', [], $langName);
 
             if (count($en) != count($active)) {
-                $active = array_merge($active, $en);
+                // L'anglais ne sert qu'à combler les clés manquantes, il ne doit pas écraser la traduction
+                $active = array_merge($en, $active);
             }
         }
 
         $data['lang_list'] = $languages;
         $data['lang'] =  $active;
+        // Couleurs de l'application, réglées dans Réglages généraux
+        $data['mobile_colors'] = \App\AramiscGeneralSettings::mobileColors(optional(auth()->user())->school_id ?? app('school')->id);
 
         return response()->json($data);
     }

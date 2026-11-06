@@ -111,6 +111,7 @@ Route::group(['middleware' => ['XSS', 'subdomain']], function () {
         Route::get('student-pending-leave', 'AramiscStudentPanelController@pendingLeave')->name('student-pending-leave')->middleware('userRolePermission:student-pending-leave');
         Route::put('student-leave-update/{id}', 'AramiscStudentPanelController@update')->name('student-leave-update');
         Route::get('download-student-leave-document/{file_name}', function ($file_name = null) {
+            $file_name = basename((string) $file_name);
             $file = public_path() . '/uploads/leave_request/' . $file_name;
             if (file_exists($file)) {
                 return Response::download($file);

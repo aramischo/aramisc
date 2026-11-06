@@ -86,7 +86,7 @@
                                         <div class="primary_input">
                                             <div class="primary_file_uploader">
                                                 <input class="primary_input_field form-control{{ $errors->has('file') ? ' is-invalid' : '' }}"
-                                                    type="text" id="placeholderInput" placeholder="Excel file" readonly>
+                                                    type="text" id="placeholderInput" placeholder="{{ __('lang.Excel file') }}" readonly>
                                                 
                                                     @if ($errors->has('file'))
                                                         <span class="text-danger" >

@@ -29,4 +29,7 @@ return [
     'invoice'=>'invoice',
     'invoice_type'=>'Invoice Type',
     'fees_invoice_bulk_print_settings'=>'Fees Invoice Bulk Print Settings',
+  'fees_collection_details' => 'Fees Collection Details',
+  'generate_staff_id_card' => 'Generate Staff ID Card',
+  'mode' => 'Mode',
 ];

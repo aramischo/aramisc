@@ -150,8 +150,8 @@ class AramiscAccountsController extends Controller
             $date_from = toDbDateConvert($request->date_from);
             $date_to = toDbDateConvert($request->date_to);
 
-            $date_time_from = date('Y-m-d H:i:s', strtotime($request->date_from));
-            $date_time_to = date('Y-m-d H:i:s', strtotime($request->date_to . ' ' . '23:59:00'));
+            $date_time_from = date('Y-m-d H:i:s', strtotime($date_from));
+            $date_time_to = date('Y-m-d H:i:s', strtotime($date_to . ' ' . '23:59:00'));
 
             $add_expenses = AramiscAddExpense::where('date', '>=', $date_from)->where('date', '<=', $date_to)->where('active_status', 1)->get();
 
@@ -200,7 +200,7 @@ class AramiscAccountsController extends Controller
         try {
             date_default_timezone_set("Asia/Dhaka");
 
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
+            $rangeArr = $request->date_range ? parseDateRange($request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
 
             if ($request->date_range) {
                 $date_from = new DateTime(trim($rangeArr[0]));
@@ -254,7 +254,7 @@ class AramiscAccountsController extends Controller
     public function transactionSearch(Request $request)
     {
         try {
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
+            $rangeArr = $request->date_range ? parseDateRange($request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
             if ($request->date_range) {
                 $date_from = new DateTime(trim($rangeArr[0]));
                 $date_to = new DateTime(trim($rangeArr[1]));
@@ -323,7 +323,7 @@ class AramiscAccountsController extends Controller
     public function accountsPayrollReportSearch(Request $request)
     {
         try {
-            $rangeArr = $request->date_range ? explode('-', $request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
+            $rangeArr = $request->date_range ? parseDateRange($request->date_range) : "" . date('Y-m-d') . " - " . date('Y-m-d') . "";
             if ($request->date_range) {
                 $date_from = new DateTime(trim($rangeArr[0]));
                 $date_to = new DateTime(trim($rangeArr[1]));

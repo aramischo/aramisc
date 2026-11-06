@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <select class="primary_select ">
-                                        <option data-display="Select Class">@lang('common.select_class')</option>
+                                        <option data-display="{{ __('lang.Select Class') }}">@lang('common.select_class')</option>
                                         <option value="1">@lang('common.class')Class 1</option>
                                         <option value="2">@lang('common.class')Class 2</option>
                                     </select>
@@ -34,7 +34,7 @@
 
                                 <div class="col-lg-6 mt-30-md">
                                     <select class="primary_select ">
-                                        <option data-display="Select Class">Select Section</option>
+                                        <option data-display="{{ __('lang.Select Class') }}">Select Section</option>
                                         <option value="1">Section 1</option>
                                         <option value="2">Section 2</option>
                                     </select>
@@ -79,7 +79,7 @@
                     <div class="row">
                         <div class="col-lg-4 no-gutters">
                             <div class="main-title">
-                                <h3 class="mb-0">Student List</h3>
+                                <h3 class="mb-0">{{ __('lang.Student List') }}</h3>
                             </div>
                         </div>
                     </div>
@@ -90,15 +90,15 @@
                             <table id="table_id" class="table" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>Admission No.</th>
-                                        <th>Name</th>
-                                        <th>Class</th>
-                                        <th>Fathers Name</th>
-                                        <th>Date Of Birth</th>
-                                        <th>Gender</th>
+                                        <th>{{ __('lang.Admission No.') }}</th>
+                                        <th>{{ __('lang.Name') }}</th>
+                                        <th>{{ __('lang.Class') }}</th>
+                                        <th>{{ __('lang.Fathers Name') }}</th>
+                                        <th>{{ __('lang.Date Of Birth') }}</th>
+                                        <th>{{ __('lang.Gender') }}</th>
                                         <th>Type</th>
-                                        <th>Phone</th>
-                                        <th>Action</th>
+                                        <th>{{ __('lang.Phone') }}</th>
+                                        <th>{{ __('lang.Action') }}</th>
                                     </tr>
                                 </thead>
 

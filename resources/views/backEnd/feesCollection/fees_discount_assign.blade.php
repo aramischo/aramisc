@@ -216,7 +216,7 @@
                                                                             </span>
                                                                         @endif
                                                                     @else
-                                                                        <select class="primary_select w-100  form-control{{ $errors->has('fees_master_id') ? ' is-invalid' : '' }} select_fees_master" name="data[{{$loop->index}}][fees_master_id]" title="Discount Applied" id="fees_master{{$student->id}}">
+                                                                        <select class="primary_select w-100  form-control{{ $errors->has('fees_master_id') ? ' is-invalid' : '' }} select_fees_master" name="data[{{$loop->index}}][fees_master_id]" title="{{ __('lang.Discount Applied') }}" id="fees_master{{$student->id}}">
                                                                             <option data-display="@lang('fees.select_fees_type') *" value=""> @lang('fees.select_fees_type') *</option>
                                                                                 {{-- @foreach(@$assigned_fees_types[$student->id] as $fees_type) --}}
                                                                                     <option value="{{$check_discount_apply->fees_type_id}}" selected  >{{$check_discount_apply->fees_type_name}}</option>

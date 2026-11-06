@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="icon" href="{{asset('public/backEnd/')}}/img/favicon.png" type="image/png"/>
-    <title>Aramisc Edu ERP | Verify Your purchase </title>
+    <title>Aramisc ERP | Verify Your purchase </title>
     <meta name="_token" content="{!! csrf_token() !!}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/jquery-ui.css"/>
@@ -72,7 +72,7 @@
             </div>
             <div class="card-body">
                 <div class="justify-content-center">
-                    <p class=" text-red purchase-alert">If you are using our system without purchase, Please contact with us at <a target="_blank" href="mailto:support@spondonit.com">support@spondonit.com</a>.</p>
+                    <p class=" text-red purchase-alert">If you are using our system without purchase, Please contact with us at <a target="_blank" href="mailto:support@aramisc.com">support@aramisc.com</a>.</p>
                     <p class="purchase-alert"> If you already purchase, please verification again. Thanks !</p>
 
                        @if(Session::has('message-danger'))

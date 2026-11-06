@@ -182,7 +182,7 @@
                                                     <input type="file" class="d-none" name="upload_file_name"
                                                         id="upload_content_file">
                                                 </button>
-                                                <code>(JPG,JPEG,PNG,GIF are allowed for upload)</code>
+                                                <code>({{ __("common.allowed_for_upload", ["types" => "JPG,JPEG,PNG,GIF"]) }})</code>
                                                 @error('upload_file_name')
                                                     <span class="text-danger">
                                                         {{ $message }}

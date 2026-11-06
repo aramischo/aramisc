@@ -301,7 +301,7 @@
                                 );
                             });
                         } else {
-                            $("#subjectSelecttHomeworkDiv .current").html("SUBJECT *");
+                            $("#subjectSelecttHomeworkDiv .current").html(trLiteral("SUBJECT *"));
                             $("#subjectSelect").find("option").not(":first").remove();
                             $("#subjectSelecttHomeworkDiv ul").find("li").not(":first").remove();
                         }
@@ -378,7 +378,7 @@
                                 );
                             });
                         } else {
-                            $("#sectionStudentDiv1 .current").html("SECTION *");
+                            $("#sectionStudentDiv1 .current").html(trLiteral("SECTION *"));
                             $("#sectionSelectStudent1").find("option").not(":first").remove();
                             $("#sectionStudentDiv1 ul").find("li").not(":first").remove();
                         }
@@ -496,7 +496,7 @@
                                 );
                             });
                         } else {
-                            $("#roomNumberDiv .current").html("Room Number *");
+                            $("#roomNumberDiv .current").html(trLiteral("Room Number *"));
                             $("#selectRoomNumber").find("option").not(":first").remove();
                             $("#roomNumberDiv ul").find("li").not(":first").remove();
                         }
@@ -583,7 +583,7 @@
                                 );
                             });
                         } else {
-                            $("#sibling_section_div .current").html("SECTION *");
+                            $("#sibling_section_div .current").html(trLiteral("SECTION *"));
                             $("#select_sibling_section")
                                 .find("option")
                                 .not(":first")
@@ -648,7 +648,7 @@
                             );
                         });
                     } else {
-                        $("#sibling_name_div .current").html("Student *");
+                        $("#sibling_name_div .current").html(trLiteral("Student *"));
                         $("#select_sibling_name").find("option").not(":first").remove();
                         $("#sibling_name_div ul").find("li").not(":first").remove();
                     }
@@ -669,7 +669,7 @@
             if (select_sibling_name == "" && staff_id =="") {
                 $(".sibling_required_error div").remove();
                 $(".sibling_required_error").append(
-                    "<div class='alert alert-danger'>No sibling Selected</div>"
+                    "<div class='alert alert-danger'>" + trLiteral("No sibling Selected") + "</div>"
                 );
                 return false;
             } else {
@@ -1148,7 +1148,7 @@
                                 );
                             });
                         } else {
-                            $("#select_class_div .current").html("SELECT CLASS *");
+                            $("#select_class_div .current").html(trLiteral("SELECT CLASS *"));
                             $("#select_class").find("option").not(":first").remove();
                             $("#select_class_div ul").find("li").not(":first").remove();
                         }
@@ -1388,7 +1388,7 @@
                                 );
                             });
                         } else {
-                            $("#select_section_div .current").html("SELECT SECTION *");
+                            $("#select_section_div .current").html(trLiteral("SELECT SECTION *"));
                             $("#select_section").find("option").not(":first").remove();
                             $("#select_section_div ul").find("li").not(":first").remove();
                         }
@@ -1455,7 +1455,7 @@
                                 );
                             });
                         } else {
-                            $("#select_class_subject_div .current").html("SUBJECT *");
+                            $("#select_class_subject_div .current").html(trLiteral("SUBJECT *"));
                             $("#select_class_subject").find("option").not(":first").remove();
                             $("#select_class_subject_div ul").find("li").not(":first").remove();
                         }
@@ -1519,7 +1519,7 @@
                                 );
                             });
                         } else {
-                            $("#m_select_subject_section_div .current").html("SECTION ");
+                            $("#m_select_subject_section_div .current").html(trLiteral("SECTION "));
                             $("#m_select_subject_section").find("option").not(":first").remove();
                             $("#m_select_subject_section_div ul").find("li").not(":first").remove();
                         }
@@ -1612,7 +1612,7 @@
                                 );
                             });
                         } else {
-                            $("#c_select_section_div .current").html("SELECT SECTION *");
+                            $("#c_select_section_div .current").html(trLiteral("SELECT SECTION *"));
                             $("#c_select_section").find("option").not(":first").remove();
                             $("#select_section_div ul").find("li").not(":first").remove();
                         }
@@ -2532,7 +2532,7 @@
                     $("#teacher_error").html("");
                 } else {
                     if (data[1] == 0) {
-                        $("#teacher_error").html("No teacher Assigned for the subject");
+                        $("#teacher_error").html(trLiteral("No teacher Assigned for the subject"));
                     } else {
                         $("#teacher_error").html(
                             "the subject's teacher already assinged for the same time"
@@ -2641,7 +2641,7 @@
                         "<div class='nice-select primary_select form-control' tabindex='0'>";
                     subject_teacher += "<span class='current'>"+window.jsLang('select_subject')+"</span>";
                     subject_teacher +=
-                        "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='Search...'></div>";
+                        "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='" + trLiteral("Search...") + "'></div>";
                     subject_teacher += "<ul class='list'>";
                     subject_teacher +=
                         "<li data-value='' data-display='"+window.jsLang('select_subject')+"' class='option selected'>"+window.jsLang('select_subject')+"</li>";
@@ -2674,7 +2674,7 @@
                         "<div class='nice-select primary_select form-control' tabindex='0'>";
                     subject_teacher += "<span class='current'>"+window.jsLang('select_teacher')+"</span>";
                     subject_teacher +=
-                        "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='Search...'></div>";
+                        "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='" + trLiteral("Search...") + "'></div>";
                     subject_teacher += "<ul class='list'>";
                     subject_teacher +=
                         "<li data-value='' data-display='"+window.jsLang('select_teacher')+"' class='option selected'>"+window.jsLang('select_teacher')+"</li>";
@@ -2902,7 +2902,7 @@
                                 );
                             });
                         } else {
-                            $("#select_subject_div .current").html("SELECT SUBJECT *");
+                            $("#select_subject_div .current").html(trLiteral("SELECT SUBJECT *"));
                             $("#select_subject").find("option").not(":first").remove();
                             $("#select_subject_div ul").find("li").not(":first").remove();
                         }
@@ -3146,7 +3146,7 @@
                         rowCount +
                         "'>";
                     appendRow +=
-                        "<option data-display='Select *' value=''>Select *</option>";
+                        "<option data-display='" + trLiteral("Select *") + "' value=''>" + trLiteral("Select *") + "</option>";
                     $.each(data[0], function(key, room) {
                         appendRow +=
                             "<option value='" + room.id + "'>" + room.room_no + "</option>";
@@ -3165,7 +3165,7 @@
                     appendRow += "<div class='col'>";
                     appendRow += "<div class='input-effect'>";
                     appendRow +=
-                        "<input class='primary-input' type='text' placeholder='Room Capacity' name='capacity[]' id='capacity-" +
+                        "<input class='primary-input' type='text' placeholder='" + trLiteral("Room Capacity") + "' name='capacity[]' id='capacity-" +
                         rowCount +
                         "' readonly>";
 
@@ -3187,7 +3187,7 @@
                     appendRow += "<div class='col'>";
                     appendRow += "<div class='input-effect'>";
                     appendRow +=
-                        "<input class='primary-input assign_student' type='text' placeholder='Enter Student No' name='assign_student[]' id='assign_student-" +
+                        "<input class='primary-input assign_student' type='text' placeholder='" + trLiteral("Enter Student No") + "' name='assign_student[]' id='assign_student-" +
                         rowCount +
                         "'>";
                     appendRow += "<span class='focus-border'></span>";
@@ -3237,7 +3237,7 @@
         });
 
         if (find_duplicate_in_array(class_room_id) == 1) {
-            $("#room_error-" + trNo).html("Alreday selected the room");
+            $("#room_error-" + trNo).html(trLiteral("Alreday selected the room"));
             $("#capacity-" + trNo).val("");
             $("#assign_student-" + trNo).val("");
             return false;
@@ -3306,11 +3306,11 @@
         });
 
         $.each(room_validate, function(i, val) {
-            $("#room_error-" + val).html("Required");
+            $("#room_error-" + val).html(trLiteral("Required"));
         });
 
         $.each(assign_students, function(i, val) {
-            $("#assign_student_error-" + val).html("Required");
+            $("#assign_student_error-" + val).html(trLiteral("Required"));
         });
 
         if (room_validate.length > 0 || assign_students.length > 0) {
@@ -3345,7 +3345,7 @@
 
         $.each(room_capacisity_validate, function(i, val) {
             var capacity = $("#room_capacity-" + val).val();
-            $("#assign_student_error-" + val).html("Room Capacity is " + capacity);
+            $("#assign_student_error-" + val).html(trLiteral("Room Capacity is ") + capacity);
         });
 
         if (room_capacisity_validate.length > 0) {
@@ -3353,7 +3353,7 @@
         }
 
         if (total_assign_students > parseInt($("#total_student").val())) {
-            $("#assign_student_error-1").html("Assigned More than total students");
+            $("#assign_student_error-1").html(trLiteral("Assigned More than total students"));
             return false;
         } else {
             $("#assign_student_error-1").html("");
@@ -3492,7 +3492,7 @@
             var url = $("#url").val();
             var i = 0;
             if ($(this).val() == "") {
-                $("#select_vehicle_div .current").html("SELECT VEHICLE");
+                $("#select_vehicle_div .current").html(trLiteral("SELECT VEHICLE"));
                 $("#selectVehicle").find("option").not(":first").remove();
                 $("#select_vehicle_div ul").find("li").not(":first").remove();
                 return false;
@@ -3536,7 +3536,7 @@
                                 );
                             });
                         } else {
-                            $("#select_vehicle_div .current").html("SELECT VEHICLE");
+                            $("#select_vehicle_div .current").html(trLiteral("SELECT VEHICLE"));
                             $("#selectVehicle").find("option").not(":first").remove();
                             $("#select_vehicle_div ul").find("li").not(":first").remove();
                         }
@@ -3763,7 +3763,7 @@
         // Output the result in an element with id="demo"
         if ($("#countDownTimer").length) {
             document.getElementById("countDownTimer").innerHTML =
-                "<strong>Remaining Time: </strong>" +
+                "<strong>" + trLiteral("Remaining Time: ") + "</strong>" +
                 hours +
                 " hour " +
                 minutes +
@@ -4130,32 +4130,32 @@
 
         if ($("#admission-query-store #name").val() == "") {
             count++;
-            $("#admission-query-store #nameError").html("Name Field is required");
+            $("#admission-query-store #nameError").html(trLiteral("Name Field is required"));
         } else {
             $("#admission-query-store #nameError").html("");
         }
 
         if ($("#admission-query-store #source").val() == "") {
             count++;
-            $("#admission-query-store #sourceError").html("Source is required");
+            $("#admission-query-store #sourceError").html(trLiteral("Source is required"));
         } else {
             $("#admission-query-store #sourceError").html("");
         }
         if ($("#admission-query-store #assigned").val() == "") {
             count++;
-            $("#admission-query-store #assignedError").html("Assigned is required");
+            $("#admission-query-store #assignedError").html(trLiteral("Assigned is required"));
         } else {
             $("#admission-query-store #assignedError").html("");
         }
         if ($("#admission-query-store #reference").val() == "") {
             count++;
-            $("#admission-query-store #referenceError").html("Reference is required");
+            $("#admission-query-store #referenceError").html(trLiteral("Reference is required"));
         } else {
             $("#admission-query-store #referenceError").html("");
         }
         if ($("#admission-query-store #class").val() == "") {
             count++;
-            $("#admission-query-store #classError").html("Class is required");
+            $("#admission-query-store #classError").html(trLiteral("Class is required"));
         } else {
             $("#admission-query-store #classError").html("");
         }
@@ -4290,7 +4290,7 @@
                                     });
                                 }
                             } else {
-                                $("#selectStaffsDiv .current").html("SELECT *");
+                                $("#selectStaffsDiv .current").html(trLiteral("SELECT *"));
                                 $("#selectStaffs").find("option").not(":first").remove();
                                 $("#selectStaffsDiv ul").find("li").not(":first").remove();
                             }
@@ -4378,7 +4378,7 @@
                                     });
                                 }
                             } else {
-                                $("#selectStaffsDiv .current").html("SELECT *");
+                                $("#selectStaffsDiv .current").html(trLiteral("SELECT *"));
                                 $("#selectStaffs").find("option").not(":first").remove();
                                 $("#selectStaffsDiv ul").find("li").not(":first").remove();
                             }
@@ -4484,7 +4484,7 @@
                                         });
                                     }
                                 } else {
-                                    $("#staff-div .current").html("SELECT *");
+                                    $("#staff-div .current").html(trLiteral("SELECT *"));
                                     $("#selectStaffs").find("option").not(":first").remove();
                                     $("#staff-div ul").find("li").not(":first").remove();
                                 }
@@ -4846,37 +4846,37 @@
         }
 
         if (ei > 0) {
-            $("#expenseError").html("The expense field is required.");
+            $("#expenseError").html(trLiteral("The expense field is required."));
         } else {
             $("#expenseError").html("");
         }
 
         if (s > 0) {
-            $("#supplierError").html("The supplier field is required.");
+            $("#supplierError").html(trLiteral("The supplier field is required."));
         } else {
             $("#supplierError").html("");
         }
 
         if (st > 0) {
-            $("#storeError").html("The store field is required.");
+            $("#storeError").html(trLiteral("The store field is required."));
         } else {
             $("#storeError").html("");
         }
 
         if (i > 0) {
-            $("#itemError").html("The item fields are required");
+            $("#itemError").html(trLiteral("The item fields are required"));
         } else {
             $("#itemError").html("");
         }
 
         if (u > 0) {
-            $("#priceError").html("The unit Price fields are required");
+            $("#priceError").html(trLiteral("The unit Price fields are required"));
         } else {
             $("#priceError").html("");
         }
 
         if (q > 0) {
-            $("#quantityError").html("The item quantity fields are required");
+            $("#quantityError").html(trLiteral("The item quantity fields are required"));
         } else {
             $("#quantityError").html("");
         }
@@ -4894,7 +4894,7 @@
         }
 
         if (p > 0) {
-            $("#paymentError").html("The payment field is required.");
+            $("#paymentError").html(trLiteral("The payment field is required."));
         } else {
             $("#paymentError").html("");
         }
@@ -4993,37 +4993,37 @@
         }
 
         if (ih > 0) {
-            $("#incomeError").html("The income head fields are required");
+            $("#incomeError").html(trLiteral("The income head fields are required"));
         } else {
             $("#incomeError").html("");
         }
 
         if (i > 0) {
-            $("#itemError").html("The item fields are required");
+            $("#itemError").html(trLiteral("The item fields are required"));
         } else {
             $("#itemError").html("");
         }
 
         if (u > 0) {
-            $("#priceError").html("The unit Price fields are required");
+            $("#priceError").html(trLiteral("The unit Price fields are required"));
         } else {
             $("#priceError").html("");
         }
 
         if (q > 0) {
-            $("#quantityError").html("The item quantity fields are required");
+            $("#quantityError").html(trLiteral("The item quantity fields are required"));
         } else {
             $("#quantityError").html("");
         }
 
         if ($("#income_head_id").val() == "") {
-            $("#incomeError").html("The income head fields are required");
+            $("#incomeError").html(trLiteral("The income head fields are required"));
         } else {
             $("#incomeError").html("");
         }
 
         if ($("#buyer_type").val() == "") {
-            $("#buyerError").html("The sale to field is required");
+            $("#buyerError").html(trLiteral("The sale to field is required"));
             $("#studentError").html("");
             $("#sectionError").html("");
             $("#classError").html("");
@@ -5033,19 +5033,19 @@
             $("#nameError").html("");
 
             if ($("#select_class").val() == "") {
-                $("#classError").html("The class field is required");
+                $("#classError").html(trLiteral("The class field is required"));
             } else {
                 $("#classError").html("");
             }
 
             if ($("#select_section").val() == "") {
-                $("#sectionError").html("The section field is required");
+                $("#sectionError").html(trLiteral("The section field is required"));
             } else {
                 $("#sectionError").html("");
             }
 
             if ($("#select_student").val() == "") {
-                $("#studentError").html("The student field is required");
+                $("#studentError").html(trLiteral("The student field is required"));
             } else {
                 $("#studentError").html("");
             }
@@ -5056,14 +5056,14 @@
             $("#classError").html("");
 
             if ($("#selectStaffs").val() == "") {
-                $("#nameError").html("The name field is required");
+                $("#nameError").html(trLiteral("The name field is required"));
             } else {
                 $("#nameError").html("");
             }
         }
 
         if (p > 0) {
-            $("#paymentError").html("The payment field is required.");
+            $("#paymentError").html(trLiteral("The payment field is required."));
         } else {
             $("#paymentError").html("");
         }
@@ -5162,38 +5162,38 @@
         }
 
         if (ih > 0) {
-            $("#incomeError").html("The income head fields are required");
+            $("#incomeError").html(trLiteral("The income head fields are required"));
         } else {
             $("#incomeError").html("");
         }
 
         if (i > 0) {
-            $("#itemError").html("The item fields are required");
+            $("#itemError").html(trLiteral("The item fields are required"));
         } else {
             $("#itemError").html("");
         }
 
         if (u > 0) {
-            $("#priceError").html("The unit Price fields are required");
+            $("#priceError").html(trLiteral("The unit Price fields are required"));
         } else {
             $("#priceError").html("");
         }
 
         if (q > 0) {
-            $("#quantityError").html("The item quantity fields are required");
+            $("#quantityError").html(trLiteral("The item quantity fields are required"));
         } else {
             $("#quantityError").html("");
         }
 
         if ($("#income_head_id").val() == "") {
-            $("#incomeError").html("The income head fields are required");
+            $("#incomeError").html(trLiteral("The income head fields are required"));
         } else {
             $("#incomeError").html("");
         }
 
 
         if ($("#buyer_type").val() == "") {
-            $("#buyerError").html("The sale to field is required");
+            $("#buyerError").html(trLiteral("The sale to field is required"));
             $("#studentError").html("");
             $("#sectionError").html("");
             $("#classError").html("");
@@ -5203,19 +5203,19 @@
             $("#nameError").html("");
 
             if ($("#select_class").val() == "") {
-                $("#classError").html("The class field is required");
+                $("#classError").html(trLiteral("The class field is required"));
             } else {
                 $("#classError").html("");
             }
 
             if ($("#select_section").val() == "") {
-                $("#sectionError").html("The section field is required");
+                $("#sectionError").html(trLiteral("The section field is required"));
             } else {
                 $("#sectionError").html("");
             }
 
             if ($("#select_student").val() == "") {
-                $("#studentError").html("The student field is required");
+                $("#studentError").html(trLiteral("The student field is required"));
             } else {
                 $("#studentError").html("");
             }
@@ -5226,7 +5226,7 @@
             $("#classError").html("");
 
             if ($("#selectStaffs").val() == "") {
-                $("#nameError").html("The name field is required");
+                $("#nameError").html(trLiteral("The name field is required"));
             } else {
                 $("#nameError").html("");
             }
@@ -5809,7 +5809,7 @@
                         var appendRow = "";
 
                         appendRow += "<div class='col-lg-12'>";
-                        appendRow += "<label>Select Subject *</label>";
+                        appendRow += "<label>" + trLiteral("Select Subject *") + "</label>";
                         $.each(data, function(i, value) {
                             appendRow += "<div class='input-effect'>";
                             appendRow +=
@@ -6020,7 +6020,7 @@
                                 );
                             });
                         } else {
-                            $("#select_class_div .current").html("SELECT CLASS *");
+                            $("#select_class_div .current").html(trLiteral("SELECT CLASS *"));
                             $("#select_class").find("option").not(":first").remove();
                             $("#select_class_div ul").find("li").not(":first").remove();
                         }
@@ -6074,7 +6074,7 @@
                                 );
                             });
                         } else {
-                            $("#select_fees_type_div .current").html("FEES TYPE *");
+                            $("#select_fees_type_div .current").html(trLiteral("FEES TYPE *"));
                             $("#select_fees_type").find("option").not(":first").remove();
                             $("#select_fees_type_div ul").find("li").not(":first").remove();
                         }
@@ -6295,7 +6295,7 @@
                                 );
                             });
                         } else {
-                            $("#examTypeBaseSubjectDiv .current").html("SUBJECT *");
+                            $("#examTypeBaseSubjectDiv .current").html(trLiteral("SUBJECT *"));
                             $("#examTypeBaseSubjectList").find("option").not(":first").remove();
                             $("#examTypeBaseSubjectDiv ul").find("li").not(":first").remove();
                         }
@@ -6356,7 +6356,7 @@
                             "<div class='nice-select primary_select form-control' tabindex='0'>";
                         subject_teacher += "<span class='current'>"+window.jsLang('select_subject')+"</span>";
                         subject_teacher +=
-                            "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='Search...'></div>";
+                            "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='" + trLiteral("Search...") + "'></div>";
                         subject_teacher += "<ul class='list'>";
                         subject_teacher +=
                             "<li data-value='' data-display='"+window.jsLang('select_subject')+"' class='option selected'>"+window.jsLang('select_subject')+"</li>";
@@ -6389,7 +6389,7 @@
                             "<div class='nice-select primary_select form-control' tabindex='0'>";
                         subject_teacher += "<span class='current'>"+window.jsLang('select_teacher')+"</span>";
                         subject_teacher +=
-                            "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='Search...'></div>";
+                            "<div class='nice-select-search-box'><input type='text' class='nice-select-search' placeholder='" + trLiteral("Search...") + "'></div>";
                         subject_teacher += "<ul class='list'>";
                         subject_teacher +=
                             "<li data-value='' data-display='"+window.jsLang('select_teacher')+"' class='option selected'>"+window.jsLang('select_teacher')+"</li>";
@@ -6467,7 +6467,7 @@
                                 );
                             });
                         } else {
-                            $("#academic-year-div .current").html("SELECT ACADEMIC YEAR *");
+                            $("#academic-year-div .current").html(trLiteral("SELECT ACADEMIC YEAR *"));
                             $("#select-academic-year").find("option").not(":first").remove();
                             $("#academic-year-div ul").find("li").not(":first").remove();
                         }
@@ -6526,7 +6526,7 @@
                                     );
                                 });
                             } else {
-                                $("#class-div .current").html("SELECT CLASS *");
+                                $("#class-div .current").html(trLiteral("SELECT CLASS *"));
                                 $("#select-class").find("option").not(":first").remove();
                                 $("#class-div ul").find("li").not(":first").remove();
                             }
@@ -6595,7 +6595,7 @@
                                 );
                             });
                         } else {
-                            $("#section-div .current").html("SELECT SECTION *");
+                            $("#section-div .current").html(trLiteral("SELECT SECTION *"));
                             $("#select-section").find("option").not(":first").remove();
                             $("#section-div ul").find("li").not(":first").remove();
                         }

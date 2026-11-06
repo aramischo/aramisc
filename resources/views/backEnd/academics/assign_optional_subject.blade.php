@@ -91,7 +91,7 @@
                                             <table id="" class="table" cellspacing="0" width="100%">
                                                 <thead>
                                                     <tr>
-                                                        <th><span class="all_check btn btn-sm fix-gr-bg" id="all_check" tyle="width: 143.715px; height: 143.715px; top: -48.611px; left: -26.5173px;" > Select All </span> </th> 
+                                                        <th><span class="all_check btn btn-sm fix-gr-bg" id="all_check" tyle="width: 143.715px; height: 143.715px; top: -48.611px; left: -26.5173px;" >{{ __('lang.Select All') }}</span> </th> 
                                                         <th class="nowrap p-2" >@lang('student.admission_no').</th>
                                                         <th class="nowrap p-2">@lang('student.name')</th>
                                                         <th class="nowrap p-2">@lang('academics.optional_subject')</th>   

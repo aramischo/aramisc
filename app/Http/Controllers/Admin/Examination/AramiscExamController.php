@@ -428,7 +428,7 @@ class AramiscExamController extends Controller
                 foreach ($request->exams_types as $exam_type_id) {
                     foreach ($request->subjects_ids as $subject_id) {
                         $checkExitExam = AramiscExam::where([
-                            'exam_type_id' => $request->exams_type,
+                            'exam_type_id' => $exam_type_id,
                             'un_session_id' => $request->un_session_id,
                             'un_faculty_id' => $request->un_faculty_id,
                             'un_department_id' => $request->un_department_id,
@@ -493,10 +493,10 @@ class AramiscExamController extends Controller
                             foreach ($request->subjects_ids as $subject_id) {
                                 if (in_array($subject_id, $eligible_subjects)) {
                                     $checkExitExam = AramiscExam::where([
-                                        'exam_type_id' => $request->exams_type,
+                                        'exam_type_id' => $exam_type_id,
                                         'class_id' => $request->class_ids,
                                         'section_id' => $section->section_id,
-                                        'subject_id' => $request->subject_id                       
+                                        'subject_id' => $subject_id
                                     ])->first();
                                     
                                     if($checkExitExam) {

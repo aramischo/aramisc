@@ -17,6 +17,18 @@ class AramiscNotificationSetting extends Model
 
     public static function templeteData($body, $data)
     {
+        // Nom vide : on retombe sur le destinataire, et à défaut on ne laisse pas « Dear , »
+        foreach (['student_name', 'parent_name', 'teacher_name', 'admin_name', 'staff_name'] as $nameKey) {
+            if (empty($data[$nameKey]) && !empty($data['receiver_name'])) {
+                $data[$nameKey] = $data['receiver_name'];
+            }
+        }
+        foreach (['student', 'parent', 'teacher', 'admin', 'staff'] as $who) {
+            if (empty($data[$who . '_name'])) {
+                $body = preg_replace('/\s+\[' . $who . '_name\],/', ',', $body);
+            }
+        }
+
         $body = str_replace('[student_name]', @$data['student_name'], $body);
         $body = str_replace('[assignment]', @$data['assignment'], $body);
         $body = str_replace('[subject]', @$data['subject'], $body);

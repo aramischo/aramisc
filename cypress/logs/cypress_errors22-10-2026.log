@@ -1,0 +1,936 @@
+[2026-10-22T15:21:42.965Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:21:42.969Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:21:42.971Z] [TEST FAILED] Spec: cypress/e2e/admin/administration/courrier_recu.cy.js
+Test: Admin – Administration : Réception postale (CRUD) effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Error: Timed out retrying after 20000ms: Expected to find content: 'CyRecu_1792682450428' within the element: <tbody> and with the selector: 'tr' but never did.
+Stack: AssertionError: Timed out retrying after 20000ms: Expected to find content: 'CyRecu_1792682450428' within the element: <tbody> and with the selector: 'tr' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/administration/courrier_recu.cy.js:50:18)
+---
+[2026-10-22T15:25:23.371Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:25:23.374Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:25:23.376Z] [TEST FAILED] Spec: cypress/e2e/admin/administration/courrier_recu.cy.js
+Test: Admin – Administration : Réception postale (CRUD) effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Error: Timed out retrying after 20000ms: Expected to find content: 'CyRecu_1792682675512' within the element: <tbody> and with the selector: 'tr' but never did.
+Stack: AssertionError: Timed out retrying after 20000ms: Expected to find content: 'CyRecu_1792682675512' within the element: <tbody> and with the selector: 'tr' but never did.
+    at Context.eval (webpack:///./cypress/e2e/admin/administration/courrier_recu.cy.js:50:18)
+---
+[2026-10-22T15:33:38.867Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:33:38.871Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un courrier reçu
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:34:52.925Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:34:52.929Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:39:03.922Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:39:03.925Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:45:07.448Z] [UNCAUGHT EXCEPTION] Test: crée un compte bancaire, consulte ses transactions, le modifie puis le supprime
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:45:07.451Z] [UNCAUGHT EXCEPTION] Test: crée un compte bancaire, consulte ses transactions, le modifie puis le supprime
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:46:36.125Z] [UNCAUGHT EXCEPTION] Test: ajoute un revenu par banque, le modifie puis le supprime en tenant le solde du compte à jour
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:46:36.129Z] [UNCAUGHT EXCEPTION] Test: ajoute un revenu par banque, le modifie puis le supprime en tenant le solde du compte à jour
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:48:03.568Z] [UNCAUGHT EXCEPTION] Test: ajoute une dépense par banque, la modifie puis la supprime en tenant le solde du compte à jour
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:48:03.571Z] [UNCAUGHT EXCEPTION] Test: ajoute une dépense par banque, la modifie puis la supprime en tenant le solde du compte à jour
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:49:27.097Z] [UNCAUGHT EXCEPTION] Test: reçoit des articles, modifie la quantité puis supprime la réception en tenant le stock à jour
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:49:27.100Z] [UNCAUGHT EXCEPTION] Test: reçoit des articles, modifie la quantité puis supprime la réception en tenant le stock à jour
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:50:57.844Z] [UNCAUGHT EXCEPTION] Test: configure un examen multiple pour Class1 / Math, le modifie puis le supprime
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:50:57.851Z] [UNCAUGHT EXCEPTION] Test: configure un examen multiple pour Class1 / Math, le modifie puis le supprime
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:52:08.332Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un événement
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:52:08.336Z] [UNCAUGHT EXCEPTION] Test: effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un événement
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:53:19.648Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T15:53:19.652Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T16:23:12.111Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T16:23:12.114Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T16:24:24.900Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-10-22T16:24:24.923Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---

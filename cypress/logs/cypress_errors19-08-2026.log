@@ -1,0 +1,87 @@
+[2026-08-19T16:57:28.671Z] [TEST FAILED] Spec: cypress/e2e/admin/admission.cy.js
+Test: Admin – Admission Admission query - Full CRUD Lifecycle Admission-query - create
+Error: `cy.type()` can only accept a string or number. You passed in: `undefined`
+Stack: CypressError: `cy.type()` can only accept a string or number. You passed in: `undefined`
+    at Context.type (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:116019:68)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:146375:19)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/admin/admission.cy.js:24:31)
+---
+[2026-08-19T18:26:07.273Z] [TEST FAILED] Spec: cypress/e2e/admin/admission.cy.js
+Test: Admin – Admission Admission query - Full CRUD Lifecycle Admission-query - create
+Error: updatedTitle is not defined
+Stack: ReferenceError: updatedTitle is not defined
+    at Context.eval (webpack:///./cypress/e2e/admin/admission.cy.js:54:18)
+    at runnable.fn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:146648:19)
+    at callFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166028:21)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166015:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172115:30)
+    at PassThroughHandlerContext.finallyHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4045:23)
+    at PassThroughHandlerContext.tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+---
+[2026-08-19T18:32:14.154Z] [TEST FAILED] Spec: cypress/e2e/admin/admission.cy.js
+Test: Admin – Admission Admission query - Full CRUD Lifecycle Admission-query - create
+Error: updatedTitle is not defined
+Stack: ReferenceError: updatedTitle is not defined
+    at Context.eval (webpack:///./cypress/e2e/admin/admission.cy.js:54:18)
+    at runnable.fn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:146648:19)
+    at callFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166028:21)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166015:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172115:30)
+    at PassThroughHandlerContext.finallyHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4045:23)
+    at PassThroughHandlerContext.tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+---
+[2026-08-19T18:32:43.702Z] [TEST FAILED] Spec: cypress/e2e/admin/admission.cy.js
+Test: Admin – Admission Admission query - Full CRUD Lifecycle Admission-query - create
+Error: updatedTitle is not defined
+Stack: ReferenceError: updatedTitle is not defined
+    at Context.eval (webpack:///./cypress/e2e/admin/admission.cy.js:54:18)
+    at runnable.fn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:146648:19)
+    at callFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166028:21)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166015:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172115:30)
+    at PassThroughHandlerContext.finallyHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4045:23)
+    at PassThroughHandlerContext.tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+---
+[2026-08-19T18:33:20.283Z] [TEST FAILED] Spec: cypress/e2e/admin/admission.cy.js
+Test: Admin – Admission Admission query - Full CRUD Lifecycle Admission-query - create
+Error: updatedTitle is not defined
+Stack: ReferenceError: updatedTitle is not defined
+    at Context.eval (webpack:///./cypress/e2e/admin/admission.cy.js:54:18)
+    at runnable.fn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:146648:19)
+    at callFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166028:21)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166015:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:172115:30)
+    at PassThroughHandlerContext.finallyHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4045:23)
+    at PassThroughHandlerContext.tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+---
+[2026-08-19T18:33:53.607Z] [TEST FAILED] Spec: cypress/e2e/admin/admission.cy.js
+Test: Admin – Admission Admission query - Full CRUD Lifecycle Admission-query - edit
+Error: Timed out retrying after 20000ms: Expected to find element: `1`, but never found it. Queried from:
+
+              > cy.get(div.QA_table table tbody tr).first().find(td)
+Stack: AssertionError: Timed out retrying after 20000ms: Expected to find element: `1`, but never found it. Queried from:
+
+              > cy.get(div.QA_table table tbody tr).first().find(td)
+    at Context.eval (webpack:///./cypress/e2e/admin/admission.cy.js:73:22)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121346:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121357:66)
+    at Context.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121608:21)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:146375:19)
+---
+[2026-08-19T18:35:43.697Z] [TEST FAILED] Spec: cypress/e2e/admin/admission.cy.js
+Test: Admin – Admission Admission query - Full CRUD Lifecycle Admission-query - create
+Error: Timed out retrying after 30000ms: Expected not to find content: 'p_1787164467315_create' but continuously found it.
+Stack: AssertionError: Timed out retrying after 30000ms: Expected not to find content: 'p_1787164467315_create' but continuously found it.
+    at Context.eval (webpack:///./cypress/e2e/admin/admission.cy.js:54:50)
+---

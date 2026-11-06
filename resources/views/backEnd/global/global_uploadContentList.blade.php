@@ -255,7 +255,7 @@
                                             </button>
                                             
                                         </div>
-                                        <code>(jpg,png,jpeg,pdf,doc,docx,mp4,mp3,txt are allowed for upload)</code>
+                                        <code>({{ __("common.allowed_for_upload", ["types" => "jpg,png,jpeg,pdf,doc,docx,mp4,mp3,txt"]) }})</code>
                                     </div>
                                       @php 
                                   $tooltip = "";

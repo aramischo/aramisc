@@ -136,13 +136,7 @@
 </template>
 
 <script>
-import vSelect from 'vue-select';
-import 'vue-select/dist/vue-select.css';
-
 export default {
-    components: {
-        vSelect,
-    },
     props:{
         search_url:{
             type: String,
@@ -168,7 +162,7 @@ export default {
             required: true,
         },
         all_users:{
-            required: true,
+            default: () => [],
         },
         groups:{
             required: true,

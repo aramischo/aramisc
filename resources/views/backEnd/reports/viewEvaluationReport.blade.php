@@ -308,7 +308,8 @@
     });
 
     $('.primary_input_field.date').datepicker({
-        autoclose: true
+        autoclose: true,
+        format: 'mm/dd/yyyy'
     });
 
     $('.primary_input_field.date').on('changeDate', function(ev) {

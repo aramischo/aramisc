@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/metisMenu.css') }}" />
 
 <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/loade.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/css/app.css') }}" />
+<link rel="stylesheet" href="{{ Vite::asset('resources/sass/app.scss') }}" />
 <link rel="stylesheet" href="{{asset('public/backEnd/assets/css/croppie.css')}}" />
  @if(userRtlLtl() ==1)
 <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/style.css')}}" />
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="{{asset('public/backEnd/multiselect/css/custom_style.css')}}" />
 <link rel="stylesheet" href="{{asset('public/backEnd/assets/css/radio_checkbox.css')}}" />
 
-<link rel="stylesheet" href="{{asset('public/css/backend_design_v2.css')}}">
+<link rel="stylesheet" href="{{ Vite::asset('resources/sass/backend_design_v2.scss') }}">
 <style>
     *{
         -webkit-font-smoothing: antialiased;

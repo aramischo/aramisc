@@ -36,7 +36,7 @@
                                 <th>@lang('library.book_title')</th>
                                 <th>@lang('library.book_no')</th>
                                 <th>@lang('library.isbn_no')</th>
-                            {{-- <th>Member Name</th> --}}
+                            {{-- <th>{{ __('lang.Member Name') }}</th> --}}
                                 <th>@lang('library.author')</th>
                                 <th>@lang('common.subject')</th>
                                 <th>@lang('library.issue_date')</th>

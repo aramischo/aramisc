@@ -138,7 +138,7 @@
                                         <td>
                                             <div class="col-lg-12 mt-20 text-right">
                                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" > @lang('common.update')</button></span>
+                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" > @lang('common.update')</button></span>
                                                 @else
                                                 <button type="submit" class="primary-btn fix-gr-bg submit">
                                                         <span class="ti-check"></span>

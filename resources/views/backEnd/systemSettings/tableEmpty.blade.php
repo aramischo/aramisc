@@ -105,7 +105,7 @@
 
 
                                                 @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >   @lang('system_settings.empty_sample_data')</button></span>
+                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >   @lang('system_settings.empty_sample_data')</button></span>
                                             @else
                                             <button class="primary-btn fix-gr-bg small">
                                                     <span class="ti-check"></span>
@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="col-lg-3 text-right">
 
-                                            {{-- <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo ">
+                                            {{-- <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}">
                                             <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" disabled>X @lang('system_settings.sample_data_restore')</button>
                                             </span> --}}
 

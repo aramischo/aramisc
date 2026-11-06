@@ -125,7 +125,7 @@
                         <tbody>
                             @foreach($weekends as $weekend)
                             <tr>
-                                <td>{{@$weekend->name}}</td>
+                                <td>{{trans_literal(@$weekend->name)}}</td>
                                 <td>
                                     @if(@$weekend->is_weekend == 1)
                                     <button class="primary-btn small fix-gr-bg">

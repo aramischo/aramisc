@@ -35,7 +35,7 @@
                                 <div class="col-lg-6 mt-30-md">
                                     <select class="primary_select form-control{{ $errors->has('exam') ? ' is-invalid' : '' }}"
                                             name="exam">
-                                        <option data-display="Select Exam *" value="">@lang('exam.select_exam') *</option>
+                                        <option data-display="{{ __('lang.Select Exam *') }}" value="">@lang('exam.select_exam') *</option>
                                         @php
                                             $exams = [];
                                         @endphp

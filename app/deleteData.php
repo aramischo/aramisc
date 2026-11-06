@@ -9,7 +9,7 @@ class deleteData extends Model
 {
     public  function deleteTableData($id)
     {
-        $db_name=env('DB_DATABASE', null);
+        $db_name=DB::getDatabaseName();
 		$table_list=DB::select("SELECT TABLE_NAME 
 		FROM INFORMATION_SCHEMA.COLUMNS
 		WHERE COLUMN_NAME ='$id'

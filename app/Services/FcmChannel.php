@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
+use App\User;
 use Illuminate\Notifications\Notification;
 
 /**
@@ -11,27 +11,16 @@ use Illuminate\Notifications\Notification;
 class FcmChannel
 {
     /**
-     * @const The API URL for Firebase
+     * @var FirebasePushService
      */
-    const API_URI = 'https://fcm.googleapis.com/fcm/send';
+    private $firebase;
 
     /**
-     * @var Client
+     * @param  FirebasePushService  $firebase
      */
-    private $client;
-
-    /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * @param  Client  $client
-     */
-    public function __construct(Client $client, $apiKey)
+    public function __construct(FirebasePushService $firebase)
     {
-        $this->client = $client;
-        $this->apiKey = $apiKey;
+        $this->firebase = $firebase;
     }
 
     /**
@@ -54,34 +43,53 @@ class FcmChannel
 
         $response_array = [];
 
-        if (is_array($message->getTo())) {
-            $chunks = array_chunk($message->getTo(), 1000);
+        // L'API v1 n'accepte qu'un destinataire par requête.
+        $tokens = is_array($message->getTo()) ? $message->getTo() : [$message->getTo()];
 
-            foreach ($chunks as $chunk) {
-                $message->to($chunk);
-
-                $response = $this->client->post(self::API_URI, [
-                    'headers' => [
-                        'Authorization' => 'key='.$this->apiKey,
-                        'Content-Type'  => 'application/json',
-                    ],
-                    'body' => $message->formatData(),
-                ]);
-
-                array_push($response_array, \GuzzleHttp\json_decode($response->getBody(), true));
+        foreach ($tokens as $token) {
+            $response = $this->post($message, $token);
+            if ($response !== null) {
+                array_push($response_array, $response);
             }
-        } else {
-            $response = $this->client->post(self::API_URI, [
-                'headers' => [
-                    'Authorization' => 'key='.$this->apiKey,
-                    'Content-Type' => 'application/json',
-                ],
-                'body' => $message->formatData(),
-            ]);
-
-            array_push($response_array, \GuzzleHttp\json_decode($response->getBody(), true));
         }
 
         return $response_array;
+    }
+
+    /**
+     * A push failure (unregistered device, network...) must not break the action
+     * that triggered the notification (e.g. sending a chat message): log it and go on.
+     *
+     * @param  FcmMessage  $message
+     * @param  string|null  $token
+     * @return array|null
+     */
+    private function post($message, $token)
+    {
+        try {
+            $result = $this->firebase->send($message->toV1($token), (bool) $message->isDryRun());
+
+            if ($this->isUnregistered($result)) {
+                User::where('device_token', $token)->update(['device_token' => null]);
+            }
+
+            return $result;
+        } catch (\Throwable $e) {
+            \Log::warning('FCM push failed: '.$e->getMessage());
+
+            return null;
+        }
+    }
+
+    /**
+     * Firebase signale un jeton mort (application désinstallée, jeton périmé) : l'application en renverra un
+     * nouveau via set-fcm-token, inutile de le réessayer d'ici là.
+     *
+     * @param  array  $result
+     * @return bool
+     */
+    private function isUnregistered(array $result)
+    {
+        return in_array('UNREGISTERED', data_get($result, 'response.error.details.*.errorCode', []) ?: []);
     }
 }

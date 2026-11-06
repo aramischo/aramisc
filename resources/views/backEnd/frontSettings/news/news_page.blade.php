@@ -246,7 +246,7 @@
                                     <div class="col-lg-12 text-center">
                                         @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                             <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                                                title="Disabled For Demo "> <button
+                                                title="{{ __('lang.Disabled For Demo') }}"> <button
                                                     class="primary-btn fix-gr-bg  demo_view" style="pointer-events: none;"
                                                     type="button">@lang('front_settings.update')</button></span>
                                         @else
@@ -321,7 +321,7 @@
                                                         @if (userPermission('delete-news'))
                                                             @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                                 <span tabindex="0" data-toggle="tooltip"
-                                                                    title="Disabled For Demo">
+                                                                    title="{{ __('lang.Disabled For Demo') }}">
                                                                     <a href="#"
                                                                         class="dropdown-item small fix-gr-bg  demo_view"
                                                                         style="pointer-events: none;">@lang('common.delete')</a></span>

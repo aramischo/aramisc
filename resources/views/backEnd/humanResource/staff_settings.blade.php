@@ -254,7 +254,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><strong>Phone</strong></td>
+                                                    <td><strong>{{ __('lang.Phone') }}</strong></td>
                                                     <td>
                                                         <label class="switch_toggle">
                                                             <input type="checkbox" data-value="phone"

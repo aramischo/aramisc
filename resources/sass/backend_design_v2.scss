@@ -232,7 +232,7 @@ html[dir="rtl"] .menu_seperator {
 			padding: 20px !important;
 			box-shadow: 0px 9px 20px rgba(46, 35, 94, 0.07);
 			&::before {
-				border-color: transparent transparent var(--text_white transparent);
+				border-color: transparent transparent var(--text_white) transparent;
 			}
 			p {
 				color: var(--black) !important;
@@ -1300,4 +1300,20 @@ html[dir=rtl] .profile_info .profile_info_iner{
 
 .tableheight{
 	min-height: 350px;
+}
+// Sous-menus de la sidebar : les libellés longs (FR) passent à la ligne au lieu d'être coupés.
+// Le lien hérite de `display: grid; grid-template-columns: 20px auto` (prévu pour l'icône) :
+// sans icône, le texte tombait dans la colonne de 20px (un mot par ligne) → bloc simple.
+.sidebar #sidebar_menu li ul li a,
+#sidebar.sidebar.mini_sidebar:hover #sidebar_menu > li ul li a {
+	display: block;
+	white-space: normal;
+	overflow-wrap: break-word;
+	line-height: 1.35;
+}
+
+// Entrées de premier niveau avec sous-menu : réserver la place du chevron (::after, position absolue)
+// pour que les libellés longs passent à la ligne avant lui au lieu de passer dessous.
+.sidebar #sidebar_menu > li > a.has-arrow {
+	padding-inline-end: 32px;
 }

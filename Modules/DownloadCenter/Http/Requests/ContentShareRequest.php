@@ -7,6 +7,17 @@ use Illuminate\Foundation\Http\FormRequest;
 class ContentShareRequest extends FormRequest
 {
     /**
+     * Convert localized dates (d/m/Y in FR) to Y-m-d so that `after:shareDate` compares them correctly.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'shareDate' => $this->shareDate ? toDbDateConvert($this->shareDate) : $this->shareDate,
+            'validUpto' => $this->validUpto ? toDbDateConvert($this->validUpto) : $this->validUpto,
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

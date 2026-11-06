@@ -151,7 +151,8 @@ class AramiscEventController extends Controller
     public function getAllEventList()
     {
         try {
-            $events = AramiscEvent::when(auth()->user()->roles->id != 1, function($s){
+            // Super admin (1) et Admin (5) voient tous les événements ; les autres rôles, ceux qui leur sont destinés.
+            $events = AramiscEvent::when(!in_array(auth()->user()->roles->id, [1, 5]), function($s){
                 $s->whereJsonContains('role_ids', (string) auth()->user()->roles->id);
             });
             return DataTables::of($events)

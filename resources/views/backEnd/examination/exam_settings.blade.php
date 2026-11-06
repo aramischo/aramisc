@@ -122,7 +122,7 @@
                                                 {{ $errors->first('file') }}
                                             </span>
                                             @endif
-                                            <code class="nowrap d-block mb-15">(Allow file jpg, png, jpeg, svg)</code>
+                                            <code class="nowrap d-block mb-15">({{ __("common.allowed_for_upload", ["types" => "jpg, png, jpeg, svg"]) }})</code>
                                         </div>
                                         <div class="col-lg-12 mb-15 term_exam">
                                             <img class="previewImageSize {{ @$editData->file ? '' : 'd-none' }}" src="{{ @$editData->file ? asset($editData->file) : '' }}" alt="" id="signatureImageShow" height="100%" width="100%">

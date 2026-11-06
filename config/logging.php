@@ -44,6 +44,14 @@ return [
             'level' => 'debug',
         ],
 
+        // Canal dédié à l'audit du contrôle d'accès par rôle (chantier permissions).
+        // Utilisé par le middleware UserRolePermission quand access_control.audit=true.
+        'access_audit' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/access_audit.log'),
+            'level' => 'info',
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),

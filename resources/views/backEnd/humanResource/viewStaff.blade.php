@@ -1095,8 +1095,8 @@
     
                                                     <div class="col-lg-12 mt-30">
                                                         <div class="d-flex justify-content-between">
-                                                            <button class="primary-btn tr-bg" type="button" data-dismiss="modal">Cancel</button>
-                                                            <button class="primary-btn fix-gr-bg submit" type="submit">Save</button>
+                                                            <button class="primary-btn tr-bg" type="button" data-dismiss="modal">{{ __('lang.Cancel') }}</button>
+                                                            <button class="primary-btn fix-gr-bg submit" type="submit">{{ __('lang.Save') }}</button>
                                                         </div>
                                                     </div>
     

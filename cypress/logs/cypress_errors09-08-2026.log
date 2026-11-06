@@ -1,0 +1,6 @@
+[2026-08-09T16:51:32.148Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Room Type - Full CRUD Lifecycle effectue le cycle de vie complet (Création, Lecture, Modification, Suppression) d'un type de chambre
+Error: Timed out retrying after 10000ms: Expected to find content: 'RoomType_1786294270363' but never did.
+Stack: AssertionError: Timed out retrying after 10000ms: Expected to find content: 'RoomType_1786294270363' but never did.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:26:50)
+---

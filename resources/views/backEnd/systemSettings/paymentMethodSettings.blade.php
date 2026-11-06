@@ -88,7 +88,7 @@
                     <div class="row mt-15">
                         <div class="col-lg-12 text-center">
                             @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('common.update') </button></span>
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('common.update') </button></span>
                             @else
                                 <button class="primary-btn fix-gr-bg" data-toggle="tooltip" title="{{@$tooltip}}">
                                     <span class="ti-check"></span>
@@ -470,18 +470,18 @@
                                     @endphp
                                     @if (@$row->gateway_name != 'Bank')
                                         @if (@$row->gateway_name == 'Paystack')
-                                            <strong class="main-title"> N.B: Please Set This url <a class="disabled link-wrod-wrap"
+                                            <strong class="main-title"> {{ __("system_settings.nb_please_set_this_url") }} <a class="disabled link-wrod-wrap"
                                                     href=" {{ route('payment.success','Paystack') }}" disable>
                                                     @if (directFees() ||  generalSetting()->fees_status )
                                                     {{ route('payment.success','Paystack') }} 
                                                     @else
                                                         {{ route('handleGatewayCallback') }} 
                                                     @endif
-                                                </a> As Paystack Callback Url </strong>
+                                                </a> {{ __("system_settings.as_callback_url", ["gateway" => "Paystack"]) }} </strong>
                                         @endif
     
                                         @if (@$row->gateway_name == 'Raudhahpay')
-                                            <strong class="main-title"> N.B: Please Set This url <a class="disabled link-wrod-wrap"
+                                            <strong class="main-title"> {{ __("system_settings.nb_please_set_this_url") }} <a class="disabled link-wrod-wrap"
                                                     href="{{ url('raudhahpay/payment_success_callback') }}"
                                                     disable>{{ url('raudhahpay/payment_success_callback') }}</a> As
                                                 Raudhahpay WebHook Url </strong>
@@ -491,7 +491,7 @@
                                             <div class="col-lg-12 text-center">
                                                 @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                                                        title="Disabled For Demo "> <button
+                                                        title="{{ __('lang.Disabled For Demo') }}"> <button
                                                             class="primary-btn fix-gr-bg  demo_view"
                                                             style="pointer-events: none;"
                                                             type="button">@lang('common.update') </button></span>

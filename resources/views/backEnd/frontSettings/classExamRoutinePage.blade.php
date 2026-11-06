@@ -229,7 +229,7 @@
                                         <div class="col-lg-12 text-center">
                                             @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                                                    title="Disabled For Demo "> <button
+                                                    title="{{ __('lang.Disabled For Demo') }}"> <button
                                                         class="primary-btn fix-gr-bg  demo_view"
                                                         style="pointer-events: none;" type="button">@lang('common.update')
                                                     </button></span>

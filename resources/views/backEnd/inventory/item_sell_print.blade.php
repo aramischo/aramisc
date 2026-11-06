@@ -112,10 +112,10 @@
 	<table class="d-table table-responsive custom-table" cellspacing="0" width="100%" style="width: 100%; table-layout: fixed">
         <thead>
             <tr>
-                <th width="40%">Description</th>
-                <th width="20%">Quantity</th>
-                <th width="20%">Price</th>
-                <th width="20%">Amount</th>
+                <th width="40%">{{ __('lang.Description') }}</th>
+                <th width="20%">{{ __('lang.Quantity') }}</th>
+                <th width="20%">{{ __('lang.Price') }}</th>
+                <th width="20%">{{ __('lang.Amount') }}</th>
             </tr>
         </thead>
 
@@ -144,7 +144,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td class="fw-600">Paid Amount</td>
+                <td class="fw-600">{{ __('lang.Paid Amount') }}</td>
                 <td class="fw-600">
                 {{(isset($viewData)) ? number_format( (float) $viewData->total_paid, 2, '.', '') : ''}}
                 </td>
@@ -152,7 +152,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td class="fw-600">Due Amount</td>
+                <td class="fw-600">{{ __('lang.Due Amount') }}</td>
                 <td class="fw-600">
                 {{(isset($viewData)) ? number_format( (float) $viewData->total_due, 2, '.', '') : ''}}
                 </td>

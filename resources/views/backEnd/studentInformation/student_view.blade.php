@@ -675,7 +675,7 @@
                                     <div class="col">
                                         <div class="input-effect">
                                             <input class="primary_input_field" type="text"
-                                                id="placeholderFileFourName" placeholder="Document" disabled>
+                                                id="placeholderFileFourName" placeholder="{{ __('lang.Document') }}" disabled>
                                             <span class="focus-border"></span>
                                         </div>
                                     </div>

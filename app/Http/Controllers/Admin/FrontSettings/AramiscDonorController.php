@@ -44,12 +44,12 @@ class AramiscDonorController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         try {
-            $destination =  'public/uploads/theme/edulia/donor/';
+            $destination = 'public/uploads/theme/edulia/donor/';
             $image = fileUpload($request->photo, $destination);
             $donor = new AramiscDonor();
             $donor->full_name = $request->name;
             $donor->profession = $request->profession;
-            $donor->date_of_birth = toDbDateConvert('Y-m-d', strtotime($request->date_of_birth);
+            $donor->date_of_birth = toDbDateConvert('Y-m-d', strtotime($request->date_of_birth));
             $donor->email = $request->email;
             $donor->mobile = $request->mobile;
             $donor->photo = $image;
@@ -116,7 +116,7 @@ class AramiscDonorController extends Controller
             return redirect()->back()->withInput();
         }
         try {
-            $destination =  'public/uploads/theme/edulia/donor/';
+            $destination = 'public/uploads/theme/edulia/donor/';
             $donor = AramiscDonor::find($request->id);
             $donor->full_name = $request->name;
             $donor->profession = $request->profession;
@@ -176,7 +176,7 @@ class AramiscDonorController extends Controller
     {
         try {
             $donor = AramiscDonor::find($id);
-            if($donor && file_exists($donor->photo)){
+            if ($donor && file_exists($donor->photo)) {
                 unlink($donor->photo);
             }
             $donor->delete();

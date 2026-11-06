@@ -452,7 +452,7 @@
         </div>
     </section>
 </body>
-<script src="{{ asset('public/vendor/spondonit/js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('public/vendor/aramisc/js/jquery-3.6.0.min.js') }}"></script>
 <script>
     $('.cum-avg').text("{{number_format($cumulativeAverage, 2, '.', '')}}");
     $(document).ready(function(){

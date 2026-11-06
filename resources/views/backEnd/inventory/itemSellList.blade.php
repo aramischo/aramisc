@@ -156,7 +156,7 @@
                                                         @if($value->paid_status != 'R')
                                                         @if($value->total_paid>0)
     
-                                                        <a class="dropdown-item deleteUrl" data-modal-size="modal-md" title="Cancel Item Sell" href="{{route('cancel-item-sell-view', $value->id)}}">@lang('common.cancel')</a>
+                                                        <a class="dropdown-item deleteUrl" data-modal-size="modal-md" title="{{ __('lang.Cancel Item Sell') }}" href="{{route('cancel-item-sell-view', $value->id)}}">@lang('common.cancel')</a>
                                                         @endif
                                                         @endif
     

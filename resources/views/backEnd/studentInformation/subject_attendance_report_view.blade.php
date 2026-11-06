@@ -128,7 +128,7 @@
                                 <select
                                     class="primary_select form-control{{ $errors->has('subject') ? ' is-invalid' : '' }} select_subject"
                                     id="select_subject" name="subject">
-                                    <option data-display="Select subject *" value="">@lang('student.select_subject') *</option>
+                                    <option data-display="{{ __('lang.Select subject *') }}" value="">@lang('student.select_subject') *</option>
                                 </select>
                                 @if ($errors->has('subject'))
                                     <span class="text-danger invalid-select" role="alert">
@@ -140,7 +140,7 @@
                             <div class="col-lg-3 mt-30-md">
                                 <select class="primary_select {{ $errors->has('month') ? ' is-invalid' : '' }}"
                                     name="month">
-                                    <option data-display="Select Month *" value="">@lang('student.select_month') *</option>
+                                    <option data-display="{{ __('lang.Select Month *') }}" value="">@lang('student.select_month') *</option>
                                     <option value="01"
                                         {{ isset($month) ? ($month == '01' ? 'selected' : '') : ($current_month == '01' ? 'selected' : '') }}>
                                         @lang('student.january')</option>
@@ -187,7 +187,7 @@
                             <div class="col-lg-3 mt-30-md  ">
                                 <select class="primary_select form-control{{ $errors->has('year') ? ' is-invalid' : '' }}"
                                     name="year">
-                                    <option data-display="Select Year *" value="">@lang('student.select_year') *</option>
+                                    <option data-display="{{ __('lang.Select Year *') }}" value="">@lang('student.select_year') *</option>
                                     @php
                                         $current_year = date('Y');
                                         $ini = date('y');

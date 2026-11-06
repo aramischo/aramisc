@@ -19,6 +19,20 @@
                   "clear": {!! json_encode(__('calender.clear')) !!},
                   "format": (_locale.toLowerCase() === 'fr') ? 'd/m/yyyy' : 'yyyy-mm-d',
               })
+              // Langue par défaut, y compris pour les champs date des fenêtres chargées en AJAX
+              $.fn.datepicker.defaults.language = _locale;
+
+              // Mois et jours du sélecteur date/heure (basé sur moment), sans changer les formats de date
+              moment.updateLocale('en', {
+                  months: {!! json_encode(__('calender.months')) !!},
+                  monthsShort: {!! json_encode(__('calender.monthsShort')) !!},
+                  weekdays: {!! json_encode(__('calender.days')) !!},
+                  weekdaysShort: {!! json_encode(__('calender.daysShort')) !!},
+                  weekdaysMin: {!! json_encode(__('calender.daysMin')) !!},
+              });
+              $.each($.fn.datetimepicker.defaults.tooltips, function (key, text) {
+                  $.fn.datetimepicker.defaults.tooltips[key] = trLiteral(text);
+              });
 
           }(jQuery));
       

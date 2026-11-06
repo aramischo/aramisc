@@ -91,7 +91,7 @@
                                             <tr>
                                                 <td width="15%">
                                                     <input type="hidden" name="event" value="1">
-                                                    {{ str_replace('_', ' ', $data->event) }}
+                                                    {{ trans_literal(str_replace('_', ' ', $data->event)) }}
                                                 </td>
                                                 <td width="15%">
                                                     @foreach ($data->destination as $key => $destination)
@@ -124,16 +124,16 @@
                                                                         value="{{ $key }}"
                                                                         name="recipient{{ $loop->index }}{{ $data->id }}">
                                                                     <label class="primary_input_label m-0"
-                                                                        for="recipient{{ $loop->index }}{{ $data->id }}"><b>{{ $key }}</b>
+                                                                        for="recipient{{ $loop->index }}{{ $data->id }}"><b>{{ trans_literal($key) }}</b>
 
                                                                     </label>
                                                                     <div style="width: 80px">
                                                                     <a class="btn-info btn btn-sm modalLink" style="padding: 4px 12px; color:white;"
-                                                                        title="{{ str_replace('_', ' ', $data->event) }}[{{ $key }}]"
+                                                                        title="{{ trans_literal(str_replace('_', ' ', $data->event)) }}[{{ trans_literal($key) }}]"
                                                                         data-modal-size="large-modal"
                                                                         href="{{ route('notification_event_modal', [$data->id, $key]) }}"><i class="fa fa-pencil"></i></a>
                                                                     <a class="btn-danger btn btn-sm modalLink" style="padding: 4px 12px; color:white;"
-                                                                       title="{{ str_replace('_', ' ', $data->event) }}[{{ $key }}]"
+                                                                       title="{{ trans_literal(str_replace('_', ' ', $data->event)) }}[{{ trans_literal($key) }}]"
                                                                        data-modal-size="large-modal"
                                                                        href="{{ route('notification_delete_modal', [$data->id, $key,$blocid]) }}"><i class="fa fa-trash"></i></a>
                                                                     </div>

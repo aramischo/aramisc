@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-12">
                 <form method="post" action="{{ route('service.database') }}" id="content_form">
-                    @if(config('spondonit.support_multi_connection', false))
+                    @if(config('aramisc.support_multi_connection', false))
                     <div class="form-group">
                         <label class="required" for="db_connection">{{ __('service::install.db_connection') }} <i class="ti-help" data-toogle="tooltip" title="{{ __('service::install.db_connection_help') }}"></i> </label>
                         <select class="form-control select2" name="db_connection" id="db_connection"  required  data-placeholder="{{ __('service::install.db_connection') }}" data-parsley-errors-container="#parsley_db_connection_error">
@@ -70,7 +70,7 @@
 @push('js')
     <script>
         _formValidation('content_form');
-        @if(config('spondonit.support_multi_connection', false))
+        @if(config('aramisc.support_multi_connection', false))
             $('#db_connection').select2();
             $(document).on('change', '#db_connection', function(){
                 $('#db_port').val($(this).val() === 'pgsql' ? 5432 : 3306)

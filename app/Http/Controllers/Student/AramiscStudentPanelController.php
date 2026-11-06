@@ -1903,6 +1903,8 @@ class AramiscStudentPanelController extends Controller
 
     public function leaveStore(Request $request)
     {
+        // Dates saisies au format de la langue (j/m/aaaa en FR) : converties en Y-m-d avant la règle before_or_equal (sinon refus dès que le jour dépasse 12).
+        $request->merge(['apply_date' => toDbDateConvert($request->apply_date), 'leave_from' => toDbDateConvert($request->leave_from), 'leave_to' => toDbDateConvert($request->leave_to)]);
         $request->validate([
             'apply_date' => "required",
             'leave_type' => "required",
@@ -1912,12 +1914,14 @@ class AramiscStudentPanelController extends Controller
         ]);
         try {
             $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
-            $file = $request->file('attach_file');
-            $fileSize = filesize($file);
-            $fileSizeKb = ($fileSize / 1000000);
-            if ($fileSizeKb >= $maxFileSize) {
-                Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
-                return redirect()->back();
+            // attach_file est optionnel : ne calculer la taille que si un fichier est réellement joint.
+            // (filesize() recevait sinon null ou un objet UploadedFile → avertissement / TypeError en PHP 8.4.)
+            if ($request->hasFile('attach_file')) {
+                $fileSizeKb = ($request->file('attach_file')->getSize() / 1000000);
+                if ($fileSizeKb >= $maxFileSize) {
+                    Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
+                    return redirect()->back();
+                }
             }
             $input = $request->all();
             $fileName = "";
@@ -2039,6 +2043,8 @@ class AramiscStudentPanelController extends Controller
     public function update(Request $request)
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Dates saisies au format de la langue (j/m/aaaa en FR) : converties en Y-m-d avant la règle before_or_equal (sinon refus dès que le jour dépasse 12).
+        $request->merge(['apply_date' => toDbDateConvert($request->apply_date), 'leave_from' => toDbDateConvert($request->leave_from), 'leave_to' => toDbDateConvert($request->leave_to)]);
         $request->validate([
             'apply_date' => "required",
             'leave_type' => "required",
@@ -2048,12 +2054,14 @@ class AramiscStudentPanelController extends Controller
         ]);
         try {
             $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
-            $file = $request->file('attach_file');
-            $fileSize = filesize($file);
-            $fileSizeKb = ($fileSize / 1000000);
-            if ($fileSizeKb >= $maxFileSize) {
-                Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
-                return redirect()->back();
+            // attach_file est optionnel : ne calculer la taille que si un fichier est réellement joint.
+            // (filesize() recevait sinon null ou un objet UploadedFile → avertissement / TypeError en PHP 8.4.)
+            if ($request->hasFile('attach_file')) {
+                $fileSizeKb = ($request->file('attach_file')->getSize() / 1000000);
+                if ($fileSizeKb >= $maxFileSize) {
+                    Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
+                    return redirect()->back();
+                }
             }
             $fileName = "";
             if ($request->file('attach_file') != "") {

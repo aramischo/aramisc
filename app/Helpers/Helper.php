@@ -416,6 +416,11 @@ function FeesDueSMSBody($body, $s_id, $time)
 if (!function_exists('userPermission')) {
     function userPermission($route, $role_id = null, $purpose = null)
     {
+        // Guard: return false immediately if no authenticated user
+        if (!Auth::check() || Auth::user() === null) {
+            return false;
+        }
+
         $role_id = Auth::user()->role_id;
         $permissions = app('permission');
         if ($role_id == 1 && Auth::user()->is_administrator == "yes") {
@@ -486,6 +491,15 @@ if (!function_exists('moduleStatusCheck')) {
     }
 }
 
+if (!function_exists('trans_literal')) {
+
+    // Traduit à l'affichage un libellé stocké en anglais en base (événements, jours...) via resources/lang/<langue>/lang.php
+    function trans_literal($text)
+    {
+        return Illuminate\Support\Facades\Lang::has('lang.' . $text) ? __('lang.' . $text) : $text;
+    }
+}
+
 if (!function_exists('dateConvert')) {
 
     function dateConvert($input_date)
@@ -503,7 +517,14 @@ if (!function_exists('dateConvert')) {
             $language = ($slang) ? $slang : (($userlang) ? $userlang : 'en');
             $system_date_format = ($language =='fr') ? 'd/m/Y' : 'Y-m-d';
 
-            return \Carbon\Carbon::createFromFormat('Y-m-d', $input_date)->format($system_date_format);
+            // Colonnes horodatées (created_at, updated_at…) : on ne garde que la date. Sans cela le format Y-m-d échouait
+            // et la valeur brute « 2025-05-04 21:59:15 » s'affichait quelle que soit la langue.
+            $date_only = $input_date instanceof \DateTimeInterface ? $input_date->format('Y-m-d') : $input_date;
+            if (is_string($date_only) && preg_match('/^(\d{4}-\d{2}-\d{2})[ T]\d{2}:\d{2}/', $date_only, $matches) && $matches[1] !== '0000-00-00') {
+                $date_only = $matches[1];
+            }
+
+            return \Carbon\Carbon::createFromFormat('Y-m-d', $date_only)->format($system_date_format);
         } catch (\Throwable $th) {
 
             return $input_date;
@@ -533,6 +554,25 @@ if (!function_exists('toDbDateConvert')) {
 
             return $input_date;
         }
+    }
+}
+
+if (!function_exists('parseDateRange')) {
+
+    /**
+     * Lit la valeur d'un sélecteur de plage de dates (« 15/09/2026 - 20/09/2026 » en FR, « 2026-09-15 - 2026-09-20 » sinon)
+     * et renvoie [début, fin] en Y-m-d. Les deux dates sont repérées par motif : le séparateur importe peu (il contient
+     * un « - » comme les dates anglaises). Remplace explode('-', $range), qui cassait dès que le format contenait des « - ».
+     */
+    function parseDateRange($range)
+    {
+        preg_match_all('/\d{4}-\d{1,2}-\d{1,2}|\d{1,2}\/\d{1,2}\/\d{4}/', (string) $range, $matches);
+        $dates = array_map('toDbDateConvert', $matches[0]);
+        if (count($dates) === 0) {
+            return [trim((string) $range), trim((string) $range)];
+        }
+
+        return [$dates[0], $dates[1] ?? $dates[0]];
     }
 }
 
@@ -4307,8 +4347,8 @@ if (!function_exists('nav_item_open')) {
 if (!function_exists('app_url')) {
     function app_url()
     {
-        $saas = config('spondonit.saas_module_name', 'Saas');
-        $module_check_function = config('spondonit.module_status_check_function', 'moduleStatusCheck');
+        $saas = config('aramisc.saas_module_name', 'Saas');
+        $module_check_function = config('aramisc.module_status_check_function', 'moduleStatusCheck');
         if (function_exists($module_check_function) && $module_check_function($saas)) {
             return config('app.url');
         }

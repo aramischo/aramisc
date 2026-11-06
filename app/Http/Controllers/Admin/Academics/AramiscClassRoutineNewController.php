@@ -16,6 +16,7 @@ use App\AramiscAssignSubject;
 use Illuminate\Http\Request;
 use App\AramiscClassRoutineUpdate;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -278,68 +279,76 @@ class AramiscClassRoutineNewController extends Controller
                 'day' => 'required',
             ]);
             
-            AramiscClassRoutineUpdate::where('day', $request->day)->where('class_id', $request->class_id)
-                ->where('section_id', $request->section_id)->where('academic_id', getAcademicId())
-                ->where('school_id', Auth::user()->school_id)
-                ->delete();
-            foreach ($request->routine as $key => $routine_data) {
+            $sectionRoutines = fn ($day) => AramiscClassRoutineUpdate::where('day', $day)
+                ->where('class_id', $request->class_id)
+                ->where('section_id', $request->section_id)
+                ->where('academic_id', getAcademicId())
+                ->where('school_id', Auth::user()->school_id);
+
+            // 1. Contrôle de TOUTES les lignes avant d'écrire quoi que ce soit : les cours du jour édité sont remplacés,
+            //    ceux des autres jours (« day_ids ») sont conservés. Chaque créneau est comparé à tous les créneaux du jour.
+            $planned = [];
+            $seen = [];
+            $new_routines = [];
+            foreach ($request->routine ?? [] as $routine_data) {
                 if ((!gbv($routine_data, 'is_break') && !gv($routine_data, 'subject')) || !gv($routine_data, 'start_time') || !gv($routine_data, 'end_time')) {
                     continue;
                 }
+                $start_time = date('H:i:s', strtotime(gv($routine_data, 'start_time')));
+                $end_time = date('H:i:s', strtotime(gv($routine_data, 'end_time')));
                 $days = gv($routine_data, 'day_ids') == null ? array($request->day) : gv($routine_data, 'day_ids', []);
-              
+
                 foreach ($days as $day) {
-                    $exist_class_routine = AramiscClassRoutineUpdate::where('day', $day)
-                        ->where('class_id', $request->class_id)
-                        ->where('section_id', $request->section_id)
-                        ->where('start_time', date('H:i:s', strtotime(gv($routine_data, 'start_time'))))
-                        ->where('end_time', date('H:i:s', strtotime(gv($routine_data, 'end_time'))))
-                        ->where('subject_id', gv($routine_data, 'subject'))
-                        ->where('teacher_id', gv($routine_data, 'teacher_id'))
-                        ->where('academic_id', getAcademicId())
-                        ->where('school_id', Auth::user()->school_id)
-                        ->first();
-                  
-                    if ($exist_class_routine) {
+                    $key = implode('|', [$day, $start_time, $end_time, gv($routine_data, 'subject'), gv($routine_data, 'teacher_id')]);
+                    if (isset($seen[$key])) {
+                        continue;
+                    }
+                    $seen[$key] = true;
+
+                    if ($day != $request->day && $sectionRoutines($day)->where('start_time', $start_time)->where('end_time', $end_time)
+                        ->where('subject_id', gv($routine_data, 'subject'))->where('teacher_id', gv($routine_data, 'teacher_id'))->exists()) {
                         continue;
                     }
 
-                    $class_routine_time = AramiscClassRoutineUpdate::where('day', $day)
-                                            ->where('class_id', $request->class_id)
-                                            ->where('section_id', $request->section_id)
-                                            ->where('academic_id', getAcademicId())
-                                            ->where('school_id', Auth::user()->school_id)
-                                            ->first();
-                    
-                    if ($class_routine_time) {
-                        $start_time = $class_routine_time->start_time;
-                        $end_time = $class_routine_time->end_time;
-                        $startTimeToInteger = strtotime($start_time);
-                        $endTimeToInteger = strtotime($end_time);
-                        $requestStartTime =  strtotime(gv($routine_data, 'start_time'));
-                        if ($endTimeToInteger > $requestStartTime && $startTimeToInteger < $requestStartTime) {
+                    if (!isset($planned[$day])) {
+                        $planned[$day] = $day == $request->day ? [] : $sectionRoutines($day)->get(['start_time', 'end_time'])
+                            ->map(fn ($routine) => [$routine->start_time, $routine->end_time])->all();
+                    }
+                    foreach ($planned[$day] as [$other_start, $other_end]) {
+                        if ($start_time < $other_end && $end_time > $other_start) {
                             Toastr::error('This Time Has another Class', 'Failed');
                             return redirect()->back();
                         }
                     }
-                
-                    
+                    $planned[$day][] = [$start_time, $end_time];
 
+                    $new_routines[] = [
+                        'class_id' => $request->class_id,
+                        'section_id' => $request->section_id,
+                        'subject_id' => gv($routine_data, 'subject'),
+                        'teacher_id' => gv($routine_data, 'teacher_id'),
+                        'room_id' => gv($routine_data, 'room'),
+                        'start_time' => $start_time,
+                        'end_time' => $end_time,
+                        'is_break' => gv($routine_data, 'is_break'),
+                        'day' => $day,
+                    ];
+                }
+            }
+
+            // 2. Remplacement du jour édité, tout ou rien.
+            DB::transaction(function () use ($request, $sectionRoutines, $new_routines) {
+                $sectionRoutines($request->day)->delete();
+                foreach ($new_routines as $routine) {
                     $class_routine = new AramiscClassRoutineUpdate();
-                    $class_routine->class_id = $request->class_id;
-                    $class_routine->section_id = $request->section_id;
-                    $class_routine->subject_id = gv($routine_data, 'subject');
-                    $class_routine->teacher_id = gv($routine_data, 'teacher_id');
-                    $class_routine->room_id = gv($routine_data, 'room');
-                    $class_routine->start_time = date('H:i:s', strtotime(gv($routine_data, 'start_time')));
-                    $class_routine->end_time = date('H:i:s', strtotime(gv($routine_data, 'end_time')));
-                    $class_routine->is_break = gv($routine_data, 'is_break');
-                    $class_routine->day = $day;
+                    foreach ($routine as $field => $value) {
+                        $class_routine->$field = $value;
+                    }
                     $class_routine->school_id = Auth::user()->school_id;
                     $class_routine->academic_id = getAcademicId();
                     $class_routine->save();
                 }
-            }
+            });
 
             Session::put('session_day_id', $request->day);
             Toastr::success('Class routine has been updated successfully', 'Success');

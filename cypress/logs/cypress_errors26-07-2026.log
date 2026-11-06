@@ -1,0 +1,1365 @@
+[2026-07-26T16:08:38.626Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > $(...).select2 is not a function
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > $(...).select2 is not a function
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/theme/edulia/js/script.js:436:61
+    at http://dev.aramisc.com/public/theme/edulia/js/script.js:455:3
+---
+[2026-07-26T16:08:38.640Z] [UNCAUGHT EXCEPTION] Test: "before each" hook
+Message: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: Error: The following error originated from your application code, not from Cypress.
+
+  > Script error.
+
+Cypress detected that an uncaught error was thrown from a cross origin script.
+
+We cannot provide you the stack trace, line number, or file where this error occurred.
+
+Check your Developer Tools Console for the actual error - it should be printed there.
+
+It's possible to enable debugging these scripts by adding the `crossorigin` attribute and setting a CORS header.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+---
+[2026-07-26T16:17:12.520Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Subject affiche la liste des matières
+Error: Timed out retrying after 8000ms: Expected to find element: `input[name="name"], input[name="section_name"]`, but never found it.
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `input[name="name"], input[name="section_name"]`, but never found it.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:9)
+---
+[2026-07-26T16:17:45.168Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Subject affiche la liste des matières
+Error: Timed out retrying after 8000ms: Expected to find element: `input[name="section_name"], input[name="section_name"]`, but never found it.
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `input[name="section_name"], input[name="section_name"]`, but never found it.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:9)
+---
+[2026-07-26T16:33:30.532Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+Stack: CypressError: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+    at runVisibilityCheck (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155895:58)
+    at Object.isStrictlyVisible (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155909:10)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113134:26)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113203:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4285:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4275:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154603:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154503:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1671:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1615:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5420:46)
+---
+[2026-07-26T16:34:08.046Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+Stack: CypressError: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+    at runVisibilityCheck (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155895:58)
+    at Object.isStrictlyVisible (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155909:10)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113134:26)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113203:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4285:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4275:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154603:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154503:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1671:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1615:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5420:46)
+---
+[2026-07-26T16:36:59.181Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: SyntaxError: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+---
+[2026-07-26T16:36:59.188Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at window.trans (http://dev.aramisc.com/assign-subject:3104:57)
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:11438:19
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:56:3
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:59:1
+---
+[2026-07-26T16:36:59.192Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:362
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:310
+---
+[2026-07-26T16:36:59.196Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:23:481
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:398
+---
+[2026-07-26T16:36:59.200Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:8:228
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:379
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:406
+---
+[2026-07-26T16:36:59.203Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:2:87
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:398
+---
+[2026-07-26T16:36:59.206Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:17:330
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:310
+---
+[2026-07-26T16:36:59.211Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:27:432
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:310
+---
+[2026-07-26T16:36:59.215Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:445
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:398
+---
+[2026-07-26T16:36:59.218Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+Stack: CypressError: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+    at runVisibilityCheck (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155895:58)
+    at Object.isStrictlyVisible (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155909:10)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113134:26)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113203:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4285:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4275:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154603:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154503:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1671:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1615:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5420:46)
+---
+[2026-07-26T16:38:56.940Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+Stack: CypressError: Timed out retrying after 8050ms: `cy.select()` failed because this element is not visible:
+
+`<select class="primary_select form-control" id="select_class" name="class" style="display: none;">...</select>`
+
+This element `<select#select_class.primary_select.form-control>` is not visible because it has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+    at runVisibilityCheck (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155895:58)
+    at Object.isStrictlyVisible (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155909:10)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113134:26)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113203:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4285:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4275:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154603:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154503:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1671:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1615:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5420:46)
+---
+[2026-07-26T16:40:08.436Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: `cy.select()` can only be called on a `<select>`. Your subject is a: `<div class="nice-select primary_select form-control" tabindex="0">...</div>`
+Stack: CypressError: `cy.select()` can only be called on a `<select>`. Your subject is a: `<div class="nice-select primary_select form-control" tabindex="0">...</div>`
+    at Context.select (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113941:70)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:148798:19)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154883:15)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromiseCtx (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1583:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2352:20)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1209:17)
+    at Promise._passThrough (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4080:17)
+    at Promise.lastly.Promise.finally (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4089:17)
+    at Object.onRunnableRun (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:174485:53)
+    at $Cypress.action (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:41934:28)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156401:13)
+    at Runner.runTest (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166831:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166957:12)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166748:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166758:7)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166660:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:166726:5)
+    at timeslice (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156752:27)
+---
+[2026-07-26T16:41:21.074Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `find`, but never found it. Queried from:
+
+              > cy.get(select#select_class).next(div.primary_select)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `find`, but never found it. Queried from:
+
+              > cy.get(select#select_class).next(div.primary_select)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:14:63)
+---
+[2026-07-26T16:42:04.939Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: SyntaxError: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+---
+[2026-07-26T16:42:04.949Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at window.trans (http://dev.aramisc.com/assign-subject:3104:57)
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:11438:19
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:56:3
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:59:1
+---
+[2026-07-26T16:42:04.953Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:362
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:310
+---
+[2026-07-26T16:42:04.957Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:23:481
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:398
+---
+[2026-07-26T16:42:04.961Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:8:228
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:379
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:406
+---
+[2026-07-26T16:42:04.965Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:2:87
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:398
+---
+[2026-07-26T16:42:04.970Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:17:330
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:310
+---
+[2026-07-26T16:42:04.975Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:27:432
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:310
+---
+[2026-07-26T16:42:04.979Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:445
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:398
+---
+[2026-07-26T16:42:04.983Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `.first-dropdown-toggle`, but never found it.
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `.first-dropdown-toggle`, but never found it.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:9)
+---
+[2026-07-26T16:42:59.286Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_section)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_section)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:38)
+---
+[2026-07-26T16:43:44.179Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:36)
+---
+[2026-07-26T16:44:13.580Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:36)
+---
+[2026-07-26T16:45:34.425Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `div.primary_select ul li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:36)
+---
+[2026-07-26T16:46:26.518Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `div.primary_select.open ul.list li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `div.primary_select.open ul.list li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:36)
+---
+[2026-07-26T16:46:49.452Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: SyntaxError: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+---
+[2026-07-26T16:46:49.462Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at window.trans (http://dev.aramisc.com/assign-subject:3104:57)
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:11438:19
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:56:3
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:59:1
+---
+[2026-07-26T16:46:49.467Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:362
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:310
+---
+[2026-07-26T16:46:49.471Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:23:481
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:398
+---
+[2026-07-26T16:46:49.475Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:8:228
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:379
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:406
+---
+[2026-07-26T16:46:49.481Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:2:87
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:398
+---
+[2026-07-26T16:46:49.486Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:17:330
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:310
+---
+[2026-07-26T16:46:49.490Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:27:432
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:310
+---
+[2026-07-26T16:46:49.494Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:445
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:398
+---
+[2026-07-26T16:46:49.499Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `div.primary_select.open ul.list li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `div.primary_select.open ul.list li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:36)
+---
+[2026-07-26T16:47:30.586Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `div.primary_select.open ul.list li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `div.primary_select.open ul.list li`, but never found it. Queried from:
+
+              > cy.get(select#select_class)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:15:36)
+---
+[2026-07-26T16:50:31.428Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `button.submit`, but never found it.
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `button.submit`, but never found it.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:27:9)
+---
+[2026-07-26T16:55:44.813Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `form[data-target*="deleteSubjectModal"], a[href*="subject-delete"]`, but never found it.
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `form[data-target*="deleteSubjectModal"], a[href*="subject-delete"]`, but never found it.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:27:9)
+---
+[2026-07-26T17:02:41.462Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: SyntaxError: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+---
+[2026-07-26T17:02:41.477Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at window.trans (http://dev.aramisc.com/assign-subject:3104:57)
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:11438:19
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:56:3
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:59:1
+---
+[2026-07-26T17:02:41.486Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:362
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:310
+---
+[2026-07-26T17:02:41.499Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:23:481
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:398
+---
+[2026-07-26T17:02:41.507Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:8:228
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:379
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:406
+---
+[2026-07-26T17:02:41.515Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:2:87
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:398
+---
+[2026-07-26T17:02:41.521Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:17:330
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:310
+---
+[2026-07-26T17:02:41.530Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:27:432
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:310
+---
+[2026-07-26T17:02:41.537Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:445
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:398
+---
+[2026-07-26T17:02:41.548Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at window.jsLang (http://dev.aramisc.com/assign-subject:3089:57)
+    at HTMLSelectElement.<anonymous> (http://dev.aramisc.com/public/backEnd/js/custom.js:2944:34)
+    at HTMLSelectElement.dispatch (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:3:10316)
+    at q.handle (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:3:8343)
+    at Object.trigger (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:4:5628)
+    at HTMLSelectElement.<anonymous> (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:4:6138)
+    at r.each (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:2:2715)
+    at r.fn.init.each (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:2:1003)
+    at r.fn.init.trigger (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:4:6114)
+    at HTMLLIElement.<anonymous> (http://dev.aramisc.com/public/backEnd/vendors/js/nice-select.min.js:1:4042)
+---
+[2026-07-26T17:02:41.560Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8050ms: `cy.click()` failed because this element:
+
+`<button type="submit" class="primary-btn small fix-gr-bg">...</button>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+Stack: CypressError: Timed out retrying after 8050ms: `cy.click()` failed because this element:
+
+`<button type="submit" class="primary-btn small fix-gr-bg">...</button>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+    at ensureIsDescendent (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112776:68)
+    at ensureDescendents (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112827:5)
+    at ensureDescendentsAndScroll (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112833:14)
+    at ensureElIsNotCovered (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112964:5)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113165:52)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113203:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4285:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4275:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154603:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154503:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1671:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1615:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5420:46)
+---
+[2026-07-26T17:03:02.315Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject Creation affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+Stack: AssertionError: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:15)
+---
+[2026-07-26T17:05:50.922Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject Creation affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+Stack: AssertionError: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:15)
+---
+[2026-07-26T17:08:10.052Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: SyntaxError: The following error originated from your application code, not from Cypress.
+
+  > Unexpected token ';'
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+---
+[2026-07-26T17:08:10.068Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at window.trans (http://dev.aramisc.com/assign-subject:3104:57)
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:11438:19
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:56:3
+    at http://dev.aramisc.com/public/backEnd/vendors/js/jquery.data-tables.js:59:1
+---
+[2026-07-26T17:08:10.079Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:362
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.buttons.min.js:5:310
+---
+[2026-07-26T17:08:10.086Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Buttons')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:23:481
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.flash.min.js:1:398
+---
+[2026-07-26T17:08:10.096Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot set properties of undefined (setting 'fileSave')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:8:228
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:379
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.html5.min.js:1:406
+---
+[2026-07-26T17:08:10.102Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:2:87
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.print.min.js:1:398
+---
+[2026-07-26T17:08:10.112Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:17:330
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.rowReorder.min.js:5:310
+---
+[2026-07-26T17:08:10.119Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'Api')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:27:432
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:283
+    at http://dev.aramisc.com/public/backEnd/vendors/js/dataTables.responsive.min.js:5:310
+---
+[2026-07-26T17:08:10.129Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'ext')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:445
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:371
+    at http://dev.aramisc.com/public/backEnd/vendors/js/buttons.colVis.min.js:1:398
+---
+[2026-07-26T17:08:10.135Z] [UNCAUGHT EXCEPTION] Test: affiche la page d'affectation de matières
+Message: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+Stack: TypeError: The following error originated from your application code, not from Cypress.
+
+  > Cannot read properties of undefined (reading 'undefined')
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+    at window.jsLang (http://dev.aramisc.com/assign-subject:3089:57)
+    at HTMLSelectElement.<anonymous> (http://dev.aramisc.com/public/backEnd/js/custom.js:2944:34)
+    at HTMLSelectElement.dispatch (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:3:10316)
+    at q.handle (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:3:8343)
+    at Object.trigger (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:4:5628)
+    at HTMLSelectElement.<anonymous> (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:4:6138)
+    at r.each (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:2:2715)
+    at r.fn.init.each (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:2:1003)
+    at r.fn.init.trigger (http://dev.aramisc.com/public/backEnd/vendors/js/jquery-3.2.1.min.js:4:6114)
+    at HTMLLIElement.<anonymous> (http://dev.aramisc.com/public/backEnd/vendors/js/nice-select.min.js:1:4042)
+---
+[2026-07-26T17:08:10.147Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject affiche la page d'affectation de matières
+Error: Timed out retrying after 8050ms: `cy.click()` failed because this element:
+
+`<button type="submit" class="primary-btn small fix-gr-bg">...</button>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+Stack: CypressError: Timed out retrying after 8050ms: `cy.click()` failed because this element:
+
+`<button type="submit" class="primary-btn small fix-gr-bg">...</button>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+    at ensureIsDescendent (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112776:68)
+    at ensureDescendents (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112827:5)
+    at ensureDescendentsAndScroll (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112833:14)
+    at ensureElIsNotCovered (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:112964:5)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113165:52)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113203:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4285:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4275:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154603:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154503:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1671:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1615:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5420:46)
+---
+[2026-07-26T17:08:28.119Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject Creation affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+Stack: AssertionError: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:15)
+---
+[2026-07-26T17:10:28.062Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject Creation affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+Stack: AssertionError: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:15)
+---
+[2026-07-26T17:13:06.282Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject Creation affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+Stack: AssertionError: Timed out retrying after 8000ms: expected 'http://dev.aramisc.com/assign-subject' to include '/assign-subject-create'
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:15)
+---
+[2026-07-26T17:19:46.054Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject Creation affiche la page d'affectation de matières
+Error: Timed out retrying after 8000ms: Expected to find element: `button#add-element-btn`, but never found it.
+Stack: AssertionError: Timed out retrying after 8000ms: Expected to find element: `button#add-element-btn`, but never found it.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:39:9)
+---
+[2026-07-26T17:20:31.534Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Assign Subject Creation affiche la page d'affectation de matières
+Error: assignsubject is not defined
+Stack: ReferenceError: assignsubject is not defined
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:45:26)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120454:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4285:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3456:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1209:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1102:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155049:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155070:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1671:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2362:25)
+---

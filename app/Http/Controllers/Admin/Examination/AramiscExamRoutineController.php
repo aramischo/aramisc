@@ -724,7 +724,7 @@ class AramiscExamRoutineController extends Controller
                             'exam_term_id' => $exam_type_id,
                             'exam_id' => $aramisc_exam->id,
                             'subject_id' => gv($routine_data, 'subject'),
-                            'date' => date('Y-m-d', strtotime(gv($routine_data, 'date'))),
+                            'date' => date('Y-m-d', strtotime(toDbDateConvert(gv($routine_data, 'date')))),
                             'start_time' =>  date('H:i:s', strtotime(gv($routine_data, 'start_time'))),
                             'end_time' => date('H:i:s', strtotime(gv($routine_data, 'end_time'))),
                             'room_id' => gv($routine_data, 'room'),
@@ -751,7 +751,7 @@ class AramiscExamRoutineController extends Controller
 
                     $exam_routine->un_subject_id = gv($routine_data, 'subject');
                     $exam_routine->teacher_id = gv($routine_data, 'teacher_id');
-                    $exam_routine->date = date('Y-m-d', strtotime(gv($routine_data, 'date')));
+                    $exam_routine->date = date('Y-m-d', strtotime(toDbDateConvert(gv($routine_data, 'date'))));
                     $exam_routine->start_time = date('H:i:s', strtotime(gv($routine_data, 'start_time')));
                     $exam_routine->end_time = date('H:i:s', strtotime(gv($routine_data, 'end_time')));
                     $exam_routine->room_id = gv($routine_data, 'room');
@@ -772,7 +772,7 @@ class AramiscExamRoutineController extends Controller
                     $exam_schedule->where('class_id', $request->class_id);
                 }
                 if ($request->section_id != 0) {
-                    $exam_schedule->where('section_id', $request->section);
+                    $exam_schedule->where('section_id', $request->section_id); // « section » n'existe pas dans la requête : effaçait le planning de toutes les sections
                 }
                 $exam_schedule = $exam_schedule
                     ->where('exam_term_id', $request->exam_type_id)
@@ -793,7 +793,7 @@ class AramiscExamRoutineController extends Controller
                         [
                             'exam_term_id' => $request->exam_type_id,
                             'subject_id' => gv($routine_data, 'subject'),
-                            'date' => date('Y-m-d', strtotime(gv($routine_data, 'date'))),
+                            'date' => date('Y-m-d', strtotime(toDbDateConvert(gv($routine_data, 'date')))),
                             'start_time' =>  date('H:i:s', strtotime(gv($routine_data, 'start_time'))),
                             'end_time' => date('H:i:s', strtotime(gv($routine_data, 'end_time'))),
                             'room_id' => gv($routine_data, 'room'),
@@ -813,7 +813,7 @@ class AramiscExamRoutineController extends Controller
                     $exam_routine->section_id = gv($routine_data, 'section');
                     $exam_routine->subject_id = gv($routine_data, 'subject');
                     $exam_routine->teacher_id = gv($routine_data, 'teacher_id');
-                    $exam_routine->date = date('Y-m-d', strtotime(gv($routine_data, 'date')));
+                    $exam_routine->date = date('Y-m-d', strtotime(toDbDateConvert(gv($routine_data, 'date'))));
                     $exam_routine->start_time = date('H:i:s', strtotime(gv($routine_data, 'start_time')));
                     $exam_routine->end_time = date('H:i:s', strtotime(gv($routine_data, 'end_time')));
                     $exam_routine->room_id = gv($routine_data, 'room');

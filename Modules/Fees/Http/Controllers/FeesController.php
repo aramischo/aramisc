@@ -348,7 +348,15 @@ class FeesController extends Controller
 
     public function feesInvoiceStore(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        // Dates saisies au format de la langue (j/m/aaaa en FR) : lues converties en Y-m-d par les règles « date » / « after »
+        // (sinon refus dès que le jour dépasse 12). Le contrôleur convertit lui-même à l'enregistrement.
+        $validationData = $request->all();
+        foreach (['create_date', 'due_date'] as $field) {
+            if (!empty($validationData[$field]) && is_string($validationData[$field])) {
+                $validationData[$field] = toDbDateConvert($validationData[$field]);
+            }
+        }
+        $validator = Validator::make($validationData, [
             'class' => 'required',
             'student' => 'required',
             'create_date' => 'required',
@@ -1103,7 +1111,7 @@ class FeesController extends Controller
     public function searchBankPayment(BankFeesPayment $request)
     {
         try {
-            $rangeArr = $request->payment_date ? explode('-', $request->payment_date) : [date('Y-m-d'), date('Y-m-d')];
+            $rangeArr = $request->payment_date ? parseDateRange($request->payment_date) : [date('Y-m-d'), date('Y-m-d')];
 
             if ($request->payment_date) {
                 $date_from = date('Y-m-d', strtotime(trim($rangeArr[0])));

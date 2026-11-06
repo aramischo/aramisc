@@ -514,7 +514,7 @@
                                                         id="upload_content_file">
                                                 </button>
                                             </div>
-                                            {{-- <code>(jpg,png,jpeg,pdf,doc,docx,mp4,mp3 are allowed for upload)</code> --}}
+                                            {{-- <code>({{ __("common.allowed_for_upload", ["types" => "jpg,png,jpeg,pdf,doc,docx,mp4,mp3"]) }})</code> --}}
                                         </div>
                                         <style>
                                             .multiple-images ::-webkit-file-upload-button {

@@ -187,62 +187,34 @@ class AramiscLessonController extends Controller
         }
     }
 
+    // Une ligne de la liste regroupe toutes les leçons d'une classe / section / matière (année et école courantes) :
+    // on supprime ce groupe, avec les sujets, détails et plans de TOUTES ses leçons (pas seulement la première).
     public function deleteLesson($id)
     {
-        $lesson = AramiscLesson::find($id);
-        $lesson_detail = AramiscLesson::where([['class_id', $lesson->class_id], ['section_id', $lesson->section_id], ['subject_id', $lesson->subject_id]])->get();
-        foreach ($lesson_detail as $lesson_data) {
-            AramiscLesson::destroy($lesson_data->id);
+        DB::beginTransaction();
+        try {
+            $lesson = AramiscLesson::findOrFail($id);
+            $lesson_ids = AramiscLesson::lessonName($lesson->class_id, $lesson->section_id, $lesson->subject_id)
+                ->pluck('id')->push($lesson->id)->unique();
+
+            AramiscLessonTopicDetail::whereIn('lesson_id', $lesson_ids)->delete();
+            AramiscLessonTopic::whereIn('lesson_id', $lesson_ids)->delete();
+            LessonPlanner::whereIn('lesson_id', $lesson_ids)->delete();
+            AramiscLesson::whereIn('id', $lesson_ids)->delete();
+            DB::commit();
+
+            Toastr::success('Operation successful', 'Success');
+            return redirect()->route('lesson');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Toastr::error('Operation Failed', 'Failed');
+            return redirect()->back();
         }
-        $AramiscLessonTopic = AramiscLessonTopic::where('lesson_id', $id)->get();
-        if ($AramiscLessonTopic) {
-            foreach ($AramiscLessonTopic as $t_data) {
-                AramiscLessonTopic::destroy($t_data->id);
-            }
-        }
-        $AramiscLessonTopicDetail = AramiscLessonTopicDetail::where('lesson_id', $id)->get();
-        if ($AramiscLessonTopicDetail) {
-            foreach ($AramiscLessonTopicDetail as $td_data) {
-                AramiscLessonTopicDetail::destroy($td_data->id);
-            }
-        }
-        $LessonPlanner = LessonPlanner::where('lesson_id', $id)->get();
-        if ($LessonPlanner) {
-            foreach ($LessonPlanner as $lp_data) {
-                LessonPlanner::destroy($lp_data->id);
-            }
-        }
-        Toastr::success('Operation successful', 'Success');
-        return redirect()->route('lesson');
     }
 
     public function destroyLesson(Request $request)
-    {   $id = $request->id;
-       return $lesson = AramiscLesson::find($id);
-        $lesson_detail = AramiscLesson::where([['class_id', $lesson->class_id], ['section_id', $lesson->section_id], ['subject_id', $lesson->subject_id]])->get();
-        foreach ($lesson_detail as $lesson_data) {
-            AramiscLesson::destroy($lesson_data->id);
-        }
-        $AramiscLessonTopic = AramiscLessonTopic::where('lesson_id', $id)->get();
-        if ($AramiscLessonTopic) {
-            foreach ($AramiscLessonTopic as $t_data) {
-                AramiscLessonTopic::destroy($t_data->id);
-            }
-        }
-        $AramiscLessonTopicDetail = AramiscLessonTopicDetail::where('lesson_id', $id)->get();
-        if ($AramiscLessonTopicDetail) {
-            foreach ($AramiscLessonTopicDetail as $td_data) {
-                AramiscLessonTopicDetail::destroy($td_data->id);
-            }
-        }
-        $LessonPlanner = LessonPlanner::where('lesson_id', $id)->get();
-        if ($LessonPlanner) {
-            foreach ($LessonPlanner as $lp_data) {
-                LessonPlanner::destroy($lp_data->id);
-            }
-        }
-        Toastr::success('Operation successful', 'Success');
-        return redirect()->route('lesson');
+    {
+        return $this->deleteLesson($request->id);
     }
 
     public function deleteLessonItem($id)

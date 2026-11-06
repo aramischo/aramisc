@@ -35,11 +35,13 @@ class ListenClassTeacherGetAllStudent
             if ( $event->type == 'update'){
                 $old = InvitationType::where('type', 'class-teacher')->where('section_id', $section->id)->first();
                 if($old){
-                    Invitation::with(['type' =>function ($query) use($section, $event, $old){
-                        $query->where('type', 'class-teacher');
-                        $query->where('section_id', $section->id);
-                        $query->where('class_teacher_id', $old->class_teacher_id);
-                    }])->delete();
+                    // Only the old class teacher's invitations for this section (with() did not filter the delete)
+                    $invitationIds = InvitationType::where('type', 'class-teacher')
+                        ->where('section_id', $section->id)
+                        ->where('class_teacher_id', $old->class_teacher_id)
+                        ->pluck('invitation_id');
+                    Invitation::whereIn('id', $invitationIds)->delete();
+                    InvitationType::whereIn('invitation_id', $invitationIds)->delete();
                 }
             }
 

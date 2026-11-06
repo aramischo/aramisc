@@ -213,7 +213,7 @@
                     <div class="row mt-40">
                         <div class="col-lg-12 text-center">
                             @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('front_settings.update_course')</button></span>
+                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('front_settings.update_course')</button></span>
                                 @else
                                 <button class="primary-btn fix-gr-bg" data-toggle="tooltip" title="{{@$tooltip}}">
                                     <span class="ti-check"></span>
@@ -269,7 +269,7 @@
                                                     @if(userPermission('course-Details-admin'))
                                                         <a href="{{route('course-Details-admin',$value->id)}}"
                                                         class="dropdown-item small fix-gr-bg modalLink"
-                                                        title="Course Details" data-modal-size="full-width-modal">
+                                                        title="{{ __('lang.Course Details') }}" data-modal-size="full-width-modal">
                                                             @lang('common.view')
                                                         </a>
                                                     @endif
@@ -279,12 +279,12 @@
                                                     @endif
 
                                                     @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                                    <span  tabindex="0" data-toggle="tooltip" title="Disabled For Demo"> <a href="#" class="dropdown-item small fix-gr-bg  demo_view" style="pointer-events: none;" >@lang('common.delete')</a></span>
+                                                    <span  tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <a href="#" class="dropdown-item small fix-gr-bg  demo_view" style="pointer-events: none;" >@lang('common.delete')</a></span>
                                                         @else
                                                             @if(userPermission('for-delete-course'))
                                                                 <a href="{{route('for-delete-course',$value->id)}}"
                                                                 class="dropdown-item small fix-gr-bg modalLink"
-                                                                title="Delete Course" data-modal-size="modal-md">
+                                                                title="{{ __('lang.Delete Course') }}" data-modal-size="modal-md">
                                                                     @lang('common.delete')
                                                                 </a>
                                                             @endif

@@ -10,7 +10,7 @@ class AramiscItemReceiveChild extends Model
 {
     use HasFactory;
     // Spécifiez le nom de la table explicitement
-    protected $table = 'aramisc_item_receive_childs';
+    protected $table = 'aramisc_item_receive_children'; // « _childs » n'existe pas en base
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new SchoolScope);

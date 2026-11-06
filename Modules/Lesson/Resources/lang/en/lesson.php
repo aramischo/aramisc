@@ -103,4 +103,5 @@
   'lesson_plan_subtopic' => 'Plan de leçon substopique',
   'lesson_plan_setting' => 'Réglage du plan de leçon',
   'Are You Sure' => 'Es-tu sûr ?',
+  'Progress' => 'Progress',
 );

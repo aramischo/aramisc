@@ -240,7 +240,7 @@ class AdmitCardSettingController extends Controller
                 $old_admit_ids[] = $admit->student_record_id;
             }
             $active_status = 1;
-            if ($exam_routine) {
+            if ($exam_routine->isNotEmpty()) {
                 $student_records = StudentRecord::query();
                 $student_records->where('school_id', auth()->user()->school_id)
                     ->where('un_academic_id', getAcademicId())
@@ -313,7 +313,7 @@ class AdmitCardSettingController extends Controller
                     $old_admit_ids[] = $admit->student_record_id;
                 }
                 $active_status = 1;
-                if ($exam_routine) {
+                if ($exam_routine->isNotEmpty()) {
                     $student_records = StudentRecord::query();
                     $student_records->where('school_id', auth()->user()->school_id)
                         ->where('academic_id', getAcademicId())
@@ -353,6 +353,7 @@ class AdmitCardSettingController extends Controller
         try {
             $student_records = [];
             $studentRecord = null;
+            $notify_user_ids = [];
             $setting = AdmitCardSetting::where('school_id', Auth::user()->school_id)->where('un_academic_id', getAcademicId())->first();
             if (!$setting) {
                 $oldSetting = AdmitCardSetting::where('school_id', Auth::user()->school_id)->latest()->first();
@@ -381,12 +382,12 @@ class AdmitCardSettingController extends Controller
                         $new_admit->un_academic_id = getAcademicId();
                         $new_admit->save();
 
-                        $un_semester_label_id = $new_admit->studentRecord->un_semester_label_id;
-                        $un_section_id = $new_admit->studentRecord->un_section_id;
-                        $records=StudentRecord::with('studentDetail')->where('un_semester_label_id',$un_semester_label_id)->where('un_section_id',$un_section_id)->distinct('student_id')->get();
-                        $records=$records->pluck('studentDetail.user_id');
-                        $this->sent_notifications('Exam_Admit_Card', $records, $data, ['Student', 'Parent']);
+                        $notify_user_ids[] = $new_admit->studentRecord->studentDetail->user_id;
                     }
+                }
+                // Une seule notification, aux élèves (et parents) dont la carte vient d'être créée.
+                if (!empty($notify_user_ids)) {
+                    $this->sent_notifications('Exam_Admit_Card', collect($notify_user_ids)->unique(), $data, ['Student', 'Parent']);
                 }
                 $admitcards = AdmitCard::whereIn('student_record_id', $student_records)->where('exam_type_id', $request->exam_type_id)->with('studentRecord')->get();
                 $assign_subjects = UnAssignSubject::where('un_semester_label_id', $studentRecord->un_semester_label_id)->where('school_id', Auth::user()->school_id)->get();
@@ -414,6 +415,7 @@ class AdmitCardSettingController extends Controller
             try {
                 $student_records = [];
                 $studentRecord = null;
+                $notify_user_ids = [];
                 $setting = AdmitCardSetting::where('school_id', Auth::user()->school_id)->where('academic_id', getAcademicId())->first();
                 if (!$setting) {
                     $oldSetting = AdmitCardSetting::where('school_id', Auth::user()->school_id)->latest()->first();
@@ -439,13 +441,16 @@ class AdmitCardSettingController extends Controller
                             $new_admit->school_id = Auth::user()->school_id;
                             $new_admit->academic_id = getAcademicId();
                             $new_admit->save();
-    
+
                             $data['class_id'] = $new_admit->studentRecord->class_id;
                             $data['section_id'] = $new_admit->studentRecord->section_id;
-                            $records = $this->studentRecordInfo($data['class_id'], $data['section_id'])->pluck('studentDetail.user_id');
-                            $this->sent_notifications('Exam_Admit_Card', $records, $data, ['Student', 'Parent']);
-    
+                            $notify_user_ids[] = $new_admit->studentRecord->studentDetail->user_id;
                         }
+                    }
+                    // Une seule notification, aux élèves (et parents) dont la carte vient d'être créée
+                    // (avant : toute la section à chaque carte créée → N² envois).
+                    if (!empty($notify_user_ids)) {
+                        $this->sent_notifications('Exam_Admit_Card', collect($notify_user_ids)->unique(), $data, ['Student', 'Parent']);
                     }
                     $admitcards = AdmitCard::whereIn('student_record_id', $student_records)->where('exam_type_id', $request->exam_type_id)->with('studentRecord')->get();
                     $assign_subjects = AramiscAssignSubject::where('class_id', $studentRecord->class_id)->where('section_id', $studentRecord->section_id)

@@ -40,7 +40,7 @@
                         <select
                             class="primary_select form-control{{ $errors->has('expense_head_id') ? ' is-invalid' : '' }}"
                             name="expense_head_id" id="expense_head_id">
-                            <option data-display="Expense Head*" value="">@lang('accounts.expense_head') *</option>
+                            <option data-display="{{ __('lang.Expense Head*') }}" value="">@lang('accounts.expense_head') *</option>
                             @if (isset($chart_of_accounts))
                                 @foreach ($chart_of_accounts as $value)
                                     <option value="{{ $value->id }}">{{ $value->head }}</option>
@@ -137,7 +137,7 @@
                         <select
                             class="primary_select form-control{{ $errors->has('payment_mode') ? ' is-invalid' : '' }}"
                             name="payment_mode" id="payment_mode">
-                            <option data-display="Payment Method *" value="">@lang('accounts.payment_method') *</option>
+                            <option data-display="{{ __('lang.Payment Method *') }}" value="">@lang('accounts.payment_method') *</option>
                             @if (isset($paymentMethods))
                                 @foreach ($paymentMethods as $value)
                                     <option value="{{ $value->id }}" data-mode="{{$value->method}}">{{ $value->method }}</option>

@@ -191,7 +191,7 @@
                                         <td>{{@$question_bank->marks}}</td>
                                         <td>
                                             <x-drop-down>
-                                                    <a class="dropdown-item modalLink" data-modal-size="modal-lg" title="View Question"  href="{{route('view_online_question_modal', [$question_bank->id])}}" >@lang('common.view')</a>
+                                                    <a class="dropdown-item modalLink" data-modal-size="modal-lg" title="{{ __('lang.View Question') }}"  href="{{route('view_online_question_modal', [$question_bank->id])}}" >@lang('common.view')</a>
                                             </x-drop-down>
                                         </td>
                                     </tr>

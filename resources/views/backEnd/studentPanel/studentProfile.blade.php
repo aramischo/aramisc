@@ -480,7 +480,7 @@
                     <div id="modalBody"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="primary-btn tr-bg" data-dismiss="modal">Close</button>
+                    <button type="button" class="primary-btn tr-bg" data-dismiss="modal">{{ __('lang.Close') }}</button>
                 </div>
             </div>
         </div>

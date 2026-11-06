@@ -31,7 +31,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title"> Cron Jobs Command</h4>
+                            <h4 class="modal-title"> {{ __("common.cron_jobs_command") }}</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
 
@@ -42,7 +42,7 @@
                             </div>
 
                             <div class="mt-40 d-flex ">
-                                Example: <br>
+                                {{ __("common.example") }} <br>
                                 <code>
                                     {{ 'cd ' . base_path() . '/ && php artisan absent_notification:sms >> /dev/null 2>&1' }}
                                 </code>

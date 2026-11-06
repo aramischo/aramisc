@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ asset($setting->favicon) }}" type="image/png" />
     <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/font_awesome/css/all.min.css') }}" />
-    <title>{{ $setting->site_title ? $setting->site_title : 'Aramisc Edu ERP' }}</title>
+    <title>{{ $setting->site_title ? $setting->site_title : 'Aramisc ERP' }}</title>
     <meta name="_token" content="{!! csrf_token() !!}" />
     <style>
         .footer-list ul {

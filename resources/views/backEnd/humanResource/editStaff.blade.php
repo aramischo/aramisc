@@ -87,7 +87,7 @@
                                                     <div class="col-lg-12 text-end">
                                                         @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                             <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                                                                title="Disabled For Demo ">
+                                                                title="{{ __('lang.Disabled For Demo') }}">
                                                                 <button class="primary-btn small fix-gr-bg  demo_view"
                                                                     style="pointer-events: none;" type="button">
                                                                     @lang('hr.update_staff')</button></span>
@@ -676,7 +676,7 @@
                                                                         <div class="col-lg-12">
                                                                             <div class="primary_input">
                                                                                 <label class="primary_input_label"
-                                                                                    for="">@lang('staff.staff_bio')
+                                                                                    for="">@lang('hr.staff_bio')
                                                                                     {{ in_array('staff_bio', $is_required) ? '*' : '' }}</label>
                                                                                 <textarea class="primary_input_field form-control" cols="0" rows="6" name="staff_bio" id="staff_bio">
                                                                                     @if (isset($editData)){{ $editData->staff_bio }}@endif

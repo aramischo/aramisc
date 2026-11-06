@@ -3,13 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('db-correction', 'AramiscApiController@dbCorrections');
+// Désactivé (sécurité) : endpoint de debug non authentifié qui exposait des statistiques d'effectifs.
+// Route::get('db-correction', 'AramiscApiController@dbCorrections');
 Route::post('deviceInfo', 'api\ApiAramiscStudentAttendanceController@deviceInfo');
 // Route::post('system-disable', 'AramiscApiController@systemDisbale');
 
 // admin section visitor
 Route::any('login', 'AramiscApiController@mobileLogin');
-Route::get('user-demo', 'AramiscApiController@DemoUser');
+// Désactivé (sécurité) : exposait sans authentification l'e-mail du 1er élève/parent/enseignant.
+// Route::get('user-demo', 'AramiscApiController@DemoUser');
 Route::any('saas-login', 'AramiscApiController@saasLogin');
 
 
@@ -1148,7 +1150,8 @@ Route::group(['middleware' => ['XSS', 'auth:api', 'json.response'], 'as' => 'api
     //User Info for demo
 
 
-    Route::get('school/{school_id}/user-demo', 'AramiscApiController@SaasDemoUser');
+    // Désactivé (sécurité) : exposait sans authentification les e-mails (dont super admin) de l'école.
+    // Route::get('school/{school_id}/user-demo', 'AramiscApiController@SaasDemoUser');
     Route::get('currency-converter', 'AramiscApiController@convertCurrency'); //api/currency-converter?amount=2&from_currency=USD&to_currency=BDT
     Route::any('student-fees-payment', 'AramiscApiController@studentFeesPayment');
     Route::any('school/{school_id}/student-fees-payment', 'AramiscApiController@saas_studentFeesPayment');

@@ -197,7 +197,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <code>(PDF,DOC,DOCX,JPG,JPEG,PNG,TXT are allowed for upload)</code>
+                                        <code>({{ __("common.allowed_for_upload", ["types" => "PDF,DOC,DOCX,JPG,JPEG,PNG,TXT"]) }})</code>
                                         @if ($errors->has('file'))
                                         <span class="text-danger d-block">
                                             {{ $errors->first('file') }}

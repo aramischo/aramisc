@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\AdminSection;
 
 use App\Role;
 use App\AramiscClass;
+use App\AramiscClassSection;
 use App\AramiscStaff;
 use App\AramiscParent;
 use App\AramiscSection;
@@ -135,7 +136,12 @@ class AramiscStudentIdCardController extends Controller
             $destination='public/uploads/studentIdCard/';  
             $id_card = AramiscStudentIdCard::find($request->id);
             $id_card->title = $request->title;
-            $id_card->logo = fileUpdate($id_card->logo,$request->logo,$destination);          
+            // Sans logo propre, la carte pointe sur le logo de l'école : ne pas le supprimer en le remplaçant
+            if ($id_card->logo == generalSetting()->logo) {
+                $id_card->logo = $request->logo ? fileUpload($request->logo, $destination) : $id_card->logo;
+            } else {
+                $id_card->logo = fileUpdate($id_card->logo,$request->logo,$destination);
+            }
             $id_card->background_img = fileUpdate($id_card->background_img,$request->background_img,$destination);          
             $id_card->profile_image = fileUpdate($id_card->profile_image,$request->profile_image,$destination);
             if(in_array(2, $request->applicable_user) || in_array(3, $request->applicable_user)){
@@ -187,7 +193,8 @@ class AramiscStudentIdCardController extends Controller
         try {
             $id_card = AramiscStudentIdCard::find($request->id);
             
-            if ($id_card->logo != "" && file_exists($id_card->logo)) {
+            // Le logo de l'école (logo par défaut de la carte) ne doit jamais être supprimé
+            if ($id_card->logo != "" && $id_card->logo != generalSetting()->logo && file_exists($id_card->logo)) {
                 unlink($id_card->logo);
             }
 
@@ -218,7 +225,8 @@ class AramiscStudentIdCardController extends Controller
             $id_cards = AramiscStudentIdCard::get();
             $roles = Role::get();
             $classes = AramiscClass::get();
-            return view('backEnd.admin.idCard.generate_id_card', compact('id_cards','roles','classes'));
+            $sections = old('class') ? AramiscClassSection::with('sectionName')->where('class_id', old('class'))->get() : collect();
+            return view('backEnd.admin.idCard.generate_id_card', compact('id_cards','roles','classes','sections'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -231,6 +239,10 @@ class AramiscStudentIdCardController extends Controller
             'role' => 'required',
             'id_card' => 'required',
             'grid_gap' => 'required',
+        ], [], [
+            'role' => __('common.role'),
+            'id_card' => __('admin.id_card'),
+            'grid_gap' => __('admin.grid_gap'),
         ]);
         if ($request->role==2) {
             $s_students = AramiscStudent::when($request->class, function($q) use($request){
@@ -250,6 +262,10 @@ class AramiscStudentIdCardController extends Controller
             $s_students = AramiscParent::whereIn('id', $studentGuardian)->get();
         } else {
             $s_students = AramiscStaff::whereRole($request->role)->status()->get();
+        }
+        if ($s_students->isEmpty()) {
+            Toastr::warning(__('common.no_data_available_in_table'), __('common.warning'));
+            return redirect()->back()->withInput();
         }
         $id_card = AramiscStudentIdCard::status()->find($request->id_card);
 

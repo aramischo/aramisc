@@ -31,7 +31,7 @@ class AramiscFineReportSearchRequest extends FormRequest
              ];
         } else {
             return [
-                'date_range'=>"required|date",
+                'date_range'=>"required",
                 'class'=>"sometimes|nullable",
                 'section'=>"sometimes|nullable"
              ];

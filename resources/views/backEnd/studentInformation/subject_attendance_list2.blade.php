@@ -112,7 +112,7 @@
                             </div> 
                             <div class="col-lg-3 mt-30-md" id="select_subject_div">
                                 <select class="primary_select form-control{{ $errors->has('subject') ? ' is-invalid' : '' }} select_subject" id="select_subject" name="subject">
-                                    <option data-display="Select subject *" value="">Select subject *</option>
+                                    <option data-display="{{ __('lang.Select subject *') }}" value="">Select subject *</option>
                                 </select>
                                 @if ($errors->has('subject'))
                                 <span class="text-danger invalid-select" role="alert">

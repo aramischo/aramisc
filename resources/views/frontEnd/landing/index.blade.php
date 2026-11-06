@@ -111,7 +111,7 @@
                                 savior with this Aramisc and Give your valued time to your institute that will
                                 increase next generation productivity for our society.</p>
                             @if(!moduleStatusCheck('Saas'))
-                            <a  class="btn_1" target="_blank" href="mailto:support@spondonit.com?subject=Request for saas school demo!&body=This is only a test!"> <i class="ti-email"></i> For Saas Demo</a>
+                            <a  class="btn_1" target="_blank" href="mailto:support@aramisc.com?subject=Request for saas school demo!&body=This is only a test!"> <i class="ti-email"></i> For Saas Demo</a>
                             @endif
                             <a href="{{url('/login')}}" class="btn_2" target="_blank"> <i class="ti-package"></i> Try Live Demo</a>
                         </div>
@@ -667,7 +667,7 @@
             <div class="row justify-content-center">
 
                 <div class="col-md-6">
-                    <a href="https://ticket.spondonit.com/help-center" target="_blank">
+                    <a href="https://ticket.aramisc.com/help-center" target="_blank">
                         <div class="single_feature">
                             <div class="single_feature_part">
                                 <span class="single_feature_icon"><i class="ti-headphone-alt"></i>
@@ -721,7 +721,7 @@
         </div>
     </footer>
     <!-- footer part end--> 
-<!--    <div class="skype-button bubble" data-bot-id="spondonit"> </div>
+<!--    <div class="skype-button bubble" data-bot-id="aramisc"> </div>
 <script src="https://swc.cdn.skype.com/sdk/v1/sdk.min.js"></script>-->
 
     <style>

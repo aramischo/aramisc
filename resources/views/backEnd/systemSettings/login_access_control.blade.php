@@ -216,7 +216,7 @@
                                                                     class="switch-input11"
                                                                     {{ @$student->user->access_status == 0 ? '' : 'checked' }}>
                                                                 <span class="slider round" data-toggle="tooltip"
-                                                                    title="Disabled For Demo"></span>
+                                                                    title="{{ __('lang.Disabled For Demo') }}"></span>
                                                             @else
                                                                 <input type="checkbox" id="ch{{ @$student->user_id }}"
                                                                     onclick="lol({{ @$student->user_id }},{{ @$role }})"
@@ -245,7 +245,7 @@
                                                                 @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                                     <span class="d-inline-block" tabindex="0"
                                                                         data-toggle="tooltip"
-                                                                        title="Disabled For Demo ">
+                                                                        title="{{ __('lang.Disabled For Demo') }}">
                                                                         <button
                                                                             class="primary-btn small tr-bg icon-only mt-10"
                                                                             style="pointer-events: none;"
@@ -261,7 +261,7 @@
                                                                         </button>
                                                                 @endif
                                                                 <button data-toggle="tooltip"
-                                                                    title="Reset Password as Default"
+                                                                    title="{{ __('lang.Reset Password as Default') }}"
                                                                     type="button"
                                                                     class="primary-btn small tr-bg icon-only mt-10"
                                                                     onclick="changePassword({{ @$student->user_id }},{{ @$role }})">
@@ -281,7 +281,7 @@
                                                                     class="parent-login-disable"
                                                                     {{ @$student->parents->parent_user->access_status == 0 ? '' : 'checked' }}>
                                                                 <span class="slider round" data-toggle="tooltip"
-                                                                    title="Disabled For Demo"></span>
+                                                                    title="{{ __('lang.Disabled For Demo') }}"></span>
                                                             @else
                                                                 <input type="checkbox" class="parent-login-disable"
                                                                     {{ @$student->parents->parent_user->access_status == 0 ? '' : 'checked' }}>
@@ -308,7 +308,7 @@
                                                                 @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                                     <span class="d-inline-block" tabindex="0"
                                                                         data-toggle="tooltip"
-                                                                        title="Disabled For Demo ">
+                                                                        title="{{ __('lang.Disabled For Demo') }}">
                                                                         <button
                                                                             class="primary-btn small tr-bg icon-only mt-10"
                                                                             style="pointer-events: none;"
@@ -324,7 +324,7 @@
                                                                         </button>
                                                                 @endif
                                                                 <button data-toggle="tooltip"
-                                                                    title="Reset Password as Default"
+                                                                    title="{{ __('lang.Reset Password as Default') }}"
                                                                     type="button"
                                                                     class="primary-btn small tr-bg icon-only mt-10"
                                                                     onclick="changePassword({{ @$student->parents->user_id }},{{ @$role }})">
@@ -400,7 +400,7 @@
                                                                         class="switch-input"
                                                                         {{ @$value->staff_user->access_status == 0 ? '' : 'checked' }}>
                                                                     <span class="slider round" data-toggle="tooltip"
-                                                                        title="Disabled For Demo"></span>
+                                                                        title="{{ __('lang.Disabled For Demo') }}"></span>
                                                                 @else
                                                                     <input type="checkbox" class="switch-input"
                                                                         {{ @$value->staff_user->access_status == 0 ? '' : 'checked' }}>
@@ -428,7 +428,7 @@
                                                                 @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                                     <span class="d-inline-block" tabindex="0"
                                                                         data-toggle="tooltip"
-                                                                        title="Disabled For Demo ">
+                                                                        title="{{ __('lang.Disabled For Demo') }}">
                                                                         <button
                                                                             class="primary-btn small tr-bg icon-only mt-10"
                                                                             style="pointer-events: none;"
@@ -445,7 +445,7 @@
                                                                 @endif
 
                                                                 <button data-toggle="tooltip"
-                                                                    title="Reset Password as Default"
+                                                                    title="{{ __('lang.Reset Password as Default') }}"
                                                                     type="button"
                                                                     class="primary-btn small tr-bg icon-only mt-10"
                                                                     onclick="changePassword({{ @$value->user_id }},{{ @$role }})">

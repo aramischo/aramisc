@@ -832,6 +832,12 @@ class AramiscParentPanelController extends Controller
     {
         // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $input = $request->all();
+        // Dates saisies au format de la langue (j/m/aaaa en FR) : converties en Y-m-d avant la règle before_or_equal (sinon refus dès que le jour dépasse 12).
+        foreach (['apply_date', 'leave_from', 'leave_to'] as $field) {
+            if (!empty($input[$field]) && is_string($input[$field])) {
+                $input[$field] = toDbDateConvert($input[$field]);
+            }
+        }
         $validator = Validator::make($input, [
             'student_id' => "required",
             'apply_date' => "required",
@@ -856,8 +862,8 @@ class AramiscParentPanelController extends Controller
                 //                'attach_file' => "sometimes|nullable|mimes:pdf,doc,docx,jpg,jpeg,png,txt",
                 $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
-                $fileSize = filesize($file);
-                $fileSizeKb = ($fileSize / 1000000);
+                // Utiliser getSize() de l'UploadedFile : filesize() recevait un objet (TypeError en PHP 8.4).
+                $fileSizeKb = ($file->getSize() / 1000000);
                 if ($fileSizeKb >= $maxFileSize) {
                     Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
                     return redirect()->back();
@@ -993,6 +999,12 @@ class AramiscParentPanelController extends Controller
     {
         // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $input = $request->all();
+        // Dates saisies au format de la langue (j/m/aaaa en FR) : converties en Y-m-d avant la règle before_or_equal (sinon refus dès que le jour dépasse 12).
+        foreach (['apply_date', 'leave_from', 'leave_to'] as $field) {
+            if (!empty($input[$field]) && is_string($input[$field])) {
+                $input[$field] = toDbDateConvert($input[$field]);
+            }
+        }
         if (ApiBaseMethod::checkUrl($request->fullUrl())) {
             $validator = Validator::make($input, [
                 'id' => "required",
@@ -1028,8 +1040,8 @@ class AramiscParentPanelController extends Controller
             if ($request->file('attach_file') != "") {
                 $maxFileSize = AramiscGeneralSettings::first('file_size')->file_size;
                 $file = $request->file('attach_file');
-                $fileSize = filesize($file);
-                $fileSizeKb = ($fileSize / 1000000);
+                // Utiliser getSize() de l'UploadedFile : filesize() recevait un objet (TypeError en PHP 8.4).
+                $fileSizeKb = ($file->getSize() / 1000000);
                 if ($fileSizeKb >= $maxFileSize) {
                     Toastr::error('Max upload file size ' . $maxFileSize . ' Mb is set in system', 'Failed');
                     return redirect()->back();

@@ -26,10 +26,13 @@ class Localization
        
 //        if (Storage::exists('.app_installed') and Storage::get('.app_installed')) {
             App::setLocale(getUserLanguage());
-            Cache::forget('translations');
+            // Une clé par langue, sans Cache::forget à chaque requête : vider la clé partagée à chaque requête faisait
+            // qu'une page rendue pendant une requête AJAX simultanée recevait des traductions vides (window._translations = [])
+            // → jsLang() plantait et DataTables ne s'initialisait pas. La clé est vidée quand les traductions changent
+            // (Localization::forgetTranslations(), appelé par AramiscSystemSettingController).
 //            if (Storage::exists('.app_installed') && Storage::get('.app_installed') && DB::connection()->getDatabaseName() != '') {
                 if (Schema::hasTable('aramisc_languages')) {
-                    Cache::remember('translations', Carbon::now()->addHours(6), function () {
+                    Cache::remember(self::cacheKey(App::getLocale()), Carbon::now()->addHours(6), function () {
                         return $this->getTranslations();
                     });
                 }
@@ -47,6 +50,24 @@ class Localization
             }
 //        }
         return $next($request);
+    }
+
+    /** Clé de cache des traductions JS pour une langue (lue par backEnd/partials/header.blade.php). */
+    public static function cacheKey($locale)
+    {
+        return 'translations_' . $locale;
+    }
+
+    /** Vide les traductions mises en cache pour toutes les langues (après ajout / modification de traductions). */
+    public static function forgetTranslations()
+    {
+        Cache::forget('translations');
+        $locales = Schema::hasTable('aramisc_languages')
+            ? DB::table('aramisc_languages')->pluck('language_universal')->push('en')->unique()
+            : collect(['en']);
+        foreach ($locales as $locale) {
+            Cache::forget(self::cacheKey($locale));
+        }
     }
 
     public function getTranslations()

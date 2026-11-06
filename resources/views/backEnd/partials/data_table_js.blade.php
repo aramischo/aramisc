@@ -22,6 +22,22 @@
 
 <script type="text/javascript">
 
+// Langue par défaut appliquee a TOUTES les DataTables de l'app (selon la locale courante)
+if ($.fn && $.fn.dataTable) {
+    $.extend(true, $.fn.dataTable.defaults, {
+        language: {
+            processing: "@lang('common.dt_processing')",
+            loadingRecords: "@lang('common.dt_loading')",
+            info: "@lang('common.dt_info')",
+            infoEmpty: "@lang('common.dt_info_empty')",
+            infoFiltered: "@lang('common.dt_info_filtered')",
+            emptyTable: "@lang('common.dt_empty_table')",
+            zeroRecords: "@lang('common.dt_zero_records')",
+            lengthMenu: "@lang('common.dt_length_menu')"
+        }
+    });
+}
+
 if ($("#table_id, .school-table-data").length) {
     window.table = $("#table_id, .school-table-data").DataTable({
       bLengthChange: false,

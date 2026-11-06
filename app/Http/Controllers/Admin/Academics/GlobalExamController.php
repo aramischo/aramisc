@@ -476,20 +476,24 @@ class GlobalExamController extends Controller
         }
     }
 
-    public function examView(Request $request){   
-             
-        $input = $request->only(['code']);
+    public function examView(Request $request){
+
+        // 'code' détermine le formulaire (single/multi). Absent ou invalide → réponse d'erreur
+        // propre au lieu de "Undefined array key 'code'" / vue indéfinie (plantait en 500).
+        $code = $request->input('code');
+        if ($code == "single") {
+            $view = "backEnd.examination.exam_setup.single_exam_setup";
+        } elseif ($code == "multi") {
+            $view = "backEnd.examination.exam_setup.multi_exam_setup";
+        } else {
+            return response()->json(['status' => false, 'message' => 'Invalid or missing exam setup code.'], 422);
+        }
         $exams_types = AramiscExamType::withoutGlobalScope(StatusAcademicSchoolScope::class)->withoutGlobalScope(GlobalAcademicScope::class)->where('school_id', Auth::user()->school_id)->whereNULL('parent_id')->get();
         $classes = AramiscClass::withoutGlobalScope(GlobalAcademicScope::class)->withoutGlobalScope( StatusAcademicSchoolScope::class)->where('school_id', Auth::user()->school_id)->with('groupclassSections')->whereNULL('parent_id')->get();
         $teachers = AramiscStaff::where('role_id', 4)->where('active_status', 1)
                 ->where('school_id', Auth::user()->school_id)
                 ->get(['id', 'user_id', 'full_name']);
-    
-        if($input['code'] == "single"){
-            $view = "backEnd.examination.exam_setup.single_exam_setup";
-        }elseif($input['code'] == "multi"){
-            $view = "backEnd.examination.exam_setup.multi_exam_setup";
-        }
+
         $rooms = AramiscClassRoom::where('active_status', 1)
                 ->where('school_id',Auth::user()->school_id)
                 ->get();

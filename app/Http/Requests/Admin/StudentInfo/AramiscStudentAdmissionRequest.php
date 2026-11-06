@@ -26,6 +26,16 @@ class AramiscStudentAdmissionRequest extends FormRequest
         return true;
     }
 
+    // Le formulaire envoie les dates au format de la langue (j/m/aaaa en FR) : conversion en Y-m-d avant
+    // les règles « date » / « before » / « after », qui les liraient sinon en m/j/aaaa (refus dès que le jour dépasse 12).
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'date_of_birth' => $this->date_of_birth ? toDbDateConvert($this->date_of_birth) : $this->date_of_birth,
+            'admission_date' => $this->admission_date ? toDbDateConvert($this->admission_date) : $this->admission_date,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

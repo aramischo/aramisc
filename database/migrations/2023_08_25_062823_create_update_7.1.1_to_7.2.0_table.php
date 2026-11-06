@@ -71,10 +71,10 @@ return new class extends Migration
             $s2 = new AramiscModuleManager();
         }
         $s2->name = "BehaviourRecords";
-        $s2->email = 'support@spondonit.com';
+        $s2->email = 'support@aramisc.com';
         $s2->notes = "This is Behaviour Records Module for manage student behaviour records & Activity. Thanks for using .";
         $s2->version = "1.0";
-        $s2->update_url = "https://spondonit.com/contact";
+        $s2->update_url = "https://aramisc.com/contact";
         $s2->is_default = 0;
         $s2->purchase_code = time();
         $s2->addon_url = "https://codecanyon.net/item/google-meet-module-for-aramiscdu-gmeet-live-class/42463761";
@@ -91,10 +91,10 @@ return new class extends Migration
             $s = new AramiscModuleManager();
         }
         $s->name = $name;
-        $s->email = 'support@spondonit.com';
+        $s->email = 'support@aramisc.com';
         $s->notes = 'This InAppLiveClass Module For AramiscEdu. Manage Online Class and Meeting Reports.';
         $s->version = "1.0";
-        $s->update_url = "https://spondonit.com/contact";
+        $s->update_url = "https://aramisc.com/contact";
         $s->is_default = 0;
         $s->installed_domain = url('/');
         $s->save();

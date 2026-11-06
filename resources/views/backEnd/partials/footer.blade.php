@@ -85,6 +85,20 @@
 <!-- ================End Footer Area ================= -->
 
 <script>
+    // Traduit un texte anglais écrit en dur (notifications, scripts) à partir de resources/lang/<langue>/lang.php.
+    // Une clé finissant par un espace traduit aussi le début d'un message complété dynamiquement.
+    window.trLiteral = function(text) {
+        if (typeof text !== 'string') {
+            return text
+        }
+        let php = (window._translations && window._translations[window._locale]) ? window._translations[window._locale]['php'] : null
+        let literals = (php && php['lang']) ? php['lang'] : {}
+        if (literals[text] || literals[text.trim()]) {
+            return literals[text] || literals[text.trim()]
+        }
+        let prefix = Object.keys(literals).find(key => key.endsWith(' ') && text.startsWith(key))
+        return prefix ? literals[prefix] + text.slice(prefix.length) : text
+    }
     window.jsLang = function(key, replace) {
         let translation = true
 
@@ -133,6 +147,14 @@
 <script src="{{asset('public/backEnd/')}}/vendors/js/raphael-min.js"></script>
 <script src="{{asset('public/backEnd/')}}/vendors/js/morris.min.js"></script>
 <script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/toastr.min.js"></script>
+<script>
+    ['success', 'error', 'warning', 'info'].forEach(function(type) {
+        let show = toastr[type]
+        toastr[type] = function(message, title, options) {
+            return show.call(toastr, trLiteral(message), trLiteral(title), options)
+        }
+    })
+</script>
 <script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/moment.min.js"></script>
 
 @if(moduleStatusCheck('WhatsappSupport'))
@@ -173,7 +195,7 @@
 <script src="{{asset('public/backEnd/')}}/js/search.js"></script>
 
 {!! Toastr::message() !!}
-<script src="{{ asset('public/js/app.js') }}"></script>
+<script src="{{ Vite::asset('resources/js/app.js') }}"></script>
 <script src="{{ asset('public/chat/js/custom.js') }}"></script>
 @yield('script')
 @stack('script')

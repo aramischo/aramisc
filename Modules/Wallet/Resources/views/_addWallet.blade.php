@@ -274,7 +274,7 @@
                     </div>
 
                     <div class="AddWalletChequeBank d-none text-center">
-                        <code>(JPG, JPEG, PNG, PDF are allowed for upload)</code>
+                        <code>({{ __("common.allowed_for_upload", ["types" => "JPG, JPEG, PNG, PDF"]) }})</code>
                     </div>
                     <span class="walletError" id="fileError"></span>
 
@@ -421,7 +421,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <code>(JPG, JPEG, PNG, PDF are allowed for upload)</code>
+                        <code>({{ __("common.allowed_for_upload", ["types" => "JPG, JPEG, PNG, PDF"]) }})</code>
                     </div>
                     <span class="walletError" id="refundFileError"></span>
                     <span class="walletError" id="existsError"></span>

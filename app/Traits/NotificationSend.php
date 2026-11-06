@@ -103,7 +103,11 @@ trait NotificationSend
                                             $data['parent_name'] = $data['receiver_name'];
                                         }else{
                                             $data['user_id'] = $userInfo->student->parents->user_id;
-                                            $data['receiver_name'] = $userInfo->student->parents->guardians_name;
+                                            // guardians_name est souvent vide : sinon « Dear , » dans le message
+                                            $parents = $userInfo->student->parents;
+                                            $data['receiver_name'] = $parents->guardians_name
+                                                ?: (optional(User::find($parents->user_id, ['id', 'full_name']))->full_name
+                                                ?: ($parents->fathers_name ?: $parents->mothers_name));
                                             $data['receiver_email'] = $userInfo->student->parents->guardians_email;
                                             $data['receiver_phone_number'] = $userInfo->student->parents->guardians_mobile;
         

@@ -73,7 +73,7 @@
                         <div class="primary_input" id="subjectSelecttDiv">
                            <label class="primary_input_label" for="">@lang('common.subject') <span class="text-danger"> *</span></label>
                            <select class="primary_select  form-control{{ $errors->has('subject_id') ? ' is-invalid' : '' }}" name="subject_id" id="subjectSelect">
-                              <option data-display="Select Subject *" value="">@lang('homework.subject') *</option>
+                              <option data-display="{{ __('lang.Select Subject *') }}" value="">@lang('homework.subject') *</option>
                               @foreach($subjects as $subject)
                               <option value="{{$subject->subject->id}}" {{$homeworkList->subject_id == $subject->subject->id? 'selected':''}}>{{$subject->subject->subject_name}}</option>
                               @endforeach

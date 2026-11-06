@@ -146,7 +146,7 @@ class AramiscSystemSettingController extends Controller
             }
 
             if ($user->notificationToken != '') {
-                //echo 'Aramisc Edu';
+                //echo 'Aramisc';
 //                define('API_ACCESS_KEY', 'AAAAFyQhhks:APA91bGJqDLCpuPgjodspo7Wvp1S4yl3jYwzzSxet_sYQH9Q6t13CtdB_EiwD6xlVhNBa6RcHQbBKCHJ2vE452bMAbmdABsdPriJy_Pr9YvaM90yEeOCQ6VF7JEQ501Prhnu_2bGCPNp');
                 define('API_ACCESS_KEY', Cache::get('firebase_access_token'));                //   $registrationIds = ;
                 #prep the bundle
@@ -544,7 +544,7 @@ class AramiscSystemSettingController extends Controller
                         File::copyDirectory(module_path($module->getName()) . '/Resources/lang/en', module_path($module->getName()) . '/Resources/lang/' . $language_details->code);
                     }
                 }
-                Cache::forget('translations');
+                \App\Http\Middleware\Localization::forgetTranslations();
                 Toastr::success('Operation successful', 'Success');
                 return redirect('language-settings');
             } //not empty language
@@ -739,10 +739,10 @@ class AramiscSystemSettingController extends Controller
                 $source_link = $aramisc_db->source_link;
             }
 
-            $DB_HOST = env("DB_HOST", "");
-            $DB_DATABASE = env("DB_DATABASE", "");
-            $DB_USERNAME = env("DB_USERNAME", "");
-            $DB_PASSWORD = env("DB_PASSWORD", "");
+            $DB_HOST = config("database.connections.mysql.host");
+            $DB_DATABASE = config("database.connections.mysql.database");
+            $DB_USERNAME = config("database.connections.mysql.username");
+            $DB_PASSWORD = config("database.connections.mysql.password");
 
             $connection = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
@@ -859,10 +859,10 @@ class AramiscSystemSettingController extends Controller
 
         try {
             $db_export = Shuttle_Dumper::create(array(
-                'host' => env('DB_HOST'),
-                'username' => env('DB_USERNAME'),
-                'password' => env('DB_PASSWORD'),
-                'db_name' => env('DB_DATABASE'),
+                'host' => config('database.connections.mysql.host'),
+                'username' => config('database.connections.mysql.username'),
+                'password' => config('database.connections.mysql.password'),
+                'db_name' => config('database.connections.mysql.database'),
             ));
             $folder = public_path('/Backup/DatabaseBackup/');
 
@@ -1222,7 +1222,9 @@ class AramiscSystemSettingController extends Controller
                 ->get();
 
             
-            return view('backEnd.systemSettings.updateGeneralSettings', compact('editData', 'session_ids', 'dateFormats', 'languages', 'countries', 'currencies', 'academic_years', 'time_zones', 'weekends', 'sell_heads'));
+            $mobileColors = AramiscGeneralSettings::mobileColors(Auth::user()->school_id);
+
+            return view('backEnd.systemSettings.updateGeneralSettings', compact('editData', 'session_ids', 'dateFormats', 'languages', 'countries', 'currencies', 'academic_years', 'time_zones', 'weekends', 'sell_heads', 'mobileColors'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -1285,6 +1287,11 @@ class AramiscSystemSettingController extends Controller
             $generalSettData->blog_search  = $request->blog_search;
             $generalSettData->recent_blog  = $request->recent_blog;
             $results = $generalSettData->save();
+
+            // Couleurs de l'application mobile
+            if (is_array($request->mobile_colors)) {
+                AramiscGeneralSettings::saveMobileColors($id, $request->mobile_colors);
+            }
 
             
 
@@ -2026,7 +2033,7 @@ class AramiscSystemSettingController extends Controller
             if ($id) {
                 $this->setDefaultLanguge((int) $id);
             }
-            Cache::forget('translations');
+            \App\Http\Middleware\Localization::forgetTranslations();
             Toastr::success('Operation Success', 'Success');
             return redirect()->back();
 
@@ -2286,6 +2293,7 @@ class AramiscSystemSettingController extends Controller
                     }
                 }
             }
+            \App\Http\Middleware\Localization::forgetTranslations();
             Toastr::success('Operation successful', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {
@@ -3284,7 +3292,7 @@ class AramiscSystemSettingController extends Controller
 
         try {
             $path = base_path() . "/.env";
-            $db_name = env('DB_DATABASE', null);
+            $db_name = DB::getDatabaseName();
             $column = 'created_at';
             $table_list = DB::select("SELECT TABLE_NAME
             FROM INFORMATION_SCHEMA.COLUMNS

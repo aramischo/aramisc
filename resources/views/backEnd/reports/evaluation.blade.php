@@ -186,7 +186,7 @@
                                                             <x-drop-down>
                                                                 @if (userPermission('view-evaluation-report'))
                                                                     <a class="dropdown-item modalLink"
-                                                                        title="View Evaluation Report"
+                                                                        title="{{ __('lang.View Evaluation Report') }}"
                                                                         data-modal-size="full-width-modal"
                                                                         href="{{ route('view-evaluation-report', @$value->id) }}">
                                                                         @lang('common.view')
@@ -233,7 +233,7 @@
                                                             <x-drop-down>
                                                                 @if (userPermission('view-evaluation-report'))
                                                                     <a class="dropdown-item modalLink"
-                                                                        title="View Evaluation Report"
+                                                                        title="{{ __('lang.View Evaluation Report') }}"
                                                                         data-modal-size="full-width-modal"
                                                                         href="{{ route('view-evaluation-report', @$value->id) }}">
                                                                         @lang('common.view')

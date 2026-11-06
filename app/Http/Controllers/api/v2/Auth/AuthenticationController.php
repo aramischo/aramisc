@@ -162,6 +162,7 @@ class AuthenticationController extends Controller
         // return response()->json($response, 200);
 
         $user = $request->user();
+        $user->assignDeviceToken(null);
         $user->token()->revoke();
 
         return response([
@@ -296,6 +297,8 @@ class AuthenticationController extends Controller
     public function generalSettings()
     {
         $data['system_settings'] = AramiscGeneralSettings::where('school_id', auth()->user()->school_id ?? app('school')->id)->first();
+        // Couleurs de l'application, réglées dans Réglages généraux
+        $data['mobile_colors'] = AramiscGeneralSettings::mobileColors(auth()->user()->school_id ?? app('school')->id);
         if (!$data) {
             $response = [
                 'success' => false,
@@ -607,8 +610,8 @@ class AuthenticationController extends Controller
             'confirm_password'  => 'required|min:6'
         ]);
 
-        $user = User::where('school_id', auth()->user()->school_id)
-            ->where('id', $request->id ?? auth()->id())->first();
+        // Toujours le compte connecté : l'id reçu permettait de viser un autre compte.
+        $user = auth()->user();
         if (password_verify($request->current_password, $user->password)) {
             $user->password = bcrypt($request->new_password);
             $result = $user->save();
@@ -639,8 +642,9 @@ class AuthenticationController extends Controller
 
     public function deleteUser(Request $request)
     {
+        // Seul un admin peut désactiver un autre compte ; sinon l'utilisateur supprime le sien.
         $user = User::where('school_id', auth()->user()->school_id)
-            ->where('id', $request->id)
+            ->where('id', checkAdmin() ? ($request->id ?? auth()->id()) : auth()->id())
             ->with('staff')
             ->first();
         if ($user) {

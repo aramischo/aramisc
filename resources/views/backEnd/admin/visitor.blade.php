@@ -250,7 +250,7 @@
                                                             id="upload_event_image">
                                                     </button>
                                                 </div>
-                                                <code>(PDF,DOC,DOCX,JPG,JPEG,PNG,TXT are allowed for upload)</code>
+                                                <code>({{ __("common.allowed_for_upload", ["types" => "PDF,DOC,DOCX,JPG,JPEG,PNG,TXT"]) }})</code>
                                                 @if ($errors->has('upload_event_image'))
                                                 <span class="text-danger d-block">
                                                     {{ $errors->first('upload_event_image') }}

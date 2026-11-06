@@ -383,7 +383,7 @@
                         <textarea readonly class="form-control" rows="4"></textarea>
                     </div>
                     <div class="mt-40 d-flex justify-content-between">
-                        <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">Close</button>
+                        <button type="button" class="primary-btn fix-gr-bg" data-dismiss="modal">{{ __('lang.Close') }}</button>
                     </div>
                 </div>
             </div>
@@ -405,6 +405,10 @@
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
                     'month')]
+            },
+            "locale": {
+                "format": {!! json_encode(dateConvert('2000-12-31') === '31/12/2000' ? 'DD/MM/YYYY' : 'YYYY-MM-DD') !!},
+                "separator": " - "
             },
             "startDate": moment().subtract(7, 'days'),
             "endDate": moment()

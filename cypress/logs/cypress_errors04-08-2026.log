@@ -1,0 +1,611 @@
+[2026-08-04T14:40:01.625Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: Timed out retrying after 20000ms: expected 'http://dev.aramisc.com/login' to not include '/login'
+
+This error occurred while creating the session. Because the session setup failed, we failed the test.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin – Academics`
+Stack: AssertionError: Timed out retrying after 20000ms: expected 'http://dev.aramisc.com/login' to not include '/login'
+
+This error occurred while creating the session. Because the session setup failed, we failed the test.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin – Academics`
+    at cy.session.cacheAcrossSpecs [as setup] (webpack:///./cypress/support/commands.js:19:15)
+    at Context.<anonymous> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:138452:38)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121211:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121222:66)
+    at Context.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121473:21)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:149556:19)
+---
+[2026-08-04T14:49:33.910Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: Syntax error, unrecognized expression: a[href*=class-routine/print]
+Stack: Error: Syntax error, unrecognized expression: a[href*=class-routine/print]
+    at find.error (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:8301:8)
+    at tokenize (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:8967:8)
+    at select (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:9426:20)
+    at jQuery.find (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:7737:9)
+    at jQuery.fn.init.find (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:9636:11)
+    at new jQuery.fn.init (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:9751:40)
+    at Object.query (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:17945:10)
+    at $Cy.$$ (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:151578:57)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:137310:18)
+    at Object.subjectFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155524:16)
+    at $Cy.verifyUpcomingAssertions (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154755:31)
+    at onRetry (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155515:15)
+    at retryQuery (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155528:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155684:17)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromiseCtx (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1586:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2355:20)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T14:51:04.147Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `pdfPrint`. No request ever occurred.
+Stack: CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `pdfPrint`. No request ever occurred.
+    at cypressErr (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:75859:18)
+    at Object.errByPath (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:75917:10)
+    at checkForXhr (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140715:84)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140740:28)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T14:57:03.902Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: expected 'text/html; charset=UTF-8' to include 'application/pdf'
+Stack: AssertionError: expected 'text/html; charset=UTF-8' to include 'application/pdf'
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:82:52)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121211:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121222:66)
+    at Context.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121473:21)
+---
+[2026-08-04T15:06:02.658Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: Attempted to wrap undefined property html2pdf as function
+Stack: TypeError: Attempted to wrap undefined property html2pdf as function
+    at wrapMethod (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:55685:21)
+    at spy (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:55517:16)
+    at Sandbox.spy (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:46276:35)
+    at Context.spy (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120478:28)
+    at cy.<computed> [as spy] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:149532:17)
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:80:11)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121211:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:101)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T15:13:34.816Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine downloads the generated PDF
+Error: `cy.task('deleteFile')` failed with the following error:
+
+The task 'deleteFile' was not handled in the setupNodeEvents method. The following tasks are registered: artisan, logError
+
+Fix this in your setupNodeEvents method here:
+C:\wamp64\www\aramisc\cypress.config.js
+Stack: CypressError: `cy.task('deleteFile')` failed with the following error:
+
+The task 'deleteFile' was not handled in the setupNodeEvents method. The following tasks are registered: artisan, logError
+
+Fix this in your setupNodeEvents method here:
+C:\wamp64\www\aramisc\cypress.config.js
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140487:72)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1670:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise._passThrough (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4083:17)
+    at Promise.lastly.Promise.finally (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4092:17)
+    at Object.onRunnableRun (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:175279:53)
+    at $Cypress.action (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:41937:28)
+    at Runnable.run (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:157195:13)
+    at Runner.runTest (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:167625:10)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:167751:12)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:167542:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:167552:7)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:167454:14)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:167520:5)
+    at timeslice (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:157546:27)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:87:9)
+---
+[2026-08-04T15:15:49.784Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: `cy.task('deleteFile')` failed with the following error:
+
+The task 'deleteFile' was not handled in the setupNodeEvents method. The following tasks are registered: artisan, logError
+
+Fix this in your setupNodeEvents method here:
+C:\wamp64\www\aramisc\cypress.config.js
+Stack: CypressError: `cy.task('deleteFile')` failed with the following error:
+
+The task 'deleteFile' was not handled in the setupNodeEvents method. The following tasks are registered: artisan, logError
+
+Fix this in your setupNodeEvents method here:
+C:\wamp64\www\aramisc\cypress.config.js
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140487:72)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1670:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:101)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T15:19:06.238Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: `cy.task('deleteFile')` failed with the following error:
+
+> fs is not defined
+Stack: CypressError: `cy.task('deleteFile')` failed with the following error:
+
+> fs is not defined
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140495:70)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1670:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:101)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+
+From Node.js Internals:
+  ReferenceError: fs is not defined
+      at deleteFile (C:\wamp64\www\aramisc\cypress.config.js:45:11)
+      at invoke (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\@packages\server\lib\plugins\child\run_plugins.js:175:24)
+      at <unknown> (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\@packages\server\lib\plugins\util.js:67:16)
+      at tryCatcher (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\bluebird\js\release\util.js:16:23)
+      at Promise.attempt.Promise.try (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\bluebird\js\release\method.js:39:29)
+      at wrapChildPromise (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\@packages\server\lib\plugins\util.js:66:34)
+      at RunPlugins.taskExecute (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\@packages\server\lib\plugins\child\run_plugins.js:179:37)
+      at RunPlugins.execute (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\@packages\server\lib\plugins\child\run_plugins.js:125:29)
+      at EventEmitter.<anonymous> (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\@packages\server\lib\plugins\child\run_plugins.js:42:18)
+      at EventEmitter.emit (node:events:519:28)
+      at process.<anonymous> (C:\Users\Hicham\AppData\Local\Cypress\Cache\15.19.0\Cypress\resources\app\node_modules\@packages\server\lib\plugins\util.js:43:24)
+      at process.emit (node:events:519:28)
+      at emit (node:internal/child_process:949:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+---
+[2026-08-04T15:21:43.682Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: Timed out retrying after 20000ms: Expected to find element: `a[href*="class-routine/print"]`, but never found it.
+Stack: AssertionError: Timed out retrying after 20000ms: Expected to find element: `a[href*="class-routine/print"]`, but never found it.
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:96:9)
+---
+[2026-08-04T15:23:15.390Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: expected false to equal true
+Stack: AssertionError: expected false to equal true
+    at applyChainer (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120717:26)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120770:16)
+    at arrayReduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:18680:21)
+    at lodash.reduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:27771:14)
+    at applyChainers (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120748:68)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T15:24:15.535Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: Timed out retrying after 20050ms: `cy.click()` failed because this element:
+
+`<button type="submit" class="primary-btn small fix-gr-bg">...</button>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+Stack: CypressError: Timed out retrying after 20050ms: `cy.click()` failed because this element:
+
+`<button type="submit" class="primary-btn small fix-gr-bg">...</button>`
+
+is being covered by another element:
+
+`<input type="text" class="nice-select-search" placeholder="Search...">`
+
+Fix this problem, or use {force: true} to disable error checking.
+    at ensureIsDescendent (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113532:68)
+    at ensureDescendents (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113583:5)
+    at ensureDescendentsAndScroll (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113589:14)
+    at ensureElIsNotCovered (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113720:5)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113921:52)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113959:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155397:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155297:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+---
+[2026-08-04T15:24:38.154Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: expected false to equal true
+Stack: AssertionError: expected false to equal true
+    at applyChainer (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120717:26)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120770:16)
+    at arrayReduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:18680:21)
+    at lodash.reduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:27771:14)
+    at applyChainers (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120748:68)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T15:26:36.616Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: expected false to equal true
+Stack: AssertionError: expected false to equal true
+    at applyChainer (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120717:26)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120770:16)
+    at arrayReduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:18680:21)
+    at lodash.reduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:27771:14)
+    at applyChainers (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120748:68)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T15:31:20.081Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: expected false to equal true
+Stack: AssertionError: expected false to equal true
+    at applyChainer (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120717:26)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120770:16)
+    at arrayReduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:18680:21)
+    at lodash.reduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:27771:14)
+    at applyChainers (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120748:68)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T15:34:05.049Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Class Routine affiche la page de l'emploi du temps
+Error: expected false to equal true
+Stack: AssertionError: expected false to equal true
+    at applyChainer (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120717:26)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120770:16)
+    at arrayReduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:18680:21)
+    at lodash.reduce (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:27771:14)
+    at applyChainers (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:120748:68)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at Promise._then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1212:17)
+    at Promise.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1105:17)
+    at next (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155843:64)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155864:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:2365:25)
+---
+[2026-08-04T16:42:57.378Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Vehicle affiche la liste des véhicules
+Error: Timed out retrying after 20000ms: expected 'http://dev.aramisc.com/login' to include '/vehicle'
+Stack: AssertionError: Timed out retrying after 20000ms: expected 'http://dev.aramisc.com/login' to include '/vehicle'
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:11:15)
+---
+[2026-08-04T18:22:57.184Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Vehicle crée un nouveau véhicule
+Error: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+Stack: CypressError: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+    at isElement (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156729:62)
+    at validateType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156586:14)
+    at Object.isType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156617:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140619:24)
+    at Object.subjectFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155524:16)
+    at $Cy.verifyUpcomingAssertions (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154755:31)
+    at onRetry (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155515:15)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155397:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155297:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:41)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121211:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121222:66)
+    at Context.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121473:21)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:149556:19)
+---
+[2026-08-04T18:25:16.666Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Vehicle crée un nouveau véhicule
+Error: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+Stack: CypressError: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+    at isElement (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156729:62)
+    at validateType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156586:14)
+    at Object.isType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156617:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140619:24)
+    at Object.subjectFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155524:16)
+    at $Cy.verifyUpcomingAssertions (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154755:31)
+    at onRetry (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155515:15)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155397:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155297:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:41)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121211:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121222:66)
+    at Context.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121473:21)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:149556:19)
+---
+[2026-08-04T18:28:10.357Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Vehicle crée un nouveau véhicule
+Error: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+Stack: CypressError: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+    at isElement (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156729:62)
+    at validateType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156586:14)
+    at Object.isType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156617:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140619:24)
+    at Object.subjectFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155524:16)
+    at $Cy.verifyUpcomingAssertions (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154755:31)
+    at onRetry (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155515:15)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155397:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155297:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:41)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121211:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121222:66)
+    at Context.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121473:21)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:149556:19)
+---
+[2026-08-04T18:39:42.132Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Vehicle crée un nouveau véhicule
+Error: Timed out retrying after 20050ms: `cy.click()` failed because this element is not visible:
+
+`<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélecti...</button>`
+
+This element `<button#dropdownMenu2.btn.btn-secondary.dropdown-toggle>` is not visible because its parent `<td>` has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+Stack: CypressError: Timed out retrying after 20050ms: `cy.click()` failed because this element is not visible:
+
+`<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sélecti...</button>`
+
+This element `<button#dropdownMenu2.btn.btn-secondary.dropdown-toggle>` is not visible because its parent `<td>` has CSS property: `display: none`
+
+Fix this problem, or use `{force: true}` to disable error checking.
+    at runVisibilityCheck (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156689:58)
+    at Object.isStrictlyVisible (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156703:10)
+    at runAllChecks (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113890:26)
+    at retryActionability (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:113959:16)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155397:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155297:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+---
+[2026-08-04T18:41:51.022Z] [TEST FAILED] Spec: cypress/e2e/academic_object.cy.js
+Test: Admin – Academics Vehicle crée un nouveau véhicule
+Error: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+Stack: CypressError: Timed out retrying after 20000ms: `cy.first()` failed because it requires a DOM element or document.
+
+No elements in the current DOM matched your query:
+
+  > cy.get(input[type="search"])
+    at isElement (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156729:62)
+    at validateType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156586:14)
+    at Object.isType (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:156617:7)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:140619:24)
+    at Object.subjectFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155524:16)
+    at $Cy.verifyUpcomingAssertions (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:154755:31)
+    at onRetry (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155515:15)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:3459:19)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4278:9)
+    at whenStable (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155397:70)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:155297:14)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise._settlePromiseFromHandler (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1492:31)
+    at Promise._settlePromise (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1549:18)
+    at Promise._settlePromise0 (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1594:10)
+    at Promise._settlePromises (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1674:18)
+    at Promise._fulfill (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1618:18)
+    at <unknown> (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:5423:46)
+From Your Spec Code:
+    at Context.eval (webpack:///./cypress/e2e/academic_object.cy.js:42:41)
+    at getRet (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121211:20)
+    at tryCatcher (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:1780:23)
+    at module.exports.Promise.attempt.Promise.try (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121222:66)
+    at Context.then (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:121473:21)
+    at wrapped (http://dev.aramisc.com/__cypress/runner/cypress_runner.js:149556:19)
+---

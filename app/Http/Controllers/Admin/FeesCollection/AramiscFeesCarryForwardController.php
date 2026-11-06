@@ -304,7 +304,7 @@ class AramiscFeesCarryForwardController extends Controller
                 $fees_forward->student_id = gv($studentInfo, 'student_id');
                 $fees_forward->balance = abs(gv($studentInfo, 'balance', 0));
                 $fees_forward->balance_type = $type;
-                $fees_forward->due_date = date('Y-m-d', strtotime(gv($studentInfo, 'due_date')));
+                $fees_forward->due_date = date('Y-m-d', strtotime(toDbDateConvert(gv($studentInfo, 'due_date'))));
                 $fees_forward->notes = gv($studentInfo, 'notes');
                 $fees_forward->school_id = auth()->user()->school_id;
                 $fees_forward->academic_id = getAcademicId();

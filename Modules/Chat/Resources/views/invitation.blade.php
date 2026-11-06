@@ -96,11 +96,11 @@
                                                     <p>{{ $request->requestFrom->first_name }} requested to connect..</p>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('chat.invitation.action',['type' => 'accept', 'id' => $request->id]) }}" class="single-icon primary-btn small fix-gr-bg text-white" title="Accept">
+                                                    <a href="{{ route('chat.invitation.action',['type' => 'accept', 'id' => $request->id]) }}" class="single-icon primary-btn small fix-gr-bg text-white" title="{{ __('lang.Accept') }}">
                                                         <span class="ti-check pr-2"></span>
                                                     </a>
 
-                                                    <a href="{{ route('chat.invitation.action',['type' => 'reject', 'id' => $request->id]) }}" class="single-icon primary-btn small fix-gr-bg text-white" title="Reject">
+                                                    <a href="{{ route('chat.invitation.action',['type' => 'reject', 'id' => $request->id]) }}" class="single-icon primary-btn small fix-gr-bg text-white" title="{{ __('lang.Reject') }}">
                                                         <span class="ti-close pr-2"></span>
                                                     </a>
                                                 </div>

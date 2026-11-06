@@ -458,4 +458,9 @@ return [
     'total' =>  'Total',
     'starting' =>  'Starting',
     'ending' =>  'Ending',
+  'SVG' => 'SVG',
+  'left_menu_label' => 'Left Menu Label',
+  'message' => 'Message',
+  'phone_no' => 'Phone No',
+  'register_form' => 'Registration Form',
 ];

@@ -664,7 +664,7 @@ class DatatableQueryController extends Controller
                     $bank_slips->where('section_id', $request->section);
                 }
                 if ($request->payment_date != "") {
-                    $date = strtotime($request->payment_date);
+                    $date = strtotime(toDbDateConvert($request->payment_date));
                     $new_format = date('Y-m-d', $date);
                     $bank_slips->where('date', $new_format);
                 }
@@ -1778,6 +1778,14 @@ class DatatableQueryController extends Controller
 
                 return Datatables::of($books)
                 ->addIndexColumn()
+                // La recherche globale Yajra préfixait category_name / subject_name sur aramisc_books
+                // (colonnes en réalité sur les tables jointes) → SQLSTATE 42S22. On cible la bonne table.
+                ->filterColumn('category_name', function ($query, $keyword) {
+                    $query->whereRaw('LOWER(aramisc_book_categories.category_name) LIKE ?', ['%' . strtolower($keyword) . '%']);
+                })
+                ->filterColumn('subject_name', function ($query, $keyword) {
+                    $query->whereRaw('LOWER(aramisc_subjects.subject_name) LIKE ?', ['%' . strtolower($keyword) . '%']);
+                })
                 ->addColumn('action', function ($row) {
                 
                     $btn = '<div class="dropdown CRM_dropdown">

@@ -16,12 +16,12 @@ class AddMarcadoPagoToModulesTable extends Migration
     {
             $s = new AramiscModuleManager();
             $s->name = 'MercadoPago';
-            $s->email = 'support@spondonit.com';
+            $s->email = 'support@aramisc.com';
             $s->notes = "This is MercadoPago Payment Module For Online Payment. Thanks For Using.";
             $s->version = "1.0";
-            $s->update_url = "https://spondonit.com/contact";
+            $s->update_url = "https://aramisc.com/contact";
             $s->is_default = 0;
-            $s->addon_url = "https://spondonit.com/contact";
+            $s->addon_url = "https://aramisc.com/contact";
             $s->installed_domain = url('/');
             $s->activated_date = date('Y-m-d');
             $s->save();

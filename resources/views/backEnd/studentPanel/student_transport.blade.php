@@ -153,7 +153,7 @@
                                                 </td>
                                                 <td>
                                                     <x-drop-down>
-                                                        <a class="dropdown-item modalLink" title="Transport Details"
+                                                        <a class="dropdown-item modalLink" title="{{ __('lang.Transport Details') }}"
                                                             data-modal-size="modal"
                                                             href="{{route('student_transport_view_modal', [@$route->route->id, @$vehicle->id])}}">@lang('common.view')</a>
                                                     </x-drop-down>

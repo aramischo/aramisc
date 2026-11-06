@@ -155,7 +155,7 @@ class LessonPlanController extends Controller
             $lessonPlanner->zoom_setup = $request->zoom_setup;
             $lessonPlanner->presentation = $request->presentation;
             $lessonPlanner->note = $request->note;
-            $lessonPlanner->lesson_date = $request->lesson_date;
+            $lessonPlanner->lesson_date = toDbDateConvert($request->lesson_date);
             $lessonPlanner->teacher_id = $request->teacher_id;
             $lessonPlanner->subject_id = $request->subject_id;
             $lessonPlanner->class_id = $request->class_id;
@@ -661,7 +661,7 @@ class LessonPlanController extends Controller
 
         try {
             $statusUpdateLessonPlan = LessonPlanner::find($request->lessonplan_id);
-            $statusUpdateLessonPlan->competed_date = $request->complete_date;
+            $statusUpdateLessonPlan->competed_date = toDbDateConvert($request->complete_date);
             $statusUpdateLessonPlan->completed_status = $request->status;
             $statusUpdateLessonPlan->save();
 

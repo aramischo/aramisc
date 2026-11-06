@@ -71,7 +71,7 @@
                                                                     for="">@lang('chat::chat.username') <span
                                                                         class="text-danger"> *</span></label>
                                                                 <input name="name" disabled
-                                                                    class="primary_input_field name" placeholder="Name"
+                                                                    class="primary_input_field name" placeholder="{{ __('lang.Name') }}"
                                                                     value="{{ $user->username }}" type="text">
                                                             </div>
                                                         </div>
@@ -81,7 +81,7 @@
                                                                     for="">@lang('common.email') <span
                                                                         class="text-danger"> *</span></label>
                                                                 <input name="email" class="primary_input_field name"
-                                                                    disabled placeholder="Email"
+                                                                    disabled placeholder="{{ __('lang.Email') }}"
                                                                     value="{{ $user->email }}" type="email"
                                                                     readonly="">
                                                                 <span class="text-danger"></span>

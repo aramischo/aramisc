@@ -189,7 +189,7 @@
                                     <select class="primary_select  form-control{{ $errors->has('week_start_id') ? ' is-invalid' : '' }}" name="week_start_id" id="week_start_id">
                                         <option data-display="@lang('system_settings.week_start_day') *" value="">@lang('system_settings.week_start_day') <span class="text-danger"> *</span></option>
                                         @foreach ($weekends as $weekend)
-                                            <option value="{{$weekend->id}}" @if(isset($editData)) @if(@$editData->week_start_id == @$weekend->id) selected @endif  @endif>{{$weekend->name}}</option>
+                                            <option value="{{$weekend->id}}" @if(isset($editData)) @if(@$editData->week_start_id == @$weekend->id) selected @endif  @endif>{{trans_literal($weekend->name)}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -605,10 +605,50 @@
                             </div>
                         </div>
 
+                        {{-- Couleurs de l'application mobile : envoyées par api/v2/general-settings --}}
+                        @php
+                            $mobileColorLabels = [
+                                'primary' => 'Primary color',
+                                'secondary' => 'Secondary color',
+                                'header_start' => 'Header gradient start',
+                                'header_end' => 'Header gradient end',
+                                'button' => 'Buttons color',
+                            ];
+                        @endphp
+                        <div class="row md-30 mt-25">
+                            <div class="col-lg-12">
+                                <label class="primary_input_label">{{ trans_literal('Mobile app colors') }}</label>
+                                <p class="text-muted mb-10">{{ trans_literal('Applied when the mobile app starts.') }}</p>
+                            </div>
+                            @foreach ($mobileColorLabels as $colorKey => $colorLabel)
+                                <div class="col-lg-2 col-md-4 col-sm-6 mb-15">
+                                    <div class="primary_input">
+                                        <label class="primary_input_label" for="mobile_color_{{ $colorKey }}" style="white-space: nowrap;">{{ trans_literal($colorLabel) }}</label>
+                                        <input type="color" class="form-control" style="height: 42px; padding: 4px; border-radius: 6px;"
+                                               id="mobile_color_{{ $colorKey }}" name="mobile_colors[{{ $colorKey }}]"
+                                               value="{{ old('mobile_colors.' . $colorKey, $mobileColors[$colorKey] ?? \App\AramiscGeneralSettings::MOBILE_COLOR_DEFAULTS[$colorKey]) }}">
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="col-auto mb-15 d-flex align-items-end">
+                                <button type="button" class="primary-btn small tr-bg" id="mobile_colors_reset" style="white-space: nowrap;"
+                                        data-defaults='@json(\App\AramiscGeneralSettings::MOBILE_COLOR_DEFAULTS)'>{{ trans_literal('Default colors') }}</button>
+                            </div>
+                        </div>
+                        <script>
+                            document.getElementById('mobile_colors_reset').addEventListener('click', function () {
+                                var defaults = JSON.parse(this.dataset.defaults);
+                                Object.keys(defaults).forEach(function (key) {
+                                    var input = document.getElementById('mobile_color_' + key);
+                                    if (input) { input.value = defaults[key].toLowerCase(); }
+                                });
+                            });
+                        </script>
+
                     <div class="row mt-40">
                         <div class="col-lg-12 text-center">
                             @if(env('APP_SYNC')==TRUE)
-                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" > @lang('common.update')</button></span>
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" > @lang('common.update')</button></span>
                             @else
                                 @if(userPermission('update-general-settings-data'))
                                     <button type="submit" class="primary-btn fix-gr-bg submit">

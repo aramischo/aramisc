@@ -27,6 +27,7 @@
 @include('backEnd.partials.multi_select_js')
 @push('script')
     <script src="{{ asset('public/backEnd/') }}/full_calendar/js/index.global.min.js"></script>
+    <script src="{{ asset('public/backEnd/') }}/full_calendar/fullcalendar-6.1.8 (1)/fullcalendar-6.1.8/packages/core/locales-all.global.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('academicCalendar');
@@ -36,6 +37,7 @@
                 $is_alumni = App\GlobalVariable::isAlumni();
             @endphp
             var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: _locale,
                 headerToolbar: {
                     left: 'prevYear,prev,next,nextYear today',
                     center: 'title',
@@ -196,7 +198,7 @@
                 month = '' + (d.getMonth() + 1),
                 day = '' + d.getDate(),
                 year = d.getFullYear();
-            var dayName = d.toLocaleString('en-us', {
+            var dayName = d.toLocaleString(_locale, {
                 weekday: 'long'
             });
             if (month.length < 2) month = '0' + month;

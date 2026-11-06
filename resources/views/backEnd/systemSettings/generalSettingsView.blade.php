@@ -55,7 +55,7 @@
                             <div class="col-lg-12 text-center">
                     
                                 @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('system_settings.change_logo')</button></span>
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('system_settings.change_logo')</button></span>
                                 @else
                                     @if(userPermission('update-school-logo'))
                                     <button class="primary-btn fix-gr-bg small  "    >
@@ -106,7 +106,7 @@
                             </div>
                             <div class="col-lg-12 text-center">
                                 @if(Illuminate\Support\Facades\Config::get('app.app_sync'))
-                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled For Demo "> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('system_settings.change_fav')</button></span>
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{{ __('lang.Disabled For Demo') }}"> <button class="primary-btn small fix-gr-bg  demo_view" style="pointer-events: none;" type="button" >@lang('system_settings.change_fav')</button></span>
                                 @else
                                 @if(userPermission("update-school-favicon"))
                                     <button class="primary-btn fix-gr-bg small white_space">
@@ -337,7 +337,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="value text-left">
                                                 @if(isset($editData))
-                                                {{@$editData->week_start_id != ""? @$editData->weekStartDay->name:""}}
+                                                {{@$editData->week_start_id != ""? trans_literal(@$editData->weekStartDay->name):""}}
                                                 @endif
                                             </div>
                                         </div>

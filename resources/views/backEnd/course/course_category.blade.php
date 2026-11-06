@@ -188,7 +188,7 @@
     
                                                             @if (Illuminate\Support\Facades\Config::get('app.app_sync'))
                                                                 <span tabindex="0" data-toggle="tooltip"
-                                                                    title="Disabled For Demo"> <a href="#"
+                                                                    title="{{ __('lang.Disabled For Demo') }}"> <a href="#"
                                                                         class="dropdown-item small fix-gr-bg  demo_view"
                                                                         style="pointer-events: none;">@lang('common.delete')</a></span>
                                                             @else
