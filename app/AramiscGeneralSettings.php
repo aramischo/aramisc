@@ -437,11 +437,11 @@ class AramiscGeneralSettings extends Model
 
     /** Couleurs de l'application mobile (réglages généraux) : valeurs d'origine de l'application. */
     const MOBILE_COLOR_DEFAULTS = [
-        'primary' => '#862CFF',
-        'secondary' => '#B844D1',
-        'header_start' => '#6100B8',
-        'header_end' => '#943AE3',
-        'button' => '#953BE4',
+        'primary' => '#1565C0',
+        'secondary' => '#1E88E5',
+        'header_start' => '#0D47A1',
+        'header_end' => '#1E88E5',
+        'button' => '#1976D2',
     ];
 
     /** Rangées dans aramisc__settings : section mobile_app_<école>, une clé par couleur. */

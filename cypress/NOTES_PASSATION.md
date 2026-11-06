@@ -1216,3 +1216,10 @@ Commits `25e84192` → passe 5. Outils (scratchpad, non versionnés) : modificat
 - Langue : `api/v2/language-list` fusionnait l'anglais par-dessus le français (`array_merge($active, $en)`) dès que les fichiers n'avaient pas le même nombre de clés → interface en anglais. La déconnexion de l'application remettait aussi la langue sur `en`. Libellés du menu revus dans `resources/lang/fr/mobile_app.php` et `fr_FR.dart`.
 - Couleurs de l'application : bloc « Couleurs de l'application mobile » dans Réglages généraux, stocké dans `aramisc__settings` (section `mobile_app_<école>`), renvoyé par `language-list` et `general-settings` (`mobile_colors`). L'application les applique et les mémorise (`AppColors.applyFromServer`). Enregistrement depuis la page non testé (écriture en base).
 - Application (non commitée) : admin rôle 5 reconnu (`isAdmin`), tuile Frais, en-tête de l'accueil, barre du bas (« Alertes », « Planning »), arrondi 6 px et padding des badges et boutons colorés, texte des badges à largeur fixe réduit plutôt que tronqué.
+
+## Libellés, modèles de notification, fond bleu (06/11, suite)
+
+- Migration `2026_11_06_120000_translate_notification_templates_fr` : traduit les 424 modèles (email, SMS, web, application) et les 41 sujets de `aramisc_notification_settings`, phrase par phrase ; un modèle personnalisé n'est pas touché, `down()` revient à l'anglais. À lancer avec `php artisan migrate` (dev et demo). Vérifiée à blanc : 0 phrase restante en anglais. Les notifications déjà envoyées restent dans leur langue d'origine.
+- Libellés mobiles corrigés (serveur `mobile_app.php` et `fr_FR.dart`) : présences, matières (Théorique/Pratique), jours, N° d'ordre, livres empruntés, compteur de notifications ; `SecondaryButton` réduit le texte au lieu de le tronquer.
+- Fond de l'application bleu par défaut (`MOBILE_COLOR_DEFAULTS` header_start `#0D47A1`, header_end `#1E88E5`, et valeurs initiales de `AppColors`) ; l'écran de connexion utilise le dégradé de fond.
+- demo.aramisc.com (OpenLiteSpeed) exposait `.env` et `aramiscsys_firebase.json` : corrigé par `.htaccess` (b7dba5df). Clé Firebase et secrets du `.env` de demo à changer.
