@@ -181,7 +181,8 @@ return [
         Larabuild\Optionbuilder\ServiceProvider::class,
         Larabuild\Pagebuilder\ServiceProvider::class,
 
-        Laracasts\Cypress\CypressServiceProvider::class,
+        // Laracasts\Cypress (require-dev) s'enregistre par auto-découverte quand il est installé :
+        // l'inscrire ici casse artisan en production (composer install --no-dev).
 
     ],
 

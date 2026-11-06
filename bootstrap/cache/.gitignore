@@ -1,0 +1,6 @@
+# Caches générés par Laravel (dépendent des paquets installés sur chaque machine)
+packages.php
+services.php
+config.php
+routes-*.php
+events.php
