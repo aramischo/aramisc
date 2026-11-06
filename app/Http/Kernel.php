@@ -87,6 +87,7 @@ class Kernel extends HttpKernel
         'userRolePermission' => UserRolePermission::class,
         'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
         'subdomain' => \App\Http\Middleware\SubdomainMiddleware::class,
+        'api.v2.scope' => \App\Http\Middleware\ApiV2StudentParentScope::class,
         'module' => \App\Http\Middleware\ModulePermissionMiddleware::class,
         'testExam' => \Modules\OnlineExam\Http\Middleware\TestExamMiddleware::class,
         '2fa' => \App\Http\Middleware\TwoFactorMiddleware::class,

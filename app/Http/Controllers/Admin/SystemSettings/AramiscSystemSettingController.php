@@ -1222,7 +1222,9 @@ class AramiscSystemSettingController extends Controller
                 ->get();
 
             
-            return view('backEnd.systemSettings.updateGeneralSettings', compact('editData', 'session_ids', 'dateFormats', 'languages', 'countries', 'currencies', 'academic_years', 'time_zones', 'weekends', 'sell_heads'));
+            $mobileColors = AramiscGeneralSettings::mobileColors(Auth::user()->school_id);
+
+            return view('backEnd.systemSettings.updateGeneralSettings', compact('editData', 'session_ids', 'dateFormats', 'languages', 'countries', 'currencies', 'academic_years', 'time_zones', 'weekends', 'sell_heads', 'mobileColors'));
         } catch (\Exception $e) {
             Toastr::error('Operation Failed', 'Failed');
             return redirect()->back();
@@ -1285,6 +1287,11 @@ class AramiscSystemSettingController extends Controller
             $generalSettData->blog_search  = $request->blog_search;
             $generalSettData->recent_blog  = $request->recent_blog;
             $results = $generalSettData->save();
+
+            // Couleurs de l'application mobile
+            if (is_array($request->mobile_colors)) {
+                AramiscGeneralSettings::saveMobileColors($id, $request->mobile_colors);
+            }
 
             
 

@@ -14,7 +14,8 @@ Route::controller(AuthenticationController::class)->group(function () {
     Route::get('student-profile-details/{id}', 'studentProfile');
 });
 
-Route::group(['middleware' => ['auth:api', 'subdomain']], function () {
+// api.v2.scope : élèves et parents limités à leurs routes et à leurs propres données
+Route::group(['middleware' => ['auth:api', 'subdomain', 'api.v2.scope']], function () {
     Route::get('general-settings', 'Auth\AuthenticationController@generalSettings');
     Route::post('auth/logout', 'Auth\AuthenticationController@logout');
     Route::get('teacher-about', [AuthenticationController::class, 'aboutApi']);

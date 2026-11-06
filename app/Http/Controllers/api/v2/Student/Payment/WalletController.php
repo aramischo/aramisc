@@ -124,7 +124,9 @@ class WalletController extends Controller
 
     public function paymentMethods()
     {
-        if (auth()->user()->role_id == 2) {
+        $methods = null;
+        // Élève et parent (le parent recharge le portefeuille de son enfant) ; $methods était indéfini pour le parent
+        if (in_array(auth()->user()->role_id, [2, 3])) {
             $methods = AramiscPaymentMethhod::withoutGlobalScope(ActiveStatusSchoolScope::class)
                 ->where('school_id', auth()->user()->school_id)
                 ->where('active_status', 1)

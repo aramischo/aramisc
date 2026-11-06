@@ -1199,3 +1199,20 @@ Commits `25e84192` → passe 5. Outils (scratchpad, non versionnés) : modificat
 - `FcmMessage::toV1` : ne pas recopier `click_action` de `data` dans le bloc Android, l'application ne déclare pas cette action et le clic n'ouvrirait rien.
 - Application (non commitée) : mot de passe en stockage chiffré (`flutter_secure_storage`), retrait des topics à la déconnexion, clic → liste des notifications.
 - Testé sur émulateur connecté à `dev.aramisc.com`, sauf le retrait des topics, non vérifiable sans envoi réel à un groupe.
+
+## Application mobile : rôles parent, enseignant, admin (05/11)
+
+- Parcourus sur émulateur (dev) : parent 13 tuiles + 4 onglets, enseignant 5 tuiles + 4 onglets + 7 sous-écrans, admin 10 tuiles. Toutes les requêtes en 200 sauf une.
+- Corrigé : `teacher-attendance-classes`, `-sections` et `-subjects` (`Teacher\Attendance\ClassAttendanceController`) renvoyaient 500 pour l'admin (`$data` défini seulement si `teacherAccess()`), et `-subjects` aussi pour un enseignant sans matière. L'admin reçoit toutes les classes et matières, l'enseignant les siennes.
+- Vérifié : changement de compte sur le même téléphone → le jeton FCM passe au nouveau compte et quitte l'ancien ; déconnexion → jeton effacé. `api/v2/login` supprime les autres jetons d'accès du compte : une connexion ailleurs déconnecte l'application (la déconnexion répond alors 401 et le jeton FCM reste en base jusqu'à la prochaine connexion sur ce téléphone).
+- **Faille ouverte (non corrigée)** : l'API v2 ne vérifie ni le rôle ni la propriété des identifiants. Avec un jeton élève ou parent, `student-profile-personal?student_id=N`, `student-profile-parents`, `student-fees`, `parent-childrens?parent_id=N`… renvoient les données de n'importe quel élève ; les routes du personnel (`teacher-class-routine?user_id=`, `pending-leave-list`, `role-list`…) répondent aussi.
+- À reprendre dans l'application : l'interface revient en anglais après déconnexion/connexion ; « Êtes-vous sûr voulez-vous vous déconnecter? » ; « ETUDIANTS » (→ « ÉLÈVES ») ; l'admin est présenté « Welcome admin | Teacher » ; textes de notification serveur « Dear , » quand le nom est vide.
+
+## API v2 : contrôle d'accès, langue de l'application, couleurs (06/11)
+
+- `ApiV2StudentParentScope` (alias `api.v2.scope` sur le groupe authentifié de `routes/v2api.php`) : un élève ou un parent n'accède qu'à une liste fermée de routes ; `student_id`, `student_timeline_id`, `record_id`, `parent_id`, `user_id` (hors messagerie), `document_id`, `fees_invoice_id`, `fees_payment_id`, `installment_id`, `leave_request_id` doivent désigner l'élève ou un enfant du parent, sinon 403. Le personnel n'est pas filtré. Vérifié : parcours parent et élève sur émulateur sans 403, 24 routes de sous-écrans en 200, accès à un autre élève refusé.
+- `user-delete` : seul un admin peut désactiver un autre compte (avant : n'importe quel compte, élève compris). `change-password` : toujours le compte connecté.
+- 500 corrigées : `add-amount-methods` pour le parent (`$methods` indéfini).
+- Langue : `api/v2/language-list` fusionnait l'anglais par-dessus le français (`array_merge($active, $en)`) dès que les fichiers n'avaient pas le même nombre de clés → interface en anglais. La déconnexion de l'application remettait aussi la langue sur `en`. Libellés du menu revus dans `resources/lang/fr/mobile_app.php` et `fr_FR.dart`.
+- Couleurs de l'application : bloc « Couleurs de l'application mobile » dans Réglages généraux, stocké dans `aramisc__settings` (section `mobile_app_<école>`), renvoyé par `language-list` et `general-settings` (`mobile_colors`). L'application les applique et les mémorise (`AppColors.applyFromServer`). Enregistrement depuis la page non testé (écriture en base).
+- Application (non commitée) : admin rôle 5 reconnu (`isAdmin`), tuile Frais, en-tête de l'accueil, barre du bas (« Alertes », « Planning »), arrondi 6 px et padding des badges et boutons colorés, texte des badges à largeur fixe réduit plutôt que tronqué.

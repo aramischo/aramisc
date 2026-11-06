@@ -640,4 +640,12 @@
   'Thursday' => 'Jeudi',
   'Friday' => 'Vendredi',
   'Saturday' => 'Samedi',
+  'Mobile app colors' => 'Couleurs de l\'application mobile',
+  'Applied when the mobile app starts.' => 'Appliquées au démarrage de l\'application mobile.',
+  'Primary color' => 'Couleur principale',
+  'Secondary color' => 'Couleur secondaire',
+  'Header gradient start' => 'Dégradé : début',
+  'Header gradient end' => 'Dégradé : fin',
+  'Buttons color' => 'Boutons',
+  'Default colors' => 'Couleurs par défaut',
 );
